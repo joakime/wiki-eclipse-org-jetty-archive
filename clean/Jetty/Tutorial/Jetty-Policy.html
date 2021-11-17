@@ -1,0 +1,163 @@
+<html>
+<head>
+    <title>Jetty WTP Plugin</title>
+    <link rel="stylesheet" media="screen, print" href="wiki-style.css"/>
+</head>
+<body>
+<div class="col-md-20" id="mainContent">
+                      <ul role="tablist" class="nav nav-tabs noprint hidden-print">
+                       <li id="ca-nstab-main" class="active"><a title="View the content page [c]" tabindex="-1" accesskey="c" href="Jetty-Policy.html">Page</a></li>
+                        <li class="new" id="ca-talk"><a title="Discussion about the content page [t]" tabindex="-1" accesskey="t" href="edit">Discussion</a></li>
+                        <li id="ca-viewsource"><a href="edit" accesskey="e" title="This page is protected.&#10;You can view its source [e]" tabindex="-1">View source</a></li>
+                        <li class="collapsible" id="ca-history"><a tabindex="-1" title="Past revisions of this page [h]" accesskey="h" href="edit">History</a></li>
+                      </ul>            <div class="tab-content background-white">
+              <div class="tab-pane active" id="tab-pane-main-page-content">
+
+                
+                <h1 id="firstHeading" class="firstHeading page-header">
+                  <span dir="auto">Jetty/Tutorial/Jetty-Policy</span>
+                </h1>
+                <div id="main-page-content">
+                                                      <!-- subtitle -->
+                  <div class="alert alert-small alert-warning" id="contentSub"><span class="subpages">&lt; <a href="../../Jetty.html" title="Jetty">Jetty</a>‎ | <a href="../Tutorial.html" title="Jetty/Tutorial">Tutorial</a></span></div>
+                  <!-- /subtitle -->
+                  
+                  
+                  <div class="mw-content-ltr" dir="ltr" lang="en" id="mw-content-text"><p><br/>
+</p><p><br/>
+</p>
+<div class="toc" id="toc"><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="Jetty-Policy.html#Introduction"><span class="tocnumber">1</span> <span class="toctext">Introduction</span></a></li>
+<li class="toclevel-1"><a href="Jetty-Policy.html#Details"><span class="tocnumber">2</span> <span class="toctext">Details</span></a>
+<ul>
+<li class="toclevel-2"><a href="Jetty-Policy.html#Do_I_need_this.3F"><span class="tocnumber">2.1</span> <span class="toctext">Do I need this?</span></a></li>
+<li class="toclevel-2"><a href="Jetty-Policy.html#How_does_it_all_work.3F"><span class="tocnumber">2.2</span> <span class="toctext">How does it all work?</span></a></li>
+<li class="toclevel-2"><a href="Jetty-Policy.html#Jetty_Policy"><span class="tocnumber">2.3</span> <span class="toctext">Jetty Policy</span></a></li>
+<li class="toclevel-2"><a href="Jetty-Policy.html#Web_Application_Policies"><span class="tocnumber">2.4</span> <span class="toctext">Web Application Policies</span></a></li>
+<li class="toclevel-2"><a href="Jetty-Policy.html#How_do_I_figure_out_permissions_I_need.3F"><span class="tocnumber">2.5</span> <span class="toctext">How do I figure out permissions I need?</span></a></li>
+<li class="toclevel-2"><a href="Jetty-Policy.html#How_do_I_start_JettyPolicy.3F"><span class="tocnumber">2.6</span> <span class="toctext">How do I start JettyPolicy?</span></a></li>
+<li class="toclevel-2"><a href="Jetty-Policy.html#Why_a_jetty-start.policy_file.3F"><span class="tocnumber">2.7</span> <span class="toctext">Why a jetty-start.policy file?</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1"><a href="Jetty-Policy.html#Additional_Resources"><span class="tocnumber">3</span> <span class="toctext">Additional Resources</span></a></li>
+</ul>
+</div>
+
+<h2><span id="Introduction" class="mw-headline">Introduction</span></h2>
+<p>Jetty Policy provides a mechanism for integrating with the core JDK security mechanisms.
+</p>
+<h2><span class="mw-headline" id="Details">Details</span></h2>
+<h3><span id="Do_I_need_this.3F" class="mw-headline">Do I need this?</span></h3>
+<p>Typically users do not need to deal with java security permissions or what is called the SecurityManager or Policy objects in java.  Normally a user trusts the application they are developing or are trusting enough to deploy a webapp into an instance of jetty.  If you don't know that you need to use the security manager setup, you probably don't.  
+</p><p>However, if you are running untrusted webapps and you want to gain a bit more control over the application this is an option.  Using the Jetty policy setup allows you to declaratively specify permissions that jetty and the webapp will operate under.  These permissions can be FilePermissions restricting read and write access, to PropertyPermissions which detail what system properties are available to be read.
+</p>
+<h3><span class="mw-headline" id="How_does_it_all_work.3F">How does it all work?</span></h3>
+<p>An excellent reference is available at Oracle -&gt; <a href="http://download.oracle.com/javase/6/docs/technotes/guides/security/permissions.html" class="external free" rel="nofollow">http://download.oracle.com/javase/6/docs/technotes/guides/security/permissions.html</a>
+</p><p>But beyond that we have made a few changes to make dealing with this system a bit easier.  This involves our own subclass of the Policy object that allows for multiple policy files to be loaded and aggregated together for easier management.  There is a debug mode and dump() method for the jetty policy that will all cached protection domains to be printed out.  There is a reload mode that allows changes to the policy files to be loaded and changes to protection domains resolve while the security manager is running.  
+</p><p>In broad strokes, when jetty is started the SecurityManager and JettyPolicy objects are loaded so that from then on all security sensitive actions are taken, the entire call stack of code up to that point is checked to validate that every object has been granted that permission.  This will be explained in greater detail below.
+</p>
+<h3><span class="mw-headline" id="Jetty_Policy">Jetty Policy</span></h3>
+<p>Typically the JettyPolicy object is configured through the use of policy files that adhere to the specification laid out by Sun/Oracle in the link in the previous section.  We have expanded on this a bit to make it easier to manage these files.  To understand the layout it is important to understand what a codesource is.  In java security land, a codesource is simply a location where classes can be found.  A codesource can be specified to a specific location on disk or it can refer to a directory where jar files or class files are located.  The binding of specific permissions to a codesource is referred to as a protection domain.
+</p><p>We have broken out our policy files along the following lines.  It should be noted that this is just how we have laid out the files, you are free to alter as desired.
+</p>
+<dl><dt> lib/policy/global.policy</dt>
+<dd> permissions that are applied to all protection domains </dd>
+<dt> lib/policy/jetty-start.policy </dt>
+<dd> permissions which apply to start.jar and immediate startup of jetty</dd>
+<dt> lib/policy/jetty.policy </dt>
+<dd> permissions that apply to jetty as a whole, and any jar files under the lib directory</dd>
+<dt> lib/policy/temp-dirs.policy </dt>
+<dd> permission that apply to the contents of tmp directories, this can include unpacked webapps unless you follow the recommended conventions</dd>
+<dt> lib/policy/jetty-work.policy </dt>
+<dd> permissions that apply to webapps unpacked to the work directory.</dd></dl>
+<p>Adding and removing permissions required a lot of in-depth knowledge about how whatever java code your running operates and it is no different with jetty or webapps running inside of jetty, it is just a little more complex.
+</p>
+<h3><span id="Web_Application_Policies" class="mw-headline">Web Application Policies</span></h3>
+<p>A common concern with dealing with this sort of system is how to grant permissions to one webapp without having to grant permissions to another.  For this approach we recommend something along the following lines:
+</p>
+<ul><li> use context deployment so you can specify where your war file will unpack to</li>
+<li> create a policy file in lib/policy for that webapp
+<ul><li> this policy file should contain two codebases
+<ul><li> ${jetty.home}/work/&lt;webapp dir&gt;</li>
+<li> ${jetty.home}/lib/-</li></ul></li>
+<li> this allows you to grant both the webapp and jetty itself any permissions needed</li></ul></li></ul>
+<p>Remember that when permission is checked for any call, the entire call stack is checked for permission being granted.  What this means in practice is that if you are granting permission to read and write directory A, then both the webapp classes and the jetty classes have to be granted access to read and write that directory.  What having per webapp permissions setup allows you is the ability to _not_ grant another webapp read and write access to that directory.  This could be potentially important if your running untrusted webapps, or some combination of trusted and untrusted webapps.   Below is an example of what a typical webapp policy file might look like.
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="text source-text"><pre class="de1">//
+// Permissions granted to the webapp
+//
+grant codebase "file:${jetty.home}/work/policy-tests/-" {
+  // testSystemPropertyAccess
+  permission java.util.PropertyPermission "__ALLOWED_READ_PROPERTY", "read";
+  permission java.util.PropertyPermission "__ALLOWED_WRITE_PROPERTY", "write";
+}
+ 
+//
+// Permissions granted to jetty lib
+//
+grant codeBase "file:${jetty.home}/lib/-" {
+   // testSystemPropertyAccess
+  permission java.util.PropertyPermission "__ALLOWED_READ_PROPERTY", "read";
+  permission java.util.PropertyPermission "__ALLOWED_WRITE_PROPERTY", "write";
+}</pre></div></div>
+<h3><span class="mw-headline" id="How_do_I_figure_out_permissions_I_need.3F">How do I figure out permissions I need?</span></h3>
+<p>There are a number of ways to do this, easily the most common is to just run your software, look in logs for an AccessControlException, analyze the stack trace and declare that permission for the codebases that need it.  This is a long and tedious process and it no wholly effective as it is predicated on your exercising your software in all necessary ways to ensure you have triggered all possible ACE exceptions and assigned permissions accordingly.  This is also a long process if you have many permissions that need assigned.  Another viable option on this approach is to use a custom security manager that logs all permissions being requests but does not make the actual permission checks.  This is a pretty simple approach to wire up and we might support the mode ourselves someday if there is interest.  Anyway, after gathering up all the permissions that were logged you would then carefully go through them and assign them accordingly.  You can also statically audit your code, either manually or programmatically to detect all permissions that have been granted.  We don't really have recommended tooling for this, but there was a project called Sword4J that helped in this area that might still work.
+</p>
+<h3><span id="How_do_I_start_JettyPolicy.3F" class="mw-headline">How do I start JettyPolicy?</span></h3>
+<p>Jetty Policy is an implementation on top of the java Policy object.  The Policy object in the jdk is an abstract class and the one that is typically used is generally jvm specific, Sun has one, IBM has one, Apache Harmony has one.  We built off of the Apache Harmony one and enhanced it to allow for changing policy files during runtime (really helps with getting those permissions declared) and supporting multiple files.  
+</p><p>As for actually starting this system up, we have a jetty.xml file that will initialize and startup the relevant bits.
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="xml source-xml"><pre class="de1"><span class="sc3"><span class="re1">&lt;Configure</span> <span class="re0">id</span>=<span class="st0">"Policy"</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.policy.JettyPolicyConfigurator"</span><span class="re2">&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;Call</span> <span class="re0">name</span>=<span class="st0">"setPolicyDirectory"</span><span class="re2">&gt;</span></span>
+       <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span><span class="re1">&lt;Property</span> <span class="re0">name</span>=<span class="st0">"jetty.home"</span><span class="re2">/&gt;</span></span>/lib/policy<span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;/Call<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;Call</span> <span class="re0">name</span>=<span class="st0">"addProperty"</span><span class="re2">&gt;</span></span>
+      <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>jetty.home<span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
+      <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span><span class="re1">&lt;Property</span> <span class="re0">name</span>=<span class="st0">"jetty.home"</span><span class="re2">/&gt;</span><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;/Call<span class="re2">&gt;</span></span></span> 
+    <span class="sc3"><span class="re1">&lt;Call</span> <span class="re0">name</span>=<span class="st0">"initialize"</span><span class="re2">/&gt;</span></span>
+<span class="sc3"><span class="re1">&lt;/Configure<span class="re2">&gt;</span></span></span></pre></div></div>
+<p>When this xml is processed by the XMLConfiguration classes it will set the location of the directory that policy files are loaded up from and create the JettyPolicy object.  Inside of the policy files you can use properties of the form ${jetty.home} in various locations, and the addProperty line in the xml above will set that property.  If you want to use other ${} properties you may set them in the same way with a new &lt;Call&gt; element.  Lastly the initialize method on the configurator is called which actually creates the SecurityManager, set the System Policy object (to our JettyPolicy class) and then form that point all, the jdk is locked down and checking permissions.  
+</p><p>If you want to do this while your embedding jetty, odds are you are already up to speed on permissions and security managers, but if you would like to use our JettyPolicy implementation you are welcome to.  To setup in embedded mode you can either use the configurator above or directly create the JettyPolicy object and set it to the System object.
+</p><p>A quick note, during your reading about how to initialize security managers and policy objects you might see the recommendations on setting these things on the java command line.  That is a completely valid use case and the ultimate step for security, but for our purposes of just allowing webapps to declare their own policies it seemed a bit much.  You can support that mechanism yourself when you invoke java or using the --exec option in the start.ini with the jetty-start project.
+</p>
+<h3><span class="mw-headline" id="Why_a_jetty-start.policy_file.3F">Why a jetty-start.policy file?</span></h3>
+<p>The jetty start project is a standalone project for launching java code.  It leverages the jetty-xml artifact which is really a snazzy implementation of processing xml code as java code, its how jetty has been started up in the traditional sense for years.  Anyway, because jetty-start (otherwise known as the start.jar in the root of the distribution) is outside of the lib/- codesource declaration, i would actually be at the root of most any stack trace for the purposes of permission declaration.  Since the xml code can never call back to the start classes, and jetty itself when started can't call back to those classes, we have the jetty-start.policy configured with just what is required the for the start code to execution.  Immediately before control is passed over to the XMLConfiguration objects we invoke the AccessController with the doPrivledged() action, this acts as a barrier when the execution stack is checked for permissions.  What this means in practice is that you do not have to declare permissions that your webapp might need for the start.jar codebase.  That is why we have the jetty-start.policy file.
+</p>
+<h2><span id="Additional_Resources" class="mw-headline">Additional Resources</span></h2>
+<p>Insert more here.
+</p>
+<!-- 
+NewPP limit report
+Cached time: 20211116183319
+Cache expiry: 86400
+Dynamic content: false
+CPU time usage: 0.048 seconds
+Real time usage: 0.050 seconds
+Preprocessor visited node count: 43/1000000
+Preprocessor generated node count: 224/1000000
+Post‐expand include size: 9704/2097152 bytes
+Template argument size: 9443/2097152 bytes
+Highest expansion depth: 4/40
+Expensive parser function count: 0/100
+-->
+
+<!-- 
+Transclusion expansion time report (%,ms,calls,template)
+100.00%   33.411      1 - -total
+100.00%   33.411      1 - Template:Jetty_Tutorial
+ 21.09%    7.045      1 - Template:Jetty
+-->
+
+<!-- Saved in parser cache with key my_wiki:pcache:idhash:30734-0!*!*!!en!*!* and timestamp 20211116183319 and revision id 245886
+ -->
+</div>
+                                      <!-- catlinks -->
+                    <div class="catlinks" id="catlinks"><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a title="Special:Categories" href="https://wiki.eclipse.org/Special:Categories">Categories</a>: <ul><li><a title="Category:Jetty" href="https://wiki.eclipse.org/Category:Jetty">Jetty</a></li><li><a href="https://wiki.eclipse.org/Category:Jetty_Tutorial" title="Category:Jetty Tutorial">Jetty Tutorial</a></li></ul></div></div>                     <!-- /catlinks -->
+                                  </div>
+              </div>
+            </div>
+          </div>
+</body>
+</html>

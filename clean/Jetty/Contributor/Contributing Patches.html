@@ -1,0 +1,171 @@
+<html>
+<head>
+    <title>Jetty WTP Plugin</title>
+    <link rel="stylesheet" media="screen, print" href="wiki-style.css"/>
+</head>
+<body>
+<div id="mainContent" class="col-md-20">
+                      <ul role="tablist" class="nav nav-tabs noprint hidden-print">
+                       <li class="active" id="ca-nstab-main"><a title="View the content page [c]" tabindex="-1" href="Contributing Patches.html" accesskey="c">Page</a></li>
+                        <li class="new" id="ca-talk"><a accesskey="t" tabindex="-1" href="edit" title="Discussion about the content page [t]">Discussion</a></li>
+                        <li id="ca-viewsource"><a accesskey="e" tabindex="-1" href="edit" title="This page is protected.&#10;You can view its source [e]">View source</a></li>
+                        <li id="ca-history" class="collapsible"><a href="edit" tabindex="-1" title="Past revisions of this page [h]" accesskey="h">History</a></li>
+                      </ul>            <div class="tab-content background-white">
+              <div id="tab-pane-main-page-content" class="tab-pane active">
+
+                
+                <h1 id="firstHeading" class="firstHeading page-header">
+                  <span dir="auto">Jetty/Contributor/Contributing Patches</span>
+                </h1>
+                <div id="main-page-content">
+                                                      <!-- subtitle -->
+                  <div id="contentSub" class="alert alert-small alert-warning"><span class="subpages">&lt; <a href="../../Jetty.html" title="Jetty">Jetty</a>‎ | <a title="Jetty/Contributor" href="../Contributor.html">Contributor</a></span></div>
+                  <!-- /subtitle -->
+                  
+                  
+                  <div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><p><br/>
+</p><p><br/>
+</p>
+<div class="messagebox" style="background-color: #f9f6b7; border: 1px solid #c4c295; color: black; padding: 5px; margin: 1ex 0; min-height: 35px; padding-left: 45px; font-size: 150%; color: white; background-color: #FF8888; padding: 50px">
+<div style="float: left; margin-left: -40px;"><a class="image" href="https://wiki.eclipse.org/File:Warning2.png"><img width="35" height="35" alt="Warning2.png" src="../../images/3/37/Warning2.png"/></a></div>
+<div>Jetty 7 and Jetty 8 are now EOL (End of Life)<br/>
+<p><br/>
+<br/>
+<br/>
+THIS IS NOT THE DOCUMENTATION YOU ARE LOOKING FOR!!!!!<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+All development and stable releases are being performed with Jetty 9 and Jetty 10.<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+This <b>wiki is now officially out of date</b> and all content has been moved to the <a rel="nofollow" href="http://www.eclipse.org/jetty/documentation" class="external text">Jetty Documentation Hub</a><br/> 
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+</p>
+Direct Link to updated documentation: <a rel="nofollow" class="external free" href="http://www.eclipse.org/jetty/documentation/current/contributing-patches.html">http://www.eclipse.org/jetty/documentation/current/contributing-patches.html</a></div>
+</div>
+<p><br/>
+This section describes how to contribute a patch to Jetty @ Eclipse.
+</p>
+<div id="toc" class="toc"><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="Contributing Patches.html#Git_Diff"><span class="tocnumber">1</span> <span class="toctext">Git Diff</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="Contributing Patches.html#Git_Format_Patch"><span class="tocnumber">2</span> <span class="toctext">Git Format Patch</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="Contributing Patches.html#Git_Amend"><span class="tocnumber">3</span> <span class="toctext">Git Amend</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="Contributing Patches.html#Using_Gerrit_.40_Eclipse"><span class="tocnumber">4</span> <span class="toctext">Using Gerrit @ Eclipse</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Git_Diff">Git Diff</span></h2>
+<p>The simplest way to contribute a patch is to  modify a cloned copy of jetty and then generate a diff between the original and the version that contains your patch.
+</p><p>From the top level of the cloned project:
+</p><p><tt>git diff &gt; ######.patch</tt>
+</p><p>The hash marks must be the Bugzilla issue that you are addressing.  All patches coming into jetty @ eclipse must come through Bugzilla for IP tracking purposes.  Depending on the size of the patch, the patch itself might be flagged as +iplog, which means it is subject to legal review and inclusion with our iplog from here to eternity.  We are sorry, but we are unable to apply patches that we receive via email. If you have the Bugzilla issue created already, just attach the patch to it, and feel free to bug us on IRC to take a look.  If there is no Bugzilla issue, create one, make sure the patch is named appropriately, and attach it.
+</p><p>When the developer reviews the patch and applies it, they do so as follows:
+</p><p><tt>git apply &lt; ######.patch</tt>
+</p><p>If you want to be a nice person, test your patch on a clean clone to ensure that it applies cleanly.  Nothing frustrates a developer quite like a patch that doesn't apply.
+</p>
+<h2><span class="mw-headline" id="Git_Format_Patch">Git Format Patch</span></h2>
+<p>Another approach (if you want your name in shiny lights in our commit logs) is to use the <i>format patch</i> option.  With this approach you commit into your cloned copy of jetty and use the '<tt>git format-patch</tt> option to generate what looks like an email message containing all of the commit information.  This applies as a commit directly when we apply it, so it should be obvious that, as with the normal diff, we can accept these sorts of patches only via Bugzilla.
+</p><p>From the top level of the cloned project:
+</p><p>Make your changes and commit them locally using <tt>git commit</tt>. Then use <tt>git log</tt> to identify the commit(s) you want to include in your patch:
+</p>
+<tt><pre>commit 70e29326fe904675f772b88a67128c0b3529565e
+Author: Thomas Becker &lt;tbecker AT intalio . com&gt;
+Date:   Tue Aug 2 14:36:50 2011 +0200
+
+   353563: HttpDestinationQueueTest too slow
+</pre></tt>
+<p>Use <tt>git format-patch</tt> to create the patch:
+</p><p><tt>git format-patch -M -B 70e29326fe904675f772b88a67128c0b3529565e</tt>
+</p><p>This  creates a single patch file for each commit since the specified commit. The names start with <tt>0001-[commitmessage].patch</tt>. See <a rel="nofollow" class="external free" href="http://www.kernel.org/pub/software/scm/git/docs/git-format-patch.html">http://www.kernel.org/pub/software/scm/git/docs/git-format-patch.html</a> for details.
+</p><p>When a developer applies this sort of patch, they must assume responsibility for applying it to our codebase from the IP perspective.  So the developer must be comfortable with the providence of the patch, and make sure that it is clear of potential issues.  This is not like a diff that you get to edit and clean up issues before it is applied.  The commit is recorded locally, and the developer then has a chance to make <i>additional</i> commits to address any lingering issues.  It is critically important that developers applying these sorts of patches be fully aware of what is being committed and what they are signing off on.
+</p><p>To apply the patch the developer uses a command like:
+</p><p><tt>git am -s 0001-353563-HttpDestinationQueueTest-too-slow.patch</tt>
+</p><p>Providing it applies cleanly, there is now a commit in their local copy and they can either make additional commits or push it.  The '-s' option attaches a 'Signed By: ' line to the commit with the developer's commit information.  This is required; without it the eclipse git server rejects the commit  as invalid.  There is an update hook in place that validates that either the commit or signed by fields are in fact eclipse committers authorized to commit to the repository.
+</p>
+<h2><span id="Git_Amend" class="mw-headline">Git Amend</span></h2>
+<p>Alternatively, for troublesome patches that do not apply cleanly with <tt>git am</tt>, you can use <tt>git commit --amend</tt> to modify the author and sign off the commit.
+For example:
+</p>
+<tt><pre>$ git checkout -b patch
+$ git apply john-doe.patch
+$ git commit -a -m "&lt;Original commit message from John Doe&gt;"
+</pre></tt>
+<p>At this point the patch is committed with the committer's name on a local branch.
+</p>
+<tt><pre>$ git commit --amend --author "John Doe &lt;john.doe@who.com&gt;" --signoff
+</pre></tt>
+<p>Now the patch has the correct author and it has been signed off.
+</p>
+<tt><pre>$ git checkout master
+$ git merge patch
+</pre></tt>
+<p>Now the local branch has been merged into master with the correct author.
+</p>
+<tt><pre>$ git branch -d patch
+$ git push
+</pre></tt>
+<h2><span id="Using_Gerrit_.40_Eclipse" class="mw-headline">Using Gerrit @ Eclipse</span></h2>
+<p>Prepare yourself for using gerrit by following the steps described here: <a rel="nofollow" class="external free" href="https://git.eclipse.org/r/Documentation/user-upload.html">https://git.eclipse.org/r/Documentation/user-upload.html</a>
+</p><p>Then clone the jetty-project:
+</p>
+<tt><pre>git clone ssh://git.eclipse.org:29418/jetty/org.eclipse.jetty.project
+</pre></tt>
+<p>Make sure to properly set the changeIds as described here:
+</p><p><a rel="nofollow" href="https://git.eclipse.org/r/Documentation/user-changeid.html" class="external free">https://git.eclipse.org/r/Documentation/user-changeid.html</a>
+</p><p>Make your changes, commit them as usual with git. Once done do:
+</p>
+<tt><pre>git push ssh://git.eclipse.org:29418/jetty/org.eclipse.jetty.project HEAD:refs/for/master
+</pre></tt>
+<p>Note the magic: "HEAD:refs/for/master". Without gerrit will not permit you to push.
+</p><p>Review your changes on your gerrit dashboard:
+<a href="https://git.eclipse.org/r/#/" class="external free" rel="nofollow">https://git.eclipse.org/r/#/</a>
+</p><p>Finally get some coffee and relax. You've contributed something to jetty, woohooo. :)
+</p>
+<!-- 
+NewPP limit report
+Cached time: 20211116202514
+Cache expiry: 86400
+Dynamic content: false
+CPU time usage: 0.124 seconds
+Real time usage: 0.156 seconds
+Preprocessor visited node count: 102/1000000
+Preprocessor generated node count: 358/1000000
+Post‐expand include size: 1956/2097152 bytes
+Template argument size: 758/2097152 bytes
+Highest expansion depth: 4/40
+Expensive parser function count: 0/100
+-->
+
+<!-- 
+Transclusion expansion time report (%,ms,calls,template)
+100.00%   47.848      1 - -total
+ 72.84%   34.853      1 - Template:Jetty_Redirect
+ 43.18%   20.661      1 - Template:Message
+ 25.82%   12.356      1 - Template:Jetty
+-->
+
+<!-- Saved in parser cache with key my_wiki:pcache:idhash:32824-0!*!*!!en!5!* and timestamp 20211116202514 and revision id 334816
+ -->
+</div>
+                                      <!-- catlinks -->
+                    <div id="catlinks" class="catlinks"><div class="mw-normal-catlinks" id="mw-normal-catlinks"><a href="https://wiki.eclipse.org/Special:Categories" title="Special:Categories">Category</a>: <ul><li><a title="Category:Jetty" href="https://wiki.eclipse.org/Category:Jetty">Jetty</a></li></ul></div></div>                     <!-- /catlinks -->
+                                  </div>
+              </div>
+            </div>
+          </div>
+</body>
+</html>

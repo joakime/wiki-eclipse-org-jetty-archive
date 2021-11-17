@@ -1,0 +1,138 @@
+<html>
+<head>
+    <title>Jetty WTP Plugin</title>
+    <link rel="stylesheet" media="screen, print" href="wiki-style.css"/>
+</head>
+<body>
+<div id="mainContent" class="col-md-20">
+                      <ul class="nav nav-tabs noprint hidden-print" role="tablist">
+                       <li id="ca-nstab-main" class="active"><a title="View the content page [c]" accesskey="c" tabindex="-1" href="Hot Deployment.html">Page</a></li>
+                        <li class="new" id="ca-talk"><a href="edit" accesskey="t" tabindex="-1" title="Discussion about the content page [t]">Discussion</a></li>
+                        <li id="ca-viewsource"><a href="edit" title="This page is protected.&#10;You can view its source [e]" accesskey="e" tabindex="-1">View source</a></li>
+                        <li class="collapsible" id="ca-history"><a href="edit" title="Past revisions of this page [h]" accesskey="h" tabindex="-1">History</a></li>
+                      </ul>            <div class="tab-content background-white">
+              <div id="tab-pane-main-page-content" class="tab-pane active">
+
+                
+                <h1 class="firstHeading page-header" id="firstHeading">
+                  <span dir="auto">Jetty/Feature/Hot Deployment</span>
+                </h1>
+                <div id="main-page-content">
+                                                      <!-- subtitle -->
+                  <div id="contentSub" class="alert alert-small alert-warning"><span class="subpages">&lt; <a title="Jetty" href="../../Jetty.html">Jetty</a>‎ | <a href="../Feature.html" title="Jetty/Feature">Feature</a></span></div>
+                  <!-- /subtitle -->
+                  
+                  
+                  <div lang="en" dir="ltr" class="mw-content-ltr" id="mw-content-text"><p><br/>
+</p><p><br/>
+</p>
+<h2><span id="Introduction" class="mw-headline">Introduction</span></h2>
+<div style="background-color: #f9f6b7; border: 1px solid #c4c295; color: black; padding: 5px; margin: 1ex 0; min-height: 35px; padding-left: 45px; font-size: 150%; color: white; background-color: #FF8888; padding: 50px" class="messagebox">
+<div style="float: left; margin-left: -40px;"><a class="image" href="https://wiki.eclipse.org/File:Warning2.png"><img alt="Warning2.png" height="35" src="../../images/3/37/Warning2.png" width="35"/></a></div>
+<div>Jetty 7 and Jetty 8 are now EOL (End of Life)<br/>
+<p><br/>
+<br/>
+<br/>
+THIS IS NOT THE DOCUMENTATION YOU ARE LOOKING FOR!!!!!<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+All development and stable releases are being performed with Jetty 9 and Jetty 10.<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+This <b>wiki is now officially out of date</b> and all content has been moved to the <a rel="nofollow" href="http://www.eclipse.org/jetty/documentation" class="external text">Jetty Documentation Hub</a><br/> 
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+</p>
+Direct Link to updated documentation: <a class="external free" href="http://www.eclipse.org/jetty/documentation/current/hot-deployment.html" rel="nofollow">http://www.eclipse.org/jetty/documentation/current/hot-deployment.html</a></div>
+</div>
+<p><br/>
+Jetty provides capability to deploy an arbitrary context or web application by monitoring a directory for changes. If you add a web application or a context descriptor to the directory, Jetty's Deployment Manager (DM) deploys a new context. If you touch or update a context descriptor, the DM stops, reconfigures, and redeploys its context. If you remove a context, the DM stops it and removes it from the server.
+</p>
+<h2><span id="Feature" class="mw-headline">Feature</span></h2>
+<p>The deployment manager is a state-oriented mechanism suitable for developers and embedded users to customize to a variety of use cases.  An example follows of the <tt>jetty.xml</tt> that creates the basic deployment manager, which Jetty then uses to plug in the ContextProvider and the WebAppProvider that back the Hot Deployment mechanism.  This example also provides information about adding another node to the deployment state, in this case a debug binding.  In the Jetty distribution this XML is in the <tt>jetty-deploy.xml</tt> file, which combined with the <tt>jetty-contexts.xml</tt> and <tt>jetty-webapps.xml</tt> files comprise the stock jetty hot deployment mechanism.
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="xml source-xml"><pre class="de1"><span class="sc3"><span class="re1">&lt;Configure</span> <span class="re0">id</span>=<span class="st0">"Server"</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.server.Server"</span><span class="re2">&gt;</span></span>
+ 
+    <span class="sc3"><span class="re1">&lt;Call</span> <span class="re0">name</span>=<span class="st0">"addBean"</span><span class="re2">&gt;</span></span>
+      <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">id</span>=<span class="st0">"DeploymentManager"</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.deploy.DeploymentManager"</span><span class="re2">&gt;</span></span>
+          <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"contexts"</span><span class="re2">&gt;</span></span>
+            <span class="sc3"><span class="re1">&lt;Ref</span> <span class="re0">id</span>=<span class="st0">"Contexts"</span> <span class="re2">/&gt;</span></span>
+          <span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
+          <span class="sc3"><span class="re1">&lt;Call</span> <span class="re0">name</span>=<span class="st0">"setContextAttribute"</span><span class="re2">&gt;</span></span>
+            <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>org.eclipse.jetty.server.webapp.ContainerIncludeJarPattern<span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>.*/jsp-api-[^/]*\.jar$|.*/jsp-[^/]*\.jar$<span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
+          <span class="sc3"><span class="re1">&lt;/Call<span class="re2">&gt;</span></span></span>
+ 
+ 
+          <span class="sc-1">&lt;!-- Add a customize step to the deployment lifecycle --&gt;</span>
+          <span class="sc-1">&lt;!-- uncomment and replace DebugBinding with your extended AppLifeCycle.Binding class </span>
+<span class="sc-1">          &lt;Call name="insertLifeCycleNode"&gt;</span>
+<span class="sc-1">            &lt;Arg&gt;deployed&lt;/Arg&gt;</span>
+<span class="sc-1">            &lt;Arg&gt;starting&lt;/Arg&gt;</span>
+<span class="sc-1">            &lt;Arg&gt;customise&lt;/Arg&gt;</span>
+<span class="sc-1">          &lt;/Call&gt;</span>
+<span class="sc-1">          &lt;Call name="addLifeCycleBinding"&gt;</span>
+<span class="sc-1">            &lt;Arg&gt;</span>
+<span class="sc-1">              &lt;New class="org.eclipse.jetty.deploy.bindings.DebugBinding"&gt;</span>
+<span class="sc-1">                &lt;Arg&gt;customise&lt;/Arg&gt;</span>
+<span class="sc-1">              &lt;/New&gt;</span>
+<span class="sc-1">            &lt;/Arg&gt;</span>
+<span class="sc-1">          &lt;/Call&gt;</span>
+<span class="sc-1">          --&gt;</span>
+ 
+        <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span>
+      <span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;/Call<span class="re2">&gt;</span></span></span>
+<span class="sc3"><span class="re1">&lt;/Configure<span class="re2">&gt;</span></span></span></pre></div></div>
+<h2><span class="mw-headline" id="Additional_Resources">Additional Resources</span></h2>
+<p>See the <a href="https://wiki.eclipse.org/Jetty/Feature/ContextDeployer" title="Jetty/Feature/ContextDeployer" class="mw-redirect">Context Provider</a> and <a title="Jetty/Feature/WebAppDeployer" class="mw-redirect" href="https://wiki.eclipse.org/Jetty/Feature/WebAppDeployer">WebApp Provider</a> documentation for more information. Previously, Jetty implemented this feature via a ContextDeployer and WebappDeployer, which have both been deprecated. 
+</p><p>See also the <a href="Deployment Manager.html" title="Jetty/Feature/Deployment Manager">Deployment Manager</a> feature reference for detailed conceptual information.
+</p>
+<!-- 
+NewPP limit report
+Cached time: 20211115224532
+Cache expiry: 86400
+Dynamic content: false
+CPU time usage: 0.104 seconds
+Real time usage: 0.120 seconds
+Preprocessor visited node count: 56/1000000
+Preprocessor generated node count: 328/1000000
+Post‐expand include size: 5032/2097152 bytes
+Template argument size: 3591/2097152 bytes
+Highest expansion depth: 5/40
+Expensive parser function count: 0/100
+-->
+
+<!-- 
+Transclusion expansion time report (%,ms,calls,template)
+100.00%   37.277      1 - -total
+100.00%   37.277      1 - Template:Jetty_Feature
+ 35.70%   13.307      1 - Template:Jetty_Redirect
+ 24.29%    9.056      1 - Template:Message
+ 14.99%    5.589      1 - Template:Jetty
+-->
+
+<!-- Saved in parser cache with key my_wiki:pcache:idhash:23542-0!*!0!!*!5!* and timestamp 20211115224531 and revision id 334745
+ -->
+</div>
+                                      <!-- catlinks -->
+                    <div class="catlinks" id="catlinks"><div class="mw-normal-catlinks" id="mw-normal-catlinks"><a href="https://wiki.eclipse.org/Special:Categories" title="Special:Categories">Categories</a>: <ul><li><a title="Category:Jetty" href="https://wiki.eclipse.org/Category:Jetty">Jetty</a></li><li><a href="https://wiki.eclipse.org/Category:Jetty_Feature" title="Category:Jetty Feature">Jetty Feature</a></li></ul></div></div>                     <!-- /catlinks -->
+                                  </div>
+              </div>
+            </div>
+          </div>
+</body>
+</html>

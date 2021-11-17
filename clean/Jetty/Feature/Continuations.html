@@ -1,0 +1,351 @@
+<html>
+<head>
+    <title>Jetty WTP Plugin</title>
+    <link rel="stylesheet" media="screen, print" href="wiki-style.css"/>
+</head>
+<body>
+<div class="col-md-20" id="mainContent">
+                      <ul class="nav nav-tabs noprint hidden-print" role="tablist">
+                       <li class="active" id="ca-nstab-main"><a title="View the content page [c]" href="Continuations.html" accesskey="c" tabindex="-1">Page</a></li>
+                        <li class="new" id="ca-talk"><a href="edit" title="Discussion about the content page [t]" accesskey="t" tabindex="-1">Discussion</a></li>
+                        <li id="ca-viewsource"><a tabindex="-1" accesskey="e" href="edit" title="This page is protected.&#10;You can view its source [e]">View source</a></li>
+                        <li id="ca-history" class="collapsible"><a title="Past revisions of this page [h]" href="edit" tabindex="-1" accesskey="h">History</a></li>
+                      </ul>            <div class="tab-content background-white">
+              <div id="tab-pane-main-page-content" class="tab-pane active">
+
+                
+                <h1 class="firstHeading page-header" id="firstHeading">
+                  <span dir="auto">Jetty/Feature/Continuations</span>
+                </h1>
+                <div id="main-page-content">
+                                                      <!-- subtitle -->
+                  <div class="alert alert-small alert-warning" id="contentSub"><span class="subpages">&lt; <a title="Jetty" href="../../Jetty.html">Jetty</a>‎ | <a href="../Feature.html" title="Jetty/Feature">Feature</a></span></div>
+                  <!-- /subtitle -->
+                  
+                  
+                  <div dir="ltr" id="mw-content-text" class="mw-content-ltr" lang="en"><p><br/>
+</p><p><br/>
+</p>
+<div id="toc" class="toc"><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="Continuations.html#Introduction"><span class="tocnumber">1</span> <span class="toctext">Introduction</span></a>
+<ul>
+<li class="toclevel-2"><a href="Continuations.html#Why_Asynchronous_Servlets_.3F"><span class="tocnumber">1.1</span> <span class="toctext">Why Asynchronous Servlets ?</span></a>
+<ul>
+<li class="toclevel-3"><a href="Continuations.html#Not_Asynchronous_IO"><span class="tocnumber">1.1.1</span> <span class="toctext">Not Asynchronous IO</span></a></li>
+<li class="toclevel-3"><a href="Continuations.html#Asynchronous_Waiting"><span class="tocnumber">1.1.2</span> <span class="toctext">Asynchronous Waiting</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2"><a href="Continuations.html#Asynchronous_Servlet_Examples"><span class="tocnumber">1.2</span> <span class="toctext">Asynchronous Servlet Examples</span></a>
+<ul>
+<li class="toclevel-3"><a href="Continuations.html#AJAX_Comet_Server_Push"><span class="tocnumber">1.2.1</span> <span class="toctext">AJAX Comet Server Push</span></a></li>
+<li class="toclevel-3"><a href="Continuations.html#Asynchronous_RESTful_Web_Service"><span class="tocnumber">1.2.2</span> <span class="toctext">Asynchronous RESTful Web Service</span></a></li>
+<li class="toclevel-3"><a href="Continuations.html#Quality_of_Service_.28e.g..2C_JDBC_Connection_Pool.29"><span class="tocnumber">1.2.3</span> <span class="toctext">Quality of Service (e.g., JDBC Connection Pool)</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2"><a href="Continuations.html#Servlet_Threading_Model"><span class="tocnumber">1.3</span> <span class="toctext">Servlet Threading Model</span></a>
+<ul>
+<li class="toclevel-3"><a href="Continuations.html#Thread_per_connection"><span class="tocnumber">1.3.1</span> <span class="toctext">Thread per connection</span></a></li>
+<li class="toclevel-3"><a href="Continuations.html#Thread_per_request"><span class="tocnumber">1.3.2</span> <span class="toctext">Thread per request</span></a></li>
+<li class="toclevel-3"><a href="Continuations.html#Asynchronous_Request_handling"><span class="tocnumber">1.3.3</span> <span class="toctext">Asynchronous Request handling</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-1"><a href="Continuations.html#Feature"><span class="tocnumber">2</span> <span class="toctext">Feature</span></a>
+<ul>
+<li class="toclevel-2"><a href="Continuations.html#Jetty_6_Continuations"><span class="tocnumber">2.1</span> <span class="toctext">Jetty 6 Continuations</span></a></li>
+<li class="toclevel-2"><a href="Continuations.html#Jetty_Continuations"><span class="tocnumber">2.2</span> <span class="toctext">Jetty Continuations</span></a></li>
+<li class="toclevel-2"><a href="Continuations.html#Using_Continuations"><span class="tocnumber">2.3</span> <span class="toctext">Using Continuations</span></a>
+<ul>
+<li class="toclevel-3"><a href="Continuations.html#Obtaining_a_Continuation"><span class="tocnumber">2.3.1</span> <span class="toctext">Obtaining a Continuation</span></a></li>
+<li class="toclevel-3"><a href="Continuations.html#Suspending_a_Request"><span class="tocnumber">2.3.2</span> <span class="toctext">Suspending a Request</span></a></li>
+<li class="toclevel-3"><a href="Continuations.html#Resuming_a_Request"><span class="tocnumber">2.3.3</span> <span class="toctext">Resuming a Request</span></a></li>
+<li class="toclevel-3"><a href="Continuations.html#Completing_a_Request"><span class="tocnumber">2.3.4</span> <span class="toctext">Completing a Request</span></a></li>
+<li class="toclevel-3"><a href="Continuations.html#Continuation_Listeners"><span class="tocnumber">2.3.5</span> <span class="toctext">Continuation Listeners</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2"><a href="Continuations.html#Continuation_Patterns"><span class="tocnumber">2.4</span> <span class="toctext">Continuation Patterns</span></a>
+<ul>
+<li class="toclevel-3"><a href="Continuations.html#Suspend_Resume_Pattern"><span class="tocnumber">2.4.1</span> <span class="toctext">Suspend Resume Pattern</span></a></li>
+<li class="toclevel-3"><a href="Continuations.html#Suspend_Continue_Pattern"><span class="tocnumber">2.4.2</span> <span class="toctext">Suspend Continue Pattern</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2"><a href="Continuations.html#Continuation_Examples"><span class="tocnumber">2.5</span> <span class="toctext">Continuation Examples</span></a>
+<ul>
+<li class="toclevel-3"><a href="Continuations.html#Chat_Servlet"><span class="tocnumber">2.5.1</span> <span class="toctext">Chat Servlet</span></a></li>
+<li class="toclevel-3"><a href="Continuations.html#Quality_of_Service_Filter"><span class="tocnumber">2.5.2</span> <span class="toctext">Quality of Service Filter</span></a></li>
+<li class="toclevel-3"><a href="Continuations.html#Denial_of_Service_Filter"><span class="tocnumber">2.5.3</span> <span class="toctext">Denial of Service Filter</span></a></li>
+<li class="toclevel-3"><a href="Continuations.html#Proxy_Servlet"><span class="tocnumber">2.5.4</span> <span class="toctext">Proxy Servlet</span></a></li>
+<li class="toclevel-3"><a href="Continuations.html#Gzip_Filter"><span class="tocnumber">2.5.5</span> <span class="toctext">Gzip Filter</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Introduction">Introduction</span></h2>
+<div class="messagebox" style="background-color: #f9f6b7; border: 1px solid #c4c295; color: black; padding: 5px; margin: 1ex 0; min-height: 35px; padding-left: 45px;">
+<div style="float: left; margin-left: -40px;"><a href="https://wiki.eclipse.org/File:Warning2.png" class="image"><img src="../../images/3/37/Warning2.png" width="35" height="35" alt="Warning2.png"/></a></div>
+<div>Some or all of this content remains to be ported to Jetty 9 <a rel="nofollow" class="external text" href="http://www.eclipse.org/jetty/documentation/current">Documentation</a>.<br/>If you are interested in migrating this content see our <a class="external text" href="http://www.eclipse.org/jetty/documentation/current/contributing-documentation.html" rel="nofollow">contribution guide</a> or <a rel="nofollow" class="external text" href="http://www.eclipse.org/jetty/documentation/current/community.html">contact us</a>.</div>
+</div>
+<p><br/>
+</p>
+<h3><span id="Why_Asynchronous_Servlets_.3F" class="mw-headline">Why Asynchronous Servlets ?</span></h3>
+<h4><span class="mw-headline" id="Not_Asynchronous_IO">Not Asynchronous IO</span></h4>
+<p>The concept of Asynchronous Servlets is often confused with Asynchronous IO or the use of NIO. However, Asynchronous Servlets are not primarily motivated by asynchronous IO, since:
+</p>
+<ul><li> HTTP Requests are mostly small and arrive in a single packet. Servlets rarely block on requests.</li>
+<li> Many responses are small and fit within the server buffers, so servlets often do not block writing responses.</li>
+<li> Even if we could expose asynchronous IO in a servlet, it is a hard paradigm to program. For example what would an application do if it read 2 bytes of a 3 byte UTF-8 character? It would have to buffer and wait for more bytes. This is best done by the container rather than the application.</li></ul>
+<h4><span id="Asynchronous_Waiting" class="mw-headline">Asynchronous Waiting</span></h4>
+<p>The main use-case for asynchronous servlets is waiting for non-IO events or resources.  Many web applications need to wait at some stage during the processing of a HTTP request, for example:
+</p>
+<ul><li> waiting for a resource to be available before processing the request (e.g., thread, JDBC Connection)</li>
+<li> waiting for an application event in an AJAX Comet application (e.g., chat message, price change)</li>
+<li> waiting for a response from a remote service (e.g., RESTful or SOAP call to a web service).</li></ul>
+<p>The servlet API (&lt;=2.5) supports only a synchronous call style, so that any waiting that a servlet needs to do must be with blocking. Unfortunately this means that the thread allocated to the request must be held during that wait along with all its resources: kernel thread, stack memory and often pooled buffers, character converters, EE authentication context, etc. It is wasteful of system resources to hold these resources while waiting.
+</p><p>Significantly better scalability and quality of service can be achieved if waiting is done asynchronously.
+</p><p><br/>
+</p>
+<h3><span id="Asynchronous_Servlet_Examples" class="mw-headline">Asynchronous Servlet Examples</span></h3>
+<h4><span class="mw-headline" id="AJAX_Comet_Server_Push">AJAX Comet Server Push</span></h4>
+<p>Web 2.0 applications can use the <a rel="nofollow" href="http://en.wikipedia.org/wiki/Comet_(programming)" class="external text">comet</a> technique (aka AJAX Push, Server Push, Long Polling) to dynamically update a web page without refreshing the entire page.  
+</p><p>Consider a stock portfolio web application. Each browser will send a long poll request to the server asking for any of the user's stock prices that have changed. The server will receive the long poll requests from all its clients, but will not immediately respond. Instead the server waits until a stock price changes, at which time it will send a response to each of the clients with that stock in their portfolio. The clients that receive the long poll response will immediately send another long poll request so they may obtain future price changes.
+</p><p>Thus the server will typically hold a long poll request for every connected user, so if the servlet is not asynchronous, there would need more than 1000 threads available to handle 1000 simultaneous users. 1000 threads can consume over 256MB of memory; that would be better used for the application rather than idly waiting for a price to change.
+</p><p>If the servlet is asynchronous, then the number of threads needed is governed by the time to generate each response and the frequency of price changes. If every user receives a price every 10 seconds and the response takes 10ms to generate, then 1000 users can be serviced with just 1 thread, and the 256MB of stack be freed for other purposes.
+</p><p>For more on comet see the cometd project that works asynchronously with Jetty
+</p><p>For an example of Jetty's solution, see the Cometd (aka Bayeux).
+</p><p><br/>
+</p>
+<h4><span class="mw-headline" id="Asynchronous_RESTful_Web_Service">Asynchronous RESTful Web Service</span></h4>
+<p>Consider a web application that accesses a remote web service (e.g., SOAP service or RESTful service). Typically a remote web service can take hundreds of milliseconds to produce a response -- eBay's RESTful web service frequently takes 350ms to respond with a list of auctions matching a given keyword -- while only a few 10s of milliseconds of CPU time are needed to locally process a request and generate a response.
+</p><p>To handle 1000 requests per second, which each perform a 200ms web service call, a webapp would needs 1000*(200+20)/1000 = 220 threads and
+110MB of stack memory. It would also be vulnerable to thread starvation if bursts occurred or the web service became slower. 
+</p><p>If handled asynchronously, the web application would not need to hold a thread while waiting for web service response.  Even if the asynchronous mechanism cost 10ms (which it doesn't), then this webapp would need 1000*(20+10)/1000 = 30 threads and 15MB of stack memory. This is a 86% reduction in the resources required and 95MB more memory would be available for the application.
+</p><p>Furthermore, if multiple web services request are required, the asynchronous approach allows these to be made in parallel rather than serially, without allocating additional threads.
+</p><p>For an example of Jetty's solution, see the <a rel="nofollow" class="external text" href="http://blogs.webtide.com/gregw/entry/asynchronous_restful_webapplication">Asynchronous REST example</a>.
+</p><p><br/>
+</p>
+<h4><span id="Quality_of_Service_.28e.g..2C_JDBC_Connection_Pool.29" class="mw-headline">Quality of Service (e.g., JDBC Connection Pool)</span></h4>
+<p>Consider a web application handling on average 400 requests per second, with each request interacting with the database for 50ms. To handle this load, 400*50/1000 = 20 JDBC connections are need on average. However, requests do not come at an even rate and there are often bursts and pauses. To protect a database from bursts, often a JDBC connection pool is applied to limit the simultaneous requests made on the database. So for this application, it would be reasonable to apply a JDBC pool of 30 connections, to provide for a 50% margin.
+</p><p>If momentarily the request rate doubled, then the 30 connections would only be able to handle 600 requests per second, and 200 requests per second would join those waiting on the JDBC Connection pool. Then if the servlet container had a thread pool with 200 threads, that would be entirely consumed by threads waiting for JDBC connections in 1 second of this request rate. After 1s, the web application would be unable to process any requests at all because no threads would be available. Even requests that do not use the database would be blocked due to thread starvation. To double the thread pool would require an additional 100MB of stack memory and would only give the application another 1s of grace under load!
+</p><p>This thread starvation situation can also occur if the database runs slowly or is momentarily unavailable. Thread starvation is a very frequently reported problem, and causes the entire web service to lock up and become unresponsive.
+</p><p>If the web container was able to threadlessly suspend the requests waiting for a JDBC connection, then thread starvation would not occur, as only 30 threads would be consumed by requests accessing the database and the other 470 threads would be available to process the request that do not access the database.
+</p><p>For an example of Jetty's solution, see the <a href="Continuations.html#Quality_of_Service_Filter">Quality of Service Filter</a>.
+</p><p><br/>
+</p>
+<h3><span class="mw-headline" id="Servlet_Threading_Model">Servlet Threading Model</span></h3>
+<p>The scalability issues of Java servlets are caused mainly by the server threading model:
+</p>
+<h4><span class="mw-headline" id="Thread_per_connection">Thread per connection</span></h4>
+<p>The traditional IO model of Java associated a thread with every TCP/IP connection. If you have a few very active threads, this model can scale to a very high number of requests per second.
+</p><p>However, the traffic profile typical of many web applications is many persistent HTTP connections that are mostly idle while users read pages or search for the next link to click. With such profiles, the thread-per-connection model can have problems scaling to the thousands of threads required to support thousands of users on large scale deployments.
+</p>
+<h4><span class="mw-headline" id="Thread_per_request">Thread per request</span></h4>
+<p>The Java NIO libraries support asynchronous IO, so that threads no longer need to be allocated to every connection. When the connection is idle (between requests), then the connection is added to an NIO select set, which allows one thread to scan many connections for activity. Only when IO is detected on a connection is a thread allocated to it. However, the servlet 2.5 API model still requires a thread to be allocated for the duration of the request handling.
+</p><p>This thread-per-request model allows much greater scaling of connections (users) at the expense of a small reduction to maximum requests per second due to extra scheduling latency.
+</p>
+<h4><span id="Asynchronous_Request_handling" class="mw-headline">Asynchronous Request handling</span></h4>
+<p>The Jetty Continuation (and the servlet 3.0 asynchronous) API introduce a change in the servlet API that allows a request to be dispatched multiple times to a servlet. If the servlet does not have the resources required on a dispatch, then the request is suspended (or put into asynchronous mode), so that the servlet may return from the dispatch without a response being sent. When the waited-for resources become available, the request is re-dispatched to the servlet, with a new thread, and a response is generated.
+</p>
+<h2><span id="Feature" class="mw-headline">Feature</span></h2>
+<h3><span id="Jetty_6_Continuations" class="mw-headline">Jetty 6 Continuations</span></h3>
+<p>Asynchronous servlets were originally introduced with <a href="http://docs.codehaus.org/display/JETTY/Continuations" class="external text" rel="nofollow">Jetty-6 Continuations</a>, which were a Jetty-specific mechanism. 
+</p>
+<h3><span id="Jetty_Continuations" class="mw-headline">Jetty Continuations</span></h3>
+<p>From Jetty 7 onwards, the <a href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/continuation/Continuation.html" class="external text" rel="nofollow">Continuations API</a> has been extended to be a general purpose API that will work asynchronously on any servlet-3.0 container, as well as on Jetty 6, 7, or 8. Continuations will also work in blocking mode with any servlet 2.5 container. Continuations should be considered an application abstraction and portability layer on top of the implementation detail of asynchronous servlets.
+</p>
+<h3><span id="Using_Continuations" class="mw-headline">Using Continuations</span></h3>
+<h4><span id="Obtaining_a_Continuation" class="mw-headline">Obtaining a Continuation</span></h4>
+<p>The <a rel="nofollow" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/continuation/ContinuationSupport.html" class="external text">ContinuationSupport</a> factory class can be used to obtain a continuation instance associated with a request:
+</p>
+<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="java source-java"><pre class="de1">    Continuation continuation <span class="sy0">=</span> ContinuationSupport.<span class="me1">getContinuation</span><span class="br0">(</span>request<span class="br0">)</span><span class="sy0">;</span></pre></div></div>
+<h4><span class="mw-headline" id="Suspending_a_Request">Suspending a Request</span></h4>
+<p>To suspend a request, the suspend method is called on the continuation:
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="java source-java"><pre class="de1"> 
+<span class="kw4">void</span> doGet<span class="br0">(</span>HttpServletRequest request, HttpServletResponse response<span class="br0">)</span>
+<span class="br0">{</span>
+    ...
+    <span class="co1">// optionally:</span>
+    <span class="co1">// continuation.setTimeout(long);</span>
+    continuation.<span class="me1">suspend</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
+    ...
+<span class="br0">}</span></pre></div></div>
+<p>The lifecycle of the request will be extended beyond the return to the container from the <code>Servlet.service(...)</code> method and <code>Filter.doFilter(...)</code> calls.  When these dispatch methods return, the suspended request will not yet be committed and a response will not yet be sent to the HTTP client. 
+</p><p>Once the request has been suspended, the continuation should be registered with an asynchronous service so that it may be used by an asynchronous callback when the waited-for event happens.
+</p><p>The request will be suspended until either <code>continuation.resume()</code> or <code>continuation.complete()</code> is called. If neither is called then the continuation will timeout. The timeout should be set before the suspend, by a call to <code>continuation.setTimeout(long)</code>; if no timeout is set, then the default period is used. If no timeout listeners resume or complete the continuation, then the continuation is resumed with <code>continuation.isExpired()</code> true.  
+</p><p>There is a variation of suspend for use with request wrappers and the complete lifecycle (see below):
+</p>
+<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="java source-java"><pre class="de1">    continuation.<span class="me1">suspend</span><span class="br0">(</span>response<span class="br0">)</span><span class="sy0">;</span></pre></div></div>
+<p>Suspension is analogous to the servlet 3.0 <code>request.startAsync()</code> method.  Unlike jetty-6 continuations, an exception is not thrown by suspend and the method should return normally.  This allows the registration of the continuation to occur after suspension and avoids the need for a mutex.  If an exception is desirable (to bypass code that is unaware of continuations and may try to commit the response), then <code>continuation.undispatch()</code> may be called to exit the current thread from the current dispatch by throwing a <a rel="nofollow" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/continuation/ContinuationThrowable.html" class="external text">ContinuationThrowable</a>.
+</p><p><br/>
+</p>
+<h4><span id="Resuming_a_Request" class="mw-headline">Resuming a Request</span></h4>
+<p>Once an asynchronous event has occurred, the continuation can be resumed:
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="java source-java"><pre class="de1"><span class="kw4">void</span> myAsyncCallback<span class="br0">(</span><span class="kw3">Object</span> results<span class="br0">)</span>
+<span class="br0">{</span>
+    continuation.<span class="me1">setAttribute</span><span class="br0">(</span><span class="st0">"results"</span>,results<span class="br0">)</span><span class="sy0">;</span>
+    continuation.<span class="me1">resume</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
+<span class="br0">}</span></pre></div></div>
+<p>When a continuation is resumed, the request is redispatched to the servlet container, almost as if the request had been received again.  However during the redispatch, the <code>continuation.isInitial()</code> method returns false and any attributes set by the asynchronous handler are available.
+</p><p>Continuation resume is analogous to Servlet 3.0 <code>AsyncContext.dispatch()</code>.
+</p>
+<h4><span id="Completing_a_Request" class="mw-headline">Completing a Request</span></h4>
+<p>As an alternative to resuming a request, an asynchronous handler may write the response itself. After writing the response, the handler must indicate the request handling is complete by calling the complete method:
+</p>
+<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="java source-java"><pre class="de1"><span class="kw4">void</span> myAsyncCallback<span class="br0">(</span><span class="kw3">Object</span> results<span class="br0">)</span>
+<span class="br0">{</span>
+    writeResults<span class="br0">(</span>continuation.<span class="me1">getServletResponse</span><span class="br0">(</span><span class="br0">)</span>,results<span class="br0">)</span><span class="sy0">;</span>
+    continuation.<span class="me1">complete</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
+<span class="br0">}</span></pre></div></div>
+<p>After complete is called, the container schedules the response to be committed and flushed.
+</p><p>Continuation complete is analogous to Servlet 3.0 <code>AsyncContext.complete()</code>.
+</p>
+<h4><span class="mw-headline" id="Continuation_Listeners">Continuation Listeners</span></h4>
+<p>An application may monitor the status of a continuation by using a <a rel="nofollow" class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/continuation/ContinuationListener.html">ContinuationListener</a>:
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="java source-java"><pre class="de1"><span class="kw4">void</span> doGet<span class="br0">(</span>HttpServletRequest request, HttpServletResponse response<span class="br0">)</span>
+<span class="br0">{</span>
+    ...
+ 
+    <span class="me1">Continuation</span> continuation <span class="sy0">=</span> ContinuationSupport.<span class="me1">getContinuation</span><span class="br0">(</span>request<span class="br0">)</span><span class="sy0">;</span>
+    continuation.<span class="me1">addContinuationListener</span><span class="br0">(</span><span class="kw1">new</span> ContinuationListener<span class="br0">(</span><span class="br0">)</span>
+    <span class="br0">{</span>
+      <span class="kw1">public</span> <span class="kw4">void</span> onTimeout<span class="br0">(</span>Continuation continuation<span class="br0">)</span> <span class="br0">{</span> ... <span class="br0">}</span>
+      <span class="kw1">public</span> <span class="kw4">void</span> onComplete<span class="br0">(</span>Continuation continuation<span class="br0">)</span> <span class="br0">{</span> ... <span class="br0">}</span>
+    <span class="br0">}</span><span class="br0">)</span><span class="sy0">;</span>
+ 
+    continuation.<span class="me1">suspend</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
+    ...
+<span class="br0">}</span></pre></div></div>
+<p>Continuation listeners are analogous to Servlet 3.0 <code>AsyncListener</code>s.
+</p>
+<h3><span id="Continuation_Patterns" class="mw-headline">Continuation Patterns</span></h3>
+<h4><span id="Suspend_Resume_Pattern" class="mw-headline">Suspend Resume Pattern</span></h4>
+<p>The suspend/resume style is used when a servlet and/or filter is used to generate the response after an asynchronous wait that is terminated by an asynchronous handler. Typically a request attribute is used to pass results and to indicate if the request has already been suspended.
+</p>
+<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="java source-java"><pre class="de1"><span class="kw4">void</span> doGet<span class="br0">(</span>HttpServletRequest request, HttpServletResponse response<span class="br0">)</span>
+<span class="br0">{</span>
+     <span class="co1">// if we need to get asynchronous results</span>
+     <span class="kw3">Object</span> results <span class="sy0">=</span> request.<span class="me1">getAttribute</span><span class="br0">(</span><span class="st0">"results"</span><span class="br0">)</span><span class="sy0">;</span>
+     <span class="kw1">if</span> <span class="br0">(</span>results<span class="sy0">==</span><span class="kw2">null</span><span class="br0">)</span>
+     <span class="br0">{</span>
+       <span class="kw1">final</span> Continuation continuation <span class="sy0">=</span> ContinuationSupport.<span class="me1">getContinuation</span><span class="br0">(</span>request<span class="br0">)</span><span class="sy0">;</span>
+ 
+       <span class="co1">// if this is not a timeout</span>
+       <span class="kw1">if</span> <span class="br0">(</span>continuation.<span class="me1">isExpired</span><span class="br0">(</span><span class="br0">)</span><span class="br0">)</span>
+       <span class="br0">{</span>
+         sendMyTimeoutResponse<span class="br0">(</span>response<span class="br0">)</span><span class="sy0">;</span>
+         <span class="kw1">return</span><span class="sy0">;</span>
+       <span class="br0">}</span>
+ 
+       <span class="co1">// suspend the request</span>
+       continuation.<span class="me1">suspend</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span> <span class="co1">// always suspend before registration</span>
+ 
+       <span class="co1">// register with async service.  The code here will depend on the</span>
+       <span class="co1">// the service used (see Jetty HttpClient for example)</span>
+       myAsyncHandler.<span class="me1">register</span><span class="br0">(</span><span class="kw1">new</span> MyHandler<span class="br0">(</span><span class="br0">)</span>
+       <span class="br0">{</span>
+          <span class="kw1">public</span> <span class="kw4">void</span> onMyEvent<span class="br0">(</span><span class="kw3">Object</span> result<span class="br0">)</span>
+          <span class="br0">{</span>
+            continuation.<span class="me1">setAttribute</span><span class="br0">(</span><span class="st0">"results"</span>,results<span class="br0">)</span><span class="sy0">;</span>
+            continuation.<span class="me1">resume</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
+          <span class="br0">}</span>
+       <span class="br0">}</span><span class="br0">)</span><span class="sy0">;</span>
+       <span class="kw1">return</span><span class="sy0">;</span> <span class="co1">// or continuation.undispatch();</span>
+     <span class="br0">}</span>
+ 
+     <span class="co1">// Send the results</span>
+     sendMyResultResponse<span class="br0">(</span>response,results<span class="br0">)</span><span class="sy0">;</span>
+<span class="br0">}</span></pre></div></div>
+<p>This style is very good when the response needs the facilities of the servlet container (e.g., it uses a web framework) or if one event may resume many requests so the container's thread pool can be used to handle each of them. 
+</p><p><br/>
+</p>
+<h4><span class="mw-headline" id="Suspend_Continue_Pattern">Suspend Continue Pattern</span></h4>
+<p>The suspend/complete style is used when an asynchronous handler is used to generate the response:
+</p>
+<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="java source-java"><pre class="de1"><span class="kw4">void</span> doGet<span class="br0">(</span>HttpServletRequest request, HttpServletResponse response<span class="br0">)</span>
+<span class="br0">{</span>
+     <span class="kw1">final</span> Continuation continuation <span class="sy0">=</span> ContinuationSupport.<span class="me1">getContinuation</span><span class="br0">(</span>request<span class="br0">)</span><span class="sy0">;</span>
+ 
+     <span class="co1">// if this is not a timeout</span>
+     <span class="kw1">if</span> <span class="br0">(</span>continuation.<span class="me1">isExpired</span><span class="br0">(</span><span class="br0">)</span><span class="br0">)</span>
+     <span class="br0">{</span>
+       sendMyTimeoutResponse<span class="br0">(</span>request,response<span class="br0">)</span><span class="sy0">;</span>
+       <span class="kw1">return</span><span class="sy0">;</span>
+     <span class="br0">}</span>
+ 
+     <span class="co1">// suspend the request</span>
+     continuation.<span class="me1">suspend</span><span class="br0">(</span>response<span class="br0">)</span><span class="sy0">;</span> <span class="co1">// response may be wrapped.</span>
+ 
+     <span class="co1">// register with async service.  The code here will depend on the</span>
+     <span class="co1">// the service used (see Jetty HttpClient for example)</span>
+     myAsyncHandler.<span class="me1">register</span><span class="br0">(</span><span class="kw1">new</span> MyHandler<span class="br0">(</span><span class="br0">)</span>
+     <span class="br0">{</span>
+       <span class="kw1">public</span> <span class="kw4">void</span> onMyEvent<span class="br0">(</span><span class="kw3">Object</span> result<span class="br0">)</span>
+       <span class="br0">{</span>
+         sendMyResultResponse<span class="br0">(</span>continuation.<span class="me1">getServletResponse</span><span class="br0">(</span><span class="br0">)</span>,results<span class="br0">)</span><span class="sy0">;</span>
+         continuation.<span class="me1">complete</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
+       <span class="br0">}</span>
+     <span class="br0">}</span><span class="br0">)</span><span class="sy0">;</span>
+<span class="br0">}</span></pre></div></div>
+<p>This style is very good when the response does not need the facilities of the servlet container (e.g., it does not use a web framework) and if an event will resume only one continuation.  If many responses are to be sent (e.g., a chat room), then writing one response may block and cause a DOS on the other responses.
+</p><p><br/>
+</p>
+<h3><span class="mw-headline" id="Continuation_Examples">Continuation Examples</span></h3>
+<h4><span id="Chat_Servlet" class="mw-headline">Chat Servlet</span></h4>
+<p>The <a rel="nofollow" class="external text" href="http://download.eclipse.org/jetty/stable-7/xref/com/acme/ChatServlet.html">ChatServlet</a> example shows how the suspend/resume style can be used to directly code a chat room.   The same principles are applied to frameworks like <a rel="nofollow" class="external text" href="http://cometd.org">cometd.org</a> which provide an richer environment for such applications, based on Continuations.
+</p>
+<h4><span id="Quality_of_Service_Filter" class="mw-headline">Quality of Service Filter</span></h4>
+<p>The <a rel="nofollow" href="http://download.eclipse.org/jetty/stable-7/xref/org/eclipse/jetty/servlets/QoSFilter.html" class="external text">QoSFilter</a>(<a href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/servlets/QoSFilter.html" class="external text" rel="nofollow">javadoc</a>), uses suspend/resume style to limit the number of requests simultaneously within the filter.  This can be used to protect a JDBC connection pool or other limited resource from too many simultaneous requests.
+</p><p>If too many requests are received, the extra requests wait for a short time on a semaphore, before being suspended.  As requests within the filter return, they use a priority queue to resume the suspended requests.  This allows your authenticated or priority users to get a better share of your server's resources when the machine is under load.
+</p>
+<h4><span class="mw-headline" id="Denial_of_Service_Filter">Denial of Service Filter</span></h4>
+<p>The <a rel="nofollow" href="http://download.eclipse.org/jetty/stable-7/xref/org/eclipse/jetty/servlets/DoSFilter.html" class="external text">DosFilter</a>(<a href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/servlets/DoSFilter.html" class="external text" rel="nofollow">javadoc</a>) is similar to the QoSFilter, but protects a web application from a denial of service attack, as much as is possible from within a web application.
+</p><p>If too many requests are detected coming from one source, then those requests are suspended and a warning generated.  This works on the assumption that the attacker may be written in simple blocking style, so by suspending you are hopefully consuming their resources.   True protection from DOS can only be achieved by network devices (or eugenics :)).
+</p>
+<h4><span id="Proxy_Servlet" class="mw-headline">Proxy Servlet</span></h4>
+<p>The <a rel="nofollow" href="http://download.eclipse.org/jetty/stable-7/xref/org/eclipse/jetty/servlets/ProxyServlet.html" class="external text">ProxyServlet</a> uses the suspend/complete style and the Jetty asynchronous <a rel="nofollow" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/client/HttpClient.html" class="external text">HTTP client</a> to implement a scalable Proxy server (or transparent proxy).
+</p>
+<h4><span class="mw-headline" id="Gzip_Filter">Gzip Filter</span></h4>
+<p>The Jetty <a rel="nofollow" href="http://download.eclipse.org/jetty/stable-7/xref/org/eclipse/jetty/servlets/GzipFilter.html" class="external text">GzipFilter</a> is a filter that implements dynamic compression by wrapping the response objects.  This filter has been enhanced to understand continuations, so that if a request is suspended in suspend/complete style and the wrapped response is passed to the asynchronous handler, then a ContinuationListener is used to finish the wrapped response.  This allows the GzipFilter to work with the asynchronous ProxyServlet and to compress the proxied responses.
+</p>
+<!-- 
+NewPP limit report
+Cached time: 20211116071217
+Cache expiry: 86400
+Dynamic content: false
+CPU time usage: 0.304 seconds
+Real time usage: 0.339 seconds
+Preprocessor visited node count: 97/1000000
+Preprocessor generated node count: 543/1000000
+Post‐expand include size: 19413/2097152 bytes
+Template argument size: 18247/2097152 bytes
+Highest expansion depth: 5/40
+Expensive parser function count: 0/100
+-->
+
+<!-- 
+Transclusion expansion time report (%,ms,calls,template)
+100.00%  266.736      1 - -total
+100.00%  266.736      1 - Template:Jetty_Feature
+ 10.02%   26.714      1 - Template:Jetty_TODO
+  5.08%   13.553      1 - Template:Jetty
+  2.42%    6.451      1 - Template:Message
+-->
+
+<!-- Saved in parser cache with key my_wiki:pcache:idhash:20430-0!*!*!!en!5!* and timestamp 20211116071217 and revision id 334776
+ -->
+</div>
+                                      <!-- catlinks -->
+                    <div id="catlinks" class="catlinks"><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="https://wiki.eclipse.org/Special:Categories" title="Special:Categories">Categories</a>: <ul><li><a href="https://wiki.eclipse.org/Category:Jetty" title="Category:Jetty">Jetty</a></li><li><a href="https://wiki.eclipse.org/Category:Jetty_Feature" title="Category:Jetty Feature">Jetty Feature</a></li></ul></div></div>                     <!-- /catlinks -->
+                                  </div>
+              </div>
+            </div>
+          </div>
+</body>
+</html>

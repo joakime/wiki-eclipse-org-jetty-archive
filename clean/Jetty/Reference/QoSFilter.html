@@ -1,0 +1,182 @@
+<html>
+<head>
+    <title>Jetty WTP Plugin</title>
+    <link rel="stylesheet" media="screen, print" href="wiki-style.css"/>
+</head>
+<body>
+<div class="col-md-20" id="mainContent">
+                      <ul role="tablist" class="nav nav-tabs noprint hidden-print">
+                       <li id="ca-nstab-main" class="active"><a tabindex="-1" href="QoSFilter.html" accesskey="c" title="View the content page [c]">Page</a></li>
+                        <li class="new" id="ca-talk"><a title="Discussion about the content page [t]" tabindex="-1" accesskey="t" href="edit">Discussion</a></li>
+                        <li id="ca-viewsource"><a accesskey="e" href="edit" tabindex="-1" title="This page is protected.&#10;You can view its source [e]">View source</a></li>
+                        <li id="ca-history" class="collapsible"><a title="Past revisions of this page [h]" accesskey="h" href="edit" tabindex="-1">History</a></li>
+                      </ul>            <div class="tab-content background-white">
+              <div class="tab-pane active" id="tab-pane-main-page-content">
+
+                
+                <h1 id="firstHeading" class="firstHeading page-header">
+                  <span dir="auto">Jetty/Reference/QoSFilter</span>
+                </h1>
+                <div id="main-page-content">
+                                                      <!-- subtitle -->
+                  <div class="alert alert-small alert-warning" id="contentSub"><span class="subpages">&lt; <a title="Jetty" href="../../Jetty.html">Jetty</a>‎ | <a href="../Reference.html" title="Jetty/Reference">Reference</a></span></div>
+                  <!-- /subtitle -->
+                  
+                  
+                  <div class="mw-content-ltr" lang="en" id="mw-content-text" dir="ltr"><p><br/>
+</p><p><br/>
+</p>
+<div id="toc" class="toc"><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="QoSFilter.html#Introduction"><span class="tocnumber">1</span> <span class="toctext">Introduction</span></a></li>
+<li class="toclevel-1"><a href="QoSFilter.html#Understanding_the_Problem"><span class="tocnumber">2</span> <span class="toctext">Understanding the Problem</span></a>
+<ul>
+<li class="toclevel-2"><a href="QoSFilter.html#Waiting_for_Resources"><span class="tocnumber">2.1</span> <span class="toctext">Waiting for Resources</span></a></li>
+<li class="toclevel-2"><a href="QoSFilter.html#Prioritizing_Resources"><span class="tocnumber">2.2</span> <span class="toctext">Prioritizing Resources</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1"><a href="QoSFilter.html#Applying_the_QoSFilter"><span class="tocnumber">3</span> <span class="toctext">Applying the QoSFilter</span></a>
+<ul>
+<li class="toclevel-2"><a href="QoSFilter.html#Required_JARs"><span class="tocnumber">3.1</span> <span class="toctext">Required JARs</span></a></li>
+<li class="toclevel-2"><a href="QoSFilter.html#Sample_Configuration"><span class="tocnumber">3.2</span> <span class="toctext">Sample Configuration</span></a></li>
+<li class="toclevel-2"><a href="QoSFilter.html#Configuring_QoS_Filter_Parameters"><span class="tocnumber">3.3</span> <span class="toctext">Configuring QoS Filter Parameters</span></a></li>
+<li class="toclevel-2"><a href="QoSFilter.html#Mapping_to_URLs"><span class="tocnumber">3.4</span> <span class="toctext">Mapping to URLs</span></a></li>
+<li class="toclevel-2"><a href="QoSFilter.html#Setting_the_Request_Priority"><span class="tocnumber">3.5</span> <span class="toctext">Setting the Request Priority</span></a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Introduction">Introduction</span></h2>
+<div style="background-color: #f9f6b7; border: 1px solid #c4c295; color: black; padding: 5px; margin: 1ex 0; min-height: 35px; padding-left: 45px; font-size: 150%; color: white; background-color: #FF8888; padding: 50px" class="messagebox">
+<div style="float: left; margin-left: -40px;"><a href="https://wiki.eclipse.org/File:Warning2.png" class="image"><img width="35" alt="Warning2.png" height="35" src="../../images/3/37/Warning2.png"/></a></div>
+<div>Jetty 7 and Jetty 8 are now EOL (End of Life)<br/>
+<p><br/>
+<br/>
+<br/>
+THIS IS NOT THE DOCUMENTATION YOU ARE LOOKING FOR!!!!!<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+All development and stable releases are being performed with Jetty 9 and Jetty 10.<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+This <b>wiki is now officially out of date</b> and all content has been moved to the <a href="http://www.eclipse.org/jetty/documentation" class="external text" rel="nofollow">Jetty Documentation Hub</a><br/> 
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+</p>
+Direct Link to updated documentation: <a class="external free" rel="nofollow" href="http://www.eclipse.org/jetty/documentation/current/qos-filter.html">http://www.eclipse.org/jetty/documentation/current/qos-filter.html</a></div>
+</div>
+<p><br/>
+Jetty supports <a title="Jetty/Feature/Continuations" href="../Feature/Continuations.html">Continuations</a>, which allow non-blocking handling of HTTP requests, so that threads can be allocated in a managed way to provide application specific <a href="http://en.wikipedia.org/wiki/Quality_of_service" class="external text" rel="nofollow">Quality of Service</a> (QoS). The QoSFilter is a utility servlet filter that implements some QoS features.
+</p>
+<h2><span id="Understanding_the_Problem" class="mw-headline">Understanding the Problem</span></h2>
+<h3><span id="Waiting_for_Resources" class="mw-headline">Waiting for Resources</span></h3>
+<p>Web applications frequently use JDBC Connection pools to limit the simultaneous load on the database. This protects the database from peak loads, but makes the web application vulnerable to thread starvation. Consider a thread pool with 20 connections, being used by a web application that that typically receives 200 requests per second and each request holds a JDBC connection for 50ms. Such a pool can service on average 200*20*1000/50 = 400 requests per second.
+</p><p>However, if the request rate rises above 400 per second, or if the database slows down (due to a large query) or becomes momentarily unavailable, the thread pool can very quickly accumulate many waiting requests. If, for example, the website is slashdotted or experiences some other temporary burst of traffic and the request rate rises from 400 to 500 requests per second, then 100 requests per second join those waiting for a JDBC connection. Typically, a web server's thread pool contains only a few hundred threads, so a burst or slow DB need only persist for a few seconds to consume the entire web server's thread pool. This is called thread starvation. The key issue with thread starvation is that it effects the entire web application, and potentially the entire web server. Even if the requests using the database are only a small proportion of the total requests on the web server, all requests are blocked because all the available threads are waiting on the JDBC connection pool. This represents non graceful degradation under load and provides a very poor quality of service.
+</p>
+<h3><span class="mw-headline" id="Prioritizing_Resources">Prioritizing Resources</span></h3>
+<p>Consider a web application that is under extreme load. This load might be due to a popularity spike (slashdot), usage burst (Christmas or close of business), or even a denial of service attack. During such periods of load, it is often desirable not to treat all requests as equals, and to give priority to high value customers or administrative users.
+</p><p>The typical behaviour of a web server under extreme load is to use all its threads to service requests and to build up a backlog of unserviced requests. If the backlog grows deep enough, then requests start to timeout and users experience failures as well as delays.
+</p><p>Ideally, the web application should be able to examine the requests in the backlog, and give priority to high value customers and administrative users. But with the standard blocking servlet API, it is not possible to examine a request without allocating a thread to that request for the duration of its handling. There is no way to delay the handling of low priority requests, so if the resources are to be reallocated, then the low priority requests must all be failed.
+</p>
+<h2><span class="mw-headline" id="Applying_the_QoSFilter">Applying the QoSFilter</span></h2>
+<p>The Quality of Service Filter (QoSFilter) uses <a title="Jetty/Feature/Continuations" href="../Feature/Continuations.html">Continuations</a> to avoid thread starvation, prioritize requests and give graceful degradation under load, to provide a high quality of service. When you apply the filter to specific URLs within a web application, it limits the number of active requests being handled for those URLs. Any requests in excess of the limit are suspended. When a request completes handling the limited URL, one of the waiting requests resumes and can be handled. You can assign priorities to each suspended request, so that high priority requests resume before lower prority requests.
+</p>
+<h3><span id="Required_JARs" class="mw-headline">Required JARs</span></h3>
+<p>To use the QoS Filter, these JAR files must be available in WEB-INF/lib:
+</p>
+<ul><li> $JETTY_HOME/lib/ext/jetty-util.jar</li>
+<li> $JETTY_HOME/lib/ext/jetty-servlets.jar–contains QoSFilter</li></ul>
+<h3><span id="Sample_Configuration" class="mw-headline">Sample Configuration</span></h3>
+<p>Place the configuration in a webapp's web.xml or <a rel="nofollow" class="external text" href="http://wiki.eclipse.org/Jetty/Reference/jetty-web.xml">jetty-web.xml</a> The default configuration processes ten requests at a time, servicing more important requests first, and queuing up the rest. This example processes fifty requests at a time:
+</p>
+<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="xml source-xml"><pre class="de1"> <span class="sc3"><span class="re1">&lt;filter<span class="re2">&gt;</span></span></span>
+   <span class="sc3"><span class="re1">&lt;filter-name<span class="re2">&gt;</span></span></span>QoSFilter<span class="sc3"><span class="re1">&lt;/filter-name<span class="re2">&gt;</span></span></span>
+   <span class="sc3"><span class="re1">&lt;filter-class<span class="re2">&gt;</span></span></span>org.eclipse.jetty.servlets.QoSFilter<span class="sc3"><span class="re1">&lt;/filter-class<span class="re2">&gt;</span></span></span>
+   <span class="sc3"><span class="re1">&lt;init-param<span class="re2">&gt;</span></span></span>
+     <span class="sc3"><span class="re1">&lt;param-name<span class="re2">&gt;</span></span></span>maxRequests<span class="sc3"><span class="re1">&lt;/param-name<span class="re2">&gt;</span></span></span>
+     <span class="sc3"><span class="re1">&lt;param-value<span class="re2">&gt;</span></span></span>50<span class="sc3"><span class="re1">&lt;/param-value<span class="re2">&gt;</span></span></span>
+   <span class="sc3"><span class="re1">&lt;/init-param<span class="re2">&gt;</span></span></span>
+ <span class="sc3"><span class="re1">&lt;/filter<span class="re2">&gt;</span></span></span></pre></div></div>
+<h3><span class="mw-headline" id="Configuring_QoS_Filter_Parameters">Configuring QoS Filter Parameters</span></h3>
+<p>A <a href="http://download.oracle.com/javase/1.5.0/docs/api/java/util/concurrent/Semaphore.html" rel="nofollow" class="external text">semaphore</a> polices the "maxRequests" limit. The filter waits a short time while attempting to acquire the semaphore. The "waitMs" init parameter controls the wait, avoiding the expense of a suspend if the semaphore is shortly available. If the semaphore cannot be obtained, Jetty suspends the request for the default suspend period of the container or the value set as the "suspendMs" init parameter.
+</p><p>The QoS filter uses the following init parameters:
+</p>
+<ul><li> <tt>maxRequests</tt>–the maximum number of requests to be serviced at a time. The default is 10.</li>
+<li> <tt>maxPriority</tt>–the maximum valid priority that can be assigned to a request. A request with a high priority value is more important than a request with a low priority value. The default is 10.</li>
+<li> <tt>waitMS</tt>–length of time, in milliseconds, to wait while trying to accept a new request. Used when the maxRequests limit is reached. Default is 50 ms.</li>
+<li> <tt>suspendMS</tt>–length of time, in milliseconds, that the request will be suspended if it is not accepted immediately. If not set, the container's default suspend period applies. Default is -1 ms.</li>
+<li> <tt>managedAttr</tt>–If set to true, then this servlet is set as a <a href="http://download.oracle.com/javaee/5/api/javax/servlet/ServletContext.html" rel="nofollow" class="external text">ServletContext</a> attribute with the filter name as the attribute name. This allows a context external mechanism (for example,  JMX via ContextHandler.MANAGED_ATTRIBUTES) to manage the configuration of the filter.</li></ul>
+<h3><span id="Mapping_to_URLs" class="mw-headline">Mapping to URLs</span></h3>
+<p>You can use the <code>&lt;filter-mapping&gt;</code> syntax to map the QoSFilter to a servlet, either by using the servlet name, or by using a URL pattern. In this example, a URL pattern applies the QoSFilter to every request within the web application context:
+</p>
+<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="xml source-xml"><pre class="de1"> <span class="sc3"><span class="re1">&lt;filter-mapping<span class="re2">&gt;</span></span></span>
+   <span class="sc3"><span class="re1">&lt;filter-name<span class="re2">&gt;</span></span></span>QoSFilter<span class="sc3"><span class="re1">&lt;/filter-name<span class="re2">&gt;</span></span></span>
+   <span class="sc3"><span class="re1">&lt;url-pattern<span class="re2">&gt;</span></span></span>/*<span class="sc3"><span class="re1">&lt;/url-pattern<span class="re2">&gt;</span></span></span>
+ <span class="sc3"><span class="re1">&lt;/filter-mapping<span class="re2">&gt;</span></span></span></pre></div></div>
+<h3><span id="Setting_the_Request_Priority" class="mw-headline">Setting the Request Priority</span></h3>
+<p>Requests with higher values have a higher priority. The default request priorities assigned by the QoSFilter are:
+</p>
+<ul><li> 2–For any authenticated request</li>
+<li> 1–For any request with a non-new valid session</li>
+<li> 0–For all other requests</li></ul>
+<p>To customize the priority, subclass QoSFilter and then override the getPriority(ServletRequest request) method to return an appropriate priority for the request. You can then use this subclass as your QoS filter. Here's a trivial example:
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="java source-java"><pre class="de1"> <span class="kw1">public</span> <span class="kw1">class</span> ParsePriorityQoSFilter <span class="kw1">extends</span> QoSFilter
+ <span class="br0">{</span>
+     <span class="kw1">protected</span> <span class="kw4">int</span> getPriority<span class="br0">(</span>ServletRequest request<span class="br0">)</span>
+     <span class="br0">{</span>
+         <span class="kw3">String</span> p <span class="sy0">=</span> <span class="br0">(</span><span class="br0">(</span>HttpServletRequest<span class="br0">)</span>request<span class="br0">)</span>.<span class="me1">getParameter</span><span class="br0">(</span><span class="st0">"priority"</span><span class="br0">)</span><span class="sy0">;</span>
+         <span class="kw1">if</span> <span class="br0">(</span>p<span class="sy0">!=</span><span class="kw2">null</span><span class="br0">)</span>
+             <span class="kw1">return</span> <span class="kw3">Integer</span>.<span class="me1">parseInt</span><span class="br0">(</span>p<span class="br0">)</span><span class="sy0">;</span>
+         <span class="kw1">return</span> <span class="nu0">0</span><span class="sy0">;</span>
+     <span class="br0">}</span>
+ <span class="br0">}</span></pre></div></div>
+
+<!-- 
+NewPP limit report
+Cached time: 20211116202333
+Cache expiry: 86400
+Dynamic content: false
+CPU time usage: 0.116 seconds
+Real time usage: 0.125 seconds
+Preprocessor visited node count: 66/1000000
+Preprocessor generated node count: 390/1000000
+Post‐expand include size: 9795/2097152 bytes
+Template argument size: 8446/2097152 bytes
+Highest expansion depth: 5/40
+Expensive parser function count: 0/100
+-->
+
+<!-- 
+Transclusion expansion time report (%,ms,calls,template)
+100.00%   64.153      1 - -total
+100.00%   64.153      1 - Template:Jetty_Reference
+ 15.00%    9.620      1 - Template:Jetty_Redirect
+ 10.24%    6.570      1 - Template:Message
+  6.57%    4.215      1 - Template:Jetty
+-->
+
+<!-- Saved in parser cache with key my_wiki:pcache:idhash:26181-0!*!0!!en!5!* and timestamp 20211116202332 and revision id 334947
+ -->
+</div>
+                                      <!-- catlinks -->
+                    <div id="catlinks" class="catlinks"><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="https://wiki.eclipse.org/Special:Categories" title="Special:Categories">Categories</a>: <ul><li><a href="https://wiki.eclipse.org/Category:Jetty" title="Category:Jetty">Jetty</a></li><li><a href="https://wiki.eclipse.org/Category:Jetty_Reference" title="Category:Jetty Reference">Jetty Reference</a></li></ul></div></div>                     <!-- /catlinks -->
+                                  </div>
+              </div>
+            </div>
+          </div>
+</body>
+</html>

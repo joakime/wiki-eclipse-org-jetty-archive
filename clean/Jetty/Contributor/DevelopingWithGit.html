@@ -1,0 +1,144 @@
+<html>
+<head>
+    <title>Jetty WTP Plugin</title>
+    <link rel="stylesheet" media="screen, print" href="wiki-style.css"/>
+</head>
+<body>
+<div class="col-md-20" id="mainContent">
+                      <ul class="nav nav-tabs noprint hidden-print" role="tablist">
+                       <li class="active" id="ca-nstab-main"><a accesskey="c" title="View the content page [c]" href="DevelopingWithGit.html" tabindex="-1">Page</a></li>
+                        <li id="ca-talk" class="new"><a accesskey="t" title="Discussion about the content page [t]" href="edit" tabindex="-1">Discussion</a></li>
+                        <li id="ca-viewsource"><a accesskey="e" title="This page is protected.&#10;You can view its source [e]" tabindex="-1" href="edit">View source</a></li>
+                        <li class="collapsible" id="ca-history"><a title="Past revisions of this page [h]" accesskey="h" href="edit" tabindex="-1">History</a></li>
+                      </ul>            <div class="tab-content background-white">
+              <div id="tab-pane-main-page-content" class="tab-pane active">
+
+                
+                <h1 class="firstHeading page-header" id="firstHeading">
+                  <span dir="auto">Jetty/Contributor/DevelopingWithGit</span>
+                </h1>
+                <div id="main-page-content">
+                                                      <!-- subtitle -->
+                  <div class="alert alert-small alert-warning" id="contentSub"><span class="subpages">&lt; <a href="../../Jetty.html" title="Jetty">Jetty</a>‎ | <a href="../Contributor.html" title="Jetty/Contributor">Contributor</a></span></div>
+                  <!-- /subtitle -->
+                  
+                  
+                  <div class="mw-content-ltr" id="mw-content-text" dir="ltr" lang="en"><p><br/>
+</p>
+<div style="background-color: #def3fe; border: 1px solid #c5d7e0; color: black; padding: 5px; margin: 1ex 0; min-height: 35px; padding-left: 45px;" class="messagebox">
+<div style="float: left; margin-left: -40px;"><a href="https://wiki.eclipse.org/File:Note.png" class="image"><img alt="Note.png" height="35" src="../../images/c/cc/Note.png" width="35"/></a></div>
+<div><b>Note:</b><br/>The contents of this page are old and deprecated.</div>
+</div>
+<p><br/>
+</p>
+<div id="toc" class="toc"><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="DevelopingWithGit.html#DEPRECATED:_Obtaining_code_via_GIT"><span class="tocnumber">1</span> <span class="toctext">DEPRECATED: Obtaining code via GIT</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="DevelopingWithGit.html#Installing_Eclipse_Plugins"><span class="tocnumber">2</span> <span class="toctext">Installing Eclipse Plugins</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="DevelopingWithGit.html#Importing_into_Eclipse"><span class="tocnumber">3</span> <span class="toctext">Importing into Eclipse</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="DevelopingWithGit.html#Using_GIT_From_a_Subversion_User_Point_of_View"><span class="tocnumber">4</span> <span class="toctext">Using GIT From a Subversion User Point of View</span></a></li>
+</ul>
+</div>
+
+<h2><span id="DEPRECATED:_Obtaining_code_via_GIT" class="mw-headline">DEPRECATED: Obtaining code via GIT</span></h2>
+<p>Jetty has its source control on dev.eclipse.org, which is accessible via two different URLs.
+</p>
+<ul><li> Anonymous, read-only access: <a href="http://dev.eclipse.org/svnroot/rt/org.eclipse.jetty/" rel="nofollow" class="external free">http://dev.eclipse.org/svnroot/rt/org.eclipse.jetty/</a></li>
+<li> Developers, read-write, requires an account on dev.eclipse.org: svn+<a href="ssh://{userid}@dev.eclipse.org/svnroot/rt/org.eclipse.jetty/" class="external free" rel="nofollow">ssh://{userid}@dev.eclipse.org/svnroot/rt/org.eclipse.jetty/</a></li></ul>
+<p>Choose your access technique and follow along:
+</p>
+<ol><li>Make sure you have git-svn installed.  You can do that by checking if there is help for you:<br/><pre>git svn --help</pre></li>
+<li>Use git-svn to clone the subversion tree to your local disk.  This pulls the jetty tree from Subversion, from the HEAD revision, via git-svn, to your local disk as a directory called "jetty". <br/><br/>The command line is a bit long, so here is a helper bash script to make this task a bit easier:</li></ol>
+<pre>#!/bin/bash
+JETTYSVNROOT=<a class="external free" rel="nofollow" href="http://dev.eclipse.org/svnroot/rt/org.eclipse.jetty/jetty">http://dev.eclipse.org/svnroot/rt/org.eclipse.jetty/jetty</a>
+git svn clone -r HEAD \
+ --branches $JETTYSVNROOT/branches \
+ --tags $JETTYSVNROOT/tags \
+ --trunk $JETTYSVNROOT/trunk \
+ $JETTYSVNROOT
+</pre>
+<p>You now have the codebase in git format to work with.
+</p>
+<div style="background-color: #def3fe; border: 1px solid #c5d7e0; color: black; padding: 5px; margin: 1ex 0; min-height: 35px; padding-left: 45px;" class="messagebox">
+<div style="float: left; margin-left: -40px;"><a class="image" href="https://wiki.eclipse.org/File:Note.png"><img alt="Note.png" height="35" width="35" src="../../images/c/cc/Note.png"/></a></div>
+<div><b>Note:</b><br/>You execute the "git svn clone" command  only once. See the section below, <i>Using GIT From a Subversion User Point of View</i>, to learn about other git commands.</div>
+</div>
+<p><br/>
+</p>
+<h2><span id="Installing_Eclipse_Plugins" class="mw-headline">Installing Eclipse Plugins</span></h2>
+<p>We recommend these Eclipse plugins:
+</p>
+<ul><li>Maven Integration - m2eclipse</li></ul>
+<p>Update Site: <a href="http://m2eclipse.sonatype.org/update" class="external free" rel="nofollow">http://m2eclipse.sonatype.org/update</a>
+</p>
+<ul><li>GIT Team Provider - jgit</li></ul>
+<p>Update Site: <a href="http://www.jgit.org/updates" rel="nofollow" class="external free">http://www.jgit.org/updates</a>
+</p>
+<h2><span id="Importing_into_Eclipse" class="mw-headline">Importing into Eclipse</span></h2>
+<div style="background-color: #def3fe; border: 1px solid #c5d7e0; color: black; padding: 5px; margin: 1ex 0; min-height: 35px; padding-left: 45px;" class="messagebox">
+<div style="float: left; margin-left: -40px;"><a href="https://wiki.eclipse.org/File:Idea.png" class="image"><img width="35" src="../../images/a/a4/Idea.png" height="35" alt="Idea.png"/></a></div>
+<div><b>Build the checked out codebase on the command line to make the various dependencies available for use in Eclipse.  See <a class="mw-redirect" href="https://wiki.eclipse.org/Building" title="Building">Building</a> for details. (This is likely to improve in the future with more m2eclipse plugin releases).</b><br/></div>
+</div>
+<p><br/>
+To import Jetty into Eclipse:
+</p>
+<ol><li> Start Eclipse.</li>
+<li> Ensure that the recommended Eclipse plugins listed above are installed.</li>
+<li> Open the "Import Maven Projects" dialog by going to File &gt; Import ... &gt; General &gt; Maven Projects<b>. </b></li>
+<li> Browse to the 'git-svn' cloned directory for Jetty and import all projects.</li></ol>
+<h2><span id="Using_GIT_From_a_Subversion_User_Point_of_View" class="mw-headline">Using GIT From a Subversion User Point of View</span></h2>
+<p>Git, like Subversion, is at home on the command line. Unlike Subversion, Git can operate entirely without network access. When you modify files and commit your changes, you are only commiting them to the local Git repository that you have recently checked out. Those changes do not exist outside of your own personal Git repository.
+</p><p>The <a class="external text" rel="nofollow" href="http://git.or.cz/course/svn.html">Git - SVN Crash Course</a> is a good reference for those familiar with Subversion, but new to Git.  The crash course gives a comparison of popular Subversion commands and what their Git equivalents are.
+</p><p>Here are a few of the most common git commands.
+</p>
+<dl><dt> git svn rebase</dt>
+<dd> Performs an update from the Subversion repository at dev.eclipse.org to your local Git repository, of the active branch, followed by a merge of active content into your local changes.</dd>
+<dt> git svn dcommit</dt>
+<dd> Performs a push of the changes in your active Git repository branch to the Subversion repository at dev.eclipse.org.</dd>
+<dt> git commit</dt>
+<dd> Performs a local commit of changes to your local Git repository.</dd>
+<dt> git status</dt>
+<dd> Shows the status of the changes made in your working directory (pending commits, modified files, untracked files, etc...).</dd>
+<dt> git log</dt>
+<dd> Shows a log of changes in your local Git repository.</dd>
+<dd> NOTE: Your local changes are always at the top of this log; other entries below your changes show a 'git-svn-id' message indicating that it is content being tracked from the Subversion repository.</dd>
+<dt> git add {filename}</dt>
+<dd> Adds a file to the pending commit to your local Git repository.</dd></dl>
+<p><a href="https://wiki.eclipse.org/File:Eclipse-git-flows.png" class="image"><img width="800" src="../../images/9/9a/Eclipse-git-flows.png" alt="Eclipse-git-flows.png" height="600"/></a>
+</p>
+<!-- 
+NewPP limit report
+Cached time: 20211115233920
+Cache expiry: 86400
+Dynamic content: false
+CPU time usage: 0.124 seconds
+Real time usage: 0.151 seconds
+Preprocessor visited node count: 150/1000000
+Preprocessor generated node count: 456/1000000
+Post‐expand include size: 3212/2097152 bytes
+Template argument size: 1425/2097152 bytes
+Highest expansion depth: 5/40
+Expensive parser function count: 0/100
+-->
+
+<!-- 
+Transclusion expansion time report (%,ms,calls,template)
+100.00%   37.489      1 - -total
+ 38.72%   14.517      3 - Template:Message
+ 38.52%   14.440      2 - Template:Note
+ 27.33%   10.244      1 - Template:Jetty_Contributor
+ 27.24%   10.211      1 - Template:Tip
+ 12.73%    4.772      1 - Template:Jetty
+-->
+
+<!-- Saved in parser cache with key my_wiki:pcache:idhash:21141-0!*!0!!en!5!* and timestamp 20211115233920 and revision id 294140
+ -->
+</div>
+                                      <!-- catlinks -->
+                    <div id="catlinks" class="catlinks"><div class="mw-normal-catlinks" id="mw-normal-catlinks"><a title="Special:Categories" href="https://wiki.eclipse.org/Special:Categories">Categories</a>: <ul><li><a href="https://wiki.eclipse.org/Category:Jetty" title="Category:Jetty">Jetty</a></li><li><a href="https://wiki.eclipse.org/Category:Jetty_Contributor" title="Category:Jetty Contributor">Jetty Contributor</a></li></ul></div></div>                     <!-- /catlinks -->
+                                  </div>
+              </div>
+            </div>
+          </div>
+</body>
+</html>

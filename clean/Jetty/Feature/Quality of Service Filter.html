@@ -1,0 +1,103 @@
+<html>
+<head>
+    <title>Jetty WTP Plugin</title>
+    <link rel="stylesheet" media="screen, print" href="wiki-style.css"/>
+</head>
+<body>
+<div id="mainContent" class="col-md-20">
+                      <ul class="nav nav-tabs noprint hidden-print" role="tablist">
+                       <li class="active" id="ca-nstab-main"><a title="View the content page [c]" accesskey="c" href="Quality of Service Filter.html" tabindex="-1">Page</a></li>
+                        <li id="ca-talk" class="new"><a accesskey="t" title="Discussion about the content page [t]" tabindex="-1" href="edit">Discussion</a></li>
+                        <li id="ca-viewsource"><a href="edit" tabindex="-1" title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></li>
+                        <li id="ca-history" class="collapsible"><a accesskey="h" title="Past revisions of this page [h]" tabindex="-1" href="edit">History</a></li>
+                      </ul>            <div class="tab-content background-white">
+              <div id="tab-pane-main-page-content" class="tab-pane active">
+
+                
+                <h1 id="firstHeading" class="firstHeading page-header">
+                  <span dir="auto">Jetty/Feature/Quality of Service Filter</span>
+                </h1>
+                <div id="main-page-content">
+                                                      <!-- subtitle -->
+                  <div class="alert alert-small alert-warning" id="contentSub"><span class="subpages">&lt; <a title="Jetty" href="../../Jetty.html">Jetty</a>‎ | <a title="Jetty/Feature" href="../Feature.html">Feature</a></span></div>
+                  <!-- /subtitle -->
+                  
+                  
+                  <div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="en"><p><br/>
+</p><p><br/>
+</p>
+<h2><span id="Introduction" class="mw-headline">Introduction</span></h2>
+<div style="background-color: #f9f6b7; border: 1px solid #c4c295; color: black; padding: 5px; margin: 1ex 0; min-height: 35px; padding-left: 45px; font-size: 150%; color: white; background-color: #FF8888; padding: 50px" class="messagebox">
+<div style="float: left; margin-left: -40px;"><a href="https://wiki.eclipse.org/File:Warning2.png" class="image"><img src="../../images/3/37/Warning2.png" height="35" width="35" alt="Warning2.png"/></a></div>
+<div>Jetty 7 and Jetty 8 are now EOL (End of Life)<br/>
+<p><br/>
+<br/>
+<br/>
+THIS IS NOT THE DOCUMENTATION YOU ARE LOOKING FOR!!!!!<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+All development and stable releases are being performed with Jetty 9 and Jetty 10.<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+This <b>wiki is now officially out of date</b> and all content has been moved to the <a href="http://www.eclipse.org/jetty/documentation" rel="nofollow" class="external text">Jetty Documentation Hub</a><br/> 
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+</p>
+Direct Link to updated documentation: <a rel="nofollow" href="http://www.eclipse.org/jetty/documentation/current/qos-filter.html" class="external free">http://www.eclipse.org/jetty/documentation/current/qos-filter.html</a></div>
+</div>
+<p><br/>
+The blocking nature of the standard servlet API makes it impossible to implement web applications that can guarantee some level of <a rel="nofollow" href="http://en.wikipedia.org/wiki/Quality_of_service" class="external text">Quality of Service (QoS)</a>. Threads and memory are limited resources within a servlet container, yet with the standard servlet API, the only way to handle a HTTP request is with a thread allocated for the entire duration of the request. If a request is of low priority, or if other resources needed by the request are not available, then it is not possible to reuse the thread allocated to the request for high priority requests or requests that can proceed.
+</p>
+<h2><span class="mw-headline" id="Feature">Feature</span></h2>
+<p>Jetty supports <a href="Continuations.html" title="Jetty/Feature/Continuations">Continuations</a>, which allows non-blocking handling of HTTP requests, so that that threads may be allocated in a managed way to provide application specific QoS. The <a rel="nofollow" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/servlets/QoSFilter.html" class="external text">QoSFilter</a> is a utility servlet filter that uses <a title="Jetty/Feature/Continuations" href="Continuations.html">Continuations</a> to implement some QoS features.
+</p>
+<h2><span id="Additional_Resources" class="mw-headline">Additional Resources</span></h2>
+<p>Check out the QoSFilter <a title="Jetty/Reference/QoSFilter" href="../Reference/QoSFilter.html">reference guide</a> for more information and configuration instructions.
+</p>
+<!-- 
+NewPP limit report
+Cached time: 20211116083708
+Cache expiry: 86400
+Dynamic content: false
+CPU time usage: 0.080 seconds
+Real time usage: 0.089 seconds
+Preprocessor visited node count: 56/1000000
+Preprocessor generated node count: 320/1000000
+Post‐expand include size: 4431/2097152 bytes
+Template argument size: 3033/2097152 bytes
+Highest expansion depth: 5/40
+Expensive parser function count: 0/100
+-->
+
+<!-- 
+Transclusion expansion time report (%,ms,calls,template)
+100.00%   20.367      1 - -total
+100.00%   20.367      1 - Template:Jetty_Feature
+ 48.91%    9.962      1 - Template:Jetty_Redirect
+ 31.92%    6.502      1 - Template:Message
+ 21.88%    4.456      1 - Template:Jetty
+-->
+
+<!-- Saved in parser cache with key my_wiki:pcache:idhash:25948-0!*!0!!*!5!* and timestamp 20211116083708 and revision id 334944
+ -->
+</div>
+                                      <!-- catlinks -->
+                    <div id="catlinks" class="catlinks"><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a title="Special:Categories" href="https://wiki.eclipse.org/Special:Categories">Categories</a>: <ul><li><a href="https://wiki.eclipse.org/Category:Jetty" title="Category:Jetty">Jetty</a></li><li><a href="https://wiki.eclipse.org/Category:Jetty_Feature" title="Category:Jetty Feature">Jetty Feature</a></li></ul></div></div>                     <!-- /catlinks -->
+                                  </div>
+              </div>
+            </div>
+          </div>
+</body>
+</html>

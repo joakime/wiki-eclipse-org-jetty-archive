@@ -1,0 +1,602 @@
+<html>
+<head>
+    <title>Jetty WTP Plugin</title>
+    <link rel="stylesheet" media="screen, print" href="wiki-style.css"/>
+</head>
+<body>
+<div class="col-md-20" id="mainContent">
+                      <ul class="nav nav-tabs noprint hidden-print" role="tablist">
+                       <li class="active" id="ca-nstab-main"><a href="Use the Dump Feature.html" accesskey="c" title="View the content page [c]" tabindex="-1">Page</a></li>
+                        <li id="ca-talk"><a href="https://wiki.eclipse.org/Talk:Jetty/Howto/Use_the_Dump_Feature" accesskey="t" title="Discussion about the content page [t]" tabindex="-1">Discussion</a></li>
+                        <li id="ca-viewsource"><a accesskey="e" title="This page is protected.&#10;You can view its source [e]" tabindex="-1" href="edit">View source</a></li>
+                        <li id="ca-history" class="collapsible"><a href="edit" tabindex="-1" title="Past revisions of this page [h]" accesskey="h">History</a></li>
+                      </ul>            <div class="tab-content background-white">
+              <div id="tab-pane-main-page-content" class="tab-pane active">
+
+                
+                <h1 class="firstHeading page-header" id="firstHeading">
+                  <span dir="auto">Jetty/Howto/Use the Dump Feature</span>
+                </h1>
+                <div id="main-page-content">
+                                                      <!-- subtitle -->
+                  <div id="contentSub" class="alert alert-small alert-warning"><span class="subpages">&lt; <a href="../../Jetty.html" title="Jetty">Jetty</a>‎ | <a href="../Howto.html" title="Jetty/Howto">Howto</a></span></div>
+                  <!-- /subtitle -->
+                  
+                  
+                  <div dir="ltr" lang="en" id="mw-content-text" class="mw-content-ltr"><p><br/>
+</p><p><br/>
+</p>
+<div class="toc" id="toc"><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="Use the Dump Feature.html#Introduction"><span class="tocnumber">1</span> <span class="toctext">Introduction</span></a></li>
+<li class="toclevel-1"><a href="Use the Dump Feature.html#Configuring_the_Dump_Feature_in_jetty.xml"><span class="tocnumber">2</span> <span class="toctext">Configuring the Dump Feature in jetty.xml</span></a>
+<ul>
+<li class="toclevel-2"><a href="Use the Dump Feature.html#Extra_ThreadPool_Information"><span class="tocnumber">2.1</span> <span class="toctext">Extra ThreadPool Information</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1"><a href="Use the Dump Feature.html#Using_the_Dump_Feature_via_JMX"><span class="tocnumber">3</span> <span class="toctext">Using the Dump Feature via JMX</span></a></li>
+<li class="toclevel-1"><a href="Use the Dump Feature.html#Examining_a_Jetty_Hightide_Dump"><span class="tocnumber">4</span> <span class="toctext">Examining a Jetty Hightide Dump</span></a></li>
+</ul>
+</div>
+
+<h2><span id="Introduction" class="mw-headline">Introduction</span></h2>
+<div class="messagebox" style="background-color: #f9f6b7; border: 1px solid #c4c295; color: black; padding: 5px; margin: 1ex 0; min-height: 35px; padding-left: 45px; font-size: 150%; color: white; background-color: #FF8888; padding: 50px">
+<div style="float: left; margin-left: -40px;"><a class="image" href="https://wiki.eclipse.org/File:Warning2.png"><img width="35" alt="Warning2.png" src="../../images/3/37/Warning2.png" height="35"/></a></div>
+<div>Jetty 7 and Jetty 8 are now EOL (End of Life)<br/>
+<p><br/>
+<br/>
+<br/>
+THIS IS NOT THE DOCUMENTATION YOU ARE LOOKING FOR!!!!!<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+All development and stable releases are being performed with Jetty 9 and Jetty 10.<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+This <b>wiki is now officially out of date</b> and all content has been moved to the <a class="external text" href="http://www.eclipse.org/jetty/documentation" rel="nofollow">Jetty Documentation Hub</a><br/> 
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+</p>
+Direct Link to updated documentation: <a class="external free" rel="nofollow" href="http://www.eclipse.org/jetty/documentation/current/jetty-dump-tool.html">http://www.eclipse.org/jetty/documentation/current/jetty-dump-tool.html</a></div>
+</div>
+<p><br/>
+The dump feature in Jetty provides a good snapshot of the status of the threadpool, select sets, classloaders, and so forth. To get maximum detail from the dump, you need to <code>setDetailDump(true)</code> on any QueuedThreadPools you are using. You can do this by a direct call if you are embedding Jetty, or in <code>jetty.xml</code>.
+</p>
+<h2><span id="Configuring_the_Dump_Feature_in_jetty.xml" class="mw-headline">Configuring the Dump Feature in jetty.xml</span></h2>
+<p>You can request that Jetty does a dump immediately after staring and just before stopping by calling the appropriate setters on the Server instance.  This can be done in <code>jetty.xml</code> with:
+</p>
+<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="xml source-xml"><pre class="de1"><span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"dumpAfterStart"</span><span class="re2">&gt;</span></span>true<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
+<span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"dumpBeforeStop"</span><span class="re2">&gt;</span></span>true<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span></pre></div></div>
+<h3><span id="Extra_ThreadPool_Information" class="mw-headline">Extra ThreadPool Information</span></h3>
+<p>Additional detail can be dumped from the QueueudThreadPool if setDetailedDump(true) is called on the thread pool instance.    This can be done in <code>jetty.xml</code> as follows: 
+</p>
+<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="xml source-xml"><pre class="de1"><span class="sc3"><span class="re1">&lt;Configure</span> <span class="re0">id</span>=<span class="st0">"Server"</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.server.Server"</span><span class="re2">&gt;</span></span>
+  <span class="sc-1">&lt;!-- ==================================== --&gt;</span>
+  <span class="sc-1">&lt;!-- Server Thread Pool                                                                         --&gt;</span> 
+  <span class="sc-1">&lt;!-- ==================================== --&gt;</span>
+  <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"ThreadPool"</span><span class="re2">&gt;</span></span>
+     <span class="sc-1">&lt;!-- Default queued blocking threadpool --&gt;</span>
+     <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.util.thread.QueuedThreadPool"</span><span class="re2">&gt;</span></span>
+       <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"minThreads"</span><span class="re2">&gt;</span></span>10<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
+       <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"maxThreads"</span><span class="re2">&gt;</span></span>200<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
+       <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"detailedDump"</span><span class="re2">&gt;</span></span>true<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
+     <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span></pre></div></div>
+<h2><span class="mw-headline" id="Using_the_Dump_Feature_via_JMX">Using the Dump Feature via JMX</span></h2>
+<p>The dump method is on the Server instance and many of it's nested components (Handlers, Connectors etc.).  Dumps maybe obtained by calling these methods either in code or via JMX (see <a title="Jetty/Tutorial/JMX" href="../Tutorial/JMX.html">Configuring Jetty JMX</a>).
+</p><p>The Server MBean has a <code>dump()</code> method, which dumps everything, plus a <code>dumpStdErr()</code> operation that dumps to stderr rather than replying to jconsole. 
+</p>
+<h2><span id="Examining_a_Jetty_Hightide_Dump" class="mw-headline">Examining a Jetty Hightide Dump</span></h2>
+<p>This is a dump of jetty-hightide with two cometd clients running: 
+</p>
+<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="text source-text"><pre class="de1">^Corg.eclipse.jetty.server.Server@4178460d STOPPING 
+ 
+ +- org.eclipse.jetty.server.handler.HandlerCollection@16aeea66 STARTED
+ |   +- org.eclipse.jetty.server.handler.ContextHandlerCollection@ffdadcd STARTED 
+ |   |   +- o.e.j.w.WebAppContext{/cometd,file:/tmp/jetty-0.0.0.0-8080-cometd.war-_cometd-any-/webapp/},/home/gregw/src
+/jetty-hightide-7/jetty-hightide/target/hightide/webapps/cometd.war STARTED 
+ |   |   |   +- WebAppClassLoader=Cometd Test WebApp@5815338
+ |   |   |   |   +- file:/tmp/jetty-0.0.0.0-8080-cometd.war-_cometd-any-/webapp/WEB-INF/classes/ 
+ |   |   |   |   +- file:/tmp/jetty-0.0.0.0-8080-cometd.war-_cometd-any-/webapp/WEB-INF/lib/jsr250-api-1.0.jar 
+ |   |   |   |   +- file:/tmp/jetty-0.0.0.0-8080-cometd.war-_cometd-any-/webapp/WEB-INF/lib/cometd-java-oort-2.1.0.jar 
+ |   |   |   |   +- file:/tmp/jetty-0.0.0.0-8080-cometd.war-_cometd-any-/webapp/WEB-INF/lib/cometd-java-client-2.1.0.jar 
+ |   |   |   |   +- file:/tmp/jetty-0.0.0.0-8080-cometd.war-_cometd-any-/webapp/WEB-INF/lib/jetty-continuation-7.3.0.v20110203.jar 
+ |   |   |   |   +- file:/tmp/jetty-0.0.0.0-8080-cometd.war-_cometd-any-/webapp/WEB-INF/lib/jetty-io-7.3.0.v20110203.jar 
+ |   |   |   |   +- file:/tmp/jetty-0.0.0.0-8080-cometd.war-_cometd-any-/webapp/WEB-INF/lib/cometd-java-common-2.1.0.jar 
+ |   |   |   |   +- file:/tmp/jetty-0.0.0.0-8080-cometd.war-_cometd-any-/webapp/WEB-INF/lib/jetty-util-7.3.0.v20110203.jar 
+ |   |   |   |   +-  file:/tmp/jetty-0.0.0.0-8080-cometd.war-_cometd-any-/webapp/WEB-INF/lib/cometd-java-annotations-2.1.0.jar 
+ |   |   |   |   +- file:/tmp/jetty-0.0.0.0-8080-cometd.war-_cometd-any-/webapp/WEB-INF/lib/javax.inject-1.jar 
+ |   |   |   |   +- file:/tmp/jetty-0.0.0.0-8080-cometd.war-_cometd-any-/webapp/WEB-INF/lib/bayeux-api-2.1.0.jar 
+ |   |   |   |   +- file:/tmp/jetty-0.0.0.0-8080-cometd.war-_cometd-any-/webapp/WEB-INF/lib/jetty-client-7.3.0.v20110203.jar 
+ |   |   |   |   +- file:/tmp/jetty-0.0.0.0-8080-cometd.war-_cometd-any-/webapp/WEB-INF/lib/jetty-http-7.3.0.v20110203.jar 
+ |   |   |   |   +- file:/tmp/jetty-0.0.0.0-8080-cometd.war-_cometd-any-/webapp/WEB-INF/lib/jetty-servlets-7.3.0.v20110203.jar 
+ |   |   |   |   +- file:/tmp/jetty-0.0.0.0-8080-cometd.war-_cometd-any-/webapp/WEB-INF/lib/cometd-java-server-2.1.0.jar 
+ |   |   |   |   +- file:/tmp/jetty-0.0.0.0-8080-cometd.war-_cometd-any-/webapp/WEB-INF/lib/jetty-jmx-7.3.0.v20110203.jar 
+ |   |   |   |   |  |   |   |   |   +- startJarLoader@3934f69a
+ |   |   |   |       +- file:/home/gregw/src/jetty-hightide-7/jetty-hightide/target/hightide/lib/jetty-xml-7.3.1-SNAPSHOT.jar 
+ |   |   |   |       +- file:/home/gregw/src/jetty-hightide-7/jetty-hightide/target/hightide/lib/servlet-api-2.5.jar 
+ |   |   |   |       +- file:/home/gregw/src/jetty-hightide-7/jetty-hightide/target/hightide/lib/jetty-http-7.3.1-SNAPSHOT.jar 
+ |   |   |   |       +- file:/home/gregw/src/jetty-hightide-7/jetty-hightide/target/hightide/lib/jetty-continuation-7.3.1-SNAPSHOT.jar 
+ |   |   |   |       +- file:/home/gregw/src/jetty-hightide-7/jetty-hightide/target/hightide/lib/jetty-server-7.3.1-SNAPSHOT.jar 
+ |   |   |   |       +- file:/home/gregw/src/jetty-hightide-7/jetty-hightide/target/hightide/lib/jetty-security-7.3.1-SNAPSHOT.jar 
+ |   |   |   |       +- file:/home/gregw/src/jetty-hightide-7/jetty-hightide/target/hightide/lib/jetty-servlet-7.3.1-SNAPSHOT.jar 
+ |   |   |   |       +- file:/home/gregw/src/jetty-hightide-7/jetty-hightide/target/hightide/lib/jetty-webapp-7.3.1-SNAPSHOT.jar 
+ |   |   |   |       +- file:/home/gregw/src/jetty-hightide-7/jetty-hightide/target/hightide/lib/jetty-deploy-7.3.1-SNAPSHOT.jar 
+ |   |   |   |       +- file:/home/gregw/src/jetty-hightide-7/jetty-hightide/target/hightide/lib/jetty-servlets-7.3.1-SNAPSHOT.jar 
+ |   |   |   |       +- file:/home/gregw/src/jetty-hightide-7/jetty-hightide/target/hightide/lib/jetty-annotations-7.3.1-SNAPSHOT.jar 
+ |   |   |   |       +- file:/home/gregw/src/jetty-hightide-7/jetty-hightide/target/hightide/lib/annotations/asm-3.1.jar 
+ |   |   |   |       +- file:/home/gregw/src/jetty-hightide-7/jetty-hightide/target/hightide/lib/annotations/asm-commons-3.1.jar 
+ |   |   |   |       +- file:/home/gregw/src/jetty-hightide-7/jetty-hightide/target/hightide/lib/annotations/asm-tree-3.1.jar 
+ |   |   |   |       +- file:/home/gregw/src/jetty-hightide-7/jetty-hightide/target/hightide/lib/annotations/geronimo-annotation_1.0_spec-1.1.1.jar 
+ |   |   |   |       +- file:/home/gregw/src/jetty-hightide-7/jetty-hightide/target/hightide/lib/annotations/javax.annotation_1.0.0.v20100513-0750.jar 
+ |   |   |   |       +- file:/home/gregw/src/jetty-hightide-7/jetty-hightide/target/hightide/lib/annotations/org.objectweb.asm_3.1.0.v200803061910.jar 
+ |   |   |   |       +- file:/home/gregw/src/jetty-hightide-7/jetty-hightide/target/hightide/lib/jdbc/derby/derby-10.6.1.0.jar 
+ |   |   |   |       +- file:/home/gregw/src/jetty-hightide-7/jetty-hightide/target/hightide/lib/jdbc/derby/derbytools-10.6.1.0.jar 
+ |   |   |   |       +- file:/home/gregw/src/jetty-hightide-7/jetty-hightide/target/hightide/lib/jetty-jmx-7.3.1-SNAPSHOT.jar 
+ |   |   |   |       +- file:/home/gregw/src/jetty-hightide-7/jetty-hightide/target/hightide/lib/jsp/com.sun.el_1.0.0.v201004190952.jar 
+ |   |   |   |       +- file:/home/gregw/src/jetty-hightide-7/jetty-hightide/target/hightide/lib/jsp/ecj-3.6.jar 
+ |   |   |   |       +- file:/home/gregw/src/jetty-hightide-7/jetty-hightide/target/hightide/lib/jsp/javax.el_2.1.0.v201004190952.jar 
+ |   |   |   |       +- file:/home/gregw/src/jetty-hightide-7/jetty-hightide/target/hightide/lib/jsp/javax.servlet.jsp_2.1.0.v201004190952.jar 
+ |   |   |   |       +- file:/home/gregw/src/jetty-hightide-7/jetty-hightide/target/hightide/lib/jsp/javax.servlet.jsp.jstl_1.2.0.v201004190952.jar 
+ |   |   |   |       +- file:/home/gregw/src/jetty-hightide-7/jetty-hightide/target/hightide/lib/jsp/jetty-jsp-2.1-7.3.1-SNAPSHOT.jar 
+ |   |   |   |       +- file:/home/gregw/src/jetty-hightide-7/jetty-hightide/target/hightide/lib/jsp/org.apache.jasper.glassfish_2.1.0.v201007080150.jar 
+ |   |   |   |       +- file:/home/gregw/src/jetty-hightide-7/jetty-hightide/target/hightide/lib/jsp/org.apache.taglibs.standard.glassfish_1.2.0.v201004190952.jar 
+ |   |   |   |       +- file:/home/gregw/src/jetty-hightide-7/jetty-hightide/target/hightide/lib/jta/javax.transaction_1.1.1.v201004190952.jar 
+ |   |   |   |       +- file:/home/gregw/src/jetty-hightide-7/jetty-hightide/target/hightide/lib/jta/atomikos/atomikos-util-3.6.4.jar 
+ |   |   |   |       +- file:/home/gregw/src/jetty-hightide-7/jetty-hightide/target/hightide/lib/jta/atomikos/transactions-3.6.4.jar 
+ |   |   |   |       +- file:/home/gregw/src/jetty-hightide-7/jetty-hightide/target/hightide/lib/jta/atomikos/transactions-api-3.6.4.jar 
+ |   |   |   |       +- file:/home/gregw/src/jetty-hightide-7/jetty-hightide/target/hightide/lib/jta/atomikos/transactions-jdbc-3.6.4.jar 
+ |   |   |   |       +- file:/home/gregw/src/jetty-hightide-7/jetty-hightide/target/hightide/lib/jta/atomikos/transactions-jta-3.6.4.jar 
+ |   |   |   |       +- file:/home/gregw/src/jetty-hightide-7/jetty-hightide/target/hightide/lib/jetty-jndi-7.3.1-SNAPSHOT.jar 
+ |   |   |   |       +- file:/home/gregw/src/jetty-hightide-7/jetty-hightide/target/hightide/lib/jetty-plus-7.3.1-SNAPSHOT.jar 
+ |   |   |   |       +- file:/home/gregw/src/jetty-hightide-7/jetty-hightide/target/hightide/lib/jndi/javax.activation_1.1.0.v201005080500.jar 
+ |   |   |   |       +- file:/home/gregw/src/jetty-hightide-7/jetty-hightide/target/hightide/lib/jndi/javax.mail.glassfish_1.4.1.v201005082020.jar 
+ |   |   |   |       +- file:/home/gregw/src/jetty-hightide-7/jetty-hightide/target/hightide/resources/ 
+ |   |   |   |       +- file:/home/gregw/src/jetty-hightide-7/jetty-hightide/target/hightide/lib/jetty-websocket-7.3.1-SNAPSHOT.jar 
+ |   |   |   |       +- file:/home/gregw/src/jetty-hightide-7/jetty-hightide/target/hightide/lib/jetty-util-7.3.1-SNAPSHOT.jar 
+ |   |   |   |       +- file:/home/gregw/src/jetty-hightide-7/jetty-hightide/target/hightide/lib/jetty-io-7.3.1-SNAPSHOT.jar 
+ |   |   |   |       |  |   |   |   |       +- sun.misc.Launcher$AppClassLoader@77cde100
+ |   |   |   |       +- file:/home/gregw/src/jetty-hightide-7/jetty-hightide/target/hightide/start.jar 
+ |   |   |   |       |  |   |   |   |       +- sun.misc.Launcher$ExtClassLoader@6d6f0472
+ |   |   |   |  |   |   |   +- org.eclipse.jetty.server.session.SessionHandler@79014e21 STARTED
+ |   |   |   |   +- org.eclipse.jetty.security.ConstraintSecurityHandler@30d1e7c2 STARTED 
+ |   |   |   |       +- org.eclipse.jetty.servlet.ServletHandler@7a19a37a STARTED 
+ |   |   |   |   |   |  |   |   |   |   |   |  |   |   |   |  |   +- [/cometd/*]/[]==0=&amp;gt;cross-origin
+ |   |   |   |   |   |  |   |   |   |   |   +- cross-origin==org.eclipse.jetty.servlets.CrossOriginFilter 
+ |   |   |   |   |   |  |   |   |   |   |   +- [/]=&gt;default
+ |   |   |   |       |   +- [*.jsp, *.jspf, *.jspx, *.xsp, *.JSP, *.JSPF, *.JSPX, *.XSP]=&amp;gt;jsp
+ |   |   |   |       |   +- [/cometd/*]=&amp;gt;cometd
+ |   |   |   |       |   |  |   |   |   |       |   +- default==org.eclipse.jetty.servlet.DefaultServlet
+ |   |   |   |       |   |   +- resourceCache=resourceCache
+ |   |   |   |       |   |   +- maxCacheSize=256000000
+ |   |   |   |       |   |   +- dirAllowed=true
+ |   |   |   |       |   |   +- gzip=true
+ |   |   |   |       |   |   +- maxCachedFileSize=200000000
+ |   |   |   |       |   |   +- redirectWelcome=false
+ |   |   |   |       |   |   +- acceptRanges=true
+ |   |   |   |       |   |   +- welcomeServlets=false
+ |   |   |   |       |   |   +- aliases=false
+ |   |   |   |       |   |   +- useFileMappedBuffer=true
+ |   |   |   |       |   |   +- maxCachedFiles=2048
+ |   |   |   |       |   +- jsp==org.apache.jasper.servlet.JspServlet
+ |   |   |   |       |   |   +- logVerbosityLevel=DEBUG
+ |   |   |   |       |   |   +- fork=false
+ |   |   |   |       |   |   +-
+ 
+com.sun.appserv.jsp.classpath=/home/gregw/src/jetty-hightide-7/jetty-hightide/target/hightide/lib
+/jetty-xml-7.3.1-SNAPSHOT.jar:/home/gregw/src/jetty-hightide-7/jetty-hightide/target/hightide/lib
+/servlet-api-2.5.jar:/home/gregw/src/jetty-hightide-7/jetty-hightide/target/hightide/lib
+/jetty-http-7.3.1-SNAPSHOT.jar:/home/gregw/src/jetty-hightide-7/jetty-hightide/target/hightide/lib
+/jetty-continuation-7.3.1-SNAPSHOT.jar:/home/gregw/src/jetty-hightide-7/jetty-hightide/target/hightide/lib
+/jetty-server-7.3.1-SNAPSHOT.jar:/home/gregw/src/jetty-hightide-7/jetty-hightide/target/hightide/lib
+/jetty-security-7.3.1-SNAPSHOT.jar:/home/gregw/src/jetty-hightide-7/jetty-hightide/target/hightide/lib
+/jetty-servlet-7.3.1-SNAPSHOT.jar:/home/gregw/src/jetty-hightide-7/jetty-hightide/target/hightide/lib
+/jetty-webapp-7.3.1-SNAPSHOT.jar:/home/gregw/src/jetty-hightide-7/jetty-hightide/target/hightide/lib
+/jetty-deploy-7.3.1-SNAPSHOT.jar:/home/gregw/src/jetty-hightide-7/jetty-hightide/target/hightide/lib
+/jetty-servlets-7.3.1-SNAPSHOT.jar:/home/gregw/src/jetty-hightide-7/jetty-hightide/target/hightide/lib
+/jetty-annotations-7.3.1-SNAPSHOT.jar:/home/gregw/src/jetty-hightide-7/jetty-hightide/target/hightide/lib
+/annotations/asm-3.1.jar:/home/gregw/src/jetty-hightide-7/jetty-hightide/target/hightide/lib
+/annotations/asm-commons-3.1.jar:/home/gregw/src/jetty-hightide-7/jetty-hightide/target/hightide/lib
+/annotations/asm-tree-3.1.jar:/home/gregw/src/jetty-hightide-7/jetty-hightide/target/hightide/lib
+/annotations/geronimo-annotation_1.0_spec-1.1.1.jar:/home/gregw/src/jetty-hightide-7/jetty-hightide/target/hightide/lib
+/annotations/javax.annotation_1.0.0.v20100513-0750.jar:/home/gregw/src/jetty-hightide-7
+/jetty-hightide/target/hightide/lib/annotations/org.objectweb.asm_3.1.0.v200803061910.jar:/home/gregw/src/jetty-hightide-7
+/jetty-hightide/target/hightide/lib/jdbc/derby/derby-10.6.1.0.jar:/home/gregw/src/jetty-hightide-7
+/jetty-hightide/target/hightide/lib/jdbc/derby/derbytools-10.6.1.0.jar:/home/gregw/src/jetty-hightide-7
+/jetty-hightide/target/hightide/lib/jetty-jmx-7.3.1-SNAPSHOT.jar:/home/gregw/src/jetty-hightide-7
+/jetty-hightide/target/hightide/lib/jsp/com.sun.el_1.0.0.v201004190952.jar:/home/gregw/src/jetty-hightide-7
+/jetty-hightide/target/hightide/lib/jsp/ecj-3.6.jar:/home/gregw/src/jetty-hightide-7/jetty-hightide/target/hightide/lib
+/jsp/javax.el_2.1.0.v201004190952.jar:/home/gregw/src/jetty-hightide-7/jetty-hightide/target/hightide/lib
+/jsp/javax.servlet.jsp_2.1.0.v201004190952.jar:/home/gregw/src/jetty-hightide-7
+/jetty-hightide/target/hightide/lib/jsp/javax.servlet.jsp.jstl_1.2.0.v201004190952.jar:/home/gregw/src/jetty-hightide-7
+/jetty-hightide/target/hightide/lib/jsp/jetty-jsp-2.1-7.3.1-SNAPSHOT.jar:/home/gregw/src/jetty-hightide-7
+/jetty-hightide/target/hightide/lib/jsp/org.apache.jasper.glassfish_2.1.0.v201007080150.jar:/home/gregw/src/jetty-hightide-7
+/jetty-hightide/target/hightide/lib/jsp/org.apache.taglibs.standard.glassfish_1.2.0.v201004190952.jar:/home/gregw/src/jetty-hightide-7
+/jetty-hightide/target/hightide/lib/jta/javax.transaction_1.1.1.v201004190952.jar:/home/gregw/src/jetty-hightide-7
+/jetty-hightide/target/hightide/lib/jta/atomikos/atomikos-util-3.6.4.jar:/home/gregw/src/jetty-hightide-7
+/jetty-hightide/target/hightide/lib/jta/atomikos/transactions-3.6.4.jar:/home/gregw/src/jetty-hightide-7
+/jetty-hightide/target/hightide/lib/jta/atomikos/transactions-api-3.6.4.jar:/home/gregw/src/jetty-hightide-7
+/jetty-hightide/target/hightide/lib/jta/atomikos/transactions-jdbc-3.6.4.jar:/home/gregw/src/jetty-hightide-7
+/jetty-hightide/target/hightide/lib/jta/atomikos/transactions-jta-3.6.4.jar:/home/gregw/src/jetty-hightide-7
+/jetty-hightide/target/hightide/lib/jetty-jndi-7.3.1-SNAPSHOT.jar:/home/gregw/src/jetty-hightide-7
+/jetty-hightide/target/hightide/lib/jetty-plus-7.3.1-SNAPSHOT.jar:/home/gregw/src/jetty-hightide-7
+/jetty-hightide/target/hightide/lib/jndi/javax.activation_1.1.0.v201005080500.jar:/home/gregw/src/jetty-hightide-7
+/jetty-hightide/target/hightide/lib/jndi/javax.mail.glassfish_1.4.1.v201005082020.jar:/home/gregw/src/jetty-hightide-7
+/jetty-hightide/target/hightide/resources:/home/gregw/src/jetty-hightide-7/jetty-hightide/target/hightide/lib
+/jetty-websocket-7.3.1-SNAPSHOT.jar:/home/gregw/src/jetty-hightide-7/jetty-hightide/target/hightide/lib
+/jetty-util-7.3.1-SNAPSHOT.jar:/home/gregw/src/jetty-hightide-7/jetty-hightide/target/hightide/lib
+/jetty-io-7.3.1-SNAPSHOT.jar:/home/gregw/src/jetty-hightide-7/jetty-hightide/target/hightide/start.jar:/usr/lib
+/jni/libjava-access-bridge-jni.so.0.0.0:/usr/lib/jvm/java-6-openjdk/jre/lib/ext/localedata.jar:/usr/lib
+/jvm/java-6-openjdk/jre/lib/ext/sunpkcs11.jar:/usr/lib/jvm/java-6-openjdk/jre/lib/ext/dnsns.jar:/usr/lib
+/jvm/java-6-openjdk/jre/lib/ext/gnome-java-bridge.jar:/usr/lib/jvm/java-6-openjdk/jre/lib/ext/pulse-java.jar:/usr/lib
+/jvm/java-6-openjdk/jre/lib/ext/sunjce_provider.jar 
+ 
+ |   |   |   |       |   |   +- xpoweredBy=false
+ |   |   |   |       |   |   +- scratchdir=/tmp/jetty-0.0.0.0-8080-cometd.war-_cometd-any-/jsp 
+ |   |   |   |       |   +- cometd==org.cometd.java.annotation.AnnotationCometdServlet 
+ |   |   |   |       |   |   +- maxInterval=10000
+ |   |   |   |       |   |   +- long-polling.multiSessionInterval=2000
+ |   |   |   |       |   |   +- services=org.cometd.examples.ChatService
+ |   |   |   |       |   |   +- interval=0
+ |   |   |   |       |   |   +- logLevel=0
+ |   |   |   |       |   |   +- maxLazyTimeout=5000
+ |   |   |   |       |   |   +- timeout=20000
+ |   |   |   |       |   +- cometdDemo==org.cometd.examples.CometdDemoServlet
+ |   |   |   |       |   +- oort==org.cometd.oort.OortServlet
+ |   |   |   |       |   |   +- oort.url=http://localhost:8080/cometd
+ |   |   |   |       |   +- seti==org.cometd.oort.SetiServlet
+ |   |   |   |       |   |   +- seti.shard=S0
+ |   |   |   |       |   +- auctionDemo==org.webtide.demo.auction.AuctionServlet
+ |   |   |   |       |  |   |   |   |       |  |   |   |   |       +- []
+ |   |   |   |       |  |   |   |   |       +- /={TRACE={RoleInfo,F,C[]}}
+ |   |   |   |   |  |  |   |   |   |   |   +- org.eclipse.jetty.server.context.ManagedAttributes=org.cometd.bayeux,org.cometd.oort.Oort 
+ |   |   |   |  |   |   |   +- org.eclipse.jetty.lifecyleCallbackCollection=org.eclipse.jetty.plus.annotation.LifeCycleCallbackCollection@56f2c96c 
+ |   |   |   +- org.apache.catalina.jsp_classpath=/tmp/jetty-0.0.0.0-8080-cometd.war-_cometd-any-/webapp/WEB-INF
+/classes:/tmp/jetty-0.0.0.0-8080-cometd.war-_cometd-any-/webapp/WEB-INF/lib/jsr250-api-1.0.jar:/tmp
+/jetty-0.0.0.0-8080-cometd.war-_cometd-any-/webapp/WEB-INF/lib/cometd-java-oort-2.1.0.jar:/tmp
+/jetty-0.0.0.0-8080-cometd.war-_cometd-any-/webapp/WEB-INF/lib/cometd-java-client-2.1.0.jar:/tmp
+/jetty-0.0.0.0-8080-cometd.war-_cometd-any-/webapp/WEB-INF/lib/jetty-continuation-7.3.0.v20110203.jar:/tmp
+/jetty-0.0.0.0-8080-cometd.war-_cometd-any-    /webapp/WEB-INF/lib/jetty-io-7.3.0.v20110203.jar:/tmp
+/jetty-0.0.0.0-8080-cometd.war-_cometd-any-/webapp/WEB-INF/lib/cometd-java-common-2.1.0.jar:/tmp
+/jetty-0.0.0.0-8080-cometd.war-_cometd-any-/webapp/WEB-INF/lib/jetty-util-7.3.0.v20110203.jar:/tmp
+/jetty-0.0.0.0-8080-cometd.war-_cometd-any-/webapp/WEB-INF/lib/cometd-java-annotations-2.1.0.jar:/tmp
+/jetty-0.0.0.0-8080-cometd.war-_cometd-any-/webapp/WEB-INF/lib/javax.inject-1.jar:/tmp
+/jetty-0.0.0.0-8080-cometd.war-_cometd-any-/webapp/WEB-INF/lib/bayeux-api-2.1.0.jar:/tmp
+/jetty-0.0.0.0-8080-cometd.war-_cometd-any-/webapp/WEB-INF/lib/jetty-client-7.3.0.v20110203.jar:/tmp
+/jetty-0.0.0.0-8080-cometd.war-_cometd-any-/webapp/WEB-INF/lib/jetty-http-7.3.0.v20110203.jar:/tmp
+/jetty-0.0.0.0-8080-cometd.war-_cometd-any-/webapp/WEB-INF/lib/jetty-servlets-7.3.0.v20110203.jar:/tmp
+/jetty-0.0.0.0-8080-cometd.war-_cometd-any-/webapp/WEB-INF/lib/cometd-java-server-2.1.0.jar:/tmp
+/jetty-0.0.0.0-8080-cometd.war-_cometd-any-/webapp/WEB-INF/lib/jetty-jmx-7.3.0.v20110203.jar 
+ 
+ |   |   |   +- org.eclipse.jetty.runAsCollection=org.eclipse.jetty.plus.annotation.RunAsCollection@5d85fe0c 
+ |   |   |   +- javax.servlet.context.tempdir=/tmp/jetty-0.0.0.0-8080-cometd.war-_cometd-any- 
+ |   |   |   +- org.eclipse.jetty.server.webapp.ContainerIncludeJarPattern=.*/jsp-api-[^/]*\.jar$|.*/jsp-[^/]*\.jar$ 
+ |   |   |   +- org.eclipse.jetty.injectionCollection=org.eclipse.jetty.plus.annotation.InjectionCollection@7e9f5cc 
+ |   |   |   |  |   |   |   +- com.sun.jsp.tagFileJarUrlsCache={}
+ |   |   |   +- org.cometd.oort.Seti=org.cometd.oort.Seti@21453d72
+ |   |   |   +- org.cometd.oort.Oort=http://localhost:8080/cometd
+ |   |   |   +- com.sun.jsp.taglibraryCache={}
+ |   |   |   +- org.cometd.bayeux=org.cometd.server.BayeuxServerImpl@22e90943
+ |   |   +- o.e.j.s.h.ContextHandler{/javadoc,file:/home/gregw/src/jetty-hightide-7/jetty-hightide/target/hightide/javadoc/} STARTED 
+ |   |   |   +- null
+ |   |   |   | |   |   |   +- org.eclipse.jetty.server.handler.ResourceHandler@26dfe303 STARTED 
+ |   |   |   |  |   |   |   |  |   |   |   |  |   |   |   +- org.eclipse.jetty.server.webapp.ContainerIncludeJarPattern=.*/jsp-api-[^/]*\.jar$|.*/jsp-[^/]*\.jar$ 
+ |   |   +- o.e.j.w.WebAppContext{/test,file:/tmp/jetty-0.0.0.0-8080-test.war-_test-any-/webapp/},/home/gregw/src/jetty-hightide-7
+/jetty-hightide/target/hightide/webapps/test.war STARTED 
+ |   |       +- WebAppClassLoader=Test WebApp@466d1750
+ |   |       |   +- file:/tmp/jetty-0.0.0.0-8080-test.war-_test-any-/webapp/WEB-INF/classes/ 
+ |   |       |   +- file:/tmp/jetty-0.0.0.0-8080-test.war-_test-any-/webapp/WEB-INF/lib/jetty-io-7.3.1-SNAPSHOT.jar 
+ |   |       |   +- file:/tmp/jetty-0.0.0.0-8080-test.war-_test-any-/webapp/WEB-INF/lib/jetty-continuation-7.3.1-SNAPSHOT.jar 
+ |   |       |   +- file:/tmp/jetty-0.0.0.0-8080-test.war-_test-any-/webapp/WEB-INF/lib/jetty-http-7.3.1-SNAPSHOT.jar 
+ |   |       |   +- file:/tmp/jetty-0.0.0.0-8080-test.war-_test-any-/webapp/WEB-INF/lib/jetty-client-7.3.1-SNAPSHOT.jar 
+ |   |       |   +- file:/tmp/jetty-0.0.0.0-8080-test.war-_test-any-/webapp/WEB-INF/lib/jetty-util-7.3.1-SNAPSHOT.jar 
+ |   |       |   +- file:/tmp/jetty-0.0.0.0-8080-test.war-_test-any-/webapp/WEB-INF/lib/jetty-servlets-7.3.1-SNAPSHOT.jar 
+ |   |       |   |  |   |       |   +- startJarLoader@3934f69a
+ |   |       |       +- file:/home/gregw/src/jetty-hightide-7/jetty-hightide/target/hightide/lib/jetty-xml-7.3.1-SNAPSHOT.jar 
+ |   |       |       +- file:/home/gregw/src/jetty-hightide-7/jetty-hightide/target/hightide/lib/servlet-api-2.5.jar 
+ |   |       |       +- file:/home/gregw/src/jetty-hightide-7/jetty-hightide/target/hightide/lib/jetty-http-7.3.1-SNAPSHOT.jar 
+ |   |       |       +- file:/home/gregw/src/jetty-hightide-7/jetty-hightide/target/hightide/lib/jetty-continuation-7.3.1-SNAPSHOT.jar 
+ |   |       |       +- file:/home/gregw/src/jetty-hightide-7/jetty-hightide/target/hightide/lib/jetty-server-7.3.1-SNAPSHOT.jar 
+ |   |       |       +- file:/home/gregw/src/jetty-hightide-7/jetty-hightide/target/hightide/lib/jetty-security-7.3.1-SNAPSHOT.jar 
+ |   |       |       +- file:/home/gregw/src/jetty-hightide-7/jetty-hightide/target/hightide/lib/jetty-servlet-7.3.1-SNAPSHOT.jar 
+ |   |       |       +- file:/home/gregw/src/jetty-hightide-7/jetty-hightide/target/hightide/lib/jetty-webapp-7.3.1-SNAPSHOT.jar 
+ |   |       |       +- file:/home/gregw/src/jetty-hightide-7/jetty-hightide/target/hightide/lib/jetty-deploy-7.3.1-SNAPSHOT.jar 
+ |   |       |       +- file:/home/gregw/src/jetty-hightide-7/jetty-hightide/target/hightide/lib/jetty-servlets-7.3.1-SNAPSHOT.jar 
+ |   |       |       +- file:/home/gregw/src/jetty-hightide-7/jetty-hightide/target/hightide/lib/jetty-annotations-7.3.1-SNAPSHOT.jar 
+ |   |       |       +- file:/home/gregw/src/jetty-hightide-7/jetty-hightide/target/hightide/lib/annotations/asm-3.1.jar 
+ |   |       |       +- file:/home/gregw/src/jetty-hightide-7/jetty-hightide/target/hightide/lib/annotations/asm-commons-3.1.jar 
+ |   |       |       +- file:/home/gregw/src/jetty-hightide-7/jetty-hightide/target/hightide/lib/annotations/asm-tree-3.1.jar 
+ |   |       |       +- file:/home/gregw/src/jetty-hightide-7/jetty-hightide/target/hightide/lib/annotations/geronimo-annotation_1.0_spec-1.1.1.jar 
+ |   |       |       +- file:/home/gregw/src/jetty-hightide-7/jetty-hightide/target/hightide/lib/annotations/javax.annotation_1.0.0.v20100513-0750.jar 
+ |   |       |       +- file:/home/gregw/src/jetty-hightide-7/jetty-hightide/target/hightide/lib/annotations/org.objectweb.asm_3.1.0.v200803061910.jar 
+ |   |       |       +- file:/home/gregw/src/jetty-hightide-7/jetty-hightide/target/hightide/lib/jdbc/derby/derby-10.6.1.0.jar 
+ |   |       |       +- file:/home/gregw/src/jetty-hightide-7/jetty-hightide/target/hightide/lib/jdbc/derby/derbytools-10.6.1.0.jar 
+ |   |       |       +- file:/home/gregw/src/jetty-hightide-7/jetty-hightide/target/hightide/lib/jetty-jmx-7.3.1-SNAPSHOT.jar 
+ |   |       |       +- file:/home/gregw/src/jetty-hightide-7/jetty-hightide/target/hightide/lib/jsp/com.sun.el_1.0.0.v201004190952.jar 
+ |   |       |       +- file:/home/gregw/src/jetty-hightide-7/jetty-hightide/target/hightide/lib/jsp/ecj-3.6.jar 
+ |   |       |       +- file:/home/gregw/src/jetty-hightide-7/jetty-hightide/target/hightide/lib/jsp/javax.el_2.1.0.v201004190952.jar 
+ |   |       |       +- file:/home/gregw/src/jetty-hightide-7/jetty-hightide/target/hightide/lib/jsp/javax.servlet.jsp_2.1.0.v201004190952.jar 
+ |   |       |       +- file:/home/gregw/src/jetty-hightide-7/jetty-hightide/target/hightide/lib/jsp/javax.servlet.jsp.jstl_1.2.0.v201004190952.jar 
+ |   |       |       +- file:/home/gregw/src/jetty-hightide-7/jetty-hightide/target/hightide/lib/jsp/jetty-jsp-2.1-7.3.1-SNAPSHOT.jar 
+ |   |       |       +- file:/home/gregw/src/jetty-hightide-7/jetty-hightide/target/hightide/lib/jsp/org.apache.jasper.glassfish_2.1.0.v201007080150.jar 
+ |   |       |       +- file:/home/gregw/src/jetty-hightide-7/jetty-hightide/target/hightide/lib/jsp/org.apache.taglibs.standard.glassfish_1.2.0.v201004190952.jar 
+ |   |       |       +- file:/home/gregw/src/jetty-hightide-7/jetty-hightide/target/hightide/lib/jta/javax.transaction_1.1.1.v201004190952.jar 
+ |   |       |       +- file:/home/gregw/src/jetty-hightide-7/jetty-hightide/target/hightide/lib/jta/atomikos/atomikos-util-3.6.4.jar 
+ |   |       |       +- file:/home/gregw/src/jetty-hightide-7/jetty-hightide/target/hightide/lib/jta/atomikos/transactions-3.6.4.jar 
+ |   |       |       +- file:/home/gregw/src/jetty-hightide-7/jetty-hightide/target/hightide/lib/jta/atomikos/transactions-api-3.6.4.jar 
+ |   |       |       +- file:/home/gregw/src/jetty-hightide-7/jetty-hightide/target/hightide/lib/jta/atomikos/transactions-jdbc-3.6.4.jar 
+ |   |       |       +- file:/home/gregw/src/jetty-hightide-7/jetty-hightide/target/hightide/lib/jta/atomikos/transactions-jta-3.6.4.jar 
+ |   |       |       +- file:/home/gregw/src/jetty-hightide-7/jetty-hightide/target/hightide/lib/jetty-jndi-7.3.1-SNAPSHOT.jar 
+ |   |       |       +- file:/home/gregw/src/jetty-hightide-7/jetty-hightide/target/hightide/lib/jetty-plus-7.3.1-SNAPSHOT.jar 
+ |   |       |       +- file:/home/gregw/src/jetty-hightide-7/jetty-hightide/target/hightide/lib/jndi/javax.activation_1.1.0.v201005080500.jar 
+ |   |       |       +- file:/home/gregw/src/jetty-hightide-7/jetty-hightide/target/hightide/lib/jndi/javax.mail.glassfish_1.4.1.v201005082020.jar 
+ |   |       |       +- file:/home/gregw/src/jetty-hightide-7/jetty-hightide/target/hightide/resources/ 
+ |   |       |       +- file:/home/gregw/src/jetty-hightide-7/jetty-hightide/target/hightide/lib/jetty-websocket-7.3.1-SNAPSHOT.jar 
+ |   |       |       +- file:/home/gregw/src/jetty-hightide-7/jetty-hightide/target/hightide/lib/jetty-util-7.3.1-SNAPSHOT.jar 
+ |   |       |       +- file:/home/gregw/src/jetty-hightide-7/jetty-hightide/target/hightide/lib/jetty-io-7.3.1-SNAPSHOT.jar 
+ |   |       |       |  |   |    |       +- sun.misc.Launcher$AppClassLoader@77cde100
+ |   |       |           +- file:/home/gregw/src/jetty-hightide-7/jetty-hightide/target/hightide/start.jar 
+ 
+ |   |       |           |   |   |       |           +- sun.misc.Launcher$ExtClassLoader@6d6f0472
+ |   |       |  |   |       +- org.eclipse.jetty.server.session.SessionHandler@3003e926 STARTED
+ |   |       |   +- org.eclipse.jetty.security.ConstraintSecurityHandler@7c83d8be STARTED 
+ |   |       |       +- org.eclipse.jetty.servlet.ServletHandler@366ef7ba STARTED 
+ |   |       |       |   |  |   |       |       |   |  |   |       |       |   +- [/*]/[]==0=&amp;gt;TestFilter
+ |   |       |       |   +- [/*]/[]==0=&amp;gt;QoSFilter
+ |   |       |       |   +- [/dump/*]/[]==0=&amp;gt;MultiPart
+ |   |       |       |   +- [/dump/gzip/*]/[]==0=&amp;gt;GzipFilter
+ |   |       |       |   |  |   |       |       |   +- TestFilter==com.acme.TestFilter
+ |   |       |       |   |   +- remote=false
+ |   |       |       |   +- QoSFilter==org.eclipse.jetty.servlets.QoSFilter
+ |   |       |       |   |   +- managedAttr=true
+ |   |       |       |   |   +- maxRequests=20
+ |   |       |       |   +- MultiPart==org.eclipse.jetty.servlets.MultiPartFilter 
+ |   |       |       |   |   +- deleteFiles=true
+ |   |       |       |   +- GzipFilter==org.eclipse.jetty.servlets.IncludableGzipFilter 
+ |   |       |       |   |   +- bufferSize=8192
+ |   |       |       |   |   +- excludedAgents=MSIE 6.0
+ |   |       |       |   |   +- userAgent=(?:Mozilla[^\(]*\(compatible;\s*+([^;]*);.*)|(?:.*?([^\s]+/[^\s]+).*) 
+ |   |       |       |   |   +- uncheckedPrintWriter=true
+ |   |       |       |   |   +- minGzipSize=2048
+ |   |       |       |   |   +- cacheSize=1024
+ |   |       |       |   |  |   |       |       |   +- [/]=&amp;gt;default
+ |   |       |       |   +- [*.jsp, *.jspf, *.jspx, *.xsp, *.JSP, *.JSPF, *.JSPX, *.XSP]=&amp;gt;jsp
+ |   |       |       |   +- [/hello/*]=&amp;gt;Hello
+ |   |       |       |   +- [/dump/*, *.dump]=&amp;gt;Dump
+ |   |       |       |   +- [/session/*]=&amp;gt;Session
+ |   |       |       |   +- [/cookie/*]=&amp;gt;Cookie
+ |   |       |       |   +- [/dispatch/*]=&amp;gt;Dispatch
+ |   |       |       |   +- [/cgi-bin/*]=&amp;gt;CGI
+ |   |       |       |   +- [/chat/*]=&amp;gt;Chat
+ |   |       |       |   +- [/ws/*]=&amp;gt;WSChat
+ |   |       |       |   +- [/rewritten/*, /redirected/*]=&amp;gt;Rewrite
+ |   |       |       |   +- [/secureMode/*]=&amp;gt;SecureMode
+ |   |       |       |   +- [/javadoc/*]=&amp;gt;TransparentProxy
+ |   |       |       |   +- [*.more]=&amp;gt;Dump
+ |   |       |       |   |  |   |       |       |   +- default==org.eclipse.jetty.servlet.DefaultServlet
+ |   |       |       |   |   +- resourceCache=resourceCache
+ |   |       |       |   |   +- maxCacheSize=256000000
+ |   |       |       |   |   +- dirAllowed=true
+ |   |       |       |   |   +- gzip=true
+ |   |       |       |   |   +- maxCachedFileSize=200000000
+ |   |       |       |   |   +- redirectWelcome=false
+ |   |       |       |   |   +- acceptRanges=true
+ |   |       |       |   |   +- welcomeServlets=false
+ |   |       |       |   |   +- aliases=false
+ |   |       |       |   |   +- useFileMappedBuffer=true
+ |   |       |       |   |   +- maxCachedFiles=2048
+ |   |       |       |   +- jsp==org.apache.jasper.servlet.JspServlet
+ |   |       |       |   |   +- logVerbosityLevel=DEBUG
+ |   |       |       |   |   +- fork=false
+ |   |       |       |   |   +-
+ 
+com.sun.appserv.jsp.classpath=/home/gregw/src/jetty-hightide-7/jetty-hightide/target/hightide/lib
+/jetty-xml-7.3.1-SNAPSHOT.jar:/home/gregw/src/jetty-hightide-7/jetty-hightide/target/hightide/lib
+/servlet-api-2.5.jar:/home/gregw/src/jetty-hightide-7/jetty-hightide/target/hightide/lib
+/jetty-http-7.3.1-SNAPSHOT.jar:/home/gregw/src/jetty-hightide-7/jetty-hightide/target/hightide/lib
+/jetty-continuation-7.3.1-SNAPSHOT.jar:/home/gregw/src/jetty-hightide-7/jetty-hightide/target/hightide
+/lib/jetty-server-7.3.1-SNAPSHOT.jar:/home/gregw/src/jetty-hightide-7/jetty-hightide/target/hightide/lib
+/jetty-security-7.3.1-SNAPSHOT.jar:/home/gregw/src/jetty-hightide-7/jetty-hightide/target/hightide/lib
+/jetty-servlet-7.3.1-SNAPSHOT.jar:/home/gregw/src/jetty-hightide-7/jetty-hightide/target/hightide/lib
+/jetty-webapp-7.3.1-SNAPSHOT.jar:/home/gregw/src/jetty-hightide-7/jetty-hightide/target/hightide/lib
+/jetty-deploy-7.3.1-SNAPSHOT.jar:/home/gregw/src/jetty-hightide-7/jetty-hightide/target/hightide/lib
+/jetty-servlets-7.3.1-SNAPSHOT.jar:/home/gregw/src/jetty-hightide-7/jetty-hightide/target/hightide/lib
+/jetty-annotations-7.3.1-SNAPSHOT.jar:/home/gregw/src/jetty-hightide-7/jetty-hightide/target/hightide/lib
+/annotations/asm-3.1.jar:/home/gregw/src/jetty-hightide-7/jetty-hightide/target/hightide/lib
+/annotations/asm-commons-3.1.jar:/home/gregw/src/jetty-hightide-7/jetty-hightide/target/hightide/lib
+/annotations/asm-tree-3.1.jar:/home/gregw/src/jetty-hightide-7/jetty-hightide/target/hightide/lib
+/annotations/geronimo-annotation_1.0_spec-1.1.1.jar:/home/gregw/src/jetty-hightide-7/jetty-hightide/target/hightide/lib
+/annotations/javax.annotation_1.0.0.v20100513-0750.jar:/home/gregw/src/jetty-hightide-7
+/jetty-hightide/target/hightide/lib/annotations/org.objectweb.asm_3.1.0.v200803061910.jar:/home/gregw/src/jetty-hightide-7
+/jetty-hightide/target/hightide/lib/jdbc/derby/derby-10.6.1.0.jar:/home/gregw/src/jetty-hightide-7/jetty-hightide/target/hightide/lib/jdbc/derby
+/derbytools-10.6.1.0.jar:/home/gregw/src/jetty-hightide-7/jetty-hightide/target/hightide/lib/jetty-jmx-7.3.1-SNAPSHOT.jar:/home/gregw/src
+/jetty-hightide-7/jetty-hightide/target/hightide/lib/jsp/com.sun.el_1.0.0.v201004190952.jar:/home/gregw/src/jetty-hightide-7
+/jetty-hightide/target/hightide/lib/jsp/ecj-3.6.jar:/home/gregw/src/jetty-hightide-7/jetty-hightide/target/hightide/lib
+/jsp/javax.el_2.1.0.v201004190952.jar:/home/gregw/src/jetty-hightide-7/jetty-hightide/target/hightide/lib/jsp
+/javax.servlet.jsp_2.1.0.v201004190952.jar:/home/gregw/src/jetty-hightide-7
+/jetty-hightide/target/hightide/lib/jsp/javax.servlet.jsp.jstl_1.2.0.v201004190952.jar:/home/gregw/src/jetty-hightide-7
+/jetty-hightide/target/hightide/lib/jsp/jetty-jsp-2.1-7.3.1-SNAPSHOT.jar:/home/gregw/src/jetty-hightide-7
+/jetty-hightide/target/hightide/lib/jsp/org.apache.jasper.glassfish_2.1.0.v201007080150.jar:/home/gregw/src/jetty-hightide-7
+/jetty-hightide/target/hightide/lib/jsp/org.apache.taglibs.standard.glassfish_1.2.0.v201004190952.jar:/home/gregw/src/jetty-hightide-7
+/jetty-hightide/target/hightide/lib/jta/javax.transaction_1.1.1.v201004190952.jar:/home/gregw/src/jetty-hightide-7
+/jetty-hightide/target/hightide/lib/jta/atomikos/atomikos-util-3.6.4.jar:/home/gregw/src/jetty-hightide-7
+/jetty-hightide/target/hightide/lib/jta/atomikos/transactions-3.6.4.jar:/home/gregw/src/jetty-hightide-7
+/jetty-hightide/target/hightide/lib/jta/atomikos/transactions-api-3.6.4.jar:/home/gregw/src/jetty-hightide-7
+/jetty-hightide/target/hightide/lib/jta/atomikos/transactions-jdbc-3.6.4.jar:/home/gregw/src/jetty-hightide-7
+/jetty-hightide/target/hightide/lib/jta/atomikos/transactions-jta-3.6.4.jar:/home/gregw/src/jetty-hightide-7
+/jetty-hightide/target/hightide/lib/jetty-jndi-7.3.1-SNAPSHOT.jar:/home/gregw/src/jetty-hightide-7
+/jetty-hightide/target/hightide/lib/jetty-plus-7.3.1-SNAPSHOT.jar:/home/gregw/src/jetty-hightide-7
+/jetty-hightide/target/hightide/lib/jndi/javax.activation_1.1.0.v201005080500.jar:/home/gregw/src/jetty-hightide-7
+/jetty-hightide/target/hightide/lib/jndi/javax.mail.glassfish_1.4.1.v201005082020.jar:/home/gregw/src/jetty-hightide-7
+/jetty-hightide/target/hightide/resources:/home/gregw/src/jetty-hightide-7
+/jetty-hightide/target/hightide/lib/jetty-websocket-7.3.1-SNAPSHOT.jar:/home/gregw/src/jetty-hightide-7
+/jetty-hightide/target/hightide/lib/jetty-util-7.3.1-SNAPSHOT.jar:/home/gregw/src/jetty-hightide-7
+/jetty-hightide/target/hightide/lib/jetty-io-7.3.1-SNAPSHOT.jar:/home/gregw/src/jetty-hightide-7
+/jetty-hightide/target/hightide/start.jar:/usr/lib/jni/libjava-access-bridge-jni.so.0.0.0:/usr/lib
+/jvm/java-6-openjdk/jre/lib/ext/localedata.jar:/usr/lib/jvm/java-6-openjdk/jre/lib/ext/sunpkcs11.jar:/usr/lib
+/jvm/java-6-openjdk/jre/lib/ext/dnsns.jar:/usr/lib/jvm/java-6-openjdk/jre/lib/ext/gnome-java-bridge.jar:/usr/lib
+/jvm/java-6-openjdk/jre/lib/ext/pulse-java.jar:/usr/lib/jvm/java-6-openjdk/jre/lib/ext/sunjce_provider.jar 
+ 
+ |   |       |       |   |   +- xpoweredBy=false
+ |   |       |       |   |   +- scratchdir=/tmp/jetty-0.0.0.0-8080-test.war-_test-any-/jsp 
+ |   |       |       |   +- Hello==com.acme.HelloWorld
+ |   |       |       |   +- Dump==com.acme.Dump
+ |   |       |       |   |   +- servlet-override-example=a servlet value
+ |   |       |       |   +- Session==com.acme.SessionDump
+ |   |       |       |   +- Cookie==com.acme.CookieDump
+ |   |       |       |   +- Dispatch==com.acme.DispatchServlet
+ |   |       |       |   +- CGI==org.eclipse.jetty.servlets.CGI
+ |   |       |       |   +- Chat==com.acme.ChatServlet
+ |   |       |       |   +- WSChat==com.acme.WebSocketChatServlet
+ |   |       |       |   +- Rewrite==com.acme.RewriteServlet
+ |   |       |       |   +- SecureMode==com.acme.SecureModeServlet
+ |   |       |       |   +- TransparentProxy==org.eclipse.jetty.servlets.ProxyServlet$Transparent 
+ |   |       |       |       +- ProxyTo=http://download.eclipse.org/jetty/stable-7/apidocs 
+ |   |       |       |       +- HostHeader=download.eclipse.org
+ |   |       |       |       +- Prefix=/javadoc
+ |   |       |       |  |   |       |       |  |   |       |       +- [*, admin, user]
+ |   |       |       |  |   |       |       +- *.htm={null={RoleInfo,C[*, admin, user]}}
+ |   |       |       +- /dump/auth/ssl/*={null={RoleInfo[]}}
+ |   |       |       +- /dump/auth/noaccess/*={null={RoleInfo,F,C[]}}
+ |   |       |       +- /auth/*={null={RoleInfo,F,C[]}}
+ |   |       |       +- /dump/auth/admin/*={null={RoleInfo,C[admin]}}
+ |   |       |       +- /dump/auth/relax/*={HEAD={RoleInfo[]}, GET={RoleInfo[]}}
+ |   |       |       +- /dump/auth/*={null={RoleInfo,C[*, admin, user]}}
+ |   |       |       +- /={TRACE={RoleInfo,F,C[]}}
+ |   |       |       +- /auth/relax.txt={HEAD={RoleInfo[]}, GET={RoleInfo[]}}
+ |   |       |
+ |   |       |
+ |   |       +- org.eclipse.jetty.server.context.ManagedAttributes=QoSFilter,TransparentProxy.Logger,TransparentProxy.ThreadPool,TransparentProxy.HttpClient 
+ |   |       +- context-override-example=a context value
+ |   |       |   |   |       +- org.eclipse.jetty.lifecyleCallbackCollection=org.eclipse.jetty.plus.annotation.LifeCycleCallbackCollection@48c5186e 
+ |   |       +-
+ 
+org.apache.catalina.jsp_classpath=/tmp/jetty-0.0.0.0-8080-test.war-_test-any-/webapp/WEB-INF/classes:/tmp
+/jetty-0.0.0.0-8080-test.war-_test-any-/webapp/WEB-INF/lib/jetty-io-7.3.1-SNAPSHOT.jar:/tmp
+/jetty-0.0.0.0-8080-test.war-_test-any-/webapp/WEB-INF/lib/jetty-continuation-7.3.1-SNAPSHOT.jar:/tmp
+/jetty-0.0.0.0-8080-test.war-_test-any-/webapp/WEB-INF/lib/jetty-http-7.3.1-SNAPSHOT.jar:/tmp
+/jetty-0.0.0.0-8080-test.war-_test-any-/webapp/WEB-INF/lib/jetty-client-7.3.1-SNAPSHOT.jar:/tmp
+/jetty-0.0.0.0-8080-test.war-_test-any-/webapp/WEB-INF/lib/jetty-util-7.3.1-SNAPSHOT.jar:/tmp
+/jetty-0.0.0.0-8080-test.war-_test-any-/webapp/WEB-INF/lib/jetty-servlets-7.3.1-SNAPSHOT.jar 
+ |   |       +- org.eclipse.jetty.runAsCollection=org.eclipse.jetty.plus.annotation.RunAsCollection@3c70315 
+ |   |       +- javax.servlet.context.tempdir=/tmp/jetty-0.0.0.0-8080-test.war-_test-any- 
+ |   |       +- org.eclipse.jetty.server.webapp.ContainerIncludeJarPattern=.*/jsp-api-[^/]*\.jar$|.*/jsp-[^/]*\.jar$ 
+ |   |       +- org.eclipse.jetty.injectionCollection=org.eclipse.jetty.plus.annotation.InjectionCollection@7e9b59a2 
+ |   |       |  |   |       +- com.sun.jsp.tagFileJarUrlsCache={}
+ |   |       +- TransparentProxy.ThreadPool=TransparentProxy{8&amp;lt;=6&amp;lt;=8/254,0}
+ |   |       +- TransparentProxy.Logger=StdErrLog:org.eclipse.jetty.servlets.TransparentProxy:DEBUG=false 
+ |   |       +- QoSFilter=org.eclipse.jetty.servlets.QoSFilter@3a32ea4
+ |   |       +- com.sun.jsp.taglibraryCache={}
+ |   |       +- TransparentProxy.HttpClient=org.eclipse.jetty.client.HttpClient@6dc220eb 
+ |   +- org.eclipse.jetty.server.handler.DefaultHandler@6833f0de STARTED
+ |   +- org.eclipse.jetty.jmx.MBeanContainer@4d3c7378
+ |   +- qtp1258351596{10&amp;lt;=7&amp;lt;=10/200,0}
+ |   +- 11 qtp1258351596-11 - Acceptor0
+ 
+SelectChannelConnector@0.0.0.0:8080 RUNNABLE 
+ 
+ |   |   +- sun.nio.ch.EPollArrayWrapper.epollWait(Native Method)
+ |   |   +- sun.nio.ch.EPollArrayWrapper.poll(EPollArrayWrapper.java:228)
+ |   |   +- sun.nio.ch.EPollSelectorImpl.doSelect(EPollSelectorImpl.java:83)
+ |   |   +- sun.nio.ch.SelectorImpl.lockAndDoSelect(SelectorImpl.java:87)
+ |   |   +- sun.nio.ch.SelectorImpl.select(SelectorImpl.java:98)
+ |   |   +- org.eclipse.jetty.io.nio.SelectorManager$SelectSet.doSelect(SelectorManager.java:473)
+ |   |   +- org.eclipse.jetty.io.nio.SelectorManager.doSelect(SelectorManager.java:225)
+ |   |   +- org.eclipse.jetty.server.nio.SelectChannelConnector.accept(SelectChannelConnector.java:87)
+ |   |   +- org.eclipse.jetty.server.AbstractConnector$Acceptor.run(AbstractConnector.java:831)
+ |   |   +- org.eclipse.jetty.util.thread.QueuedThreadPool$3.run(QueuedThreadPool.java:528)
+ |   |   +- java.lang.Thread.run(Thread.java:636)
+ |   +- 12 qtp1258351596-12 TIMED_WAITING IDLE
+ |   +- 13 qtp1258351596-13 TIMED_WAITING IDLE
+ |   +- 14 qtp1258351596-14 RUNNABLE
+ |   |   +- sun.nio.ch.ServerSocketChannelImpl.accept0(Native Method)
+ |   |   +- sun.nio.ch.ServerSocketChannelImpl.accept(ServerSocketChannelImpl.java:163)
+ |   |   +- org.eclipse.jetty.server.nio.SelectChannelConnector$1.run(SelectChannelConnector.java:252)
+ |   |   +- org.eclipse.jetty.util.thread.QueuedThreadPool$3.run(QueuedThreadPool.java:528)
+ |   |   +- java.lang.Thread.run(Thread.java:636)
+ |   +- 15 qtp1258351596-15 - Acceptor1
+ 
+SelectChannelConnector@0.0.0.0:8080 RUNNABLE 
+ 
+ |   |   +- sun.nio.ch.EPollArrayWrapper.epollWait(Native Method)
+ |   |   +- sun.nio.ch.EPollArrayWrapper.poll(EPollArrayWrapper.java:228)
+ |   |   +- sun.nio.ch.EPollSelectorImpl.doSelect(EPollSelectorImpl.java:83)
+ |   |   +- sun.nio.ch.SelectorImpl.lockAndDoSelect(SelectorImpl.java:87)
+ |   |   +- sun.nio.ch.SelectorImpl.select(SelectorImpl.java:98)
+ |   |   +- org.eclipse.jetty.io.nio.SelectorManager$SelectSet.doSelect(SelectorManager.java:473)
+ |   |   +- org.eclipse.jetty.io.nio.SelectorManager.doSelect(SelectorManager.java:225)
+ |   |   +- org.eclipse.jetty.server.nio.SelectChannelConnector.accept(SelectChannelConnector.java:87)
+ |   |   +- org.eclipse.jetty.server.AbstractConnector$Acceptor.run(AbstractConnector.java:831)
+ |   |   +- org.eclipse.jetty.util.thread.QueuedThreadPool$3.run(QueuedThreadPool.java:528)
+ |   |   +- java.lang.Thread.run(Thread.java:636)
+ |   +- 16 qtp1258351596-16 TIMED_WAITING IDLE
+ |   +- 17 qtp1258351596-17 TIMED_WAITING IDLE
+ |   +- 18 qtp1258351596-18 TIMED_WAITING IDLE
+ |   +- 19 qtp1258351596-19 TIMED_WAITING IDLE
+ |   +- 20 qtp1258351596-20 TIMED_WAITING IDLE
+ +- org.eclipse.jetty.deploy.DeploymentManager@654df764
+ |   +- org.eclipse.jetty.deploy.providers.WebAppProvider@d3576a2
+ |   +- org.eclipse.jetty.deploy.providers.ContextProvider@5684ce7a
+ +- HashLoginService[Test Realm]
+ +- org.eclipse.jetty.plus.jaas.JAASLoginService@526d0040
+ +- org.eclipse.jetty.server.session.HashSessionIdManager@11c7865b
+ |   +- SelectChannelConnector@0.0.0.0:8080
+   +- sun.nio.ch.ServerSocketChannelImpl[/0:0:0:0:0:0:0:0:8080]
+   +- OPEN
+   +- org.eclipse.jetty.server.nio.SelectChannelConnector$ConnectorSelectorManager@46ac97cc
+       +- org.eclipse.jetty.io.nio.SelectorManager$SelectSet@6d21f653 id=0
+       |   +- org.eclipse.jetty.io.nio.SelectorManager$SelectSet.doSelect(SelectorManager.java:473) 
+       |   +- sun.nio.ch.EPollSelectorImpl@5b14a306 keys=2
+       |   +- SCEP@1642107118java.nio.channels.SocketChannel[connected local=/127.0.0.1:8080 remote=/127.0.0.1:50597][d=false,io=1,w=true,rb=false,wb=false] 1 1 
+       |   +- SCEP@1534516756java.nio.channels.SocketChannel[connected local=/0:0:0:0:0:0:0:1:8080 remote=/0:0:0:0:0:0:0:1:39597][d=false,io=1,w=true,rb=false,wb=false] 1 1 
+        +- org.eclipse.jetty.io.nio.SelectorManager$SelectSet@27db0da1 id=1
+           +- org.eclipse.jetty.io.nio.SelectorManager$SelectSet.doSelect(SelectorManager.java:473) 
+                                     +- sun.nio.ch.EPollSelectorImpl@320b34b1 keys=1
+           +- SCEP@259984788java.nio.channels.SocketChannel[connected local=/127.0.0.1:8080 remote=/127.0.0.1:50598][d=true,io=1,w=true,rb=false,wb=false] 1 1</pre></div></div>
+
+<!-- 
+NewPP limit report
+Cached time: 20211116131122
+Cache expiry: 86400
+Dynamic content: false
+CPU time usage: 0.156 seconds
+Real time usage: 0.163 seconds
+Preprocessor visited node count: 68/1000000
+Preprocessor generated node count: 469/1000000
+Post‐expand include size: 4505/2097152 bytes
+Template argument size: 3147/2097152 bytes
+Highest expansion depth: 5/40
+Expensive parser function count: 0/100
+-->
+
+<!-- 
+Transclusion expansion time report (%,ms,calls,template)
+100.00%   87.986      1 - -total
+100.00%   87.986      1 - Template:Jetty_Howto
+ 12.96%   11.405      1 - Template:Jetty_Redirect
+  9.35%    8.230      1 - Template:Message
+  4.26%    3.751      1 - Template:Jetty
+-->
+
+<!-- Saved in parser cache with key my_wiki:pcache:idhash:29819-0!*!0!!en!5!* and timestamp 20211116131121 and revision id 335209
+ -->
+</div>
+                                      <!-- catlinks -->
+                    <div class="catlinks" id="catlinks"><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="https://wiki.eclipse.org/Special:Categories" title="Special:Categories">Categories</a>: <ul><li><a title="Category:Jetty" href="https://wiki.eclipse.org/Category:Jetty">Jetty</a></li><li><a title="Category:Jetty Howto" href="https://wiki.eclipse.org/Category:Jetty_Howto">Jetty Howto</a></li></ul></div></div>                     <!-- /catlinks -->
+                                  </div>
+              </div>
+            </div>
+          </div>
+</body>
+</html>

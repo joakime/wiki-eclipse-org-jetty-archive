@@ -1,0 +1,229 @@
+<html>
+<head>
+    <title>Jetty WTP Plugin</title>
+    <link rel="stylesheet" media="screen, print" href="wiki-style.css"/>
+</head>
+<body>
+<div id="mainContent" class="col-md-20">
+                      <ul class="nav nav-tabs noprint hidden-print" role="tablist">
+                       <li class="active" id="ca-nstab-main"><a tabindex="-1" href="JMX.html" title="View the content page [c]" accesskey="c">Page</a></li>
+                        <li class="new" id="ca-talk"><a tabindex="-1" href="edit" title="Discussion about the content page [t]" accesskey="t">Discussion</a></li>
+                        <li id="ca-viewsource"><a title="This page is protected.&#10;You can view its source [e]" accesskey="e" tabindex="-1" href="edit">View source</a></li>
+                        <li id="ca-history" class="collapsible"><a accesskey="h" title="Past revisions of this page [h]" href="edit" tabindex="-1">History</a></li>
+                      </ul>            <div class="tab-content background-white">
+              <div id="tab-pane-main-page-content" class="tab-pane active">
+
+                
+                <h1 id="firstHeading" class="firstHeading page-header">
+                  <span dir="auto">Jetty/Tutorial/JMX</span>
+                </h1>
+                <div id="main-page-content">
+                                                      <!-- subtitle -->
+                  <div class="alert alert-small alert-warning" id="contentSub"><span class="subpages">&lt; <a title="Jetty" href="../../Jetty.html">Jetty</a>‎ | <a href="../Tutorial.html" title="Jetty/Tutorial">Tutorial</a></span></div>
+                  <!-- /subtitle -->
+                  
+                  
+                  <div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><p><br/>
+</p><p><br/>
+</p>
+<div class="toc" id="toc"><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="JMX.html#Introduction"><span class="tocnumber">1</span> <span class="toctext">Introduction</span></a></li>
+<li class="toclevel-1"><a href="JMX.html#Details"><span class="tocnumber">2</span> <span class="toctext">Details</span></a>
+<ul>
+<li class="toclevel-2"><a href="JMX.html#Configuration"><span class="tocnumber">2.1</span> <span class="toctext">Configuration</span></a></li>
+<li class="toclevel-2"><a href="JMX.html#Enabling_Registration_of_Jetty.27s_MBeans"><span class="tocnumber">2.2</span> <span class="toctext">Enabling Registration of Jetty's MBeans</span></a>
+<ul>
+<li class="toclevel-3"><a href="JMX.html#Standalone_Jetty"><span class="tocnumber">2.2.1</span> <span class="toctext">Standalone Jetty</span></a></li>
+<li class="toclevel-3"><a href="JMX.html#Embedded_Jetty"><span class="tocnumber">2.2.2</span> <span class="toctext">Embedded Jetty</span></a></li>
+<li class="toclevel-3"><a href="JMX.html#Jetty_Maven_Plugin"><span class="tocnumber">2.2.3</span> <span class="toctext">Jetty Maven Plugin</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2"><a href="JMX.html#Enabling_JMXConnectorServer_for_Remote_Access"><span class="tocnumber">2.3</span> <span class="toctext">Enabling JMXConnectorServer for Remote Access</span></a>
+<ul>
+<li class="toclevel-3"><a href="JMX.html#Securing_Remote_Access"><span class="tocnumber">2.3.1</span> <span class="toctext">Securing Remote Access</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2"><a href="JMX.html#Custom_Monitor_Application"><span class="tocnumber">2.4</span> <span class="toctext">Custom Monitor Application</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1"><a href="JMX.html#Additional_Resources"><span class="tocnumber">3</span> <span class="toctext">Additional Resources</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Introduction">Introduction</span></h2>
+<div class="messagebox" style="background-color: #f9f6b7; border: 1px solid #c4c295; color: black; padding: 5px; margin: 1ex 0; min-height: 35px; padding-left: 45px; font-size: 150%; color: white; background-color: #FF8888; padding: 50px">
+<div style="float: left; margin-left: -40px;"><a href="https://wiki.eclipse.org/File:Warning2.png" class="image"><img height="35" width="35" src="../../images/3/37/Warning2.png" alt="Warning2.png"/></a></div>
+<div>Jetty 7 and Jetty 8 are now EOL (End of Life)<br/>
+<p><br/>
+<br/>
+<br/>
+THIS IS NOT THE DOCUMENTATION YOU ARE LOOKING FOR!!!!!<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+All development and stable releases are being performed with Jetty 9 and Jetty 10.<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+This <b>wiki is now officially out of date</b> and all content has been moved to the <a href="http://www.eclipse.org/jetty/documentation" class="external text" rel="nofollow">Jetty Documentation Hub</a><br/> 
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+</p>
+Direct Link to updated documentation: <a rel="nofollow" class="external free" href="http://www.eclipse.org/jetty/documentation/current/jmx-chapter.html">http://www.eclipse.org/jetty/documentation/current/jmx-chapter.html</a></div>
+</div>
+<p><br/>
+This tutorial describes how the Jetty JMX integration can be initialized and configured.
+The simplest way to access the MBeans that are published by Jetty is to use the <a href="http://java.sun.com/developer/technicalArticles/J2SE/jconsole.html" rel="nofollow" class="external text">JConsole</a> utility supplied with Sun's Java Virtual Machine. See <a href="../Howto/Run Jetty with JConsole.html" title="Jetty/Howto/Run Jetty with JConsole">Run Jetty with JConsole</a> for instructions on how to configure JVM for use with JConsole.
+</p>
+<h2><span class="mw-headline" id="Details">Details</span></h2>
+<h3><span id="Configuration" class="mw-headline">Configuration</span></h3>
+<p>There are two main steps that needs to be performed in order to be able to access Jetty's MBeans via JConsole.
+</p><p>The first step is enabling the registration of Jetty's MBeans into the platform MBeanServer.
+</p><p>The second step is to enable a JMXConnectorServer so that JConsole can connect and visualize the MBeans.
+</p>
+<h3><span id="Enabling_Registration_of_Jetty.27s_MBeans" class="mw-headline">Enabling Registration of Jetty's MBeans</span></h3>
+<p>The steps required to configure Jetty JMX integration will be different depending on the way that Jetty is bootstrapped.
+</p>
+<h4><span class="mw-headline" id="Standalone_Jetty">Standalone Jetty</span></h4>
+<p>When running in standalone mode, the MBeanContainer instance can be configured for a Jetty server by the jetty-jmx.xml configuration file. This can be run with the standard configuration file as follows:
+</p>
+<pre>java -jar start.jar OPTIONS=Server,jmx etc/jetty-jmx.xml etc/jetty.xml
+</pre>
+<p>Please make sure that the jetty-jmx.xml is the <b>first</b> XML file listed in the command line to ensure that all instances of objects that supposed to be registered as MBeans are detected properly.
+</p>
+<h4><span class="mw-headline" id="Embedded_Jetty">Embedded Jetty</span></h4>
+<p>If Jetty is embedded into an application, the following snippet of code shows how to create and configure an MBeanContainer instance:
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="java source-java"><pre class="de1">Server _server <span class="sy0">=</span> <span class="kw1">new</span> Server<span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
+ 
+<span class="co1">// Setup JMX</span>
+MBeanContainer mbContainer<span class="sy0">=</span><span class="kw1">new</span> MBeanContainer<span class="br0">(</span>ManagementFactory.<span class="me1">getPlatformMBeanServer</span><span class="br0">(</span><span class="br0">)</span><span class="br0">)</span><span class="sy0">;</span>
+_server.<span class="me1">getContainer</span><span class="br0">(</span><span class="br0">)</span>.<span class="me1">addEventListener</span><span class="br0">(</span>mbContainer<span class="br0">)</span><span class="sy0">;</span>
+_server.<span class="me1">addBean</span><span class="br0">(</span>mbContainer<span class="br0">)</span><span class="sy0">;</span>
+ 
+<span class="co1">// Register loggers as MBeans</span>
+mbContainer.<span class="me1">addBean</span><span class="br0">(</span>Log.<span class="me1">getLog</span><span class="br0">(</span><span class="br0">)</span><span class="br0">)</span><span class="sy0">;</span></pre></div></div>
+<p>Please note that MBeanContainer is created immediately after the Server is created, and immediately after it is registered as an EventListener of the Server's Container object. 
+Because logging is initialized prior to the MBeanContainer, it is necessary to register the logger manually - via MBeanContainer.addBean().
+</p>
+<h4><span id="Jetty_Maven_Plugin" class="mw-headline">Jetty Maven Plugin</span></h4>
+<p>If you are using the <a rel="nofollow" class="external text" href="http://wiki.eclipse.org/Jetty/Feature/Jetty_Maven_Plugin">Jetty Maven plugin</a> you should copy the etc/jetty-jmx.xml file into your webapp project somewhere, such as src/etc, then add a &lt;jettyconfig&gt; element to the plugin &lt;configuration&gt;:
+</p>
+<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="xml source-xml"><pre class="de1"><span class="sc3"><span class="re1">&lt;plugin<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;groupid<span class="re2">&gt;</span></span></span>org.mortbay.jetty<span class="sc3"><span class="re1">&lt;/groupid<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;artifactid<span class="re2">&gt;</span></span></span>maven-jetty-plugin<span class="sc3"><span class="re1">&lt;/artifactid<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;version<span class="re2">&gt;</span></span></span>${project.version}<span class="sc3"><span class="re1">&lt;/version<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;configuration<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;scanintervalseconds<span class="re2">&gt;</span></span></span>10<span class="sc3"><span class="re1">&lt;/scanintervalseconds<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;jettyXml<span class="re2">&gt;</span></span></span>src/etc/jetty-jmx.xml<span class="sc3"><span class="re1">&lt;/jettyXml<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;/configuration<span class="re2">&gt;</span></span></span>
+<span class="sc3"><span class="re1">&lt;/plugin<span class="re2">&gt;</span></span></span></pre></div></div>
+<h3><span class="mw-headline" id="Enabling_JMXConnectorServer_for_Remote_Access">Enabling JMXConnectorServer for Remote Access</span></h3>
+<p>There are two ways of enabling remote connectivity so that JConsole can connect to visualize MBeans.
+</p><p>The first way is to use the "com.sun.management.jmxremote" system property on command line.
+Unfortunately, this solution does not play well with firewalls and it is not flexible.
+</p><p>The second way is to use Jetty's ConnectorServer class.
+To enable usage of this class, just uncomment the correspondent portion in etc/jetty-jmx.xml; it will look like this:
+</p>
+<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="xml source-xml"><pre class="de1"><span class="sc3"><span class="re1">&lt;New</span> <span class="re0">id</span>=<span class="st0">"ConnectorServer"</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.jmx.ConnectorServer"</span><span class="re2">&gt;</span></span>
+  <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">class</span>=<span class="st0">"javax.management.remote.JMXServiceURL"</span><span class="re2">&gt;</span></span>
+      <span class="sc3"><span class="re1">&lt;Arg</span> <span class="re0">type</span>=<span class="st0">"java.lang.String"</span><span class="re2">&gt;</span></span>rmi<span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
+      <span class="sc3"><span class="re1">&lt;Arg</span> <span class="re0">type</span>=<span class="st0">"java.lang.String"</span> <span class="re2">/&gt;</span></span>
+      <span class="sc3"><span class="re1">&lt;Arg</span> <span class="re0">type</span>=<span class="st0">"java.lang.Integer"</span><span class="re2">&gt;</span><span class="re1">&lt;SystemProperty</span> <span class="re0">name</span>=<span class="st0">"jetty.jmxrmiport"</span> <span class="re0">default</span>=<span class="st0">"1099"</span><span class="re2">/&gt;</span><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
+      <span class="sc3"><span class="re1">&lt;Arg</span> <span class="re0">type</span>=<span class="st0">"java.lang.String"</span><span class="re2">&gt;</span></span>/jndi/rmi://<span class="sc3"><span class="re1">&lt;SystemProperty</span> <span class="re0">name</span>=<span class="st0">"jetty.jmxrmihost"</span> <span class="re0">default</span>=<span class="st0">"localhost"</span><span class="re2">/&gt;</span></span>:<span class="sc3"><span class="re1">&lt;SystemProperty</span> <span class="re0">name</span>=<span class="st0">"jetty.jmxrmiport"</span> <span class="re0">default</span>=<span class="st0">"1099"</span><span class="re2">/&gt;</span></span>/jmxrmi<span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>org.eclipse.jetty.jmx:name=rmiconnectorserver<span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;Call</span> <span class="re0">name</span>=<span class="st0">"start"</span> <span class="re2">/&gt;</span></span>
+<span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span></pre></div></div>
+<p>This configuration snippet will start an RMIRegistry and a JMXConnectorServer both on port 1099 (by default), so that firewalls should open just that one port to allow connections from JConsole.
+</p>
+<h4><span id="Securing_Remote_Access" class="mw-headline">Securing Remote Access</span></h4>
+<p>JMXConnectorServer comes with the possibility to restrict access in several ways. For a complete tutorial about controlling authentication and authorization in JMX, see <a href="https://blogs.oracle.com/lmalventosa/entry/jmx_authentication_authorization" class="external text" rel="nofollow">this tutorial</a>.
+</p><p>In order to restrict access to the JMXConnectorServer, you can use this configuration, where the "jmx.password" and "jmx.access" files have the format specified in the tutorial above:
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="xml source-xml"><pre class="de1"><span class="sc3"><span class="re1">&lt;New</span> <span class="re0">id</span>=<span class="st0">"ConnectorServer"</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.jmx.ConnectorServer"</span><span class="re2">&gt;</span></span>
+  <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">class</span>=<span class="st0">"javax.management.remote.JMXServiceURL"</span><span class="re2">&gt;</span></span>
+      <span class="sc3"><span class="re1">&lt;Arg</span> <span class="re0">type</span>=<span class="st0">"java.lang.String"</span><span class="re2">&gt;</span></span>rmi<span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
+      <span class="sc3"><span class="re1">&lt;Arg</span> <span class="re0">type</span>=<span class="st0">"java.lang.String"</span> <span class="re2">/&gt;</span></span>
+      <span class="sc3"><span class="re1">&lt;Arg</span> <span class="re0">type</span>=<span class="st0">"java.lang.Integer"</span><span class="re2">&gt;</span><span class="re1">&lt;SystemProperty</span> <span class="re0">name</span>=<span class="st0">"jetty.jmxrmiport"</span> <span class="re0">default</span>=<span class="st0">"1099"</span><span class="re2">/&gt;</span><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
+      <span class="sc3"><span class="re1">&lt;Arg</span> <span class="re0">type</span>=<span class="st0">"java.lang.String"</span><span class="re2">&gt;</span></span>/jndi/rmi://<span class="sc3"><span class="re1">&lt;SystemProperty</span> <span class="re0">name</span>=<span class="st0">"jetty.jmxrmihost"</span> <span class="re0">default</span>=<span class="st0">"localhost"</span><span class="re2">/&gt;</span></span>:<span class="sc3"><span class="re1">&lt;SystemProperty</span> <span class="re0">name</span>=<span class="st0">"jetty.jmxrmiport"</span> <span class="re0">default</span>=<span class="st0">"1099"</span><span class="re2">/&gt;</span></span>/jmxrmi<span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;Map<span class="re2">&gt;</span></span></span>
+      <span class="sc3"><span class="re1">&lt;Entry<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;Item<span class="re2">&gt;</span></span></span>jmx.remote.x.password.file<span class="sc3"><span class="re1">&lt;/Item<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;Item<span class="re2">&gt;</span></span></span>
+          <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">class</span>=<span class="st0">"java.lang.String"</span><span class="re2">&gt;</span><span class="re1">&lt;Arg<span class="re2">&gt;</span></span><span class="re1">&lt;Property</span> <span class="re0">name</span>=<span class="st0">"jetty.home"</span> <span class="re0">default</span>=<span class="st0">"."</span> <span class="re2">/&gt;</span></span>/resources/jmx.password<span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;/Item<span class="re2">&gt;</span></span></span>
+      <span class="sc3"><span class="re1">&lt;/Entry<span class="re2">&gt;</span></span></span>
+      <span class="sc3"><span class="re1">&lt;Entry<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;Item<span class="re2">&gt;</span></span></span>jmx.remote.x.access.file<span class="sc3"><span class="re1">&lt;/Item<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;Item<span class="re2">&gt;</span></span></span>
+          <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">class</span>=<span class="st0">"java.lang.String"</span><span class="re2">&gt;</span><span class="re1">&lt;Arg<span class="re2">&gt;</span></span><span class="re1">&lt;Property</span> <span class="re0">name</span>=<span class="st0">"jetty.home"</span> <span class="re0">default</span>=<span class="st0">"."</span> <span class="re2">/&gt;</span></span>/resources/jmx.access<span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;/Item<span class="re2">&gt;</span></span></span>
+      <span class="sc3"><span class="re1">&lt;/Entry<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;/Map<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>org.eclipse.jetty.jmx:name=rmiconnectorserver<span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;Call</span> <span class="re0">name</span>=<span class="st0">"start"</span> <span class="re2">/&gt;</span></span>
+<span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span></pre></div></div>
+<h3><span id="Custom_Monitor_Application" class="mw-headline">Custom Monitor Application</span></h3>
+<p>You can also write a custom application using JMX API that will monitor your Jetty server. In order for this application to be able to connect to your Jetty server, you will need to un-comment the last section of etc/jetty-jmx.xml configuration file and optionally modify the endpoint name. That will create a JMX HTTP connector and register a JMX URL that it will be output to the Stderr log.
+</p><p>You should provide the URL that appears in the log to your monitor application in order to create MBeanServerConnection. 
+The same URL could also be used to connect to your Jetty instance from a remote machine using JConsole. See the <a href="http://dev.eclipse.org/viewcvs/index.cgi/jetty/trunk/jetty-jmx/src/main/config/etc/?root=RT_Jetty" class="external text" rel="nofollow">configuration file</a> for more details.
+</p>
+<h2><span id="Additional_Resources" class="mw-headline">Additional Resources</span></h2>
+<ul><li> See <a href="../Howto/Run Jetty with JConsole.html" title="Jetty/Howto/Run Jetty with JConsole">Run Jetty with JConsole</a> for instructions on how to configure JVM for use with JConsole.</li>
+<li> The <a href="http://code.google.com/p/jminix/" class="external text" rel="nofollow">JMiniX</a> web console for JMX mbeans.</li>
+<li> You can also use <a href="http://java-monitor.com/install.html" rel="nofollow" class="external text">java-monitor</a> to monitor your Jetty server using JMX. See <a href="../Feature/Java-monitor.html" title="Jetty/Feature/Java-monitor">Jetty java-monitor</a> feature guide for more information.</li></ul>
+
+<!-- 
+NewPP limit report
+Cached time: 20211116174855
+Cache expiry: 86400
+Dynamic content: false
+CPU time usage: 0.148 seconds
+Real time usage: 0.177 seconds
+Preprocessor visited node count: 76/1000000
+Preprocessor generated node count: 432/1000000
+Post‐expand include size: 8272/2097152 bytes
+Template argument size: 6896/2097152 bytes
+Highest expansion depth: 5/40
+Expensive parser function count: 0/100
+-->
+
+<!-- 
+Transclusion expansion time report (%,ms,calls,template)
+100.00%   74.354      1 - -total
+100.00%   74.354      1 - Template:Jetty_Tutorial
+ 14.76%   10.977      1 - Template:Jetty_Redirect
+ 10.33%    7.680      1 - Template:Message
+  5.17%    3.844      1 - Template:Jetty
+-->
+
+<!-- Saved in parser cache with key my_wiki:pcache:idhash:23000-0!*!0!!en!5!* and timestamp 20211116174855 and revision id 334703
+ -->
+</div>
+                                      <!-- catlinks -->
+                    <div id="catlinks" class="catlinks"><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="https://wiki.eclipse.org/Special:Categories" title="Special:Categories">Categories</a>: <ul><li><a href="https://wiki.eclipse.org/Category:Jetty" title="Category:Jetty">Jetty</a></li><li><a title="Category:Jetty Tutorial" href="https://wiki.eclipse.org/Category:Jetty_Tutorial">Jetty Tutorial</a></li></ul></div></div>                     <!-- /catlinks -->
+                                  </div>
+              </div>
+            </div>
+          </div>
+</body>
+</html>

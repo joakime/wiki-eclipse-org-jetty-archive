@@ -1,0 +1,154 @@
+<html>
+<head>
+    <title>Jetty WTP Plugin</title>
+    <link rel="stylesheet" media="screen, print" href="wiki-style.css"/>
+</head>
+<body>
+<div class="col-md-20" id="mainContent">
+                      <ul class="nav nav-tabs noprint hidden-print" role="tablist">
+                       <li id="ca-nstab-main" class="active"><a href="Cross Origin Filter.html" accesskey="c" tabindex="-1" title="View the content page [c]">Page</a></li>
+                        <li id="ca-talk" class="new"><a accesskey="t" href="edit" tabindex="-1" title="Discussion about the content page [t]">Discussion</a></li>
+                        <li id="ca-viewsource"><a tabindex="-1" title="This page is protected.&#10;You can view its source [e]" href="edit" accesskey="e">View source</a></li>
+                        <li id="ca-history" class="collapsible"><a title="Past revisions of this page [h]" tabindex="-1" accesskey="h" href="edit">History</a></li>
+                      </ul>            <div class="tab-content background-white">
+              <div id="tab-pane-main-page-content" class="tab-pane active">
+
+                
+                <h1 class="firstHeading page-header" id="firstHeading">
+                  <span dir="auto">Jetty/Feature/Cross Origin Filter</span>
+                </h1>
+                <div id="main-page-content">
+                                                      <!-- subtitle -->
+                  <div id="contentSub" class="alert alert-small alert-warning"><span class="subpages">&lt; <a title="Jetty" href="../../Jetty.html">Jetty</a>‎ | <a title="Jetty/Feature" href="../Feature.html">Feature</a></span></div>
+                  <!-- /subtitle -->
+                  
+                  
+                  <div class="mw-content-ltr" id="mw-content-text" dir="ltr" lang="en"><p><br/>
+</p><p><br/>
+</p>
+<div class="toc" id="toc"><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="Cross Origin Filter.html#Introduction"><span class="tocnumber">1</span> <span class="toctext">Introduction</span></a></li>
+<li class="toclevel-1"><a href="Cross Origin Filter.html#Feature"><span class="tocnumber">2</span> <span class="toctext">Feature</span></a>
+<ul>
+<li class="toclevel-2"><a href="Cross Origin Filter.html#Setup"><span class="tocnumber">2.1</span> <span class="toctext">Setup</span></a></li>
+<li class="toclevel-2"><a href="Cross Origin Filter.html#Configuration"><span class="tocnumber">2.2</span> <span class="toctext">Configuration</span></a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+<h2><span id="Introduction" class="mw-headline">Introduction</span></h2>
+<div class="messagebox" style="background-color: #f9f6b7; border: 1px solid #c4c295; color: black; padding: 5px; margin: 1ex 0; min-height: 35px; padding-left: 45px; font-size: 150%; color: white; background-color: #FF8888; padding: 50px">
+<div style="float: left; margin-left: -40px;"><a class="image" href="https://wiki.eclipse.org/File:Warning2.png"><img height="35" alt="Warning2.png" src="../../images/3/37/Warning2.png" width="35"/></a></div>
+<div>Jetty 7 and Jetty 8 are now EOL (End of Life)<br/>
+<p><br/>
+<br/>
+<br/>
+THIS IS NOT THE DOCUMENTATION YOU ARE LOOKING FOR!!!!!<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+All development and stable releases are being performed with Jetty 9 and Jetty 10.<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+This <b>wiki is now officially out of date</b> and all content has been moved to the <a rel="nofollow" class="external text" href="http://www.eclipse.org/jetty/documentation">Jetty Documentation Hub</a><br/> 
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+</p>
+Direct Link to updated documentation: <a class="external free" rel="nofollow" href="http://www.eclipse.org/jetty/documentation/current/cross-origin-filter.html">http://www.eclipse.org/jetty/documentation/current/cross-origin-filter.html</a></div>
+</div>
+<p><br/>
+HTTP requests made from a script are subject to well known restrictions, the most prominent being the <a href="http://en.wikipedia.org/wiki/Same_origin_policy" class="external text" rel="nofollow">same domain policy</a>.
+</p><p>Firefox 3.5 introduced support for W3C's <a href="http://dev.w3.org/2006/waf/access-control/" rel="nofollow" class="external text">Access Control for Cross-Site Requests</a> specification, which requires a compliant client (for example, Firefox 3.5) and a compliant server (via this servlet filter).
+</p><p>This filter implements the required bits to support the server-side contract of the specification, and will allow a compliant client to perform cross-domain requests via the standard XMLHttpRequest object.
+If the client does not issue a compliant cross-domain request, this filter does nothing, and its overhead is the check of the presence of the cross-domain HTTP header.
+</p><p>This is extremely useful in <a class="external text" rel="nofollow" href="http://cometd.org">Cometd</a> web applications where it is now possible to perform cross-domain long polling without using script injection (also known as the JSONP transport), and therefore removing all the downsides that the JSONP transport has (it's chattier, does not react quickly to failures, has a message size limit, uses GET instead of POST, etc.).
+</p>
+<h2><span id="Feature" class="mw-headline">Feature</span></h2>
+<h3><span id="Setup" class="mw-headline">Setup</span></h3>
+<p>You will need to put the jetty-servlets.jar file onto your classpath. If you are creating a webapp, ensure that this jar is included in your webapp's WEB-INF/lib. Or, if you are running jetty embedded you will need to ensure that jetty-servlets.jar is on the execution classpath. You can download the jetty-servlets.jar from the Maven Central Repository at <a rel="nofollow" class="external free" href="http://repo1.maven.org/maven2/org/eclipse/jetty/jetty-servlets/">http://repo1.maven.org/maven2/org/eclipse/jetty/jetty-servlets/</a>.
+</p><p><br/>
+</p>
+<h3><span class="mw-headline" id="Configuration">Configuration</span></h3>
+<p>This is a regular servlet filter that must be configured in <tt>web.xml</tt>.
+</p><p>It supports the following configuration parameters:
+</p>
+<ul>
+<li><b>allowedOrigins</b>, a comma separated list of origins that are
+allowed to access the resources. Default value is <b>*</b>, meaning all
+origins</li>
+<li><b>allowedMethods</b>, a comma separated list of HTTP methods that
+are allowed to be used when accessing the resources. Default value is
+<b>GET,POST</b></li>
+<li><b>allowedHeaders</b>, a comma separated list of HTTP headers that
+are allowed to be specified when accessing the resources. Default value
+is <b>X-Requested-With</b></li>
+<li><b>preflightMaxAge</b>, the number of seconds that preflight requests
+can be cached by the client. Default value is <b>1800</b> seconds, or 30
+minutes</li>
+<li><b>allowCredentials</b>, a boolean indicating if the resource allows
+requests with credentials. Default value is <b>false</b></li>
+</ul>
+<p>A typical configuration could be:
+</p>
+<pre>&lt;web-app ...&gt;
+    ...
+    &lt;filter&gt;
+        &lt;filter-name&gt;cross-origin&lt;/filter-name&gt;
+        &lt;filter-class&gt;org.eclipse.jetty.servlets.CrossOriginFilter&lt;/filter-class&gt;
+    &lt;/filter&gt;
+    &lt;filter-mapping&gt;
+        &lt;filter-name&gt;cross-origin&lt;/filter-name&gt;
+        &lt;url-pattern&gt;/cometd/*&lt;/url-pattern&gt;
+    &lt;/filter-mapping&gt;
+    ...
+&lt;/web-app&gt;
+</pre>
+
+<!-- 
+NewPP limit report
+Cached time: 20211116175829
+Cache expiry: 86400
+Dynamic content: false
+CPU time usage: 0.096 seconds
+Real time usage: 0.150 seconds
+Preprocessor visited node count: 54/1000000
+Preprocessor generated node count: 324/1000000
+Post‐expand include size: 5726/2097152 bytes
+Template argument size: 4334/2097152 bytes
+Highest expansion depth: 5/40
+Expensive parser function count: 0/100
+-->
+
+<!-- 
+Transclusion expansion time report (%,ms,calls,template)
+100.00%   34.676      1 - -total
+100.00%   34.676      1 - Template:Jetty_Feature
+ 61.69%   21.392      1 - Template:Jetty_Redirect
+ 42.82%   14.847      1 - Template:Message
+ 15.81%    5.483      1 - Template:Jetty
+-->
+
+<!-- Saved in parser cache with key my_wiki:pcache:idhash:21060-0!*!*!!en!5!* and timestamp 20211116175828 and revision id 334948
+ -->
+</div>
+                                      <!-- catlinks -->
+                    <div id="catlinks" class="catlinks"><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a title="Special:Categories" href="https://wiki.eclipse.org/Special:Categories">Categories</a>: <ul><li><a title="Category:Jetty" href="https://wiki.eclipse.org/Category:Jetty">Jetty</a></li><li><a title="Category:Jetty Feature" href="https://wiki.eclipse.org/Category:Jetty_Feature">Jetty Feature</a></li></ul></div></div>                     <!-- /catlinks -->
+                                  </div>
+              </div>
+            </div>
+          </div>
+</body>
+</html>

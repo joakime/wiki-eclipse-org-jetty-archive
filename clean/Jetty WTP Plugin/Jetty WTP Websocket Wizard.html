@@ -1,0 +1,222 @@
+<html>
+<head>
+    <title>Jetty WTP Plugin</title>
+    <link rel="stylesheet" media="screen, print" href="wiki-style.css"/>
+</head>
+<body>
+<div class="col-md-20" id="mainContent">
+                      <ul role="tablist" class="nav nav-tabs noprint hidden-print">
+                       <li id="ca-nstab-main" class="active"><a title="View the content page [c]" href="Jetty WTP Websocket Wizard.html" tabindex="-1" accesskey="c">Page</a></li>
+                        <li class="new" id="ca-talk"><a title="Discussion about the content page [t]" href="edit" accesskey="t" tabindex="-1">Discussion</a></li>
+                        <li id="ca-viewsource"><a tabindex="-1" accesskey="e" href="edit" title="This page is protected.&#10;You can view its source [e]">View source</a></li>
+                        <li class="collapsible" id="ca-history"><a href="edit" accesskey="h" tabindex="-1" title="Past revisions of this page [h]">History</a></li>
+                      </ul>            <div class="tab-content background-white">
+              <div id="tab-pane-main-page-content" class="tab-pane active">
+
+                
+                <h1 id="firstHeading" class="firstHeading page-header">
+                  <span dir="auto">Jetty WTP Plugin/Jetty WTP Websocket Wizard</span>
+                </h1>
+                <div id="main-page-content">
+                                                      <!-- subtitle -->
+                  <div id="contentSub" class="alert alert-small alert-warning"><span class="subpages">&lt; <a title="Jetty WTP Plugin" href="../Jetty WTP Plugin.html">Jetty WTP Plugin</a></span></div>
+                  <!-- /subtitle -->
+                  
+                  
+                  <div dir="ltr" lang="en" id="mw-content-text" class="mw-content-ltr"><p><br/>
+</p><p><br/>
+</p>
+<div class="messagebox" style="background-color: #f9f6b7; border: 1px solid #c4c295; color: black; padding: 5px; margin: 1ex 0; min-height: 35px; padding-left: 45px;">
+<div style="float: left; margin-left: -40px;"><a href="https://wiki.eclipse.org/File:Warning2.png" class="image"><img height="35" src="../images/3/37/Warning2.png" alt="Warning2.png" width="35"/></a></div>
+<div>Support for this feature has been dropped with Jetty 9.<br/>If you feel this should be brought back please file a bug. </div>
+</div>
+<p><br/>
+</p>
+<h2><span id="Using_the_Jetty_Websocket_Wizard" class="mw-headline">Using the Jetty Websocket Wizard</span></h2>
+<p>The plugin, org.eclipse.jst.server.jetty.ui.websocket, provides a wizard that you can use to create a Jetty WebSocket. 
+</p><p>This document provides examples for the following tasks: 
+</p>
+<ul><li> Creating an implementataion of the org.eclipse.jetty.websocket.WebSocketServlet, which uses an implementation of org.eclipse.jetty.websocket.WebSocket </li>
+<li> Modifying the <tt>web.xml</tt> to declare the WebSocketServlet createdt-name + servlet-mapping). ??</li>
+<li> TODO : create an HTML page that calls the WebSocketServlet.</li></ul>
+<p>To create a WebSocketServlet, complete the following steps.
+</p>
+<ol>
+<li>In the Eclipse menu, navigate to  <b>File-&gt;New&gt;-Other</b>.
+</li>The <i>Select a wizard</i> dialog box opens. 
+<p><br/>
+</p><p><a href="https://wiki.eclipse.org/File:Jetty-wtp-websocket1.jpg" class="image"><img width="500" alt="Jetty-wtp-websocket1.jpg" height="500" src="../images/c/ce/Jetty-wtp-websocket1.jpg"/></a>
+</p>
+<li> Select <b>Web/Jetty WebSocket</b>.
+</li> The <i>Create Jetty-WebSocket</i> dialog box opens.
+<p>.
+</p><p><br/>
+<a class="image" href="https://wiki.eclipse.org/File:Jetty-wtp-websocket2.jpg"><img height="500" src="../images/4/4b/Jetty-wtp-websocket2.jpg" width="500" alt="Jetty-wtp-websocket2.jpg"/></a>
+</p><p><br/>
+</p>
+<li>In the Java package field, enter <b>org.sample.websocket</b>.
+</li><li>In the Class name field, enter <b>ChatWebSocketServlet</b>.
+</li>The Superclass field is automatically filled as org.eclipse.jetty.websocket.WebSocketServlet.
+<li>Click <b>Next</b>.
+</li>The <i>Create Jetty-WebSocket Deployment Descriptor</i> dialog box opens.
+<p><br/>
+<a href="https://wiki.eclipse.org/File:Jetty-wtp-websocket3.jpg" class="image"><img alt="Jetty-wtp-websocket3.jpg" width="500" height="500" src="../images/b/b9/Jetty-wtp-websocket3.jpg"/></a>
+</p><p><br/>
+</p><p>This is the same dialog box that the Servlet uses.
+</p>
+<li>Here you can define the servlet-mappings.
+</li><li>Click <b>Next</b>. 
+</li> The <i>Create Jetty-WebSocket Modifiers, Interfaces and Methods</i> dialog box opens.
+<p><br/>
+<a class="image" href="https://wiki.eclipse.org/File:Jetty-wtp-websocket4.jpg"><img alt="Jetty-wtp-websocket4.jpg" width="500" height="500" src="../images/d/d6/Jetty-wtp-websocket4.jpg"/></a>
+</p><p><br/>
+</p>
+<li>Here you can generate some methods. The wizard generates doPost for WebSocket using ??? 
+</li><li>Click <b>Finish</b>.
+
+</li>Your workspace looks like this :
+<p><br/>
+<a href="https://wiki.eclipse.org/File:Jetty-wtp-websocket5.jpg" class="image"><img height="321" src="../images/c/cc/Jetty-wtp-websocket5.jpg" alt="Jetty-wtp-websocket5.jpg" width="252"/></a>
+</p><p><br/>
+</p><p>The wizard generates :
+</p>
+<ul><li> a class ChatWebSocketServlet :  </li></ul>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="java source-java"><pre class="de1"><span class="kw1">package</span> <span class="co2">org.sample.websocket</span><span class="sy0">;</span>
+ 
+<span class="kw1">import</span> <span class="co2">java.io.IOException</span><span class="sy0">;</span>
+<span class="kw1">import</span> <span class="co2">java.util.Set</span><span class="sy0">;</span>
+<span class="kw1">import</span> <span class="co2">java.util.concurrent.CopyOnWriteArraySet</span><span class="sy0">;</span>
+<span class="kw1">import</span> <span class="co2">javax.servlet.ServletException</span><span class="sy0">;</span>
+<span class="kw1">import</span> <span class="co2">javax.servlet.http.HttpServletRequest</span><span class="sy0">;</span>
+<span class="kw1">import</span> <span class="co2">javax.servlet.http.HttpServletResponse</span><span class="sy0">;</span>
+<span class="kw1">import</span> <span class="co2">org.eclipse.jetty.websocket.WebSocket</span><span class="sy0">;</span>
+<span class="kw1">import</span> <span class="co2">org.eclipse.jetty.websocket.WebSocketServlet</span><span class="sy0">;</span>
+ 
+<span class="co3">/**
+ * Jetty WebSocketServlet implementation class ChatWebSocketServlet
+ */</span>
+<span class="kw1">public</span> <span class="kw1">class</span> ChatWebSocketServlet <span class="kw1">extends</span> WebSocketServlet <span class="br0">{</span>
+	<span class="kw1">private</span> <span class="kw1">static</span> <span class="kw1">final</span> <span class="kw4">long</span> serialVersionUID <span class="sy0">=</span> 1L<span class="sy0">;</span>
+ 
+    <span class="co3">/**
+     * @see WebSocketServlet#WebSocketServlet()
+     */</span>
+    <span class="kw1">public</span> ChatWebSocketServlet<span class="br0">(</span><span class="br0">)</span> <span class="br0">{</span>
+        <span class="kw1">super</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
+        <span class="co1">// TODO Auto-generated constructor stub</span>
+    <span class="br0">}</span>
+	<span class="kw1">private</span> <span class="kw1">final</span> Set<span class="sy0">&lt;</span>ChatWebSocket<span class="sy0">&gt;</span> members <span class="sy0">=</span> <span class="kw1">new</span> CopyOnWriteArraySet<span class="sy0">&lt;</span>ChatWebSocket<span class="sy0">&gt;</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
+ 
+	<span class="co3">/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */</span>
+	<span class="kw1">protected</span> <span class="kw4">void</span> doGet<span class="br0">(</span>HttpServletRequest request, HttpServletResponse response<span class="br0">)</span> <span class="kw1">throws</span> ServletException, <span class="kw3">IOException</span> <span class="br0">{</span>
+		<span class="co1">// TODO Auto-generated method stub</span>
+	<span class="br0">}</span>
+ 
+	<span class="co3">/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */</span>
+	<span class="kw1">protected</span> <span class="kw4">void</span> doPost<span class="br0">(</span>HttpServletRequest request, HttpServletResponse response<span class="br0">)</span> <span class="kw1">throws</span> ServletException, <span class="kw3">IOException</span> <span class="br0">{</span>
+		getServletContext<span class="br0">(</span><span class="br0">)</span>.<span class="me1">getNamedDispatcher</span><span class="br0">(</span><span class="st0">"default"</span><span class="br0">)</span>.<span class="me1">forward</span><span class="br0">(</span>request, response<span class="br0">)</span><span class="sy0">;</span>
+	<span class="br0">}</span>
+ 
+	<span class="coMULTI">/*
+	 * @see org.eclipse.jetty.websocket.WebSocketServlet#doWebSocketConnect(javax.servlet.http.HttpServletRequest, java.lang.String)
+	 */</span>
+	<span class="kw1">protected</span> WebSocket doWebSocketConnect<span class="br0">(</span>HttpServletRequest request, <span class="kw3">String</span> protocol<span class="br0">)</span> <span class="br0">{</span>
+		<span class="kw1">return</span> <span class="kw1">new</span> ChatWebSocket<span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
+	<span class="br0">}</span>
+ 
+	<span class="kw1">class</span> ChatWebSocket <span class="kw1">implements</span> WebSocket <span class="br0">{</span>
+		<span class="kw1">private</span> Outbound outbound<span class="sy0">;</span>
+ 
+		<span class="kw1">public</span> <span class="kw4">void</span> onConnect<span class="br0">(</span>Outbound outbound<span class="br0">)</span> <span class="br0">{</span>
+			<span class="kw1">this</span>.<span class="me1">outbound</span> <span class="sy0">=</span> outbound<span class="sy0">;</span>
+			members.<span class="me1">add</span><span class="br0">(</span><span class="kw1">this</span><span class="br0">)</span><span class="sy0">;</span>
+		<span class="br0">}</span>
+ 
+		<span class="coMULTI">/*
+		 * @see org.eclipse.jetty.websocket.WebSocket#onMessage(byte, byte[],
+		 * int, int)
+		 */</span>
+		<span class="kw1">public</span> <span class="kw4">void</span> onMessage<span class="br0">(</span><span class="kw4">byte</span> frame, <span class="kw4">byte</span><span class="br0">[</span><span class="br0">]</span> data, <span class="kw4">int</span> offset, <span class="kw4">int</span> length<span class="br0">)</span> <span class="br0">{</span>
+		<span class="br0">}</span>
+ 
+		<span class="coMULTI">/*
+		 * @see org.eclipse.jetty.websocket.WebSocket#onMessage(byte,
+		 * java.lang.String)
+		 */</span>
+		<span class="kw1">public</span> <span class="kw4">void</span> onMessage<span class="br0">(</span><span class="kw4">byte</span> frame, <span class="kw3">String</span> data<span class="br0">)</span> <span class="br0">{</span>
+ 
+			<span class="kw1">for</span> <span class="br0">(</span>ChatWebSocket member <span class="sy0">:</span> members<span class="br0">)</span> <span class="br0">{</span>
+				<span class="kw1">try</span> <span class="br0">{</span>
+					member.<span class="me1">outbound</span>.<span class="me1">sendMessage</span><span class="br0">(</span>frame, data<span class="br0">)</span><span class="sy0">;</span>
+				<span class="br0">}</span> <span class="kw1">catch</span> <span class="br0">(</span><span class="kw3">IOException</span> e<span class="br0">)</span> <span class="br0">{</span>
+					<span class="co1">// org.eclipse.jetty.util.log.Log.warn(e);</span>
+					e.<span class="me1">printStackTrace</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
+				<span class="br0">}</span>
+			<span class="br0">}</span>
+		<span class="br0">}</span>
+ 
+		<span class="coMULTI">/*
+		 * @see org.eclipse.jetty.websocket.WebSocket#onDisconnect()
+		 */</span>
+		<span class="kw1">public</span> <span class="kw4">void</span> onDisconnect<span class="br0">(</span><span class="br0">)</span> <span class="br0">{</span>
+			members.<span class="me1">remove</span><span class="br0">(</span><span class="kw1">this</span><span class="br0">)</span><span class="sy0">;</span>
+		<span class="br0">}</span>
+	<span class="br0">}</span>
+ 
+ 
+<span class="br0">}</span></pre></div></div>
+<p>1.web.xml is modified like this : 
+</p>
+<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="xml source-xml"><pre class="de1">  <span class="sc3"><span class="re1">&lt;servlet<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;description<span class="re2">&gt;</span></span><span class="re1">&lt;/description<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;display-name<span class="re2">&gt;</span></span></span>ChatWebSocketServlet<span class="sc3"><span class="re1">&lt;/display-name<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;servlet-name<span class="re2">&gt;</span></span></span>ChatWebSocketServlet<span class="sc3"><span class="re1">&lt;/servlet-name<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;servlet-class<span class="re2">&gt;</span></span></span>org.sample.websocket.ChatWebSocketServlet<span class="sc3"><span class="re1">&lt;/servletclass<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;/servlet<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;servlet-mapping<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;servlet-name<span class="re2">&gt;</span></span></span>ChatWebSocketServlet<span class="sc3"><span class="re1">&lt;/servlet-name<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;url-pattern<span class="re2">&gt;</span></span></span>/ChatWebSocketServlet<span class="sc3"><span class="re1">&lt;/url-pattern<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;/servlet-mapping<span class="re2">&gt;</span></span></span></pre></div></div>
+2.TODO : generate an HTML file which consume the WebSocket.
+
+
+</ol>
+
+<!-- 
+NewPP limit report
+Cached time: 20211116072914
+Cache expiry: 86400
+Dynamic content: false
+CPU time usage: 0.232 seconds
+Real time usage: 0.260 seconds
+Preprocessor visited node count: 41/1000000
+Preprocessor generated node count: 221/1000000
+Post‐expand include size: 860/2097152 bytes
+Template argument size: 131/2097152 bytes
+Highest expansion depth: 4/40
+Expensive parser function count: 0/100
+-->
+
+<!-- 
+Transclusion expansion time report (%,ms,calls,template)
+100.00%   22.786      1 - -total
+ 70.35%   16.031      1 - Template:Jetty_Deprecated
+ 52.22%   11.899      1 - Template:Message
+ 27.54%    6.276      1 - Template:Jetty
+-->
+
+<!-- Saved in parser cache with key my_wiki:pcache:idhash:28389-0!*!*!*!*!5!* and timestamp 20211116072914 and revision id 334779
+ -->
+</div>
+                                      <!-- catlinks -->
+                    <div id="catlinks" class="catlinks"><div class="mw-normal-catlinks" id="mw-normal-catlinks"><a title="Special:Categories" href="https://wiki.eclipse.org/Special:Categories">Category</a>: <ul><li><a href="https://wiki.eclipse.org/Category:Jetty" title="Category:Jetty">Jetty</a></li></ul></div></div>                     <!-- /catlinks -->
+                                  </div>
+              </div>
+            </div>
+          </div>
+</body>
+</html>

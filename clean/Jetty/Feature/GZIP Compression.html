@@ -1,0 +1,84 @@
+<html>
+<head>
+    <title>Jetty WTP Plugin</title>
+    <link rel="stylesheet" media="screen, print" href="wiki-style.css"/>
+</head>
+<body>
+<div id="mainContent" class="col-md-20">
+                      <ul class="nav nav-tabs noprint hidden-print" role="tablist">
+                       <li id="ca-nstab-main" class="active"><a title="View the content page [c]" accesskey="c" href="GZIP Compression.html" tabindex="-1">Page</a></li>
+                        <li class="new" id="ca-talk"><a title="Discussion about the content page [t]" tabindex="-1" href="edit" accesskey="t">Discussion</a></li>
+                        <li id="ca-viewsource"><a title="This page is protected.&#10;You can view its source [e]" tabindex="-1" accesskey="e" href="edit">View source</a></li>
+                        <li id="ca-history" class="collapsible"><a accesskey="h" href="edit" tabindex="-1" title="Past revisions of this page [h]">History</a></li>
+                      </ul>            <div class="tab-content background-white">
+              <div class="tab-pane active" id="tab-pane-main-page-content">
+
+                
+                <h1 id="firstHeading" class="firstHeading page-header">
+                  <span dir="auto">Jetty/Feature/GZIP Compression</span>
+                </h1>
+                <div id="main-page-content">
+                                                      <!-- subtitle -->
+                  <div class="alert alert-small alert-warning" id="contentSub"><span class="subpages">&lt; <a href="../../Jetty.html" title="Jetty">Jetty</a>‎ | <a title="Jetty/Feature" href="../Feature.html">Feature</a></span></div>
+                  <!-- /subtitle -->
+                  
+                  
+                  <div id="mw-content-text" class="mw-content-ltr" dir="ltr" lang="en"><p><br/>
+</p><p><br/>
+</p>
+<div id="toc" class="toc"><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="GZIP Compression.html#Introduction"><span class="tocnumber">1</span> <span class="toctext">Introduction</span></a></li>
+<li class="toclevel-1"><a href="GZIP Compression.html#Feature"><span class="tocnumber">2</span> <span class="toctext">Feature</span></a>
+<ul>
+<li class="toclevel-2"><a href="GZIP Compression.html#Static_Content"><span class="tocnumber">2.1</span> <span class="toctext">Static Content</span></a></li>
+<li class="toclevel-2"><a href="GZIP Compression.html#GzipFilter"><span class="tocnumber">2.2</span> <span class="toctext">GzipFilter</span></a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Introduction">Introduction</span></h2>
+<p>GZIP Compression can be used to reduce the amount of data being sent "over the wire". Compression is applied as a transport encoding. This can greatly improve webapplication performance, however it can also consume more CPU and some content (e.g. images) cannot be well compressed.
+</p>
+<h2><span id="Feature" class="mw-headline">Feature</span></h2>
+<h3><span id="Static_Content" class="mw-headline">Static Content</span></h3>
+<p>The Jetty <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/servlet/DefaultServlet.html" rel="nofollow">DefaultServlet</a> can serve pre-compressed static content as a transport encoding and avoid the expense of on-the-fly compression. If the "gzip" init parameter is set to true, then Jetty will look for compressed static resources. So if a request for "foo.txt" is received and the file "foo.txt.gz" exists, then it will be served as "foo.txt" with a gzip transport encoding.
+</p>
+<h3><span class="mw-headline" id="GzipFilter">GzipFilter</span></h3>
+<p>The Jetty <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/servlets/GzipFilter.html" rel="nofollow">GzipFilter</a> is a compression filter that can be applied to almost any dynamic resource (servlet). It fixes many of the bugs in commonly available compression filters (eg handles all ways that content length may be set) and has been testing with Jetty continuations and suspending requests.
+</p><p>Some user-agents may be excluded from compression, so as to avoid some common browser bugs (yes this means IE!).
+</p>
+<!-- 
+NewPP limit report
+Cached time: 20211116034632
+Cache expiry: 86400
+Dynamic content: false
+CPU time usage: 0.028 seconds
+Real time usage: 0.027 seconds
+Preprocessor visited node count: 28/1000000
+Preprocessor generated node count: 152/1000000
+Post‐expand include size: 1573/2097152 bytes
+Template argument size: 1362/2097152 bytes
+Highest expansion depth: 4/40
+Expensive parser function count: 0/100
+-->
+
+<!-- 
+Transclusion expansion time report (%,ms,calls,template)
+100.00%   14.050      1 - -total
+100.00%   14.050      1 - Template:Jetty_Feature
+ 38.36%    5.390      1 - Template:Jetty
+-->
+
+<!-- Saved in parser cache with key my_wiki:pcache:idhash:25947-0!*!*!!en!*!* and timestamp 20211116034632 and revision id 209545
+ -->
+</div>
+                                      <!-- catlinks -->
+                    <div id="catlinks" class="catlinks"><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a title="Special:Categories" href="https://wiki.eclipse.org/Special:Categories">Categories</a>: <ul><li><a title="Category:Jetty" href="https://wiki.eclipse.org/Category:Jetty">Jetty</a></li><li><a href="https://wiki.eclipse.org/Category:Jetty_Feature" title="Category:Jetty Feature">Jetty Feature</a></li></ul></div></div>                     <!-- /catlinks -->
+                                  </div>
+              </div>
+            </div>
+          </div>
+</body>
+</html>

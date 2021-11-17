@@ -1,0 +1,286 @@
+<html>
+<head>
+    <title>Jetty WTP Plugin</title>
+    <link rel="stylesheet" media="screen, print" href="wiki-style.css"/>
+</head>
+<body>
+<div class="col-md-20" id="mainContent">
+                      <ul role="tablist" class="nav nav-tabs noprint hidden-print">
+                       <li id="ca-nstab-main" class="active"><a tabindex="-1" href="WebSockets.html" title="View the content page [c]" accesskey="c">Page</a></li>
+                        <li id="ca-talk"><a tabindex="-1" href="https://wiki.eclipse.org/Talk:Jetty/Feature/WebSockets" accesskey="t" title="Discussion about the content page [t]">Discussion</a></li>
+                        <li id="ca-viewsource"><a href="edit" accesskey="e" title="This page is protected.&#10;You can view its source [e]" tabindex="-1">View source</a></li>
+                        <li class="collapsible" id="ca-history"><a href="edit" title="Past revisions of this page [h]" accesskey="h" tabindex="-1">History</a></li>
+                      </ul>            <div class="tab-content background-white">
+              <div id="tab-pane-main-page-content" class="tab-pane active">
+
+                
+                <h1 id="firstHeading" class="firstHeading page-header">
+                  <span dir="auto">Jetty/Feature/WebSockets</span>
+                </h1>
+                <div id="main-page-content">
+                                                      <!-- subtitle -->
+                  <div class="alert alert-small alert-warning" id="contentSub"><span class="subpages">&lt; <a title="Jetty" href="../../Jetty.html">Jetty</a>‎ | <a href="../Feature.html" title="Jetty/Feature">Feature</a></span></div>
+                  <!-- /subtitle -->
+                  
+                  
+                  <div lang="en" class="mw-content-ltr" dir="ltr" id="mw-content-text"><p><br/>
+</p><p><br/>
+</p>
+<div class="toc" id="toc"><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="WebSockets.html#Introduction"><span class="tocnumber">1</span> <span class="toctext">Introduction</span></a></li>
+<li class="toclevel-1"><a href="WebSockets.html#You_don.E2.80.99t_want_to_do_this.21"><span class="tocnumber">2</span> <span class="toctext">You don’t want to do this!</span></a></li>
+<li class="toclevel-1"><a href="WebSockets.html#Feature"><span class="tocnumber">3</span> <span class="toctext">Feature</span></a></li>
+<li class="toclevel-1"><a href="WebSockets.html#Test_Client_and_Server"><span class="tocnumber">4</span> <span class="toctext">Test Client and Server</span></a></li>
+<li class="toclevel-1"><a href="WebSockets.html#Using_a_Browser"><span class="tocnumber">5</span> <span class="toctext">Using a Browser</span></a></li>
+<li class="toclevel-1"><a href="WebSockets.html#Understanding_How_the_Client_Works"><span class="tocnumber">6</span> <span class="toctext">Understanding How the Client Works</span></a></li>
+<li class="toclevel-1"><a href="WebSockets.html#Understanding_How_the_Server_Works"><span class="tocnumber">7</span> <span class="toctext">Understanding How the Server Works</span></a></li>
+<li class="toclevel-1"><a href="WebSockets.html#Don.E2.80.99t_do_it_this_way.21"><span class="tocnumber">8</span> <span class="toctext">Don’t do it this way!</span></a></li>
+<li class="toclevel-1"><a href="WebSockets.html#Additional_Resources"><span class="tocnumber">9</span> <span class="toctext">Additional Resources</span></a></li>
+</ul>
+</div>
+
+<h2><span id="Introduction" class="mw-headline">Introduction</span></h2>
+<div class="messagebox" style="background-color: #f9f6b7; border: 1px solid #c4c295; color: black; padding: 5px; margin: 1ex 0; min-height: 35px; padding-left: 45px;">
+<div style="float: left; margin-left: -40px;"><a href="https://wiki.eclipse.org/File:Warning2.png" class="image"><img src="../../images/3/37/Warning2.png" alt="Warning2.png" height="35" width="35"/></a></div>
+<div>Some or all of this content remains to be ported to Jetty 9 <a href="http://www.eclipse.org/jetty/documentation/current" rel="nofollow" class="external text">Documentation</a>.<br/>If you are interested in migrating this content see our <a href="http://www.eclipse.org/jetty/documentation/current/contributing-documentation.html" rel="nofollow" class="external text">contribution guide</a> or <a class="external text" rel="nofollow" href="http://www.eclipse.org/jetty/documentation/current/community.html">contact us</a>.</div>
+</div>
+<p><br/>
+The <a class="external text" href="http://en.wikipedia.org/wiki/WebSockets" rel="nofollow">WebSockets</a> protocol and API is an emerging standard that seeks to provide high-quality, bidirectional communication between a browser (or other web client) and a server. The goal is to eventually replace Comet techniques like long polling. Jetty has supported the various WebSocket drafts in the 7.x and 8.x releases.  
+</p>
+<h2><span id="You_don.E2.80.99t_want_to_do_this.21" class="mw-headline">You don’t want to do this!</span></h2>
+<p>This document shows you how to use WebSockets from the levels closest to the machine; it targets framework developers who want to use WebSockets, and application developers who can't stand not knowing what is under the hood. However, application programmers should not follow these examples to build an application. WebSockets is not a silver bullet, and on its own will never be simple to use for nontrivial applications (see <a href="http://webtide.intalio.com/2011/04/is-websocket-chat-simpler/" rel="nofollow" class="external text">Is WebSocket Chat Simpler?</a>). We recommend that you look toward frameworks like <a class="external text" href="http://cometd.org" rel="nofollow">Cometd</a>, that private a higher level of abstraction, hide the technicalities, and allow you to use either Comet long polling or WebSockets transparently.
+</p>
+<h2><span id="Feature" class="mw-headline">Feature</span></h2>
+<h2><span class="mw-headline" id="Test_Client_and_Server">Test Client and Server</span></h2>
+<p>The simplest way to get started is to download 3 jars: The Jetty aggregate Jar contains all of jetty; the jetty-websocket test jar that contains a client and server; and the servlet jar. You can do this using a browser or with the following command line wgets:
+</p>
+<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="bash source-bash"><pre class="de1"><span class="kw2">wget</span> <span class="re5">-O</span> jetty-all.jar <span class="re5">--user-agent</span>=demo \
+  http:<span class="sy0">//</span>repo2.maven.org<span class="sy0">/</span>maven2<span class="sy0">/</span>org<span class="sy0">/</span>eclipse<span class="sy0">/</span>jetty<span class="sy0">/</span>aggregate<span class="sy0">/</span>jetty-all<span class="sy0">/</span>7.6.2.v20120308<span class="sy0">/</span>jetty-all-7.6.2.v20120308.jar
+<span class="kw2">wget</span> <span class="re5">-O</span> jetty-websocket-tests.jar <span class="re5">--user-agent</span>=demo \
+  http:<span class="sy0">//</span>repo2.maven.org<span class="sy0">/</span>maven2<span class="sy0">/</span>org<span class="sy0">/</span>eclipse<span class="sy0">/</span>jetty<span class="sy0">/</span>jetty-websocket<span class="sy0">/</span>7.6.2.v20120308<span class="sy0">/</span>jetty-websocket-7.6.2.v20120308-tests.jar
+<span class="kw2">wget</span> <span class="re5">--user-agent</span>=demo \
+    http:<span class="sy0">//</span>repo2.maven.org<span class="sy0">/</span>maven2<span class="sy0">/</span>javax<span class="sy0">/</span>servlet<span class="sy0">/</span>servlet-api<span class="sy0">/</span><span class="nu0">2.5</span><span class="sy0">/</span>servlet-api-<span class="nu0">2.5</span>.jar</pre></div></div>
+<p>To run a simple test server (use <tt>–help</tt> to see more options):
+</p>
+<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="java source-java"><pre class="de1"> java <span class="sy0">-</span>cp jetty<span class="sy0">-</span>websocket<span class="sy0">-</span>tests.<span class="me1">jar</span><span class="sy0">:</span>jetty<span class="sy0">-</span>all.<span class="me1">jar</span><span class="sy0">:</span>servlet<span class="sy0">-</span>api<span class="sy0">-</span><span class="nu0">2.5</span>.<span class="me1">jar</span> \
+   org.<span class="me1">eclipse</span>.<span class="me1">jetty</span>.<span class="me1">websocket</span>.<span class="me1">TestServer</span> \
+   <span class="sy0">--</span>port <span class="nu0">8080</span> \
+   <span class="sy0">--</span>docroot . \
+   <span class="sy0">--</span>verbose</pre></div></div>
+<div class="messagebox" style="background-color: #def3fe; border: 1px solid #c5d7e0; color: black; padding: 5px; margin: 1ex 0; min-height: 35px; padding-left: 45px;">
+<div style="float: left; margin-left: -40px;"><a class="image" href="https://wiki.eclipse.org/File:Note.png"><img height="35" width="35" src="../../images/c/cc/Note.png" alt="Note.png"/></a></div>
+<div>
+<p><b>Windows Users Take Note:</b>  
+</p><p>The above example command line is for Unix/Linux/OSX, change the above example's use of "<tt>:</tt>" to "<tt>;</tt>" for the command to work in Windows.
+</p>
+<b><br/></b></div>
+</div>
+<p><br/>
+You can test the server with the test client (use <tt>–help</tt> to see more options):
+</p>
+<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="java source-java"><pre class="de1"> java <span class="sy0">-</span>cp jetty<span class="sy0">-</span>websocket<span class="sy0">-</span>tests.<span class="me1">jar</span><span class="sy0">:</span>jetty<span class="sy0">-</span>all.<span class="me1">jar</span><span class="sy0">:</span>servlet<span class="sy0">-</span>api<span class="sy0">-</span><span class="nu0">2.5</span>.<span class="me1">jar</span> \
+   org.<span class="me1">eclipse</span>.<span class="me1">jetty</span>.<span class="me1">websocket</span>.<span class="me1">TestClient</span> \
+   <span class="sy0">--</span>port <span class="nu0">8080</span> \
+   <span class="sy0">--</span>protocol echo</pre></div></div>
+<div class="messagebox" style="background-color: #def3fe; border: 1px solid #c5d7e0; color: black; padding: 5px; margin: 1ex 0; min-height: 35px; padding-left: 45px;">
+<div style="float: left; margin-left: -40px;"><a href="https://wiki.eclipse.org/File:Note.png" class="image"><img height="35" width="35" src="../../images/c/cc/Note.png" alt="Note.png"/></a></div>
+<div>
+<p><b>Windows Users Take Note:</b>  
+</p><p>The above example command line is for Unix/Linux/OSX, change the above example's use of "<tt>:</tt>" to "<tt>;</tt>" for the command to work in Windows.
+</p>
+<b><br/></b></div>
+</div>
+<p><br/>
+The output from the test client is similar to ping. You can use the options you discover by using <tt>–help</tt> to try out different types of tests, including fragmentation and aggregation of WebSocket frames.
+</p>
+<h2><span class="mw-headline" id="Using_a_Browser">Using a Browser</span></h2>
+<p>Using a Java client is not compelling unless you want to write a desktop application that uses WebSocket (a viable idea).  But most WebSocket users want to use the browser as a client.  So point your browser at the TestServer at <a href="http://localhost:8080" rel="nofollow" class="external free">http://localhost:8080</a>.
+</p><p>The WebSocket TestServer also runs an HTTP file server at the directory given by <tt>–docroot</tt>, so in this case you should see in the browser a listing of the directory in which you ran the test server.
+</p><p>To turn the browser into a WebSocket client, you need to serve some HTML and Javascript that executes in the browser and talks back to the server using Websockets.  
+</p>
+<ol><li> Create the file <tt>index.html</tt> in the same directory you ran the server from. </li>
+<li> Put into it the following contents which you can download from <a class="external text" rel="nofollow" href="http://git.eclipse.org/c/jetty/org.eclipse.jetty.project.git/plain/jetty-websocket/src/test/webapp/index.html">jetty-websocket/src/test/webapp/index.html</a>. This index file contains the HTML, CSS and Javascript for a basic chat room.</li></ol>
+<p>You should now be able to point your browser(s) at the test server, see a chat room, and join it.  If your browser does not support WebSockets, you’ll receive a warning.
+</p>
+<h2><span class="mw-headline" id="Understanding_How_the_Client_Works">Understanding How the Client Works</span></h2>
+<p>The initial HTML view has a prompt for a user name.  When a you enter a name, the system calls the <tt>join</tt> method, which creates the WebSocket to the server.  The URI for the WebSocket derives from the document's location. Call back functions are registered for open, message and close events.  The <tt>org.ietf.websocket.test-echo-broadcast</tt> subprotocol is specified as this echoes all received messages to all other broadcast connections, providing the semantic a chat room requires:
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="java source-java"><pre class="de1">join<span class="sy0">:</span> function<span class="br0">(</span>name<span class="br0">)</span> <span class="br0">{</span>
+  <span class="kw1">this</span>._username<span class="sy0">=</span>name<span class="sy0">;</span>
+  var location <span class="sy0">=</span> document.<span class="me1">location</span>.<span class="me1">toString</span><span class="br0">(</span><span class="br0">)</span>.<span class="me1">replace</span><span class="br0">(</span><span class="st0">'http://'</span>,<span class="st0">'ws://'</span><span class="br0">)</span>.<span class="me1">replace</span><span class="br0">(</span><span class="st0">'https://'</span>,<span class="st0">'wss://'</span><span class="br0">)</span><span class="sy0">;</span>
+  <span class="kw1">this</span>._ws<span class="sy0">=</span><span class="kw1">new</span> WebSocket<span class="br0">(</span>location,<span class="st0">"org.ietf.websocket.test-echo-broadcast"</span><span class="br0">)</span><span class="sy0">;</span>
+  <span class="kw1">this</span>._ws.<span class="me1">onopen</span><span class="sy0">=</span><span class="kw1">this</span>._onopen<span class="sy0">;</span>
+  <span class="kw1">this</span>._ws.<span class="me1">onmessage</span><span class="sy0">=</span><span class="kw1">this</span>._onmessage<span class="sy0">;</span>
+  <span class="kw1">this</span>._ws.<span class="me1">onclose</span><span class="sy0">=</span><span class="kw1">this</span>._onclose<span class="sy0">;</span>
+<span class="br0">}</span>,</pre></div></div>
+<p>When the WebSocket successfully connects to the server, it calls the <tt>onopen</tt> callback, which changes the appearance of the chat room to prompt for a chat message.  It also sends a message saying the user has joined the room:
+</p>
+<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="java source-java"><pre class="de1">_onopen<span class="sy0">:</span> function<span class="br0">(</span><span class="br0">)</span><span class="br0">{</span>
+  $<span class="br0">(</span><span class="st0">'join'</span><span class="br0">)</span>.<span class="me1">className</span><span class="sy0">=</span><span class="st0">'hidden'</span><span class="sy0">;</span>
+  $<span class="br0">(</span><span class="st0">'joined'</span><span class="br0">)</span>.<span class="me1">className</span><span class="sy0">=</span><span class="st0">''</span><span class="sy0">;</span>
+  $<span class="br0">(</span><span class="st0">'phrase'</span><span class="br0">)</span>.<span class="me1">focus</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
+  room._send<span class="br0">(</span>room._username,<span class="st0">'has joined!'</span><span class="br0">)</span><span class="sy0">;</span>
+<span class="br0">}</span>,</pre></div></div>
+<p>To send a message, you format a string as <i>username:chat text</i> and then call the WebSocket <tt>send</tt> method:
+</p>
+<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="java source-java"><pre class="de1">_send<span class="sy0">:</span> function<span class="br0">(</span>user,message<span class="br0">)</span><span class="br0">{</span>
+  user<span class="sy0">=</span>user.<span class="me1">replace</span><span class="br0">(</span><span class="st0">':'</span>,<span class="st0">'_'</span><span class="br0">)</span><span class="sy0">;</span>
+  <span class="kw1">if</span> <span class="br0">(</span><span class="kw1">this</span>._ws<span class="br0">)</span>
+    <span class="kw1">this</span>._ws.<span class="me1">send</span><span class="br0">(</span>user<span class="sy0">+</span><span class="st0">':'</span><span class="sy0">+</span>message<span class="br0">)</span><span class="sy0">;</span>
+<span class="br0">}</span>,
+ 
+chat<span class="sy0">:</span> function<span class="br0">(</span>text<span class="br0">)</span> <span class="br0">{</span>
+  <span class="kw1">if</span> <span class="br0">(</span>text <span class="sy0">!=</span> <span class="kw2">null</span> <span class="sy0">&amp;</span>amp<span class="sy0">;&amp;</span>amp<span class="sy0">;</span> text.<span class="me1">length</span><span class="sy0">&amp;</span>gt<span class="sy0">;</span><span class="nu0">0</span> <span class="br0">)</span>
+     room._send<span class="br0">(</span>room._username,text<span class="br0">)</span><span class="sy0">;</span>
+<span class="br0">}</span>,</pre></div></div>
+<p>When the browser receives a WebSocket message over the connection, the system calls the <tt>onmessage</tt> callback with a message object. The Jetty implementation looks for  the username and colon, strips out any markup, and then appends the message to the chat room:
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="java source-java"><pre class="de1">_onmessage<span class="sy0">:</span> function<span class="br0">(</span>m<span class="br0">)</span> <span class="br0">{</span>
+  <span class="kw1">if</span> <span class="br0">(</span>m.<span class="me1">data</span><span class="br0">)</span><span class="br0">{</span>
+    var c<span class="sy0">=</span>m.<span class="me1">data</span>.<span class="me1">indexOf</span><span class="br0">(</span><span class="st0">':'</span><span class="br0">)</span><span class="sy0">;</span>
+    var from<span class="sy0">=</span>m.<span class="me1">data</span>.<span class="me1">substring</span><span class="br0">(</span><span class="nu0">0</span>,c<span class="br0">)</span>.<span class="me1">replace</span><span class="br0">(</span><span class="st0">'&amp;lt;'</span>,<span class="st0">'&amp;lt;'</span><span class="br0">)</span>.<span class="me1">replace</span><span class="br0">(</span><span class="st0">'&amp;gt;'</span>,<span class="st0">'&amp;gt;'</span><span class="br0">)</span><span class="sy0">;</span>
+    var text<span class="sy0">=</span>m.<span class="me1">data</span>.<span class="me1">substring</span><span class="br0">(</span>c<span class="sy0">+</span><span class="nu0">1</span><span class="br0">)</span>.<span class="me1">replace</span><span class="br0">(</span><span class="st0">'&amp;lt;'</span>,<span class="st0">'&amp;lt;'</span><span class="br0">)</span>.<span class="me1">replace</span><span class="br0">(</span><span class="st0">'&amp;gt;'</span>,<span class="st0">'&amp;gt;'</span><span class="br0">)</span><span class="sy0">;</span>
+    var chat<span class="sy0">=</span>$<span class="br0">(</span><span class="st0">'chat'</span><span class="br0">)</span><span class="sy0">;</span>
+    var spanFrom <span class="sy0">=</span> document.<span class="me1">createElement</span><span class="br0">(</span><span class="st0">'span'</span><span class="br0">)</span><span class="sy0">;</span>
+    spanFrom.<span class="me1">className</span><span class="sy0">=</span><span class="st0">'from'</span><span class="sy0">;</span>
+    spanFrom.<span class="me1">innerHTML</span><span class="sy0">=</span>from<span class="sy0">+</span><span class="st0">': '</span><span class="sy0">;</span>
+    var spanText <span class="sy0">=</span> document.<span class="me1">createElement</span><span class="br0">(</span><span class="st0">'span'</span><span class="br0">)</span><span class="sy0">;</span>
+    spanText.<span class="me1">className</span><span class="sy0">=</span><span class="st0">'text'</span><span class="sy0">;</span>
+    spanText.<span class="me1">innerHTML</span><span class="sy0">=</span>text<span class="sy0">;</span>
+    var lineBreak <span class="sy0">=</span> document.<span class="me1">createElement</span><span class="br0">(</span><span class="st0">'br'</span><span class="br0">)</span><span class="sy0">;</span>
+    chat.<span class="me1">appendChild</span><span class="br0">(</span>spanFrom<span class="br0">)</span><span class="sy0">;</span>
+    chat.<span class="me1">appendChild</span><span class="br0">(</span>spanText<span class="br0">)</span><span class="sy0">;</span>
+    chat.<span class="me1">appendChild</span><span class="br0">(</span>lineBreak<span class="br0">)</span><span class="sy0">;</span>
+    chat.<span class="me1">scrollTop</span> <span class="sy0">=</span> chat.<span class="me1">scrollHeight</span> <span class="sy0">-</span> chat.<span class="me1">clientHeight</span><span class="sy0">;</span>
+  <span class="br0">}</span>
+<span class="br0">}</span>,</pre></div></div>
+<p>If the server closes the connection, or if the browser times it out, then the <tt>onclose</tt> callback is called.  This nulls out the chat room and reverts to the starting position:
+</p>
+<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="java source-java"><pre class="de1"> onclose<span class="sy0">:</span> function<span class="br0">(</span>m<span class="br0">)</span> <span class="br0">{</span>
+  <span class="kw1">this</span>._ws<span class="sy0">=</span><span class="kw2">null</span><span class="sy0">;</span>
+  $<span class="br0">(</span><span class="st0">'join'</span><span class="br0">)</span>.<span class="me1">className</span><span class="sy0">=</span><span class="st0">''</span><span class="sy0">;</span>
+  $<span class="br0">(</span><span class="st0">'joined'</span><span class="br0">)</span>.<span class="me1">className</span><span class="sy0">=</span><span class="st0">'hidden'</span><span class="sy0">;</span>
+  $<span class="br0">(</span><span class="st0">'username'</span><span class="br0">)</span>.<span class="me1">focus</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
+  $<span class="br0">(</span><span class="st0">'chat'</span><span class="br0">)</span>.<span class="me1">innerHTML</span><span class="sy0">=</span><span class="st0">''</span><span class="sy0">;</span>
+<span class="br0">}</span></pre></div></div>
+<h2><span id="Understanding_How_the_Server_Works" class="mw-headline">Understanding How the Server Works</span></h2>
+<p>The <a href="http://dev.eclipse.org/svnroot/rt/org.eclipse.jetty/jetty/tags/jetty-7.4.0.v20110414/jetty-websocket/src/main/java/org/eclipse/jetty/websocket/TestServer.java" rel="nofollow" class="external text">server side code</a> for  this chat room uses an embedded Jetty server and is written against the Jetty WebSocket APIs that are not part of the WebSocket standard. There is not yet even a proposed standard for serverside WebSocket APIs, but it is a topic for consideration with the servlet 3.1 JSR.
+</p><p>The test server is an extension of an <a rel="nofollow" href="http://wiki.eclipse.org/Jetty/Tutorial/Embedding_Jetty" class="external text">embedded Jetty server</a>, and the constructor adds a <a class="external text" rel="nofollow" href="http://download.eclipse.org/jetty/7.4.0.v20110414/xref/org/eclipse/jetty/server/nio/SelectChannelConnector.html">connector</a> at the required port, creates a <a class="external text" rel="nofollow" href="http://download.eclipse.org/jetty/7.4.0.v20110414/xref/org/eclipse/jetty/websocket/WebSocketHandler.html">WebSocketHandler</a> and a <a href="http://download.eclipse.org/jetty/7.4.0.v20110414/xref/org/eclipse/jetty/server/handler/ResourceHandler.html" rel="nofollow" class="external text">ResourceHandler</a> and chains them together:
+</p>
+<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="java source-java"><pre class="de1"> <span class="kw1">public</span> TestServer<span class="br0">(</span><span class="kw4">int</span> port<span class="br0">)</span>
+<span class="br0">{</span>
+    _connector <span class="sy0">=</span> <span class="kw1">new</span> SelectChannelConnector<span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
+    _connector.<span class="me1">setPort</span><span class="br0">(</span>port<span class="br0">)</span><span class="sy0">;</span>
+    addConnector<span class="br0">(</span>_connector<span class="br0">)</span><span class="sy0">;</span>
+ 
+    _wsHandler <span class="sy0">=</span> <span class="kw1">new</span> WebSocketHandler<span class="br0">(</span><span class="br0">)</span>
+    <span class="br0">{</span>
+        <span class="kw1">public</span> WebSocket doWebSocketConnect<span class="br0">(</span>HttpServletRequest request, <span class="kw3">String</span> protocol<span class="br0">)</span>
+        <span class="br0">{</span>
+            ...
+            <span class="kw1">return</span> _websocket<span class="sy0">;</span>
+        <span class="br0">}</span>
+    <span class="br0">}</span><span class="sy0">;</span>
+    setHandler<span class="br0">(</span>_wsHandler<span class="br0">)</span><span class="sy0">;</span>
+ 
+    _rHandler<span class="sy0">=</span><span class="kw1">new</span> ResourceHandler<span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
+    _rHandler.<span class="me1">setDirectoriesListed</span><span class="br0">(</span><span class="kw2">true</span><span class="br0">)</span><span class="sy0">;</span>
+    _rHandler.<span class="me1">setResourceBase</span><span class="br0">(</span>_docroot<span class="br0">)</span><span class="sy0">;</span>
+    _wsHandler.<span class="me1">setHandler</span><span class="br0">(</span>_rHandler<span class="br0">)</span><span class="sy0">;</span>
+<span class="br0">}</span></pre></div></div>
+<p>The resource handler is responsible for serving the static content like HTML and Javascript. The WebSocketHandler looks for WebSocket handshake requests and handles them by calling the <tt>doWebSocketConnect</tt> method, which we have extended to create a WebSocket depending on the sub protocol passed:
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="java source-java"><pre class="de1">_wsHandler <span class="sy0">=</span> <span class="kw1">new</span> WebSocketHandler<span class="br0">(</span><span class="br0">)</span>
+<span class="br0">{</span>
+    <span class="kw1">public</span> WebSocket doWebSocketConnect<span class="br0">(</span>HttpServletRequest request, <span class="kw3">String</span> protocol<span class="br0">)</span>
+    <span class="br0">{</span>
+        <span class="kw1">if</span> <span class="br0">(</span><span class="st0">"org.ietf.websocket.test-echo"</span>.<span class="me1">equals</span><span class="br0">(</span>protocol<span class="br0">)</span> <span class="sy0">||</span> <span class="st0">"echo"</span>.<span class="me1">equals</span><span class="br0">(</span>protocol<span class="br0">)</span> <span class="sy0">||</span> <span class="st0">"lws-mirror-protocol"</span>.<span class="me1">equals</span><span class="br0">(</span>protocol<span class="br0">)</span><span class="br0">)</span>
+            _websocket <span class="sy0">=</span> <span class="kw1">new</span> TestEchoWebSocket<span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
+        <span class="kw1">else</span> <span class="kw1">if</span> <span class="br0">(</span><span class="st0">"org.ietf.websocket.test-echo-broadcast"</span>.<span class="me1">equals</span><span class="br0">(</span>protocol<span class="br0">)</span><span class="br0">)</span>
+            _websocket <span class="sy0">=</span> <span class="kw1">new</span> TestEchoBroadcastWebSocket<span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
+        <span class="kw1">else</span> <span class="kw1">if</span> <span class="br0">(</span><span class="st0">"org.ietf.websocket.test-echo-assemble"</span>.<span class="me1">equals</span><span class="br0">(</span>protocol<span class="br0">)</span><span class="br0">)</span>
+            _websocket <span class="sy0">=</span> <span class="kw1">new</span> TestEchoAssembleWebSocket<span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
+        <span class="kw1">else</span> <span class="kw1">if</span> <span class="br0">(</span><span class="st0">"org.ietf.websocket.test-echo-fragment"</span>.<span class="me1">equals</span><span class="br0">(</span>protocol<span class="br0">)</span><span class="br0">)</span>
+            _websocket <span class="sy0">=</span> <span class="kw1">new</span> TestEchoFragmentWebSocket<span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
+        <span class="kw1">else</span> <span class="kw1">if</span> <span class="br0">(</span>protocol<span class="sy0">==</span><span class="kw2">null</span><span class="br0">)</span>
+            _websocket <span class="sy0">=</span> <span class="kw1">new</span> TestWebSocket<span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
+        <span class="kw1">return</span> _websocket<span class="sy0">;</span>
+    <span class="br0">}</span>
+<span class="br0">}</span><span class="sy0">;</span></pre></div></div>
+<p>A simplification of the test <a href="http://download.eclipse.org/jetty/7.4.0.v20110414/xref/org/eclipse/jetty/websocket/WebSocket.html" rel="nofollow" class="external text">WebSocket</a> from the test server follows. It excludes the shared code for the other protocols supported. Like the Javascript API, there is an <tt>onOpen, onClose</tt> and <tt>onMessage</tt> callback. The <tt>onOpen</tt> callback is passed in a <a class="external text" rel="nofollow" href="http://download.eclipse.org/jetty/7.4.0.v20110414/xref/org/eclipse/jetty/websocket/WebSocket.html#107">Connection</a> instance that sends messages. The implementation of <tt>onOpen</tt> adds the WebSocket to a collection of all known WebSockets, and <tt>onClose</tt> removes the WebSocket. The implementation of <tt>onMessage</tt> is to simply iterate through that collection and to send the received message to each WebSocket:
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="java source-java"><pre class="de1">ConcurrentLinkedQueue _broadcast <span class="sy0">=</span>
+    <span class="kw1">new</span> ConcurrentLinkedQueue<span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
+<span class="kw1">class</span> TestEchoBroadcastWebSocket <span class="kw1">implements</span> WebSocket.<span class="me1">OnTextMessage</span>
+<span class="br0">{</span>
+    <span class="kw1">protected</span> <span class="kw3">Connection</span> _connection<span class="sy0">;</span>
+ 
+    <span class="kw1">public</span> <span class="kw4">void</span> onOpen<span class="br0">(</span><span class="kw3">Connection</span> connection<span class="br0">)</span>
+    <span class="br0">{</span>
+        _connection<span class="sy0">=</span>connection<span class="sy0">;</span>
+        _broadcast.<span class="me1">add</span><span class="br0">(</span><span class="kw1">this</span><span class="br0">)</span><span class="sy0">;</span>
+    <span class="br0">}</span>
+    <span class="kw1">public</span> <span class="kw4">void</span> onClose<span class="br0">(</span><span class="kw4">int</span> code,<span class="kw3">String</span> message<span class="br0">)</span>
+    <span class="br0">{</span>
+        _broadcast.<span class="me1">remove</span><span class="br0">(</span><span class="kw1">this</span><span class="br0">)</span><span class="sy0">;</span>
+    <span class="br0">}</span>
+    <span class="kw1">public</span> <span class="kw4">void</span> onMessage<span class="br0">(</span><span class="kw1">final</span> <span class="kw3">String</span> data<span class="br0">)</span>
+    <span class="br0">{</span>
+        <span class="kw1">for</span> <span class="br0">(</span>TestEchoBroadcastWebSocket ws <span class="sy0">:</span> _broadcast<span class="br0">)</span>
+        <span class="br0">{</span>
+            <span class="kw1">try</span>
+            <span class="br0">{</span>
+                ws._connection.<span class="me1">sendMessage</span><span class="br0">(</span>data<span class="br0">)</span><span class="sy0">;</span>
+            <span class="br0">}</span>
+            <span class="kw1">catch</span> <span class="br0">(</span><span class="kw3">IOException</span> e<span class="br0">)</span>
+            <span class="br0">{</span>
+                _broadcast.<span class="me1">remove</span><span class="br0">(</span>ws<span class="br0">)</span><span class="sy0">;</span>
+                e.<span class="me1">printStackTrace</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
+            <span class="br0">}</span>
+        <span class="br0">}</span>
+    <span class="br0">}</span>
+<span class="br0">}</span></pre></div></div>
+<h2><span class="mw-headline" id="Don.E2.80.99t_do_it_this_way.21">Don’t do it this way!</span></h2>
+<p>Now you know the basics of how WebSockets work, I repeat my warning that you should not do it this way – unless you are a framework developer.   Even then, you probably want to use the <a href="http://download.eclipse.org/jetty/7.4.0.v20110414/xref/org/eclipse/jetty/websocket/WebSocketServlet.html" rel="nofollow" class="external text">WebSocketServlet</a> and a non embedded Jetty, but the basic concepts are the same. The strength of the Jetty solution is that it terminates both WebSocket connections and HTTP requests in the same environment, so that mixed frameworks and applications are easy to create.
+</p><p>Application developers should really look to a framework like <a class="external text" href="http://cometd.org" rel="nofollow">Cometd</a> rather than directly coding to WebSockets themselves.  It is not that the mechanics of WebSockets are hard, just that they don’t solve all of the problems that you encounter in a real world Comet application.
+</p>
+<h2><span id="Additional_Resources" class="mw-headline">Additional Resources</span></h2>
+<p><a href="http://wiki.eclipse.org/Jetty_WTP_Plugin/Jetty_WTP_Websocket_Wizard" rel="nofollow" class="external text">Using the WTP WebSocket Wizard</a>
+</p>
+<!-- 
+NewPP limit report
+Cached time: 20211116180117
+Cache expiry: 86400
+Dynamic content: false
+CPU time usage: 0.440 seconds
+Real time usage: 0.462 seconds
+Preprocessor visited node count: 153/1000000
+Preprocessor generated node count: 639/1000000
+Post‐expand include size: 13362/2097152 bytes
+Template argument size: 11135/2097152 bytes
+Highest expansion depth: 6/40
+Expensive parser function count: 0/100
+-->
+
+<!-- 
+Transclusion expansion time report (%,ms,calls,template)
+100.00%  362.412      1 - Template:Jetty_Feature
+100.00%  362.412      1 - -total
+  3.93%   14.225      3 - Template:Message
+  3.58%   12.979      1 - Template:Jetty_TODO
+  2.39%    8.659      2 - Template:Note
+  1.16%    4.190      1 - Template:Jetty
+-->
+
+<!-- Saved in parser cache with key my_wiki:pcache:idhash:32856-0!*!*!!en!5!* and timestamp 20211116180116 and revision id 334778
+ -->
+</div>
+                                      <!-- catlinks -->
+                    <div class="catlinks" id="catlinks"><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="https://wiki.eclipse.org/Special:Categories" title="Special:Categories">Categories</a>: <ul><li><a title="Category:Jetty" href="https://wiki.eclipse.org/Category:Jetty">Jetty</a></li><li><a href="https://wiki.eclipse.org/Category:Jetty_Feature" title="Category:Jetty Feature">Jetty Feature</a></li></ul></div></div>                     <!-- /catlinks -->
+                                  </div>
+              </div>
+            </div>
+          </div>
+</body>
+</html>

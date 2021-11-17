@@ -1,0 +1,201 @@
+<html>
+<head>
+    <title>Jetty WTP Plugin</title>
+    <link rel="stylesheet" media="screen, print" href="wiki-style.css"/>
+</head>
+<body>
+<div class="col-md-20" id="mainContent">
+                      <ul role="tablist" class="nav nav-tabs noprint hidden-print">
+                       <li class="active" id="ca-nstab-main"><a tabindex="-1" accesskey="c" href="Custom Error Pages.html" title="View the content page [c]">Page</a></li>
+                        <li id="ca-talk" class="new"><a tabindex="-1" href="edit" accesskey="t" title="Discussion about the content page [t]">Discussion</a></li>
+                        <li id="ca-viewsource"><a tabindex="-1" accesskey="e" href="edit" title="This page is protected.&#10;You can view its source [e]">View source</a></li>
+                        <li id="ca-history" class="collapsible"><a tabindex="-1" href="edit" accesskey="h" title="Past revisions of this page [h]">History</a></li>
+                      </ul>            <div class="tab-content background-white">
+              <div id="tab-pane-main-page-content" class="tab-pane active">
+
+                
+                <h1 id="firstHeading" class="firstHeading page-header">
+                  <span dir="auto">Jetty/Howto/Custom Error Pages</span>
+                </h1>
+                <div id="main-page-content">
+                                                      <!-- subtitle -->
+                  <div id="contentSub" class="alert alert-small alert-warning"><span class="subpages">&lt; <a title="Jetty" href="../../Jetty.html">Jetty</a>‎ | <a title="Jetty/Howto" href="../Howto.html">Howto</a></span></div>
+                  <!-- /subtitle -->
+                  
+                  
+                  <div id="mw-content-text" class="mw-content-ltr" dir="ltr" lang="en"><p><br/>
+</p><p><br/>
+</p>
+<div id="toc" class="toc"><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="Custom Error Pages.html#Introduction"><span class="tocnumber">1</span> <span class="toctext">Introduction</span></a></li>
+<li class="toclevel-1"><a href="Custom Error Pages.html#Define_error_pages_in_web.xml"><span class="tocnumber">2</span> <span class="toctext">Define error pages in web.xml</span></a></li>
+<li class="toclevel-1"><a href="Custom Error Pages.html#Context_file_configuration"><span class="tocnumber">3</span> <span class="toctext">Context file configuration</span></a></li>
+<li class="toclevel-1"><a href="Custom Error Pages.html#Custom_error_handler_class"><span class="tocnumber">4</span> <span class="toctext">Custom error handler class</span></a></li>
+<li class="toclevel-1"><a href="Custom Error Pages.html#Server_level_404_error"><span class="tocnumber">5</span> <span class="toctext">Server level 404 error</span></a></li>
+</ul>
+</div>
+
+<h2><span id="Introduction" class="mw-headline">Introduction</span></h2>
+<div class="messagebox" style="background-color: #f9f6b7; border: 1px solid #c4c295; color: black; padding: 5px; margin: 1ex 0; min-height: 35px; padding-left: 45px; font-size: 150%; color: white; background-color: #FF8888; padding: 50px">
+<div style="float: left; margin-left: -40px;"><a class="image" href="https://wiki.eclipse.org/File:Warning2.png"><img width="35" alt="Warning2.png" src="../../images/3/37/Warning2.png" height="35"/></a></div>
+<div>Jetty 7 and Jetty 8 are now EOL (End of Life)<br/>
+<p><br/>
+<br/>
+<br/>
+THIS IS NOT THE DOCUMENTATION YOU ARE LOOKING FOR!!!!!<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+All development and stable releases are being performed with Jetty 9 and Jetty 10.<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+This <b>wiki is now officially out of date</b> and all content has been moved to the <a rel="nofollow" class="external text" href="http://www.eclipse.org/jetty/documentation">Jetty Documentation Hub</a><br/> 
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+</p>
+Direct Link to updated documentation: <a rel="nofollow" href="http://www.eclipse.org/jetty/documentation/current/custom-error-pages.html" class="external free">http://www.eclipse.org/jetty/documentation/current/custom-error-pages.html</a></div>
+</div>
+<p><br/>
+There are several ways to create custom error pages in Jetty that are described below.
+</p>
+<h2><span class="mw-headline" id="Define_error_pages_in_web.xml">Define error pages in web.xml</span></h2>
+<p>The standard webapp configuration file located in &lt;webapp&gt;/WEB-INF/web.xml can be used to map errors to specific URLs with the <i>&lt;error-page&gt;</i> element. This element creates a mapping between the <i>error-code</i> or <i>exception-type</i> to the <i>location</i> of a resource in the web application.
+</p>
+<ul><li> <i>error-code</i> - integer value</li>
+<li> <i>exception-type</i> - fully qualified class name of a Java Exception type</li>
+<li> <i>location</i> - location of the resource in webapp relative to the root of the web application. Value should start with "/".</li></ul>
+<p>Error code example:
+</p>
+<pre>&lt;error-page&gt;
+  &lt;error-code&gt;404&lt;/error-code&gt;
+  &lt;location&gt;/jspsnoop/ERROR/404&lt;/location&gt;
+&lt;/error-page&gt;
+</pre>
+<p>Exception example:
+</p>
+<pre>&lt;error-page&gt;
+  &lt;exception-type&gt;java.io.IOException&lt;/exception-type&gt;
+  &lt;location&gt;/jspsnoop/IOException&lt;/location&gt;
+&lt;/error-page&gt;
+</pre>
+<h2><span class="mw-headline" id="Context_file_configuration">Context file configuration</span></h2>
+<p>Context files are normally located in &lt;jetty.home&gt;/contexts/ (see <a href="https://wiki.eclipse.org/Jetty/Feature/ContextDeployer" class="mw-redirect" title="Jetty/Feature/ContextDeployer">ContextDeployer</a> for more details). Context files can be used to configure the default error handler provided for a context with more flexibility than is available with web.xml, specifically with the support of error code ranges:
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="xml source-xml"><pre class="de1"><span class="sc3"><span class="re1">&lt;?xml</span> <span class="re0">version</span>=<span class="st0">"1.0"</span>  <span class="re0">encoding</span>=<span class="st0">"ISO-8859-1"</span><span class="re2">?&gt;</span></span>
+<span class="sc0">&lt;!DOCTYPE Configure PUBLIC "-//Mort Bay Consulting//DTD Configure//EN" "http://jetty.mortbay.org/configure.dtd"&gt;</span>
+ 
+<span class="sc3"><span class="re1">&lt;Configure</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.webapp.WebAppContext"</span><span class="re2">&gt;</span></span>
+  <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"contextPath"</span><span class="re2">&gt;</span></span>/test<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"war"</span><span class="re2">&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;SystemProperty</span> <span class="re0">name</span>=<span class="st0">"jetty.home"</span> <span class="re0">default</span>=<span class="st0">"."</span><span class="re2">/&gt;</span></span>/webapps/test
+  <span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
+ 
+  <span class="sc-1">&lt;!-- by Code --&gt;</span>
+  <span class="sc3"><span class="re1">&lt;Get</span> <span class="re0">name</span>=<span class="st0">"errorHandler"</span><span class="re2">&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;Call</span> <span class="re0">name</span>=<span class="st0">"addErrorPage"</span><span class="re2">&gt;</span></span>
+      <span class="sc3"><span class="re1">&lt;Arg</span> <span class="re0">type</span>=<span class="st0">"int"</span><span class="re2">&gt;</span></span>404<span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
+      <span class="sc3"><span class="re1">&lt;Arg</span> <span class="re0">type</span>=<span class="st0">"String"</span><span class="re2">&gt;</span></span>/jspsnoop/ERROR/404<span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;/Call<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;/Get<span class="re2">&gt;</span></span></span>
+ 
+  <span class="sc-1">&lt;!-- by Exception --&gt;</span>
+  <span class="sc3"><span class="re1">&lt;Get</span> <span class="re0">name</span>=<span class="st0">"errorHandler"</span><span class="re2">&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;Call</span> <span class="re0">name</span>=<span class="st0">"addErrorPage"</span><span class="re2">&gt;</span></span>
+      <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;Call</span> <span class="re0">class</span>=<span class="st0">"java.lang.Class"</span> <span class="re0">name</span>=<span class="st0">"forName"</span><span class="re2">&gt;</span></span>
+          <span class="sc3"><span class="re1">&lt;Arg</span> <span class="re0">type</span>=<span class="st0">"String"</span><span class="re2">&gt;</span></span>java.io.IOException<span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;/Call<span class="re2">&gt;</span></span></span>
+      <span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
+      <span class="sc3"><span class="re1">&lt;Arg</span> <span class="re0">type</span>=<span class="st0">"String"</span><span class="re2">&gt;</span></span>/jspsnoop/IOException<span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;/Call<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;/Get<span class="re2">&gt;</span></span></span>
+ 
+  <span class="sc-1">&lt;!-- by Code Range --&gt;</span>
+  <span class="sc3"><span class="re1">&lt;Get</span> <span class="re0">name</span>=<span class="st0">"errorHandler"</span><span class="re2">&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;Call</span> <span class="re0">name</span>=<span class="st0">"addErrorPage"</span><span class="re2">&gt;</span></span>
+      <span class="sc3"><span class="re1">&lt;Arg</span> <span class="re0">type</span>=<span class="st0">"int"</span><span class="re2">&gt;</span></span>500<span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
+      <span class="sc3"><span class="re1">&lt;Arg</span> <span class="re0">type</span>=<span class="st0">"int"</span><span class="re2">&gt;</span></span>599<span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
+      <span class="sc3"><span class="re1">&lt;Arg</span> <span class="re0">type</span>=<span class="st0">"String"</span><span class="re2">&gt;</span></span>/dump/errorCodeRangeMapping<span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;/Call<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;/Get<span class="re2">&gt;</span></span></span>
+<span class="sc3"><span class="re1">&lt;/Configure<span class="re2">&gt;</span></span></span></pre></div></div>
+<h2><span id="Custom_error_handler_class" class="mw-headline">Custom error handler class</span></h2>
+<p>A context may be configured with a custom error handler class that extends either <a href="http://dev.eclipse.org/viewcvs/index.cgi/jetty/trunk/jetty-server/src/main/java/org/eclipse/jetty/server/handler/ErrorHandler.java?root=RT_Jetty&amp;view=markup" class="external text" rel="nofollow">ErrorHandler</a> for generic contexts, or <a class="external text" href="http://dev.eclipse.org/viewcvs/index.cgi/jetty/trunk/jetty-servlet/src/main/java/org/eclipse/jetty/servlet/ErrorPageErrorHandler.java?root=RT_Jetty&amp;view=markup" rel="nofollow">ErrorPageErrorHandler</a> for webapp contexts.
+</p><p>The following methods may be implemented to control the appearance of the error pages:
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="java source-java"><pre class="de1"><span class="kw4">void</span> handle<span class="br0">(</span><span class="kw3">String</span> target, HttpServletRequest request, HttpServletResponse response, <span class="kw4">int</span> dispatch<span class="br0">)</span> <span class="kw1">throws</span> <span class="kw3">IOException</span>
+<span class="kw4">void</span> handleErrorPage<span class="br0">(</span>HttpServletRequest request, <span class="kw3">Writer</span> writer, <span class="kw4">int</span> code, <span class="kw3">String</span> message<span class="br0">)</span> <span class="kw1">throws</span> <span class="kw3">IOException</span>
+<span class="kw4">void</span> writeErrorPage<span class="br0">(</span>HttpServletRequest request, <span class="kw3">Writer</span> writer, <span class="kw4">int</span> code, <span class="kw3">String</span> message, <span class="kw4">boolean</span> showStacks<span class="br0">)</span> <span class="kw1">throws</span> <span class="kw3">IOException</span>
+<span class="kw4">void</span> writeErrorPageHead<span class="br0">(</span>HttpServletRequest request, <span class="kw3">Writer</span> writer, <span class="kw4">int</span> code, <span class="kw3">String</span> message<span class="br0">)</span> <span class="kw1">throws</span> <span class="kw3">IOException</span>
+<span class="kw4">void</span> writeErrorPageBody<span class="br0">(</span>HttpServletRequest request, <span class="kw3">Writer</span> writer, <span class="kw4">int</span> code, <span class="kw3">String</span> message, <span class="kw4">boolean</span> showStacks<span class="br0">)</span> <span class="kw1">throws</span> <span class="kw3">IOException</span>
+<span class="kw4">void</span> writeErrorPageMessage<span class="br0">(</span>HttpServletRequest request, <span class="kw3">Writer</span> writer, <span class="kw4">int</span> code, <span class="kw3">String</span> message, <span class="kw3">String</span> uri<span class="br0">)</span> <span class="kw1">throws</span> <span class="kw3">IOException</span>
+<span class="kw4">void</span> writeErrorPageStacks<span class="br0">(</span>HttpServletRequest request, <span class="kw3">Writer</span> writer<span class="br0">)</span> <span class="kw1">throws</span> <span class="kw3">IOException</span></pre></div></div>
+<p>The <i>ErrorPageErrorHandler</i> can also be configured to suppress stacktraces by calling <i>setShowStacks(false)</i>.
+</p><p><br/>
+The custom error handler may be set on the context via the API or via a context configuration file. For example a custom error handling class can be added to the javadoc context with:
+</p>
+<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="xml source-xml"><pre class="de1"><span class="sc3"><span class="re1">&lt;?xml</span> <span class="re0">version</span>=<span class="st0">"1.0"</span>  <span class="re0">encoding</span>=<span class="st0">"ISO-8859-1"</span><span class="re2">?&gt;</span></span>
+<span class="sc0">&lt;!DOCTYPE Configure PUBLIC "-//Mort Bay Consulting//DTD Configure//EN" "http://jetty.mortbay.org/configure.dtd"&gt;</span>
+ 
+<span class="sc3"><span class="re1">&lt;Configure</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.server.handler.ContextHandler"</span><span class="re2">&gt;</span></span>
+  <span class="sc3"><span class="re1">&lt;Call</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.util.log.Log"</span> <span class="re0">name</span>=<span class="st0">"debug"</span><span class="re2">&gt;</span><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>Configure javadoc.xml<span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span><span class="re1">&lt;/Call<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"contextPath"</span><span class="re2">&gt;</span></span>/javadoc<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"resourceBase"</span><span class="re2">&gt;</span><span class="re1">&lt;SystemProperty</span> <span class="re0">name</span>=<span class="st0">"jetty.home"</span> <span class="re0">default</span>=<span class="st0">"."</span><span class="re2">/&gt;</span></span>/javadoc/<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
+ 
+  <span class="sc-1">&lt;!-- Instantiate your own error handler --&gt;</span>
+  <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"errorHandler"</span><span class="re2">&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">class</span>=<span class="st0">"com.acme.handler.MyErrorHandler"</span><span class="re2">/&gt;</span></span>
+  <span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
+ 
+<span class="sc3"><span class="re1">&lt;/Configure<span class="re2">&gt;</span></span></span></pre></div></div>
+<h2><span id="Server_level_404_error" class="mw-headline">Server level 404 error</span></h2>
+<p>One may get a 'page not found' when a request is made to the server for a resource that is outside of any registered contexts. As an example, you have a domain name pointing to your public server IP yet no context is registered with jetty to serve pages for that domain. As a consequence, the server, by default, will give a listing of all contexts running on the server.
+</p><p>One of the quickest ways to avoid this behavior is to create a catch all context. Create a "root" web app mapped to the "/" URI. Have the index.html redirect to whatever place with a header directive.
+</p>
+<!-- 
+NewPP limit report
+Cached time: 20211116170032
+Cache expiry: 86400
+Dynamic content: false
+CPU time usage: 0.184 seconds
+Real time usage: 0.199 seconds
+Preprocessor visited node count: 71/1000000
+Preprocessor generated node count: 481/1000000
+Post‐expand include size: 5954/2097152 bytes
+Template argument size: 4646/2097152 bytes
+Highest expansion depth: 5/40
+Expensive parser function count: 0/100
+-->
+
+<!-- 
+Transclusion expansion time report (%,ms,calls,template)
+100.00%  104.986      1 - -total
+100.00%  104.986      1 - Template:Jetty_Howto
+ 14.89%   15.633      1 - Template:Jetty_Redirect
+ 10.57%   11.097      1 - Template:Message
+  5.86%    6.156      1 - Template:Jetty
+-->
+
+<!-- Saved in parser cache with key my_wiki:pcache:idhash:23624-0!*!0!!en!5!* and timestamp 20211116170031 and revision id 334697
+ -->
+</div>
+                                      <!-- catlinks -->
+                    <div class="catlinks" id="catlinks"><div class="mw-normal-catlinks" id="mw-normal-catlinks"><a href="https://wiki.eclipse.org/Special:Categories" title="Special:Categories">Categories</a>: <ul><li><a href="https://wiki.eclipse.org/Category:Jetty" title="Category:Jetty">Jetty</a></li><li><a href="https://wiki.eclipse.org/Category:Jetty_Howto" title="Category:Jetty Howto">Jetty Howto</a></li></ul></div></div>                     <!-- /catlinks -->
+                                  </div>
+              </div>
+            </div>
+          </div>
+</body>
+</html>

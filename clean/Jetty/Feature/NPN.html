@@ -1,0 +1,279 @@
+<html>
+<head>
+    <title>Jetty WTP Plugin</title>
+    <link rel="stylesheet" media="screen, print" href="wiki-style.css"/>
+</head>
+<body>
+<div class="col-md-20" id="mainContent">
+                      <ul class="nav nav-tabs noprint hidden-print" role="tablist">
+                       <li id="ca-nstab-main" class="active"><a href="NPN.html" title="View the content page [c]" accesskey="c" tabindex="-1">Page</a></li>
+                        <li id="ca-talk" class="new"><a tabindex="-1" href="edit" title="Discussion about the content page [t]" accesskey="t">Discussion</a></li>
+                        <li id="ca-viewsource"><a href="edit" accesskey="e" title="This page is protected.&#10;You can view its source [e]" tabindex="-1">View source</a></li>
+                        <li id="ca-history" class="collapsible"><a title="Past revisions of this page [h]" accesskey="h" href="edit" tabindex="-1">History</a></li>
+                      </ul>            <div class="tab-content background-white">
+              <div class="tab-pane active" id="tab-pane-main-page-content">
+
+                
+                <h1 id="firstHeading" class="firstHeading page-header">
+                  <span dir="auto">Jetty/Feature/NPN</span>
+                </h1>
+                <div id="main-page-content">
+                                                      <!-- subtitle -->
+                  <div class="alert alert-small alert-warning" id="contentSub"><span class="subpages">&lt; <a title="Jetty" href="../../Jetty.html">Jetty</a>‎ | <a href="../Feature.html" title="Jetty/Feature">Feature</a></span></div>
+                  <!-- /subtitle -->
+                  
+                  
+                  <div dir="ltr" id="mw-content-text" lang="en" class="mw-content-ltr"><p><br/>
+</p><p><br/>
+</p>
+<div class="toc" id="toc"><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="NPN.html#Introduction"><span class="tocnumber">1</span> <span class="toctext">Introduction</span></a></li>
+<li class="toclevel-1"><a href="NPN.html#Feature"><span class="tocnumber">2</span> <span class="toctext">Feature</span></a>
+<ul>
+<li class="toclevel-2"><a href="NPN.html#Starting_the_JVM"><span class="tocnumber">2.1</span> <span class="toctext">Starting the JVM</span></a></li>
+<li class="toclevel-2"><a href="NPN.html#Understanding_the_NPN_API"><span class="tocnumber">2.2</span> <span class="toctext">Understanding the NPN API</span></a>
+<ul>
+<li class="toclevel-3"><a href="NPN.html#Client_Example"><span class="tocnumber">2.2.1</span> <span class="toctext">Client Example</span></a></li>
+<li class="toclevel-3"><a href="NPN.html#Server_Example"><span class="tocnumber">2.2.2</span> <span class="toctext">Server Example</span></a></li>
+<li class="toclevel-3"><a href="NPN.html#Implementation_Details"><span class="tocnumber">2.2.3</span> <span class="toctext">Implementation Details</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2"><a href="NPN.html#Using_Unit_Tests"><span class="tocnumber">2.3</span> <span class="toctext">Using Unit Tests</span></a></li>
+<li class="toclevel-2"><a href="NPN.html#Debugging"><span class="tocnumber">2.4</span> <span class="toctext">Debugging</span></a></li>
+<li class="toclevel-2"><a href="NPN.html#License_Details"><span class="tocnumber">2.5</span> <span class="toctext">License Details</span></a></li>
+<li class="toclevel-2 tocsection-9"><a href="NPN.html#Versions"><span class="tocnumber">2.6</span> <span class="toctext">Versions</span></a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+<h2><span id="Introduction" class="mw-headline">Introduction</span></h2>
+<div style="background-color: #f9f6b7; border: 1px solid #c4c295; color: black; padding: 5px; margin: 1ex 0; min-height: 35px; padding-left: 45px; font-size: 150%; color: white; background-color: #FF8888; padding: 50px" class="messagebox">
+<div style="float: left; margin-left: -40px;"><a class="image" href="https://wiki.eclipse.org/File:Warning2.png"><img src="../../images/3/37/Warning2.png" width="35" alt="Warning2.png" height="35"/></a></div>
+<div>Jetty 7 and Jetty 8 are now EOL (End of Life)<br/>
+<p><br/>
+<br/>
+<br/>
+THIS IS NOT THE DOCUMENTATION YOU ARE LOOKING FOR!!!!!<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+All development and stable releases are being performed with Jetty 9 and Jetty 10.<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+This <b>wiki is now officially out of date</b> and all content has been moved to the <a href="http://www.eclipse.org/jetty/documentation" rel="nofollow" class="external text">Jetty Documentation Hub</a><br/> 
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+</p>
+Direct Link to updated documentation: <a href="http://www.eclipse.org/jetty/documentation/current/npn-chapter.html" rel="nofollow" class="external free">http://www.eclipse.org/jetty/documentation/current/npn-chapter.html</a></div>
+</div>
+<p><br/>
+The Jetty project provides an implementation of the <a class="external text" rel="nofollow" href="http://technotes.googlecode.com/git/nextprotoneg.html">Next Protocol Negotiation TLS Extension</a> (NPN) for OpenJDK 7 or greater.
+NPN allows the application layer to negotiate which protocol to use over the secure connection.
+</p><p>NPN currently negotiates using SPDY as an application level protocol on port 443, and also negotiates the SPDY version. However, NPN is not SPDY specific in any way. 
+Jetty's NPN implementation, although hosted under the umbrella of the Jetty project, is independent of Jetty (the servlet container); you can use it in any other Java network server.
+</p>
+<h2><span class="mw-headline" id="Feature">Feature</span></h2>
+<h3><span id="Starting_the_JVM" class="mw-headline">Starting the JVM</span></h3>
+<p>To enable NPN support, you need to start the JVM with:
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="bash source-bash"><pre class="de1">java -Xbootclasspath<span class="sy0">/</span>p:<span class="sy0">&lt;</span>path_to_npn_boot_jar<span class="sy0">&gt;</span> ...</pre></div></div>
+<p>where <code>path_to_npn_boot_jar</code> is the path on the file system for the NPN Boot jar file, for example,  one at the Maven coordinates  <a class="external text" rel="nofollow" href="http://repo2.maven.org/maven2/org/mortbay/jetty/npn/npn-boot">org.mortbay.jetty.npn:npn-boot</a>. 
+</p><p>(Note that the current versions of the npn packages no longer align with Jetty versions. Look at the dates in those file paths before looking at the version number.)
+</p>
+<h3><span class="mw-headline" id="Understanding_the_NPN_API">Understanding the NPN API</span></h3>
+<p>Applications need to interact with NPN TLS extension protocol negotiations. For example, server applications need to know whether the client supports NPN, and client applications needs to know the list of protocols the server supports, and so on.
+</p><p>To implement this interaction, Jetty's NPN implementation provides an API to applications, hosted at Maven coordinates <code>org.eclipse.jetty.npn:npn-api</code>.
+You need to declare this dependency as <i>provided</i>, because the <code>npn-boot</code> jar already includes it (see the previous section), and it is therefore available in the boot classpath.
+</p><p>The API consists of a single class, <code>org.eclipse.jetty.npn.NextProtoNego</code>, and applications need to register instances of <code>SSLSocket</code> or <code>SSLEngine</code> with a <code>ClientProvider</code> or <code>ServerProvider</code> (depending on whether the application is a client or server application).
+Refer to <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/npn/NextProtoNego.html" rel="nofollow"><code>NextProtoNego</code> javadocs</a> and to the examples below for further details about client and server provider methods.
+</p>
+<h4><span id="Client_Example" class="mw-headline">Client Example</span></h4>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="java source-java"><pre class="de1">SSLContext sslContext <span class="sy0">=</span> ...<span class="sy0">;</span>
+SSLSocket sslSocket <span class="sy0">=</span> <span class="br0">(</span>SSLSocket<span class="br0">)</span>context.<span class="me1">getSocketFactory</span><span class="br0">(</span><span class="br0">)</span>
+        .<span class="me1">createSocket</span><span class="br0">(</span><span class="st0">"localhost"</span>, server.<span class="me1">getLocalPort</span><span class="br0">(</span><span class="br0">)</span><span class="br0">)</span><span class="sy0">;</span>
+ 
+NextProtoNego.<span class="me1">put</span><span class="br0">(</span>sslSocket, <span class="kw1">new</span> NextProtoNego.<span class="me1">ClientProvider</span><span class="br0">(</span><span class="br0">)</span>
+<span class="br0">{</span>
+    @Override
+    <span class="kw1">public</span> <span class="kw4">boolean</span> supports<span class="br0">(</span><span class="br0">)</span>
+    <span class="br0">{</span>
+        <span class="kw1">return</span> <span class="kw2">true</span><span class="sy0">;</span>
+    <span class="br0">}</span>
+ 
+    @Override
+    <span class="kw1">public</span> <span class="kw4">void</span> unsupported<span class="br0">(</span><span class="br0">)</span>
+    <span class="br0">{</span>
+    <span class="br0">}</span>
+ 
+    @Override
+    <span class="kw1">public</span> <span class="kw3">String</span> selectProtocol<span class="br0">(</span>List<span class="sy0">&lt;</span>String<span class="sy0">&gt;</span> protocols<span class="br0">)</span>
+    <span class="br0">{</span>
+        <span class="kw1">return</span> protocols.<span class="me1">get</span><span class="br0">(</span><span class="nu0">0</span><span class="br0">)</span><span class="sy0">;</span>
+    <span class="br0">}</span>
+<span class="br0">}</span><span class="br0">)</span><span class="sy0">;</span></pre></div></div>
+<p>The NPN implementation calls <code>NextProtoNego.ClientProvider</code> methods <code>supports()</code>, <code>unsupported()</code> and <code>selectProtocol(List&lt;String&gt;)</code>, so that the client application can decide:
+</p>
+<ul><li> whether to support NPN.</li>
+<li> whether the server supports NPN.</li>
+<li> to select one of the protocols the server supports.</li></ul>
+<p>The example for <code>SSLEngine</code> is identical, and you just need to replace the <code>SSLSocket</code> instance with an <code>SSLEngine</code> instance.
+</p>
+<h4><span id="Server_Example" class="mw-headline">Server Example</span></h4>
+<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="java source-java"><pre class="de1">SSLSocket sslSocket <span class="sy0">=</span> ...<span class="sy0">;</span>
+NextProtoNego.<span class="me1">put</span><span class="br0">(</span>sslSocket, <span class="kw1">new</span> NextProtoNego.<span class="me1">ServerProvider</span><span class="br0">(</span><span class="br0">)</span>
+<span class="br0">{</span>
+    @Override
+    <span class="kw1">public</span> <span class="kw4">void</span> unsupported<span class="br0">(</span><span class="br0">)</span>
+    <span class="br0">{</span>
+    <span class="br0">}</span>
+ 
+    @Override
+    <span class="kw1">public</span> List<span class="sy0">&lt;</span>String<span class="sy0">&gt;</span> protocols<span class="br0">(</span><span class="br0">)</span>
+    <span class="br0">{</span>
+        <span class="kw1">return</span> <span class="kw3">Arrays</span>.<span class="me1">asList</span><span class="br0">(</span><span class="st0">"http/1.1"</span><span class="br0">)</span><span class="sy0">;</span>
+    <span class="br0">}</span>
+ 
+    @Override
+    <span class="kw1">public</span> <span class="kw4">void</span> protocolSelected<span class="br0">(</span><span class="kw3">String</span> protocol<span class="br0">)</span>
+    <span class="br0">{</span>
+        <span class="kw3">System</span>.<span class="me1">out</span>.<span class="me1">println</span><span class="br0">(</span><span class="st0">"Protocol Selected is: "</span> <span class="sy0">+</span> protocol<span class="br0">)</span><span class="sy0">;</span>
+    <span class="br0">}</span>
+<span class="br0">}</span><span class="br0">)</span><span class="sy0">;</span></pre></div></div>
+<p>The NPN implementation calls <code>NextProtoNego.ServerProvider</code> methods <code>unsupported()</code>, <code>protocols()</code> and <code>protocolSelected(String)</code>, so that the server application can
+</p>
+<ul><li> know whether the client supports NPN.</li>
+<li> provide the list of protocols the server supports.</li>
+<li> know which protocol the client chooses.</li></ul>
+<h4><span id="Implementation_Details" class="mw-headline">Implementation Details</span></h4>
+<p>It is common that the <code>NextProtoNego.ServerProvider</code> (and the <code>NextProtoNego.ClientProvider</code>) are implemented as (anonymous) inner classes, and that their method's implementations require references to the the <code>sslSocket</code> (or <code>sslEngine</code>), either directly or indirectly.
+</p><p>Since the <code>NextProtoNego</code> class holds [<code>sslSocket</code>/<code>sslEngine</code>, provider] pairs in a <code>WeakHashMap</code>, if the value (i.e. the provider implementation) holds a strong (even indirect) reference to the key, then the <code>WeakHashMap</code> entries will never be removed, leading to a memory leak.
+</p><p>For example in Jetty the implementation of <code>NextProtoNego.ServerProvider</code> requires a reference to a <code>org.eclipse.jetty.io.nio.SslConnection</code> that in turn holds a reference to the <code>sslEngine</code>. Therefore the <code>NextProtoNego.ServerProvider</code> implementation does not use the <code>SslConnection</code> directly, but instead via an <code>AtomicReference</code> that is cleared upon connection close.
+</p><p>Note that declaring the <code>SslConnection</code> as a final local variable and referencing it from within the anonymous <code>NextProtoNego.ServerProvider</code> class generates a hidden field in the anonymous inner class, causing the memory leak, so it must be avoided.
+</p>
+<h3><span id="Using_Unit_Tests" class="mw-headline">Using Unit Tests</span></h3>
+<p>You can write and run unit tests that use the NPN implementation.
+The solution that we use with Maven is to specify an additional command line argument to the Surefire plugin:
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="xml source-xml"><pre class="de1"><span class="sc3"><span class="re1">&lt;project</span> ...<span class="re2">&gt;</span></span>
+ 
+  <span class="sc3"><span class="re1">&lt;properties<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;npn-version<span class="re2">&gt;</span></span></span>7.6.2.v20120308<span class="sc3"><span class="re1">&lt;/npn-version<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;/properties<span class="re2">&gt;</span></span></span>
+ 
+  <span class="sc3"><span class="re1">&lt;build<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;plugins<span class="re2">&gt;</span></span></span>
+      <span class="sc3"><span class="re1">&lt;plugin<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;artifactId<span class="re2">&gt;</span></span></span>maven-surefire-plugin<span class="sc3"><span class="re1">&lt;/artifactId<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;configuration<span class="re2">&gt;</span></span></span>
+          <span class="sc3"><span class="re1">&lt;argLine<span class="re2">&gt;</span></span></span>-Xbootclasspath/p:${settings.localRepository}/org/mortbay/jetty/npn/npn-boot/${npn-version}/npn-boot-${npn-version}.jar<span class="sc3"><span class="re1">&lt;/argLine<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;/configuration<span class="re2">&gt;</span></span></span>
+      <span class="sc3"><span class="re1">&lt;/plugin<span class="re2">&gt;</span></span></span>
+ 
+      ...
+ 
+    <span class="sc3"><span class="re1">&lt;/plugins<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;/build<span class="re2">&gt;</span></span></span>
+ 
+  ...
+ 
+<span class="sc3"><span class="re1">&lt;/project<span class="re2">&gt;</span></span></span></pre></div></div>
+<h3><span class="mw-headline" id="Debugging">Debugging</span></h3>
+<p>You can enable debug logging for the NPN implementation in this way:
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="java source-java"><pre class="de1">NextProtoNego.<span class="me1">debug</span> <span class="sy0">=</span> <span class="kw2">true</span><span class="sy0">;</span></pre></div></div>
+<p>Since the <code>NextProtoNego</code> class is in the boot classpath, we chose not to use logging libraries because we do not want to override application logging library choices; therefore the logging is performed directly on <code>System.err</code>.
+</p>
+<h3><span id="License_Details" class="mw-headline">License Details</span></h3>
+<p>The NPN implementation relies on modification of a few OpenJDK classes and on a few new classes that need to live in the <code>sun.security.ssl</code> package.
+These classes are released under the same GPLv2+exception license of OpenJDK.
+</p><p>The <code>NextProtoNego</code> class is released under same license as the classes of the Jetty project.
+</p>
+<h3><span id="Versions" class="mw-headline">Versions</span></h3>
+<p>The NPN implementation, relying on modifications of OpenJDK classes, updates every time there are updates to the modified OpenJDK classes.
+</p>
+<table border="1" style="text-align:center" cellpadding="5">
+<caption> NPN vs OpenJDK versions
+</caption>
+<tbody><tr>
+<th>NPN version</th>
+<th>OpenJDK version
+</th></tr>
+<tr>
+<th>1.0.0.v20120402
+</th>
+<td> 1.7.0 - 1.7.0u2 - 1.7.0u3
+</td></tr>
+<tr>
+<th>1.1.0.v20120525
+</th>
+<td> 1.7.0u4 - 1.7.0u5
+</td></tr>
+<tr>
+<th>1.1.1.v20121030
+</th>
+<td> 1.7.0u6 - 1.7.0u7
+</td></tr>
+<tr>
+<th>1.1.3.v20130313
+</th>
+<td> 1.7.0u9 - 1.7.0u10 - 1.7.0u11
+</td></tr>
+<tr>
+<th>1.1.4.v20130313
+</th>
+<td> 1.7.0u13
+</td></tr>
+<tr>
+<th>1.1.5.v20130313
+</th>
+<td> 1.7.0u15 - 1.7.0u17
+</td></tr></tbody></table>
+
+<!-- 
+NewPP limit report
+Cached time: 20211116103932
+Cache expiry: 86400
+Dynamic content: false
+CPU time usage: 0.296 seconds
+Real time usage: 0.310 seconds
+Preprocessor visited node count: 103/1000000
+Preprocessor generated node count: 432/1000000
+Post‐expand include size: 8727/2097152 bytes
+Template argument size: 7351/2097152 bytes
+Highest expansion depth: 5/40
+Expensive parser function count: 0/100
+-->
+
+<!-- 
+Transclusion expansion time report (%,ms,calls,template)
+100.00%  206.488      1 - -total
+100.00%  206.488      1 - Template:Jetty_Feature
+  7.65%   15.792      1 - Template:Jetty_Redirect
+  5.33%   10.997      1 - Template:Message
+  2.86%    5.914      1 - Template:Jetty
+-->
+
+<!-- Saved in parser cache with key my_wiki:pcache:idhash:36216-0!*!*!!en!5!* and timestamp 20211116103931 and revision id 334782
+ -->
+</div>
+                                      <!-- catlinks -->
+                    <div class="catlinks" id="catlinks"><div class="mw-normal-catlinks" id="mw-normal-catlinks"><a title="Special:Categories" href="https://wiki.eclipse.org/Special:Categories">Categories</a>: <ul><li><a href="https://wiki.eclipse.org/Category:Jetty" title="Category:Jetty">Jetty</a></li><li><a title="Category:Jetty Feature" href="https://wiki.eclipse.org/Category:Jetty_Feature">Jetty Feature</a></li></ul></div></div>                     <!-- /catlinks -->
+                                  </div>
+              </div>
+            </div>
+          </div>
+</body>
+</html>

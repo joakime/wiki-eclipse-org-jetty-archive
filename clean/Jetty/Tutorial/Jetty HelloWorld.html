@@ -1,0 +1,177 @@
+<html>
+<head>
+    <title>Jetty WTP Plugin</title>
+    <link rel="stylesheet" media="screen, print" href="wiki-style.css"/>
+</head>
+<body>
+<div id="mainContent" class="col-md-20">
+                      <ul role="tablist" class="nav nav-tabs noprint hidden-print">
+                       <li class="active" id="ca-nstab-main"><a tabindex="-1" accesskey="c" title="View the content page [c]" href="Jetty HelloWorld.html">Page</a></li>
+                        <li id="ca-talk" class="new"><a title="Discussion about the content page [t]" href="edit" accesskey="t" tabindex="-1">Discussion</a></li>
+                        <li id="ca-viewsource"><a title="This page is protected.&#10;You can view its source [e]" href="edit" accesskey="e" tabindex="-1">View source</a></li>
+                        <li class="collapsible" id="ca-history"><a tabindex="-1" accesskey="h" title="Past revisions of this page [h]" href="edit">History</a></li>
+                      </ul>            <div class="tab-content background-white">
+              <div class="tab-pane active" id="tab-pane-main-page-content">
+
+                
+                <h1 id="firstHeading" class="firstHeading page-header">
+                  <span dir="auto">Jetty/Tutorial/Jetty HelloWorld</span>
+                </h1>
+                <div id="main-page-content">
+                                                      <!-- subtitle -->
+                  <div id="contentSub" class="alert alert-small alert-warning"><span class="subpages">&lt; <a title="Jetty" href="../../Jetty.html">Jetty</a>‎ | <a href="../Tutorial.html" title="Jetty/Tutorial">Tutorial</a></span></div>
+                  <!-- /subtitle -->
+                  
+                  
+                  <div dir="ltr" class="mw-content-ltr" lang="en" id="mw-content-text"><p><br/>
+</p><p><br/>
+</p>
+<div class="toc" id="toc"><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="Jetty HelloWorld.html#Introduction"><span class="tocnumber">1</span> <span class="toctext">Introduction</span></a></li>
+<li class="toclevel-1"><a href="Jetty HelloWorld.html#Details"><span class="tocnumber">2</span> <span class="toctext">Details</span></a>
+<ul>
+<li class="toclevel-2"><a href="Jetty HelloWorld.html#Downloading_the_Jars"><span class="tocnumber">2.1</span> <span class="toctext">Downloading the Jars</span></a></li>
+<li class="toclevel-2"><a href="Jetty HelloWorld.html#Writing_a_HelloWorld_Example"><span class="tocnumber">2.2</span> <span class="toctext">Writing a HelloWorld Example</span></a></li>
+<li class="toclevel-2"><a href="Jetty HelloWorld.html#Compiling_the_HelloWord_example"><span class="tocnumber">2.3</span> <span class="toctext">Compiling the HelloWord example</span></a></li>
+<li class="toclevel-2"><a href="Jetty HelloWorld.html#Running_the_Handler_and_Server"><span class="tocnumber">2.4</span> <span class="toctext">Running the Handler and Server</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1"><a href="Jetty HelloWorld.html#Next_Steps"><span class="tocnumber">3</span> <span class="toctext">Next Steps</span></a></li>
+</ul>
+</div>
+
+<h2><span id="Introduction" class="mw-headline">Introduction</span></h2>
+<div class="messagebox" style="background-color: #f9f6b7; border: 1px solid #c4c295; color: black; padding: 5px; margin: 1ex 0; min-height: 35px; padding-left: 45px; font-size: 150%; color: white; background-color: #FF8888; padding: 50px">
+<div style="float: left; margin-left: -40px;"><a href="https://wiki.eclipse.org/File:Warning2.png" class="image"><img alt="Warning2.png" src="../../images/3/37/Warning2.png" width="35" height="35"/></a></div>
+<div>Jetty 7 and Jetty 8 are now EOL (End of Life)<br/>
+<p><br/>
+<br/>
+<br/>
+THIS IS NOT THE DOCUMENTATION YOU ARE LOOKING FOR!!!!!<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+All development and stable releases are being performed with Jetty 9 and Jetty 10.<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+This <b>wiki is now officially out of date</b> and all content has been moved to the <a href="http://www.eclipse.org/jetty/documentation" class="external text" rel="nofollow">Jetty Documentation Hub</a><br/> 
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+</p>
+Direct Link to updated documentation: <a href="http://www.eclipse.org/jetty/documentation/current/advanced-embedding.html" class="external free" rel="nofollow">http://www.eclipse.org/jetty/documentation/current/advanced-embedding.html</a></div>
+</div>
+<p><br/>
+This tutorial shows how you can develop code against the Jetty API with the jetty classes on 
+your class path.  If you want to use Maven or standard web applications, see the 
+<a title="Jetty/Tutorial/Jetty and Maven HelloWorld" href="Jetty and Maven HelloWorld.html">Jetty and Maven HelloWorld tutorial</a>.
+</p>
+<h2><span class="mw-headline" id="Details">Details</span></h2>
+<h3><span class="mw-headline" id="Downloading_the_Jars">Downloading the Jars</span></h3>
+<p>Jetty is decomposed into many <a href="../Reference/Dependencies.html" title="Jetty/Reference/Dependencies">jars and dependencies</a> to achieve a minimal footprint by selecting the minimal set of jars.  Typically it is best to use something like Maven to manage jars (see <a href="Jetty and Maven HelloWorld.html" title="Jetty/Tutorial/Jetty and Maven HelloWorld">Jetty and Maven HelloWorld Tutorial</a>), but for this tutorial, we will use an aggregate jar that contains all of the jetty classes in one jar. 
+</p><p>You can manually download the jetty aggregate-all jar and the servlet api jar using <a href="http://www.gnu.org/software/wget/" rel="nofollow" class="external text">wget</a> or similar command (for example, <a href="http://curl.haxx.se/" class="external text" rel="nofollow">curl</a>) or a browser.  Use wget as follows:
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="bash source-bash"><pre class="de1"><span class="kw2">mkdir</span> Demo
+<span class="kw3">cd</span> Demo
+<span class="re2">JETTY_VERSION</span>=7.0.2.v20100331
+<span class="kw2">wget</span> <span class="re5">-U</span> none http:<span class="sy0">//</span>repo1.maven.org<span class="sy0">/</span>maven2<span class="sy0">/</span>org<span class="sy0">/</span>eclipse<span class="sy0">/</span>jetty<span class="sy0">/</span>aggregate<span class="sy0">/</span>jetty-all<span class="sy0">/</span><span class="re1">$JETTY_VERSION</span><span class="sy0">/</span>jetty-all-<span class="re1">$JETTY_VERSION</span>.jar
+<span class="kw2">wget</span> <span class="re5">-U</span> none http:<span class="sy0">//</span>repo1.maven.org<span class="sy0">/</span>maven2<span class="sy0">/</span>javax<span class="sy0">/</span>servlet<span class="sy0">/</span>servlet-api<span class="sy0">/</span><span class="nu0">2.5</span><span class="sy0">/</span>servlet-api-<span class="nu0">2.5</span>.jar</pre></div></div>
+<h3><span class="mw-headline" id="Writing_a_HelloWorld_Example">Writing a HelloWorld Example</span></h3>
+<p>The <a title="Jetty/Tutorial/Embedding Jetty" href="Embedding Jetty.html">Embedding Jetty</a> tutorial contains many examples of writing against the Jetty API. For this tutorial, we will use a simple HelloWorld handler with a main method to run the server. In an editor, edit the file <tt>HelloWorld.java</tt> and add the following content:
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="java source-java"><pre class="de1"><span class="kw1">import</span> <span class="co2">javax.servlet.http.HttpServletRequest</span><span class="sy0">;</span>
+<span class="kw1">import</span> <span class="co2">javax.servlet.http.HttpServletResponse</span><span class="sy0">;</span>
+<span class="kw1">import</span> <span class="co2">javax.servlet.ServletException</span><span class="sy0">;</span>
+ 
+<span class="kw1">import</span> <span class="co2">java.io.IOException</span><span class="sy0">;</span>
+ 
+<span class="kw1">import</span> <span class="co2">org.eclipse.jetty.server.Server</span><span class="sy0">;</span>
+<span class="kw1">import</span> <span class="co2">org.eclipse.jetty.server.Request</span><span class="sy0">;</span>
+<span class="kw1">import</span> <span class="co2">org.eclipse.jetty.server.handler.AbstractHandler</span><span class="sy0">;</span>
+ 
+<span class="kw1">public</span> <span class="kw1">class</span> HelloWorld <span class="kw1">extends</span> AbstractHandler
+<span class="br0">{</span>
+    <span class="kw1">public</span> <span class="kw4">void</span> handle<span class="br0">(</span><span class="kw3">String</span> target,
+                       <span class="kw3">Request</span> baseRequest,
+                       HttpServletRequest request,
+                       HttpServletResponse response<span class="br0">)</span> 
+        <span class="kw1">throws</span> <span class="kw3">IOException</span>, ServletException
+    <span class="br0">{</span>
+        response.<span class="me1">setContentType</span><span class="br0">(</span><span class="st0">"text/html;charset=utf-8"</span><span class="br0">)</span><span class="sy0">;</span>
+        response.<span class="me1">setStatus</span><span class="br0">(</span>HttpServletResponse.<span class="me1">SC_OK</span><span class="br0">)</span><span class="sy0">;</span>
+        baseRequest.<span class="me1">setHandled</span><span class="br0">(</span><span class="kw2">true</span><span class="br0">)</span><span class="sy0">;</span>
+        response.<span class="me1">getWriter</span><span class="br0">(</span><span class="br0">)</span>.<span class="me1">println</span><span class="br0">(</span><span class="st0">"&lt;h1&gt;Hello World&lt;/h1&gt;"</span><span class="br0">)</span><span class="sy0">;</span>
+    <span class="br0">}</span>
+ 
+    <span class="kw1">public</span> <span class="kw1">static</span> <span class="kw4">void</span> main<span class="br0">(</span><span class="kw3">String</span><span class="br0">[</span><span class="br0">]</span> args<span class="br0">)</span> <span class="kw1">throws</span> <span class="kw3">Exception</span>
+    <span class="br0">{</span>
+        Server server <span class="sy0">=</span> <span class="kw1">new</span> Server<span class="br0">(</span><span class="nu0">8080</span><span class="br0">)</span><span class="sy0">;</span>
+        server.<span class="me1">setHandler</span><span class="br0">(</span><span class="kw1">new</span> HelloWorld<span class="br0">(</span><span class="br0">)</span><span class="br0">)</span><span class="sy0">;</span>
+ 
+        server.<span class="me1">start</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
+        server.<span class="me1">join</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
+    <span class="br0">}</span>
+<span class="br0">}</span></pre></div></div>
+<h3><span id="Compiling_the_HelloWord_example" class="mw-headline">Compiling the HelloWord example</span></h3>
+<p>The following command  compiles the HelloWorld class:
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="bash source-bash"><pre class="de1">javac <span class="re5">-cp</span> servlet-api-<span class="nu0">2.5</span>.jar:jetty-all-<span class="re1">$JETTY_VERSION</span>.jar HelloWorld.java</pre></div></div>
+<h3><span id="Running_the_Handler_and_Server" class="mw-headline">Running the Handler and Server</span></h3>
+<p>The following command runs the HelloWorld example:
+</p>
+<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="bash source-bash"><pre class="de1">java <span class="re5">-cp</span> .:servlet-api-<span class="nu0">2.5</span>.jar:jetty-all-<span class="re1">$JETTY_VERSION</span>.jar HelloWorld</pre></div></div>
+<p>You can now point your browser at http://localhost:8080 to see your hello world page.
+</p><p><br/>
+</p>
+<h2><span id="Next_Steps" class="mw-headline">Next Steps</span></h2>
+<ul><li> Follow the examples in <a href="Embedding Jetty.html" title="Jetty/Tutorial/Embedding Jetty">Jetty/Tutorial/Embedding Jetty</a> tutorial to better understand the jetty APIs</li>
+<li> Explore the complete <a href="http://download.eclipse.org/jetty/stable-7/apidocs/" rel="nofollow" class="external text">jetty javadoc</a></li>
+<li> Consider using <a href="Jetty and Maven HelloWorld.html" title="Jetty/Tutorial/Jetty and Maven HelloWorld">Jetty and Maven</a> to manage your jars and dependencies.</li>
+<li> Review other options to <a title="Jetty/Howto/Develop" href="../Howto/Develop.html">Howto Develop with Jetty</a></li></ul>
+
+<!-- 
+NewPP limit report
+Cached time: 20211116075249
+Cache expiry: 86400
+Dynamic content: false
+CPU time usage: 0.160 seconds
+Real time usage: 0.179 seconds
+Preprocessor visited node count: 69/1000000
+Preprocessor generated node count: 416/1000000
+Post‐expand include size: 5185/2097152 bytes
+Template argument size: 3794/2097152 bytes
+Highest expansion depth: 5/40
+Expensive parser function count: 0/100
+-->
+
+<!-- 
+Transclusion expansion time report (%,ms,calls,template)
+100.00%  109.918      1 - -total
+100.00%  109.918      1 - Template:Jetty_Tutorial
+ 10.51%   11.547      1 - Template:Jetty_Redirect
+  6.89%    7.577      1 - Template:Message
+  4.63%    5.090      1 - Template:Jetty
+-->
+
+<!-- Saved in parser cache with key my_wiki:pcache:idhash:23675-0!*!0!!en!5!* and timestamp 20211116075249 and revision id 334690
+ -->
+</div>
+                                      <!-- catlinks -->
+                    <div id="catlinks" class="catlinks"><div class="mw-normal-catlinks" id="mw-normal-catlinks"><a title="Special:Categories" href="https://wiki.eclipse.org/Special:Categories">Categories</a>: <ul><li><a href="https://wiki.eclipse.org/Category:Jetty" title="Category:Jetty">Jetty</a></li><li><a href="https://wiki.eclipse.org/Category:Jetty_Tutorial" title="Category:Jetty Tutorial">Jetty Tutorial</a></li></ul></div></div>                     <!-- /catlinks -->
+                                  </div>
+              </div>
+            </div>
+          </div>
+</body>
+</html>

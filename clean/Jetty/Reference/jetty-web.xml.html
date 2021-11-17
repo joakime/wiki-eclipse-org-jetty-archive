@@ -1,0 +1,134 @@
+<html>
+<head>
+    <title>Jetty WTP Plugin</title>
+    <link rel="stylesheet" media="screen, print" href="wiki-style.css"/>
+</head>
+<body>
+<div class="col-md-20" id="mainContent">
+                      <ul role="tablist" class="nav nav-tabs noprint hidden-print">
+                       <li class="active" id="ca-nstab-main"><a tabindex="-1" accesskey="c" title="View the content page [c]" href="jetty-web.xml.html">Page</a></li>
+                        <li id="ca-talk" class="new"><a href="edit" accesskey="t" title="Discussion about the content page [t]" tabindex="-1">Discussion</a></li>
+                        <li id="ca-viewsource"><a href="edit" tabindex="-1" title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></li>
+                        <li class="collapsible" id="ca-history"><a tabindex="-1" title="Past revisions of this page [h]" accesskey="h" href="edit">History</a></li>
+                      </ul>            <div class="tab-content background-white">
+              <div class="tab-pane active" id="tab-pane-main-page-content">
+
+                
+                <h1 class="firstHeading page-header" id="firstHeading">
+                  <span dir="auto">Jetty/Reference/jetty-web.xml</span>
+                </h1>
+                <div id="main-page-content">
+                                                      <!-- subtitle -->
+                  <div class="alert alert-small alert-warning" id="contentSub"><span class="subpages">&lt; <a title="Jetty" href="../../Jetty.html">Jetty</a>‎ | <a title="Jetty/Reference" href="../Reference.html">Reference</a></span></div>
+                  <!-- /subtitle -->
+                  
+                  
+                  <div lang="en" dir="ltr" id="mw-content-text" class="mw-content-ltr"><p><br/>
+</p><p><br/>
+</p>
+<div id="toc" class="toc"><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="jetty-web.xml.html#Introduction"><span class="tocnumber">1</span> <span class="toctext">Introduction</span></a></li>
+<li class="toclevel-1"><a href="jetty-web.xml.html#Root_Element"><span class="tocnumber">2</span> <span class="toctext">Root Element</span></a></li>
+<li class="toclevel-1"><a href="jetty-web.xml.html#Using_jetty-web.xml"><span class="tocnumber">3</span> <span class="toctext">Using jetty-web.xml</span></a></li>
+<li class="toclevel-1"><a href="jetty-web.xml.html#Examples"><span class="tocnumber">4</span> <span class="toctext">Examples</span></a></li>
+<li class="toclevel-1"><a href="jetty-web.xml.html#Additional_Resources"><span class="tocnumber">5</span> <span class="toctext">Additional Resources</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Introduction">Introduction</span></h2>
+<div style="background-color: #f9f6b7; border: 1px solid #c4c295; color: black; padding: 5px; margin: 1ex 0; min-height: 35px; padding-left: 45px; font-size: 150%; color: white; background-color: #FF8888; padding: 50px" class="messagebox">
+<div style="float: left; margin-left: -40px;"><a href="https://wiki.eclipse.org/File:Warning2.png" class="image"><img src="../../images/3/37/Warning2.png" alt="Warning2.png" width="35" height="35"/></a></div>
+<div>Jetty 7 and Jetty 8 are now EOL (End of Life)<br/>
+<p><br/>
+<br/>
+<br/>
+THIS IS NOT THE DOCUMENTATION YOU ARE LOOKING FOR!!!!!<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+All development and stable releases are being performed with Jetty 9 and Jetty 10.<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+This <b>wiki is now officially out of date</b> and all content has been moved to the <a href="http://www.eclipse.org/jetty/documentation" rel="nofollow" class="external text">Jetty Documentation Hub</a><br/> 
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+</p>
+Direct Link to updated documentation: <a rel="nofollow" class="external free" href="http://www.eclipse.org/jetty/documentation/current/jetty-web-xml-config.html">http://www.eclipse.org/jetty/documentation/current/jetty-web-xml-config.html</a></div>
+</div>
+<p><br/>
+<tt>jetty-web.xml</tt> is a Jetty configuration file that you can bundle with a specific web application. The format of <tt>jetty-web.xml</tt> is the same as <tt><a href="jetty.xml.html" title="Jetty/Reference/jetty.xml">jetty.xml</a></tt> -- it is an XML mapping of the Jetty API.
+</p><p>This document offers an overview for using the <tt>jetty-web.xml</tt> configuration file. For a more in-depth look at the syntax, see <a title="Jetty/Reference/jetty.xml Syntax" href="https://wiki.eclipse.org/Jetty/Reference/jetty.xml_Syntax" class="mw-redirect">jetty.xml Syntax Reference</a>.
+</p>
+<h2><span id="Root_Element" class="mw-headline">Root Element</span></h2>
+<p><tt>jetty-web.xml</tt> applies on a per-webapp basis, and configures an instance of <tt>org.eclipse.jetty.webapp.WebAppContext</tt>.
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="xml source-xml"><pre class="de1"><span class="sc3"><span class="re1">&lt;?xml</span> <span class="re0">version</span>=<span class="st0">"1.0"</span>  <span class="re0">encoding</span>=<span class="st0">"ISO-8859-1"</span><span class="re2">?&gt;</span></span>
+<span class="sc0">&lt;!DOCTYPE Configure PUBLIC "-//Jetty//Configure//EN" "http://www.eclipse.org/jetty/configure.dtd"&gt;</span>
+ 
+<span class="sc3"><span class="re1">&lt;Configure</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.webapp.WebAppContext"</span><span class="re2">&gt;</span></span>
+ ..
+<span class="sc3"><span class="re1">&lt;/Configure<span class="re2">&gt;</span></span></span></pre></div></div>
+<div class="messagebox" style="background-color: #f9f6b7; border: 1px solid #c4c295; color: black; padding: 5px; margin: 1ex 0; min-height: 35px; padding-left: 45px;">
+<div style="float: left; margin-left: -40px;"><a class="image" href="https://wiki.eclipse.org/File:Stop.png"><img height="35" width="35" src="../../images/f/f9/Stop.png" alt="Stop.png"/></a></div>
+<div><b>Make sure you are applying the configuration to an instance of the proper class</b><br/><tt>jetty-web.xml</tt> configures an instance of WebAppContext; <tt>jetty.xml</tt> configures an instance of Server.</div>
+</div>
+<p><br/>
+</p>
+<h2><span id="Using_jetty-web.xml" class="mw-headline">Using <tt>jetty-web.xml</tt></span></h2>
+<p>Place the <tt>jetty-web.xml</tt> into your web application's <tt>WEB-INF</tt> folder. When Jetty deploys a web application, it looks for a file called <tt>WEB-INF/jetty-web.xml</tt> or <tt>WEB-INF/web-jetty.xml</tt> within the web application (or WAR) and applies the configuration found there. Be aware that <tt>jetty-web.xml</tt> is called <i>after</i> all other configuration has been applied to the web application.
+</p>
+<h2><span class="mw-headline" id="Examples">Examples</span></h2>
+<p>The distribution contains an example of <tt>jetty-web.xml</tt> inside the WEB-INF folder of the test webapp war (<tt>$JETTY_HOME/webapps/test.war/WEB-INF/jetty-web.xml</tt>).
+</p>
+<h2><span class="mw-headline" id="Additional_Resources">Additional Resources</span></h2>
+<ul><li> <a title="Jetty/Reference/jetty.xml syntax" href="jetty.xml syntax.html">jetty.xml Syntax Reference</a> - in-depth reference for Jetty-specific configuration XML syntax</li>
+<li> <a title="Jetty/Reference/jetty.xml" href="jetty.xml.html">jetty.xml</a> - configuration file for configuring the entire server</li></ul>
+
+<!-- 
+NewPP limit report
+Cached time: 20211116163353
+Cache expiry: 86400
+Dynamic content: false
+CPU time usage: 0.096 seconds
+Real time usage: 0.114 seconds
+Preprocessor visited node count: 90/1000000
+Preprocessor generated node count: 433/1000000
+Post‐expand include size: 6463/2097152 bytes
+Template argument size: 4510/2097152 bytes
+Highest expansion depth: 6/40
+Expensive parser function count: 0/100
+-->
+
+<!-- 
+Transclusion expansion time report (%,ms,calls,template)
+100.00%   39.859      1 - -total
+100.00%   39.859      1 - Template:Jetty_Reference
+ 25.62%   10.213      1 - Template:Jetty_Redirect
+ 23.41%    9.330      2 - Template:Message
+ 17.31%    6.899      1 - Template:Caution
+ 12.80%    5.103      1 - Template:Jetty
+-->
+
+<!-- Saved in parser cache with key my_wiki:pcache:idhash:20377-0!*!0!!en!5!* and timestamp 20211116163353 and revision id 334808
+ -->
+</div>
+                                      <!-- catlinks -->
+                    <div class="catlinks" id="catlinks"><div class="mw-normal-catlinks" id="mw-normal-catlinks"><a href="https://wiki.eclipse.org/Special:Categories" title="Special:Categories">Categories</a>: <ul><li><a href="https://wiki.eclipse.org/Category:Jetty" title="Category:Jetty">Jetty</a></li><li><a href="https://wiki.eclipse.org/Category:Jetty_Reference" title="Category:Jetty Reference">Jetty Reference</a></li></ul></div></div>                     <!-- /catlinks -->
+                                  </div>
+              </div>
+            </div>
+          </div>
+</body>
+</html>

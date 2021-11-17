@@ -1,0 +1,374 @@
+<html>
+<head>
+    <title>Jetty WTP Plugin</title>
+    <link rel="stylesheet" media="screen, print" href="wiki-style.css"/>
+</head>
+<body>
+<div id="mainContent" class="col-md-20">
+                      <ul class="nav nav-tabs noprint hidden-print" role="tablist">
+                       <li class="active" id="ca-nstab-main"><a tabindex="-1" title="View the content page [c]" accesskey="c" href="Jetty.html">Page</a></li>
+                        <li class="new" id="ca-talk"><a tabindex="-1" title="Discussion about the content page [t]" accesskey="t" href="edit">Discussion</a></li>
+                        <li id="ca-viewsource"><a accesskey="e" href="edit" title="This page is protected.&#10;You can view its source [e]" tabindex="-1">View source</a></li>
+                        <li id="ca-history" class="collapsible"><a tabindex="-1" title="Past revisions of this page [h]" href="edit" accesskey="h">History</a></li>
+                      </ul>            <div class="tab-content background-white">
+              <div class="tab-pane active" id="tab-pane-main-page-content">
+
+                
+                <h1 class="firstHeading page-header" id="firstHeading">
+                  <span dir="auto">Jetty</span>
+                </h1>
+                <div id="main-page-content">
+                                    
+                  
+                  <div lang="en" class="mw-content-ltr" id="mw-content-text" dir="ltr"><p><br/>
+</p><p><br/>
+Welcome to the Jetty Documentation Wiki. Jetty is an open-source project providing an HTTP server, HTTP client, and javax.servlet container. This Jetty Wiki provides information about getting started with Jetty, basic configuration, specific features, optimization, security, JavaEE, monitoring, FAQs, help with troubleshooting, and more. It includes tutorials, howtos, videos, feature descriptions, and reference materials. 
+</p><p>The documentation on this wiki applied to the older Jetty 7 and Jetty 8 releases.  For Jetty 9 we have migrated and updated the content into a format easier to present.  For Jetty 9 documentation please check out the <a class="external text" href="http://www.eclipse.org/jetty/documentation/current/" rel="nofollow">Jetty 9 Documentation</a>.
+</p>
+<div class="toc" id="toc"><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="Jetty.html#Jetty_Documentation"><span class="tocnumber">1</span> <span class="toctext">Jetty Documentation</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="Jetty.html#Getting_Started:_Download.2C_Install.2C_Run"><span class="tocnumber">1.1</span> <span class="toctext">Getting Started: Download, Install, Run</span></a></li>
+<li class="toclevel-2 tocsection-3"><a href="Jetty.html#Configuring_Jetty"><span class="tocnumber">1.2</span> <span class="toctext">Configuring Jetty</span></a>
+<ul>
+<li class="toclevel-3 tocsection-4"><a href="Jetty.html#Embedding_Jetty"><span class="tocnumber">1.2.1</span> <span class="toctext">Embedding Jetty</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-5"><a href="Jetty.html#Optimizing_Jetty"><span class="tocnumber">1.3</span> <span class="toctext">Optimizing Jetty</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="Jetty.html#Deploying_Applications_within_Jetty"><span class="tocnumber">1.4</span> <span class="toctext">Deploying Applications within Jetty</span></a></li>
+<li class="toclevel-2 tocsection-7"><a href="Jetty.html#Developing_with_Jetty"><span class="tocnumber">1.5</span> <span class="toctext">Developing with Jetty</span></a></li>
+<li class="toclevel-2 tocsection-8"><a href="Jetty.html#Build.2FIDE_Integration"><span class="tocnumber">1.6</span> <span class="toctext">Build/IDE Integration</span></a>
+<ul>
+<li class="toclevel-3 tocsection-9"><a href="Jetty.html#Using_IDEs"><span class="tocnumber">1.6.1</span> <span class="toctext">Using IDEs</span></a></li>
+<li class="toclevel-3 tocsection-10"><a href="Jetty.html#Working_with_Eclipse"><span class="tocnumber">1.6.2</span> <span class="toctext">Working with Eclipse</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-11"><a href="Jetty.html#Configuring_Ajax.2C_Comet_and_Asynchronous_Servlets"><span class="tocnumber">1.7</span> <span class="toctext">Configuring Ajax, Comet and Asynchronous Servlets</span></a></li>
+<li class="toclevel-2 tocsection-12"><a href="Jetty.html#Using_Servlets_and_Filters"><span class="tocnumber">1.8</span> <span class="toctext">Using Servlets and Filters</span></a></li>
+<li class="toclevel-2 tocsection-13"><a href="Jetty.html#Security_Topics"><span class="tocnumber">1.9</span> <span class="toctext">Security Topics</span></a></li>
+<li class="toclevel-2 tocsection-14"><a href="Jetty.html#General_Reference"><span class="tocnumber">1.10</span> <span class="toctext">General Reference</span></a>
+<ul>
+<li class="toclevel-3 tocsection-15"><a href="Jetty.html#Configuration_Reference"><span class="tocnumber">1.10.1</span> <span class="toctext">Configuration Reference</span></a></li>
+<li class="toclevel-3 tocsection-16"><a href="Jetty.html#Configuration_Files"><span class="tocnumber">1.10.2</span> <span class="toctext">Configuration Files</span></a></li>
+<li class="toclevel-3 tocsection-17"><a href="Jetty.html#Javadoc_and_Source"><span class="tocnumber">1.10.3</span> <span class="toctext">Javadoc and Source</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-18"><a href="Jetty.html#Contributing_to_Jetty"><span class="tocnumber">1.11</span> <span class="toctext">Contributing to Jetty</span></a></li>
+<li class="toclevel-2 tocsection-19"><a href="Jetty.html#Client"><span class="tocnumber">1.12</span> <span class="toctext">Client</span></a></li>
+<li class="toclevel-2 tocsection-20"><a href="Jetty.html#Logging.2FMonitoring"><span class="tocnumber">1.13</span> <span class="toctext">Logging/Monitoring</span></a></li>
+<li class="toclevel-2 tocsection-21"><a href="Jetty.html#Troubleshooting"><span class="tocnumber">1.14</span> <span class="toctext">Troubleshooting</span></a></li>
+<li class="toclevel-2 tocsection-22"><a href="Jetty.html#Upgrading_Jetty"><span class="tocnumber">1.15</span> <span class="toctext">Upgrading Jetty</span></a></li>
+<li class="toclevel-2 tocsection-23"><a href="Jetty.html#Application_Server_Integrations"><span class="tocnumber">1.16</span> <span class="toctext">Application Server Integrations</span></a></li>
+<li class="toclevel-2 tocsection-24"><a href="Jetty.html#Clustering_Technologies"><span class="tocnumber">1.17</span> <span class="toctext">Clustering Technologies</span></a></li>
+<li class="toclevel-2 tocsection-25"><a href="Jetty.html#Features_Reference"><span class="tocnumber">1.18</span> <span class="toctext">Features Reference</span></a></li>
+<li class="toclevel-2 tocsection-26"><a href="Jetty.html#IoC_and_DI_Frameworks"><span class="tocnumber">1.19</span> <span class="toctext">IoC and DI Frameworks</span></a></li>
+<li class="toclevel-2 tocsection-27"><a href="Jetty.html#OSGi"><span class="tocnumber">1.20</span> <span class="toctext">OSGi</span></a></li>
+<li class="toclevel-2 tocsection-28"><a href="Jetty.html#Web_Frameworks"><span class="tocnumber">1.21</span> <span class="toctext">Web Frameworks</span></a></li>
+<li class="toclevel-2 tocsection-29"><a href="Jetty.html#Other"><span class="tocnumber">1.22</span> <span class="toctext">Other</span></a></li>
+<li class="toclevel-2 tocsection-30"><a href="Jetty.html#FAQ"><span class="tocnumber">1.23</span> <span class="toctext">FAQ</span></a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+<h1><span class="mw-headline" id="Jetty_Documentation">Jetty Documentation</span></h1>
+<p>Look for this box on documentation pages for links to up to date information!
+</p>
+<p><br/>
+Also see the <a href="http://www.eclipse.org/jetty" class="external text" rel="nofollow">Jetty homepage</a>!
+</p><p><br/>
+</p>
+<div style="float: left; width: 45%; margin-left: 5px">
+<h2><span id="Getting_Started:_Download.2C_Install.2C_Run" class="mw-headline">Getting Started: Download, Install, Run</span></h2>
+<p><a rel="nofollow" class="external text" href="http://vimeo.com/19145819">Getting Started with Jetty (video)</a><br/> 
+<a href="Jetty/Starting/Downloads.html" title="Jetty/Starting/Downloads">Download and Install Jetty</a><br/> 
+<a href="Jetty/Howto/Run Jetty.html" title="Jetty/Howto/Run Jetty">How to Run Jetty</a><br/> 
+</p>
+<ul><li> <a href="Jetty/Howto/Run Jetty with JConsole.html" title="Jetty/Howto/Run Jetty with JConsole">How to Run Jetty with JConsole</a><br/> </li>
+<li> <a title="Jetty/Howto/Using Jetty Runner" href="Jetty/Howto/Using Jetty Runner.html">How to Run Jetty from a single jar</a> <br/></li>
+<li> <a href="Jetty/Feature/Jetty Maven Plugin.html" title="Jetty/Feature/Jetty Maven Plugin">How to Run Jetty from Maven</a> <br/></li>
+<li> <a title="Jetty/Howto/Use Jetty with Ant" href="Jetty/Howto/Use Jetty with Ant.html">How to Run Jetty from Ant</a> <br/></li>
+<li> <a title="Jetty/Tutorial/Embedding Jetty" href="Jetty/Tutorial/Embedding Jetty.html">How to Embed Jetty</a> <br/></li></ul>
+<p><a title="Jetty/Tutorial/Jetty HelloWorld" href="Jetty/Tutorial/Jetty HelloWorld.html">Jetty HelloWorld Tutorial</a><br/> 
+<a href="Jetty/Tutorial/Jetty and Maven HelloWorld.html" title="Jetty/Tutorial/Jetty and Maven HelloWorld">Jetty and Maven HelloWorld Tutorial</a><br/> 
+<a rel="nofollow" class="external text" href="http://www.itjungle.com/fhg/fhg082708-story02.html">Getting Starting with Jetty (6) (on www.itjungle.com)</a><br/> 
+<a href="Jetty/Feature/Start.jar.html" title="Jetty/Feature/Start.jar">Jetty Start.jar</a>
+</p>
+<h2><span id="Configuring_Jetty" class="mw-headline">Configuring Jetty</span></h2>
+<p><a title="Jetty/Howto/Configure Jetty" href="Jetty/Howto/Configure Jetty.html">Configuring Jetty</a> – <b>Master Doc</b><br/>
+Configuring...
+</p>
+<ul><li> <a href="Jetty/Howto/SetContextPath.html" title="Jetty/Howto/SetContextPath">A Context Path</a><br/>
+<ul><li><a title="Jetty/Howto/SetContextPathto /" href="Jetty/Howto/SetContextPathto /index.html">A Context Path to /</a><br/></li>
+<li><a title="Jetty/Howto/MovedContextHandler" href="https://wiki.eclipse.org/Jetty/Howto/MovedContextHandler">Redirecting or Moving a Context</a><br/></li></ul></li>
+<li> <a title="Jetty/Howto/Configure Connectors" href="Jetty/Howto/Configure Connectors.html">Connectors</a><br/></li>
+<li> <a href="Jetty/Howto/Custom Error Pages.html" title="Jetty/Howto/Custom Error Pages">Custom Error Pages</a> <br/></li>
+<li> <a href="Jetty/Howto/Configure Form Size.html" title="Jetty/Howto/Configure Form Size">Form Size</a><br/>  </li>
+<li> <a href="Jetty/Tutorial/JMX.html" title="Jetty/Tutorial/JMX">JMX</a>
+<ul><li> <a title="Jetty/Feature/JMX" href="Jetty/Feature/JMX.html">Java Management Extensions (JMX)</a><br/> </li></ul></li>
+<li> <a href="Jetty/Feature/JNDI.html" title="Jetty/Feature/JNDI">JNDI</a><br/> 
+<ul><li><a href="Jetty/Howto/Configure JNDI Datasource.html" title="Jetty/Howto/Configure JNDI Datasource">A JNDI Datasource</a><br/></li></ul></li>
+<li> <a title="Jetty/Feature/Annotations" href="Jetty/Feature/Annotations.html">Annotations</a><br/></li>
+<li> <a title="Jetty/Howto/Configure JSP" href="Jetty/Howto/Configure JSP.html">JSP</a><br/></li>
+<li> <a href="Jetty/Howto/Port80.html" title="Jetty/Howto/Port80">Port 80 Access as a Non-Root User</a><br/></li>
+<li> <a title="Jetty/Tutorial/RequestLog" href="Jetty/Tutorial/RequestLog.html">Jetty Request Logs</a><br/>  </li>
+<li> <a href="Jetty/Howto/SessionIds.html" title="Jetty/Howto/SessionIds">Session IDs</a><br/> </li>
+<li> <a title="Jetty/Howto/Persisting Sessions" href="Jetty/Howto/Persisting Sessions.html">Persisting Sessions</a><br/></li>
+<li> <a href="Jetty/Howto/Configure SSL.html" title="Jetty/Howto/Configure SSL">SSL</a><br/> </li>
+<li> <a href="Jetty/Feature/Statistics.html" title="Jetty/Feature/Statistics">Jetty Statistics</a> <br/></li>
+<li> <a title="Jetty/Tutorial/Statistics" href="Jetty/Tutorial/Statistics.html">Jetty Statistics Tutorial</a><br/></li>
+<li> <a title="Jetty/Howto/Configure Virtual Hosts" href="Jetty/Howto/Configure Virtual Hosts.html">Virtual Hosts</a><br/>  </li>
+<li> <a href="https://wiki.eclipse.org/Jetty/Howto/WebappPerConnector" title="Jetty/Howto/WebappPerConnector">A Web App to Respond on a Specific Port</a><br/></li>
+<li> <a href="Jetty/Howto/Prevent Memory Leaks.html" title="Jetty/Howto/Prevent Memory Leaks"> Memory Leak Prevention</a><br/></li>
+<li> <a href="Jetty/Howto/How to serve symbolically linked files.html" title="Jetty/Howto/How to serve symbolically linked files">Serving symbolically linked files</a><br/></li></ul>
+<h3><span class="mw-headline" id="Embedding_Jetty">Embedding Jetty</span></h3>
+<p><a href="Jetty/Tutorial/Embedding Jetty.html" title="Jetty/Tutorial/Embedding Jetty">Embedding Jetty</a><br/> 
+<a href="Jetty/Tutorial/Jetty HelloWorld.html" title="Jetty/Tutorial/Jetty HelloWorld">Jetty Embedded HelloWorld</a><br/> 
+<a class="external text" href="http://vimeo.com/19146453" rel="nofollow">Embedding Jetty (video)</a><br/>
+<a href="Jetty/Howto/Jars.html" title="Jetty/Howto/Jars">Understanding Which JARS to Use</a><br/>
+</p>
+<h2><span id="Optimizing_Jetty" class="mw-headline">Optimizing Jetty</span></h2>
+<p><a href="Jetty/Howto/Garbage Collection.html" title="Jetty/Howto/Garbage Collection">Configuring Garbage Collection</a><br/> 
+<a href="Jetty/Howto/High Load.html" title="Jetty/Howto/High Load">Configuring for High Load</a> 
+</p>
+<h2><span id="Deploying_Applications_within_Jetty" class="mw-headline">Deploying Applications within Jetty</span></h2>
+<p><a href="Jetty/Feature/Deployment Manager.html" title="Jetty/Feature/Deployment Manager">Using the Deployment Manager</a><br/> 
+<a href="Jetty/Feature/Deployment Bindings.html" title="Jetty/Feature/Deployment Bindings">Setting Deployment Bindings</a> <br/>
+<a title="Jetty/Feature/Hot Deployment" href="Jetty/Feature/Hot Deployment.html">Using Hot Deployment</a><br/> 
+<a href="https://wiki.eclipse.org/Jetty/Feature/ContextDeployer" class="mw-redirect" title="Jetty/Feature/ContextDeployer">Using the Context Provider</a><br/> 
+<a title="Jetty/Howto/Deploy Web Applications" href="Jetty/Howto/Deploy Web Applications.html">Deploying Web Applications</a><br/> 
+<a title="Jetty/Feature/WebAppDeployer" href="https://wiki.eclipse.org/Jetty/Feature/WebAppDeployer" class="mw-redirect">Using the WebApp Provider</a><br/>
+<a title="Jetty/Tutorial/Configuring the Jetty Overlay Deployer" href="https://wiki.eclipse.org/Jetty/Tutorial/Configuring_the_Jetty_Overlay_Deployer">Using the Overlay Deployer</a><br/> 
+<a title="Jetty/Howto/Deploy 3rd Party Products" href="https://wiki.eclipse.org/Jetty/Howto/Deploy_3rd_Party_Products">Deploying Third Party Products</a><br/> 
+<a title="Jetty Expanded Webapp Deploy" href="Jetty Expanded Webapp Deploy.html">Expanded Webapp Deploy</a> 
+</p>
+<h2><span id="Developing_with_Jetty" class="mw-headline">Developing with Jetty</span></h2>
+<p><a href="Jetty/Howto/Develop.html" title="Jetty/Howto/Develop">How to Develop with Jetty</a><br/> 
+<a href="Jetty/Howto/Write Jetty Handler.html" title="Jetty/Howto/Write Jetty Handler">Writing Jetty Handlers</a><br/> 
+</p>
+<h2><span class="mw-headline" id="Build.2FIDE_Integration">Build/IDE Integration</span></h2>
+<p><a href="https://wiki.eclipse.org/Jetty/Howto/Use_Jetty_with_Maven" title="Jetty/Howto/Use Jetty with Maven">Using Jetty with Maven</a><br/>
+</p>
+<ul><li> <a title="Jetty/Feature/Jetty Maven Plugin" href="Jetty/Feature/Jetty Maven Plugin.html">Jetty Maven Plugin</a><br/> </li>
+<li> <a title="Jetty/Feature/Jetty Jspc Maven Plugin" href="https://wiki.eclipse.org/Jetty/Feature/Jetty_Jspc_Maven_Plugin">Jetty Jspc Maven Plugin</a><br/></li>
+<li> Maven Web App Project Archetypes<br/> </li></ul>
+<p><a href="Jetty/Howto/Use Jetty with Ant.html" title="Jetty/Howto/Use Jetty with Ant">Using Jetty with Ant</a> 
+</p>
+<ul><li> <a title="Jetty/Howto/Use Jetty with Ant" href="Jetty/Howto/Use Jetty with Ant.html">Ant Jetty Plugin</a> </li></ul>
+<h3><span class="mw-headline" id="Using_IDEs">Using IDEs</span></h3>
+<p><a href="Jetty/HowTo/Using Jetty with Eclipse.html" title="Jetty/HowTo/Using Jetty with Eclipse">Using Jetty with Eclipse</a><br/> 
+<a title="Jetty/HowTo/Using Jetty with IntelliJ" href="Jetty/HowTo/Using Jetty with IntelliJ.html">Using Jetty with IntelliJ</a> 
+</p>
+<h3><span id="Working_with_Eclipse" class="mw-headline">Working with Eclipse</span></h3>
+<p><a href="Jetty/Howto/Develop with Eclipse.html" title="Jetty/Howto/Develop with Eclipse">Developing Jetty in Eclipse</a><br/> 
+<a href="http://wiki.eclipse.org/Jetty_WTP_Plugin" class="external text" rel="nofollow">Using the Jetty WTP Plugin</a><br/>
+<a rel="nofollow" href="http://wiki.eclipse.org/Jetty_WTP_Plugin/Jetty_WTP_Install" class="external text">Installing the Jetty WTP Plugin</a><br/>
+<a rel="nofollow" class="external text" href="http://wiki.eclipse.org/Jetty_WTP_Plugin/Jetty_WTP_External_WebApp">Using the WTP Plugin with an External WebApp</a><br/>
+<a rel="nofollow" class="external text" href="http://wiki.eclipse.org/Jetty_WTP_Plugin/Jetty_WTP_Modify_ContextPath">Modifying the Context Path with the WTP Plugin</a><br/>
+<a href="http://wiki.eclipse.org/Jetty-OSGi_SDK" class="external text" rel="nofollow">JettyOSGi SDK for Eclipse-PDE</a><br/> 
+<a rel="nofollow" href="http://wiki.eclipse.org/Jetty/Tutorial/EclipseRT-Jetty-Starter-Kit" class="external text">EclipseRT Jetty StarterKit SDK</a>
+</p>
+<h2><span id="Configuring_Ajax.2C_Comet_and_Asynchronous_Servlets" class="mw-headline">Configuring Ajax, Comet and Asynchronous Servlets</span></h2>
+<p><a href="Jetty/Feature/Continuations.html" title="Jetty/Feature/Continuations">Continuations and Asynchronous Servlets</a><br/> 
+<a title="Jetty/Feature/1xx Responses" href="Jetty/Feature/1xx Responses.html">100 Continue and 102 Processing</a><br/> 
+<a rel="nofollow" href="http://blogs.webtide.com/gregw/entry/jetty_websocket_server" class="external text">WebSocket Servlet</a><br/>
+<a title="Jetty/Feature/WebSockets" href="Jetty/Feature/WebSockets.html">Using WebSockets</a><br/>
+<a rel="nofollow" class="external text" href="http://wiki.eclipse.org/Jetty_WTP_Plugin/Jetty_WTP_Websocket_Wizard">Using the WebSocket Wizard</a><br/>
+<a href="http://blogs.webtide.com/gregw/entry/asynchronous_restful_webapplication" class="external text" rel="nofollow">Asynchronous REST</a><br/> 
+<a href="Jetty/Feature/Stress Testing CometD.html" title="Jetty/Feature/Stress Testing CometD">Stress Testing CometD</a><br/>
+<a href="Jetty/Feature/SPDY.html" title="Jetty/Feature/SPDY">Using SPDY</a><br/>
+<a title="Jetty/Feature/NPN" href="Jetty/Feature/NPN.html">Configuring NPN</a><br/>
+<a class="external text" href="http://www.smartjava.org/content/how-use-spdy-jetty" rel="nofollow">How to Use SPDY with Jetty (by Jos Dirksen at Smartjava.org)</a>
+</p>
+<h2><span class="mw-headline" id="Using_Servlets_and_Filters">Using Servlets and Filters</span></h2>
+<p><a title="Jetty/Feature/Servlets Bundled with Jetty" href="Jetty/Feature/Servlets Bundled with Jetty.html">Servlets Bundled with Jetty</a><br/> 
+<a href="Jetty/Feature/Quality of Service Filter.html" title="Jetty/Feature/Quality of Service Filter">Quality of Service Filter</a><br/> 
+<a href="Jetty/Feature/Cross Origin Filter.html" title="Jetty/Feature/Cross Origin Filter">Cross Origin Filter</a> 
+</p>
+<h2><span class="mw-headline" id="Security_Topics">Security Topics</span></h2>
+<p><a href="http://wiki.eclipse.org/Jetty/Jetty_Security_Reports" class="external text" rel="nofollow">Jetty Security Reports</a><br/>
+<a title="Jetty/Feature/Realms" href="Jetty/Feature/Realms.html">Security Realms</a><br/> 
+<a href="Jetty/Tutorial/Realms.html" title="Jetty/Tutorial/Realms">Configuring Security Realms</a><br/> 
+<a href="Jetty/Feature/JAAS.html" title="Jetty/Feature/JAAS">Java Authentication and Authorization Service (JAAS)</a><br/>
+<a href="Jetty/Tutorial/JAAS.html" title="Jetty/Tutorial/JAAS">Configuring JAAS</a><br/> 
+<a title="Jetty/Feature/JASPI" href="Jetty/Feature/JASPI.html">JASPI</a><br/> 
+<a href="Jetty/Feature/Secure Mode.html" title="Jetty/Feature/Secure Mode">Secure Mode</a><br/> 
+<a title="Jetty/Tutorial/Passwords" href="https://wiki.eclipse.org/Jetty/Tutorial/Passwords">Securing Passwords in Files or Code</a><br/> 
+<a title="Jetty/Howto/CipherSuites" href="Jetty/Howto/CipherSuites.html">How to enable and Disable SSL Cipher Suites in Jetty</a><br/> 
+<a title="Jetty/Howto/Secure Passwords" href="Jetty/Howto/Secure Passwords.html">How to Secure Stored Passwords in Jetty</a><br/> 
+<a href="Jetty/Howto/Secure Termination.html" title="Jetty/Howto/Secure Termination">How to Secure Termination of Jetty</a><br/> 
+<a href="https://wiki.eclipse.org/Jetty/Howto/Spnego" title="Jetty/Howto/Spnego">How to Configure Spnego</a>
+</p>
+</div>
+<div style="float: right; width: 45%">
+<h2><span id="General_Reference" class="mw-headline">General Reference</span></h2>
+<p><a title="Jetty/Reference/Jetty Architecture" href="https://wiki.eclipse.org/Jetty/Reference/Jetty_Architecture">Jetty Architecture</a><br/> 
+<a title="Jetty/Reference/Jetty Classloading" href="Jetty/Reference/Jetty Classloading.html">Jetty Classloading</a><br/> 
+<a href="Jetty/Reference/Dependencies.html" title="Jetty/Reference/Dependencies">Jetty JARS and Dependencies</a><br/> 
+<a href="Jetty/Reference/Start Options.html" title="Jetty/Reference/Start Options">Start Options</a><br/> 
+<a href="Jetty/Reference/Temporary Directories.html" title="Jetty/Reference/Temporary Directories">Temporary Directories</a><br/> 
+<a title="Jetty/Reference/Web Profile" href="https://wiki.eclipse.org/Jetty/Reference/Web_Profile">Jetty and JEE6 Web Profile</a> 
+</p>
+<h3><span class="mw-headline" id="Configuration_Reference">Configuration Reference</span></h3>
+<p><a href="Jetty/Reference/jetty.xml syntax.html" title="Jetty/Reference/jetty.xml syntax">jetty.xml Syntax</a>–Jetty IOC Configuration<br/> 
+<a title="Jetty/Reference/jetty.xml usage" href="Jetty/Reference/jetty.xml usage.html">jetty.xml Usage</a>–Using and Combining Jetty Configurations 
+</p>
+<h3><span id="Configuration_Files" class="mw-headline">Configuration Files</span></h3>
+<p><a href="Jetty/Reference/jetty.xml.html" title="Jetty/Reference/jetty.xml">jetty.xml</a>–Server configuration<br/> 
+<a href="Jetty/Reference/jetty-web.xml.html" title="Jetty/Reference/jetty-web.xml">jetty-web.xml</a>–Web App configuration <br/>
+<a href="Jetty/Reference/jetty-env.xml.html" title="Jetty/Reference/jetty-env.xml">jetty-env.xml</a>–JNDI configuration<br/> 
+<a title="Jetty/Reference/webdefault.xml" href="Jetty/Reference/webdefault.xml.html">webdefault.xml</a>–Pre-web.xml configuration <br/>
+<a title="Jetty/Reference/override-web.xml" href="Jetty/Reference/override-web.xml.html">override-web.xml</a>–Post-web.xml configuration 
+</p>
+<h3><span id="Javadoc_and_Source" class="mw-headline">Javadoc and Source</span></h3>
+<p><a rel="nofollow" href="http://download.eclipse.org/jetty/stable-7/apidocs/" class="external text">Jetty 7 Latest JavaDoc</a><br/> 
+<a rel="nofollow" href="http://download.eclipse.org/jetty/stable-7/xref/" class="external text">Jetty 7 Latest Source XRef</a><br/> 
+</p><p><a href="http://download.eclipse.org/jetty/stable-8/apidocs/" class="external text" rel="nofollow">Jetty 8 Latest JavaDoc</a><br/> 
+<a href="http://download.eclipse.org/jetty/stable-8/xref/" class="external text" rel="nofollow">Jetty 8 Latest Source XRef</a><br/> 
+</p><p><a href="http://wiki.eclipse.org/Jetty/Reference/Index_of_Generated_Release_Documents" class="external text" rel="nofollow">Index of Generated Release Documents</a>–API and XRef documentation for previous releases.
+</p>
+<h2><span id="Contributing_to_Jetty" class="mw-headline">Contributing to Jetty</span></h2>
+<p><a href="Jetty/Contributor.html" title="Jetty/Contributor">Contributing to Jetty</a> – <b>Master Doc</b><br/>
+<a href="Jetty/Contributor/Coding Standards.html" title="Jetty/Contributor/Coding Standards">Jetty Coding Standards</a><br/>
+<a href="Jetty/Contributor/Building.html" title="Jetty/Contributor/Building">Building Jetty</a><br/>
+<a href="Jetty/Contributor Release Testing Check List.html" title="Jetty/Contributor Release Testing Check List">Release Testing Check List</a><br/>
+<a href="Jetty/Contributor/Releasing.html" title="Jetty/Contributor/Releasing">Releasing Jetty</a><br/>
+<a title="Jetty/Contributor/Contributing Patches" href="Jetty/Contributor/Contributing Patches.html">Contributing Patches</a>
+</p>
+<h2><span class="mw-headline" id="Client">Client</span></h2>
+<p><a title="Jetty/Feature/HttpClient" href="Jetty/Feature/HttpClient.html">Asynchronous HTTP Client</a> 
+</p>
+<h2><span id="Logging.2FMonitoring" class="mw-headline">Logging/Monitoring</span></h2>
+<p><a title="Jetty/Feature/Jetty Logging" href="Jetty/Feature/Jetty Logging.html">Jetty Logging</a><br/>
+<a title="Jetty/Tutorial/RequestLog" href="Jetty/Tutorial/RequestLog.html"> Jetty Request Logs</a><br/>
+<a title="Jetty/Feature/Java-monitor" href="Jetty/Feature/Java-monitor.html">Java-monitor</a><br/>
+<a href="Jetty/Tutorial/Sifting Logs with Logback.html" title="Jetty/Tutorial/Sifting Logs with Logback">Sifting Logs with Logback and SLF4J</a><br/>
+</p>
+<h2><span id="Troubleshooting" class="mw-headline">Troubleshooting</span></h2>
+<p><a href="Jetty/Troubleshooting.html" title="Jetty/Troubleshooting">Troubleshooting: Big Problems, Logs and Warnings</a><br/> 
+<a href="Jetty/Howto/Use the Dump Feature.html" title="Jetty/Howto/Use the Dump Feature">Using the Jetty Dump Feature</a><br/> 
+<a title="Jetty/Howto/Deal with Locked Windows Files" href="Jetty/Howto/Deal with Locked Windows Files.html">Dealing with Locked Windows Files</a><br/> 
+<a href="Jetty/Zip Exceptions Reading Jar or War Files.html" title="Jetty/Zip Exceptions Reading Jar or War Files">Zip Exceptions Reading Jar or WAR Files</a><br/>
+<a href="Jetty/Howto/Prevent Memory Leaks.html" title="Jetty/Howto/Prevent Memory Leaks"> Memory Leaks</a><br/>
+<a rel="nofollow" href="http://webtide.intalio.com/" class="external text">Webtide Blog</a>–Jetty developers responding to user dilemmas and announcing new features
+</p>
+<h2><span class="mw-headline" id="Upgrading_Jetty">Upgrading Jetty</span></h2>
+<p><a rel="nofollow" href="http://docs.codehaus.org/display/JETTY/Porting+to+jetty6" class="external text">Porting to Jetty 6 from earlier versions of Jetty</a><br/> 
+<a title="Jetty/Starting/Porting to Jetty 7" href="Jetty/Starting/Porting to Jetty 7.html">Porting to Jetty 7</a><br/> 
+<a href="Jetty/Starting/Porting to Jetty 7/Packages and Classes.html" title="Jetty/Starting/Porting to Jetty 7/Packages and Classes">Porting to Jetty 7/Packages and Classes</a><br/> 
+Porting to Jetty 8 <br/>
+Porting from Tomcat<br/> 
+<a href="Jetty/Starting/Jetty Version Comparison Table.html" title="Jetty/Starting/Jetty Version Comparison Table">Jetty Version Comparison Table</a> 
+</p>
+<h2><span id="Application_Server_Integrations" class="mw-headline">Application Server Integrations</span></h2>
+<p>Apache Geronimo JEE<br/> 
+<a title="Jetty/Tutorial/Apache" href="Jetty/Tutorial/Apache.html">Using Jetty with Apache httpd</a><br/> 
+<a href="Jetty/Tutorial/Apache.html" title="Jetty/Tutorial/Apache">How to use Jetty with Apache, AJP, mod_jk, mod_proxy_balancer</a><br/> 
+<a href="Jetty/Howto/Configure mod proxy.html" title="Jetty/Howto/Configure mod proxy">Configuring Apache mod_proxy with Jetty</a><br/> 
+<a href="https://wiki.eclipse.org/Jetty/Howto/Configure_AJP13" title="Jetty/Howto/Configure AJP13">Using Jetty with AJP13</a><br/>
+<a title="Jetty/Feature/JBoss" href="https://wiki.eclipse.org/Jetty/Feature/JBoss">Configuring Jetty in JBoss</a><br/> 
+Remote Glassfish EJBs from Jetty<br/>
+Jetty and Spring EJB3 (Pitchfork)<br/> 
+JBoss EJB3<br/> 
+ObjectWeb EasyBeans (aka JOnAS EJB3Container) 
+</p>
+<h2><span id="Clustering_Technologies" class="mw-headline">Clustering Technologies</span></h2>
+<p><a class="external text" href="https://code.google.com/p/infinispan-http-session-manager/wiki/Home" rel="nofollow">JBoss Infinispan (from Redhat)<br/></a> 
+Gigaspaces<br/> 
+Terracotta<br/> 
+WADI<br/> 
+<a href="https://wiki.eclipse.org/Jetty/Feature/Session_Clustering_Using_a_Database" title="Jetty/Feature/Session Clustering Using a Database">Session Clustering Using a Database</a><br/>
+<a title="Jetty/Tutorial/Terracota Session Clustering" href="Jetty/Tutorial/Terracota Session Clustering.html">Session Clustering with Terracota</a><br/>
+<a href="https://wiki.eclipse.org/Jetty/Tutorial/MongoDB_Session_Clustering" title="Jetty/Tutorial/MongoDB Session Clustering">Session Clustering with MongoDB</a>
+</p>
+<h2><span class="mw-headline" id="Features_Reference">Features Reference</span></h2>
+<p><a title="Jetty/Reference/SSL Connectors" href="Jetty/Reference/SSL Connectors.html">SSL Connectors Reference</a> <br/>
+<a title="Jetty/Reference/QoSFilter" href="Jetty/Reference/QoSFilter.html">QoSFilter Reference</a><br/> 
+<a href="Jetty/Reference/DoSFilter.html" title="Jetty/Reference/DoSFilter">DoSFilter Reference</a>
+</p>
+<h2><span class="mw-headline" id="IoC_and_DI_Frameworks">IoC and DI Frameworks</span></h2>
+<p><a href="Jetty/Reference/jetty.xml syntax.html" title="Jetty/Reference/jetty.xml syntax">Jetty XML IOC</a><br/> 
+<a title="Jetty/Howto/Spring" href="Jetty/Howto/Spring.html">How to Configure Jetty with Spring</a><br/>
+<a title="Jetty/Howto/Configure Jetty with XBean" href="Jetty/Howto/Configure Jetty with XBean.html">How to Configure Jetty with XBean</a>
+</p>
+<h2><span class="mw-headline" id="OSGi">OSGi</span></h2>
+<p><a title="Jetty/Feature/Jetty OSGi" href="Jetty/Feature/Jetty OSGi.html">Jetty on OSGi, RFC66</a><br/> 
+Jetty OSGi Powered Products<br/> 
+OSGi Tips <br/>
+Jetty as the HTTP Service in Equinox<br/> 
+Jetty as the HTTP Service in Felix<br/> 
+Jetty as the HTTP Srevice in PAX<br/> 
+ProSyst mBedded Server Equinox Edition<br/> 
+Jetty in Spring Dynamic Modules<br/> 
+Jetty in JOnAS5 
+</p>
+<h2><span id="Web_Frameworks" class="mw-headline">Web Frameworks</span></h2>
+<p>DWR <br/>
+MyFaces <br/>
+JSF Reference Implementation<br/> 
+Jakarta Slide<br/> 
+GWT<br/> 
+Jetspeed2<br/> 
+ICEfaces 
+</p>
+<h2><span id="Other" class="mw-headline">Other</span></h2>
+<p><a rel="nofollow" class="external text" href="http://wiki.eclipse.org/Atomikos_Transaction_Manager">Atomikos Transaction Manager</a><br/> 
+Java Open Transaction Manager (JOTM)<br/> 
+Bitronix Transaction Manager<br/> 
+ActiveMQ<br/> 
+Binding JAX-WS 2.x Endpoints to Jetty Contexts<br/>  
+<a title="Jetty/Feature/JVM NIO Bug" href="Jetty/Feature/JVM NIO Bug.html">JVM NIO Bug Handling</a> <br/>
+<a title="Jetty/Feature/Rewrite Handler" href="Jetty/Feature/Rewrite Handler.html">Rewrite Module</a> 
+</p><p><br/>
+</p>
+<h2><span class="mw-headline" id="FAQ"><a title="Jetty/FAQ" href="Jetty/FAQ.html">FAQ</a></span></h2>
+</div>
+<div style="clear:both;">
+
+<!-- 
+NewPP limit report
+Cached time: 20211116173013
+Cache expiry: 86400
+Dynamic content: false
+CPU time usage: 0.172 seconds
+Real time usage: 0.180 seconds
+Preprocessor visited node count: 158/1000000
+Preprocessor generated node count: 328/1000000
+Post‐expand include size: 1873/2097152 bytes
+Template argument size: 690/2097152 bytes
+Highest expansion depth: 4/40
+Expensive parser function count: 0/100
+-->
+
+<!-- 
+Transclusion expansion time report (%,ms,calls,template)
+100.00%   19.788      1 - -total
+ 72.17%   14.280      1 - Template:Jetty_Redirect
+ 51.67%   10.224      1 - Template:Message
+ 25.76%    5.098      1 - Template:Jetty
+-->
+
+<!-- Saved in parser cache with key my_wiki:pcache:idhash:18504-0!*!0!!en!5!* and timestamp 20211116173013 and revision id 342284
+ -->
+</div>
+                                      <!-- catlinks -->
+                    <div class="catlinks" id="catlinks"><div class="mw-normal-catlinks" id="mw-normal-catlinks"><a href="https://wiki.eclipse.org/Special:Categories" title="Special:Categories">Category</a>: <ul><li><a title="Category:Jetty" href="https://wiki.eclipse.org/Category:Jetty">Jetty</a></li></ul></div></div>                     <!-- /catlinks -->
+                                  </div>
+              </div>
+            </div>
+          </div>
+        <!-- /maincontent -->
+
+                <!-- printfooter -->
+        <div class="printfooter">
+        Retrieved from "<a dir="ltr" href="https://wiki.eclipse.org/index.php?title=Jetty&amp;oldid=342284">https://wiki.eclipse.org/index.php?title=Jetty&amp;oldid=342284</a>"        </div>
+        <!-- /printfooter -->
+        
+        
+        <!-- debughtml -->
+                <!-- /debughtml -->
+
+      </div>
+</body>
+</html>

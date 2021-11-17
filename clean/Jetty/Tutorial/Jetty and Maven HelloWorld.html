@@ -1,0 +1,306 @@
+<html>
+<head>
+    <title>Jetty WTP Plugin</title>
+    <link rel="stylesheet" media="screen, print" href="wiki-style.css"/>
+</head>
+<body>
+<div id="mainContent" class="col-md-20">
+                      <ul role="tablist" class="nav nav-tabs noprint hidden-print">
+                       <li class="active" id="ca-nstab-main"><a href="Jetty and Maven HelloWorld.html" accesskey="c" title="View the content page [c]" tabindex="-1">Page</a></li>
+                        <li id="ca-talk"><a accesskey="t" href="https://wiki.eclipse.org/Talk:Jetty/Tutorial/Jetty_and_Maven_HelloWorld" title="Discussion about the content page [t]" tabindex="-1">Discussion</a></li>
+                        <li id="ca-viewsource"><a tabindex="-1" accesskey="e" title="This page is protected.&#10;You can view its source [e]" href="edit">View source</a></li>
+                        <li id="ca-history" class="collapsible"><a tabindex="-1" title="Past revisions of this page [h]" accesskey="h" href="edit">History</a></li>
+                      </ul>            <div class="tab-content background-white">
+              <div class="tab-pane active" id="tab-pane-main-page-content">
+
+                
+                <h1 class="firstHeading page-header" id="firstHeading">
+                  <span dir="auto">Jetty/Tutorial/Jetty and Maven HelloWorld</span>
+                </h1>
+                <div id="main-page-content">
+                                                      <!-- subtitle -->
+                  <div id="contentSub" class="alert alert-small alert-warning"><span class="subpages">&lt; <a title="Jetty" href="../../Jetty.html">Jetty</a>‎ | <a title="Jetty/Tutorial" href="../Tutorial.html">Tutorial</a></span></div>
+                  <!-- /subtitle -->
+                  
+                  
+                  <div dir="ltr" class="mw-content-ltr" id="mw-content-text" lang="en"><p><br/>
+</p><p><br/>
+</p>
+<div id="toc" class="toc"><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="Jetty and Maven HelloWorld.html#Introduction"><span class="tocnumber">1</span> <span class="toctext">Introduction</span></a></li>
+<li class="toclevel-1"><a href="Jetty and Maven HelloWorld.html#Details"><span class="tocnumber">2</span> <span class="toctext">Details</span></a></li>
+<li class="toclevel-1"><a href="Jetty and Maven HelloWorld.html#Configuring_Embedded_Jetty_with_Maven"><span class="tocnumber">3</span> <span class="toctext">Configuring Embedded Jetty with Maven</span></a>
+<ul>
+<li class="toclevel-2"><a href="Jetty and Maven HelloWorld.html#Creating_the_HelloWorld_Class"><span class="tocnumber">3.1</span> <span class="toctext">Creating the HelloWorld Class</span></a></li>
+<li class="toclevel-2"><a href="Jetty and Maven HelloWorld.html#Creating_the_POM_Descriptor"><span class="tocnumber">3.2</span> <span class="toctext">Creating the POM Descriptor</span></a></li>
+<li class="toclevel-2"><a href="Jetty and Maven HelloWorld.html#Building_and_Running_Embedded_HelloWorld"><span class="tocnumber">3.3</span> <span class="toctext">Building and Running Embedded HelloWorld</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1"><a href="Jetty and Maven HelloWorld.html#Developing_a_Standard_WebApp_with_Jetty_and_Maven"><span class="tocnumber">4</span> <span class="toctext">Developing a Standard WebApp with Jetty and Maven</span></a>
+<ul>
+<li class="toclevel-2"><a href="Jetty and Maven HelloWorld.html#Creating_Static_Content"><span class="tocnumber">4.1</span> <span class="toctext">Creating Static Content</span></a></li>
+<li class="toclevel-2"><a href="Jetty and Maven HelloWorld.html#Creating_a_Servlet"><span class="tocnumber">4.2</span> <span class="toctext">Creating a Servlet</span></a></li>
+<li class="toclevel-2"><a href="Jetty and Maven HelloWorld.html#Building_and_Running_the_Web_Application"><span class="tocnumber">4.3</span> <span class="toctext">Building and Running the Web Application</span></a></li>
+<li class="toclevel-2"><a href="Jetty and Maven HelloWorld.html#Building_a_WAR_file"><span class="tocnumber">4.4</span> <span class="toctext">Building a WAR file</span></a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Introduction">Introduction</span></h2>
+<div class="messagebox" style="background-color: #f9f6b7; border: 1px solid #c4c295; color: black; padding: 5px; margin: 1ex 0; min-height: 35px; padding-left: 45px; font-size: 150%; color: white; background-color: #FF8888; padding: 50px">
+<div style="float: left; margin-left: -40px;"><a href="https://wiki.eclipse.org/File:Warning2.png" class="image"><img width="35" height="35" alt="Warning2.png" src="../../images/3/37/Warning2.png"/></a></div>
+<div>Jetty 7 and Jetty 8 are now EOL (End of Life)<br/>
+<p><br/>
+<br/>
+<br/>
+THIS IS NOT THE DOCUMENTATION YOU ARE LOOKING FOR!!!!!<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+All development and stable releases are being performed with Jetty 9 and Jetty 10.<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+This <b>wiki is now officially out of date</b> and all content has been moved to the <a rel="nofollow" class="external text" href="http://www.eclipse.org/jetty/documentation">Jetty Documentation Hub</a><br/> 
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+</p>
+Direct Link to updated documentation: <a class="external free" rel="nofollow" href="http://www.eclipse.org/jetty/documentation/current/advanced-embedding.html#jetty-helloworld">http://www.eclipse.org/jetty/documentation/current/advanced-embedding.html#jetty-helloworld</a></div>
+</div>
+<p><br/>
+<a class="external text" rel="nofollow" href="http://maven.apache.org/">Apache Maven</a> is a software project management and comprehension tool. Based on the concept of a project object model (POM), Maven can manage a project's build, reporting and documentation from a central piece of information. It is an ideal tool to build a web application project, and such projects can use the <a href="../Feature/Jetty Maven Plugin.html" title="Jetty/Feature/Jetty Maven Plugin"> Jetty Maven Plugin</a> to run the web application in development mode.
+</p><p>You can use Maven both to build embedded Jetty applications and standards based web applications.
+</p><p>To understand the basic operations of building and running against Jetty, first review:
+</p>
+<ul><li> the <a title="Jetty/Tutorial/Jetty HelloWorld" href="Jetty HelloWorld.html">Jetty HelloWorld Tutorial</a>.</li>
+<li> the <a title="Jetty/Tutorial/Embedding Jetty" href="Embedding Jetty.html">Embedding Jetty Tutorial</a>.</li></ul>
+<h2><span id="Details" class="mw-headline">Details</span></h2>
+<h2><span id="Configuring_Embedded_Jetty_with_Maven" class="mw-headline">Configuring Embedded Jetty with Maven</span></h2>
+<p>Maven uses convention over configuration, so it is best to use the project structure as Maven recommends. You can use Archetypes to quickly setup Maven projects, but for this tutorial, we will set up the structure manually:
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="bash source-bash"><pre class="de1"><span class="kw2">mkdir</span> JettyMavenHelloWorld
+<span class="kw3">cd</span> JettyMavenHelloWorld
+<span class="kw2">mkdir</span> <span class="re5">-p</span> src<span class="sy0">/</span>main<span class="sy0">/</span>java<span class="sy0">/</span>org<span class="sy0">/</span>example</pre></div></div>
+<h3><span id="Creating_the_HelloWorld_Class" class="mw-headline">Creating the HelloWorld Class</span></h3>
+<p>Use an editor to create the file <tt>src/main/java/org/example/HelloWorld.java</tt> with the following contents:
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="java source-java"><pre class="de1"><span class="kw1">package</span> <span class="co2">org.example</span><span class="sy0">;</span>
+<span class="kw1">import</span> <span class="co2">javax.servlet.http.HttpServletRequest</span><span class="sy0">;</span>
+<span class="kw1">import</span> <span class="co2">javax.servlet.http.HttpServletResponse</span><span class="sy0">;</span>
+<span class="kw1">import</span> <span class="co2">javax.servlet.ServletException</span><span class="sy0">;</span>
+<span class="kw1">import</span> <span class="co2">java.io.IOException</span><span class="sy0">;</span>
+<span class="kw1">import</span> <span class="co2">org.eclipse.jetty.server.Server</span><span class="sy0">;</span>
+<span class="kw1">import</span> <span class="co2">org.eclipse.jetty.server.Request</span><span class="sy0">;</span>
+<span class="kw1">import</span> <span class="co2">org.eclipse.jetty.server.handler.AbstractHandler</span><span class="sy0">;</span>
+ 
+<span class="kw1">public</span> <span class="kw1">class</span> HelloWorld <span class="kw1">extends</span> AbstractHandler
+<span class="br0">{</span>
+    <span class="kw1">public</span> <span class="kw4">void</span> handle<span class="br0">(</span><span class="kw3">String</span> target,
+                       <span class="kw3">Request</span> baseRequest,
+                       HttpServletRequest request,
+                       HttpServletResponse response<span class="br0">)</span> 
+        <span class="kw1">throws</span> <span class="kw3">IOException</span>, ServletException
+    <span class="br0">{</span>
+        response.<span class="me1">setContentType</span><span class="br0">(</span><span class="st0">"text/html;charset=utf-8"</span><span class="br0">)</span><span class="sy0">;</span>
+        response.<span class="me1">setStatus</span><span class="br0">(</span>HttpServletResponse.<span class="me1">SC_OK</span><span class="br0">)</span><span class="sy0">;</span>
+        baseRequest.<span class="me1">setHandled</span><span class="br0">(</span><span class="kw2">true</span><span class="br0">)</span><span class="sy0">;</span>
+        response.<span class="me1">getWriter</span><span class="br0">(</span><span class="br0">)</span>.<span class="me1">println</span><span class="br0">(</span><span class="st0">"&lt;h1&gt;Hello World&lt;/h1&gt;"</span><span class="br0">)</span><span class="sy0">;</span>
+    <span class="br0">}</span>
+ 
+    <span class="kw1">public</span> <span class="kw1">static</span> <span class="kw4">void</span> main<span class="br0">(</span><span class="kw3">String</span><span class="br0">[</span><span class="br0">]</span> args<span class="br0">)</span> <span class="kw1">throws</span> <span class="kw3">Exception</span>
+    <span class="br0">{</span>
+        Server server <span class="sy0">=</span> <span class="kw1">new</span> Server<span class="br0">(</span><span class="nu0">8080</span><span class="br0">)</span><span class="sy0">;</span>
+        server.<span class="me1">setHandler</span><span class="br0">(</span><span class="kw1">new</span> HelloWorld<span class="br0">(</span><span class="br0">)</span><span class="br0">)</span><span class="sy0">;</span>
+ 
+        server.<span class="me1">start</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
+        server.<span class="me1">join</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
+    <span class="br0">}</span>
+<span class="br0">}</span></pre></div></div>
+<h3><span class="mw-headline" id="Creating_the_POM_Descriptor">Creating the POM Descriptor</span></h3>
+<p>The <tt>pom.xml</tt> file declares the project name and it's dependencies. Use an editor to create the file <tt>pom.xml</tt> with the following contents:
+</p>
+<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="xml source-xml"><pre class="de1"><span class="sc3"><span class="re1">&lt;project</span> <span class="re0">xmlns</span>=<span class="st0">"http://maven.apache.org/POM/4.0.0"</span> </span>
+<span class="sc3">         <span class="re0">xmlns:xsi</span>=<span class="st0">"http://www.w3.org/2001/XMLSchema-instance"</span> </span>
+<span class="sc3">	 <span class="re0">xsi:schemaLocation</span>=<span class="st0">"http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd"</span><span class="re2">&gt;</span></span>
+ 
+  <span class="sc3"><span class="re1">&lt;modelVersion<span class="re2">&gt;</span></span></span>4.0.0<span class="sc3"><span class="re1">&lt;/modelVersion<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;groupId<span class="re2">&gt;</span></span></span>org.example<span class="sc3"><span class="re1">&lt;/groupId<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;artifactId<span class="re2">&gt;</span></span></span>hello-world<span class="sc3"><span class="re1">&lt;/artifactId<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;version<span class="re2">&gt;</span></span></span>0.1-SNAPSHOT<span class="sc3"><span class="re1">&lt;/version<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;packaging<span class="re2">&gt;</span></span></span>jar<span class="sc3"><span class="re1">&lt;/packaging<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;name<span class="re2">&gt;</span></span></span>Jetty HelloWorld<span class="sc3"><span class="re1">&lt;/name<span class="re2">&gt;</span></span></span>
+ 
+  <span class="sc3"><span class="re1">&lt;properties<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;jettyVersion<span class="re2">&gt;</span></span></span>7.2.0.v20101020<span class="sc3"><span class="re1">&lt;/jettyVersion<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;/properties<span class="re2">&gt;</span></span></span>
+ 
+  <span class="sc3"><span class="re1">&lt;dependencies<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;dependency<span class="re2">&gt;</span></span></span>
+      <span class="sc3"><span class="re1">&lt;groupId<span class="re2">&gt;</span></span></span>org.eclipse.jetty<span class="sc3"><span class="re1">&lt;/groupId<span class="re2">&gt;</span></span></span>
+      <span class="sc3"><span class="re1">&lt;artifactId<span class="re2">&gt;</span></span></span>jetty-server<span class="sc3"><span class="re1">&lt;/artifactId<span class="re2">&gt;</span></span></span>
+      <span class="sc3"><span class="re1">&lt;version<span class="re2">&gt;</span></span></span>${jettyVersion}<span class="sc3"><span class="re1">&lt;/version<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;/dependency<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;/dependencies<span class="re2">&gt;</span></span></span>
+ 
+  <span class="sc3"><span class="re1">&lt;build<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;plugins<span class="re2">&gt;</span></span></span>
+      <span class="sc3"><span class="re1">&lt;plugin<span class="re2">&gt;</span></span></span>
+        <span class="sc-1">&lt;!-- This plugin is needed for the servlet example --&gt;</span>
+        <span class="sc3"><span class="re1">&lt;groupId<span class="re2">&gt;</span></span></span>org.mortbay.jetty<span class="sc3"><span class="re1">&lt;/groupId<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;artifactId<span class="re2">&gt;</span></span></span>jetty-maven-plugin<span class="sc3"><span class="re1">&lt;/artifactId<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;version<span class="re2">&gt;</span></span></span>${jettyVersion}<span class="sc3"><span class="re1">&lt;/version<span class="re2">&gt;</span></span></span>
+      <span class="sc3"><span class="re1">&lt;/plugin<span class="re2">&gt;</span></span></span>
+      <span class="sc3"><span class="re1">&lt;plugin<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;groupId<span class="re2">&gt;</span></span></span>org.codehaus.mojo<span class="sc3"><span class="re1">&lt;/groupId<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;artifactId<span class="re2">&gt;</span></span></span>exec-maven-plugin<span class="sc3"><span class="re1">&lt;/artifactId<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;version<span class="re2">&gt;</span></span></span>1.1<span class="sc3"><span class="re1">&lt;/version<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;executions<span class="re2">&gt;</span></span></span>
+          <span class="sc3"><span class="re1">&lt;execution<span class="re2">&gt;</span></span><span class="re1">&lt;goals<span class="re2">&gt;</span></span><span class="re1">&lt;goal<span class="re2">&gt;</span></span></span>java<span class="sc3"><span class="re1">&lt;/goal<span class="re2">&gt;</span></span><span class="re1">&lt;/goals<span class="re2">&gt;</span></span><span class="re1">&lt;/execution<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;/executions<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;configuration<span class="re2">&gt;</span></span></span>
+          <span class="sc3"><span class="re1">&lt;mainClass<span class="re2">&gt;</span></span></span>org.example.HelloWorld<span class="sc3"><span class="re1">&lt;/mainClass<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;/configuration<span class="re2">&gt;</span></span></span>
+      <span class="sc3"><span class="re1">&lt;/plugin<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;/plugins<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;/build<span class="re2">&gt;</span></span></span>
+<span class="sc3"><span class="re1">&lt;/project<span class="re2">&gt;</span></span></span></pre></div></div>
+<h3><span id="Building_and_Running_Embedded_HelloWorld" class="mw-headline">Building and Running Embedded HelloWorld</span></h3>
+<p>You can now compile and execute the HelloWorld class by using these commands:
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="bash source-bash"><pre class="de1">mvn clean compile exec:java</pre></div></div>
+<p>You can point your browser to http://localhost:8080 to see the hello world page.  You can observe what Maven is doing for you behind the scenes by using the <tt>mvn dependency:tree</tt> command, which reveals the transitive dependency resolved and downloaded as:
+</p>
+<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="text source-text"><pre class="de1">&gt; mvn dependency:tree
+[INFO] Scanning for projects...
+[INFO] Searching repository for plugin with prefix: 'dependency'.
+[INFO] ------------------------------------------------------------------------
+[INFO] Building Jetty HelloWorld
+[INFO]    task-segment: [dependency:tree]
+[INFO] ------------------------------------------------------------------------
+[INFO] [dependency:tree {execution: default-cli}]
+[INFO] org.example:hello-world:jar:0.1-SNAPSHOT
+[INFO] \- org.eclipse.jetty:jetty-server:jar:7.0.1.v20091125:compile
+[INFO]    +- javax.servlet:servlet-api:jar:2.5:compile
+[INFO]    +- org.eclipse.jetty:jetty-continuation:jar:7.0.1.v20091125:compile
+[INFO]    \- org.eclipse.jetty:jetty-http:jar:7.0.1.v20091125:compile
+[INFO]       \- org.eclipse.jetty:jetty-io:jar:7.0.1.v20091125:compile
+[INFO]          \- org.eclipse.jetty:jetty-util:jar:7.0.1.v20091125:compile
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESSFUL
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time: 4 seconds
+[INFO] Finished at: Tue Feb 16 16:19:08 EST 2010
+[INFO] Final Memory: 11M/68M
+[INFO] ------------------------------------------------------------------------</pre></div></div>
+<p><br/>
+</p>
+<h2><span class="mw-headline" id="Developing_a_Standard_WebApp_with_Jetty_and_Maven">Developing a Standard WebApp with Jetty and Maven</span></h2>
+<p>The example above shows how to run a hello world example as an embedded Jetty handler. The following example shows how to develop a standard webapp with Maven and Jetty.  First create the Maven structure:
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="bash source-bash"><pre class="de1"><span class="kw2">mkdir</span> JettyMavenHelloWarApp
+<span class="kw3">cd</span> JettyMavenHelloWarApp
+<span class="kw2">mkdir</span> <span class="re5">-p</span> src<span class="sy0">/</span>main<span class="sy0">/</span>java<span class="sy0">/</span>org<span class="sy0">/</span>example
+<span class="kw2">mkdir</span> <span class="re5">-p</span> src<span class="sy0">/</span>main<span class="sy0">/</span>webapp<span class="sy0">/</span>WEB-INF</pre></div></div>
+<h3><span class="mw-headline" id="Creating_Static_Content">Creating Static Content</span></h3>
+<p>A web application can contain static content, so create the file <tt>src/main/webapp/index.html</tt> with the following contents:
+</p>
+<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="html4strict source-html4strict"><pre class="de1"><span class="sc2">&lt;<span class="kw2">h1</span>&gt;</span>Hello World Webapp<span class="sc2">&lt;<span class="sy0">/</span><span class="kw2">h1</span>&gt;</span>
+<span class="sc2">&lt;<span class="kw2">a</span> <span class="kw3">href</span><span class="sy0">=</span><span class="st0">"/hello"</span>&gt;</span>Hello Servlet<span class="sc2">&lt;<span class="sy0">/</span><span class="kw2">a</span>&gt;</span></pre></div></div>
+<h3><span id="Creating_a_Servlet" class="mw-headline">Creating a Servlet</span></h3>
+<p>Use an editor to create the file <tt>src/main/java/org/example/HelloServlet.java</tt> with the following contents:
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="java source-java"><pre class="de1"><span class="kw1">package</span> <span class="co2">org.example</span><span class="sy0">;</span>
+ 
+<span class="kw1">import</span> <span class="co2">java.io.IOException</span><span class="sy0">;</span>
+<span class="kw1">import</span> <span class="co2">javax.servlet.ServletException</span><span class="sy0">;</span>
+<span class="kw1">import</span> <span class="co2">javax.servlet.http.HttpServlet</span><span class="sy0">;</span>
+<span class="kw1">import</span> <span class="co2">javax.servlet.http.HttpServletRequest</span><span class="sy0">;</span>
+<span class="kw1">import</span> <span class="co2">javax.servlet.http.HttpServletResponse</span><span class="sy0">;</span>
+ 
+<span class="kw1">public</span> <span class="kw1">class</span> HelloServlet <span class="kw1">extends</span> HttpServlet
+<span class="br0">{</span>
+    <span class="kw1">protected</span> <span class="kw4">void</span> doGet<span class="br0">(</span>HttpServletRequest request, HttpServletResponse response<span class="br0">)</span> <span class="kw1">throws</span> ServletException, <span class="kw3">IOException</span>
+    <span class="br0">{</span>
+        response.<span class="me1">setContentType</span><span class="br0">(</span><span class="st0">"text/html"</span><span class="br0">)</span><span class="sy0">;</span>
+        response.<span class="me1">setStatus</span><span class="br0">(</span>HttpServletResponse.<span class="me1">SC_OK</span><span class="br0">)</span><span class="sy0">;</span>
+        response.<span class="me1">getWriter</span><span class="br0">(</span><span class="br0">)</span>.<span class="me1">println</span><span class="br0">(</span><span class="st0">"&lt;h1&gt;Hello Servlet&lt;/h1&gt;"</span><span class="br0">)</span><span class="sy0">;</span>
+        response.<span class="me1">getWriter</span><span class="br0">(</span><span class="br0">)</span>.<span class="me1">println</span><span class="br0">(</span><span class="st0">"session="</span> <span class="sy0">+</span> request.<span class="me1">getSession</span><span class="br0">(</span><span class="kw2">true</span><span class="br0">)</span>.<span class="me1">getId</span><span class="br0">(</span><span class="br0">)</span><span class="br0">)</span><span class="sy0">;</span>
+    <span class="br0">}</span>
+<span class="br0">}</span></pre></div></div>
+<p>This servlet needs to be declared in the deployment descriptor, so edit the file <tt>src/main/webapp/WEB-INF/web.xml</tt> and add the following contents:
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="xml source-xml"><pre class="de1"><span class="sc3"><span class="re1">&lt;?xml</span> <span class="re0">version</span>=<span class="st0">"1.0"</span> <span class="re0">encoding</span>=<span class="st0">"ISO-8859-1"</span><span class="re2">?&gt;</span></span>
+<span class="sc3"><span class="re1">&lt;web-app</span> </span>
+<span class="sc3">   <span class="re0">xmlns</span>=<span class="st0">"http://java.sun.com/xml/ns/javaee"</span> </span>
+<span class="sc3">   <span class="re0">xmlns:xsi</span>=<span class="st0">"http://www.w3.org/2001/XMLSchema-instance"</span></span>
+<span class="sc3">   <span class="re0">xsi:schemaLocation</span>=<span class="st0">"http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"</span> </span>
+<span class="sc3">   <span class="re0">version</span>=<span class="st0">"2.5"</span><span class="re2">&gt;</span></span>
+  <span class="sc3"><span class="re1">&lt;servlet<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;servlet-name<span class="re2">&gt;</span></span></span>Hello<span class="sc3"><span class="re1">&lt;/servlet-name<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;servlet-class<span class="re2">&gt;</span></span></span>org.example.HelloServlet<span class="sc3"><span class="re1">&lt;/servlet-class<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;/servlet<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;servlet-mapping<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;servlet-name<span class="re2">&gt;</span></span></span>Hello<span class="sc3"><span class="re1">&lt;/servlet-name<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;url-pattern<span class="re2">&gt;</span></span></span>/hello/*<span class="sc3"><span class="re1">&lt;/url-pattern<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;/servlet-mapping<span class="re2">&gt;</span></span></span>
+<span class="sc3"><span class="re1">&lt;/web-app<span class="re2">&gt;</span></span></span></pre></div></div>
+<h3><span id="Building_and_Running_the_Web_Application" class="mw-headline">Building and Running the Web Application</span></h3>
+<p>Copy the <tt>pom.xml</tt> and then you can build and run the web application by using the command:
+</p>
+<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="bash source-bash"><pre class="de1">mvn jetty:run</pre></div></div>
+<p>You can see the static and dynamic content at http://localhost:8080/hello-world/hello.  The context path portion of the url ("hello-world") comes from the artifact ID in the pom.xml file.
+</p>
+<h3><span id="Building_a_WAR_file" class="mw-headline">Building a WAR file</span></h3>
+<p>You can create a Web Application Archive (WAR) file from the project with the command:
+</p>
+<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="bash source-bash"><pre class="de1">mvn package</pre></div></div>
+<p>The resulting war file is in the <tt>target</tt> directory and may be deployed on any standard
+servlet server or <a href="../Howto/Deploy Web Applications.html" title="Jetty/Howto/Deploy Web Applications">deployed to jetty</a>.
+</p>
+<!-- 
+NewPP limit report
+Cached time: 20211116040303
+Cache expiry: 86400
+Dynamic content: false
+CPU time usage: 0.264 seconds
+Real time usage: 0.302 seconds
+Preprocessor visited node count: 97/1000000
+Preprocessor generated node count: 592/1000000
+Post‐expand include size: 6661/2097152 bytes
+Template argument size: 5260/2097152 bytes
+Highest expansion depth: 5/40
+Expensive parser function count: 0/100
+-->
+
+<!-- 
+Transclusion expansion time report (%,ms,calls,template)
+100.00%  210.782      1 - -total
+100.00%  210.782      1 - Template:Jetty_Tutorial
+  5.59%   11.786      1 - Template:Jetty_Redirect
+  4.07%    8.586      1 - Template:Jetty
+  3.66%    7.713      1 - Template:Message
+-->
+
+<!-- Saved in parser cache with key my_wiki:pcache:idhash:23676-0!*!0!!en!5!* and timestamp 20211116040303 and revision id 420820
+ -->
+</div>
+                                      <!-- catlinks -->
+                    <div class="catlinks" id="catlinks"><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a title="Special:Categories" href="https://wiki.eclipse.org/Special:Categories">Categories</a>: <ul><li><a title="Category:Jetty" href="https://wiki.eclipse.org/Category:Jetty">Jetty</a></li><li><a title="Category:Jetty Tutorial" href="https://wiki.eclipse.org/Category:Jetty_Tutorial">Jetty Tutorial</a></li></ul></div></div>                     <!-- /catlinks -->
+                                  </div>
+              </div>
+            </div>
+          </div>
+</body>
+</html>

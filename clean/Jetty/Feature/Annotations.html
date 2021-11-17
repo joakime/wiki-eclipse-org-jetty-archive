@@ -1,0 +1,362 @@
+<html>
+<head>
+    <title>Jetty WTP Plugin</title>
+    <link rel="stylesheet" media="screen, print" href="wiki-style.css"/>
+</head>
+<body>
+<div id="mainContent" class="col-md-20">
+                      <ul class="nav nav-tabs noprint hidden-print" role="tablist">
+                       <li id="ca-nstab-main" class="active"><a tabindex="-1" href="Annotations.html" accesskey="c" title="View the content page [c]">Page</a></li>
+                        <li class="new" id="ca-talk"><a tabindex="-1" href="edit" title="Discussion about the content page [t]" accesskey="t">Discussion</a></li>
+                        <li id="ca-viewsource"><a href="edit" tabindex="-1" accesskey="e" title="This page is protected.&#10;You can view its source [e]">View source</a></li>
+                        <li id="ca-history" class="collapsible"><a title="Past revisions of this page [h]" accesskey="h" href="edit" tabindex="-1">History</a></li>
+                      </ul>            <div class="tab-content background-white">
+              <div id="tab-pane-main-page-content" class="tab-pane active">
+
+                
+                <h1 id="firstHeading" class="firstHeading page-header">
+                  <span dir="auto">Jetty/Feature/Annotations</span>
+                </h1>
+                <div id="main-page-content">
+                                                      <!-- subtitle -->
+                  <div class="alert alert-small alert-warning" id="contentSub"><span class="subpages">&lt; <a href="../../Jetty.html" title="Jetty">Jetty</a>‎ | <a href="../Feature.html" title="Jetty/Feature">Feature</a></span></div>
+                  <!-- /subtitle -->
+                  
+                  
+                  <div id="mw-content-text" dir="ltr" lang="en" class="mw-content-ltr"><p><br/>
+</p><p><br/>
+</p>
+<div id="toc" class="toc"><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="Annotations.html#Introduction"><span class="tocnumber">1</span> <span class="toctext">Introduction</span></a></li>
+<li class="toclevel-1"><a href="Annotations.html#Feature"><span class="tocnumber">2</span> <span class="toctext">Feature</span></a></li>
+<li class="toclevel-1"><a href="Annotations.html#Set_up"><span class="tocnumber">3</span> <span class="toctext">Set up</span></a>
+<ul>
+<li class="toclevel-2"><a href="Annotations.html#Applying_the_configurations_to_a_single_webapp"><span class="tocnumber">3.1</span> <span class="toctext">Applying the configurations to a single webapp</span></a></li>
+<li class="toclevel-2"><a href="Annotations.html#Applying_the_configurations_to_webapps_deployed_by_a_deployer"><span class="tocnumber">3.2</span> <span class="toctext">Applying the configurations to webapps deployed by a deployer</span></a></li>
+<li class="toclevel-2"><a href="Annotations.html#Applying_the_configurations_to_all_webapps_in_a_server"><span class="tocnumber">3.3</span> <span class="toctext">Applying the configurations to all webapps in a server</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1"><a href="Annotations.html#Servlet_2.5_Annotations"><span class="tocnumber">4</span> <span class="toctext">Servlet 2.5 Annotations</span></a>
+<ul>
+<li class="toclevel-2"><a href="Annotations.html#Resource_Injections"><span class="tocnumber">4.1</span> <span class="toctext">Resource Injections</span></a></li>
+<li class="toclevel-2"><a href="Annotations.html#Lifecycle_callbacks:_PostConstruct_PreDestroy"><span class="tocnumber">4.2</span> <span class="toctext">Lifecycle callbacks: PostConstruct PreDestroy</span></a></li>
+<li class="toclevel-2"><a href="Annotations.html#Security:RunAs"><span class="tocnumber">4.3</span> <span class="toctext">Security:RunAs</span></a></li>
+<li class="toclevel-2"><a href="Annotations.html#Security:_DeclareRoles"><span class="tocnumber">4.4</span> <span class="toctext">Security: DeclareRoles</span></a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+<h2><span id="Introduction" class="mw-headline">Introduction</span></h2>
+<div style="background-color: #f9f6b7; border: 1px solid #c4c295; color: black; padding: 5px; margin: 1ex 0; min-height: 35px; padding-left: 45px; font-size: 150%; color: white; background-color: #FF8888; padding: 50px" class="messagebox">
+<div style="float: left; margin-left: -40px;"><a href="https://wiki.eclipse.org/File:Warning2.png" class="image"><img alt="Warning2.png" width="35" src="../../images/3/37/Warning2.png" height="35"/></a></div>
+<div>Jetty 7 and Jetty 8 are now EOL (End of Life)<br/>
+<p><br/>
+<br/>
+<br/>
+THIS IS NOT THE DOCUMENTATION YOU ARE LOOKING FOR!!!!!<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+All development and stable releases are being performed with Jetty 9 and Jetty 10.<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+This <b>wiki is now officially out of date</b> and all content has been moved to the <a rel="nofollow" href="http://www.eclipse.org/jetty/documentation" class="external text">Jetty Documentation Hub</a><br/> 
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+</p>
+Direct Link to updated documentation: <a href="http://www.eclipse.org/jetty/documentation/current/annotations.html" class="external free" rel="nofollow">http://www.eclipse.org/jetty/documentation/current/annotations.html</a></div>
+</div>
+<p><br/>
+The <a rel="nofollow" href="http://jcp.org/aboutJava/communityprocess/mrel/jsr154/index.html" class="external text">Java Servlet 2.5 Specification</a> added the ability to inject <a title="Jetty/Feature/JNDI" href="JNDI.html">JNDI</a> resources into fields and methods of servlets, filters and listeners, and also to perform certain callbacks at various points in the lifecycle of a web application.
+</p><p>JNDI resource injection and the lifecycle callbacks can be specified entirely within the web.xml file, or alternatively marked up as annotations in your source code. You can even use a combination of annotations and web.xml declarations.
+</p><p>One important thing to be aware of is that the 2.5 Servlet Specification introduced a new attribute into the &lt;web-app&gt; element, the <b>metadata-complete</b> attribute. If true, then the web container will NOT search the webapp for source code annotations, and your web.xml file must contain all resources required. If false or not specified, then jetty is required to examine all servlets, filters and listeners in the webapp for annotations. Therefore, you can save startup time by using this attribute correctly - if you don't want to use annotations then ensure you mark <b>metadata-complete="true"</b>, otherwise you will pay the penalty of the code examination.
+</p><p>Here's an example of setting this attribute:
+</p>
+<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="xml source-xml"><pre class="de1"><span class="sc3"><span class="re1">&lt;web-app</span> </span>
+<span class="sc3">   <span class="re0">xmlns</span>=<span class="st0">"http://java.sun.com/xml/ns/j2ee"</span> </span>
+<span class="sc3">   <span class="re0">xmlns:xsi</span>=<span class="st0">"http://www.w3.org/2001/XMLSchema-instance"</span></span>
+<span class="sc3">   <span class="re0">xsi:schemaLocation</span>=<span class="st0">"http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_5.xsd"</span> </span>
+<span class="sc3">   <span class="re0">metadata-complete</span>=<span class="st0">"false"</span></span>
+<span class="sc3">   <span class="re0">version</span>=<span class="st0">"2.5"</span><span class="re2">&gt;</span></span></pre></div></div>
+<h2><span class="mw-headline" id="Feature">Feature</span></h2>
+<h2><span class="mw-headline" id="Set_up">Set up</span></h2>
+<p>Annotation processing is not enabled by default by the standard jetty distribution, only by the <a href="http://dist.codehaus.org/jetty" class="external text" rel="nofollow">jetty-hightide</a> distribution. To enable annotation processing you will need to do some configuration file setup, and also add the OPTIONS for annotation to put the annotation-related jars onto the classpath.
+</p><p>First, lets define the configuration setup needed:
+</p>
+<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="xml source-xml"><pre class="de1"><span class="sc3"><span class="re1">&lt;Array</span> <span class="re0">id</span>=<span class="st0">"plusConfig"</span> <span class="re0">type</span>=<span class="st0">"java.lang.String"</span><span class="re2">&gt;</span></span>
+  <span class="sc3"><span class="re1">&lt;Item<span class="re2">&gt;</span></span></span>org.eclipse.jetty.webapp.WebInfConfiguration<span class="sc3"><span class="re1">&lt;/Item<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;Item<span class="re2">&gt;</span></span></span>org.eclipse.jetty.webapp.WebXmlConfiguration<span class="sc3"><span class="re1">&lt;/Item<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;Item<span class="re2">&gt;</span></span></span>org.eclipse.jetty.webapp.MetaInfConfiguration<span class="sc3"><span class="re1">&lt;/Item<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;Item<span class="re2">&gt;</span></span></span>org.eclipse.jetty.webapp.FragmentConfiguration<span class="sc3"><span class="re1">&lt;/Item<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;Item<span class="re2">&gt;</span></span></span>org.eclipse.jetty.plus.webapp.EnvConfiguration<span class="sc3"><span class="re1">&lt;/Item<span class="re2">&gt;</span></span></span>        <span class="sc-1">&lt;!-- added for JNDI --&gt;</span>
+  <span class="sc3"><span class="re1">&lt;Item<span class="re2">&gt;</span></span></span>org.eclipse.jetty.plus.webapp.PlusConfiguration<span class="sc3"><span class="re1">&lt;/Item<span class="re2">&gt;</span></span></span>       <span class="sc-1">&lt;!-- added for JNDI --&gt;</span>
+  <span class="sc3"><span class="re1">&lt;Item<span class="re2">&gt;</span></span></span>org.eclipse.jetty.annotations.AnnotationConfiguration<span class="sc3"><span class="re1">&lt;/Item<span class="re2">&gt;</span></span></span> <span class="sc-1">&lt;!-- added for annotations --&gt;</span>
+  <span class="sc3"><span class="re1">&lt;Item<span class="re2">&gt;</span></span></span>org.eclipse.jetty.webapp.JettyWebXmlConfiguration<span class="sc3"><span class="re1">&lt;/Item<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;Item<span class="re2">&gt;</span></span></span>org.eclipse.jetty.webapp.TagLibConfiguration<span class="sc3"><span class="re1">&lt;/Item<span class="re2">&gt;</span></span></span>
+<span class="sc3"><span class="re1">&lt;/Array<span class="re2">&gt;</span></span></span></pre></div></div>
+<p>The above is the basic set of configurations that need to be applied to a webapp upon deployment. You can apply these configurations to a specific webapp only, all webapps deployed by a particular deployer, or all webapps deployed into a server.
+</p>
+<div class="messagebox" style="background-color: #def3fe; border: 1px solid #c5d7e0; color: black; padding: 5px; margin: 1ex 0; min-height: 35px; padding-left: 45px;">
+<div style="float: left; margin-left: -40px;"><a class="image" href="https://wiki.eclipse.org/File:Idea.png"><img src="../../images/a/a4/Idea.png" height="35" alt="Idea.png" width="35"/></a></div>
+<div><b>Tip:</b><br/>$JETTY_HOME/etc/jetty-plus.xml comes pre-setup with these configurations, and applies them to all webapps deployed into a Server instance. Edit <a href="Start.jar.html" title="Jetty/Feature/Start.jar">start.ini</a> to add jetty-plus.xml, and then add "annotations" to the list of OPTIONS and you're done.</div>
+</div>
+<p><br/>
+</p>
+<h3><span class="mw-headline" id="Applying_the_configurations_to_a_single_webapp">Applying the configurations to a single webapp</span></h3>
+<p>If you elect <i>not</i> to use $JETTY_HOME/etc/jetty-plus.xml, and want to enable annotation processing for only a single webapp, you will need to create a context xml file for that webapp and put the configurations definition into it. Here's an example, which will set up annotation processing for the webapp in $JETTY_HOME/webapps/my-cool-webapp:
+</p>
+<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="xml source-xml"><pre class="de1"><span class="sc3"><span class="re1">&lt;?xml</span> <span class="re0">version</span>=<span class="st0">"1.0"</span>  <span class="re0">encoding</span>=<span class="st0">"ISO-8859-1"</span><span class="re2">?&gt;</span></span>
+<span class="sc0">&lt;!DOCTYPE Configure PUBLIC "-//Jetty//Configure//EN" "http://www.eclipse.org/jetty/configure.dtd"&gt;</span>
+ 
+<span class="sc3"><span class="re1">&lt;Configure</span> <span class="re0">id</span>=<span class="st0">'wac'</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.webapp.WebAppContext"</span><span class="re2">&gt;</span></span>
+ 
+  <span class="sc3"><span class="re1">&lt;Array</span> <span class="re0">id</span>=<span class="st0">"plusConfig"</span> <span class="re0">type</span>=<span class="st0">"java.lang.String"</span><span class="re2">&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;Item<span class="re2">&gt;</span></span></span>org.eclipse.jetty.webapp.WebInfConfiguration<span class="sc3"><span class="re1">&lt;/Item<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;Item<span class="re2">&gt;</span></span></span>org.eclipse.jetty.webapp.WebXmlConfiguration<span class="sc3"><span class="re1">&lt;/Item<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;Item<span class="re2">&gt;</span></span></span>org.eclipse.jetty.webapp.MetaInfConfiguration<span class="sc3"><span class="re1">&lt;/Item<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;Item<span class="re2">&gt;</span></span></span>org.eclipse.jetty.webapp.FragmentConfiguration<span class="sc3"><span class="re1">&lt;/Item<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;Item<span class="re2">&gt;</span></span></span>org.eclipse.jetty.plus.webapp.EnvConfiguration<span class="sc3"><span class="re1">&lt;/Item<span class="re2">&gt;</span></span></span> <span class="sc-1">&lt;!-- added for JNDI --&gt;</span>
+    <span class="sc3"><span class="re1">&lt;Item<span class="re2">&gt;</span></span></span>org.eclipse.jetty.plus.webapp.PlusConfiguration<span class="sc3"><span class="re1">&lt;/Item<span class="re2">&gt;</span></span></span>    <span class="sc-1">&lt;!-- added for JNDI --&gt;</span>
+    <span class="sc3"><span class="re1">&lt;Item<span class="re2">&gt;</span></span></span>org.eclipse.jetty.annotations.AnnotationConfiguration<span class="sc3"><span class="re1">&lt;/Item<span class="re2">&gt;</span></span></span> <span class="sc-1">&lt;!-- added for annotations --&gt;</span>
+    <span class="sc3"><span class="re1">&lt;Item<span class="re2">&gt;</span></span></span>org.eclipse.jetty.webapp.JettyWebXmlConfiguration<span class="sc3"><span class="re1">&lt;/Item<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;Item<span class="re2">&gt;</span></span></span>org.eclipse.jetty.webapp.TagLibConfiguration<span class="sc3"><span class="re1">&lt;/Item<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;/Array<span class="re2">&gt;</span></span></span>
+ 
+  <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"war"</span><span class="re2">&gt;</span><span class="re1">&lt;SystemProperty</span> <span class="re0">name</span>=<span class="st0">"jetty.home"</span> <span class="re0">default</span>=<span class="st0">"."</span><span class="re2">/&gt;</span></span>/webapps/my-cool-webapp<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"configurationClasses"</span><span class="re2">&gt;</span><span class="re1">&lt;Ref</span> <span class="re0">id</span>=<span class="st0">"plusConfig"</span><span class="re2">/&gt;</span><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
+ 
+<span class="sc3"><span class="re1">&lt;/Configure<span class="re2">&gt;</span></span></span></pre></div></div>
+<p>Now add "annotations" to the OPTIONS definition in <a title="Jetty/Feature/Start.jar" href="Start.jar.html">start.ini</a> to get the annotation-processing related jars onto jetty's runtime classpath and you're ready to run.
+</p>
+<h3><span class="mw-headline" id="Applying_the_configurations_to_webapps_deployed_by_a_deployer">Applying the configurations to webapps deployed by a deployer</span></h3>
+<p>If you'd like to restrict the usage of annotations to only a subset of your webapps, you can copy them into a directory, and then set up a <a href="https://wiki.eclipse.org/Jetty/Feature/WebAppDeployer" class="mw-redirect" title="Jetty/Feature/WebAppDeployer">WebAppDeployer</a> for them which will apply the configurations.  For example, suppose you have moved the webapps into the directory $JETTY_HOME/plus-webapps, you can create a new xml configuration file (remembering to add it to <a href="Start.jar.html" title="Jetty/Feature/Start.jar">start.ini</a>, or edit an existing xml file), and add:
+</p>
+<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="xml source-xml"><pre class="de1"><span class="sc3"><span class="re1">&lt;Configure</span> <span class="re0">id</span>=<span class="st0">"Server"</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.server.Server"</span><span class="re2">&gt;</span></span>
+ 
+  <span class="sc3"><span class="re1">&lt;Array</span> <span class="re0">id</span>=<span class="st0">"plusConfig"</span> <span class="re0">type</span>=<span class="st0">"java.lang.String"</span><span class="re2">&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;Item<span class="re2">&gt;</span></span></span>org.eclipse.jetty.webapp.WebInfConfiguration<span class="sc3"><span class="re1">&lt;/Item<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;Item<span class="re2">&gt;</span></span></span>org.eclipse.jetty.webapp.WebXmlConfiguration<span class="sc3"><span class="re1">&lt;/Item<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;Item<span class="re2">&gt;</span></span></span>org.eclipse.jetty.webapp.MetaInfConfiguration<span class="sc3"><span class="re1">&lt;/Item<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;Item<span class="re2">&gt;</span></span></span>org.eclipse.jetty.webapp.FragmentConfiguration<span class="sc3"><span class="re1">&lt;/Item<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;Item<span class="re2">&gt;</span></span></span>org.eclipse.jetty.plus.webapp.EnvConfiguration<span class="sc3"><span class="re1">&lt;/Item<span class="re2">&gt;</span></span></span>        <span class="sc-1">&lt;!-- added for JNDI --&gt;</span>
+    <span class="sc3"><span class="re1">&lt;Item<span class="re2">&gt;</span></span></span>org.eclipse.jetty.plus.webapp.PlusConfiguration<span class="sc3"><span class="re1">&lt;/Item<span class="re2">&gt;</span></span></span>       <span class="sc-1">&lt;!-- added for JNDI --&gt;</span>
+    <span class="sc3"><span class="re1">&lt;Item<span class="re2">&gt;</span></span></span>org.eclipse.jetty.annotations.AnnotationConfiguration<span class="sc3"><span class="re1">&lt;/Item<span class="re2">&gt;</span></span></span> <span class="sc-1">&lt;!-- added for annotations --&gt;</span>
+    <span class="sc3"><span class="re1">&lt;Item<span class="re2">&gt;</span></span></span>org.eclipse.jetty.webapp.JettyWebXmlConfiguration<span class="sc3"><span class="re1">&lt;/Item<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;Item<span class="re2">&gt;</span></span></span>org.eclipse.jetty.webapp.TagLibConfiguration<span class="sc3"><span class="re1">&lt;/Item<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;/Array<span class="re2">&gt;</span></span></span>
+ 
+  <span class="sc3"><span class="re1">&lt;Ref</span> <span class="re0">id</span>=<span class="st0">"DeploymentManager"</span><span class="re2">&gt;</span></span>
+      <span class="sc3"><span class="re1">&lt;Call</span> <span class="re0">name</span>=<span class="st0">"addAppProvider"</span><span class="re2">&gt;</span></span>
+        <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>
+          <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.deploy.providers.WebAppProvider"</span><span class="re2">&gt;</span></span>
+            <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"monitoredDirName"</span><span class="re2">&gt;</span><span class="re1">&lt;Property</span> <span class="re0">name</span>=<span class="st0">"jetty.home"</span> <span class="re0">default</span>=<span class="st0">"."</span> <span class="re2">/&gt;</span></span>/webapps-plus<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"configurationClasses"</span><span class="re2">&gt;</span><span class="re1">&lt;Ref</span> <span class="re0">id</span>=<span class="st0">"plusConfig"</span><span class="re2">/&gt;</span><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
+          <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
+      <span class="sc3"><span class="re1">&lt;/Call<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;/Ref<span class="re2">&gt;</span></span></span></pre></div></div>
+<p>Now add "annotations" to the OPTIONS definition in <a title="Jetty/Feature/Start.jar" href="Start.jar.html">start.ini</a> to get the annotation-processing related jars onto jetty's runtime classpath and you're ready to run.
+</p>
+<h3><span class="mw-headline" id="Applying_the_configurations_to_all_webapps_in_a_server">Applying the configurations to all webapps in a server</span></h3>
+<p>This is the approach taken in $JETTY_HOME/etc/jetty-plus.xml. You can simply add it to your <a title="Jetty/Feature/Start.jar" href="Start.jar.html">start.ini</a> file. For your information, here's what the file looks like:
+</p>
+<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="xml source-xml"><pre class="de1"><span class="sc3"><span class="re1">&lt;?xml</span> <span class="re0">version</span>=<span class="st0">"1.0"</span>  <span class="re0">encoding</span>=<span class="st0">"ISO-8859-1"</span><span class="re2">?&gt;</span></span>
+<span class="sc0">&lt;!DOCTYPE Configure PUBLIC "-//Jetty//Configure//EN" "http://www.eclipse.org/jetty/configure.dtd"&gt;</span>
+ 
+<span class="sc3"><span class="re1">&lt;Configure</span> <span class="re0">id</span>=<span class="st0">"Server"</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.server.Server"</span><span class="re2">&gt;</span></span>
+ <span class="sc3"><span class="re1">&lt;Array</span> <span class="re0">id</span>=<span class="st0">"plusConfig"</span> <span class="re0">type</span>=<span class="st0">"java.lang.String"</span><span class="re2">&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;Item<span class="re2">&gt;</span></span></span>org.eclipse.jetty.webapp.WebInfConfiguration<span class="sc3"><span class="re1">&lt;/Item<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;Item<span class="re2">&gt;</span></span></span>org.eclipse.jetty.webapp.WebXmlConfiguration<span class="sc3"><span class="re1">&lt;/Item<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;Item<span class="re2">&gt;</span></span></span>org.eclipse.jetty.webapp.MetaInfConfiguration<span class="sc3"><span class="re1">&lt;/Item<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;Item<span class="re2">&gt;</span></span></span>org.eclipse.jetty.webapp.FragmentConfiguration<span class="sc3"><span class="re1">&lt;/Item<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;Item<span class="re2">&gt;</span></span></span>org.eclipse.jetty.plus.webapp.EnvConfiguration<span class="sc3"><span class="re1">&lt;/Item<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;Item<span class="re2">&gt;</span></span></span>org.eclipse.jetty.plus.webapp.PlusConfiguration<span class="sc3"><span class="re1">&lt;/Item<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;Item<span class="re2">&gt;</span></span></span>org.eclipse.jetty.annotations.AnnotationConfiguration<span class="sc3"><span class="re1">&lt;/Item<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;Item<span class="re2">&gt;</span></span></span>org.eclipse.jetty.webapp.JettyWebXmlConfiguration<span class="sc3"><span class="re1">&lt;/Item<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;Item<span class="re2">&gt;</span></span></span>org.eclipse.jetty.webapp.TagLibConfiguration<span class="sc3"><span class="re1">&lt;/Item<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;/Array<span class="re2">&gt;</span></span></span>
+ 
+  <span class="sc3"><span class="re1">&lt;Call</span> <span class="re0">name</span>=<span class="st0">"setAttribute"</span><span class="re2">&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>org.eclipse.jetty.webapp.configuration<span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;Ref</span> <span class="re0">id</span>=<span class="st0">"plusConfig"</span><span class="re2">/&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;/Call<span class="re2">&gt;</span></span></span>
+<span class="sc3"><span class="re1">&lt;/Configure<span class="re2">&gt;</span></span></span></pre></div></div>
+<p>Now add "annotations" to the OPTIONS definition in <a href="Start.jar.html" title="Jetty/Feature/Start.jar">start.ini</a> to get the annotation-processing related jars onto jetty's runtime classpath and you're ready to run.
+</p><p><br/>
+</p>
+<h2><span class="mw-headline" id="Servlet_2.5_Annotations">Servlet 2.5 Annotations</span></h2>
+<ul><li> @Resource equivalent to resource-ref, resource-env-ref, env-entry and message-destination-ref in web.xml</li>
+<li> @Resources declares java:comp/env name linkages for reference by <a title="Jetty/Feature/JNDI" href="JNDI.html">JNDI</a> lookups</li>
+<li> @PostConstruct equivalent to post-construct in web.xml</li>
+<li> @PreDestroy equivalent to pre-destroy in web.xml</li>
+<li> @RunAs equivalent to run-as in web.xml</li></ul>
+<h3><span id="Resource_Injections" class="mw-headline">Resource Injections</span></h3>
+<p>Resource injections make available an object from <a title="Jetty/Feature/JNDI" href="JNDI.html">JNDI</a> as the value of a field or method parameter of a servlet, filter or listener class.
+</p><p>We'll look at a couple of small examples of how to declare them in web.xml and how to declare them in code, but for more in-depth information, you should consult the <a rel="nofollow" class="external text" href="http://jcp.org/en/jsr/detail?id=250">Common Annotations for the Java Platform Specification (JSR250)</a>, the <a href="http://jcp.org/en/jsr/detail?id=154" class="external text" rel="nofollow">Servlet 2.5 Specification (JSR154)</a> and the <a class="external text" href="http://jcp.org/en/jsr/detail?id=244" rel="nofollow">JavaEE Specification v5 (JSR244)</a>.
+</p><p>Here is a small example of the injection of a DataSource resource via a web.xml declaration:
+</p>
+<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="xml source-xml"><pre class="de1">  <span class="sc3"><span class="re1">&lt;resource-ref<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;res-ref-name<span class="re2">&gt;</span></span></span>jdbc/mydatasource<span class="sc3"><span class="re1">&lt;/res-ref-name<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;res-type<span class="re2">&gt;</span></span></span>javax.sql.DataSource<span class="sc3"><span class="re1">&lt;/res-type<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;res-auth<span class="re2">&gt;</span></span></span>Container<span class="sc3"><span class="re1">&lt;/res-auth<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;injection-target<span class="re2">&gt;</span></span></span>
+      <span class="sc3"><span class="re1">&lt;injection-target-class<span class="re2">&gt;</span></span></span>com.acme.MyServlet<span class="sc3"><span class="re1">&lt;/injection-target-class<span class="re2">&gt;</span></span></span>
+      <span class="sc3"><span class="re1">&lt;injection-target-name<span class="re2">&gt;</span></span></span>myDatasource<span class="sc3"><span class="re1">&lt;/injection-target-name<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;/injection-target<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;/resource-ref<span class="re2">&gt;</span></span></span></pre></div></div>
+<p>This example shows that the resource named java:comp/env/jdbc/mydatasource will be injected by Jetty into the the field named myDatasource or the method named setMyDatasource(javax.sql.DataSource) in the instance of the class com.acme.MyServlet before it goes into service.
+</p><p>The equivalent injection using an annotation on the field instead would be:
+</p>
+<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="java source-java"><pre class="de1"><span class="kw1">import</span> <span class="co2">javax.sql.DataSource</span><span class="sy0">;</span>
+<span class="kw1">import</span> <span class="co2">javax.annotation.Resource</span><span class="sy0">;</span>
+<span class="kw1">import</span> <span class="co2">javax.servlet.http.HttpServlet</span><span class="sy0">;</span>
+ 
+<span class="kw1">public</span> <span class="kw1">class</span> MyServlet <span class="kw1">extends</span> HttpServlet
+<span class="br0">{</span>
+    @Resource <span class="br0">(</span>name<span class="sy0">=</span><span class="st0">"jdbc/mydatasource"</span>, type<span class="sy0">=</span>DataSource.<span class="kw1">class</span><span class="br0">)</span>
+    <span class="kw1">private</span> DataSource foo<span class="sy0">;</span>
+ 
+<span class="br0">}</span></pre></div></div>
+<p>The equivalent as an annotation on the method would be:
+</p>
+<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="java source-java"><pre class="de1"><span class="kw1">import</span> <span class="co2">javax.sql.DataSource</span><span class="sy0">;</span>
+<span class="kw1">import</span> <span class="co2">javax.annotation.Resource</span><span class="sy0">;</span>
+<span class="kw1">import</span> <span class="co2">javax.servlet.http.HttpServlet</span><span class="sy0">;</span>
+ 
+<span class="kw1">public</span> <span class="kw1">class</span> MyServlet <span class="kw1">extends</span> HttpServlet
+<span class="br0">{</span>
+    <span class="kw1">private</span> DataSource foo<span class="sy0">;</span>
+ 
+    @Resource <span class="br0">(</span>name<span class="sy0">=</span><span class="st0">"jdbc/mydatasource"</span>, type<span class="sy0">=</span>DataSource.<span class="kw1">class</span><span class="br0">)</span>
+    <span class="kw1">private</span> <span class="kw4">void</span> setMyDatasource <span class="br0">(</span>DataSource ds<span class="br0">)</span>
+    <span class="br0">{</span>
+        foo <span class="sy0">=</span> ds<span class="sy0">;</span>
+    <span class="br0">}</span>
+ 
+<span class="br0">}</span></pre></div></div>
+<h3><span id="Lifecycle_callbacks:_PostConstruct_PreDestroy" class="mw-headline">Lifecycle callbacks: PostConstruct PreDestroy</span></h3>
+<p>The Servlet 2.5 Specification (JSR154) also introduces the concept of lifecycle callbacks. These are of two types: a post-construction callback, and a pre-destruction callback. The former will be invoked after all resource injections have been performed on an instance of a managed class (eg servlet, filter or listener) but before it goes into service. The latter is invoked just before the container removes the instance from service. Let's look at how you might declare these callbacks in a web.xml file:
+</p>
+<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="xml source-xml"><pre class="de1"><span class="sc3"><span class="re1">&lt;post-construct<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;lifecycle-callback-class<span class="re2">&gt;</span></span></span>com.acme.MyServlet<span class="sc3"><span class="re1">&lt;/lifecycle-callback-class<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;lifecycle-callback-method<span class="re2">&gt;</span></span></span>myPostConstructMethod<span class="sc3"><span class="re1">&lt;/lifecycle-callback-method<span class="re2">&gt;</span></span></span>
+<span class="sc3"><span class="re1">&lt;/post-construct<span class="re2">&gt;</span></span></span>
+ 
+<span class="sc3"><span class="re1">&lt;pre-destroy<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;lifecycle-callback-class<span class="re2">&gt;</span></span></span>com.acme.MyServlet<span class="sc3"><span class="re1">&lt;/lifecycle-callback-class<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;lifecycle-callback-method<span class="re2">&gt;</span></span></span>myPreDestroyMethod<span class="sc3"><span class="re1">&lt;/lifecycle-callback-method<span class="re2">&gt;</span></span></span>
+<span class="sc3"><span class="re1">&lt;/pre-destroy<span class="re2">&gt;</span></span></span></pre></div></div>
+<p>The above example would invoke the method myPostConstructMethod() on the instance of the class com.acme.MyServlet before the servlet is put into service, and would invoke the method myPreDestroyMethod() on the instance before it goes out of service.
+</p><p>Here's how the annotations would look instead:
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="java source-java"><pre class="de1"><span class="kw1">import</span> <span class="co2">javax.annotation.PostConstruct</span><span class="sy0">;</span>
+<span class="kw1">import</span> <span class="co2">javax.annotation.PreDestroy</span><span class="sy0">;</span>
+<span class="kw1">import</span> <span class="co2">javax.servlet.http.HttpServlet</span><span class="sy0">;</span>
+ 
+<span class="kw1">public</span> <span class="kw1">class</span> MyServlet <span class="kw1">extends</span> HttpServlet
+<span class="br0">{</span>
+    @PostConstruct
+    <span class="kw1">private</span> <span class="kw4">void</span> myPostConstructMethod <span class="br0">(</span><span class="br0">)</span>
+    <span class="br0">{</span> 
+        <span class="kw3">System</span>.<span class="me1">err</span>.<span class="me1">println</span><span class="br0">(</span><span class="st0">"PostConstruct called"</span><span class="br0">)</span><span class="sy0">;</span>
+    <span class="br0">}</span>
+ 
+    @PreDestroy
+    <span class="kw1">private</span> <span class="kw4">void</span> myPreDestroyMethod <span class="br0">(</span><span class="br0">)</span>
+    <span class="br0">{</span>
+        <span class="kw3">System</span>.<span class="me1">err</span>.<span class="me1">println</span><span class="br0">(</span><span class="st0">"PreDestroy called"</span><span class="br0">)</span><span class="sy0">;</span>
+    <span class="br0">}</span>
+<span class="br0">}</span></pre></div></div>
+<h3><span id="Security:RunAs" class="mw-headline">Security:RunAs</span></h3>
+<p>The @RunAs annotation is equivalent to the run-as element in web.xml: it is a role which is propagated as the security identity in calls to EJBs. 
+</p><p>Here's an example of a web.xml declaration:
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="xml source-xml"><pre class="de1">  <span class="sc3"><span class="re1">&lt;servlet<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;servlet-name<span class="re2">&gt;</span></span></span>MyServlet<span class="sc3"><span class="re1">&lt;/servlet-name<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;servlet-class<span class="re2">&gt;</span></span></span>com.acme.MyServlet<span class="sc3"><span class="re1">&lt;/servlet-class<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;run-as<span class="re2">&gt;</span></span></span>special<span class="sc3"><span class="re1">&lt;/run-as<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;/servlet<span class="re2">&gt;</span></span></span></pre></div></div>
+<p>Here is the equivalent as an annotation:
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="java source-java"><pre class="de1"><span class="kw1">import</span> <span class="co2">javax.annotation.security.RunAs</span><span class="sy0">;</span>
+<span class="kw1">import</span> <span class="co2">javax.servlet.http.HttpServlet</span><span class="sy0">;</span>
+ 
+@RunAs<span class="br0">(</span><span class="st0">"special"</span><span class="br0">)</span>
+<span class="kw1">public</span> <span class="kw1">class</span> MyServlet <span class="kw1">extends</span> HttpServlet 
+<span class="br0">{</span>
+<span class="br0">}</span></pre></div></div>
+<h3><span class="mw-headline" id="Security:_DeclareRoles">Security: DeclareRoles</span></h3>
+<p>The @DeclareRoles annotation is equivalent to declaring security-role elements in web.xml. 
+</p><p>Here's an example of web.xml security-roles:
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="xml source-xml"><pre class="de1"> <span class="sc3"><span class="re1">&lt;security-role<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;role-name<span class="re2">&gt;</span></span></span>server-administrator<span class="sc3"><span class="re1">&lt;/role-name<span class="re2">&gt;</span></span></span>
+ <span class="sc3"><span class="re1">&lt;/security-role<span class="re2">&gt;</span></span></span>
+ <span class="sc3"><span class="re1">&lt;security-role<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;role-name<span class="re2">&gt;</span></span></span>user<span class="sc3"><span class="re1">&lt;/role-name<span class="re2">&gt;</span></span></span>
+ <span class="sc3"><span class="re1">&lt;/security-role<span class="re2">&gt;</span></span></span></pre></div></div>
+<p>Here's how they would look as an annotation instead:
+</p>
+<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="java source-java"><pre class="de1"><span class="kw1">import</span> <span class="co2">javax.annotation.security.DeclareRoles</span><span class="sy0">;</span>
+<span class="kw1">import</span> <span class="co2">javax.servlet.http.HttpServlet</span><span class="sy0">;</span>
+ 
+@DeclareRoles<span class="br0">(</span><span class="br0">{</span><span class="st0">"server-administrator"</span>, <span class="st0">"user"</span><span class="br0">}</span><span class="br0">)</span>
+<span class="kw1">public</span> <span class="kw1">class</span> MyServlet <span class="kw1">extends</span> HttpServlet 
+<span class="br0">{</span>
+    <span class="kw1">public</span> <span class="kw4">void</span> doGet<span class="br0">(</span>HttpServletRequest request, HttpServletResponse response<span class="br0">)</span> <span class="kw1">throws</span> ServletException, <span class="kw3">IOException</span>
+    <span class="br0">{</span>  
+        <span class="kw4">boolean</span> result <span class="sy0">=</span> request.<span class="me1">isUserInRole</span><span class="br0">(</span><span class="st0">"server-administrator"</span><span class="br0">)</span><span class="sy0">;</span>
+    <span class="br0">}</span>
+<span class="br0">}</span></pre></div></div>
+
+<!-- 
+NewPP limit report
+Cached time: 20211116021145
+Cache expiry: 86400
+Dynamic content: false
+CPU time usage: 0.340 seconds
+Real time usage: 0.363 seconds
+Preprocessor visited node count: 136/1000000
+Preprocessor generated node count: 719/1000000
+Post‐expand include size: 12065/2097152 bytes
+Template argument size: 10149/2097152 bytes
+Highest expansion depth: 6/40
+Expensive parser function count: 0/100
+-->
+
+<!-- 
+Transclusion expansion time report (%,ms,calls,template)
+100.00%  243.108      1 - -total
+100.00%  243.108      1 - Template:Jetty_Feature
+  4.46%   10.832      1 - Template:Jetty_Redirect
+  4.13%   10.048      2 - Template:Message
+  3.06%    7.443      1 - Template:Jetty
+  2.54%    6.168      1 - Template:Tip
+-->
+
+<!-- Saved in parser cache with key my_wiki:pcache:idhash:25603-0!*!0!!en!5!* and timestamp 20211116021145 and revision id 335322
+ -->
+</div>
+                                      <!-- catlinks -->
+                    <div class="catlinks" id="catlinks"><div class="mw-normal-catlinks" id="mw-normal-catlinks"><a href="https://wiki.eclipse.org/Special:Categories" title="Special:Categories">Categories</a>: <ul><li><a title="Category:Jetty" href="https://wiki.eclipse.org/Category:Jetty">Jetty</a></li><li><a href="https://wiki.eclipse.org/Category:Jetty_Feature" title="Category:Jetty Feature">Jetty Feature</a></li></ul></div></div>                     <!-- /catlinks -->
+                                  </div>
+              </div>
+            </div>
+          </div>
+</body>
+</html>

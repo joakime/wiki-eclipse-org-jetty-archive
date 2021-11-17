@@ -1,0 +1,1535 @@
+<html>
+<head>
+    <title>Jetty WTP Plugin</title>
+    <link rel="stylesheet" media="screen, print" href="wiki-style.css"/>
+</head>
+<body>
+<div class="col-md-20" id="mainContent">
+                      <ul class="nav nav-tabs noprint hidden-print" role="tablist">
+                       <li id="ca-nstab-main" class="active"><a title="View the content page [c]" accesskey="c" href="Start Options.html" tabindex="-1">Page</a></li>
+                        <li id="ca-talk" class="new"><a title="Discussion about the content page [t]" accesskey="t" href="edit" tabindex="-1">Discussion</a></li>
+                        <li id="ca-viewsource"><a title="This page is protected.&#10;You can view its source [e]" accesskey="e" href="edit" tabindex="-1">View source</a></li>
+                        <li class="collapsible" id="ca-history"><a href="edit" tabindex="-1" title="Past revisions of this page [h]" accesskey="h">History</a></li>
+                      </ul>            <div class="tab-content background-white">
+              <div class="tab-pane active" id="tab-pane-main-page-content">
+
+                
+                <h1 class="firstHeading page-header" id="firstHeading">
+                  <span dir="auto">Jetty/Reference/Start Options</span>
+                </h1>
+                <div id="main-page-content">
+                                                      <!-- subtitle -->
+                  <div id="contentSub" class="alert alert-small alert-warning"><span class="subpages">&lt; <a href="../../Jetty.html" title="Jetty">Jetty</a>‎ | <a href="../Reference.html" title="Jetty/Reference">Reference</a></span></div>
+                  <!-- /subtitle -->
+                  
+                  
+                  <div class="mw-content-ltr" id="mw-content-text" dir="ltr" lang="en"><div class="messagebox" style="background-color: #f9f6b7; border: 1px solid #c4c295; color: black; padding: 5px; margin: 1ex 0; min-height: 35px; padding-left: 45px;">
+<div style="float: left; margin-left: -40px;"><a href="https://wiki.eclipse.org/File:Warning2.png" class="image"><img width="35" height="35" src="../../images/3/37/Warning2.png" alt="Warning2.png"/></a></div>
+<div>Some or all of this content remains to be ported to Jetty 9 <a class="external text" href="http://www.eclipse.org/jetty/documentation/current" rel="nofollow">Documentation</a>.<br/>If you are interested in migrating this content see our <a class="external text" href="http://www.eclipse.org/jetty/documentation/current/contributing-documentation.html" rel="nofollow">contribution guide</a> or <a class="external text" href="http://www.eclipse.org/jetty/documentation/current/community.html" rel="nofollow">contact us</a>.</div>
+</div>
+<p><br/>
+</p><p><br/>
+</p><p><br/>
+</p>
+<h2><span id="Introduction" class="mw-headline">Introduction</span></h2>
+<p>When <a href="../Howto/Run Jetty.html" title="Jetty/Howto/Run Jetty">running Jetty from the command line</a>, you can use the OPTIONS argument to enable specific options for Jetty. Here is a detailed breakdown of the various classpath entries pulled in for each option you specify.
+</p><p>Click the arrow in the table header to open the list of which classpath entries Jetty pulls in when you specify an option. 
+</p><p><br/>
+</p>
+<table class="jetty-table sortable">
+<caption> Jetty Start Options
+</caption>
+<tbody><tr class="header">
+<th>Classpath Entries</th>
+<th>*</th>
+<th>All</th>
+<th>default</th>
+<th>Server</th>
+<th>ext</th>
+<th>resources</th>
+<th>server</th>
+<th>xml</th>
+<th>security</th>
+<th>servlet</th>
+<th>webapp</th>
+<th>deploy</th>
+<th>servlets</th>
+<th>rewrite</th>
+<th>jmx</th>
+<th>ajp</th>
+<th>slf4j</th>
+<th>jsp</th>
+<th>jsp-2.1</th>
+<th>plus</th>
+<th>annotations</th>
+<th>client</th>
+<th>secure</th>
+<th>websocket
+</th></tr>
+<tr>
+<th>  /lib/ext/**
+</th>
+<td>  
+</td>
+<td> X
+</td>
+<td> X
+</td>
+<td>  
+</td>
+<td> X
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td></tr>
+<tr>
+<th>  /lib/jetty-ajp-*.jar
+</th>
+<td>  
+</td>
+<td> X
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td> X
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td></tr>
+<tr>
+<th>  /lib/jetty-annotations-*.jar
+</th>
+<td>  
+</td>
+<td> X
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td> X
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td></tr>
+<tr>
+<th>  /lib/jetty-annotations/**
+</th>
+<td>  
+</td>
+<td> X
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td> X
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td></tr>
+<tr>
+<th>  /lib/jetty-client-*.jar
+</th>
+<td>  
+</td>
+<td> X
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td> X
+</td>
+<td>  
+</td>
+<td>  
+</td></tr>
+<tr>
+<th>  /lib/jetty-continuation-*.jar
+</th>
+<td>  
+</td>
+<td> X
+</td>
+<td> X
+</td>
+<td> X
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td> X
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td></tr>
+<tr>
+<th>  /lib/jetty-deploy-*.jar
+</th>
+<td>  
+</td>
+<td> X
+</td>
+<td> X
+</td>
+<td> X
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td> X
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td></tr>
+<tr>
+<th>  /lib/jetty-http-*.jar
+</th>
+<td>  
+</td>
+<td> X
+</td>
+<td> X
+</td>
+<td> X
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td> X
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td> X
+</td>
+<td>  
+</td>
+<td>  
+</td></tr>
+<tr>
+<th>  /lib/jetty-io-*.jar
+</th>
+<td> X
+</td>
+<td> X
+</td>
+<td> X
+</td>
+<td> X
+</td>
+<td> X
+</td>
+<td> X
+</td>
+<td> X
+</td>
+<td> X
+</td>
+<td> X
+</td>
+<td> X
+</td>
+<td> X
+</td>
+<td> X
+</td>
+<td> X
+</td>
+<td> X
+</td>
+<td> X
+</td>
+<td> X
+</td>
+<td> X
+</td>
+<td> X
+</td>
+<td> X
+</td>
+<td> X
+</td>
+<td> X
+</td>
+<td> X
+</td>
+<td> X
+</td>
+<td> X
+</td></tr>
+<tr>
+<th>  /lib/jetty-jmx-*.jar
+</th>
+<td>  
+</td>
+<td> X
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td> X
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td></tr>
+<tr>
+<th>  /lib/jetty-jndi-*.jar
+</th>
+<td>  
+</td>
+<td> X
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td> X
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td></tr>
+<tr>
+<th>  /lib/jetty-jndi/**
+</th>
+<td>  
+</td>
+<td> X
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td> X
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td></tr>
+<tr>
+<th>  /lib/jetty-plus-*.jar
+</th>
+<td>  
+</td>
+<td> X
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td> X
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td></tr>
+<tr>
+<th>  /lib/jetty-rewrite-*.jar
+</th>
+<td>  
+</td>
+<td> X
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td> X
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td></tr>
+<tr>
+<th>  /lib/jetty-security-*.jar
+</th>
+<td>  
+</td>
+<td> X
+</td>
+<td> X
+</td>
+<td> X
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td> X
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td></tr>
+<tr>
+<th>  /lib/jetty-server-*.jar
+</th>
+<td>  
+</td>
+<td> X
+</td>
+<td> X
+</td>
+<td> X
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td> X
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td></tr>
+<tr>
+<th>  /lib/jetty-servlet-*.jar
+</th>
+<td>  
+</td>
+<td> X
+</td>
+<td> X
+</td>
+<td> X
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td> X
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td></tr>
+<tr>
+<th>  /lib/jetty-servlets-*.jar
+</th>
+<td>  
+</td>
+<td> X
+</td>
+<td> X
+</td>
+<td> X
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td> X
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td></tr>
+<tr>
+<th>  /lib/jetty-util-*.jar
+</th>
+<td> X
+</td>
+<td> X
+</td>
+<td> X
+</td>
+<td> X
+</td>
+<td> X
+</td>
+<td> X
+</td>
+<td> X
+</td>
+<td> X
+</td>
+<td> X
+</td>
+<td> X
+</td>
+<td> X
+</td>
+<td> X
+</td>
+<td> X
+</td>
+<td> X
+</td>
+<td> X
+</td>
+<td> X
+</td>
+<td> X
+</td>
+<td> X
+</td>
+<td> X
+</td>
+<td> X
+</td>
+<td> X
+</td>
+<td> X
+</td>
+<td> X
+</td>
+<td> X
+</td></tr>
+<tr>
+<th>  /lib/jetty-webapp-*.jar
+</th>
+<td>  
+</td>
+<td> X
+</td>
+<td> X
+</td>
+<td> X
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td> X
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td></tr>
+<tr>
+<th>  /lib/jetty-xml-*.jar
+</th>
+<td>  
+</td>
+<td> X
+</td>
+<td>  
+</td>
+<td> X
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td> X
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td></tr>
+<tr>
+<th>  /lib/jetty-websocket-*.jar
+</th>
+<td>  
+</td>
+<td> X
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td> X
+</td></tr>
+<tr>
+<th>  /lib/jsp-2.1/**
+</th>
+<td>  
+</td>
+<td> X
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td> X
+</td>
+<td> X
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td></tr>
+<tr>
+<th>  /lib/security/jetty-policy-*.jar
+</th>
+<td>  
+</td>
+<td> X
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td> X
+</td>
+<td>  
+</td></tr>
+<tr>
+<th>  /lib/security/jetty.policy
+</th>
+<td>  
+</td>
+<td> X
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td> X
+</td>
+<td>  
+</td></tr>
+<tr>
+<th>  /lib/servlet-api-2.5.jar
+</th>
+<td>  
+</td>
+<td> X
+</td>
+<td> X
+</td>
+<td> X
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td> X
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td> X
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td></tr>
+<tr>
+<th>  /lib/slf4j/**
+</th>
+<td>  
+</td>
+<td> X
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td> X
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td></tr>
+<tr>
+<th>  /resources
+</th>
+<td>  
+</td>
+<td> X
+</td>
+<td> X
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td> X
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td>
+<td>  
+</td></tr></tbody></table>
+<h2><span id="Additional_Resources" class="mw-headline">Additional Resources</span></h2>
+<ul><li> <a title="Jetty/Howto/Run Jetty" href="../Howto/Run Jetty.html">How to Run Jetty</a></li></ul>
+
+<!-- 
+NewPP limit report
+Cached time: 20211116180625
+Cache expiry: 86400
+Dynamic content: false
+CPU time usage: 0.464 seconds
+Real time usage: 0.484 seconds
+Preprocessor visited node count: 2770/1000000
+Preprocessor generated node count: 2955/1000000
+Post‐expand include size: 18244/2097152 bytes
+Template argument size: 8169/2097152 bytes
+Highest expansion depth: 4/40
+Expensive parser function count: 0/100
+-->
+
+<!-- 
+Transclusion expansion time report (%,ms,calls,template)
+100.00%  308.108      1 - -total
+ 96.22%  296.463      1 - Template:Jetty_Reference
+ 88.68%  273.234     28 - Template:Jetty_Modes_Row
+  3.59%   11.052      1 - Template:Jetty_TODO
+  2.55%    7.860      1 - Template:Message
+  2.13%    6.567      1 - Template:Jetty
+-->
+
+<!-- Saved in parser cache with key my_wiki:pcache:idhash:20602-0!*!0!!*!5!* and timestamp 20211116180625 and revision id 334802
+ -->
+</div>
+                                      <!-- catlinks -->
+                    <div class="catlinks" id="catlinks"><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="https://wiki.eclipse.org/Special:Categories" title="Special:Categories">Categories</a>: <ul><li><a href="https://wiki.eclipse.org/Category:Jetty" title="Category:Jetty">Jetty</a></li><li><a href="https://wiki.eclipse.org/Category:Jetty_Reference" title="Category:Jetty Reference">Jetty Reference</a></li></ul></div></div>                     <!-- /catlinks -->
+                                  </div>
+              </div>
+            </div>
+          </div>
+</body>
+</html>

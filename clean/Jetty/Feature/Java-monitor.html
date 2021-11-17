@@ -1,0 +1,127 @@
+<html>
+<head>
+    <title>Jetty WTP Plugin</title>
+    <link rel="stylesheet" media="screen, print" href="wiki-style.css"/>
+</head>
+<body>
+<div id="mainContent" class="col-md-20">
+                      <ul role="tablist" class="nav nav-tabs noprint hidden-print">
+                       <li class="active" id="ca-nstab-main"><a tabindex="-1" accesskey="c" title="View the content page [c]" href="Java-monitor.html">Page</a></li>
+                        <li class="new" id="ca-talk"><a accesskey="t" href="edit" title="Discussion about the content page [t]" tabindex="-1">Discussion</a></li>
+                        <li id="ca-viewsource"><a tabindex="-1" title="This page is protected.&#10;You can view its source [e]" href="edit" accesskey="e">View source</a></li>
+                        <li id="ca-history" class="collapsible"><a href="edit" title="Past revisions of this page [h]" accesskey="h" tabindex="-1">History</a></li>
+                      </ul>            <div class="tab-content background-white">
+              <div id="tab-pane-main-page-content" class="tab-pane active">
+
+                
+                <h1 id="firstHeading" class="firstHeading page-header">
+                  <span dir="auto">Jetty/Feature/Java-monitor</span>
+                </h1>
+                <div id="main-page-content">
+                                                      <!-- subtitle -->
+                  <div id="contentSub" class="alert alert-small alert-warning"><span class="subpages">&lt; <a href="../../Jetty.html" title="Jetty">Jetty</a>‎ | <a href="../Feature.html" title="Jetty/Feature">Feature</a></span></div>
+                  <!-- /subtitle -->
+                  
+                  
+                  <div lang="en" class="mw-content-ltr" id="mw-content-text" dir="ltr"><p><br/>
+</p><p><br/>
+</p>
+<div class="toc" id="toc"><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="Java-monitor.html#Introduction"><span class="tocnumber">1</span> <span class="toctext">Introduction</span></a></li>
+<li class="toclevel-1"><a href="Java-monitor.html#Feature"><span class="tocnumber">2</span> <span class="toctext">Feature</span></a>
+<ul>
+<li class="toclevel-2"><a href="Java-monitor.html#Check_Your_Java_Version"><span class="tocnumber">2.1</span> <span class="toctext">Check Your Java Version</span></a></li>
+<li class="toclevel-2"><a href="Java-monitor.html#Enable_JMX_for_your_Jetty_Server"><span class="tocnumber">2.2</span> <span class="toctext">Enable JMX for your Jetty Server</span></a></li>
+<li class="toclevel-2"><a href="Java-monitor.html#Sign_up_on_Java-monitor"><span class="tocnumber">2.3</span> <span class="toctext">Sign up on Java-monitor</span></a></li>
+<li class="toclevel-2"><a href="Java-monitor.html#Download_your_Personalised_Probe"><span class="tocnumber">2.4</span> <span class="toctext">Download your Personalised Probe</span></a></li>
+<li class="toclevel-2"><a href="Java-monitor.html#Unzip_the_Probe"><span class="tocnumber">2.5</span> <span class="toctext">Unzip the Probe</span></a></li>
+<li class="toclevel-2"><a href="Java-monitor.html#Install_the_Probe"><span class="tocnumber">2.6</span> <span class="toctext">Install the Probe</span></a></li>
+<li class="toclevel-2"><a href="Java-monitor.html#Return_to_Java-monitor.com_for_the_Graphs_and_Statistics"><span class="tocnumber">2.7</span> <span class="toctext">Return to Java-monitor.com for the Graphs and Statistics</span></a></li>
+<li class="toclevel-2"><a href="Java-monitor.html#Done"><span class="tocnumber">2.8</span> <span class="toctext">Done</span></a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+<h2><span id="Introduction" class="mw-headline">Introduction</span></h2>
+<div class="messagebox" style="background-color: #f9f6b7; border: 1px solid #c4c295; color: black; padding: 5px; margin: 1ex 0; min-height: 35px; padding-left: 45px;">
+<div style="float: left; margin-left: -40px;"><a class="image" href="https://wiki.eclipse.org/File:Warning2.png"><img height="35" alt="Warning2.png" width="35" src="../../images/3/37/Warning2.png"/></a></div>
+<div>Some or all of this content remains to be ported to Jetty 9 <a rel="nofollow" href="http://www.eclipse.org/jetty/documentation/current" class="external text">Documentation</a>.<br/>If you are interested in migrating this content see our <a class="external text" href="http://www.eclipse.org/jetty/documentation/current/contributing-documentation.html" rel="nofollow">contribution guide</a> or <a rel="nofollow" href="http://www.eclipse.org/jetty/documentation/current/community.html" class="external text">contact us</a>.</div>
+</div>
+<p><br/>
+This tutorial shows you step-by-step how to monitor your Jetty server using Java-monitor. Java-monitor is a third-party web application which monitors your server status, and allows you to access this information from a central location.
+</p><p>You can read more on <a class="external free" href="http://java-monitor.com/install.html" rel="nofollow">http://java-monitor.com/install.html</a>, which is a generic discussion of the tutorial provided below.
+</p>
+<h2><span id="Feature" class="mw-headline">Feature</span></h2>
+<p>To get up and running with Java-monitor requires a few steps:
+</p>
+<h3><span class="mw-headline" id="Check_Your_Java_Version">Check Your Java Version</span></h3>
+<p>Java-monitor only works if you run Jetty on Java 5 or newer.
+</p><p>Java 5 introduced a very useful set of JMX MBeans for monitoring the JVM. Java-monitor builds on these. JMX was available in older version of Java, but unfortunately the useful MBeans are not available. For this reason, Java-monitor does not support older JVM's. We cannot monitor garbage collector activity in older Java VM's.
+</p>
+<h3><span class="mw-headline" id="Enable_JMX_for_your_Jetty_Server">Enable JMX for your Jetty Server</span></h3>
+<p>Java-monitor relies on JMX to gather statistics from your Jetty instance. See <a href="../Howto/Run Jetty with JConsole.html" title="Jetty/Howto/Run Jetty with JConsole">How to Run Jetty with JConsole</a> for instructions on how to turn on JMX when starting your server instance.
+</p>
+<h3><span id="Sign_up_on_Java-monitor" class="mw-headline">Sign up on Java-monitor</span></h3>
+<p>If you don't have a Java-monitor account, visit <a class="external free" rel="nofollow" href="http://java-monitor.com/forum/register.php">http://java-monitor.com/forum/register.php</a> to sign up.
+</p><p>Java-monitor is an on-line monitoring service. The statistics are collected centrally, by Java-monitor's servers. You will need the account to log into Java-monitor and see your gathered data.
+</p><p>Please take a moment to consider what e-mail address you will be registering with. The e-mail that you used for registering the account will receive the notification e-mails in case a server goes off-line.
+</p><p>Please note that if your employer imposes strict data retention regulations, you may be barred from using Java-monitor. Most large multinationals do not allow production servers to send even relatively uninteresting data, such as memory statistics, out onto the Internet.
+</p><p>This centralised approach may seem a little awkward at first, but you'll see why we work like that when you are out of the road and you have to explain a server outage. Java-monitor allows you to access the statistics from your iPhone or Android phone, even when your Jetty server has gone off-line. Restarting no longer erases all evidence of the problem, and you can still see the graphs from before the restart.
+</p><p>Don't worry about who can and cannot see your data. You are the only one who can see the data from your hosts. Each Java-monitor user only sees his or her own hosts.
+</p>
+<h3><span class="mw-headline" id="Download_your_Personalised_Probe">Download your Personalised Probe</span></h3>
+<p>Once you are registered and logged in, download your personalised probe. <a href="http://java-monitor.com/lemongrass/java-monitor-probe.zip" rel="nofollow" class="external free">http://java-monitor.com/lemongrass/java-monitor-probe.zip</a>
+</p><p>This probe is generated for each account individually, so don't share it with your co-workers. :-)
+</p>
+<h3><span id="Unzip_the_Probe" class="mw-headline">Unzip the Probe</span></h3>
+<p>Unzip the downloaded ZIP file with your favourite unzipper. Inside, you will find a file named java-monitor.war. This file is the actual probe. As you can see, Java-monitor's probe is pretty small, just under 100k.
+</p>
+<h3><span class="mw-headline" id="Install_the_Probe">Install the Probe</span></h3>
+<p>Deploy the probe in your Jetty server. It is just a regular WAR file. You can deploy it just like you are used to. 
+</p>
+<h3><span id="Return_to_Java-monitor.com_for_the_Graphs_and_Statistics" class="mw-headline">Return to Java-monitor.com for the Graphs and Statistics</span></h3>
+<p>Once the probe is deployed, check your Jetty logs for error messages. If there are none, go to the Java-monitor forum home page to see the gathered statistics and the latest discussion.
+</p>
+<h3><span class="mw-headline" id="Done">Done</span></h3>
+<p>That's it. You will automatically receive e-mail notifications for hosts that go off-line.
+</p><p>If you like, you can also enable SMS notifications for your production machines. 
+</p><p>In case there is a problem that you would like us to explain just ask on the forum. You'll find a link under each graph to make it easy to post that graph in a forum. Go ahead and try it. We have a /dev/null forum just for that purpose.
+</p><p>We look forward to meeting you on the forum. :-)
+</p>
+<!-- 
+NewPP limit report
+Cached time: 20211116202152
+Cache expiry: 86400
+Dynamic content: false
+CPU time usage: 0.064 seconds
+Real time usage: 0.073 seconds
+Preprocessor visited node count: 53/1000000
+Preprocessor generated node count: 307/1000000
+Post‐expand include size: 6090/2097152 bytes
+Template argument size: 4925/2097152 bytes
+Highest expansion depth: 5/40
+Expensive parser function count: 0/100
+-->
+
+<!-- 
+Transclusion expansion time report (%,ms,calls,template)
+100.00%   18.196      1 - -total
+100.00%   18.196      1 - Template:Jetty_Feature
+ 50.08%    9.112      1 - Template:Jetty_TODO
+ 35.46%    6.453      1 - Template:Message
+ 22.87%    4.162      1 - Template:Jetty
+-->
+
+<!-- Saved in parser cache with key my_wiki:pcache:idhash:21392-0!*!0!!en!5!* and timestamp 20211116202152 and revision id 334819
+ -->
+</div>
+                                      <!-- catlinks -->
+                    <div class="catlinks" id="catlinks"><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="https://wiki.eclipse.org/Special:Categories" title="Special:Categories">Categories</a>: <ul><li><a href="https://wiki.eclipse.org/Category:Jetty" title="Category:Jetty">Jetty</a></li><li><a href="https://wiki.eclipse.org/Category:Jetty_Feature" title="Category:Jetty Feature">Jetty Feature</a></li></ul></div></div>                     <!-- /catlinks -->
+                                  </div>
+              </div>
+            </div>
+          </div>
+</body>
+</html>

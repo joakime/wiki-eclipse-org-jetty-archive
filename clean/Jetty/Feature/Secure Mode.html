@@ -1,0 +1,99 @@
+<html>
+<head>
+    <title>Jetty WTP Plugin</title>
+    <link rel="stylesheet" media="screen, print" href="wiki-style.css"/>
+</head>
+<body>
+<div class="col-md-20" id="mainContent">
+                      <ul role="tablist" class="nav nav-tabs noprint hidden-print">
+                       <li class="active" id="ca-nstab-main"><a href="Secure Mode.html" accesskey="c" title="View the content page [c]" tabindex="-1">Page</a></li>
+                        <li class="new" id="ca-talk"><a title="Discussion about the content page [t]" tabindex="-1" href="edit" accesskey="t">Discussion</a></li>
+                        <li id="ca-viewsource"><a accesskey="e" href="edit" tabindex="-1" title="This page is protected.&#10;You can view its source [e]">View source</a></li>
+                        <li class="collapsible" id="ca-history"><a tabindex="-1" title="Past revisions of this page [h]" accesskey="h" href="edit">History</a></li>
+                      </ul>            <div class="tab-content background-white">
+              <div id="tab-pane-main-page-content" class="tab-pane active">
+
+                
+                <h1 class="firstHeading page-header" id="firstHeading">
+                  <span dir="auto">Jetty/Feature/Secure Mode</span>
+                </h1>
+                <div id="main-page-content">
+                                                      <!-- subtitle -->
+                  <div id="contentSub" class="alert alert-small alert-warning"><span class="subpages">&lt; <a href="../../Jetty.html" title="Jetty">Jetty</a>‎ | <a href="../Feature.html" title="Jetty/Feature">Feature</a></span></div>
+                  <!-- /subtitle -->
+                  
+                  
+                  <div dir="ltr" lang="en" class="mw-content-ltr" id="mw-content-text"><p><br/>
+</p><p><br/>
+</p>
+<div id="toc" class="toc"><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="Secure Mode.html#Introduction"><span class="tocnumber">1</span> <span class="toctext">Introduction</span></a></li>
+<li class="toclevel-1"><a href="Secure Mode.html#Feature"><span class="tocnumber">2</span> <span class="toctext">Feature</span></a>
+<ul>
+<li class="toclevel-2"><a href="Secure Mode.html#Jetty_Startup_w.2FJettyPolicy"><span class="tocnumber">2.1</span> <span class="toctext">Jetty Startup w/JettyPolicy</span></a></li>
+<li class="toclevel-2"><a href="Secure Mode.html#Typical_JVM_Startup_w.2Fstandard_policy"><span class="tocnumber">2.2</span> <span class="toctext">Typical JVM Startup w/standard policy</span></a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Introduction">Introduction</span></h2>
+<div style="background-color: #f9f6b7; border: 1px solid #c4c295; color: black; padding: 5px; margin: 1ex 0; min-height: 35px; padding-left: 45px;" class="messagebox">
+<div style="float: left; margin-left: -40px;"><a class="image" href="https://wiki.eclipse.org/File:Warning2.png"><img height="35" width="35" alt="Warning2.png" src="../../images/3/37/Warning2.png"/></a></div>
+<div>Support for this feature has been dropped with Jetty 9.<br/>If you feel this should be brought back please file a bug. </div>
+</div>
+<p><br/>
+Running under the security manager and strictly specified policies is an effectively way of ensuring your application is executing fairly strict boundaries.  Jetty has native support for executing under this standard jdk security model with a few additional benefits. See <a href="http://java.sun.com/javase/6/docs/technotes/guides/security/PolicyFiles.html" class="external text" rel="nofollow">Policy Implementation and Permissions</a> for specific details on how this works within java itself.
+</p>
+<h2><span id="Feature" class="mw-headline">Feature</span></h2>
+<h3><span id="Jetty_Startup_w.2FJettyPolicy" class="mw-headline">Jetty Startup w/JettyPolicy</span></h3>
+<pre>&gt; java -jar start.jar --secure
+</pre>
+<p>This will start up Jetty using the custom org.eclipse.jetty.policy.JettyPolicy implementation for loading and processing policy files, and install a security manager early before the Jetty server starts to bootstrap itself up through the XMLConfiguration mechanism. 
+</p><p>Some features of using the JettyPolicy are currently:
+</p>
+<ul><li> specification of multiple policy files (via start.config)</li>
+<li> automatic reloading of policies (enabled via -Dorg.eclipse.jetty.policy.RELOAD=true variable)</li></ul>
+<p><br/>
+</p>
+<h3><span class="mw-headline" id="Typical_JVM_Startup_w.2Fstandard_policy">Typical JVM Startup w/standard policy</span></h3>
+<pre>&gt; java -Djava.security.manager -Djava.security.policy=lib/policy/jetty.policy -jar start.jar
+</pre>
+<p>This is the standard JDK mechanism for starting up the JVM with the policy and security manager in place.  Note that different policy parsers are more forgiving then others, for instance the one in the standard jvm violently enforces the ; ending permission declarations while the one in harmony which the JettyPolicy itself is based off is more permissive.
+</p>
+<!-- 
+NewPP limit report
+Cached time: 20211116202141
+Cache expiry: 86400
+Dynamic content: false
+CPU time usage: 0.052 seconds
+Real time usage: 0.065 seconds
+Preprocessor visited node count: 47/1000000
+Preprocessor generated node count: 279/1000000
+Post‐expand include size: 2928/2097152 bytes
+Template argument size: 2019/2097152 bytes
+Highest expansion depth: 5/40
+Expensive parser function count: 0/100
+-->
+
+<!-- 
+Transclusion expansion time report (%,ms,calls,template)
+100.00%   18.486      1 - -total
+100.00%   18.486      1 - Template:Jetty_Feature
+ 52.37%    9.681      1 - Template:Jetty_Deprecated
+ 36.56%    6.759      1 - Template:Message
+ 21.02%    3.886      1 - Template:Jetty
+-->
+
+<!-- Saved in parser cache with key my_wiki:pcache:idhash:20672-0!*!*!!en!5!* and timestamp 20211116202141 and revision id 334789
+ -->
+</div>
+                                      <!-- catlinks -->
+                    <div class="catlinks" id="catlinks"><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a title="Special:Categories" href="https://wiki.eclipse.org/Special:Categories">Categories</a>: <ul><li><a title="Category:Jetty" href="https://wiki.eclipse.org/Category:Jetty">Jetty</a></li><li><a href="https://wiki.eclipse.org/Category:Jetty_Feature" title="Category:Jetty Feature">Jetty Feature</a></li></ul></div></div>                     <!-- /catlinks -->
+                                  </div>
+              </div>
+            </div>
+          </div>
+</body>
+</html>
