@@ -1,6 +1,5 @@
-<!DOCTYPE html>
-<html lang="en" dir="ltr" class="client-nojs">
-<head>
+<?xml version="1.0" encoding="utf-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml" class="client-nojs" lang="en" dir="ltr"><head>
 <meta charset="UTF-8"/>
 <title>Jetty/Howto/Write Jetty Handler - Eclipsepedia</title>
 <script>document.documentElement.className = document.documentElement.className.replace( /(^|\s)client-nojs(\s|$)/, "$1client-js$2" );</script>
@@ -9,17 +8,17 @@ mw.config.set({"wgCanonicalNamespace":"","wgCanonicalSpecialPageName":!1,"wgName
 !1,"dialogs":!1,"preview":!1,"publish":!1},"wgCategoryTreePageCategoryOptions":"{\"mode\":0,\"hideprefix\":20,\"showcount\":true,\"namespaces\":false}"});mw.loader.implement("user.options",function($,jQuery){mw.user.options.set({"variant":"en"});});mw.loader.implement("user.tokens",function($,jQuery){mw.user.tokens.set({"editToken":"+\\","patrolToken":"+\\","watchToken":"+\\"});});mw.loader.load(["mediawiki.page.startup","mediawiki.legacy.wikibits"]);
 } );</script>
 <link rel="stylesheet" href="../../load.php%3Fdebug=false&amp;lang=en&amp;modules=mediawiki.legacy.commonPrint,shared|mediawiki.sectionAnchor&amp;only=styles&amp;skin=solstice.css"/>
-<link rel="stylesheet" href="../../skins/solstice/public/css/styles.css%3F303.css" media="screen, print"/>
+<link href="../../skins/solstice/public/css/styles.css%3F303.css" rel="stylesheet" media="screen, print"/>
 <meta name="ResourceLoaderDynamicStyles" content=""/>
 <style>a:lang(ar),a:lang(kk-arab),a:lang(mzn),a:lang(ps),a:lang(ur){text-decoration:none}</style>
-<script async="" src="../../load.php%3Fdebug=false&amp;lang=en&amp;modules=startup&amp;only=scripts&amp;skin=solstice"></script>
-<meta name="generator" content="MediaWiki 1.26.4"/>
+<script src="../../load.php%3Fdebug=false&amp;lang=en&amp;modules=startup&amp;only=scripts&amp;skin=solstice" async=""/>
+<meta content="MediaWiki 1.26.4" name="generator"/>
 <link rel="shortcut icon" href="../../eclipse.org-common/themes/solstice/public/images/favicon.ico"/>
-<link rel="search" type="application/opensearchdescription+xml" href="https://wiki.eclipse.org/opensearch_desc.php" title="Eclipsepedia (en)"/>
-<link rel="EditURI" type="application/rsd+xml" href="https://wiki.eclipse.org/api.php?action=rsd"/>
-<link rel="alternate" type="application/atom+xml" title="Eclipsepedia Atom feed" href="https://wiki.eclipse.org/index.php?title=Special:RecentChanges&amp;feed=atom"/>
+<link title="Eclipsepedia (en)" rel="search" type="application/opensearchdescription+xml" href="https://wiki.eclipse.org/opensearch_desc.php"/>
+<link type="application/rsd+xml" href="https://wiki.eclipse.org/api.php?action=rsd" rel="EditURI"/>
+<link title="Eclipsepedia Atom feed" rel="alternate" type="application/atom+xml" href="https://wiki.eclipse.org/index.php?title=Special:RecentChanges&amp;feed=atom"/>
 <style type="text/css">
-/*<![CDATA[*/      
+/*&lt;![CDATA[*/      
 #jetty-nav {
   margin-bottom: 2em;
 }
@@ -133,9 +132,9 @@ table.jetty-table, .jetty-table table {
   float: right;
   margin: 0.5em;
 }
-/*]]>*/       
+/*]]&gt;*/       
 </style>
-<style type="text/css">/*<![CDATA[*/
+<style type="text/css">/*&lt;![CDATA[*/
 .source-java {line-height: normal;}
 .source-java li, .source-java pre {
 	line-height: normal; border: 0px none white;
@@ -173,13 +172,13 @@ table.jetty-table, .jetty-table table {
 .java.source-java .ln-xtra, .java.source-java li.ln-xtra, .java.source-java div.ln-xtra {background-color: #ffc;}
 .java.source-java span.xtra { display:block; }
 
-/*]]>*/
+/*]]&gt;*/
 </style>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 </head>
-<body class="mediawiki ltr sitedir-ltr ns-0 ns-subject page-Jetty_Howto_Write_Jetty_Handler skin-solstice action-view" id="solstice">
+<body id="solstice" class="mediawiki ltr sitedir-ltr ns-0 ns-subject page-Jetty_Howto_Write_Jetty_Handler skin-solstice action-view">
 
-<a class="sr-only" href="Write&#32;Jetty&#32;Handler.html#content">Skip to main content</a>
+<a class="sr-only" href="Write Jetty Handler.html#content">Skip to main content</a>
 <header class="header-wrapper" id="header-wrapper">
   <div class="clearfix toolbar-container-wrapper">
     <div class="container-fluid">
@@ -188,29 +187,29 @@ table.jetty-table, .jetty-table table {
                <ul class="list-inline">
                   <li id="pt-login">
             <a href="https://wiki.eclipse.org/index.php?title=Special:UserLogin&amp;returnto=Jetty%2FHowto%2FWrite+Jetty+Handler" class="toolbar-link toolbar-login">
-              <i class="fa fa-sign-in fa-fw"></i> Log in            </a>
+              <i class="fa fa-sign-in fa-fw"/> Log in            </a>
           </li>
-                <li><a class="toolbar-link toolbar-manage-cookies dropdown-toggle"><i class="fa fa-wrench"></i> Manage Cookies</a></li>
+                <li><a class="toolbar-link toolbar-manage-cookies dropdown-toggle"><i class="fa fa-wrench"/> Manage Cookies</a></li>
       </ul>
             </div>
       </div>
     </div>
   </div>
   <div class="container-fluid">
-    <div class="row" id="header-row">
+    <div id="header-row" class="row">
       <div class="col-sm-5 col-md-4" id="header-left">
-        <div class="wrapper-logo-default"><a href="https://www.eclipse.org/"><img class="logo-eclipse-default hidden-xs" alt="Eclipse.org logo" width="160" src="https://www.eclipse.org/eclipse.org-common/themes/solstice/public/images/logo/eclipse-foundation-white-orange.svg"/></a></div>
+        <div class="wrapper-logo-default"><a href="https://www.eclipse.org/"><img width="160" src="https://www.eclipse.org/eclipse.org-common/themes/solstice/public/images/logo/eclipse-foundation-white-orange.svg" class="logo-eclipse-default hidden-xs" alt="Eclipse.org logo"/></a></div>
       </div>
       <div class="col-sm-19 col-md-20 margin-top-10" id="main-menu-wrapper">
-        <div class="float-right hidden-xs" id="btn-call-for-action"><a href="https://eclipse.org/downloads/" class="btn btn-huge btn-warning"><i class="fa fa-download"></i> Download</a></div>
-        <div class="navbar yamm float-sm-right" id="main-menu">
+        <div id="btn-call-for-action" class="float-right hidden-xs"><a href="https://eclipse.org/downloads/" class="btn btn-huge btn-warning"><i class="fa fa-download"/> Download</a></div>
+        <div id="main-menu" class="navbar yamm float-sm-right">
           <div class="navbar-collapse collapse" id="navbar-main-menu">
             <ul class="nav navbar-nav">
               <li><a href="https://www.eclipse.org/projects/" target="_self">Projects</a></li>
-              <li><a href="https://www.eclipse.org/org/workinggroups/" target="_self">Working Groups</a></li>
+              <li><a target="_self" href="https://www.eclipse.org/org/workinggroups/">Working Groups</a></li>
               <li><a href="https://www.eclipse.org/membership/" target="_self">Members</a></li>
               <li class="dropdown visible-xs">
-                <a href="Write&#32;Jetty&#32;Handler.html#" data-toggle="dropdown" class="dropdown-toggle">Community <b class="caret"></b></a>
+                <a data-toggle="dropdown" class="dropdown-toggle" href="Write Jetty Handler.html#">Community <b class="caret"/></a>
                 <ul class="dropdown-menu">
                   <li><a href="http://marketplace.eclipse.org">Marketplace</a></li>
                   <li><a href="http://events.eclipse.org">Events</a></li>
@@ -221,7 +220,7 @@ table.jetty-table, .jetty-table table {
                 </ul>
               </li>
               <li class="dropdown visible-xs">
-                <a href="Write&#32;Jetty&#32;Handler.html#" data-toggle="dropdown" class="dropdown-toggle">Participate <b class="caret"></b></a>
+                <a class="dropdown-toggle" href="Write Jetty Handler.html#" data-toggle="dropdown">Participate <b class="caret"/></a>
                 <ul class="dropdown-menu">
                   <li><a href="https://bugs.eclipse.org/bugs/">Report a Bug</a></li>
                   <li><a href="https://www.eclipse.org/forums/">Forums</a></li>
@@ -232,7 +231,7 @@ table.jetty-table, .jetty-table table {
                 </ul>
               </li>
               <li class="dropdown visible-xs">
-                <a href="Write&#32;Jetty&#32;Handler.html#" data-toggle="dropdown" class="dropdown-toggle">Eclipse IDE <b class="caret"></b></a>
+                <a href="Write Jetty Handler.html#" class="dropdown-toggle" data-toggle="dropdown">Eclipse IDE <b class="caret"/></a>
                 <ul class="dropdown-menu">
                   <li><a href="https://www.eclipse.org/downloads">Download</a></li>
                   <li><a href="https://www.eclipse.org/eclipseide">Learn More</a></li>
@@ -245,7 +244,7 @@ table.jetty-table, .jetty-table table {
               </li>
               <!-- More -->
               <li class="dropdown eclipse-more hidden-xs">
-                <a data-toggle="dropdown" class="dropdown-toggle" role="button">More<b class="caret"></b></a>
+                <a role="button" class="dropdown-toggle" data-toggle="dropdown">More<b class="caret"/></a>
                 <ul class="dropdown-menu">
                   <li>
                     <!-- Content container to add padding -->
@@ -293,14 +292,14 @@ table.jetty-table, .jetty-table table {
             </ul>
           </div>
           <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-main-menu">
+            <button data-toggle="collapse" type="button" class="navbar-toggle" data-target="#navbar-main-menu">
             <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
+            <span class="icon-bar"/>
+            <span class="icon-bar"/>
+            <span class="icon-bar"/>
+            <span class="icon-bar"/>
             </button>
-            <div class="wrapper-logo-mobile"><a class="navbar-brand visible-xs" href="https://www.eclipse.org/"><img class="logo-eclipse-default-mobile img-responsive" alt="Eclipse.org logo" width="160" src="https://www.eclipse.org/eclipse.org-common/themes/solstice/public/images/logo/eclipse-foundation-white-orange.svg"/></a></div>
+            <div class="wrapper-logo-mobile"><a href="https://www.eclipse.org/" class="navbar-brand visible-xs"><img alt="Eclipse.org logo" src="https://www.eclipse.org/eclipse.org-common/themes/solstice/public/images/logo/eclipse-foundation-white-orange.svg" width="160" class="logo-eclipse-default-mobile img-responsive"/></a></div>
           </div>
         </div>
       </div>
@@ -328,7 +327,7 @@ table.jetty-table, .jetty-table table {
     
     <!-- content -->
     <section id="content" class="mw-body container-full clearfix 0">
-      <div id="mw-js-message" style="display:none;"></div>
+      <div style="display:none;" id="mw-js-message"/>
 
       
       <!-- bodyContent -->
@@ -337,32 +336,32 @@ table.jetty-table, .jetty-table table {
         
                 <!-- jumpto -->
         <div id="jump-to-nav" class="mw-jump">
-          Jump to: <a href="Write&#32;Jetty&#32;Handler.html#mw-head">navigation</a>,
-          <a href="Write&#32;Jetty&#32;Handler.html#p-search">search</a>
+          Jump to: <a href="Write Jetty Handler.html#mw-head">navigation</a>,
+          <a href="Write Jetty Handler.html#p-search">search</a>
         </div>
         <!-- /jumpto -->
         
           <!-- leftcol -->
           <aside class="col-md-4 noprint hidden-print" id="leftcol">
-                      <form class="input-group" role="form" id="form-eclipse-search" action="https://wiki.eclipse.org/index.php" id="searchform">
-              <input id="searchInput" class="search-query form-control" type="search" accesskey="f" title="Special:Search" placeholder="Search" name="search" value="">
+                      <form role="form" id="form-eclipse-search" class="input-group" action="https://wiki.eclipse.org/index.php">
+              <input class="search-query form-control" type="search" placeholder="Search" title="Special:Search" accesskey="f" name="search" id="searchInput" value=""/>
 
               <span class="input-group-btn">
-                <button value="search" id="mw-searchButton" type="submit" class="btn btn-default" title="Search the pages for this text" name="fulltext">
-                  <i class="fa fa-search"></i>
+                <button class="btn btn-default" type="submit" name="fulltext" title="Search the pages for this text" id="mw-searchButton" value="search">
+                  <i class="fa fa-search"/>
                 </button>
               </span>
             </form>
-                      <select class="form-control margin-top-10 margin-bottom-10 visible-xs visible-sm" onchange="this.options[this.selectedIndex].value && (window.location = this.options[this.selectedIndex].value);"><option class="fw-700 "><span class="fw-700">---Navigation---</span></option><option value="/Main_Page">Main Page</option><option value="/Eclipsepedia:Community_portal">Community portal</option><option value="/Eclipsepedia:Current_events">Current events</option><option value="/Special:RecentChanges">Recent changes</option><option value="/Special:Random">Random page</option><option value="https://www.mediawiki.org/wiki/Special:MyLanguage/Help:Contents">Help</option></select><ul class="ul-left-nav fa-ul hidden-print leftnav hidden-xs hidden-sm"><li class="separator"><span class="separator">Navigation</span></li>                <li class=""><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/Main_Page" id="n-mainpage" title="Visit the main page [z]" accesskey="z">Main Page</a></li>                <li class=""><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/Eclipsepedia:Community_portal" id="n-portal" title="About the project, what you can do, where to find things">Community portal</a></li>                <li class=""><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/Eclipsepedia:Current_events" id="n-currentevents" title="Find background information on current events">Current events</a></li>                <li class=""><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/Special:RecentChanges" id="n-recentchanges" title="A list of recent changes in the wiki [r]" accesskey="r">Recent changes</a></li>                <li class=""><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/Special:Random" id="n-randompage" title="Load a random page [x]" accesskey="x">Random page</a></li>                <li class=""><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://www.mediawiki.org/wiki/Special:MyLanguage/Help:Contents" id="n-help" title="The place to find out">Help</a></li></ul>            <select class="form-control margin-top-10 margin-bottom-10 visible-xs visible-sm" onchange="this.options[this.selectedIndex].value && (window.location = this.options[this.selectedIndex].value);"><option class="fw-700 "><span class="fw-700">---Toolbox---</span></option><option value="/index.php?title=Jetty/Howto/Write_Jetty_Handler&amp;action=info">Page information</option><option value="/index.php?title=Jetty/Howto/Write_Jetty_Handler&amp;oldid=334762">Permanent link</option><option value="/index.php?title=Jetty/Howto/Write_Jetty_Handler&amp;printable=yes">Printable version</option><option value="/Special:SpecialPages">Special pages</option><option value="/Special:RecentChangesLinked/Jetty/Howto/Write_Jetty_Handler">Related changes</option><option value="/Special:WhatLinksHere/Jetty/Howto/Write_Jetty_Handler">What links here</option></select><ul class="ul-left-nav fa-ul hidden-print leftnav hidden-xs hidden-sm"><li class="separator"><span class="separator">Toolbox</span></li><li><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/index.php?title=Jetty/Howto/Write_Jetty_Handler&amp;action=info" id="t-info" title="More information about this page">Page information</a></li><li><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/index.php?title=Jetty/Howto/Write_Jetty_Handler&amp;oldid=334762" id="t-permalink" title="Permanent link to this revision of the page">Permanent link</a></li><li><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/index.php?title=Jetty/Howto/Write_Jetty_Handler&amp;printable=yes" id="t-print" rel="alternate" title="Printable version of this page [p]" accesskey="p">Printable version</a></li><li><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/Special:SpecialPages" id="t-specialpages" title="A list of all special pages [q]" accesskey="q">Special pages</a></li><li><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/Special:RecentChangesLinked/Jetty/Howto/Write_Jetty_Handler" id="t-recentchangeslinked" title="Recent changes in pages linked from this page [k]" accesskey="k">Related changes</a></li><li><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/Special:WhatLinksHere/Jetty/Howto/Write_Jetty_Handler" id="t-whatlinkshere" title="A list of all wiki pages that link here [j]" accesskey="j">What links here</a></li></ul>                                  </aside>
+                      <select onchange="this.options[this.selectedIndex].value &amp;&amp; (window.location = this.options[this.selectedIndex].value);" class="form-control margin-top-10 margin-bottom-10 visible-xs visible-sm"><option class="fw-700 ">---Navigation---</option><option value="/Main_Page">Main Page</option><option value="/Eclipsepedia:Community_portal">Community portal</option><option value="/Eclipsepedia:Current_events">Current events</option><option value="/Special:RecentChanges">Recent changes</option><option value="/Special:Random">Random page</option><option value="https://www.mediawiki.org/wiki/Special:MyLanguage/Help:Contents">Help</option></select><ul class="ul-left-nav fa-ul hidden-print leftnav hidden-xs hidden-sm"><li class="separator"><span class="separator">Navigation</span></li>                <li class=""><i class="fa fa-angle-double-right orange fa-fw"/> <a title="Visit the main page [z]" id="n-mainpage" href="https://wiki.eclipse.org/Main_Page" accesskey="z">Main Page</a></li>                <li class=""><i class="fa fa-angle-double-right orange fa-fw"/> <a href="https://wiki.eclipse.org/Eclipsepedia:Community_portal" id="n-portal" title="About the project, what you can do, where to find things">Community portal</a></li>                <li class=""><i class="fa fa-angle-double-right orange fa-fw"/> <a href="https://wiki.eclipse.org/Eclipsepedia:Current_events" title="Find background information on current events" id="n-currentevents">Current events</a></li>                <li class=""><i class="fa fa-angle-double-right orange fa-fw"/> <a accesskey="r" href="https://wiki.eclipse.org/Special:RecentChanges" id="n-recentchanges" title="A list of recent changes in the wiki [r]">Recent changes</a></li>                <li class=""><i class="fa fa-angle-double-right orange fa-fw"/> <a id="n-randompage" title="Load a random page [x]" accesskey="x" href="https://wiki.eclipse.org/Special:Random">Random page</a></li>                <li class=""><i class="fa fa-angle-double-right orange fa-fw"/> <a id="n-help" title="The place to find out" href="https://www.mediawiki.org/wiki/Special:MyLanguage/Help:Contents">Help</a></li></ul>            <select onchange="this.options[this.selectedIndex].value &amp;&amp; (window.location = this.options[this.selectedIndex].value);" class="form-control margin-top-10 margin-bottom-10 visible-xs visible-sm"><option class="fw-700 ">---Toolbox---</option><option value="/index.php?title=Jetty/Howto/Write_Jetty_Handler&amp;action=info">Page information</option><option value="/index.php?title=Jetty/Howto/Write_Jetty_Handler&amp;oldid=334762">Permanent link</option><option value="/index.php?title=Jetty/Howto/Write_Jetty_Handler&amp;printable=yes">Printable version</option><option value="/Special:SpecialPages">Special pages</option><option value="/Special:RecentChangesLinked/Jetty/Howto/Write_Jetty_Handler">Related changes</option><option value="/Special:WhatLinksHere/Jetty/Howto/Write_Jetty_Handler">What links here</option></select><ul class="ul-left-nav fa-ul hidden-print leftnav hidden-xs hidden-sm"><li class="separator"><span class="separator">Toolbox</span></li><li><i class="fa fa-angle-double-right orange fa-fw"/> <a href="https://wiki.eclipse.org/index.php?title=Jetty/Howto/Write_Jetty_Handler&amp;action=info" id="t-info" title="More information about this page">Page information</a></li><li><i class="fa fa-angle-double-right orange fa-fw"/> <a href="https://wiki.eclipse.org/index.php?title=Jetty/Howto/Write_Jetty_Handler&amp;oldid=334762" id="t-permalink" title="Permanent link to this revision of the page">Permanent link</a></li><li><i class="fa fa-angle-double-right orange fa-fw"/> <a id="t-print" title="Printable version of this page [p]" rel="alternate" href="https://wiki.eclipse.org/index.php?title=Jetty/Howto/Write_Jetty_Handler&amp;printable=yes" accesskey="p">Printable version</a></li><li><i class="fa fa-angle-double-right orange fa-fw"/> <a accesskey="q" href="https://wiki.eclipse.org/Special:SpecialPages" id="t-specialpages" title="A list of all special pages [q]">Special pages</a></li><li><i class="fa fa-angle-double-right orange fa-fw"/> <a title="Recent changes in pages linked from this page [k]" id="t-recentchangeslinked" href="https://wiki.eclipse.org/Special:RecentChangesLinked/Jetty/Howto/Write_Jetty_Handler" accesskey="k">Related changes</a></li><li><i class="fa fa-angle-double-right orange fa-fw"/> <a href="https://wiki.eclipse.org/Special:WhatLinksHere/Jetty/Howto/Write_Jetty_Handler" accesskey="j" title="A list of all wiki pages that link here [j]" id="t-whatlinkshere">What links here</a></li></ul>                                  </aside>
           <!-- /leftcol -->
 
           <!-- mainContent -->
-          <div id="mainContent" class="col-md-20">
-                      <ul class="nav nav-tabs noprint hidden-print" role="tablist">
-                       <li id="ca-nstab-main" class="active"><a href="Write&#32;Jetty&#32;Handler.html"  title="View the content page [c]" accesskey="c" tabindex="-1">Page</a></li>
-                        <li id="ca-talk" class="new"><a href="https://wiki.eclipse.org/index.php?title=Talk:Jetty/Howto/Write_Jetty_Handler&amp;action=edit&amp;redlink=1"  title="Discussion about the content page [t]" accesskey="t" tabindex="-1">Discussion</a></li>
-                        <li id="ca-viewsource"><a href="https://wiki.eclipse.org/index.php?title=Jetty/Howto/Write_Jetty_Handler&amp;action=edit"  title="This page is protected.&#10;You can view its source [e]" accesskey="e" tabindex="-1">View source</a></li>
-                        <li id="ca-history" class="collapsible"><a href="https://wiki.eclipse.org/index.php?title=Jetty/Howto/Write_Jetty_Handler&amp;action=history"  title="Past revisions of this page [h]" accesskey="h" tabindex="-1">History</a></li>
+          <div class="col-md-20" id="mainContent">
+                      <ul role="tablist" class="nav nav-tabs noprint hidden-print">
+                       <li id="ca-nstab-main" class="active"><a title="View the content page [c]" tabindex="-1" href="Write Jetty Handler.html" accesskey="c">Page</a></li>
+                        <li id="ca-talk" class="new"><a tabindex="-1" title="Discussion about the content page [t]" href="https://wiki.eclipse.org/index.php?title=Talk:Jetty/Howto/Write_Jetty_Handler&amp;action=edit&amp;redlink=1" accesskey="t">Discussion</a></li>
+                        <li id="ca-viewsource"><a tabindex="-1" title="This page is protected.&#10;You can view its source [e]" href="https://wiki.eclipse.org/index.php?title=Jetty/Howto/Write_Jetty_Handler&amp;action=edit" accesskey="e">View source</a></li>
+                        <li id="ca-history" class="collapsible"><a tabindex="-1" title="Past revisions of this page [h]" accesskey="h" href="https://wiki.eclipse.org/index.php?title=Jetty/Howto/Write_Jetty_Handler&amp;action=history">History</a></li>
                       </ul>            <div class="tab-content background-white">
               <div id="tab-pane-main-page-content" class="tab-pane active">
 
@@ -372,76 +371,76 @@ table.jetty-table, .jetty-table table {
                 </h1>
                 <div id="main-page-content">
                                                       <!-- subtitle -->
-                  <div id="contentSub"  class="alert alert-small alert-warning"><span class="subpages">&lt; <a href="../../Jetty.html" title="Jetty">Jetty</a>&lrm; | <a href="../Howto.html" title="Jetty/Howto">Howto</a></span></div>
+                  <div class="alert alert-small alert-warning" id="contentSub"><span class="subpages">&lt; <a title="Jetty" href="../../Jetty.html">Jetty</a>‎ | <a title="Jetty/Howto" href="../Howto.html">Howto</a></span></div>
                   <!-- /subtitle -->
                   
                   
-                  <div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><p><br />
-</p><p><br />
+                  <div id="mw-content-text" class="mw-content-ltr" lang="en" dir="ltr"><p><br/>
+</p><p><br/>
 </p>
 <div id="toc" class="toc"><div id="toctitle"><h2>Contents</h2></div>
 <ul>
-<li class="toclevel-1"><a href="Write&#32;Jetty&#32;Handler.html#Introduction"><span class="tocnumber">1</span> <span class="toctext">Introduction</span></a></li>
-<li class="toclevel-1 tocsection-1"><a href="Write&#32;Jetty&#32;Handler.html#The_Handler_API"><span class="tocnumber">2</span> <span class="toctext">The Handler API</span></a>
+<li class="toclevel-1"><a href="Write Jetty Handler.html#Introduction"><span class="tocnumber">1</span> <span class="toctext">Introduction</span></a></li>
+<li class="toclevel-1 tocsection-1"><a href="Write Jetty Handler.html#The_Handler_API"><span class="tocnumber">2</span> <span class="toctext">The Handler API</span></a>
 <ul>
-<li class="toclevel-2 tocsection-2"><a href="Write&#32;Jetty&#32;Handler.html#The_target"><span class="tocnumber">2.1</span> <span class="toctext">The target</span></a></li>
-<li class="toclevel-2 tocsection-3"><a href="Write&#32;Jetty&#32;Handler.html#The_Request_and_Response"><span class="tocnumber">2.2</span> <span class="toctext">The Request and Response</span></a></li>
-<li class="toclevel-2 tocsection-4"><a href="Write&#32;Jetty&#32;Handler.html#The_dispatch"><span class="tocnumber">2.3</span> <span class="toctext">The dispatch</span></a></li>
+<li class="toclevel-2 tocsection-2"><a href="Write Jetty Handler.html#The_target"><span class="tocnumber">2.1</span> <span class="toctext">The target</span></a></li>
+<li class="toclevel-2 tocsection-3"><a href="Write Jetty Handler.html#The_Request_and_Response"><span class="tocnumber">2.2</span> <span class="toctext">The Request and Response</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="Write Jetty Handler.html#The_dispatch"><span class="tocnumber">2.3</span> <span class="toctext">The dispatch</span></a></li>
 </ul>
 </li>
-<li class="toclevel-1 tocsection-5"><a href="Write&#32;Jetty&#32;Handler.html#Handling_Requests"><span class="tocnumber">3</span> <span class="toctext">Handling Requests</span></a>
+<li class="toclevel-1 tocsection-5"><a href="Write Jetty Handler.html#Handling_Requests"><span class="tocnumber">3</span> <span class="toctext">Handling Requests</span></a>
 <ul>
-<li class="toclevel-2 tocsection-6"><a href="Write&#32;Jetty&#32;Handler.html#Generating_a_Response"><span class="tocnumber">3.1</span> <span class="toctext">Generating a Response</span></a></li>
-<li class="toclevel-2 tocsection-7"><a href="Write&#32;Jetty&#32;Handler.html#Filtering_the_Request_and.2For_Response"><span class="tocnumber">3.2</span> <span class="toctext">Filtering the Request and/or Response</span></a></li>
-<li class="toclevel-2 tocsection-8"><a href="Write&#32;Jetty&#32;Handler.html#Passing_the_Request_and_Response_to_another_handler"><span class="tocnumber">3.3</span> <span class="toctext">Passing the Request and Response to another handler</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="Write Jetty Handler.html#Generating_a_Response"><span class="tocnumber">3.1</span> <span class="toctext">Generating a Response</span></a></li>
+<li class="toclevel-2 tocsection-7"><a href="Write Jetty Handler.html#Filtering_the_Request_and.2For_Response"><span class="tocnumber">3.2</span> <span class="toctext">Filtering the Request and/or Response</span></a></li>
+<li class="toclevel-2 tocsection-8"><a href="Write Jetty Handler.html#Passing_the_Request_and_Response_to_another_handler"><span class="tocnumber">3.3</span> <span class="toctext">Passing the Request and Response to another handler</span></a></li>
 </ul>
 </li>
-<li class="toclevel-1 tocsection-9"><a href="Write&#32;Jetty&#32;Handler.html#More_About_Handlers"><span class="tocnumber">4</span> <span class="toctext">More About Handlers</span></a></li>
+<li class="toclevel-1 tocsection-9"><a href="Write Jetty Handler.html#More_About_Handlers"><span class="tocnumber">4</span> <span class="toctext">More About Handlers</span></a></li>
 </ul>
 </div>
 
-<h2><span class="mw-headline" id="Introduction">Introduction</span></h2>
-<div class="messagebox" style="background-color: #f9f6b7; border: 1px solid #c4c295; color: black; padding: 5px; margin: 1ex 0; min-height: 35px; padding-left: 45px; font-size: 150%; color: white; background-color: #FF8888; padding: 50px">
-<div style="float: left; margin-left: -40px;"><a href="https://wiki.eclipse.org/File:Warning2.png" class="image"><img alt="Warning2.png" src="../../images/3/37/Warning2.png" width="35" height="35" /></a></div>
-<div>Jetty 7 and Jetty 8 are now EOL (End of Life)<br />
-<p><br />
-<br />
-<br />
-THIS IS NOT THE DOCUMENTATION YOU ARE LOOKING FOR!!!!!<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-All development and stable releases are being performed with Jetty 9 and Jetty 10.<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-This <b>wiki is now officially out of date</b> and all content has been moved to the <a rel="nofollow" class="external text" href="http://www.eclipse.org/jetty/documentation">Jetty Documentation Hub</a><br /> 
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
+<h2><span id="Introduction" class="mw-headline">Introduction</span></h2>
+<div style="background-color: #f9f6b7; border: 1px solid #c4c295; color: black; padding: 5px; margin: 1ex 0; min-height: 35px; padding-left: 45px; font-size: 150%; color: white; background-color: #FF8888; padding: 50px" class="messagebox">
+<div style="float: left; margin-left: -40px;"><a href="https://wiki.eclipse.org/File:Warning2.png" class="image"><img src="../../images/3/37/Warning2.png" width="35" alt="Warning2.png" height="35"/></a></div>
+<div>Jetty 7 and Jetty 8 are now EOL (End of Life)<br/>
+<p><br/>
+<br/>
+<br/>
+THIS IS NOT THE DOCUMENTATION YOU ARE LOOKING FOR!!!!!<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+All development and stable releases are being performed with Jetty 9 and Jetty 10.<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+This <b>wiki is now officially out of date</b> and all content has been moved to the <a href="http://www.eclipse.org/jetty/documentation" class="external text" rel="nofollow">Jetty Documentation Hub</a><br/> 
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
 </p>
 Direct Link to updated documentation: <a rel="nofollow" class="external free" href="http://www.eclipse.org/jetty/documentation/current/writing-custom-handlers.html">http://www.eclipse.org/jetty/documentation/current/writing-custom-handlers.html</a></div>
 </div>
-<p><br />
+<p><br/>
 The Handler is the Jetty component that deals with received requests. 
-</p><p>Many users of Jetty will not ever need to write a Jetty Handler, but instead will simply use the <a rel="nofollow" class="external text" href="http://download.eclipse.org/jetty/stable-7/xref/org/eclipse/jetty/servlet/package-summary.html">Servlet API.</a> The existing Jetty handlers for context, security, sessions and servlets can be reused without the need for extension. However, some users might have special requirements or footprint concerns that prohibit the use of the full servlet API. For them implementing a Jetty handler is a straight forward way to provide dynamic web content with a minimum of fuss.
-</p><p>See also the <a rel="nofollow" class="external text" href="http://wiki.eclipse.org/Jetty/Reference/Jetty_Architecture">Jetty Architecture</a> page to understand more about Handlers vs. Servlets.
-</p><p><br />
+</p><p>Many users of Jetty will not ever need to write a Jetty Handler, but instead will simply use the <a rel="nofollow" href="http://download.eclipse.org/jetty/stable-7/xref/org/eclipse/jetty/servlet/package-summary.html" class="external text">Servlet API.</a> The existing Jetty handlers for context, security, sessions and servlets can be reused without the need for extension. However, some users might have special requirements or footprint concerns that prohibit the use of the full servlet API. For them implementing a Jetty handler is a straight forward way to provide dynamic web content with a minimum of fuss.
+</p><p>See also the <a rel="nofollow" href="http://wiki.eclipse.org/Jetty/Reference/Jetty_Architecture" class="external text">Jetty Architecture</a> page to understand more about Handlers vs. Servlets.
+</p><p><br/>
 </p>
-<h2><span class="mw-headline" id="The_Handler_API">The Handler API</span></h2>
-<p>The <a rel="nofollow" class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/server/Handler.html">Handler</a> interface provides Jetty's core of content generation or manipulation. Classes that implement this interface are used to coordinate requests, filter requests and generate content.
+<h2><span id="The_Handler_API" class="mw-headline">The Handler API</span></h2>
+<p>The <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/server/Handler.html" rel="nofollow">Handler</a> interface provides Jetty's core of content generation or manipulation. Classes that implement this interface are used to coordinate requests, filter requests and generate content.
 </p><p>The core API of the Handler interface is
 </p>
-<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="java source-java"><pre class="de1"><span class="kw1">public</span> <span class="kw4">void</span> handle<span class="br0">&#40;</span><span class="kw3">String</span> target, <span class="kw3">Request</span> baseRequest, HttpServletRequest request, HttpServletResponse response<span class="br0">&#41;</span>
+<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="java source-java"><pre class="de1"><span class="kw1">public</span> <span class="kw4">void</span> handle<span class="br0">(</span><span class="kw3">String</span> target, <span class="kw3">Request</span> baseRequest, HttpServletRequest request, HttpServletResponse response<span class="br0">)</span>
     <span class="kw1">throws</span> <span class="kw3">IOException</span>, ServletException</pre></div></div>
 <p>An implementation of this method can handle a request, pass the request onto another handler (or servlet), or it can modify and/or wrap the request and then pass it on. This gives three styles of handler: 
 </p><p>Coordinating Handlers - Handlers that route requests to other handlers (HandlerCollection, ContextHandlerCollection)
@@ -452,13 +451,13 @@ Generating Handlers - Handlers that produce content (ResourceHandler and Servlet
 <p>The target of a handler is an identifier for the resource that should handle the passed request. This is normally the URI that is parsed from an HTTP Request. However, in two key circumstances the target may differ from the URI of the passed request:
 </p>
 <ol><li> If the request has been dispatched to a named resource, such as a named servlet, then the target is the name of that resource.</li>
-<li> If the request is being made by a call to <a rel="nofollow" class="external text" href="http://download.oracle.com/docs/cd/E17477_01/javaee/5/api/javax/servlet/RequestDispatcher.html">Request Dispatcher</a>, then the target is the URI of the included resource and will be different to the URI of the actual request.</li></ol>
-<h3><span class="mw-headline" id="The_Request_and_Response">The Request and Response</span></h3>
-<p>The request and response objects used in the signature of the handle method are <a rel="nofollow" class="external text" href="http://download.oracle.com/docs/cd/E17477_01/javaee/5/api/javax/servlet/http/HttpServletRequest.html">Servlet Request</a> and <a rel="nofollow" class="external text" href="http://download.oracle.com/docs/cd/E17477_01/javaee/5/api/javax/servlet/http/HttpServletResponse.html">Servlet Response</a>. These are the standard APIs and are moderately restricted in what can be done to the request and response. More often than not, access to the jetty implementations of these classes is required: <a rel="nofollow" class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/server/Request.html">Request</a> and <a rel="nofollow" class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/server/Response.html">Response</a>. However, as the request and response may be wrapped by handlers, filters and servlets, it is not possible to pass the implementation directly. The following mantra retrieves the core implementation objects from under any wrappers:
+<li> If the request is being made by a call to <a href="http://download.oracle.com/docs/cd/E17477_01/javaee/5/api/javax/servlet/RequestDispatcher.html" class="external text" rel="nofollow">Request Dispatcher</a>, then the target is the URI of the included resource and will be different to the URI of the actual request.</li></ol>
+<h3><span id="The_Request_and_Response" class="mw-headline">The Request and Response</span></h3>
+<p>The request and response objects used in the signature of the handle method are <a rel="nofollow" href="http://download.oracle.com/docs/cd/E17477_01/javaee/5/api/javax/servlet/http/HttpServletRequest.html" class="external text">Servlet Request</a> and <a href="http://download.oracle.com/docs/cd/E17477_01/javaee/5/api/javax/servlet/http/HttpServletResponse.html" class="external text" rel="nofollow">Servlet Response</a>. These are the standard APIs and are moderately restricted in what can be done to the request and response. More often than not, access to the jetty implementations of these classes is required: <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/server/Request.html" rel="nofollow">Request</a> and <a rel="nofollow" class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/server/Response.html">Response</a>. However, as the request and response may be wrapped by handlers, filters and servlets, it is not possible to pass the implementation directly. The following mantra retrieves the core implementation objects from under any wrappers:
 </p>
-<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="java source-java"><pre class="de1"><span class="kw3">Request</span> base_request <span class="sy0">=</span> request <span class="kw1">instanceof</span> <span class="kw3">Request</span> <span class="sy0">?</span> <span class="br0">&#40;</span><span class="kw3">Request</span><span class="br0">&#41;</span>request <span class="sy0">:</span> HttpConnection.<span class="me1">getCurrentConnection</span><span class="br0">&#40;</span><span class="br0">&#41;</span>.<span class="me1">getRequest</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
-Response base_response <span class="sy0">=</span> response <span class="kw1">instanceof</span> Response <span class="sy0">?</span> <span class="br0">&#40;</span>Response<span class="br0">&#41;</span>response <span class="sy0">:</span> HttpConnection.<span class="me1">getCurrentConnection</span><span class="br0">&#40;</span><span class="br0">&#41;</span>.<span class="me1">getResponse</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span></pre></div></div>
-<p>Note that if the handler passes the request on to another handler, it should use the<br /> request/response objects passed in and not the base objects. This is to preserve any wrapping done by up stream handlers.
+<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="java source-java"><pre class="de1"><span class="kw3">Request</span> base_request <span class="sy0">=</span> request <span class="kw1">instanceof</span> <span class="kw3">Request</span> <span class="sy0">?</span> <span class="br0">(</span><span class="kw3">Request</span><span class="br0">)</span>request <span class="sy0">:</span> HttpConnection.<span class="me1">getCurrentConnection</span><span class="br0">(</span><span class="br0">)</span>.<span class="me1">getRequest</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
+Response base_response <span class="sy0">=</span> response <span class="kw1">instanceof</span> Response <span class="sy0">?</span> <span class="br0">(</span>Response<span class="br0">)</span>response <span class="sy0">:</span> HttpConnection.<span class="me1">getCurrentConnection</span><span class="br0">(</span><span class="br0">)</span>.<span class="me1">getResponse</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span></pre></div></div>
+<p>Note that if the handler passes the request on to another handler, it should use the<br/> request/response objects passed in and not the base objects. This is to preserve any wrapping done by up stream handlers.
 </p>
 <h3><span class="mw-headline" id="The_dispatch">The dispatch</span></h3>
 <p>The dispatch argument indicates the state of the handling of the call and may be:
@@ -469,23 +468,23 @@ Response base_response <span class="sy0">=</span> response <span class="kw1">ins
 <li> ERROR == 8 - A request being forwarded to a error handler by the container.</li></ul>
 <p>These mostly have significance for servlet and related handlers. For example, the security handler only applies authentication and authorization to REQUEST dispatches.
 </p>
-<h2><span class="mw-headline" id="Handling_Requests">Handling Requests</span></h2>
+<h2><span id="Handling_Requests" class="mw-headline">Handling Requests</span></h2>
 <p>A Handler may handle a request by:
 </p>
-<h3><span class="mw-headline" id="Generating_a_Response">Generating a Response</span></h3>
-<p>The <a rel="nofollow" class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/embedded/OneHandler.html">OneHandler</a> embedded example shows how a simple handler can generate a response.
+<h3><span id="Generating_a_Response" class="mw-headline">Generating a Response</span></h3>
+<p>The <a rel="nofollow" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/embedded/OneHandler.html" class="external text">OneHandler</a> embedded example shows how a simple handler can generate a response.
 </p><p>The normal servlet response API can be used and will typically set some status, content headers and then write out the content:
 </p>
-<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="java source-java"><pre class="de1">&#160;
- response.<span class="me1">setContentType</span><span class="br0">&#40;</span><span class="st0">&quot;text/html&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
- response.<span class="me1">setStatus</span><span class="br0">&#40;</span>HttpServletResponse.<span class="me1">SC_OK</span><span class="br0">&#41;</span><span class="sy0">;</span>
- response.<span class="me1">getWriter</span><span class="br0">&#40;</span><span class="br0">&#41;</span>.<span class="me1">println</span><span class="br0">&#40;</span><span class="st0">&quot;&lt;h1&gt;Hello OneHandler&lt;/h1&gt;&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span></pre></div></div>
+<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="java source-java"><pre class="de1"> 
+ response.<span class="me1">setContentType</span><span class="br0">(</span><span class="st0">"text/html"</span><span class="br0">)</span><span class="sy0">;</span>
+ response.<span class="me1">setStatus</span><span class="br0">(</span>HttpServletResponse.<span class="me1">SC_OK</span><span class="br0">)</span><span class="sy0">;</span>
+ response.<span class="me1">getWriter</span><span class="br0">(</span><span class="br0">)</span>.<span class="me1">println</span><span class="br0">(</span><span class="st0">"&lt;h1&gt;Hello OneHandler&lt;/h1&gt;"</span><span class="br0">)</span><span class="sy0">;</span></pre></div></div>
 <p>It is also very important that a handler indicate that it has completed handling the request and that the request should not be passed to other handlers:
 </p>
-<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="java source-java"><pre class="de1">&#160;
- <span class="kw3">Request</span> base_request <span class="sy0">=</span> <span class="br0">&#40;</span>request <span class="kw1">instanceof</span> <span class="kw3">Request</span><span class="br0">&#41;</span> <span class="sy0">?</span> <span class="br0">&#40;</span><span class="kw3">Request</span><span class="br0">&#41;</span>request<span class="sy0">:</span>HttpConnection.<span class="me1">getCurrentConnection</span><span class="br0">&#40;</span><span class="br0">&#41;</span>.<span class="me1">getRequest</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
- base_request.<span class="me1">setHandled</span><span class="br0">&#40;</span><span class="kw2">true</span><span class="br0">&#41;</span><span class="sy0">;</span></pre></div></div>
-<h3><span class="mw-headline" id="Filtering_the_Request_and.2For_Response">Filtering the Request and/or Response</span></h3>
+<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="java source-java"><pre class="de1"> 
+ <span class="kw3">Request</span> base_request <span class="sy0">=</span> <span class="br0">(</span>request <span class="kw1">instanceof</span> <span class="kw3">Request</span><span class="br0">)</span> <span class="sy0">?</span> <span class="br0">(</span><span class="kw3">Request</span><span class="br0">)</span>request<span class="sy0">:</span>HttpConnection.<span class="me1">getCurrentConnection</span><span class="br0">(</span><span class="br0">)</span>.<span class="me1">getRequest</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
+ base_request.<span class="me1">setHandled</span><span class="br0">(</span><span class="kw2">true</span><span class="br0">)</span><span class="sy0">;</span></pre></div></div>
+<h3><span id="Filtering_the_Request_and.2For_Response" class="mw-headline">Filtering the Request and/or Response</span></h3>
 <p>Once the base request or response object is obtained, you can modify it. Typically you would make modifications to accomplish:
 </p>
 <ul><li> breaking the URI into contextPath, servletPath and pathInfo components</li>
@@ -499,27 +498,27 @@ Response base_response <span class="sy0">=</span> response <span class="kw1">ins
 <li> Setting thread locals to identify the current ServletContext.</li></ul>
 <p>Typically a modified request is passed to another handler and then the modifications are undone in a finally block afterwards:
 </p>
-<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="java source-java"><pre class="de1">&#160;
+<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="java source-java"><pre class="de1"> 
  <span class="kw1">try</span>
- <span class="br0">&#123;</span>
-    base_request.<span class="me1">setSession</span><span class="br0">&#40;</span>a_session<span class="br0">&#41;</span><span class="sy0">;</span>
-    next_handler.<span class="me1">handle</span><span class="br0">&#40;</span>target,request,response,dispatch<span class="br0">&#41;</span><span class="sy0">;</span>
- <span class="br0">&#125;</span>
+ <span class="br0">{</span>
+    base_request.<span class="me1">setSession</span><span class="br0">(</span>a_session<span class="br0">)</span><span class="sy0">;</span>
+    next_handler.<span class="me1">handle</span><span class="br0">(</span>target,request,response,dispatch<span class="br0">)</span><span class="sy0">;</span>
+ <span class="br0">}</span>
  <span class="kw1">finally</span>
- <span class="br0">&#123;</span>
-    base_request.<span class="me1">setSession</span><span class="br0">&#40;</span>old_session<span class="br0">&#41;</span><span class="sy0">;</span>
- <span class="br0">&#125;</span></pre></div></div>
-<p>The classes that implement the <a rel="nofollow" class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/server/handler/HandlerWrapper.html">HandlerWrapper</a> class are typically handler filters of this style.
+ <span class="br0">{</span>
+    base_request.<span class="me1">setSession</span><span class="br0">(</span>old_session<span class="br0">)</span><span class="sy0">;</span>
+ <span class="br0">}</span></pre></div></div>
+<p>The classes that implement the <a href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/server/handler/HandlerWrapper.html" class="external text" rel="nofollow">HandlerWrapper</a> class are typically handler filters of this style.
 </p>
-<h3><span class="mw-headline" id="Passing_the_Request_and_Response_to_another_handler">Passing the Request and Response to another handler</span></h3>
-<p>A handler might simply inspect the request and use the target, request URI or other information to select another handler to pass the request to. These handlers typically implement the <a rel="nofollow" class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/server/HandlerContainer.html">HandlerContainer</a> interface.
+<h3><span id="Passing_the_Request_and_Response_to_another_handler" class="mw-headline">Passing the Request and Response to another handler</span></h3>
+<p>A handler might simply inspect the request and use the target, request URI or other information to select another handler to pass the request to. These handlers typically implement the <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/server/HandlerContainer.html" rel="nofollow">HandlerContainer</a> interface.
 </p><p>Examples include:
 </p>
-<ul><li> <a rel="nofollow" class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/server/handler/HandlerCollection.html">Class Handler Collection</a> - A collection of handlers, where each handler is called regardless of the state of the request. This is typically used to pass a request to a <a rel="nofollow" class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/server/handler/ContextHandlerCollection.html">ContextHandlerCollection</a> and then the a <a rel="nofollow" class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/server/handler/RequestLogHandler.html">RequestLogHandler</a></li>
-<li> <a rel="nofollow" class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/server/handler/HandlerList.html">HandlerList</a> - A list of handlers which are called in turn until the request state is set as handled.</li>
-<li> <a rel="nofollow" class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/server/handler/ContextHandlerCollection.html">ContextHandlerCollection</a> - collection of Handlers of which one is selected by best match for the context path.</li></ul>
-<h2><span class="mw-headline" id="More_About_Handlers">More About Handlers</span></h2>
-<p>See <a rel="nofollow" class="external text" href="http://download.eclipse.org/jetty/stable-7/xref/">Jetty 7 Latest Source XRef</a> and <a rel="nofollow" class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/">Jetty 7 Latest JavaDoc</a> for detailed information on each Jetty handler.
+<ul><li> <a rel="nofollow" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/server/handler/HandlerCollection.html" class="external text">Class Handler Collection</a> - A collection of handlers, where each handler is called regardless of the state of the request. This is typically used to pass a request to a <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/server/handler/ContextHandlerCollection.html" rel="nofollow">ContextHandlerCollection</a> and then the a <a rel="nofollow" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/server/handler/RequestLogHandler.html" class="external text">RequestLogHandler</a></li>
+<li> <a rel="nofollow" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/server/handler/HandlerList.html" class="external text">HandlerList</a> - A list of handlers which are called in turn until the request state is set as handled.</li>
+<li> <a rel="nofollow" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/server/handler/ContextHandlerCollection.html" class="external text">ContextHandlerCollection</a> - collection of Handlers of which one is selected by best match for the context path.</li></ul>
+<h2><span id="More_About_Handlers" class="mw-headline">More About Handlers</span></h2>
+<p>See <a href="http://download.eclipse.org/jetty/stable-7/xref/" class="external text" rel="nofollow">Jetty 7 Latest Source XRef</a> and <a rel="nofollow" class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/">Jetty 7 Latest JavaDoc</a> for detailed information on each Jetty handler.
 </p>
 <!-- 
 NewPP limit report
@@ -549,7 +548,7 @@ Transclusion expansion time report (%,ms,calls,template)
  -->
 </div>
                                       <!-- catlinks -->
-                    <div id='catlinks' class='catlinks'><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="https://wiki.eclipse.org/Special:Categories" title="Special:Categories">Categories</a>: <ul><li><a href="https://wiki.eclipse.org/Category:Jetty" title="Category:Jetty">Jetty</a></li><li><a href="https://wiki.eclipse.org/Category:Jetty_Howto" title="Category:Jetty Howto">Jetty Howto</a></li></ul></div></div>                     <!-- /catlinks -->
+                    <div class="catlinks" id="catlinks"><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a title="Special:Categories" href="https://wiki.eclipse.org/Special:Categories">Categories</a>: <ul><li><a title="Category:Jetty" href="https://wiki.eclipse.org/Category:Jetty">Jetty</a></li><li><a title="Category:Jetty Howto" href="https://wiki.eclipse.org/Category:Jetty_Howto">Jetty Howto</a></li></ul></div></div>                     <!-- /catlinks -->
                                   </div>
               </div>
             </div>
@@ -575,11 +574,11 @@ Transclusion expansion time report (%,ms,calls,template)
 </div>
 <div class="featured-footer featured-footer-newsletter background-secondary">
   <div class="container">
-    <p id="footercredit">This page was last modified 14:11, 23 April 2013 by <a href="https://wiki.eclipse.org/User:Jesse.mcconnell.gmail.com" title="User:Jesse.mcconnell.gmail.com">Jesse McConnell</a>. Based on work by <a href="https://wiki.eclipse.org/index.php?title=User:Simone.bordet.gmail.com&amp;action=edit&amp;redlink=1" class="new" title="User:Simone.bordet.gmail.com (page does not exist)">Simone Bordet</a> and <a href="https://wiki.eclipse.org/index.php?title=User:Boulay.intalio.com&amp;action=edit&amp;redlink=1" class="new" title="User:Boulay.intalio.com (page does not exist)">Shirley Boulay</a>.</p><p id="footerviews"></p>  </div>
+    <p id="footercredit">This page was last modified 14:11, 23 April 2013 by <a title="User:Jesse.mcconnell.gmail.com" href="https://wiki.eclipse.org/User:Jesse.mcconnell.gmail.com">Jesse McConnell</a>. Based on work by <a class="new" href="https://wiki.eclipse.org/index.php?title=User:Simone.bordet.gmail.com&amp;action=edit&amp;redlink=1" title="User:Simone.bordet.gmail.com (page does not exist)">Simone Bordet</a> and <a title="User:Boulay.intalio.com (page does not exist)" href="https://wiki.eclipse.org/index.php?title=User:Boulay.intalio.com&amp;action=edit&amp;redlink=1" class="new">Shirley Boulay</a>.</p><p id="footerviews"/>  </div>
 </div>
 </main> <!-- /#main-content-container-row -->
-<p id="back-to-top" class="noprint hidden-print">
-  <a class="visible-xs" href="Write&#32;Jetty&#32;Handler.html#top">Back to the top</a>
+<p class="noprint hidden-print" id="back-to-top">
+  <a class="visible-xs" href="Write Jetty Handler.html#top">Back to the top</a>
 </p>
 <footer id="solstice-footer">
   <div class="container">
@@ -607,7 +606,7 @@ Transclusion expansion time report (%,ms,calls,template)
           <li><a href="https://www.eclipse.org/legal/">Legal Resources</a></li>
         </ul>
       </section>
-      <section class="col-sm-6 hidden-print" id="footer-useful-links">
+      <section id="footer-useful-links" class="col-sm-6 hidden-print">
         <h2 class="section-title">Useful Links</h2>
         <ul class="nav">
           <li><a href="https://bugs.eclipse.org/bugs/">Report a Bug</a></li>
@@ -631,40 +630,40 @@ Transclusion expansion time report (%,ms,calls,template)
       </section>
       <div class="col-sm-24 margin-top-20">
         <div class="row">
-          <div id="copyright" class="col-md-16">
-            <p id="copyright-text">Copyright &copy; Eclipse Foundation, Inc. All Rights Reserved.</p>
+          <div class="col-md-16" id="copyright">
+            <p id="copyright-text">Copyright © Eclipse Foundation, Inc. All Rights Reserved.</p>
           </div>
           <div class="col-md-8 social-media">
             <ul class="list-inline">
               <li>
-                <a class="social-media-link fa-stack fa-lg" href="https://twitter.com/EclipseFdn">
-                <i class="fa fa-circle-thin fa-stack-2x"></i>
-                <i class="fa fa-twitter fa-stack-1x"></i>
+                <a href="https://twitter.com/EclipseFdn" class="social-media-link fa-stack fa-lg">
+                <i class="fa fa-circle-thin fa-stack-2x"/>
+                <i class="fa fa-twitter fa-stack-1x"/>
                 </a>
               </li>
               <li>
-                <a class="social-media-link fa-stack fa-lg" href="https://www.facebook.com/eclipse.org">
-                <i class="fa fa-circle-thin fa-stack-2x"></i>
-                <i class="fa fa-facebook fa-stack-1x"></i>
+                <a href="https://www.facebook.com/eclipse.org" class="social-media-link fa-stack fa-lg">
+                <i class="fa fa-circle-thin fa-stack-2x"/>
+                <i class="fa fa-facebook fa-stack-1x"/>
                 </a>
               </li>
               <li>
                 <a class="social-media-link fa-stack fa-lg" href="https://www.youtube.com/user/EclipseFdn">
-                <i class="fa fa-circle-thin fa-stack-2x"></i>
-                <i class="fa fa-youtube fa-stack-1x"></i>
+                <i class="fa fa-circle-thin fa-stack-2x"/>
+                <i class="fa fa-youtube fa-stack-1x"/>
                 </a>
               </li>
               <li>
-                <a class="social-media-link fa-stack fa-lg" href="https://www.linkedin.com/company/eclipse-foundation">
-                <i class="fa fa-circle-thin fa-stack-2x"></i>
-                <i class="fa fa-linkedin fa-stack-1x"></i>
+                <a href="https://www.linkedin.com/company/eclipse-foundation" class="social-media-link fa-stack fa-lg">
+                <i class="fa fa-circle-thin fa-stack-2x"/>
+                <i class="fa fa-linkedin fa-stack-1x"/>
                 </a>
               </li>
             </ul>
           </div>
         </div>
       </div>
-      <a href="Write&#32;Jetty&#32;Handler.html#" class="scrollup">Back to the top</a>
+      <a class="scrollup" href="Write Jetty Handler.html#">Back to the top</a>
     </div>
   </div>
 </footer>
@@ -673,5 +672,6 @@ Transclusion expansion time report (%,ms,calls,template)
 mw.loader.state({"skins.solstice":"loading","user":"ready","user.groups":"ready"});mw.loader.load("/load.php?debug=false\u0026lang=en\u0026modules=skins.solstice\u0026only=scripts\u0026skin=solstice");mw.loader.load(["mediawiki.toc","mediawiki.action.view.postEdit","site","mediawiki.user","mediawiki.hidpi","mediawiki.page.ready","mediawiki.searchSuggest"]);
 } );</script><script>window.RLQ = window.RLQ || []; window.RLQ.push( function () {
 mw.config.set({"wgBackendResponseTime":554});
-} );</script>  </body>
-</html>
+} );</script>  
+
+</body></html>

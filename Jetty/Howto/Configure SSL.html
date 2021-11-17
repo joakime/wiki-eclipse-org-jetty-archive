@@ -1,6 +1,5 @@
-<!DOCTYPE html>
-<html lang="en" dir="ltr" class="client-nojs">
-<head>
+<?xml version="1.0" encoding="utf-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml" class="client-nojs" lang="en" dir="ltr"><head>
 <meta charset="UTF-8"/>
 <title>Jetty/Howto/Configure SSL - Eclipsepedia</title>
 <script>document.documentElement.className = document.documentElement.className.replace( /(^|\s)client-nojs(\s|$)/, "$1client-js$2" );</script>
@@ -10,16 +9,16 @@ mw.config.set({"wgCanonicalNamespace":"","wgCanonicalSpecialPageName":!1,"wgName
 } );</script>
 <link rel="stylesheet" href="../../load.php%3Fdebug=false&amp;lang=en&amp;modules=mediawiki.legacy.commonPrint,shared|mediawiki.sectionAnchor&amp;only=styles&amp;skin=solstice.css"/>
 <link rel="stylesheet" href="../../skins/solstice/public/css/styles.css%3F303.css" media="screen, print"/>
-<meta name="ResourceLoaderDynamicStyles" content=""/>
+<meta content="" name="ResourceLoaderDynamicStyles"/>
 <style>a:lang(ar),a:lang(kk-arab),a:lang(mzn),a:lang(ps),a:lang(ur){text-decoration:none}</style>
-<script async="" src="../../load.php%3Fdebug=false&amp;lang=en&amp;modules=startup&amp;only=scripts&amp;skin=solstice"></script>
-<meta name="generator" content="MediaWiki 1.26.4"/>
-<link rel="shortcut icon" href="../../eclipse.org-common/themes/solstice/public/images/favicon.ico"/>
-<link rel="search" type="application/opensearchdescription+xml" href="https://wiki.eclipse.org/opensearch_desc.php" title="Eclipsepedia (en)"/>
+<script async="" src="../../load.php%3Fdebug=false&amp;lang=en&amp;modules=startup&amp;only=scripts&amp;skin=solstice"/>
+<meta content="MediaWiki 1.26.4" name="generator"/>
+<link href="../../eclipse.org-common/themes/solstice/public/images/favicon.ico" rel="shortcut icon"/>
+<link title="Eclipsepedia (en)" href="https://wiki.eclipse.org/opensearch_desc.php" rel="search" type="application/opensearchdescription+xml"/>
 <link rel="EditURI" type="application/rsd+xml" href="https://wiki.eclipse.org/api.php?action=rsd"/>
-<link rel="alternate" type="application/atom+xml" title="Eclipsepedia Atom feed" href="https://wiki.eclipse.org/index.php?title=Special:RecentChanges&amp;feed=atom"/>
+<link href="https://wiki.eclipse.org/index.php?title=Special:RecentChanges&amp;feed=atom" title="Eclipsepedia Atom feed" rel="alternate" type="application/atom+xml"/>
 <style type="text/css">
-/*<![CDATA[*/      
+/*&lt;![CDATA[*/      
 #jetty-nav {
   margin-bottom: 2em;
 }
@@ -133,9 +132,9 @@ table.jetty-table, .jetty-table table {
   float: right;
   margin: 0.5em;
 }
-/*]]>*/       
+/*]]&gt;*/       
 </style>
-<style type="text/css">/*<![CDATA[*/
+<style type="text/css">/*&lt;![CDATA[*/
 .source-bash {line-height: normal;}
 .source-bash li, .source-bash pre {
 	line-height: normal; border: 0px none white;
@@ -182,9 +181,9 @@ table.jetty-table, .jetty-table table {
 .bash.source-bash .ln-xtra, .bash.source-bash li.ln-xtra, .bash.source-bash div.ln-xtra {background-color: #ffc;}
 .bash.source-bash span.xtra { display:block; }
 
-/*]]>*/
+/*]]&gt;*/
 </style>
-<style type="text/css">/*<![CDATA[*/
+<style type="text/css">/*&lt;![CDATA[*/
 .source-java {line-height: normal;}
 .source-java li, .source-java pre {
 	line-height: normal; border: 0px none white;
@@ -222,9 +221,9 @@ table.jetty-table, .jetty-table table {
 .java.source-java .ln-xtra, .java.source-java li.ln-xtra, .java.source-java div.ln-xtra {background-color: #ffc;}
 .java.source-java span.xtra { display:block; }
 
-/*]]>*/
+/*]]&gt;*/
 </style>
-<style type="text/css">/*<![CDATA[*/
+<style type="text/css">/*&lt;![CDATA[*/
 .source-xml {line-height: normal;}
 .source-xml li, .source-xml pre {
 	line-height: normal; border: 0px none white;
@@ -260,13 +259,13 @@ table.jetty-table, .jetty-table table {
 .xml.source-xml .ln-xtra, .xml.source-xml li.ln-xtra, .xml.source-xml div.ln-xtra {background-color: #ffc;}
 .xml.source-xml span.xtra { display:block; }
 
-/*]]>*/
+/*]]&gt;*/
 </style>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 </head>
-<body class="mediawiki ltr sitedir-ltr ns-0 ns-subject page-Jetty_Howto_Configure_SSL skin-solstice action-view" id="solstice">
+<body id="solstice" class="mediawiki ltr sitedir-ltr ns-0 ns-subject page-Jetty_Howto_Configure_SSL skin-solstice action-view">
 
-<a class="sr-only" href="Configure&#32;SSL.html#content">Skip to main content</a>
+<a class="sr-only" href="Configure SSL.html#content">Skip to main content</a>
 <header class="header-wrapper" id="header-wrapper">
   <div class="clearfix toolbar-container-wrapper">
     <div class="container-fluid">
@@ -274,10 +273,10 @@ table.jetty-table, .jetty-table table {
         <div class="col-md-24 row-toolbar-col">
                <ul class="list-inline">
                   <li id="pt-login">
-            <a href="https://wiki.eclipse.org/index.php?title=Special:UserLogin&amp;returnto=Jetty%2FHowto%2FConfigure+SSL" class="toolbar-link toolbar-login">
-              <i class="fa fa-sign-in fa-fw"></i> Log in            </a>
+            <a class="toolbar-link toolbar-login" href="https://wiki.eclipse.org/index.php?title=Special:UserLogin&amp;returnto=Jetty%2FHowto%2FConfigure+SSL">
+              <i class="fa fa-sign-in fa-fw"/> Log in            </a>
           </li>
-                <li><a class="toolbar-link toolbar-manage-cookies dropdown-toggle"><i class="fa fa-wrench"></i> Manage Cookies</a></li>
+                <li><a class="toolbar-link toolbar-manage-cookies dropdown-toggle"><i class="fa fa-wrench"/> Manage Cookies</a></li>
       </ul>
             </div>
       </div>
@@ -285,19 +284,19 @@ table.jetty-table, .jetty-table table {
   </div>
   <div class="container-fluid">
     <div class="row" id="header-row">
-      <div class="col-sm-5 col-md-4" id="header-left">
-        <div class="wrapper-logo-default"><a href="https://www.eclipse.org/"><img class="logo-eclipse-default hidden-xs" alt="Eclipse.org logo" width="160" src="https://www.eclipse.org/eclipse.org-common/themes/solstice/public/images/logo/eclipse-foundation-white-orange.svg"/></a></div>
+      <div id="header-left" class="col-sm-5 col-md-4">
+        <div class="wrapper-logo-default"><a href="https://www.eclipse.org/"><img alt="Eclipse.org logo" width="160" class="logo-eclipse-default hidden-xs" src="https://www.eclipse.org/eclipse.org-common/themes/solstice/public/images/logo/eclipse-foundation-white-orange.svg"/></a></div>
       </div>
       <div class="col-sm-19 col-md-20 margin-top-10" id="main-menu-wrapper">
-        <div class="float-right hidden-xs" id="btn-call-for-action"><a href="https://eclipse.org/downloads/" class="btn btn-huge btn-warning"><i class="fa fa-download"></i> Download</a></div>
-        <div class="navbar yamm float-sm-right" id="main-menu">
+        <div class="float-right hidden-xs" id="btn-call-for-action"><a class="btn btn-huge btn-warning" href="https://eclipse.org/downloads/"><i class="fa fa-download"/> Download</a></div>
+        <div id="main-menu" class="navbar yamm float-sm-right">
           <div class="navbar-collapse collapse" id="navbar-main-menu">
             <ul class="nav navbar-nav">
               <li><a href="https://www.eclipse.org/projects/" target="_self">Projects</a></li>
-              <li><a href="https://www.eclipse.org/org/workinggroups/" target="_self">Working Groups</a></li>
+              <li><a target="_self" href="https://www.eclipse.org/org/workinggroups/">Working Groups</a></li>
               <li><a href="https://www.eclipse.org/membership/" target="_self">Members</a></li>
               <li class="dropdown visible-xs">
-                <a href="Configure&#32;SSL.html#" data-toggle="dropdown" class="dropdown-toggle">Community <b class="caret"></b></a>
+                <a data-toggle="dropdown" class="dropdown-toggle" href="Configure SSL.html#">Community <b class="caret"/></a>
                 <ul class="dropdown-menu">
                   <li><a href="http://marketplace.eclipse.org">Marketplace</a></li>
                   <li><a href="http://events.eclipse.org">Events</a></li>
@@ -308,7 +307,7 @@ table.jetty-table, .jetty-table table {
                 </ul>
               </li>
               <li class="dropdown visible-xs">
-                <a href="Configure&#32;SSL.html#" data-toggle="dropdown" class="dropdown-toggle">Participate <b class="caret"></b></a>
+                <a class="dropdown-toggle" data-toggle="dropdown" href="Configure SSL.html#">Participate <b class="caret"/></a>
                 <ul class="dropdown-menu">
                   <li><a href="https://bugs.eclipse.org/bugs/">Report a Bug</a></li>
                   <li><a href="https://www.eclipse.org/forums/">Forums</a></li>
@@ -319,7 +318,7 @@ table.jetty-table, .jetty-table table {
                 </ul>
               </li>
               <li class="dropdown visible-xs">
-                <a href="Configure&#32;SSL.html#" data-toggle="dropdown" class="dropdown-toggle">Eclipse IDE <b class="caret"></b></a>
+                <a data-toggle="dropdown" class="dropdown-toggle" href="Configure SSL.html#">Eclipse IDE <b class="caret"/></a>
                 <ul class="dropdown-menu">
                   <li><a href="https://www.eclipse.org/downloads">Download</a></li>
                   <li><a href="https://www.eclipse.org/eclipseide">Learn More</a></li>
@@ -332,7 +331,7 @@ table.jetty-table, .jetty-table table {
               </li>
               <!-- More -->
               <li class="dropdown eclipse-more hidden-xs">
-                <a data-toggle="dropdown" class="dropdown-toggle" role="button">More<b class="caret"></b></a>
+                <a role="button" class="dropdown-toggle" data-toggle="dropdown">More<b class="caret"/></a>
                 <ul class="dropdown-menu">
                   <li>
                     <!-- Content container to add padding -->
@@ -380,21 +379,21 @@ table.jetty-table, .jetty-table table {
             </ul>
           </div>
           <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-main-menu">
+            <button data-target="#navbar-main-menu" data-toggle="collapse" type="button" class="navbar-toggle">
             <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
+            <span class="icon-bar"/>
+            <span class="icon-bar"/>
+            <span class="icon-bar"/>
+            <span class="icon-bar"/>
             </button>
-            <div class="wrapper-logo-mobile"><a class="navbar-brand visible-xs" href="https://www.eclipse.org/"><img class="logo-eclipse-default-mobile img-responsive" alt="Eclipse.org logo" width="160" src="https://www.eclipse.org/eclipse.org-common/themes/solstice/public/images/logo/eclipse-foundation-white-orange.svg"/></a></div>
+            <div class="wrapper-logo-mobile"><a class="navbar-brand visible-xs" href="https://www.eclipse.org/"><img src="https://www.eclipse.org/eclipse.org-common/themes/solstice/public/images/logo/eclipse-foundation-white-orange.svg" alt="Eclipse.org logo" class="logo-eclipse-default-mobile img-responsive" width="160"/></a></div>
           </div>
         </div>
       </div>
     </div>
   </div>
 </header>
-<section class="default-breadcrumbs hidden-print" id="breadcrumb">
+<section id="breadcrumb" class="default-breadcrumbs hidden-print">
   <div class="container-fluid">
     <h3 class="sr-only">Breadcrumbs</h3>
     <div class="row">
@@ -414,8 +413,8 @@ table.jetty-table, .jetty-table table {
     
     
     <!-- content -->
-    <section id="content" class="mw-body container-full clearfix 0">
-      <div id="mw-js-message" style="display:none;"></div>
+    <section class="mw-body container-full clearfix 0" id="content">
+      <div id="mw-js-message" style="display:none;"/>
 
       
       <!-- bodyContent -->
@@ -423,121 +422,121 @@ table.jetty-table, .jetty-table table {
 
         
                 <!-- jumpto -->
-        <div id="jump-to-nav" class="mw-jump">
-          Jump to: <a href="Configure&#32;SSL.html#mw-head">navigation</a>,
-          <a href="Configure&#32;SSL.html#p-search">search</a>
+        <div class="mw-jump" id="jump-to-nav">
+          Jump to: <a href="Configure SSL.html#mw-head">navigation</a>,
+          <a href="Configure SSL.html#p-search">search</a>
         </div>
         <!-- /jumpto -->
         
           <!-- leftcol -->
           <aside class="col-md-4 noprint hidden-print" id="leftcol">
-                      <form class="input-group" role="form" id="form-eclipse-search" action="https://wiki.eclipse.org/index.php" id="searchform">
-              <input id="searchInput" class="search-query form-control" type="search" accesskey="f" title="Special:Search" placeholder="Search" name="search" value="">
+                      <form id="form-eclipse-search" class="input-group" role="form" action="https://wiki.eclipse.org/index.php">
+              <input id="searchInput" value="" class="search-query form-control" type="search" name="search" placeholder="Search" accesskey="f" title="Special:Search"/>
 
               <span class="input-group-btn">
-                <button value="search" id="mw-searchButton" type="submit" class="btn btn-default" title="Search the pages for this text" name="fulltext">
-                  <i class="fa fa-search"></i>
+                <button class="btn btn-default" type="submit" name="fulltext" id="mw-searchButton" title="Search the pages for this text" value="search">
+                  <i class="fa fa-search"/>
                 </button>
               </span>
             </form>
-                      <select class="form-control margin-top-10 margin-bottom-10 visible-xs visible-sm" onchange="this.options[this.selectedIndex].value && (window.location = this.options[this.selectedIndex].value);"><option class="fw-700 "><span class="fw-700">---Navigation---</span></option><option value="/Main_Page">Main Page</option><option value="/Eclipsepedia:Community_portal">Community portal</option><option value="/Eclipsepedia:Current_events">Current events</option><option value="/Special:RecentChanges">Recent changes</option><option value="/Special:Random">Random page</option><option value="https://www.mediawiki.org/wiki/Special:MyLanguage/Help:Contents">Help</option></select><ul class="ul-left-nav fa-ul hidden-print leftnav hidden-xs hidden-sm"><li class="separator"><span class="separator">Navigation</span></li>                <li class=""><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/Main_Page" id="n-mainpage" title="Visit the main page [z]" accesskey="z">Main Page</a></li>                <li class=""><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/Eclipsepedia:Community_portal" id="n-portal" title="About the project, what you can do, where to find things">Community portal</a></li>                <li class=""><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/Eclipsepedia:Current_events" id="n-currentevents" title="Find background information on current events">Current events</a></li>                <li class=""><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/Special:RecentChanges" id="n-recentchanges" title="A list of recent changes in the wiki [r]" accesskey="r">Recent changes</a></li>                <li class=""><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/Special:Random" id="n-randompage" title="Load a random page [x]" accesskey="x">Random page</a></li>                <li class=""><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://www.mediawiki.org/wiki/Special:MyLanguage/Help:Contents" id="n-help" title="The place to find out">Help</a></li></ul>            <select class="form-control margin-top-10 margin-bottom-10 visible-xs visible-sm" onchange="this.options[this.selectedIndex].value && (window.location = this.options[this.selectedIndex].value);"><option class="fw-700 "><span class="fw-700">---Toolbox---</span></option><option value="/index.php?title=Jetty/Howto/Configure_SSL&amp;action=info">Page information</option><option value="/index.php?title=Jetty/Howto/Configure_SSL&amp;oldid=400332">Permanent link</option><option value="/index.php?title=Jetty/Howto/Configure_SSL&amp;printable=yes">Printable version</option><option value="/Special:SpecialPages">Special pages</option><option value="/Special:RecentChangesLinked/Jetty/Howto/Configure_SSL">Related changes</option><option value="/Special:WhatLinksHere/Jetty/Howto/Configure_SSL">What links here</option></select><ul class="ul-left-nav fa-ul hidden-print leftnav hidden-xs hidden-sm"><li class="separator"><span class="separator">Toolbox</span></li><li><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/index.php?title=Jetty/Howto/Configure_SSL&amp;action=info" id="t-info" title="More information about this page">Page information</a></li><li><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/index.php?title=Jetty/Howto/Configure_SSL&amp;oldid=400332" id="t-permalink" title="Permanent link to this revision of the page">Permanent link</a></li><li><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/index.php?title=Jetty/Howto/Configure_SSL&amp;printable=yes" id="t-print" rel="alternate" title="Printable version of this page [p]" accesskey="p">Printable version</a></li><li><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/Special:SpecialPages" id="t-specialpages" title="A list of all special pages [q]" accesskey="q">Special pages</a></li><li><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/Special:RecentChangesLinked/Jetty/Howto/Configure_SSL" id="t-recentchangeslinked" title="Recent changes in pages linked from this page [k]" accesskey="k">Related changes</a></li><li><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/Special:WhatLinksHere/Jetty/Howto/Configure_SSL" id="t-whatlinkshere" title="A list of all wiki pages that link here [j]" accesskey="j">What links here</a></li></ul>                                  </aside>
+                      <select onchange="this.options[this.selectedIndex].value &amp;&amp; (window.location = this.options[this.selectedIndex].value);" class="form-control margin-top-10 margin-bottom-10 visible-xs visible-sm"><option class="fw-700 ">---Navigation---</option><option value="/Main_Page">Main Page</option><option value="/Eclipsepedia:Community_portal">Community portal</option><option value="/Eclipsepedia:Current_events">Current events</option><option value="/Special:RecentChanges">Recent changes</option><option value="/Special:Random">Random page</option><option value="https://www.mediawiki.org/wiki/Special:MyLanguage/Help:Contents">Help</option></select><ul class="ul-left-nav fa-ul hidden-print leftnav hidden-xs hidden-sm"><li class="separator"><span class="separator">Navigation</span></li>                <li class=""><i class="fa fa-angle-double-right orange fa-fw"/> <a href="https://wiki.eclipse.org/Main_Page" title="Visit the main page [z]" accesskey="z" id="n-mainpage">Main Page</a></li>                <li class=""><i class="fa fa-angle-double-right orange fa-fw"/> <a href="https://wiki.eclipse.org/Eclipsepedia:Community_portal" title="About the project, what you can do, where to find things" id="n-portal">Community portal</a></li>                <li class=""><i class="fa fa-angle-double-right orange fa-fw"/> <a id="n-currentevents" title="Find background information on current events" href="https://wiki.eclipse.org/Eclipsepedia:Current_events">Current events</a></li>                <li class=""><i class="fa fa-angle-double-right orange fa-fw"/> <a href="https://wiki.eclipse.org/Special:RecentChanges" title="A list of recent changes in the wiki [r]" id="n-recentchanges" accesskey="r">Recent changes</a></li>                <li class=""><i class="fa fa-angle-double-right orange fa-fw"/> <a accesskey="x" id="n-randompage" href="https://wiki.eclipse.org/Special:Random" title="Load a random page [x]">Random page</a></li>                <li class=""><i class="fa fa-angle-double-right orange fa-fw"/> <a id="n-help" href="https://www.mediawiki.org/wiki/Special:MyLanguage/Help:Contents" title="The place to find out">Help</a></li></ul>            <select class="form-control margin-top-10 margin-bottom-10 visible-xs visible-sm" onchange="this.options[this.selectedIndex].value &amp;&amp; (window.location = this.options[this.selectedIndex].value);"><option class="fw-700 ">---Toolbox---</option><option value="/index.php?title=Jetty/Howto/Configure_SSL&amp;action=info">Page information</option><option value="/index.php?title=Jetty/Howto/Configure_SSL&amp;oldid=400332">Permanent link</option><option value="/index.php?title=Jetty/Howto/Configure_SSL&amp;printable=yes">Printable version</option><option value="/Special:SpecialPages">Special pages</option><option value="/Special:RecentChangesLinked/Jetty/Howto/Configure_SSL">Related changes</option><option value="/Special:WhatLinksHere/Jetty/Howto/Configure_SSL">What links here</option></select><ul class="ul-left-nav fa-ul hidden-print leftnav hidden-xs hidden-sm"><li class="separator"><span class="separator">Toolbox</span></li><li><i class="fa fa-angle-double-right orange fa-fw"/> <a id="t-info" title="More information about this page" href="https://wiki.eclipse.org/index.php?title=Jetty/Howto/Configure_SSL&amp;action=info">Page information</a></li><li><i class="fa fa-angle-double-right orange fa-fw"/> <a id="t-permalink" href="https://wiki.eclipse.org/index.php?title=Jetty/Howto/Configure_SSL&amp;oldid=400332" title="Permanent link to this revision of the page">Permanent link</a></li><li><i class="fa fa-angle-double-right orange fa-fw"/> <a rel="alternate" id="t-print" accesskey="p" href="https://wiki.eclipse.org/index.php?title=Jetty/Howto/Configure_SSL&amp;printable=yes" title="Printable version of this page [p]">Printable version</a></li><li><i class="fa fa-angle-double-right orange fa-fw"/> <a accesskey="q" id="t-specialpages" href="https://wiki.eclipse.org/Special:SpecialPages" title="A list of all special pages [q]">Special pages</a></li><li><i class="fa fa-angle-double-right orange fa-fw"/> <a id="t-recentchangeslinked" accesskey="k" title="Recent changes in pages linked from this page [k]" href="https://wiki.eclipse.org/Special:RecentChangesLinked/Jetty/Howto/Configure_SSL">Related changes</a></li><li><i class="fa fa-angle-double-right orange fa-fw"/> <a accesskey="j" id="t-whatlinkshere" title="A list of all wiki pages that link here [j]" href="https://wiki.eclipse.org/Special:WhatLinksHere/Jetty/Howto/Configure_SSL">What links here</a></li></ul>                                  </aside>
           <!-- /leftcol -->
 
           <!-- mainContent -->
-          <div id="mainContent" class="col-md-20">
-                      <ul class="nav nav-tabs noprint hidden-print" role="tablist">
-                       <li id="ca-nstab-main" class="active"><a href="Configure&#32;SSL.html"  title="View the content page [c]" accesskey="c" tabindex="-1">Page</a></li>
-                        <li id="ca-talk" class="new"><a href="https://wiki.eclipse.org/index.php?title=Talk:Jetty/Howto/Configure_SSL&amp;action=edit&amp;redlink=1"  title="Discussion about the content page [t]" accesskey="t" tabindex="-1">Discussion</a></li>
-                        <li id="ca-viewsource"><a href="https://wiki.eclipse.org/index.php?title=Jetty/Howto/Configure_SSL&amp;action=edit"  title="This page is protected.&#10;You can view its source [e]" accesskey="e" tabindex="-1">View source</a></li>
-                        <li id="ca-history" class="collapsible"><a href="https://wiki.eclipse.org/index.php?title=Jetty/Howto/Configure_SSL&amp;action=history"  title="Past revisions of this page [h]" accesskey="h" tabindex="-1">History</a></li>
+          <div class="col-md-20" id="mainContent">
+                      <ul role="tablist" class="nav nav-tabs noprint hidden-print">
+                       <li class="active" id="ca-nstab-main"><a accesskey="c" href="Configure SSL.html" tabindex="-1" title="View the content page [c]">Page</a></li>
+                        <li class="new" id="ca-talk"><a accesskey="t" title="Discussion about the content page [t]" tabindex="-1" href="https://wiki.eclipse.org/index.php?title=Talk:Jetty/Howto/Configure_SSL&amp;action=edit&amp;redlink=1">Discussion</a></li>
+                        <li id="ca-viewsource"><a accesskey="e" href="https://wiki.eclipse.org/index.php?title=Jetty/Howto/Configure_SSL&amp;action=edit" tabindex="-1" title="This page is protected.&#10;You can view its source [e]">View source</a></li>
+                        <li class="collapsible" id="ca-history"><a accesskey="h" title="Past revisions of this page [h]" tabindex="-1" href="https://wiki.eclipse.org/index.php?title=Jetty/Howto/Configure_SSL&amp;action=history">History</a></li>
                       </ul>            <div class="tab-content background-white">
               <div id="tab-pane-main-page-content" class="tab-pane active">
 
                 
-                <h1 id="firstHeading" class="firstHeading page-header">
+                <h1 class="firstHeading page-header" id="firstHeading">
                   <span dir="auto">Jetty/Howto/Configure SSL</span>
                 </h1>
                 <div id="main-page-content">
                                                       <!-- subtitle -->
-                  <div id="contentSub"  class="alert alert-small alert-warning"><span class="subpages">&lt; <a href="../../Jetty.html" title="Jetty">Jetty</a>&lrm; | <a href="../Howto.html" title="Jetty/Howto">Howto</a></span></div>
+                  <div class="alert alert-small alert-warning" id="contentSub"><span class="subpages">&lt; <a href="../../Jetty.html" title="Jetty">Jetty</a>‎ | <a href="../Howto.html" title="Jetty/Howto">Howto</a></span></div>
                   <!-- /subtitle -->
                   
                   
-                  <div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><p><br />
-</p><p><br />
+                  <div dir="ltr" id="mw-content-text" lang="en" class="mw-content-ltr"><p><br/>
+</p><p><br/>
 </p>
 <h2><span class="mw-headline" id="Introduction">Introduction</span></h2>
 <div class="messagebox" style="background-color: #f9f6b7; border: 1px solid #c4c295; color: black; padding: 5px; margin: 1ex 0; min-height: 35px; padding-left: 45px; font-size: 150%; color: white; background-color: #FF8888; padding: 50px">
-<div style="float: left; margin-left: -40px;"><a href="https://wiki.eclipse.org/File:Warning2.png" class="image"><img alt="Warning2.png" src="../../images/3/37/Warning2.png" width="35" height="35" /></a></div>
-<div>Jetty 7 and Jetty 8 are now EOL (End of Life)<br />
-<p><br />
-<br />
-<br />
-THIS IS NOT THE DOCUMENTATION YOU ARE LOOKING FOR!!!!!<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-All development and stable releases are being performed with Jetty 9 and Jetty 10.<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-This <b>wiki is now officially out of date</b> and all content has been moved to the <a rel="nofollow" class="external text" href="http://www.eclipse.org/jetty/documentation">Jetty Documentation Hub</a><br /> 
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
+<div style="float: left; margin-left: -40px;"><a class="image" href="https://wiki.eclipse.org/File:Warning2.png"><img height="35" width="35" alt="Warning2.png" src="../../images/3/37/Warning2.png"/></a></div>
+<div>Jetty 7 and Jetty 8 are now EOL (End of Life)<br/>
+<p><br/>
+<br/>
+<br/>
+THIS IS NOT THE DOCUMENTATION YOU ARE LOOKING FOR!!!!!<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+All development and stable releases are being performed with Jetty 9 and Jetty 10.<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+This <b>wiki is now officially out of date</b> and all content has been moved to the <a href="http://www.eclipse.org/jetty/documentation" rel="nofollow" class="external text">Jetty Documentation Hub</a><br/> 
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
 </p>
 Direct Link to updated documentation: <a rel="nofollow" class="external free" href="http://www.eclipse.org/jetty/documentation/current/configuring-ssl.html">http://www.eclipse.org/jetty/documentation/current/configuring-ssl.html</a></div>
 </div>
-<p><br />
+<p><br/>
 This is an overview of how to configure SSL for Jetty, which uses Sun's reference implementation for the Java Secure Sockets Extension (JSSE).
 </p>
 <div id="toc" class="toc"><div id="toctitle"><h2>Contents</h2></div>
 <ul>
-<li class="toclevel-1"><a href="Configure&#32;SSL.html#Introduction"><span class="tocnumber">1</span> <span class="toctext">Introduction</span></a></li>
-<li class="toclevel-1"><a href="Configure&#32;SSL.html#Understanding_Certificates_and_Keys"><span class="tocnumber">2</span> <span class="toctext">Understanding Certificates and Keys</span></a></li>
-<li class="toclevel-1"><a href="Configure&#32;SSL.html#Configuring_Jetty_for_SSL"><span class="tocnumber">3</span> <span class="toctext">Configuring Jetty for SSL</span></a>
+<li class="toclevel-1"><a href="Configure SSL.html#Introduction"><span class="tocnumber">1</span> <span class="toctext">Introduction</span></a></li>
+<li class="toclevel-1"><a href="Configure SSL.html#Understanding_Certificates_and_Keys"><span class="tocnumber">2</span> <span class="toctext">Understanding Certificates and Keys</span></a></li>
+<li class="toclevel-1"><a href="Configure SSL.html#Configuring_Jetty_for_SSL"><span class="tocnumber">3</span> <span class="toctext">Configuring Jetty for SSL</span></a>
 <ul>
-<li class="toclevel-2"><a href="Configure&#32;SSL.html#OpenSSL_Versus_Keytool"><span class="tocnumber">3.1</span> <span class="toctext">OpenSSL Versus Keytool</span></a></li>
+<li class="toclevel-2"><a href="Configure SSL.html#OpenSSL_Versus_Keytool"><span class="tocnumber">3.1</span> <span class="toctext">OpenSSL Versus Keytool</span></a></li>
 </ul>
 </li>
-<li class="toclevel-1"><a href="Configure&#32;SSL.html#Generating_Key_Pairs_and_Certificates"><span class="tocnumber">4</span> <span class="toctext">Generating Key Pairs and Certificates</span></a>
+<li class="toclevel-1"><a href="Configure SSL.html#Generating_Key_Pairs_and_Certificates"><span class="tocnumber">4</span> <span class="toctext">Generating Key Pairs and Certificates</span></a>
 <ul>
-<li class="toclevel-2"><a href="Configure&#32;SSL.html#Generating_Keys_and_Certificates_with_JDK_keytool"><span class="tocnumber">4.1</span> <span class="toctext">Generating Keys and Certificates with JDK keytool</span></a></li>
-<li class="toclevel-2"><a href="Configure&#32;SSL.html#Generating_Keys_and_Certificates_with_OpenSSL"><span class="tocnumber">4.2</span> <span class="toctext">Generating Keys and Certificates with OpenSSL</span></a></li>
-<li class="toclevel-2"><a href="Configure&#32;SSL.html#Using_Keys_and_Certificates_from_Other_Sources"><span class="tocnumber">4.3</span> <span class="toctext">Using Keys and Certificates from Other Sources</span></a></li>
+<li class="toclevel-2"><a href="Configure SSL.html#Generating_Keys_and_Certificates_with_JDK_keytool"><span class="tocnumber">4.1</span> <span class="toctext">Generating Keys and Certificates with JDK keytool</span></a></li>
+<li class="toclevel-2"><a href="Configure SSL.html#Generating_Keys_and_Certificates_with_OpenSSL"><span class="tocnumber">4.2</span> <span class="toctext">Generating Keys and Certificates with OpenSSL</span></a></li>
+<li class="toclevel-2"><a href="Configure SSL.html#Using_Keys_and_Certificates_from_Other_Sources"><span class="tocnumber">4.3</span> <span class="toctext">Using Keys and Certificates from Other Sources</span></a></li>
 </ul>
 </li>
-<li class="toclevel-1"><a href="Configure&#32;SSL.html#Requesting_a_Trusted_Certificate"><span class="tocnumber">5</span> <span class="toctext">Requesting a Trusted Certificate</span></a>
+<li class="toclevel-1"><a href="Configure SSL.html#Requesting_a_Trusted_Certificate"><span class="tocnumber">5</span> <span class="toctext">Requesting a Trusted Certificate</span></a>
 <ul>
-<li class="toclevel-2"><a href="Configure&#32;SSL.html#Generating_a_CSR_from_keytool"><span class="tocnumber">5.1</span> <span class="toctext">Generating a CSR from keytool</span></a></li>
-<li class="toclevel-2"><a href="Configure&#32;SSL.html#Generating_a_CSR_from_OpenSSL"><span class="tocnumber">5.2</span> <span class="toctext">Generating a CSR from OpenSSL</span></a></li>
+<li class="toclevel-2"><a href="Configure SSL.html#Generating_a_CSR_from_keytool"><span class="tocnumber">5.1</span> <span class="toctext">Generating a CSR from keytool</span></a></li>
+<li class="toclevel-2"><a href="Configure SSL.html#Generating_a_CSR_from_OpenSSL"><span class="tocnumber">5.2</span> <span class="toctext">Generating a CSR from OpenSSL</span></a></li>
 </ul>
 </li>
-<li class="toclevel-1"><a href="Configure&#32;SSL.html#Loading_Keys_and_Certificates"><span class="tocnumber">6</span> <span class="toctext">Loading Keys and Certificates</span></a>
+<li class="toclevel-1"><a href="Configure SSL.html#Loading_Keys_and_Certificates"><span class="tocnumber">6</span> <span class="toctext">Loading Keys and Certificates</span></a>
 <ul>
-<li class="toclevel-2"><a href="Configure&#32;SSL.html#Loading_Certificates_with_keytool"><span class="tocnumber">6.1</span> <span class="toctext">Loading Certificates with keytool</span></a></li>
-<li class="toclevel-2"><a href="Configure&#32;SSL.html#Loading_Keys_and_Certificates_via_PKCS12"><span class="tocnumber">6.2</span> <span class="toctext">Loading Keys and Certificates via PKCS12</span></a></li>
+<li class="toclevel-2"><a href="Configure SSL.html#Loading_Certificates_with_keytool"><span class="tocnumber">6.1</span> <span class="toctext">Loading Certificates with keytool</span></a></li>
+<li class="toclevel-2"><a href="Configure SSL.html#Loading_Keys_and_Certificates_via_PKCS12"><span class="tocnumber">6.2</span> <span class="toctext">Loading Keys and Certificates via PKCS12</span></a></li>
 </ul>
 </li>
-<li class="toclevel-1"><a href="Configure&#32;SSL.html#Configuring_Jetty"><span class="tocnumber">7</span> <span class="toctext">Configuring Jetty</span></a>
+<li class="toclevel-1"><a href="Configure SSL.html#Configuring_Jetty"><span class="tocnumber">7</span> <span class="toctext">Configuring Jetty</span></a>
 <ul>
-<li class="toclevel-2"><a href="Configure&#32;SSL.html#Choosing_a_Directory_for_the_keystore"><span class="tocnumber">7.1</span> <span class="toctext">Choosing a Directory for the keystore</span></a></li>
-<li class="toclevel-2"><a href="Configure&#32;SSL.html#Setting_the_Port_for_https"><span class="tocnumber">7.2</span> <span class="toctext">Setting the Port for https</span></a></li>
-<li class="toclevel-2"><a href="Configure&#32;SSL.html#Redirecting_http_requests_to_https"><span class="tocnumber">7.3</span> <span class="toctext">Redirecting http requests to https</span></a></li>
-<li class="toclevel-2"><a href="Configure&#32;SSL.html#Configuring_SSL_for_Earlier_Versions_of_Jetty"><span class="tocnumber">7.4</span> <span class="toctext">Configuring SSL for Earlier Versions of Jetty</span></a></li>
+<li class="toclevel-2"><a href="Configure SSL.html#Choosing_a_Directory_for_the_keystore"><span class="tocnumber">7.1</span> <span class="toctext">Choosing a Directory for the keystore</span></a></li>
+<li class="toclevel-2"><a href="Configure SSL.html#Setting_the_Port_for_https"><span class="tocnumber">7.2</span> <span class="toctext">Setting the Port for https</span></a></li>
+<li class="toclevel-2"><a href="Configure SSL.html#Redirecting_http_requests_to_https"><span class="tocnumber">7.3</span> <span class="toctext">Redirecting http requests to https</span></a></li>
+<li class="toclevel-2"><a href="Configure SSL.html#Configuring_SSL_for_Earlier_Versions_of_Jetty"><span class="tocnumber">7.4</span> <span class="toctext">Configuring SSL for Earlier Versions of Jetty</span></a></li>
 </ul>
 </li>
-<li class="toclevel-1"><a href="Configure&#32;SSL.html#Password_Issues"><span class="tocnumber">8</span> <span class="toctext">Password Issues</span></a></li>
-<li class="toclevel-1"><a href="Configure&#32;SSL.html#Renewing_Certificates"><span class="tocnumber">9</span> <span class="toctext">Renewing Certificates</span></a></li>
+<li class="toclevel-1"><a href="Configure SSL.html#Password_Issues"><span class="tocnumber">8</span> <span class="toctext">Password Issues</span></a></li>
+<li class="toclevel-1"><a href="Configure SSL.html#Renewing_Certificates"><span class="tocnumber">9</span> <span class="toctext">Renewing Certificates</span></a></li>
 </ul>
 </div>
 
@@ -545,31 +544,31 @@ This is an overview of how to configure SSL for Jetty, which uses Sun's referenc
 <p>Configuring SSL can be a confusing experience of keys, certificates, protocols and formats, thus it helps to have a reasonable understanding of the basics. The following links provide some good starting points:
 </p>
 <ul><li> Certificates:
-<ul><li> <a rel="nofollow" class="external text" href="http://en.tldp.org/HOWTO/SSL-Certificates-HOWTO">SSL Certificates HOWTO</a></li>
+<ul><li> <a class="external text" rel="nofollow" href="http://en.tldp.org/HOWTO/SSL-Certificates-HOWTO">SSL Certificates HOWTO</a></li>
 <li> <a rel="nofollow" class="external text" href="http://mindprod.com/jgloss/certificate.html">Mindprod Java Glossary definition</a></li></ul></li>
 <li>Keytool:
 <ul><li> <a rel="nofollow" class="external text" href="http://java.sun.com/j2se/1.4.1/docs/tooldocs/solaris/keytool.html">Keytool for Unix</a></li>
-<li> <a rel="nofollow" class="external text" href="http://java.sun.com/j2se/1.4.1/docs/tooldocs/windows/keytool.html">Keytool for Windows</a></li></ul></li>
+<li> <a href="http://java.sun.com/j2se/1.4.1/docs/tooldocs/windows/keytool.html" rel="nofollow" class="external text">Keytool for Windows</a></li></ul></li>
 <li> Other tools:
-<ul><li> <a rel="nofollow" class="external text" href="http://www.alphaworks.ibm.com/tech/keyman">IBM Keyman</a></li></ul></li>
+<ul><li> <a href="http://www.alphaworks.ibm.com/tech/keyman" rel="nofollow" class="external text">IBM Keyman</a></li></ul></li>
 <li> OpenSSL:
 <ul><li> <a rel="nofollow" class="external text" href="http://www.openssl.org/docs/HOWTO/">OpenSSL HOWTO</a></li>
-<li> <a rel="nofollow" class="external text" href="http://www.openssl.org/support/faq.html">FAQ</a></li></ul></li></ul>
-<h2><span class="mw-headline" id="Configuring_Jetty_for_SSL">Configuring Jetty for SSL</span></h2>
+<li> <a href="http://www.openssl.org/support/faq.html" rel="nofollow" class="external text">FAQ</a></li></ul></li></ul>
+<h2><span id="Configuring_Jetty_for_SSL" class="mw-headline">Configuring Jetty for SSL</span></h2>
 <p>To configure Jetty for SSL, complete the tasks in the following sections:
-</p><p><a href="Configure&#32;SSL.html#Generating_Key_Pairs_and_Certificates">Generating Key Pairs and Certificates</a>
-</p><p><a href="Configure&#32;SSL.html#Requesting_a_Trusted_Certificate">Requesting a Trusted Certificate</a>
-</p><p><a href="Configure&#32;SSL.html#Loading_Keys_and_Certificates">Loading Keys and Certificates</a>
-</p><p><a href="Configure&#32;SSL.html#Configuring_Jetty">Configuring Jetty</a>
+</p><p><a href="Configure SSL.html#Generating_Key_Pairs_and_Certificates">Generating Key Pairs and Certificates</a>
+</p><p><a href="Configure SSL.html#Requesting_a_Trusted_Certificate">Requesting a Trusted Certificate</a>
+</p><p><a href="Configure SSL.html#Loading_Keys_and_Certificates">Loading Keys and Certificates</a>
+</p><p><a href="Configure SSL.html#Configuring_Jetty">Configuring Jetty</a>
 </p>
-<h3><span class="mw-headline" id="OpenSSL_Versus_Keytool">OpenSSL Versus Keytool</span></h3>
-<p>For testing, keytool probably provides the simplest way to generate the key and certificate you need. However, IBM's <a rel="nofollow" class="external text" href="http://www.alphaworks.ibm.com/tech/keyman">keyman</a> is also pretty good, and provides a GUI rather than a command line.
+<h3><span id="OpenSSL_Versus_Keytool" class="mw-headline">OpenSSL Versus Keytool</span></h3>
+<p>For testing, keytool probably provides the simplest way to generate the key and certificate you need. However, IBM's <a href="http://www.alphaworks.ibm.com/tech/keyman" rel="nofollow" class="external text">keyman</a> is also pretty good, and provides a GUI rather than a command line.
 </p><p>You can also use the OpenSSL tools to generate keys and certificates, or to convert those that you have used with Apache or other servers. Since Apache and other servers commonly use the OpenSSL tool suite to generate and manipulate keys and certificates, you might already have some keys and certificates created by OpenSSL. Also, OpenSSL might be more trusted than keytool or some certificate authorities. You might also prefer the formats OpenSSL produces.
 </p><p>If you want the option of using the same certificate with Jetty or a web server such as Apache not written in Java, you might prefer to generate your private key and certificate with OpenSSL. The Java keytool does not provide options for exporting private keys, and Apache needs the private key. If you create the key and certificate with OpenSSL, your non-Java web server has ready access to it.
 </p>
-<h2><span class="mw-headline" id="Generating_Key_Pairs_and_Certificates">Generating Key Pairs and Certificates</span></h2>
-<p>The simplest way to generate keys and certificates is to use the keytool application that comes with the JDK, as it generates keys and certificates directly into the keystore. See <a href="Configure&#32;SSL.html#Generating_a_Certificate_with_JDK_keytool">Generating a Certificate with JDK keytool</a>.
-</p><p>If you already have keys and certificates, see <a href="Configure&#32;SSL.html#Loading_Keys_and_Certificates">Loading Keys and Certificates</a> to load them into a JSSE key store. This section also applies if you have a renewal certificate to replace one that is expiring.
+<h2><span id="Generating_Key_Pairs_and_Certificates" class="mw-headline">Generating Key Pairs and Certificates</span></h2>
+<p>The simplest way to generate keys and certificates is to use the keytool application that comes with the JDK, as it generates keys and certificates directly into the keystore. See <a href="Configure SSL.html#Generating_a_Certificate_with_JDK_keytool">Generating a Certificate with JDK keytool</a>.
+</p><p>If you already have keys and certificates, see <a href="Configure SSL.html#Loading_Keys_and_Certificates">Loading Keys and Certificates</a> to load them into a JSSE key store. This section also applies if you have a renewal certificate to replace one that is expiring.
 </p><p>The examples below generate only basic keys and certificates. You should read the full manuals of the tools you are using if you want to specify:
 </p>
 <ul><li> Key size.</li>
@@ -579,34 +578,34 @@ This is an overview of how to configure SSL for Jetty, which uses Sun's referenc
 <p>The following command generates a key pair and certificate directly into a keystore:
 </p>
 <div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="bash source-bash"><pre class="de1"> keytool <span class="re5">-keystore</span> keystore <span class="re5">-alias</span> jetty <span class="re5">-genkey</span> <span class="re5">-keyalg</span> RSA</pre></div></div>
-<div class="messagebox" style="background-color: #def3fe; border: 1px solid #c5d7e0; color: black; padding: 5px; margin: 1ex 0; min-height: 35px; padding-left: 45px;">
-<div style="float: left; margin-left: -40px;"><a href="https://wiki.eclipse.org/File:Note.png" class="image"><img alt="Note.png" src="../../images/c/cc/Note.png" width="35" height="35" /></a></div>
-<div><b>The DSA key algorithm certificate produces an error after loading several pages. In a browser, it displays a message "Could not establish an encrypted connection because certificate presented by localhost has an invalid signature." The solution is to use RSA for the key algorithm.</b><br /></div>
+<div style="background-color: #def3fe; border: 1px solid #c5d7e0; color: black; padding: 5px; margin: 1ex 0; min-height: 35px; padding-left: 45px;" class="messagebox">
+<div style="float: left; margin-left: -40px;"><a class="image" href="https://wiki.eclipse.org/File:Note.png"><img src="../../images/c/cc/Note.png" height="35" alt="Note.png" width="35"/></a></div>
+<div><b>The DSA key algorithm certificate produces an error after loading several pages. In a browser, it displays a message "Could not establish an encrypted connection because certificate presented by localhost has an invalid signature." The solution is to use RSA for the key algorithm.</b><br/></div>
 </div>
-<p><br />
+<p><br/>
 This command prompts for information about the certificate and for passwords to protect both the keystore and the keys within it. The only mandatory response is to provide the fully qualified host name of the server at the "first and last name" prompt. For example: 
 </p>
 <div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="bash source-bash"><pre class="de1"> keytool <span class="re5">-keystore</span> keystore <span class="re5">-alias</span> jetty <span class="re5">-genkey</span> <span class="re5">-keyalg</span> RSA
  Enter keystore password:  password
  What is your first and <span class="kw2">last</span> name?
-   <span class="br0">&#91;</span>Unknown<span class="br0">&#93;</span>:  jetty.eclipse.org
+   <span class="br0">[</span>Unknown<span class="br0">]</span>:  jetty.eclipse.org
  What is the name of your organizational unit?
-   <span class="br0">&#91;</span>Unknown<span class="br0">&#93;</span>:  Jetty
+   <span class="br0">[</span>Unknown<span class="br0">]</span>:  Jetty
  What is the name of your organization?
-   <span class="br0">&#91;</span>Unknown<span class="br0">&#93;</span>:  Mort Bay Consulting Pty. Ltd.
+   <span class="br0">[</span>Unknown<span class="br0">]</span>:  Mort Bay Consulting Pty. Ltd.
  What is the name of your City or Locality?
-   <span class="br0">&#91;</span>Unknown<span class="br0">&#93;</span>:
+   <span class="br0">[</span>Unknown<span class="br0">]</span>:
  What is the name of your State or Province?
-   <span class="br0">&#91;</span>Unknown<span class="br0">&#93;</span>:
+   <span class="br0">[</span>Unknown<span class="br0">]</span>:
  What is the two-letter country code <span class="kw1">for</span> this unit?
-   <span class="br0">&#91;</span>Unknown<span class="br0">&#93;</span>:
+   <span class="br0">[</span>Unknown<span class="br0">]</span>:
  Is <span class="re2">CN</span>=jetty.eclipse.org, <span class="re2">OU</span>=Jetty, <span class="re2">O</span>=Mort Bay Consulting Pty. Ltd.,
  <span class="re2">L</span>=Unknown, <span class="re2">ST</span>=Unknown, <span class="re2">C</span>=Unknown correct?
-   <span class="br0">&#91;</span>no<span class="br0">&#93;</span>:  <span class="kw2">yes</span>
-&#160;
+   <span class="br0">[</span>no<span class="br0">]</span>:  <span class="kw2">yes</span>
+ 
  Enter key password <span class="kw1">for</span> <span class="sy0">&lt;</span>jetty<span class="sy0">&gt;</span>
-         <span class="br0">&#40;</span>RETURN <span class="kw1">if</span> same <span class="kw2">as</span> keystore password<span class="br0">&#41;</span>:  password</pre></div></div>
-<p>You now have the minimal requirements to run an SSL connection and could proceed directly to <a href="Configure&#32;SSL.html#Configuring_Jetty">Configuring Jetty</a> to configure an SSL connector. However the browser will not trust the certificate you have generated, and will prompt the user to this effect. While what you have at this point is often sufficient for testing, most public sites need to request a trusted certificate, as shown in the section, <a href="Configure&#32;SSL.html#Obtaining_a_CSR_from_keytool">Obtaining a CSR from keytool</a>.
+         <span class="br0">(</span>RETURN <span class="kw1">if</span> same <span class="kw2">as</span> keystore password<span class="br0">)</span>:  password</pre></div></div>
+<p>You now have the minimal requirements to run an SSL connection and could proceed directly to <a href="Configure SSL.html#Configuring_Jetty">Configuring Jetty</a> to configure an SSL connector. However the browser will not trust the certificate you have generated, and will prompt the user to this effect. While what you have at this point is often sufficient for testing, most public sites need to request a trusted certificate, as shown in the section, <a href="Configure SSL.html#Obtaining_a_CSR_from_keytool">Obtaining a CSR from keytool</a>.
 </p>
 <h3><span class="mw-headline" id="Generating_Keys_and_Certificates_with_OpenSSL">Generating Keys and Certificates with OpenSSL</span></h3>
 <p>The following command generates a key pair in the file <tt>jetty.key</tt>:
@@ -615,18 +614,18 @@ This command prompts for information about the certificate and for passwords to 
 <p>You might also want to use the <tt>-rand</tt> file argument to provide an arbitrary file that helps seed the random number generator.
 </p><p>The following command generates a certificate for the key into the file <tt>jetty.crt</tt>:
 </p>
-<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="bash source-bash"><pre class="de1"> openssl req <span class="re5">-new</span> <span class="re5">-x509</span> <span class="re5">-key</span> jetty.key <span class="re5">-out</span> jetty.crt</pre></div></div>
-<p><br />
+<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="bash source-bash"><pre class="de1"> openssl req <span class="re5">-new</span> <span class="re5">-x509</span> <span class="re5">-key</span> jetty.key <span class="re5">-out</span> jetty.crt</pre></div></div>
+<p><br/>
 The next command prompts for information about the certificate and for passwords to protect both the keystore and the keys within it. The only mandatory response is to provide the fully qualified host name of the server at the <i>Common Name</i> prompt. For example:
 </p>
 <div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="bash source-bash"><pre class="de1"> openssl genrsa <span class="re5">-des3</span> <span class="re5">-out</span> jetty.key
  Generating RSA private key, <span class="nu0">512</span> bit long modulus
  ...........................++++++++++++
  ..++++++++++++
- e is <span class="nu0">65537</span> <span class="br0">&#40;</span>0x10001<span class="br0">&#41;</span>
+ e is <span class="nu0">65537</span> <span class="br0">(</span>0x10001<span class="br0">)</span>
  Enter pass phrase <span class="kw1">for</span> jetty.key:
  Verifying - Enter pass phrase <span class="kw1">for</span> jetty.key:
-&#160;
+ 
  <span class="co0"># openssl req -new -x509 -key jetty.key -out jetty.crt</span>
  Enter pass phrase <span class="kw1">for</span> jetty.key:
  You are about to be asked to enter information to be incorporated
@@ -636,19 +635,19 @@ The next command prompts for information about the certificate and for passwords
  For some fields there is a default value,
  If you enter <span class="st_h">'.'</span>, the field is left blank.
  <span class="re5">-----</span>
- Country Name <span class="br0">&#40;</span><span class="nu0">2</span> letter code<span class="br0">&#41;</span> <span class="br0">&#91;</span>AU<span class="br0">&#93;</span>:.
- State or Province Name <span class="br0">&#40;</span>full name<span class="br0">&#41;</span> <span class="br0">&#91;</span>Some-State<span class="br0">&#93;</span>:.
- Locality Name <span class="br0">&#40;</span>eg, city<span class="br0">&#41;</span> <span class="br0">&#91;</span><span class="br0">&#93;</span>:.
- Organization Name <span class="br0">&#40;</span>eg, company<span class="br0">&#41;</span> <span class="br0">&#91;</span>Internet Widgets Pty Ltd<span class="br0">&#93;</span>:Mort Bay Consulting Pty. Ltd.
- Organizational Unit Name <span class="br0">&#40;</span>eg, section<span class="br0">&#41;</span> <span class="br0">&#91;</span><span class="br0">&#93;</span>:Jetty
- Common Name <span class="br0">&#40;</span>eg, YOUR name<span class="br0">&#41;</span> <span class="br0">&#91;</span><span class="br0">&#93;</span>:jetty.eclipse.org
- Email Address <span class="br0">&#91;</span><span class="br0">&#93;</span>:
-&#160;
+ Country Name <span class="br0">(</span><span class="nu0">2</span> letter code<span class="br0">)</span> <span class="br0">[</span>AU<span class="br0">]</span>:.
+ State or Province Name <span class="br0">(</span>full name<span class="br0">)</span> <span class="br0">[</span>Some-State<span class="br0">]</span>:.
+ Locality Name <span class="br0">(</span>eg, city<span class="br0">)</span> <span class="br0">[</span><span class="br0">]</span>:.
+ Organization Name <span class="br0">(</span>eg, company<span class="br0">)</span> <span class="br0">[</span>Internet Widgets Pty Ltd<span class="br0">]</span>:Mort Bay Consulting Pty. Ltd.
+ Organizational Unit Name <span class="br0">(</span>eg, section<span class="br0">)</span> <span class="br0">[</span><span class="br0">]</span>:Jetty
+ Common Name <span class="br0">(</span>eg, YOUR name<span class="br0">)</span> <span class="br0">[</span><span class="br0">]</span>:jetty.eclipse.org
+ Email Address <span class="br0">[</span><span class="br0">]</span>:
+ 
  <span class="co0">#</span></pre></div></div>
-<p>You now have the minimal requirements to run an SSL connection and could proceed directly to <a href="Configure&#32;SSL.html#Loading_Keys_and_Certificates">Loading Keys and Certificates</a> to load these keys and certificates into a JSSE keystore. However the browser will not trust the certificate you have generated, and will prompt the user to this effect. While what you have at this point is often sufficient for testing, most public sites need to request a trusted certificate, as shown in the section, <a href="Configure&#32;SSL.html#Generating_a_CSR_from_OpenSSL">Generating a CSR from OpenSSL</a> to obtain a certificate.
+<p>You now have the minimal requirements to run an SSL connection and could proceed directly to <a href="Configure SSL.html#Loading_Keys_and_Certificates">Loading Keys and Certificates</a> to load these keys and certificates into a JSSE keystore. However the browser will not trust the certificate you have generated, and will prompt the user to this effect. While what you have at this point is often sufficient for testing, most public sites need to request a trusted certificate, as shown in the section, <a href="Configure SSL.html#Generating_a_CSR_from_OpenSSL">Generating a CSR from OpenSSL</a> to obtain a certificate.
 </p>
-<h3><span class="mw-headline" id="Using_Keys_and_Certificates_from_Other_Sources">Using Keys and Certificates from Other Sources</span></h3>
-<p>If you have keys and certificates from other sources, you can proceed directly to <a href="Configure&#32;SSL.html#Loading_Keys_and_Certificates">Loading Keys and Certificates</a>.
+<h3><span id="Using_Keys_and_Certificates_from_Other_Sources" class="mw-headline">Using Keys and Certificates from Other Sources</span></h3>
+<p>If you have keys and certificates from other sources, you can proceed directly to <a href="Configure SSL.html#Loading_Keys_and_Certificates">Loading Keys and Certificates</a>.
 </p>
 <h2><span class="mw-headline" id="Requesting_a_Trusted_Certificate">Requesting a Trusted Certificate</span></h2>
 <p>The keys and certificates generated with the JDK keytool and OpenSSL are sufficient to run an SSL connector. However the browser will not trust the certificate you have generated, and it will prompt the user to this effect.
@@ -659,30 +658,30 @@ The next command prompts for information about the certificate and for passwords
 <p>The following command generates the file <tt>jetty.csr</tt> using keytool for a key/cert already in the keystore:
 </p>
 <div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="bash source-bash"><pre class="de1"> keytool <span class="re5">-certreq</span> <span class="re5">-alias</span> jetty <span class="re5">-keystore</span> keystore <span class="re5">-file</span> jetty.csr</pre></div></div>
-<p><br />
+<p><br/>
 </p>
 <h3><span class="mw-headline" id="Generating_a_CSR_from_OpenSSL">Generating a CSR from OpenSSL</span></h3>
 <p>The following command generates the file <tt>jetty.csr</tt> using OpenSSL for a key in the file <tt>jetty.key</tt>:
 </p>
-<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="bash source-bash"><pre class="de1"> openssl req <span class="re5">-new</span> <span class="re5">-key</span> jetty.key <span class="re5">-out</span> jetty.csr</pre></div></div>
+<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="bash source-bash"><pre class="de1"> openssl req <span class="re5">-new</span> <span class="re5">-key</span> jetty.key <span class="re5">-out</span> jetty.csr</pre></div></div>
 <p>Notice that this command uses only the existing key from <tt>jetty.key</tt> file, and not a certificate in <tt>jetty.crt</tt> as generated with OpenSSL. You need to enter the details for the certificate again.
 </p>
-<h2><span class="mw-headline" id="Loading_Keys_and_Certificates">Loading Keys and Certificates</span></h2>
+<h2><span id="Loading_Keys_and_Certificates" class="mw-headline">Loading Keys and Certificates</span></h2>
 <p>Once a CA has sent you a certificate, or if you generated your own certificate without keytool, you need to load it into a JSSE keystore. 
 </p>
-<div class="messagebox" style="background-color: #def3fe; border: 1px solid #c5d7e0; color: black; padding: 5px; margin: 1ex 0; min-height: 35px; padding-left: 45px;">
-<div style="float: left; margin-left: -40px;"><a href="https://wiki.eclipse.org/File:Note.png" class="image"><img alt="Note.png" src="../../images/c/cc/Note.png" width="35" height="35" /></a></div>
+<div style="background-color: #def3fe; border: 1px solid #c5d7e0; color: black; padding: 5px; margin: 1ex 0; min-height: 35px; padding-left: 45px;" class="messagebox">
+<div style="float: left; margin-left: -40px;"><a class="image" href="https://wiki.eclipse.org/File:Note.png"><img alt="Note.png" width="35" height="35" src="../../images/c/cc/Note.png"/></a></div>
 <div>
 <p><b>Combined Private Key and Certificate</b>
 </p>
-You need both the private key and the certificate in the keystore. You should load the certificate into the keystore used to generate the CSR with keytool. If your key pair is not in a keystore (generated with OpenSSL), you need to use the PKCS12 format to load both key and certificate (see <a href="Configure&#32;SSL.html#Loading_Keys_and_Certificates_via_PKCS12">Loading Keys and Certificates via PKCS12</a>.<b><br /></div></b>
+You need both the private key and the certificate in the keystore. You should load the certificate into the keystore used to generate the CSR with keytool. If your key pair is not in a keystore (generated with OpenSSL), you need to use the PKCS12 format to load both key and certificate (see <a href="Configure SSL.html#Loading_Keys_and_Certificates_via_PKCS12">Loading Keys and Certificates via PKCS12</a>.<b><br/></b></div>
 </div>
-<p><br />
+<p><br/>
 </p>
 <h3><span class="mw-headline" id="Loading_Certificates_with_keytool">Loading Certificates with keytool</span></h3>
 <p>You can use keytool to load a certificate in PEM form directly into a keystore. The PEM format is a text encoding of certificates; it is produced by OpenSSL, and is returned by some CAs. An example PEM file is:
 </p>
-<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="bash source-bash"><pre class="de1"> jetty.crt
+<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="bash source-bash"><pre class="de1"> jetty.crt
  <span class="re5">-----BEGIN</span> CERTIFICATE-----
  MIICSDCCAfKgAwIBAgIBADANBgkqhkiG9w0BAQQFADBUMSYwJAYDVQQKEx1Nb3J0
  IEJheSBDb25zdWx0aW5nIFB0eS4gTHRkLjEOMAwGA1UECxMFSmV0dHkxGjAYBgNV
@@ -700,15 +699,15 @@ You need both the private key and the certificate in the keystore. You should lo
  <span class="re5">-----END</span> CERTIFICATE-----</pre></div></div>
 <p>The following command loads a PEM encoded certificate in the <tt>jetty.crt</tt> file into a JSSE keystore:
 </p>
-<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="bash source-bash"><pre class="de1"> keytool <span class="re5">-keystore</span> keystore <span class="re5">-import</span> <span class="re5">-alias</span> jetty <span class="re5">-file</span> jetty.crt <span class="re5">-trustcacerts</span></pre></div></div>
+<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="bash source-bash"><pre class="de1"> keytool <span class="re5">-keystore</span> keystore <span class="re5">-import</span> <span class="re5">-alias</span> jetty <span class="re5">-file</span> jetty.crt <span class="re5">-trustcacerts</span></pre></div></div>
 <p>Depending on the situation, you might not require the <tt>-trustcacerts</tt> option. Try the operation without it if you like. If the certificate you receive from the CA is not in a format that keytool understands, you can use the <tt>openssl</tt> command to convert formats:
 </p>
-<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="bash source-bash"><pre class="de1"> openssl x509 <span class="re5">-in</span> jetty.der <span class="re5">-inform</span> DER <span class="re5">-outform</span> PEM <span class="re5">-out</span> jetty.crt</pre></div></div>
-<h3><span class="mw-headline" id="Loading_Keys_and_Certificates_via_PKCS12">Loading Keys and Certificates via PKCS12</span></h3>
+<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="bash source-bash"><pre class="de1"> openssl x509 <span class="re5">-in</span> jetty.der <span class="re5">-inform</span> DER <span class="re5">-outform</span> PEM <span class="re5">-out</span> jetty.crt</pre></div></div>
+<h3><span id="Loading_Keys_and_Certificates_via_PKCS12" class="mw-headline">Loading Keys and Certificates via PKCS12</span></h3>
 <p>If you have a key and certificate in separate files, you need to combine them into a PKCS12 format file to load into a new keystore. The certificate can be one you generated yourself or one returned from a CA in response to your CSR.
 </p><p>The following OpenSSL command combines the keys in <tt>jetty.key</tt> and the certificate in the <tt>jetty.crt</tt> file into the <tt>jetty.pkcs12</tt> file:
 </p>
-<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="bash source-bash"><pre class="de1"> openssl pkcs12 <span class="re5">-inkey</span> jetty.key <span class="re5">-in</span> jetty.crt <span class="re5">-export</span> <span class="re5">-out</span> jetty.pkcs12</pre></div></div>
+<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="bash source-bash"><pre class="de1"> openssl pkcs12 <span class="re5">-inkey</span> jetty.key <span class="re5">-in</span> jetty.crt <span class="re5">-export</span> <span class="re5">-out</span> jetty.pkcs12</pre></div></div>
 <p>If you have a chain of certificates, because your CA is an intermediary, build the PKCS12 file as follows:
 </p>
 <div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="bash source-bash"><pre class="de1"> <span class="co0"># cat example.crt intermediate.crt [intermediate2.crt]... rootCA.crt &gt; cert-chain.txt</span>
@@ -716,7 +715,7 @@ You need both the private key and the certificate in the keystore. You should lo
 <p>The order of certificates must be from server to rootCA, as per RFC2246 section 7.4.2.
 </p><p>OpenSSL asks for an <i>export password</i>. A non-empty password seems to be required to make the next step work. Then load the resulting PKCS12 file into a JSSE keystore with the following jetty utility class:
 </p>
-<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="java source-java"><pre class="de1"> java <span class="sy0">-</span>classpath $JETTY_HOME<span class="sy0">/</span>lib<span class="sy0">/</span>jetty<span class="sy0">-</span>util<span class="sy0">-</span><span class="nu0">6.1</span><span class="sy0">-</span>SNAPSHOT.<span class="me1">jar</span><span class="sy0">:</span>$JETTY_HOME<span class="sy0">/</span>lib<span class="sy0">/</span>jetty<span class="sy0">-</span><span class="nu0">6.1</span><span class="sy0">-</span>SNAPSHOT.<span class="me1">jar</span> org.<span class="me1">eclipse</span>.<span class="me1">jetty</span>.<span class="me1">security</span>.<span class="me1">PKCS12Import</span> <span class="co2">jetty.pkcs12</span> keystore</pre></div></div>
+<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="java source-java"><pre class="de1"> java <span class="sy0">-</span>classpath $JETTY_HOME<span class="sy0">/</span>lib<span class="sy0">/</span>jetty<span class="sy0">-</span>util<span class="sy0">-</span><span class="nu0">6.1</span><span class="sy0">-</span>SNAPSHOT.<span class="me1">jar</span><span class="sy0">:</span>$JETTY_HOME<span class="sy0">/</span>lib<span class="sy0">/</span>jetty<span class="sy0">-</span><span class="nu0">6.1</span><span class="sy0">-</span>SNAPSHOT.<span class="me1">jar</span> org.<span class="me1">eclipse</span>.<span class="me1">jetty</span>.<span class="me1">security</span>.<span class="me1">PKCS12Import</span> <span class="co2">jetty.pkcs12</span> keystore</pre></div></div>
 <p>This asks for two passphrases. Give the password from the last step as the input passphrase and you are set. The "output passphrase" must appear in your <tt>jetty.xml</tt> config file as both the Password and KeyPassword of the SunJsseListener that uses the certificate.
 </p><p>You can also use keytool (starting form jdk1.6) to import a PKCS12 file with the following command:
 </p>
@@ -726,20 +725,20 @@ You need both the private key and the certificate in the keystore. You should lo
 </p><p>Jetty has two SSL connectors–the SslSocketConnector and the SslSelectChannelConnector. The SslSocketConnector is built on top of the Jetty SocketConnector which is Jetty's implementation of a blocking connector. It uses Java's SslSocket to add the security layer. The SslSelectChannelConnector is an extension of Jetty's SelectChannelConnector which uses non-blocking IO. For its security layer, it uses java nio SslEngine. You can configure these two connectors similarly; the difference is in the implementation.
 </p><p>The following is an example of an SslSelectChannelConnector configuration. You can configure an SslSocketConnector the same way–just change the value of the class to <tt>org.eclipse.jetty.server.ssl.SslSocketConnector</tt>.
 </p>
-<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="xml source-xml"><pre class="de1">   <span class="sc3"><span class="re1">&lt;Call</span> <span class="re0">name</span>=<span class="st0">&quot;addConnector&quot;</span><span class="re2">&gt;</span></span>
+<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="xml source-xml"><pre class="de1">   <span class="sc3"><span class="re1">&lt;Call</span> <span class="re0">name</span>=<span class="st0">"addConnector"</span><span class="re2">&gt;</span></span>
      <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>
-       <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">class</span>=<span class="st0">&quot;org.eclipse.jetty.server.ssl.SslSelectChannelConnector&quot;</span><span class="re2">&gt;</span></span>
+       <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.server.ssl.SslSelectChannelConnector"</span><span class="re2">&gt;</span></span>
          <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>
-           <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">class</span>=<span class="st0">&quot;org.eclipse.jetty.http.ssl.SslContextFactory&quot;</span><span class="re2">&gt;</span></span>
-             <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">&quot;keyStore&quot;</span><span class="re2">&gt;</span><span class="re1">&lt;SystemProperty</span> <span class="re0">name</span>=<span class="st0">&quot;jetty.home&quot;</span> <span class="re0">default</span>=<span class="st0">&quot;.&quot;</span> <span class="re2">/&gt;</span></span>/etc/keystore<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
-             <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">&quot;keyStorePassword&quot;</span><span class="re2">&gt;</span></span>OBF:1vny1zlo1x8e1vnw1vn61x8g1zlu1vn4<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
-             <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">&quot;keyManagerPassword&quot;</span><span class="re2">&gt;</span></span>OBF:1u2u1wml1z7s1z7a1wnl1u2g<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
-             <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">&quot;trustStore&quot;</span><span class="re2">&gt;</span><span class="re1">&lt;SystemProperty</span> <span class="re0">name</span>=<span class="st0">&quot;jetty.home&quot;</span> <span class="re0">default</span>=<span class="st0">&quot;.&quot;</span> <span class="re2">/&gt;</span></span>/etc/keystore<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
-             <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">&quot;trustStorePassword&quot;</span><span class="re2">&gt;</span></span>OBF:1vny1zlo1x8e1vnw1vn61x8g1zlu1vn4<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
+           <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.http.ssl.SslContextFactory"</span><span class="re2">&gt;</span></span>
+             <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"keyStore"</span><span class="re2">&gt;</span><span class="re1">&lt;SystemProperty</span> <span class="re0">name</span>=<span class="st0">"jetty.home"</span> <span class="re0">default</span>=<span class="st0">"."</span> <span class="re2">/&gt;</span></span>/etc/keystore<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
+             <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"keyStorePassword"</span><span class="re2">&gt;</span></span>OBF:1vny1zlo1x8e1vnw1vn61x8g1zlu1vn4<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
+             <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"keyManagerPassword"</span><span class="re2">&gt;</span></span>OBF:1u2u1wml1z7s1z7a1wnl1u2g<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
+             <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"trustStore"</span><span class="re2">&gt;</span><span class="re1">&lt;SystemProperty</span> <span class="re0">name</span>=<span class="st0">"jetty.home"</span> <span class="re0">default</span>=<span class="st0">"."</span> <span class="re2">/&gt;</span></span>/etc/keystore<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
+             <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"trustStorePassword"</span><span class="re2">&gt;</span></span>OBF:1vny1zlo1x8e1vnw1vn61x8g1zlu1vn4<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
            <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span>
          <span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
-         <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">&quot;port&quot;</span><span class="re2">&gt;</span></span>8443<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
-         <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">&quot;maxIdleTime&quot;</span><span class="re2">&gt;</span></span>30000<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
+         <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"port"</span><span class="re2">&gt;</span></span>8443<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
+         <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"maxIdleTime"</span><span class="re2">&gt;</span></span>30000<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
        <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span>
      <span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
    <span class="sc3"><span class="re1">&lt;/Call<span class="re2">&gt;</span></span></span></pre></div></div>
@@ -755,7 +754,7 @@ You need both the private key and the certificate in the keystore. You should lo
 <li> secureRandomAlgorithm–Default value is null.</li>
 <li> protocol–Default value is "TLS."</li>
 <li> provider–Default is the first provider that supports that protocol.</li>
-<li> includeCipherSuites–See <a href="CipherSuites.html" title="Jetty/Howto/CipherSuites">How to configure SSL Cipher Suites</a>.</li>
+<li> includeCipherSuites–See <a title="Jetty/Howto/CipherSuites" href="CipherSuites.html">How to configure SSL Cipher Suites</a>.</li>
 <li> excludeCipherSuites–See <a href="CipherSuites.html" title="Jetty/Howto/CipherSuites">How to configure SSL Cipher Suites</a>.</li>
 <li> needClientAuth–Default is false</li>
 <li> wantClientAuth–Defaults is false.</li>
@@ -763,27 +762,27 @@ You need both the private key and the certificate in the keystore. You should lo
 <li> allowRenegotiate–Default is false.</li>
 <li> crlPath–Path to certificate revocation list file for SSL certificate validation.</li>
 <li> maxCertPathLengh–Maximum allowed number of intermediate certificates, default is -1 (unlimited).</li></ul>
-<p>If there is no value for the <i>truststore</i>, the system uses the <i>keystore</i> value. You can obfuscate passwords by using the Jetty <a href="Secure&#32;Passwords.html" title="Jetty/Howto/Secure Passwords">password utility</a>.
+<p>If there is no value for the <i>truststore</i>, the system uses the <i>keystore</i> value. You can obfuscate passwords by using the Jetty <a href="Secure Passwords.html" title="Jetty/Howto/Secure Passwords">password utility</a>.
 </p>
 <h3><span class="mw-headline" id="Choosing_a_Directory_for_the_keystore">Choosing a Directory for the keystore</span></h3>
 <p>The keystore file in the example above is given relative to the jetty home directory. For production, choose a private directory with restricted access to keep your keystore in. Even though it has a password on it, the password may be configured into the runtime environment so is vulnerable to theft. You can now start Jetty the normal way (make sure that jcert.jar, jnet.jar and jsse.jar are on your classpath) and SSL can be used with a URL like:
 </p>
 <div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="bash source-bash"><pre class="de1"> https:<span class="sy0">//</span>localhost:<span class="nu0">8443</span><span class="sy0">/</span></pre></div></div>
 <h3><span class="mw-headline" id="Setting_the_Port_for_https">Setting the Port for https</span></h3>
-<p>Remember that the default port for https is 443 not 80, so change 8443 to 443 if you want to be able to use URLs without explicit port numbers. For a production site it normally makes sense to have an HttpListener on port 80 and a SunJsseListener on port 443. Because these are privileged ports, you might want to use a redirection mechanism to map port 80 to, for example, 8080 and 443 to, for example, 8443. For details on this, see <a href="Port80.html" title="Jetty/Howto/Port80">Accessing Port 80 as a non-Root User</a>. 
-</p><p><br />
+<p>Remember that the default port for https is 443 not 80, so change 8443 to 443 if you want to be able to use URLs without explicit port numbers. For a production site it normally makes sense to have an HttpListener on port 80 and a SunJsseListener on port 443. Because these are privileged ports, you might want to use a redirection mechanism to map port 80 to, for example, 8080 and 443 to, for example, 8443. For details on this, see <a title="Jetty/Howto/Port80" href="Port80.html">Accessing Port 80 as a non-Root User</a>. 
+</p><p><br/>
 </p>
 <div class="messagebox" style="background-color: #def3fe; border: 1px solid #c5d7e0; color: black; padding: 5px; margin: 1ex 0; min-height: 35px; padding-left: 45px;">
-<div style="float: left; margin-left: -40px;"><a href="https://wiki.eclipse.org/File:Note.png" class="image"><img alt="Note.png" src="../../images/c/cc/Note.png" width="35" height="35" /></a></div>
-<div><b>The most common mistake at this point is to try to access port 8443 with http rather than https.</b><br /></div>
+<div style="float: left; margin-left: -40px;"><a class="image" href="https://wiki.eclipse.org/File:Note.png"><img src="../../images/c/cc/Note.png" height="35" alt="Note.png" width="35"/></a></div>
+<div><b>The most common mistake at this point is to try to access port 8443 with http rather than https.</b><br/></div>
 </div>
-<p><br />
+<p><br/>
 </p>
-<h3><span class="mw-headline" id="Redirecting_http_requests_to_https">Redirecting http requests to https</span></h3>
+<h3><span id="Redirecting_http_requests_to_https" class="mw-headline">Redirecting http requests to https</span></h3>
 <p>To redirect http to https, the webapp should indicate it needs CONFIDENTIAL or INTEGRAL connections from users. This is
 done in web.xml:
 </p>
-<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="xml source-xml"><pre class="de1"><span class="sc3"><span class="re1">&lt;web-app<span class="re2">&gt;</span></span></span>
+<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="xml source-xml"><pre class="de1"><span class="sc3"><span class="re1">&lt;web-app<span class="re2">&gt;</span></span></span>
   ...
   <span class="sc3"><span class="re1">&lt;security-constraint<span class="re2">&gt;</span></span></span>
     <span class="sc3"><span class="re1">&lt;web-resource-collection<span class="re2">&gt;</span></span></span>
@@ -798,11 +797,11 @@ done in web.xml:
 <p>Then you need to tell the plain http connector if the users try to access that webapp using plain http, they
 should be redirected to the port of your ssl connector (the "confidential port"):
 </p>
-<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="xml source-xml"><pre class="de1"><span class="sc3"><span class="re1">&lt;Call</span> <span class="re0">name</span>=<span class="st0">&quot;addConnector&quot;</span><span class="re2">&gt;</span></span>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="xml source-xml"><pre class="de1"><span class="sc3"><span class="re1">&lt;Call</span> <span class="re0">name</span>=<span class="st0">"addConnector"</span><span class="re2">&gt;</span></span>
    <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>
-      <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">class</span>=<span class="st0">&quot;org.eclipse.jetty.nio.SelectChannelConnector&quot;</span><span class="re2">&gt;</span></span>
+      <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.nio.SelectChannelConnector"</span><span class="re2">&gt;</span></span>
          ...
-         <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">&quot;confidentialPort&quot;</span><span class="re2">&gt;</span></span>443<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
+         <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"confidentialPort"</span><span class="re2">&gt;</span></span>443<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
       <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span>
    <span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
 <span class="sc3"><span class="re1">&lt;/Call<span class="re2">&gt;</span></span></span></pre></div></div>
@@ -810,17 +809,17 @@ should be redirected to the port of your ssl connector (the "confidential port")
 a deployment issue), you can set this requirement in the context (so you must deploy the webapp as a WebAppContext
 instead of just a war file):
 </p>
-<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="xml source-xml"><pre class="de1">  <span class="sc3"><span class="re1">&lt;Configure</span> <span class="re0">class</span>=<span class="st0">&quot;org.eclipse.jetty.webapp.WebAppContext&quot;</span><span class="re2">&gt;</span></span>
-     <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">&quot;securityHandler&quot;</span><span class="re2">&gt;</span></span>
-        <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">class</span>=<span class="st0">&quot;org.eclipse.jetty.security.ConstraintSecurityHandler&quot;</span><span class="re2">&gt;</span></span>
-            <span class="sc3"><span class="re1">&lt;Call</span> <span class="re0">name</span>=<span class="st0">&quot;addConstraintMapping&quot;</span><span class="re2">&gt;</span></span>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="xml source-xml"><pre class="de1">  <span class="sc3"><span class="re1">&lt;Configure</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.webapp.WebAppContext"</span><span class="re2">&gt;</span></span>
+     <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"securityHandler"</span><span class="re2">&gt;</span></span>
+        <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.security.ConstraintSecurityHandler"</span><span class="re2">&gt;</span></span>
+            <span class="sc3"><span class="re1">&lt;Call</span> <span class="re0">name</span>=<span class="st0">"addConstraintMapping"</span><span class="re2">&gt;</span></span>
                 <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>
-                   <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">class</span>=<span class="st0">&quot;org.eclipse.jetty.security.ConstraintMapping&quot;</span><span class="re2">&gt;</span></span>
-                       <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">&quot;pathSpec&quot;</span><span class="re2">&gt;</span></span>/*<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
-                       <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">&quot;constraint&quot;</span><span class="re2">&gt;</span></span>
-                          <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">class</span>=<span class="st0">&quot;org.eclipse.jetty.util.security.Constraint&quot;</span><span class="re2">&gt;</span></span>
+                   <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.security.ConstraintMapping"</span><span class="re2">&gt;</span></span>
+                       <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"pathSpec"</span><span class="re2">&gt;</span></span>/*<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
+                       <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"constraint"</span><span class="re2">&gt;</span></span>
+                          <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.util.security.Constraint"</span><span class="re2">&gt;</span></span>
                              <span class="sc-1">&lt;!-- 2 means CONFIDENTIAL. 1 means INTEGRITY --&gt;</span>
-                             <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">&quot;dataConstraint&quot;</span><span class="re2">&gt;</span></span>2<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
+                             <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"dataConstraint"</span><span class="re2">&gt;</span></span>2<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
                           <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span>
                        <span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
                    <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span>
@@ -829,17 +828,17 @@ instead of just a war file):
         <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span>
      <span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
   <span class="sc3"><span class="re1">&lt;/Configure<span class="re2">&gt;</span></span></span></pre></div></div>
-<h3><span class="mw-headline" id="Configuring_SSL_for_Earlier_Versions_of_Jetty">Configuring SSL for Earlier Versions of Jetty</span></h3>
-<p>For instructions on configuring SSL for versions earlier than Jetty 7.3.1, refer to <a href="../Reference/SSL&#32;Connectors.html#Using_Deprecated_Methods" title="Jetty/Reference/SSL Connectors">Using Deprecated Methods to Configure SSL for Jetty</a>.
-</p><p><br />
+<h3><span id="Configuring_SSL_for_Earlier_Versions_of_Jetty" class="mw-headline">Configuring SSL for Earlier Versions of Jetty</span></h3>
+<p>For instructions on configuring SSL for versions earlier than Jetty 7.3.1, refer to <a title="Jetty/Reference/SSL Connectors" href="../Reference/SSL Connectors.html#Using_Deprecated_Methods">Using Deprecated Methods to Configure SSL for Jetty</a>.
+</p><p><br/>
 </p>
 <h2><span class="mw-headline" id="Password_Issues">Password Issues</span></h2>
 <p>If the configuration does not include passwords, you can provide them as as java properties (<tt>jetty.ssl.password</tt> and <tt>jetty.ssl.keypassword</tt>), else the system prompts for them. Remember that putting your password on the command line is a security risk. You can also set them as properties within the config file, but this risks accidental discovery by developers.
-</p><p>If jetty is given a password that begins with "OBF:" it is treated as an obfuscated password. You can obfuscated passwords by running <a rel="nofollow" class="external text" href="http://download.eclipse.org/jetty/stable-8/apidocs/index.html?org/eclipse/jetty/util/security/Password.html">org.eclipse.jetty.http.util.Password</a> as a main class. This can protect passwords from casual observation.
-</p><p>See <a href="Secure&#32;Passwords.html" title="Jetty/Howto/Secure Passwords">Secure Passwords</a> for more details.
+</p><p>If jetty is given a password that begins with "OBF:" it is treated as an obfuscated password. You can obfuscated passwords by running <a href="http://download.eclipse.org/jetty/stable-8/apidocs/index.html?org/eclipse/jetty/util/security/Password.html" class="external text" rel="nofollow">org.eclipse.jetty.http.util.Password</a> as a main class. This can protect passwords from casual observation.
+</p><p>See <a title="Jetty/Howto/Secure Passwords" href="Secure Passwords.html">Secure Passwords</a> for more details.
 </p>
-<h2><span class="mw-headline" id="Renewing_Certificates">Renewing Certificates</span></h2>
-<p>If you are updating your configuration to use a newer certificate, as when the old one is expiring, just load the newer certificate as described in the section, <a href="Configure&#32;SSL.html#Loading_Keys_and_Certificates">Loading Keys and Certificates</a>. If you imported the key and certificate originally using the PKCS12 method, use an alias of "1" rather than "jetty", because that is the alias the PKCS12 process enters into the keystore.
+<h2><span id="Renewing_Certificates" class="mw-headline">Renewing Certificates</span></h2>
+<p>If you are updating your configuration to use a newer certificate, as when the old one is expiring, just load the newer certificate as described in the section, <a href="Configure SSL.html#Loading_Keys_and_Certificates">Loading Keys and Certificates</a>. If you imported the key and certificate originally using the PKCS12 method, use an alias of "1" rather than "jetty", because that is the alias the PKCS12 process enters into the keystore.
 </p>
 <!-- 
 NewPP limit report
@@ -870,7 +869,7 @@ Transclusion expansion time report (%,ms,calls,template)
  -->
 </div>
                                       <!-- catlinks -->
-                    <div id='catlinks' class='catlinks'><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="https://wiki.eclipse.org/Special:Categories" title="Special:Categories">Categories</a>: <ul><li><a href="https://wiki.eclipse.org/Category:Jetty" title="Category:Jetty">Jetty</a></li><li><a href="https://wiki.eclipse.org/Category:Jetty_Howto" title="Category:Jetty Howto">Jetty Howto</a></li></ul></div></div>                     <!-- /catlinks -->
+                    <div id="catlinks" class="catlinks"><div class="mw-normal-catlinks" id="mw-normal-catlinks"><a href="https://wiki.eclipse.org/Special:Categories" title="Special:Categories">Categories</a>: <ul><li><a title="Category:Jetty" href="https://wiki.eclipse.org/Category:Jetty">Jetty</a></li><li><a title="Category:Jetty Howto" href="https://wiki.eclipse.org/Category:Jetty_Howto">Jetty Howto</a></li></ul></div></div>                     <!-- /catlinks -->
                                   </div>
               </div>
             </div>
@@ -879,7 +878,7 @@ Transclusion expansion time report (%,ms,calls,template)
 
                 <!-- printfooter -->
         <div class="printfooter">
-        Retrieved from "<a dir="ltr" href="https://wiki.eclipse.org/index.php?title=Jetty/Howto/Configure_SSL&amp;oldid=400332">https://wiki.eclipse.org/index.php?title=Jetty/Howto/Configure_SSL&amp;oldid=400332</a>"        </div>
+        Retrieved from "<a href="https://wiki.eclipse.org/index.php?title=Jetty/Howto/Configure_SSL&amp;oldid=400332" dir="ltr">https://wiki.eclipse.org/index.php?title=Jetty/Howto/Configure_SSL&amp;oldid=400332</a>"        </div>
         <!-- /printfooter -->
         
         
@@ -896,11 +895,11 @@ Transclusion expansion time report (%,ms,calls,template)
 </div>
 <div class="featured-footer featured-footer-newsletter background-secondary">
   <div class="container">
-    <p id="footercredit">This page was last modified 09:20, 7 January 2016 by <a href="https://wiki.eclipse.org/User:Wim.jongman.remainsoftware.com" title="User:Wim.jongman.remainsoftware.com">Wim Jongman</a>. Based on work by <a href="https://wiki.eclipse.org/User:Jesse.mcconnell.gmail.com" title="User:Jesse.mcconnell.gmail.com">Jesse McConnell</a>, <a href="https://wiki.eclipse.org/index.php?title=User:Jdunn.aquezada.com&amp;action=edit&amp;redlink=1" class="new" title="User:Jdunn.aquezada.com (page does not exist)">Julian Dunn</a> and <a href="https://wiki.eclipse.org/index.php?title=User:Freemant2000.yahoo.com&amp;action=edit&amp;redlink=1" class="new" title="User:Freemant2000.yahoo.com (page does not exist)">Kent Tong</a> and <a href="https://wiki.eclipse.org/index.php?title=Jetty/Howto/Configure_SSL&amp;action=credits" title="Jetty/Howto/Configure SSL">others</a>.</p><p id="footerviews"></p>  </div>
+    <p id="footercredit">This page was last modified 09:20, 7 January 2016 by <a href="https://wiki.eclipse.org/User:Wim.jongman.remainsoftware.com" title="User:Wim.jongman.remainsoftware.com">Wim Jongman</a>. Based on work by <a title="User:Jesse.mcconnell.gmail.com" href="https://wiki.eclipse.org/User:Jesse.mcconnell.gmail.com">Jesse McConnell</a>, <a title="User:Jdunn.aquezada.com (page does not exist)" href="https://wiki.eclipse.org/index.php?title=User:Jdunn.aquezada.com&amp;action=edit&amp;redlink=1" class="new">Julian Dunn</a> and <a class="new" href="https://wiki.eclipse.org/index.php?title=User:Freemant2000.yahoo.com&amp;action=edit&amp;redlink=1" title="User:Freemant2000.yahoo.com (page does not exist)">Kent Tong</a> and <a href="https://wiki.eclipse.org/index.php?title=Jetty/Howto/Configure_SSL&amp;action=credits" title="Jetty/Howto/Configure SSL">others</a>.</p><p id="footerviews"/>  </div>
 </div>
 </main> <!-- /#main-content-container-row -->
-<p id="back-to-top" class="noprint hidden-print">
-  <a class="visible-xs" href="Configure&#32;SSL.html#top">Back to the top</a>
+<p class="noprint hidden-print" id="back-to-top">
+  <a href="Configure SSL.html#top" class="visible-xs">Back to the top</a>
 </p>
 <footer id="solstice-footer">
   <div class="container">
@@ -918,7 +917,7 @@ Transclusion expansion time report (%,ms,calls,template)
           <li><a href="https://www.eclipse.org/org/foundation/directors.php">Board of Directors</a></li>
         </ul>
       </section>
-      <section class="col-sm-6 hidden-print" id="footer-legal">
+      <section id="footer-legal" class="col-sm-6 hidden-print">
         <h2 class="section-title">Legal</h2>
         <ul class="nav">
           <li><a href="https://www.eclipse.org/legal/privacy.php">Privacy Policy</a></li>
@@ -953,39 +952,39 @@ Transclusion expansion time report (%,ms,calls,template)
       <div class="col-sm-24 margin-top-20">
         <div class="row">
           <div id="copyright" class="col-md-16">
-            <p id="copyright-text">Copyright &copy; Eclipse Foundation, Inc. All Rights Reserved.</p>
+            <p id="copyright-text">Copyright © Eclipse Foundation, Inc. All Rights Reserved.</p>
           </div>
           <div class="col-md-8 social-media">
             <ul class="list-inline">
               <li>
                 <a class="social-media-link fa-stack fa-lg" href="https://twitter.com/EclipseFdn">
-                <i class="fa fa-circle-thin fa-stack-2x"></i>
-                <i class="fa fa-twitter fa-stack-1x"></i>
+                <i class="fa fa-circle-thin fa-stack-2x"/>
+                <i class="fa fa-twitter fa-stack-1x"/>
                 </a>
               </li>
               <li>
-                <a class="social-media-link fa-stack fa-lg" href="https://www.facebook.com/eclipse.org">
-                <i class="fa fa-circle-thin fa-stack-2x"></i>
-                <i class="fa fa-facebook fa-stack-1x"></i>
+                <a href="https://www.facebook.com/eclipse.org" class="social-media-link fa-stack fa-lg">
+                <i class="fa fa-circle-thin fa-stack-2x"/>
+                <i class="fa fa-facebook fa-stack-1x"/>
                 </a>
               </li>
               <li>
                 <a class="social-media-link fa-stack fa-lg" href="https://www.youtube.com/user/EclipseFdn">
-                <i class="fa fa-circle-thin fa-stack-2x"></i>
-                <i class="fa fa-youtube fa-stack-1x"></i>
+                <i class="fa fa-circle-thin fa-stack-2x"/>
+                <i class="fa fa-youtube fa-stack-1x"/>
                 </a>
               </li>
               <li>
                 <a class="social-media-link fa-stack fa-lg" href="https://www.linkedin.com/company/eclipse-foundation">
-                <i class="fa fa-circle-thin fa-stack-2x"></i>
-                <i class="fa fa-linkedin fa-stack-1x"></i>
+                <i class="fa fa-circle-thin fa-stack-2x"/>
+                <i class="fa fa-linkedin fa-stack-1x"/>
                 </a>
               </li>
             </ul>
           </div>
         </div>
       </div>
-      <a href="Configure&#32;SSL.html#" class="scrollup">Back to the top</a>
+      <a class="scrollup" href="Configure SSL.html#">Back to the top</a>
     </div>
   </div>
 </footer>
@@ -994,5 +993,6 @@ Transclusion expansion time report (%,ms,calls,template)
 mw.loader.state({"skins.solstice":"loading","user":"ready","user.groups":"ready"});mw.loader.load("/load.php?debug=false\u0026lang=en\u0026modules=skins.solstice\u0026only=scripts\u0026skin=solstice");mw.loader.load(["mediawiki.toc","mediawiki.action.view.postEdit","site","mediawiki.user","mediawiki.hidpi","mediawiki.page.ready","mediawiki.searchSuggest"]);
 } );</script><script>window.RLQ = window.RLQ || []; window.RLQ.push( function () {
 mw.config.set({"wgBackendResponseTime":418});
-} );</script>  </body>
-</html>
+} );</script>  
+
+</body></html>

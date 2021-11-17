@@ -1,6 +1,5 @@
-<!DOCTYPE html>
-<html lang="en" dir="ltr" class="client-nojs">
-<head>
+<?xml version="1.0" encoding="utf-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" dir="ltr" class="client-nojs"><head>
 <meta charset="UTF-8"/>
 <title>Jetty/Howto/Configure Jetty with XBean - Eclipsepedia</title>
 <script>document.documentElement.className = document.documentElement.className.replace( /(^|\s)client-nojs(\s|$)/, "$1client-js$2" );</script>
@@ -12,14 +11,14 @@ mw.config.set({"wgCanonicalNamespace":"","wgCanonicalSpecialPageName":!1,"wgName
 <link rel="stylesheet" href="../../skins/solstice/public/css/styles.css%3F303.css" media="screen, print"/>
 <meta name="ResourceLoaderDynamicStyles" content=""/>
 <style>a:lang(ar),a:lang(kk-arab),a:lang(mzn),a:lang(ps),a:lang(ur){text-decoration:none}</style>
-<script async="" src="../../load.php%3Fdebug=false&amp;lang=en&amp;modules=startup&amp;only=scripts&amp;skin=solstice"></script>
-<meta name="generator" content="MediaWiki 1.26.4"/>
-<link rel="shortcut icon" href="../../eclipse.org-common/themes/solstice/public/images/favicon.ico"/>
-<link rel="search" type="application/opensearchdescription+xml" href="https://wiki.eclipse.org/opensearch_desc.php" title="Eclipsepedia (en)"/>
+<script async="" src="../../load.php%3Fdebug=false&amp;lang=en&amp;modules=startup&amp;only=scripts&amp;skin=solstice"/>
+<meta content="MediaWiki 1.26.4" name="generator"/>
+<link href="../../eclipse.org-common/themes/solstice/public/images/favicon.ico" rel="shortcut icon"/>
+<link title="Eclipsepedia (en)" rel="search" type="application/opensearchdescription+xml" href="https://wiki.eclipse.org/opensearch_desc.php"/>
 <link rel="EditURI" type="application/rsd+xml" href="https://wiki.eclipse.org/api.php?action=rsd"/>
-<link rel="alternate" type="application/atom+xml" title="Eclipsepedia Atom feed" href="https://wiki.eclipse.org/index.php?title=Special:RecentChanges&amp;feed=atom"/>
+<link rel="alternate" title="Eclipsepedia Atom feed" type="application/atom+xml" href="https://wiki.eclipse.org/index.php?title=Special:RecentChanges&amp;feed=atom"/>
 <style type="text/css">
-/*<![CDATA[*/      
+/*&lt;![CDATA[*/      
 #jetty-nav {
   margin-bottom: 2em;
 }
@@ -133,9 +132,9 @@ table.jetty-table, .jetty-table table {
   float: right;
   margin: 0.5em;
 }
-/*]]>*/       
+/*]]&gt;*/       
 </style>
-<style type="text/css">/*<![CDATA[*/
+<style type="text/css">/*&lt;![CDATA[*/
 .source-xml {line-height: normal;}
 .source-xml li, .source-xml pre {
 	line-height: normal; border: 0px none white;
@@ -171,13 +170,13 @@ table.jetty-table, .jetty-table table {
 .xml.source-xml .ln-xtra, .xml.source-xml li.ln-xtra, .xml.source-xml div.ln-xtra {background-color: #ffc;}
 .xml.source-xml span.xtra { display:block; }
 
-/*]]>*/
+/*]]&gt;*/
 </style>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 </head>
-<body class="mediawiki ltr sitedir-ltr ns-0 ns-subject page-Jetty_Howto_Configure_Jetty_with_XBean skin-solstice action-view" id="solstice">
+<body id="solstice" class="mediawiki ltr sitedir-ltr ns-0 ns-subject page-Jetty_Howto_Configure_Jetty_with_XBean skin-solstice action-view">
 
-<a class="sr-only" href="Configure&#32;Jetty&#32;with&#32;XBean.html#content">Skip to main content</a>
+<a class="sr-only" href="Configure Jetty with XBean.html#content">Skip to main content</a>
 <header class="header-wrapper" id="header-wrapper">
   <div class="clearfix toolbar-container-wrapper">
     <div class="container-fluid">
@@ -186,29 +185,29 @@ table.jetty-table, .jetty-table table {
                <ul class="list-inline">
                   <li id="pt-login">
             <a href="https://wiki.eclipse.org/index.php?title=Special:UserLogin&amp;returnto=Jetty%2FHowto%2FConfigure+Jetty+with+XBean" class="toolbar-link toolbar-login">
-              <i class="fa fa-sign-in fa-fw"></i> Log in            </a>
+              <i class="fa fa-sign-in fa-fw"/> Log in            </a>
           </li>
-                <li><a class="toolbar-link toolbar-manage-cookies dropdown-toggle"><i class="fa fa-wrench"></i> Manage Cookies</a></li>
+                <li><a class="toolbar-link toolbar-manage-cookies dropdown-toggle"><i class="fa fa-wrench"/> Manage Cookies</a></li>
       </ul>
             </div>
       </div>
     </div>
   </div>
   <div class="container-fluid">
-    <div class="row" id="header-row">
+    <div id="header-row" class="row">
       <div class="col-sm-5 col-md-4" id="header-left">
-        <div class="wrapper-logo-default"><a href="https://www.eclipse.org/"><img class="logo-eclipse-default hidden-xs" alt="Eclipse.org logo" width="160" src="https://www.eclipse.org/eclipse.org-common/themes/solstice/public/images/logo/eclipse-foundation-white-orange.svg"/></a></div>
+        <div class="wrapper-logo-default"><a href="https://www.eclipse.org/"><img class="logo-eclipse-default hidden-xs" width="160" alt="Eclipse.org logo" src="https://www.eclipse.org/eclipse.org-common/themes/solstice/public/images/logo/eclipse-foundation-white-orange.svg"/></a></div>
       </div>
       <div class="col-sm-19 col-md-20 margin-top-10" id="main-menu-wrapper">
-        <div class="float-right hidden-xs" id="btn-call-for-action"><a href="https://eclipse.org/downloads/" class="btn btn-huge btn-warning"><i class="fa fa-download"></i> Download</a></div>
+        <div id="btn-call-for-action" class="float-right hidden-xs"><a href="https://eclipse.org/downloads/" class="btn btn-huge btn-warning"><i class="fa fa-download"/> Download</a></div>
         <div class="navbar yamm float-sm-right" id="main-menu">
-          <div class="navbar-collapse collapse" id="navbar-main-menu">
+          <div id="navbar-main-menu" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
               <li><a href="https://www.eclipse.org/projects/" target="_self">Projects</a></li>
-              <li><a href="https://www.eclipse.org/org/workinggroups/" target="_self">Working Groups</a></li>
+              <li><a target="_self" href="https://www.eclipse.org/org/workinggroups/">Working Groups</a></li>
               <li><a href="https://www.eclipse.org/membership/" target="_self">Members</a></li>
               <li class="dropdown visible-xs">
-                <a href="Configure&#32;Jetty&#32;with&#32;XBean.html#" data-toggle="dropdown" class="dropdown-toggle">Community <b class="caret"></b></a>
+                <a class="dropdown-toggle" data-toggle="dropdown" href="Configure Jetty with XBean.html#">Community <b class="caret"/></a>
                 <ul class="dropdown-menu">
                   <li><a href="http://marketplace.eclipse.org">Marketplace</a></li>
                   <li><a href="http://events.eclipse.org">Events</a></li>
@@ -219,7 +218,7 @@ table.jetty-table, .jetty-table table {
                 </ul>
               </li>
               <li class="dropdown visible-xs">
-                <a href="Configure&#32;Jetty&#32;with&#32;XBean.html#" data-toggle="dropdown" class="dropdown-toggle">Participate <b class="caret"></b></a>
+                <a data-toggle="dropdown" href="Configure Jetty with XBean.html#" class="dropdown-toggle">Participate <b class="caret"/></a>
                 <ul class="dropdown-menu">
                   <li><a href="https://bugs.eclipse.org/bugs/">Report a Bug</a></li>
                   <li><a href="https://www.eclipse.org/forums/">Forums</a></li>
@@ -230,7 +229,7 @@ table.jetty-table, .jetty-table table {
                 </ul>
               </li>
               <li class="dropdown visible-xs">
-                <a href="Configure&#32;Jetty&#32;with&#32;XBean.html#" data-toggle="dropdown" class="dropdown-toggle">Eclipse IDE <b class="caret"></b></a>
+                <a class="dropdown-toggle" data-toggle="dropdown" href="Configure Jetty with XBean.html#">Eclipse IDE <b class="caret"/></a>
                 <ul class="dropdown-menu">
                   <li><a href="https://www.eclipse.org/downloads">Download</a></li>
                   <li><a href="https://www.eclipse.org/eclipseide">Learn More</a></li>
@@ -243,7 +242,7 @@ table.jetty-table, .jetty-table table {
               </li>
               <!-- More -->
               <li class="dropdown eclipse-more hidden-xs">
-                <a data-toggle="dropdown" class="dropdown-toggle" role="button">More<b class="caret"></b></a>
+                <a data-toggle="dropdown" role="button" class="dropdown-toggle">More<b class="caret"/></a>
                 <ul class="dropdown-menu">
                   <li>
                     <!-- Content container to add padding -->
@@ -291,21 +290,21 @@ table.jetty-table, .jetty-table table {
             </ul>
           </div>
           <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-main-menu">
+            <button type="button" data-toggle="collapse" class="navbar-toggle" data-target="#navbar-main-menu">
             <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
+            <span class="icon-bar"/>
+            <span class="icon-bar"/>
+            <span class="icon-bar"/>
+            <span class="icon-bar"/>
             </button>
-            <div class="wrapper-logo-mobile"><a class="navbar-brand visible-xs" href="https://www.eclipse.org/"><img class="logo-eclipse-default-mobile img-responsive" alt="Eclipse.org logo" width="160" src="https://www.eclipse.org/eclipse.org-common/themes/solstice/public/images/logo/eclipse-foundation-white-orange.svg"/></a></div>
+            <div class="wrapper-logo-mobile"><a class="navbar-brand visible-xs" href="https://www.eclipse.org/"><img src="https://www.eclipse.org/eclipse.org-common/themes/solstice/public/images/logo/eclipse-foundation-white-orange.svg" alt="Eclipse.org logo" class="logo-eclipse-default-mobile img-responsive" width="160"/></a></div>
           </div>
         </div>
       </div>
     </div>
   </div>
 </header>
-<section class="default-breadcrumbs hidden-print" id="breadcrumb">
+<section id="breadcrumb" class="default-breadcrumbs hidden-print">
   <div class="container-fluid">
     <h3 class="sr-only">Breadcrumbs</h3>
     <div class="row">
@@ -325,8 +324,8 @@ table.jetty-table, .jetty-table table {
     
     
     <!-- content -->
-    <section id="content" class="mw-body container-full clearfix 0">
-      <div id="mw-js-message" style="display:none;"></div>
+    <section class="mw-body container-full clearfix 0" id="content">
+      <div id="mw-js-message" style="display:none;"/>
 
       
       <!-- bodyContent -->
@@ -335,64 +334,64 @@ table.jetty-table, .jetty-table table {
         
                 <!-- jumpto -->
         <div id="jump-to-nav" class="mw-jump">
-          Jump to: <a href="Configure&#32;Jetty&#32;with&#32;XBean.html#mw-head">navigation</a>,
-          <a href="Configure&#32;Jetty&#32;with&#32;XBean.html#p-search">search</a>
+          Jump to: <a href="Configure Jetty with XBean.html#mw-head">navigation</a>,
+          <a href="Configure Jetty with XBean.html#p-search">search</a>
         </div>
         <!-- /jumpto -->
         
           <!-- leftcol -->
-          <aside class="col-md-4 noprint hidden-print" id="leftcol">
-                      <form class="input-group" role="form" id="form-eclipse-search" action="https://wiki.eclipse.org/index.php" id="searchform">
-              <input id="searchInput" class="search-query form-control" type="search" accesskey="f" title="Special:Search" placeholder="Search" name="search" value="">
+          <aside id="leftcol" class="col-md-4 noprint hidden-print">
+                      <form class="input-group" action="https://wiki.eclipse.org/index.php" role="form" id="form-eclipse-search">
+              <input name="search" value="" placeholder="Search" title="Special:Search" id="searchInput" accesskey="f" type="search" class="search-query form-control"/>
 
               <span class="input-group-btn">
-                <button value="search" id="mw-searchButton" type="submit" class="btn btn-default" title="Search the pages for this text" name="fulltext">
-                  <i class="fa fa-search"></i>
+                <button id="mw-searchButton" type="submit" title="Search the pages for this text" class="btn btn-default" value="search" name="fulltext">
+                  <i class="fa fa-search"/>
                 </button>
               </span>
             </form>
-                      <select class="form-control margin-top-10 margin-bottom-10 visible-xs visible-sm" onchange="this.options[this.selectedIndex].value && (window.location = this.options[this.selectedIndex].value);"><option class="fw-700 "><span class="fw-700">---Navigation---</span></option><option value="/Main_Page">Main Page</option><option value="/Eclipsepedia:Community_portal">Community portal</option><option value="/Eclipsepedia:Current_events">Current events</option><option value="/Special:RecentChanges">Recent changes</option><option value="/Special:Random">Random page</option><option value="https://www.mediawiki.org/wiki/Special:MyLanguage/Help:Contents">Help</option></select><ul class="ul-left-nav fa-ul hidden-print leftnav hidden-xs hidden-sm"><li class="separator"><span class="separator">Navigation</span></li>                <li class=""><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/Main_Page" id="n-mainpage" title="Visit the main page [z]" accesskey="z">Main Page</a></li>                <li class=""><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/Eclipsepedia:Community_portal" id="n-portal" title="About the project, what you can do, where to find things">Community portal</a></li>                <li class=""><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/Eclipsepedia:Current_events" id="n-currentevents" title="Find background information on current events">Current events</a></li>                <li class=""><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/Special:RecentChanges" id="n-recentchanges" title="A list of recent changes in the wiki [r]" accesskey="r">Recent changes</a></li>                <li class=""><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/Special:Random" id="n-randompage" title="Load a random page [x]" accesskey="x">Random page</a></li>                <li class=""><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://www.mediawiki.org/wiki/Special:MyLanguage/Help:Contents" id="n-help" title="The place to find out">Help</a></li></ul>            <select class="form-control margin-top-10 margin-bottom-10 visible-xs visible-sm" onchange="this.options[this.selectedIndex].value && (window.location = this.options[this.selectedIndex].value);"><option class="fw-700 "><span class="fw-700">---Toolbox---</span></option><option value="/index.php?title=Jetty/Howto/Configure_Jetty_with_XBean&amp;action=info">Page information</option><option value="/index.php?title=Jetty/Howto/Configure_Jetty_with_XBean&amp;oldid=215696">Permanent link</option><option value="/index.php?title=Jetty/Howto/Configure_Jetty_with_XBean&amp;printable=yes">Printable version</option><option value="/Special:SpecialPages">Special pages</option><option value="/Special:RecentChangesLinked/Jetty/Howto/Configure_Jetty_with_XBean">Related changes</option><option value="/Special:WhatLinksHere/Jetty/Howto/Configure_Jetty_with_XBean">What links here</option></select><ul class="ul-left-nav fa-ul hidden-print leftnav hidden-xs hidden-sm"><li class="separator"><span class="separator">Toolbox</span></li><li><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/index.php?title=Jetty/Howto/Configure_Jetty_with_XBean&amp;action=info" id="t-info" title="More information about this page">Page information</a></li><li><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/index.php?title=Jetty/Howto/Configure_Jetty_with_XBean&amp;oldid=215696" id="t-permalink" title="Permanent link to this revision of the page">Permanent link</a></li><li><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/index.php?title=Jetty/Howto/Configure_Jetty_with_XBean&amp;printable=yes" id="t-print" rel="alternate" title="Printable version of this page [p]" accesskey="p">Printable version</a></li><li><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/Special:SpecialPages" id="t-specialpages" title="A list of all special pages [q]" accesskey="q">Special pages</a></li><li><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/Special:RecentChangesLinked/Jetty/Howto/Configure_Jetty_with_XBean" id="t-recentchangeslinked" title="Recent changes in pages linked from this page [k]" accesskey="k">Related changes</a></li><li><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/Special:WhatLinksHere/Jetty/Howto/Configure_Jetty_with_XBean" id="t-whatlinkshere" title="A list of all wiki pages that link here [j]" accesskey="j">What links here</a></li></ul>                                  </aside>
+                      <select class="form-control margin-top-10 margin-bottom-10 visible-xs visible-sm" onchange="this.options[this.selectedIndex].value &amp;&amp; (window.location = this.options[this.selectedIndex].value);"><option class="fw-700 ">---Navigation---</option><option value="/Main_Page">Main Page</option><option value="/Eclipsepedia:Community_portal">Community portal</option><option value="/Eclipsepedia:Current_events">Current events</option><option value="/Special:RecentChanges">Recent changes</option><option value="/Special:Random">Random page</option><option value="https://www.mediawiki.org/wiki/Special:MyLanguage/Help:Contents">Help</option></select><ul class="ul-left-nav fa-ul hidden-print leftnav hidden-xs hidden-sm"><li class="separator"><span class="separator">Navigation</span></li>                <li class=""><i class="fa fa-angle-double-right orange fa-fw"/> <a accesskey="z" id="n-mainpage" href="https://wiki.eclipse.org/Main_Page" title="Visit the main page [z]">Main Page</a></li>                <li class=""><i class="fa fa-angle-double-right orange fa-fw"/> <a href="https://wiki.eclipse.org/Eclipsepedia:Community_portal" id="n-portal" title="About the project, what you can do, where to find things">Community portal</a></li>                <li class=""><i class="fa fa-angle-double-right orange fa-fw"/> <a href="https://wiki.eclipse.org/Eclipsepedia:Current_events" id="n-currentevents" title="Find background information on current events">Current events</a></li>                <li class=""><i class="fa fa-angle-double-right orange fa-fw"/> <a accesskey="r" href="https://wiki.eclipse.org/Special:RecentChanges" id="n-recentchanges" title="A list of recent changes in the wiki [r]">Recent changes</a></li>                <li class=""><i class="fa fa-angle-double-right orange fa-fw"/> <a id="n-randompage" accesskey="x" href="https://wiki.eclipse.org/Special:Random" title="Load a random page [x]">Random page</a></li>                <li class=""><i class="fa fa-angle-double-right orange fa-fw"/> <a title="The place to find out" href="https://www.mediawiki.org/wiki/Special:MyLanguage/Help:Contents" id="n-help">Help</a></li></ul>            <select class="form-control margin-top-10 margin-bottom-10 visible-xs visible-sm" onchange="this.options[this.selectedIndex].value &amp;&amp; (window.location = this.options[this.selectedIndex].value);"><option class="fw-700 ">---Toolbox---</option><option value="/index.php?title=Jetty/Howto/Configure_Jetty_with_XBean&amp;action=info">Page information</option><option value="/index.php?title=Jetty/Howto/Configure_Jetty_with_XBean&amp;oldid=215696">Permanent link</option><option value="/index.php?title=Jetty/Howto/Configure_Jetty_with_XBean&amp;printable=yes">Printable version</option><option value="/Special:SpecialPages">Special pages</option><option value="/Special:RecentChangesLinked/Jetty/Howto/Configure_Jetty_with_XBean">Related changes</option><option value="/Special:WhatLinksHere/Jetty/Howto/Configure_Jetty_with_XBean">What links here</option></select><ul class="ul-left-nav fa-ul hidden-print leftnav hidden-xs hidden-sm"><li class="separator"><span class="separator">Toolbox</span></li><li><i class="fa fa-angle-double-right orange fa-fw"/> <a href="https://wiki.eclipse.org/index.php?title=Jetty/Howto/Configure_Jetty_with_XBean&amp;action=info" id="t-info" title="More information about this page">Page information</a></li><li><i class="fa fa-angle-double-right orange fa-fw"/> <a title="Permanent link to this revision of the page" href="https://wiki.eclipse.org/index.php?title=Jetty/Howto/Configure_Jetty_with_XBean&amp;oldid=215696" id="t-permalink">Permanent link</a></li><li><i class="fa fa-angle-double-right orange fa-fw"/> <a rel="alternate" title="Printable version of this page [p]" href="https://wiki.eclipse.org/index.php?title=Jetty/Howto/Configure_Jetty_with_XBean&amp;printable=yes" accesskey="p" id="t-print">Printable version</a></li><li><i class="fa fa-angle-double-right orange fa-fw"/> <a title="A list of all special pages [q]" accesskey="q" href="https://wiki.eclipse.org/Special:SpecialPages" id="t-specialpages">Special pages</a></li><li><i class="fa fa-angle-double-right orange fa-fw"/> <a title="Recent changes in pages linked from this page [k]" href="https://wiki.eclipse.org/Special:RecentChangesLinked/Jetty/Howto/Configure_Jetty_with_XBean" accesskey="k" id="t-recentchangeslinked">Related changes</a></li><li><i class="fa fa-angle-double-right orange fa-fw"/> <a title="A list of all wiki pages that link here [j]" id="t-whatlinkshere" accesskey="j" href="https://wiki.eclipse.org/Special:WhatLinksHere/Jetty/Howto/Configure_Jetty_with_XBean">What links here</a></li></ul>                                  </aside>
           <!-- /leftcol -->
 
           <!-- mainContent -->
           <div id="mainContent" class="col-md-20">
                       <ul class="nav nav-tabs noprint hidden-print" role="tablist">
-                       <li id="ca-nstab-main" class="active"><a href="Configure&#32;Jetty&#32;with&#32;XBean.html"  title="View the content page [c]" accesskey="c" tabindex="-1">Page</a></li>
-                        <li id="ca-talk" class="new"><a href="https://wiki.eclipse.org/index.php?title=Talk:Jetty/Howto/Configure_Jetty_with_XBean&amp;action=edit&amp;redlink=1"  title="Discussion about the content page [t]" accesskey="t" tabindex="-1">Discussion</a></li>
-                        <li id="ca-viewsource"><a href="https://wiki.eclipse.org/index.php?title=Jetty/Howto/Configure_Jetty_with_XBean&amp;action=edit"  title="This page is protected.&#10;You can view its source [e]" accesskey="e" tabindex="-1">View source</a></li>
-                        <li id="ca-history" class="collapsible"><a href="https://wiki.eclipse.org/index.php?title=Jetty/Howto/Configure_Jetty_with_XBean&amp;action=history"  title="Past revisions of this page [h]" accesskey="h" tabindex="-1">History</a></li>
+                       <li id="ca-nstab-main" class="active"><a href="Configure Jetty with XBean.html" accesskey="c" tabindex="-1" title="View the content page [c]">Page</a></li>
+                        <li class="new" id="ca-talk"><a title="Discussion about the content page [t]" tabindex="-1" accesskey="t" href="https://wiki.eclipse.org/index.php?title=Talk:Jetty/Howto/Configure_Jetty_with_XBean&amp;action=edit&amp;redlink=1">Discussion</a></li>
+                        <li id="ca-viewsource"><a tabindex="-1" title="This page is protected.&#10;You can view its source [e]" href="https://wiki.eclipse.org/index.php?title=Jetty/Howto/Configure_Jetty_with_XBean&amp;action=edit" accesskey="e">View source</a></li>
+                        <li id="ca-history" class="collapsible"><a accesskey="h" href="https://wiki.eclipse.org/index.php?title=Jetty/Howto/Configure_Jetty_with_XBean&amp;action=history" title="Past revisions of this page [h]" tabindex="-1">History</a></li>
                       </ul>            <div class="tab-content background-white">
-              <div id="tab-pane-main-page-content" class="tab-pane active">
+              <div class="tab-pane active" id="tab-pane-main-page-content">
 
                 
-                <h1 id="firstHeading" class="firstHeading page-header">
+                <h1 class="firstHeading page-header" id="firstHeading">
                   <span dir="auto">Jetty/Howto/Configure Jetty with XBean</span>
                 </h1>
                 <div id="main-page-content">
                                                       <!-- subtitle -->
-                  <div id="contentSub"  class="alert alert-small alert-warning"><span class="subpages">&lt; <a href="../../Jetty.html" title="Jetty">Jetty</a>&lrm; | <a href="../Howto.html" title="Jetty/Howto">Howto</a></span></div>
+                  <div class="alert alert-small alert-warning" id="contentSub"><span class="subpages">&lt; <a href="../../Jetty.html" title="Jetty">Jetty</a>‎ | <a href="../Howto.html" title="Jetty/Howto">Howto</a></span></div>
                   <!-- /subtitle -->
                   
                   
-                  <div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><p><br />
-</p><p><br />
+                  <div class="mw-content-ltr" lang="en" dir="ltr" id="mw-content-text"><p><br/>
+</p><p><br/>
 </p>
-<h2><span class="mw-headline" id="Introduction">Introduction</span></h2>
-<p>Jetty7 supports <a rel="nofollow" class="external text" href="http://xbean.org">XBean</a>. This allows you to use a neat, compact XML format to customize Jetty within an XBean configuration file, along with configuring other Geronimo projects like <a rel="nofollow" class="external text" href="http://activemq.org/">ActiveMQ</a> or <a rel="nofollow" class="external text" href="http://servicemix.org">ServiceMix</a>.
-</p><p><br />
+<h2><span id="Introduction" class="mw-headline">Introduction</span></h2>
+<p>Jetty7 supports <a rel="nofollow" class="external text" href="http://xbean.org">XBean</a>. This allows you to use a neat, compact XML format to customize Jetty within an XBean configuration file, along with configuring other Geronimo projects like <a href="http://activemq.org/" rel="nofollow" class="external text">ActiveMQ</a> or <a href="http://servicemix.org" rel="nofollow" class="external text">ServiceMix</a>.
+</p><p><br/>
 </p>
 <h2><span class="mw-headline" id="Configuring_Jetty_in_an_XBean_Configuration_File">Configuring Jetty in an XBean Configuration File</span></h2>
 <p>The following example shows how to configure Jetty inside an XBean configuration file.
 </p>
-<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="xml source-xml"><pre class="de1">&#160;
+<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="xml source-xml"><pre class="de1"> 
  <span class="sc3"><span class="re1">&lt;beans<span class="re2">&gt;</span></span></span>
-   <span class="sc3"><span class="re1">&lt;jetty</span> <span class="re0">xmlns</span>=<span class="st0">&quot;http://mortbay.com/schemas/jetty/1.0&quot;</span><span class="re2">&gt;</span></span>
+   <span class="sc3"><span class="re1">&lt;jetty</span> <span class="re0">xmlns</span>=<span class="st0">"http://mortbay.com/schemas/jetty/1.0"</span><span class="re2">&gt;</span></span>
      <span class="sc3"><span class="re1">&lt;connectors<span class="re2">&gt;</span></span></span>
-       <span class="sc3"><span class="re1">&lt;nioConnector</span> <span class="re0">port</span>=<span class="st0">&quot;8181&quot;</span> <span class="re2">/&gt;</span></span>
+       <span class="sc3"><span class="re1">&lt;nioConnector</span> <span class="re0">port</span>=<span class="st0">"8181"</span> <span class="re2">/&gt;</span></span>
      <span class="sc3"><span class="re1">&lt;/connectors<span class="re2">&gt;</span></span></span>
-&#160;
+ 
      <span class="sc3"><span class="re1">&lt;handlers<span class="re2">&gt;</span></span></span>
-       <span class="sc3"><span class="re1">&lt;webAppContext</span> <span class="re0">contextPath</span>=<span class="st0">&quot;/&quot;</span> <span class="re0">resourceBase</span>=<span class="st0">&quot;/tmp/webapp&quot;</span> <span class="re0">parentLoaderPriority</span>=<span class="st0">&quot;false&quot;</span> <span class="re2">/&gt;</span></span>
+       <span class="sc3"><span class="re1">&lt;webAppContext</span> <span class="re0">contextPath</span>=<span class="st0">"/"</span> <span class="re0">resourceBase</span>=<span class="st0">"/tmp/webapp"</span> <span class="re0">parentLoaderPriority</span>=<span class="st0">"false"</span> <span class="re2">/&gt;</span></span>
      <span class="sc3"><span class="re1">&lt;/handlers<span class="re2">&gt;</span></span></span>
    <span class="sc3"><span class="re1">&lt;/jetty<span class="re2">&gt;</span></span></span>
  <span class="sc3"><span class="re1">&lt;/beans<span class="re2">&gt;</span></span></span></pre></div></div>
@@ -423,7 +422,7 @@ Transclusion expansion time report (%,ms,calls,template)
  -->
 </div>
                                       <!-- catlinks -->
-                    <div id='catlinks' class='catlinks'><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="https://wiki.eclipse.org/Special:Categories" title="Special:Categories">Categories</a>: <ul><li><a href="https://wiki.eclipse.org/Category:Jetty" title="Category:Jetty">Jetty</a></li><li><a href="https://wiki.eclipse.org/Category:Jetty_Howto" title="Category:Jetty Howto">Jetty Howto</a></li></ul></div></div>                     <!-- /catlinks -->
+                    <div class="catlinks" id="catlinks"><div class="mw-normal-catlinks" id="mw-normal-catlinks"><a title="Special:Categories" href="https://wiki.eclipse.org/Special:Categories">Categories</a>: <ul><li><a title="Category:Jetty" href="https://wiki.eclipse.org/Category:Jetty">Jetty</a></li><li><a href="https://wiki.eclipse.org/Category:Jetty_Howto" title="Category:Jetty Howto">Jetty Howto</a></li></ul></div></div>                     <!-- /catlinks -->
                                   </div>
               </div>
             </div>
@@ -432,7 +431,7 @@ Transclusion expansion time report (%,ms,calls,template)
 
                 <!-- printfooter -->
         <div class="printfooter">
-        Retrieved from "<a dir="ltr" href="https://wiki.eclipse.org/index.php?title=Jetty/Howto/Configure_Jetty_with_XBean&amp;oldid=215696">https://wiki.eclipse.org/index.php?title=Jetty/Howto/Configure_Jetty_with_XBean&amp;oldid=215696</a>"        </div>
+        Retrieved from "<a href="https://wiki.eclipse.org/index.php?title=Jetty/Howto/Configure_Jetty_with_XBean&amp;oldid=215696" dir="ltr">https://wiki.eclipse.org/index.php?title=Jetty/Howto/Configure_Jetty_with_XBean&amp;oldid=215696</a>"        </div>
         <!-- /printfooter -->
         
         
@@ -449,11 +448,11 @@ Transclusion expansion time report (%,ms,calls,template)
 </div>
 <div class="featured-footer featured-footer-newsletter background-secondary">
   <div class="container">
-    <p id="footercredit">This page was last modified 13:28, 17 August 2010 by <a href="https://wiki.eclipse.org/index.php?title=User:Boulay.intalio.com&amp;action=edit&amp;redlink=1" class="new" title="User:Boulay.intalio.com (page does not exist)">Shirley Boulay</a>.</p><p id="footerviews"></p>  </div>
+    <p id="footercredit">This page was last modified 13:28, 17 August 2010 by <a class="new" title="User:Boulay.intalio.com (page does not exist)" href="https://wiki.eclipse.org/index.php?title=User:Boulay.intalio.com&amp;action=edit&amp;redlink=1">Shirley Boulay</a>.</p><p id="footerviews"/>  </div>
 </div>
 </main> <!-- /#main-content-container-row -->
 <p id="back-to-top" class="noprint hidden-print">
-  <a class="visible-xs" href="Configure&#32;Jetty&#32;with&#32;XBean.html#top">Back to the top</a>
+  <a class="visible-xs" href="Configure Jetty with XBean.html#top">Back to the top</a>
 </p>
 <footer id="solstice-footer">
   <div class="container">
@@ -492,7 +491,7 @@ Transclusion expansion time report (%,ms,calls,template)
           <li><a href="https://marketplace.eclipse.org/">Marketplace</a></li>
         </ul>
       </section>
-      <section class="col-sm-6 hidden-print" id="footer-other">
+      <section id="footer-other" class="col-sm-6 hidden-print">
         <h2 class="section-title">Other</h2>
         <ul class="nav">
           <li><a href="https://www.eclipse.org/ide/">IDE and Tools</a></li>
@@ -505,40 +504,40 @@ Transclusion expansion time report (%,ms,calls,template)
       </section>
       <div class="col-sm-24 margin-top-20">
         <div class="row">
-          <div id="copyright" class="col-md-16">
-            <p id="copyright-text">Copyright &copy; Eclipse Foundation, Inc. All Rights Reserved.</p>
+          <div class="col-md-16" id="copyright">
+            <p id="copyright-text">Copyright © Eclipse Foundation, Inc. All Rights Reserved.</p>
           </div>
           <div class="col-md-8 social-media">
             <ul class="list-inline">
               <li>
                 <a class="social-media-link fa-stack fa-lg" href="https://twitter.com/EclipseFdn">
-                <i class="fa fa-circle-thin fa-stack-2x"></i>
-                <i class="fa fa-twitter fa-stack-1x"></i>
+                <i class="fa fa-circle-thin fa-stack-2x"/>
+                <i class="fa fa-twitter fa-stack-1x"/>
                 </a>
               </li>
               <li>
-                <a class="social-media-link fa-stack fa-lg" href="https://www.facebook.com/eclipse.org">
-                <i class="fa fa-circle-thin fa-stack-2x"></i>
-                <i class="fa fa-facebook fa-stack-1x"></i>
+                <a href="https://www.facebook.com/eclipse.org" class="social-media-link fa-stack fa-lg">
+                <i class="fa fa-circle-thin fa-stack-2x"/>
+                <i class="fa fa-facebook fa-stack-1x"/>
                 </a>
               </li>
               <li>
                 <a class="social-media-link fa-stack fa-lg" href="https://www.youtube.com/user/EclipseFdn">
-                <i class="fa fa-circle-thin fa-stack-2x"></i>
-                <i class="fa fa-youtube fa-stack-1x"></i>
+                <i class="fa fa-circle-thin fa-stack-2x"/>
+                <i class="fa fa-youtube fa-stack-1x"/>
                 </a>
               </li>
               <li>
-                <a class="social-media-link fa-stack fa-lg" href="https://www.linkedin.com/company/eclipse-foundation">
-                <i class="fa fa-circle-thin fa-stack-2x"></i>
-                <i class="fa fa-linkedin fa-stack-1x"></i>
+                <a href="https://www.linkedin.com/company/eclipse-foundation" class="social-media-link fa-stack fa-lg">
+                <i class="fa fa-circle-thin fa-stack-2x"/>
+                <i class="fa fa-linkedin fa-stack-1x"/>
                 </a>
               </li>
             </ul>
           </div>
         </div>
       </div>
-      <a href="Configure&#32;Jetty&#32;with&#32;XBean.html#" class="scrollup">Back to the top</a>
+      <a href="Configure Jetty with XBean.html#" class="scrollup">Back to the top</a>
     </div>
   </div>
 </footer>
@@ -547,5 +546,6 @@ Transclusion expansion time report (%,ms,calls,template)
 mw.loader.state({"skins.solstice":"loading","user":"ready","user.groups":"ready"});mw.loader.load("/load.php?debug=false\u0026lang=en\u0026modules=skins.solstice\u0026only=scripts\u0026skin=solstice");mw.loader.load(["mediawiki.action.view.postEdit","site","mediawiki.user","mediawiki.hidpi","mediawiki.page.ready","mediawiki.searchSuggest"]);
 } );</script><script>window.RLQ = window.RLQ || []; window.RLQ.push( function () {
 mw.config.set({"wgBackendResponseTime":530});
-} );</script>  </body>
-</html>
+} );</script>  
+
+</body></html>

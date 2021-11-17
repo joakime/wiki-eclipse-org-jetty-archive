@@ -1,6 +1,5 @@
-<!DOCTYPE html>
-<html lang="en" dir="ltr" class="client-nojs">
-<head>
+<?xml version="1.0" encoding="utf-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en" class="client-nojs"><head>
 <meta charset="UTF-8"/>
 <title>Jetty/Howto/Prevent Memory Leaks - Eclipsepedia</title>
 <script>document.documentElement.className = document.documentElement.className.replace( /(^|\s)client-nojs(\s|$)/, "$1client-js$2" );</script>
@@ -8,18 +7,18 @@
 mw.config.set({"wgCanonicalNamespace":"","wgCanonicalSpecialPageName":!1,"wgNamespaceNumber":0,"wgPageName":"Jetty/Howto/Prevent_Memory_Leaks","wgTitle":"Jetty/Howto/Prevent Memory Leaks","wgCurRevisionId":334737,"wgRevisionId":334737,"wgArticleId":38384,"wgIsArticle":!0,"wgIsRedirect":!1,"wgAction":"view","wgUserName":null,"wgUserGroups":["*"],"wgCategories":["Jetty","Jetty Howto"],"wgBreakFrames":!1,"wgPageContentLanguage":"en","wgPageContentModel":"wikitext","wgSeparatorTransformTable":["",""],"wgDigitTransformTable":["",""],"wgDefaultDateFormat":"dmy","wgMonthNames":["","January","February","March","April","May","June","July","August","September","October","November","December"],"wgMonthNamesShort":["","Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"wgRelevantPageName":"Jetty/Howto/Prevent_Memory_Leaks","wgRelevantArticleId":38384,"wgIsProbablyEditable":!1,"wgRestrictionEdit":[],"wgRestrictionMove":[],"wgWikiEditorEnabledModules":{"toolbar":
 !1,"dialogs":!1,"preview":!1,"publish":!1},"wgCategoryTreePageCategoryOptions":"{\"mode\":0,\"hideprefix\":20,\"showcount\":true,\"namespaces\":false}"});mw.loader.implement("user.options",function($,jQuery){mw.user.options.set({"variant":"en"});});mw.loader.implement("user.tokens",function($,jQuery){mw.user.tokens.set({"editToken":"+\\","patrolToken":"+\\","watchToken":"+\\"});});mw.loader.load(["mediawiki.page.startup","mediawiki.legacy.wikibits"]);
 } );</script>
-<link rel="stylesheet" href="../../load.php%3Fdebug=false&amp;lang=en&amp;modules=mediawiki.legacy.commonPrint,shared|mediawiki.sectionAnchor&amp;only=styles&amp;skin=solstice.css"/>
-<link rel="stylesheet" href="../../skins/solstice/public/css/styles.css%3F303.css" media="screen, print"/>
-<meta name="ResourceLoaderDynamicStyles" content=""/>
+<link href="../../load.php%3Fdebug=false&amp;lang=en&amp;modules=mediawiki.legacy.commonPrint,shared|mediawiki.sectionAnchor&amp;only=styles&amp;skin=solstice.css" rel="stylesheet"/>
+<link media="screen, print" rel="stylesheet" href="../../skins/solstice/public/css/styles.css%3F303.css"/>
+<meta content="" name="ResourceLoaderDynamicStyles"/>
 <style>a:lang(ar),a:lang(kk-arab),a:lang(mzn),a:lang(ps),a:lang(ur){text-decoration:none}</style>
-<script async="" src="../../load.php%3Fdebug=false&amp;lang=en&amp;modules=startup&amp;only=scripts&amp;skin=solstice"></script>
-<meta name="generator" content="MediaWiki 1.26.4"/>
+<script async="" src="../../load.php%3Fdebug=false&amp;lang=en&amp;modules=startup&amp;only=scripts&amp;skin=solstice"/>
+<meta content="MediaWiki 1.26.4" name="generator"/>
 <link rel="shortcut icon" href="../../eclipse.org-common/themes/solstice/public/images/favicon.ico"/>
-<link rel="search" type="application/opensearchdescription+xml" href="https://wiki.eclipse.org/opensearch_desc.php" title="Eclipsepedia (en)"/>
-<link rel="EditURI" type="application/rsd+xml" href="https://wiki.eclipse.org/api.php?action=rsd"/>
-<link rel="alternate" type="application/atom+xml" title="Eclipsepedia Atom feed" href="https://wiki.eclipse.org/index.php?title=Special:RecentChanges&amp;feed=atom"/>
+<link type="application/opensearchdescription+xml" title="Eclipsepedia (en)" rel="search" href="https://wiki.eclipse.org/opensearch_desc.php"/>
+<link type="application/rsd+xml" rel="EditURI" href="https://wiki.eclipse.org/api.php?action=rsd"/>
+<link href="https://wiki.eclipse.org/index.php?title=Special:RecentChanges&amp;feed=atom" rel="alternate" title="Eclipsepedia Atom feed" type="application/atom+xml"/>
 <style type="text/css">
-/*<![CDATA[*/      
+/*&lt;![CDATA[*/      
 #jetty-nav {
   margin-bottom: 2em;
 }
@@ -133,9 +132,9 @@ table.jetty-table, .jetty-table table {
   float: right;
   margin: 0.5em;
 }
-/*]]>*/       
+/*]]&gt;*/       
 </style>
-<style type="text/css">/*<![CDATA[*/
+<style type="text/css">/*&lt;![CDATA[*/
 .source-java {line-height: normal;}
 .source-java li, .source-java pre {
 	line-height: normal; border: 0px none white;
@@ -173,9 +172,9 @@ table.jetty-table, .jetty-table table {
 .java.source-java .ln-xtra, .java.source-java li.ln-xtra, .java.source-java div.ln-xtra {background-color: #ffc;}
 .java.source-java span.xtra { display:block; }
 
-/*]]>*/
+/*]]&gt;*/
 </style>
-<style type="text/css">/*<![CDATA[*/
+<style type="text/css">/*&lt;![CDATA[*/
 .source-xml {line-height: normal;}
 .source-xml li, .source-xml pre {
 	line-height: normal; border: 0px none white;
@@ -211,9 +210,9 @@ table.jetty-table, .jetty-table table {
 .xml.source-xml .ln-xtra, .xml.source-xml li.ln-xtra, .xml.source-xml div.ln-xtra {background-color: #ffc;}
 .xml.source-xml span.xtra { display:block; }
 
-/*]]>*/
+/*]]&gt;*/
 </style>
-<style type="text/css">/*<![CDATA[*/
+<style type="text/css">/*&lt;![CDATA[*/
 .source-text {line-height: normal;}
 .source-text li, .source-text pre {
 	line-height: normal; border: 0px none white;
@@ -236,44 +235,44 @@ table.jetty-table, .jetty-table table {
 .text.source-text .ln-xtra, .text.source-text li.ln-xtra, .text.source-text div.ln-xtra {background-color: #ffc;}
 .text.source-text span.xtra { display:block; }
 
-/*]]>*/
+/*]]&gt;*/
 </style>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 </head>
-<body class="mediawiki ltr sitedir-ltr ns-0 ns-subject page-Jetty_Howto_Prevent_Memory_Leaks skin-solstice action-view" id="solstice">
+<body id="solstice" class="mediawiki ltr sitedir-ltr ns-0 ns-subject page-Jetty_Howto_Prevent_Memory_Leaks skin-solstice action-view">
 
-<a class="sr-only" href="Prevent&#32;Memory&#32;Leaks.html#content">Skip to main content</a>
-<header class="header-wrapper" id="header-wrapper">
+<a class="sr-only" href="Prevent Memory Leaks.html#content">Skip to main content</a>
+<header id="header-wrapper" class="header-wrapper">
   <div class="clearfix toolbar-container-wrapper">
     <div class="container-fluid">
       <div class="text-right toolbar-row row hidden-print">
         <div class="col-md-24 row-toolbar-col">
                <ul class="list-inline">
                   <li id="pt-login">
-            <a href="https://wiki.eclipse.org/index.php?title=Special:UserLogin&amp;returnto=Jetty%2FHowto%2FPrevent+Memory+Leaks" class="toolbar-link toolbar-login">
-              <i class="fa fa-sign-in fa-fw"></i> Log in            </a>
+            <a class="toolbar-link toolbar-login" href="https://wiki.eclipse.org/index.php?title=Special:UserLogin&amp;returnto=Jetty%2FHowto%2FPrevent+Memory+Leaks">
+              <i class="fa fa-sign-in fa-fw"/> Log in            </a>
           </li>
-                <li><a class="toolbar-link toolbar-manage-cookies dropdown-toggle"><i class="fa fa-wrench"></i> Manage Cookies</a></li>
+                <li><a class="toolbar-link toolbar-manage-cookies dropdown-toggle"><i class="fa fa-wrench"/> Manage Cookies</a></li>
       </ul>
             </div>
       </div>
     </div>
   </div>
   <div class="container-fluid">
-    <div class="row" id="header-row">
+    <div id="header-row" class="row">
       <div class="col-sm-5 col-md-4" id="header-left">
-        <div class="wrapper-logo-default"><a href="https://www.eclipse.org/"><img class="logo-eclipse-default hidden-xs" alt="Eclipse.org logo" width="160" src="https://www.eclipse.org/eclipse.org-common/themes/solstice/public/images/logo/eclipse-foundation-white-orange.svg"/></a></div>
+        <div class="wrapper-logo-default"><a href="https://www.eclipse.org/"><img src="https://www.eclipse.org/eclipse.org-common/themes/solstice/public/images/logo/eclipse-foundation-white-orange.svg" class="logo-eclipse-default hidden-xs" alt="Eclipse.org logo" width="160"/></a></div>
       </div>
       <div class="col-sm-19 col-md-20 margin-top-10" id="main-menu-wrapper">
-        <div class="float-right hidden-xs" id="btn-call-for-action"><a href="https://eclipse.org/downloads/" class="btn btn-huge btn-warning"><i class="fa fa-download"></i> Download</a></div>
+        <div class="float-right hidden-xs" id="btn-call-for-action"><a href="https://eclipse.org/downloads/" class="btn btn-huge btn-warning"><i class="fa fa-download"/> Download</a></div>
         <div class="navbar yamm float-sm-right" id="main-menu">
           <div class="navbar-collapse collapse" id="navbar-main-menu">
             <ul class="nav navbar-nav">
-              <li><a href="https://www.eclipse.org/projects/" target="_self">Projects</a></li>
+              <li><a target="_self" href="https://www.eclipse.org/projects/">Projects</a></li>
               <li><a href="https://www.eclipse.org/org/workinggroups/" target="_self">Working Groups</a></li>
-              <li><a href="https://www.eclipse.org/membership/" target="_self">Members</a></li>
+              <li><a target="_self" href="https://www.eclipse.org/membership/">Members</a></li>
               <li class="dropdown visible-xs">
-                <a href="Prevent&#32;Memory&#32;Leaks.html#" data-toggle="dropdown" class="dropdown-toggle">Community <b class="caret"></b></a>
+                <a data-toggle="dropdown" href="Prevent Memory Leaks.html#" class="dropdown-toggle">Community <b class="caret"/></a>
                 <ul class="dropdown-menu">
                   <li><a href="http://marketplace.eclipse.org">Marketplace</a></li>
                   <li><a href="http://events.eclipse.org">Events</a></li>
@@ -284,7 +283,7 @@ table.jetty-table, .jetty-table table {
                 </ul>
               </li>
               <li class="dropdown visible-xs">
-                <a href="Prevent&#32;Memory&#32;Leaks.html#" data-toggle="dropdown" class="dropdown-toggle">Participate <b class="caret"></b></a>
+                <a class="dropdown-toggle" href="Prevent Memory Leaks.html#" data-toggle="dropdown">Participate <b class="caret"/></a>
                 <ul class="dropdown-menu">
                   <li><a href="https://bugs.eclipse.org/bugs/">Report a Bug</a></li>
                   <li><a href="https://www.eclipse.org/forums/">Forums</a></li>
@@ -295,7 +294,7 @@ table.jetty-table, .jetty-table table {
                 </ul>
               </li>
               <li class="dropdown visible-xs">
-                <a href="Prevent&#32;Memory&#32;Leaks.html#" data-toggle="dropdown" class="dropdown-toggle">Eclipse IDE <b class="caret"></b></a>
+                <a class="dropdown-toggle" data-toggle="dropdown" href="Prevent Memory Leaks.html#">Eclipse IDE <b class="caret"/></a>
                 <ul class="dropdown-menu">
                   <li><a href="https://www.eclipse.org/downloads">Download</a></li>
                   <li><a href="https://www.eclipse.org/eclipseide">Learn More</a></li>
@@ -308,7 +307,7 @@ table.jetty-table, .jetty-table table {
               </li>
               <!-- More -->
               <li class="dropdown eclipse-more hidden-xs">
-                <a data-toggle="dropdown" class="dropdown-toggle" role="button">More<b class="caret"></b></a>
+                <a data-toggle="dropdown" role="button" class="dropdown-toggle">More<b class="caret"/></a>
                 <ul class="dropdown-menu">
                   <li>
                     <!-- Content container to add padding -->
@@ -356,14 +355,14 @@ table.jetty-table, .jetty-table table {
             </ul>
           </div>
           <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-main-menu">
+            <button data-toggle="collapse" data-target="#navbar-main-menu" class="navbar-toggle" type="button">
             <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
+            <span class="icon-bar"/>
+            <span class="icon-bar"/>
+            <span class="icon-bar"/>
+            <span class="icon-bar"/>
             </button>
-            <div class="wrapper-logo-mobile"><a class="navbar-brand visible-xs" href="https://www.eclipse.org/"><img class="logo-eclipse-default-mobile img-responsive" alt="Eclipse.org logo" width="160" src="https://www.eclipse.org/eclipse.org-common/themes/solstice/public/images/logo/eclipse-foundation-white-orange.svg"/></a></div>
+            <div class="wrapper-logo-mobile"><a class="navbar-brand visible-xs" href="https://www.eclipse.org/"><img class="logo-eclipse-default-mobile img-responsive" src="https://www.eclipse.org/eclipse.org-common/themes/solstice/public/images/logo/eclipse-foundation-white-orange.svg" alt="Eclipse.org logo" width="160"/></a></div>
           </div>
         </div>
       </div>
@@ -391,7 +390,7 @@ table.jetty-table, .jetty-table table {
     
     <!-- content -->
     <section id="content" class="mw-body container-full clearfix 0">
-      <div id="mw-js-message" style="display:none;"></div>
+      <div id="mw-js-message" style="display:none;"/>
 
       
       <!-- bodyContent -->
@@ -399,141 +398,141 @@ table.jetty-table, .jetty-table table {
 
         
                 <!-- jumpto -->
-        <div id="jump-to-nav" class="mw-jump">
-          Jump to: <a href="Prevent&#32;Memory&#32;Leaks.html#mw-head">navigation</a>,
-          <a href="Prevent&#32;Memory&#32;Leaks.html#p-search">search</a>
+        <div class="mw-jump" id="jump-to-nav">
+          Jump to: <a href="Prevent Memory Leaks.html#mw-head">navigation</a>,
+          <a href="Prevent Memory Leaks.html#p-search">search</a>
         </div>
         <!-- /jumpto -->
         
           <!-- leftcol -->
-          <aside class="col-md-4 noprint hidden-print" id="leftcol">
-                      <form class="input-group" role="form" id="form-eclipse-search" action="https://wiki.eclipse.org/index.php" id="searchform">
-              <input id="searchInput" class="search-query form-control" type="search" accesskey="f" title="Special:Search" placeholder="Search" name="search" value="">
+          <aside id="leftcol" class="col-md-4 noprint hidden-print">
+                      <form id="form-eclipse-search" class="input-group" role="form" action="https://wiki.eclipse.org/index.php">
+              <input placeholder="Search" id="searchInput" type="search" title="Special:Search" value="" accesskey="f" name="search" class="search-query form-control"/>
 
               <span class="input-group-btn">
-                <button value="search" id="mw-searchButton" type="submit" class="btn btn-default" title="Search the pages for this text" name="fulltext">
-                  <i class="fa fa-search"></i>
+                <button id="mw-searchButton" type="submit" value="search" name="fulltext" class="btn btn-default" title="Search the pages for this text">
+                  <i class="fa fa-search"/>
                 </button>
               </span>
             </form>
-                      <select class="form-control margin-top-10 margin-bottom-10 visible-xs visible-sm" onchange="this.options[this.selectedIndex].value && (window.location = this.options[this.selectedIndex].value);"><option class="fw-700 "><span class="fw-700">---Navigation---</span></option><option value="/Main_Page">Main Page</option><option value="/Eclipsepedia:Community_portal">Community portal</option><option value="/Eclipsepedia:Current_events">Current events</option><option value="/Special:RecentChanges">Recent changes</option><option value="/Special:Random">Random page</option><option value="https://www.mediawiki.org/wiki/Special:MyLanguage/Help:Contents">Help</option></select><ul class="ul-left-nav fa-ul hidden-print leftnav hidden-xs hidden-sm"><li class="separator"><span class="separator">Navigation</span></li>                <li class=""><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/Main_Page" id="n-mainpage" title="Visit the main page [z]" accesskey="z">Main Page</a></li>                <li class=""><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/Eclipsepedia:Community_portal" id="n-portal" title="About the project, what you can do, where to find things">Community portal</a></li>                <li class=""><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/Eclipsepedia:Current_events" id="n-currentevents" title="Find background information on current events">Current events</a></li>                <li class=""><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/Special:RecentChanges" id="n-recentchanges" title="A list of recent changes in the wiki [r]" accesskey="r">Recent changes</a></li>                <li class=""><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/Special:Random" id="n-randompage" title="Load a random page [x]" accesskey="x">Random page</a></li>                <li class=""><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://www.mediawiki.org/wiki/Special:MyLanguage/Help:Contents" id="n-help" title="The place to find out">Help</a></li></ul>            <select class="form-control margin-top-10 margin-bottom-10 visible-xs visible-sm" onchange="this.options[this.selectedIndex].value && (window.location = this.options[this.selectedIndex].value);"><option class="fw-700 "><span class="fw-700">---Toolbox---</span></option><option value="/index.php?title=Jetty/Howto/Prevent_Memory_Leaks&amp;action=info">Page information</option><option value="/index.php?title=Jetty/Howto/Prevent_Memory_Leaks&amp;oldid=334737">Permanent link</option><option value="/index.php?title=Jetty/Howto/Prevent_Memory_Leaks&amp;printable=yes">Printable version</option><option value="/Special:SpecialPages">Special pages</option><option value="/Special:RecentChangesLinked/Jetty/Howto/Prevent_Memory_Leaks">Related changes</option><option value="/Special:WhatLinksHere/Jetty/Howto/Prevent_Memory_Leaks">What links here</option></select><ul class="ul-left-nav fa-ul hidden-print leftnav hidden-xs hidden-sm"><li class="separator"><span class="separator">Toolbox</span></li><li><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/index.php?title=Jetty/Howto/Prevent_Memory_Leaks&amp;action=info" id="t-info" title="More information about this page">Page information</a></li><li><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/index.php?title=Jetty/Howto/Prevent_Memory_Leaks&amp;oldid=334737" id="t-permalink" title="Permanent link to this revision of the page">Permanent link</a></li><li><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/index.php?title=Jetty/Howto/Prevent_Memory_Leaks&amp;printable=yes" id="t-print" rel="alternate" title="Printable version of this page [p]" accesskey="p">Printable version</a></li><li><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/Special:SpecialPages" id="t-specialpages" title="A list of all special pages [q]" accesskey="q">Special pages</a></li><li><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/Special:RecentChangesLinked/Jetty/Howto/Prevent_Memory_Leaks" id="t-recentchangeslinked" title="Recent changes in pages linked from this page [k]" accesskey="k">Related changes</a></li><li><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/Special:WhatLinksHere/Jetty/Howto/Prevent_Memory_Leaks" id="t-whatlinkshere" title="A list of all wiki pages that link here [j]" accesskey="j">What links here</a></li></ul>                                  </aside>
+                      <select class="form-control margin-top-10 margin-bottom-10 visible-xs visible-sm" onchange="this.options[this.selectedIndex].value &amp;&amp; (window.location = this.options[this.selectedIndex].value);"><option class="fw-700 ">---Navigation---</option><option value="/Main_Page">Main Page</option><option value="/Eclipsepedia:Community_portal">Community portal</option><option value="/Eclipsepedia:Current_events">Current events</option><option value="/Special:RecentChanges">Recent changes</option><option value="/Special:Random">Random page</option><option value="https://www.mediawiki.org/wiki/Special:MyLanguage/Help:Contents">Help</option></select><ul class="ul-left-nav fa-ul hidden-print leftnav hidden-xs hidden-sm"><li class="separator"><span class="separator">Navigation</span></li>                <li class=""><i class="fa fa-angle-double-right orange fa-fw"/> <a title="Visit the main page [z]" href="https://wiki.eclipse.org/Main_Page" id="n-mainpage" accesskey="z">Main Page</a></li>                <li class=""><i class="fa fa-angle-double-right orange fa-fw"/> <a id="n-portal" href="https://wiki.eclipse.org/Eclipsepedia:Community_portal" title="About the project, what you can do, where to find things">Community portal</a></li>                <li class=""><i class="fa fa-angle-double-right orange fa-fw"/> <a id="n-currentevents" href="https://wiki.eclipse.org/Eclipsepedia:Current_events" title="Find background information on current events">Current events</a></li>                <li class=""><i class="fa fa-angle-double-right orange fa-fw"/> <a id="n-recentchanges" accesskey="r" title="A list of recent changes in the wiki [r]" href="https://wiki.eclipse.org/Special:RecentChanges">Recent changes</a></li>                <li class=""><i class="fa fa-angle-double-right orange fa-fw"/> <a href="https://wiki.eclipse.org/Special:Random" title="Load a random page [x]" accesskey="x" id="n-randompage">Random page</a></li>                <li class=""><i class="fa fa-angle-double-right orange fa-fw"/> <a id="n-help" title="The place to find out" href="https://www.mediawiki.org/wiki/Special:MyLanguage/Help:Contents">Help</a></li></ul>            <select onchange="this.options[this.selectedIndex].value &amp;&amp; (window.location = this.options[this.selectedIndex].value);" class="form-control margin-top-10 margin-bottom-10 visible-xs visible-sm"><option class="fw-700 ">---Toolbox---</option><option value="/index.php?title=Jetty/Howto/Prevent_Memory_Leaks&amp;action=info">Page information</option><option value="/index.php?title=Jetty/Howto/Prevent_Memory_Leaks&amp;oldid=334737">Permanent link</option><option value="/index.php?title=Jetty/Howto/Prevent_Memory_Leaks&amp;printable=yes">Printable version</option><option value="/Special:SpecialPages">Special pages</option><option value="/Special:RecentChangesLinked/Jetty/Howto/Prevent_Memory_Leaks">Related changes</option><option value="/Special:WhatLinksHere/Jetty/Howto/Prevent_Memory_Leaks">What links here</option></select><ul class="ul-left-nav fa-ul hidden-print leftnav hidden-xs hidden-sm"><li class="separator"><span class="separator">Toolbox</span></li><li><i class="fa fa-angle-double-right orange fa-fw"/> <a href="https://wiki.eclipse.org/index.php?title=Jetty/Howto/Prevent_Memory_Leaks&amp;action=info" title="More information about this page" id="t-info">Page information</a></li><li><i class="fa fa-angle-double-right orange fa-fw"/> <a href="https://wiki.eclipse.org/index.php?title=Jetty/Howto/Prevent_Memory_Leaks&amp;oldid=334737" title="Permanent link to this revision of the page" id="t-permalink">Permanent link</a></li><li><i class="fa fa-angle-double-right orange fa-fw"/> <a id="t-print" accesskey="p" title="Printable version of this page [p]" rel="alternate" href="https://wiki.eclipse.org/index.php?title=Jetty/Howto/Prevent_Memory_Leaks&amp;printable=yes">Printable version</a></li><li><i class="fa fa-angle-double-right orange fa-fw"/> <a id="t-specialpages" accesskey="q" title="A list of all special pages [q]" href="https://wiki.eclipse.org/Special:SpecialPages">Special pages</a></li><li><i class="fa fa-angle-double-right orange fa-fw"/> <a id="t-recentchangeslinked" accesskey="k" title="Recent changes in pages linked from this page [k]" href="https://wiki.eclipse.org/Special:RecentChangesLinked/Jetty/Howto/Prevent_Memory_Leaks">Related changes</a></li><li><i class="fa fa-angle-double-right orange fa-fw"/> <a title="A list of all wiki pages that link here [j]" href="https://wiki.eclipse.org/Special:WhatLinksHere/Jetty/Howto/Prevent_Memory_Leaks" id="t-whatlinkshere" accesskey="j">What links here</a></li></ul>                                  </aside>
           <!-- /leftcol -->
 
           <!-- mainContent -->
           <div id="mainContent" class="col-md-20">
-                      <ul class="nav nav-tabs noprint hidden-print" role="tablist">
-                       <li id="ca-nstab-main" class="active"><a href="Prevent&#32;Memory&#32;Leaks.html"  title="View the content page [c]" accesskey="c" tabindex="-1">Page</a></li>
-                        <li id="ca-talk" class="new"><a href="https://wiki.eclipse.org/index.php?title=Talk:Jetty/Howto/Prevent_Memory_Leaks&amp;action=edit&amp;redlink=1"  title="Discussion about the content page [t]" accesskey="t" tabindex="-1">Discussion</a></li>
-                        <li id="ca-viewsource"><a href="https://wiki.eclipse.org/index.php?title=Jetty/Howto/Prevent_Memory_Leaks&amp;action=edit"  title="This page is protected.&#10;You can view its source [e]" accesskey="e" tabindex="-1">View source</a></li>
-                        <li id="ca-history" class="collapsible"><a href="https://wiki.eclipse.org/index.php?title=Jetty/Howto/Prevent_Memory_Leaks&amp;action=history"  title="Past revisions of this page [h]" accesskey="h" tabindex="-1">History</a></li>
+                      <ul role="tablist" class="nav nav-tabs noprint hidden-print">
+                       <li id="ca-nstab-main" class="active"><a accesskey="c" tabindex="-1" href="Prevent Memory Leaks.html" title="View the content page [c]">Page</a></li>
+                        <li id="ca-talk" class="new"><a title="Discussion about the content page [t]" href="https://wiki.eclipse.org/index.php?title=Talk:Jetty/Howto/Prevent_Memory_Leaks&amp;action=edit&amp;redlink=1" accesskey="t" tabindex="-1">Discussion</a></li>
+                        <li id="ca-viewsource"><a title="This page is protected.&#10;You can view its source [e]" href="https://wiki.eclipse.org/index.php?title=Jetty/Howto/Prevent_Memory_Leaks&amp;action=edit" accesskey="e" tabindex="-1">View source</a></li>
+                        <li id="ca-history" class="collapsible"><a title="Past revisions of this page [h]" href="https://wiki.eclipse.org/index.php?title=Jetty/Howto/Prevent_Memory_Leaks&amp;action=history" accesskey="h" tabindex="-1">History</a></li>
                       </ul>            <div class="tab-content background-white">
-              <div id="tab-pane-main-page-content" class="tab-pane active">
+              <div class="tab-pane active" id="tab-pane-main-page-content">
 
                 
-                <h1 id="firstHeading" class="firstHeading page-header">
+                <h1 class="firstHeading page-header" id="firstHeading">
                   <span dir="auto">Jetty/Howto/Prevent Memory Leaks</span>
                 </h1>
                 <div id="main-page-content">
                                                       <!-- subtitle -->
-                  <div id="contentSub"  class="alert alert-small alert-warning"><span class="subpages">&lt; <a href="../../Jetty.html" title="Jetty">Jetty</a>&lrm; | <a href="../Howto.html" title="Jetty/Howto">Howto</a></span></div>
+                  <div class="alert alert-small alert-warning" id="contentSub"><span class="subpages">&lt; <a title="Jetty" href="../../Jetty.html">Jetty</a>‎ | <a href="../Howto.html" title="Jetty/Howto">Howto</a></span></div>
                   <!-- /subtitle -->
                   
                   
-                  <div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><p><br />
-</p><p><br />
+                  <div dir="ltr" class="mw-content-ltr" id="mw-content-text" lang="en"><p><br/>
+</p><p><br/>
 </p>
 <div id="toc" class="toc"><div id="toctitle"><h2>Contents</h2></div>
 <ul>
-<li class="toclevel-1"><a href="Prevent&#32;Memory&#32;Leaks.html#Introduction"><span class="tocnumber">1</span> <span class="toctext">Introduction</span></a></li>
-<li class="toclevel-1"><a href="Prevent&#32;Memory&#32;Leaks.html#Steps"><span class="tocnumber">2</span> <span class="toctext">Steps</span></a></li>
-<li class="toclevel-1"><a href="Prevent&#32;Memory&#32;Leaks.html#Preventing_WebApp_Classloader_Pinning"><span class="tocnumber">3</span> <span class="toctext">Preventing WebApp Classloader Pinning</span></a>
+<li class="toclevel-1"><a href="Prevent Memory Leaks.html#Introduction"><span class="tocnumber">1</span> <span class="toctext">Introduction</span></a></li>
+<li class="toclevel-1"><a href="Prevent Memory Leaks.html#Steps"><span class="tocnumber">2</span> <span class="toctext">Steps</span></a></li>
+<li class="toclevel-1"><a href="Prevent Memory Leaks.html#Preventing_WebApp_Classloader_Pinning"><span class="tocnumber">3</span> <span class="toctext">Preventing WebApp Classloader Pinning</span></a>
 <ul>
-<li class="toclevel-2"><a href="Prevent&#32;Memory&#32;Leaks.html#Preventers"><span class="tocnumber">3.1</span> <span class="toctext">Preventers</span></a></li>
-<li class="toclevel-2"><a href="Prevent&#32;Memory&#32;Leaks.html#How_to_Configure"><span class="tocnumber">3.2</span> <span class="toctext">How to Configure</span></a></li>
+<li class="toclevel-2"><a href="Prevent Memory Leaks.html#Preventers"><span class="tocnumber">3.1</span> <span class="toctext">Preventers</span></a></li>
+<li class="toclevel-2"><a href="Prevent Memory Leaks.html#How_to_Configure"><span class="tocnumber">3.2</span> <span class="toctext">How to Configure</span></a></li>
 </ul>
 </li>
-<li class="toclevel-1"><a href="Prevent&#32;Memory&#32;Leaks.html#JSP_bugs"><span class="tocnumber">4</span> <span class="toctext">JSP bugs</span></a>
+<li class="toclevel-1"><a href="Prevent Memory Leaks.html#JSP_bugs"><span class="tocnumber">4</span> <span class="toctext">JSP bugs</span></a>
 <ul>
-<li class="toclevel-2"><a href="Prevent&#32;Memory&#32;Leaks.html#Permgen_problems"><span class="tocnumber">4.1</span> <span class="toctext">Permgen problems</span></a></li>
+<li class="toclevel-2"><a href="Prevent Memory Leaks.html#Permgen_problems"><span class="tocnumber">4.1</span> <span class="toctext">Permgen problems</span></a></li>
 </ul>
 </li>
-<li class="toclevel-1"><a href="Prevent&#32;Memory&#32;Leaks.html#JVM_bugs"><span class="tocnumber">5</span> <span class="toctext">JVM bugs</span></a>
+<li class="toclevel-1"><a href="Prevent Memory Leaks.html#JVM_bugs"><span class="tocnumber">5</span> <span class="toctext">JVM bugs</span></a>
 <ul>
-<li class="toclevel-2"><a href="Prevent&#32;Memory&#32;Leaks.html#Garbage_Collection_Problems"><span class="tocnumber">5.1</span> <span class="toctext">Garbage Collection Problems</span></a></li>
-<li class="toclevel-2"><a href="Prevent&#32;Memory&#32;Leaks.html#Direct_ByteBuffers"><span class="tocnumber">5.2</span> <span class="toctext">Direct ByteBuffers</span></a></li>
+<li class="toclevel-2"><a href="Prevent Memory Leaks.html#Garbage_Collection_Problems"><span class="tocnumber">5.1</span> <span class="toctext">Garbage Collection Problems</span></a></li>
+<li class="toclevel-2"><a href="Prevent Memory Leaks.html#Direct_ByteBuffers"><span class="tocnumber">5.2</span> <span class="toctext">Direct ByteBuffers</span></a></li>
 </ul>
 </li>
 </ul>
 </div>
 
 <h2><span class="mw-headline" id="Introduction">Introduction</span></h2>
-<div class="messagebox" style="background-color: #f9f6b7; border: 1px solid #c4c295; color: black; padding: 5px; margin: 1ex 0; min-height: 35px; padding-left: 45px; font-size: 150%; color: white; background-color: #FF8888; padding: 50px">
-<div style="float: left; margin-left: -40px;"><a href="https://wiki.eclipse.org/File:Warning2.png" class="image"><img alt="Warning2.png" src="../../images/3/37/Warning2.png" width="35" height="35" /></a></div>
-<div>Jetty 7 and Jetty 8 are now EOL (End of Life)<br />
-<p><br />
-<br />
-<br />
-THIS IS NOT THE DOCUMENTATION YOU ARE LOOKING FOR!!!!!<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-All development and stable releases are being performed with Jetty 9 and Jetty 10.<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-This <b>wiki is now officially out of date</b> and all content has been moved to the <a rel="nofollow" class="external text" href="http://www.eclipse.org/jetty/documentation">Jetty Documentation Hub</a><br /> 
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
+<div style="background-color: #f9f6b7; border: 1px solid #c4c295; color: black; padding: 5px; margin: 1ex 0; min-height: 35px; padding-left: 45px; font-size: 150%; color: white; background-color: #FF8888; padding: 50px" class="messagebox">
+<div style="float: left; margin-left: -40px;"><a href="https://wiki.eclipse.org/File:Warning2.png" class="image"><img alt="Warning2.png" width="35" src="../../images/3/37/Warning2.png" height="35"/></a></div>
+<div>Jetty 7 and Jetty 8 are now EOL (End of Life)<br/>
+<p><br/>
+<br/>
+<br/>
+THIS IS NOT THE DOCUMENTATION YOU ARE LOOKING FOR!!!!!<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+All development and stable releases are being performed with Jetty 9 and Jetty 10.<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+This <b>wiki is now officially out of date</b> and all content has been moved to the <a rel="nofollow" href="http://www.eclipse.org/jetty/documentation" class="external text">Jetty Documentation Hub</a><br/> 
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
 </p>
-Direct Link to updated documentation: <a rel="nofollow" class="external free" href="http://www.eclipse.org/jetty/documentation/current/preventing-memory-leaks.html">http://www.eclipse.org/jetty/documentation/current/preventing-memory-leaks.html</a></div>
+Direct Link to updated documentation: <a class="external free" href="http://www.eclipse.org/jetty/documentation/current/preventing-memory-leaks.html" rel="nofollow">http://www.eclipse.org/jetty/documentation/current/preventing-memory-leaks.html</a></div>
 </div>
-<p><br />
-Well, the most obvious cause of this is memory leaks in your application&#160;:) But, if you've thoroughly investigated using tools like jconsole, yourkit, jprofiler, jvisualvm or any of the other profiling and analysis tools out there and you can eliminate your code as the source of the problem, read on.
-</p><p><br />
+<p><br/>
+Well, the most obvious cause of this is memory leaks in your application :) But, if you've thoroughly investigated using tools like jconsole, yourkit, jprofiler, jvisualvm or any of the other profiling and analysis tools out there and you can eliminate your code as the source of the problem, read on.
+</p><p><br/>
 </p>
-<h2><span class="mw-headline" id="Steps">Steps</span></h2>
+<h2><span id="Steps" class="mw-headline">Steps</span></h2>
 <h2><span class="mw-headline" id="Preventing_WebApp_Classloader_Pinning">Preventing WebApp Classloader Pinning</span></h2>
 <div class="messagebox" style="background-color: #def3fe; border: 1px solid #c5d7e0; color: black; padding: 5px; margin: 1ex 0; min-height: 35px; padding-left: 45px;">
-<div style="float: left; margin-left: -40px;"><a href="https://wiki.eclipse.org/File:Idea.png" class="image"><img alt="Idea.png" src="../../images/a/a4/Idea.png" width="35" height="35" /></a></div>
-<div><b>Info:</b><br />This feature is available as of jetty-7.6.6</div>
+<div style="float: left; margin-left: -40px;"><a class="image" href="https://wiki.eclipse.org/File:Idea.png"><img src="../../images/a/a4/Idea.png" height="35" alt="Idea.png" width="35"/></a></div>
+<div><b>Info:</b><br/>This feature is available as of jetty-7.6.6</div>
 </div>
-<p>There's a class of memory leak problems that are caused by code keeping references to a webapp classloader. This generally falls into 2 categories: static fields and daemon threads. For the former, a static field is initialized with the value of the classloader, which happens to be a webapp classloader; as the webapp is undeployed and redeployed, the static reference lives on, meaning that the webapp classloader cannot be garbage collected. The latter case is where a thread is started as a daemon thread and is outside the lifecycle of the webapp; threads have references to the context classloader that created them, thus leading to a memory leak if that classloader belongs to a webapp. There's a good discussion of the issue here: <a rel="nofollow" class="external autonumber" href="http://cdivilly.wordpress.com/tag/sun-awt-appcontext/">[1]</a>
-</p><p>We provide a number of <a rel="nofollow" class="external text" href="http://download.eclipse.org/jetty/stable-7/xref/org/eclipse/jetty/util/preventers/package-summary.html">workaround classes</a> that pre-emptively invoke the problematic code with jetty's classloader, thereby ensuring a webapp's classloader is not pinned. Note that as some of the problematic code creates threads, you should in general be selective about which preventers you enable, and only use those that are specific to your application.
+<p>There's a class of memory leak problems that are caused by code keeping references to a webapp classloader. This generally falls into 2 categories: static fields and daemon threads. For the former, a static field is initialized with the value of the classloader, which happens to be a webapp classloader; as the webapp is undeployed and redeployed, the static reference lives on, meaning that the webapp classloader cannot be garbage collected. The latter case is where a thread is started as a daemon thread and is outside the lifecycle of the webapp; threads have references to the context classloader that created them, thus leading to a memory leak if that classloader belongs to a webapp. There's a good discussion of the issue here: <a class="external autonumber" href="http://cdivilly.wordpress.com/tag/sun-awt-appcontext/" rel="nofollow">[1]</a>
+</p><p>We provide a number of <a class="external text" rel="nofollow" href="http://download.eclipse.org/jetty/stable-7/xref/org/eclipse/jetty/util/preventers/package-summary.html">workaround classes</a> that pre-emptively invoke the problematic code with jetty's classloader, thereby ensuring a webapp's classloader is not pinned. Note that as some of the problematic code creates threads, you should in general be selective about which preventers you enable, and only use those that are specific to your application.
 </p>
 <h3><span class="mw-headline" id="Preventers">Preventers</span></h3>
 <table>
-<tr>
+<tbody><tr>
  <th>Name</th><th>Problem Addressed</th>
 </tr>
 <tr>
  <td valign="top">AppContextLeakPreventer</td><td>The call to AppContext.getAppContext() will keep a static reference to the context classloader. AppContext can be invoked in many different places by the jre.</td>
 </tr>
 <tr>
- <td valign="top">AWTLeakPreventer</td><td>The java.awt.Toolkit class has a static field that is the default toolkit. Creating the default toolkit causes the creation of an EventQueue, which has a classloader field initialized with the thread context class loader. See <a rel="nofollow" class="external autonumber" href="https://issues.jboss.org/browse/AS7-3733">[2]</a></td>
+ <td valign="top">AWTLeakPreventer</td><td>The java.awt.Toolkit class has a static field that is the default toolkit. Creating the default toolkit causes the creation of an EventQueue, which has a classloader field initialized with the thread context class loader. See <a rel="nofollow" href="https://issues.jboss.org/browse/AS7-3733" class="external autonumber">[2]</a></td>
 </tr>
 <tr>
  <td valign="top">DOMLeakPreventer</td><td> 
-DOM parsing can cause the webapp classloader to be pinned, due to the static field RuntimeException of com.sun.org.apache.xerces.internal.parsers.AbstractDOMParser. Note that the bug report at <a rel="nofollow" class="external autonumber" href="http://bugs.sun.com/bugdatabase/view_bug.do?bug_id=6916498">[3]</a> specifically mentions that a heap dump may not identify the GCRoot as the uncollected loader, making it difficult to identify the cause of the leak.</td>
+DOM parsing can cause the webapp classloader to be pinned, due to the static field RuntimeException of com.sun.org.apache.xerces.internal.parsers.AbstractDOMParser. Note that the bug report at <a class="external autonumber" rel="nofollow" href="http://bugs.sun.com/bugdatabase/view_bug.do?bug_id=6916498">[3]</a> specifically mentions that a heap dump may not identify the GCRoot as the uncollected loader, making it difficult to identify the cause of the leak.</td>
 </tr>
 <tr>
  <td valign="top">DriverManagerLeakPreventer</td><td>java.sql.DriverManager keeps a static reference to the classloader, see java.sql.DriverManager.getCallerClassLoader().</td>
 </tr>
 <tr>
  <td valign="top">GCThreadLeakPreventer</td><td>Calls to sun.misc.GC.requestLatency create a daemon thread which keeps a reference to the context classloader. A known caller of this method is the RMI impl. See
-[ <a rel="nofollow" class="external free" href="http://stackoverflow.com/questions/6626680/does-java-garbage-collection-log-entry-full-gc-system-mean-some-class-called">http://stackoverflow.com/questions/6626680/does-java-garbage-collection-log-entry-full-gc-system-mean-some-class-called</a>].</td>
+[ <a class="external free" rel="nofollow" href="http://stackoverflow.com/questions/6626680/does-java-garbage-collection-log-entry-full-gc-system-mean-some-class-called">http://stackoverflow.com/questions/6626680/does-java-garbage-collection-log-entry-full-gc-system-mean-some-class-called</a>].</td>
 </tr>
 <tr>
- <td valign="top">Java2DLeakPreventer </td><td>sun.java2d.Disposer keeps a reference to the classloader. See <a rel="nofollow" class="external autonumber" href="https://issues.apache.org/bugzilla/show_bug.cgi?id=51687">[4]</a></td>
+ <td valign="top">Java2DLeakPreventer </td><td>sun.java2d.Disposer keeps a reference to the classloader. See <a class="external autonumber" rel="nofollow" href="https://issues.apache.org/bugzilla/show_bug.cgi?id=51687">[4]</a></td>
 </tr>
 <tr>
  <td valign="top">LDAPLeakPreventer</td><td>If com.sun.jndi.LdapPoolManager class is loaded and the system property com.sun.jndi.ldap.connect.pool.timeout is set to a nonzero value, a daemon thread is started keeps a reference to the context classloader.</td>
@@ -544,40 +543,40 @@ DOM parsing can cause the webapp classloader to be pinned, due to the static fie
 <tr>
  <td valign="top">SecurityProviderLeakPreventer</td><td>Some security providers, such as sun.security.pkcs11.SunPKCS11 start a deamon thread which will trap the thread context classloader.</td>
 </tr>
-</table>
-<p><br />
+</tbody></table>
+<p><br/>
 </p>
 <h3><span class="mw-headline" id="How_to_Configure">How to Configure</span></h3>
 <p>Each preventer can be individually enabled by adding an instance to a Server with the addBean(Object) call. Here's an example of how to do it in code with the org.eclipse.jetty.util.preventers.AppContextLeakPreventer:
 </p>
-<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="java source-java"><pre class="de1">Server server <span class="sy0">=</span> <span class="kw1">new</span> Server<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
-server.<span class="me1">addBean</span><span class="br0">&#40;</span><span class="kw1">new</span> AppContextLeakPreventer<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy0">;</span></pre></div></div>
+<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="java source-java"><pre class="de1">Server server <span class="sy0">=</span> <span class="kw1">new</span> Server<span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
+server.<span class="me1">addBean</span><span class="br0">(</span><span class="kw1">new</span> AppContextLeakPreventer<span class="br0">(</span><span class="br0">)</span><span class="br0">)</span><span class="sy0">;</span></pre></div></div>
 <p>The equivalent in code can be added to the $JETTY_HOME/etc/jetty.xml file or any jetty xml file that is configuring a Server instance. Note however, if you have more than one Server instance in your jvm, only configure these preventers on <i>one</i> of them. Here's the example from code put into in xml:
 </p>
-<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="xml source-xml"><pre class="de1"><span class="sc3"><span class="re1">&lt;Configure</span> <span class="re0">id</span>=<span class="st0">&quot;Server&quot;</span> <span class="re0">class</span>=<span class="st0">&quot;org.eclipse.jetty.server.Server&quot;</span><span class="re2">&gt;</span></span>
-&#160;
-   <span class="sc3"><span class="re1">&lt;Call</span> <span class="re0">name</span>=<span class="st0">&quot;addBean&quot;</span><span class="re2">&gt;</span></span>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="xml source-xml"><pre class="de1"><span class="sc3"><span class="re1">&lt;Configure</span> <span class="re0">id</span>=<span class="st0">"Server"</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.server.Server"</span><span class="re2">&gt;</span></span>
+ 
+   <span class="sc3"><span class="re1">&lt;Call</span> <span class="re0">name</span>=<span class="st0">"addBean"</span><span class="re2">&gt;</span></span>
     <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>
-      <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">class</span>=<span class="st0">&quot;org.eclipse.jetty.util.preventers.AppContextLeakPreventer&quot;</span><span class="re2">/&gt;</span></span>
+      <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.util.preventers.AppContextLeakPreventer"</span><span class="re2">/&gt;</span></span>
     <span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
    <span class="sc3"><span class="re1">&lt;/Call<span class="re2">&gt;</span></span></span>
-&#160;
+ 
 <span class="sc3"><span class="re1">&lt;/Configure<span class="re2">&gt;</span></span></span></pre></div></div>
 <h2><span class="mw-headline" id="JSP_bugs">JSP bugs</span></h2>
-<h3><span class="mw-headline" id="Permgen_problems">Permgen problems</span></h3>
-<p>The JSP engine in Jetty is Jasper. This was originally developed under the Apache Tomcat project, but over time has been forked by many different projects. All jetty versions up to 6 used Apache-based Jasper exclusively, with Jetty 6 using Apache Jasper only for JSP2.0. With the advent of JSP 2.1, Jetty 6 switched to using Jasper from Sun's <a rel="nofollow" class="external text" href="https://glassfish.java.net/">Glassfish</a> project, which is now the reference implementation.
-</p><p>All forks of Jasper suffer from a problem whereby the permgen space can be put under pressure by using jsp tag files. This is because of the classloading architecture of the jsp implementation. Each jsp file is effectively compiled and its class loaded in its own classloader so as to allow for hot replacement. Each jsp that contains references to a tag file will compile the tag if necessary and then load it using its own classloader. If you have many jsps that refer to the same tag file, then the tag's class will be loaded over and over again into permgen space, once for each jsp. The relevant Glassfish bug report is <a rel="nofollow" class="external text" href="http://java.net/jira/browse/GLASSFISH-3963">bug # 3963</a>, and the equivalent Apache Tomcat bug report is <a rel="nofollow" class="external text" href="https://issues.apache.org/bugzilla/show_bug.cgi?id=43878">bug # 43878</a>. The Apache Tomcat project has already closed this bug report with status WON'T FIX, however the Glassfish folks still have the bug report open and have scheduled it to be fixed. When the fix becomes available, the Jetty project will pick it up and incorporate into our release program.
+<h3><span id="Permgen_problems" class="mw-headline">Permgen problems</span></h3>
+<p>The JSP engine in Jetty is Jasper. This was originally developed under the Apache Tomcat project, but over time has been forked by many different projects. All jetty versions up to 6 used Apache-based Jasper exclusively, with Jetty 6 using Apache Jasper only for JSP2.0. With the advent of JSP 2.1, Jetty 6 switched to using Jasper from Sun's <a class="external text" href="https://glassfish.java.net/" rel="nofollow">Glassfish</a> project, which is now the reference implementation.
+</p><p>All forks of Jasper suffer from a problem whereby the permgen space can be put under pressure by using jsp tag files. This is because of the classloading architecture of the jsp implementation. Each jsp file is effectively compiled and its class loaded in its own classloader so as to allow for hot replacement. Each jsp that contains references to a tag file will compile the tag if necessary and then load it using its own classloader. If you have many jsps that refer to the same tag file, then the tag's class will be loaded over and over again into permgen space, once for each jsp. The relevant Glassfish bug report is <a href="http://java.net/jira/browse/GLASSFISH-3963" rel="nofollow" class="external text">bug # 3963</a>, and the equivalent Apache Tomcat bug report is <a class="external text" rel="nofollow" href="https://issues.apache.org/bugzilla/show_bug.cgi?id=43878">bug # 43878</a>. The Apache Tomcat project has already closed this bug report with status WON'T FIX, however the Glassfish folks still have the bug report open and have scheduled it to be fixed. When the fix becomes available, the Jetty project will pick it up and incorporate into our release program.
 </p>
 <h2><span class="mw-headline" id="JVM_bugs">JVM bugs</span></h2>
 <h3><span class="mw-headline" id="Garbage_Collection_Problems">Garbage Collection Problems</span></h3>
 <p>One symptom of a cluster of jvm related memory issues is the OOM exception accompanied by a message such as <tt>"java.lang.OutOfMemoryError: requested xxxx bytes for xxx. Out of swap space?"</tt>.
-</p><p>Sun bug number <a rel="nofollow" class="external text" href="http://bugs.sun.com/bugdatabase/view_bug.do?bug_id=4697804">#4697804</a> describes how this can happen in the scenario when the garbage collector needs to allocate a bit more space during its run and tries to resize the heap but fails because the machine is out of swap space. One suggested work around is to ensure that the jvm never tries to resize the heap, by setting min heap size to max heap size:
+</p><p>Sun bug number <a rel="nofollow" href="http://bugs.sun.com/bugdatabase/view_bug.do?bug_id=4697804" class="external text">#4697804</a> describes how this can happen in the scenario when the garbage collector needs to allocate a bit more space during its run and tries to resize the heap but fails because the machine is out of swap space. One suggested work around is to ensure that the jvm never tries to resize the heap, by setting min heap size to max heap size:
 </p>
-<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="text source-text"><pre class="de1">java -Xmx1024m -Xms1024m</pre></div></div>
+<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="text source-text"><pre class="de1">java -Xmx1024m -Xms1024m</pre></div></div>
 <p>Another workaround is to ensure you have configured sufficient swap space on your device to accommodate all programs you are running concurrently.
 </p>
-<h3><span class="mw-headline" id="Direct_ByteBuffers">Direct ByteBuffers</span></h3>
-<p>Another issue related to jvm bugs is the exhaustion of native memory. The symptoms to look out for are the process size growing, but the heap usage remaining relatively constant. Native memory can be consumed by a number of things, the JIT compiler being one, and nio ByteBuffers being another. Sun bug number <a rel="nofollow" class="external text" href="http://bugs.sun.com/bugdatabase/view_bug.do?bug_id=6210541">#6210541</a> discusses a still-unsolved problem whereby the jvm itself allocates a direct ByteBuffer in some circumstances that is never garbage collected, effectively eating native memory. <a rel="nofollow" class="external text" href="http://www.jroller.com/gkorland/entry/java_s_memory_isn_t">Guy Korland's blog</a> discusses this problem <a rel="nofollow" class="external text" href="http://www.jroller.com/gkorland/entry/java_s_memory_isn_t">here</a> and <a rel="nofollow" class="external text" href="http://www.jroller.com/gkorland/entry/java_s_memory_managment_is">here</a>. As the JIT compiler is one consumer of native memory, the lack of available memory may manifest itself in the JIT as OutOfMemory exceptions such as <tt>"Exception in thread "CompilerThread0" java.lang.OutOfMemoryError: requested xxx bytes for ChunkPool::allocate. Out of swap space?"</tt>
+<h3><span id="Direct_ByteBuffers" class="mw-headline">Direct ByteBuffers</span></h3>
+<p>Another issue related to jvm bugs is the exhaustion of native memory. The symptoms to look out for are the process size growing, but the heap usage remaining relatively constant. Native memory can be consumed by a number of things, the JIT compiler being one, and nio ByteBuffers being another. Sun bug number <a rel="nofollow" href="http://bugs.sun.com/bugdatabase/view_bug.do?bug_id=6210541" class="external text">#6210541</a> discusses a still-unsolved problem whereby the jvm itself allocates a direct ByteBuffer in some circumstances that is never garbage collected, effectively eating native memory. <a href="http://www.jroller.com/gkorland/entry/java_s_memory_isn_t" rel="nofollow" class="external text">Guy Korland's blog</a> discusses this problem <a class="external text" href="http://www.jroller.com/gkorland/entry/java_s_memory_isn_t" rel="nofollow">here</a> and <a class="external text" rel="nofollow" href="http://www.jroller.com/gkorland/entry/java_s_memory_managment_is">here</a>. As the JIT compiler is one consumer of native memory, the lack of available memory may manifest itself in the JIT as OutOfMemory exceptions such as <tt>"Exception in thread "CompilerThread0" java.lang.OutOfMemoryError: requested xxx bytes for ChunkPool::allocate. Out of swap space?"</tt>
 </p><p>By default, Jetty will allocate and manage its own pool of direct ByteBuffers for io if the nio SelectChannelConnector is configured. It also allocates MappedByteBuffers to memory-map static files via the DefaultServlet settings. However, you could be vulnerable to this jvm ByteBuffer allocation problem if you have disabled either of these options. For example, if you're on Windows, you may have disabled the use of memory-mapped buffers for the static file cache on the DefaultServlet to avoid the file-locking problem.
 </p>
 <!-- 
@@ -609,7 +608,7 @@ Transclusion expansion time report (%,ms,calls,template)
  -->
 </div>
                                       <!-- catlinks -->
-                    <div id='catlinks' class='catlinks'><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="https://wiki.eclipse.org/Special:Categories" title="Special:Categories">Categories</a>: <ul><li><a href="https://wiki.eclipse.org/Category:Jetty" title="Category:Jetty">Jetty</a></li><li><a href="https://wiki.eclipse.org/Category:Jetty_Howto" title="Category:Jetty Howto">Jetty Howto</a></li></ul></div></div>                     <!-- /catlinks -->
+                    <div class="catlinks" id="catlinks"><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="https://wiki.eclipse.org/Special:Categories" title="Special:Categories">Categories</a>: <ul><li><a href="https://wiki.eclipse.org/Category:Jetty" title="Category:Jetty">Jetty</a></li><li><a title="Category:Jetty Howto" href="https://wiki.eclipse.org/Category:Jetty_Howto">Jetty Howto</a></li></ul></div></div>                     <!-- /catlinks -->
                                   </div>
               </div>
             </div>
@@ -618,7 +617,7 @@ Transclusion expansion time report (%,ms,calls,template)
 
                 <!-- printfooter -->
         <div class="printfooter">
-        Retrieved from "<a dir="ltr" href="https://wiki.eclipse.org/index.php?title=Jetty/Howto/Prevent_Memory_Leaks&amp;oldid=334737">https://wiki.eclipse.org/index.php?title=Jetty/Howto/Prevent_Memory_Leaks&amp;oldid=334737</a>"        </div>
+        Retrieved from "<a href="https://wiki.eclipse.org/index.php?title=Jetty/Howto/Prevent_Memory_Leaks&amp;oldid=334737" dir="ltr">https://wiki.eclipse.org/index.php?title=Jetty/Howto/Prevent_Memory_Leaks&amp;oldid=334737</a>"        </div>
         <!-- /printfooter -->
         
         
@@ -635,16 +634,16 @@ Transclusion expansion time report (%,ms,calls,template)
 </div>
 <div class="featured-footer featured-footer-newsletter background-secondary">
   <div class="container">
-    <p id="footercredit">This page was last modified 13:51, 23 April 2013 by <a href="https://wiki.eclipse.org/User:Jesse.mcconnell.gmail.com" title="User:Jesse.mcconnell.gmail.com">Jesse McConnell</a>. Based on work by <a href="https://wiki.eclipse.org/index.php?title=User:Janb.intalio.com&amp;action=edit&amp;redlink=1" class="new" title="User:Janb.intalio.com (page does not exist)">Jan Bartel</a>.</p><p id="footerviews"></p>  </div>
+    <p id="footercredit">This page was last modified 13:51, 23 April 2013 by <a title="User:Jesse.mcconnell.gmail.com" href="https://wiki.eclipse.org/User:Jesse.mcconnell.gmail.com">Jesse McConnell</a>. Based on work by <a title="User:Janb.intalio.com (page does not exist)" href="https://wiki.eclipse.org/index.php?title=User:Janb.intalio.com&amp;action=edit&amp;redlink=1" class="new">Jan Bartel</a>.</p><p id="footerviews"/>  </div>
 </div>
 </main> <!-- /#main-content-container-row -->
-<p id="back-to-top" class="noprint hidden-print">
-  <a class="visible-xs" href="Prevent&#32;Memory&#32;Leaks.html#top">Back to the top</a>
+<p class="noprint hidden-print" id="back-to-top">
+  <a class="visible-xs" href="Prevent Memory Leaks.html#top">Back to the top</a>
 </p>
 <footer id="solstice-footer">
   <div class="container">
     <div class="row">
-      <section class="col-sm-6 hidden-print" id="footer-eclipse-foundation">
+      <section id="footer-eclipse-foundation" class="col-sm-6 hidden-print">
         <h2 class="section-title">Eclipse Foundation</h2>
         <ul class="nav">
           <li><a href="https://www.eclipse.org/org/">About Us</a></li>
@@ -667,7 +666,7 @@ Transclusion expansion time report (%,ms,calls,template)
           <li><a href="https://www.eclipse.org/legal/">Legal Resources</a></li>
         </ul>
       </section>
-      <section class="col-sm-6 hidden-print" id="footer-useful-links">
+      <section id="footer-useful-links" class="col-sm-6 hidden-print">
         <h2 class="section-title">Useful Links</h2>
         <ul class="nav">
           <li><a href="https://bugs.eclipse.org/bugs/">Report a Bug</a></li>
@@ -678,7 +677,7 @@ Transclusion expansion time report (%,ms,calls,template)
           <li><a href="https://marketplace.eclipse.org/">Marketplace</a></li>
         </ul>
       </section>
-      <section class="col-sm-6 hidden-print" id="footer-other">
+      <section id="footer-other" class="col-sm-6 hidden-print">
         <h2 class="section-title">Other</h2>
         <ul class="nav">
           <li><a href="https://www.eclipse.org/ide/">IDE and Tools</a></li>
@@ -691,40 +690,40 @@ Transclusion expansion time report (%,ms,calls,template)
       </section>
       <div class="col-sm-24 margin-top-20">
         <div class="row">
-          <div id="copyright" class="col-md-16">
-            <p id="copyright-text">Copyright &copy; Eclipse Foundation, Inc. All Rights Reserved.</p>
+          <div class="col-md-16" id="copyright">
+            <p id="copyright-text">Copyright © Eclipse Foundation, Inc. All Rights Reserved.</p>
           </div>
           <div class="col-md-8 social-media">
             <ul class="list-inline">
               <li>
                 <a class="social-media-link fa-stack fa-lg" href="https://twitter.com/EclipseFdn">
-                <i class="fa fa-circle-thin fa-stack-2x"></i>
-                <i class="fa fa-twitter fa-stack-1x"></i>
+                <i class="fa fa-circle-thin fa-stack-2x"/>
+                <i class="fa fa-twitter fa-stack-1x"/>
                 </a>
               </li>
               <li>
-                <a class="social-media-link fa-stack fa-lg" href="https://www.facebook.com/eclipse.org">
-                <i class="fa fa-circle-thin fa-stack-2x"></i>
-                <i class="fa fa-facebook fa-stack-1x"></i>
+                <a href="https://www.facebook.com/eclipse.org" class="social-media-link fa-stack fa-lg">
+                <i class="fa fa-circle-thin fa-stack-2x"/>
+                <i class="fa fa-facebook fa-stack-1x"/>
                 </a>
               </li>
               <li>
-                <a class="social-media-link fa-stack fa-lg" href="https://www.youtube.com/user/EclipseFdn">
-                <i class="fa fa-circle-thin fa-stack-2x"></i>
-                <i class="fa fa-youtube fa-stack-1x"></i>
+                <a href="https://www.youtube.com/user/EclipseFdn" class="social-media-link fa-stack fa-lg">
+                <i class="fa fa-circle-thin fa-stack-2x"/>
+                <i class="fa fa-youtube fa-stack-1x"/>
                 </a>
               </li>
               <li>
-                <a class="social-media-link fa-stack fa-lg" href="https://www.linkedin.com/company/eclipse-foundation">
-                <i class="fa fa-circle-thin fa-stack-2x"></i>
-                <i class="fa fa-linkedin fa-stack-1x"></i>
+                <a href="https://www.linkedin.com/company/eclipse-foundation" class="social-media-link fa-stack fa-lg">
+                <i class="fa fa-circle-thin fa-stack-2x"/>
+                <i class="fa fa-linkedin fa-stack-1x"/>
                 </a>
               </li>
             </ul>
           </div>
         </div>
       </div>
-      <a href="Prevent&#32;Memory&#32;Leaks.html#" class="scrollup">Back to the top</a>
+      <a class="scrollup" href="Prevent Memory Leaks.html#">Back to the top</a>
     </div>
   </div>
 </footer>
@@ -733,5 +732,6 @@ Transclusion expansion time report (%,ms,calls,template)
 mw.loader.state({"skins.solstice":"loading","user":"ready","user.groups":"ready"});mw.loader.load("/load.php?debug=false\u0026lang=en\u0026modules=skins.solstice\u0026only=scripts\u0026skin=solstice");mw.loader.load(["mediawiki.toc","mediawiki.action.view.postEdit","site","mediawiki.user","mediawiki.hidpi","mediawiki.page.ready","mediawiki.searchSuggest"]);
 } );</script><script>window.RLQ = window.RLQ || []; window.RLQ.push( function () {
 mw.config.set({"wgBackendResponseTime":357});
-} );</script>  </body>
-</html>
+} );</script>  
+
+</body></html>

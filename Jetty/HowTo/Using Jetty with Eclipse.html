@@ -1,6 +1,5 @@
-<!DOCTYPE html>
-<html lang="en" dir="ltr" class="client-nojs">
-<head>
+<?xml version="1.0" encoding="utf-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml" class="client-nojs" dir="ltr" lang="en"><head>
 <meta charset="UTF-8"/>
 <title>Jetty/HowTo/Using Jetty with Eclipse - Eclipsepedia</title>
 <script>document.documentElement.className = document.documentElement.className.replace( /(^|\s)client-nojs(\s|$)/, "$1client-js$2" );</script>
@@ -9,17 +8,17 @@ mw.config.set({"wgCanonicalNamespace":"","wgCanonicalSpecialPageName":!1,"wgName
 {"toolbar":!1,"dialogs":!1,"preview":!1,"publish":!1},"wgCategoryTreePageCategoryOptions":"{\"mode\":0,\"hideprefix\":20,\"showcount\":true,\"namespaces\":false}"});mw.loader.implement("user.options",function($,jQuery){mw.user.options.set({"variant":"en"});});mw.loader.implement("user.tokens",function($,jQuery){mw.user.tokens.set({"editToken":"+\\","patrolToken":"+\\","watchToken":"+\\"});});mw.loader.load(["mediawiki.page.startup","mediawiki.legacy.wikibits"]);
 } );</script>
 <link rel="stylesheet" href="../../load.php%3Fdebug=false&amp;lang=en&amp;modules=mediawiki.legacy.commonPrint,shared|mediawiki.sectionAnchor&amp;only=styles&amp;skin=solstice.css"/>
-<link rel="stylesheet" href="../../skins/solstice/public/css/styles.css%3F303.css" media="screen, print"/>
+<link media="screen, print" href="../../skins/solstice/public/css/styles.css%3F303.css" rel="stylesheet"/>
 <meta name="ResourceLoaderDynamicStyles" content=""/>
 <style>a:lang(ar),a:lang(kk-arab),a:lang(mzn),a:lang(ps),a:lang(ur){text-decoration:none}</style>
-<script async="" src="../../load.php%3Fdebug=false&amp;lang=en&amp;modules=startup&amp;only=scripts&amp;skin=solstice"></script>
+<script src="../../load.php%3Fdebug=false&amp;lang=en&amp;modules=startup&amp;only=scripts&amp;skin=solstice" async=""/>
 <meta name="generator" content="MediaWiki 1.26.4"/>
 <link rel="shortcut icon" href="../../eclipse.org-common/themes/solstice/public/images/favicon.ico"/>
-<link rel="search" type="application/opensearchdescription+xml" href="https://wiki.eclipse.org/opensearch_desc.php" title="Eclipsepedia (en)"/>
-<link rel="EditURI" type="application/rsd+xml" href="https://wiki.eclipse.org/api.php?action=rsd"/>
-<link rel="alternate" type="application/atom+xml" title="Eclipsepedia Atom feed" href="https://wiki.eclipse.org/index.php?title=Special:RecentChanges&amp;feed=atom"/>
+<link href="https://wiki.eclipse.org/opensearch_desc.php" type="application/opensearchdescription+xml" title="Eclipsepedia (en)" rel="search"/>
+<link rel="EditURI" href="https://wiki.eclipse.org/api.php?action=rsd" type="application/rsd+xml"/>
+<link rel="alternate" title="Eclipsepedia Atom feed" type="application/atom+xml" href="https://wiki.eclipse.org/index.php?title=Special:RecentChanges&amp;feed=atom"/>
 <style type="text/css">
-/*<![CDATA[*/      
+/*&lt;![CDATA[*/      
 #jetty-nav {
   margin-bottom: 2em;
 }
@@ -133,13 +132,13 @@ table.jetty-table, .jetty-table table {
   float: right;
   margin: 0.5em;
 }
-/*]]>*/       
+/*]]&gt;*/       
 </style>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 </head>
 <body class="mediawiki ltr sitedir-ltr ns-0 ns-subject page-Jetty_HowTo_Using_Jetty_with_Eclipse skin-solstice action-view" id="solstice">
 
-<a class="sr-only" href="Using&#32;Jetty&#32;with&#32;Eclipse.html#content">Skip to main content</a>
+<a href="Using Jetty with Eclipse.html#content" class="sr-only">Skip to main content</a>
 <header class="header-wrapper" id="header-wrapper">
   <div class="clearfix toolbar-container-wrapper">
     <div class="container-fluid">
@@ -147,30 +146,30 @@ table.jetty-table, .jetty-table table {
         <div class="col-md-24 row-toolbar-col">
                <ul class="list-inline">
                   <li id="pt-login">
-            <a href="https://wiki.eclipse.org/index.php?title=Special:UserLogin&amp;returnto=Jetty%2FHowTo%2FUsing+Jetty+with+Eclipse" class="toolbar-link toolbar-login">
-              <i class="fa fa-sign-in fa-fw"></i> Log in            </a>
+            <a class="toolbar-link toolbar-login" href="https://wiki.eclipse.org/index.php?title=Special:UserLogin&amp;returnto=Jetty%2FHowTo%2FUsing+Jetty+with+Eclipse">
+              <i class="fa fa-sign-in fa-fw"/> Log in            </a>
           </li>
-                <li><a class="toolbar-link toolbar-manage-cookies dropdown-toggle"><i class="fa fa-wrench"></i> Manage Cookies</a></li>
+                <li><a class="toolbar-link toolbar-manage-cookies dropdown-toggle"><i class="fa fa-wrench"/> Manage Cookies</a></li>
       </ul>
             </div>
       </div>
     </div>
   </div>
   <div class="container-fluid">
-    <div class="row" id="header-row">
-      <div class="col-sm-5 col-md-4" id="header-left">
-        <div class="wrapper-logo-default"><a href="https://www.eclipse.org/"><img class="logo-eclipse-default hidden-xs" alt="Eclipse.org logo" width="160" src="https://www.eclipse.org/eclipse.org-common/themes/solstice/public/images/logo/eclipse-foundation-white-orange.svg"/></a></div>
+    <div id="header-row" class="row">
+      <div id="header-left" class="col-sm-5 col-md-4">
+        <div class="wrapper-logo-default"><a href="https://www.eclipse.org/"><img class="logo-eclipse-default hidden-xs" src="https://www.eclipse.org/eclipse.org-common/themes/solstice/public/images/logo/eclipse-foundation-white-orange.svg" width="160" alt="Eclipse.org logo"/></a></div>
       </div>
       <div class="col-sm-19 col-md-20 margin-top-10" id="main-menu-wrapper">
-        <div class="float-right hidden-xs" id="btn-call-for-action"><a href="https://eclipse.org/downloads/" class="btn btn-huge btn-warning"><i class="fa fa-download"></i> Download</a></div>
-        <div class="navbar yamm float-sm-right" id="main-menu">
+        <div class="float-right hidden-xs" id="btn-call-for-action"><a href="https://eclipse.org/downloads/" class="btn btn-huge btn-warning"><i class="fa fa-download"/> Download</a></div>
+        <div id="main-menu" class="navbar yamm float-sm-right">
           <div class="navbar-collapse collapse" id="navbar-main-menu">
             <ul class="nav navbar-nav">
-              <li><a href="https://www.eclipse.org/projects/" target="_self">Projects</a></li>
+              <li><a target="_self" href="https://www.eclipse.org/projects/">Projects</a></li>
               <li><a href="https://www.eclipse.org/org/workinggroups/" target="_self">Working Groups</a></li>
               <li><a href="https://www.eclipse.org/membership/" target="_self">Members</a></li>
               <li class="dropdown visible-xs">
-                <a href="Using&#32;Jetty&#32;with&#32;Eclipse.html#" data-toggle="dropdown" class="dropdown-toggle">Community <b class="caret"></b></a>
+                <a href="Using Jetty with Eclipse.html#" data-toggle="dropdown" class="dropdown-toggle">Community <b class="caret"/></a>
                 <ul class="dropdown-menu">
                   <li><a href="http://marketplace.eclipse.org">Marketplace</a></li>
                   <li><a href="http://events.eclipse.org">Events</a></li>
@@ -181,7 +180,7 @@ table.jetty-table, .jetty-table table {
                 </ul>
               </li>
               <li class="dropdown visible-xs">
-                <a href="Using&#32;Jetty&#32;with&#32;Eclipse.html#" data-toggle="dropdown" class="dropdown-toggle">Participate <b class="caret"></b></a>
+                <a data-toggle="dropdown" href="Using Jetty with Eclipse.html#" class="dropdown-toggle">Participate <b class="caret"/></a>
                 <ul class="dropdown-menu">
                   <li><a href="https://bugs.eclipse.org/bugs/">Report a Bug</a></li>
                   <li><a href="https://www.eclipse.org/forums/">Forums</a></li>
@@ -192,7 +191,7 @@ table.jetty-table, .jetty-table table {
                 </ul>
               </li>
               <li class="dropdown visible-xs">
-                <a href="Using&#32;Jetty&#32;with&#32;Eclipse.html#" data-toggle="dropdown" class="dropdown-toggle">Eclipse IDE <b class="caret"></b></a>
+                <a class="dropdown-toggle" data-toggle="dropdown" href="Using Jetty with Eclipse.html#">Eclipse IDE <b class="caret"/></a>
                 <ul class="dropdown-menu">
                   <li><a href="https://www.eclipse.org/downloads">Download</a></li>
                   <li><a href="https://www.eclipse.org/eclipseide">Learn More</a></li>
@@ -205,7 +204,7 @@ table.jetty-table, .jetty-table table {
               </li>
               <!-- More -->
               <li class="dropdown eclipse-more hidden-xs">
-                <a data-toggle="dropdown" class="dropdown-toggle" role="button">More<b class="caret"></b></a>
+                <a class="dropdown-toggle" role="button" data-toggle="dropdown">More<b class="caret"/></a>
                 <ul class="dropdown-menu">
                   <li>
                     <!-- Content container to add padding -->
@@ -253,14 +252,14 @@ table.jetty-table, .jetty-table table {
             </ul>
           </div>
           <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-main-menu">
+            <button class="navbar-toggle" data-target="#navbar-main-menu" type="button" data-toggle="collapse">
             <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
+            <span class="icon-bar"/>
+            <span class="icon-bar"/>
+            <span class="icon-bar"/>
+            <span class="icon-bar"/>
             </button>
-            <div class="wrapper-logo-mobile"><a class="navbar-brand visible-xs" href="https://www.eclipse.org/"><img class="logo-eclipse-default-mobile img-responsive" alt="Eclipse.org logo" width="160" src="https://www.eclipse.org/eclipse.org-common/themes/solstice/public/images/logo/eclipse-foundation-white-orange.svg"/></a></div>
+            <div class="wrapper-logo-mobile"><a href="https://www.eclipse.org/" class="navbar-brand visible-xs"><img class="logo-eclipse-default-mobile img-responsive" width="160" src="https://www.eclipse.org/eclipse.org-common/themes/solstice/public/images/logo/eclipse-foundation-white-orange.svg" alt="Eclipse.org logo"/></a></div>
           </div>
         </div>
       </div>
@@ -288,7 +287,7 @@ table.jetty-table, .jetty-table table {
     
     <!-- content -->
     <section id="content" class="mw-body container-full clearfix 0">
-      <div id="mw-js-message" style="display:none;"></div>
+      <div id="mw-js-message" style="display:none;"/>
 
       
       <!-- bodyContent -->
@@ -297,76 +296,76 @@ table.jetty-table, .jetty-table table {
         
                 <!-- jumpto -->
         <div id="jump-to-nav" class="mw-jump">
-          Jump to: <a href="Using&#32;Jetty&#32;with&#32;Eclipse.html#mw-head">navigation</a>,
-          <a href="Using&#32;Jetty&#32;with&#32;Eclipse.html#p-search">search</a>
+          Jump to: <a href="Using Jetty with Eclipse.html#mw-head">navigation</a>,
+          <a href="Using Jetty with Eclipse.html#p-search">search</a>
         </div>
         <!-- /jumpto -->
         
           <!-- leftcol -->
           <aside class="col-md-4 noprint hidden-print" id="leftcol">
-                      <form class="input-group" role="form" id="form-eclipse-search" action="https://wiki.eclipse.org/index.php" id="searchform">
-              <input id="searchInput" class="search-query form-control" type="search" accesskey="f" title="Special:Search" placeholder="Search" name="search" value="">
+                      <form action="https://wiki.eclipse.org/index.php" role="form" class="input-group" id="form-eclipse-search">
+              <input id="searchInput" type="search" placeholder="Search" value="" class="search-query form-control" name="search" accesskey="f" title="Special:Search"/>
 
               <span class="input-group-btn">
-                <button value="search" id="mw-searchButton" type="submit" class="btn btn-default" title="Search the pages for this text" name="fulltext">
-                  <i class="fa fa-search"></i>
+                <button name="fulltext" class="btn btn-default" title="Search the pages for this text" type="submit" id="mw-searchButton" value="search">
+                  <i class="fa fa-search"/>
                 </button>
               </span>
             </form>
-                      <select class="form-control margin-top-10 margin-bottom-10 visible-xs visible-sm" onchange="this.options[this.selectedIndex].value && (window.location = this.options[this.selectedIndex].value);"><option class="fw-700 "><span class="fw-700">---Navigation---</span></option><option value="/Main_Page">Main Page</option><option value="/Eclipsepedia:Community_portal">Community portal</option><option value="/Eclipsepedia:Current_events">Current events</option><option value="/Special:RecentChanges">Recent changes</option><option value="/Special:Random">Random page</option><option value="https://www.mediawiki.org/wiki/Special:MyLanguage/Help:Contents">Help</option></select><ul class="ul-left-nav fa-ul hidden-print leftnav hidden-xs hidden-sm"><li class="separator"><span class="separator">Navigation</span></li>                <li class=""><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/Main_Page" id="n-mainpage" title="Visit the main page [z]" accesskey="z">Main Page</a></li>                <li class=""><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/Eclipsepedia:Community_portal" id="n-portal" title="About the project, what you can do, where to find things">Community portal</a></li>                <li class=""><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/Eclipsepedia:Current_events" id="n-currentevents" title="Find background information on current events">Current events</a></li>                <li class=""><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/Special:RecentChanges" id="n-recentchanges" title="A list of recent changes in the wiki [r]" accesskey="r">Recent changes</a></li>                <li class=""><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/Special:Random" id="n-randompage" title="Load a random page [x]" accesskey="x">Random page</a></li>                <li class=""><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://www.mediawiki.org/wiki/Special:MyLanguage/Help:Contents" id="n-help" title="The place to find out">Help</a></li></ul>            <select class="form-control margin-top-10 margin-bottom-10 visible-xs visible-sm" onchange="this.options[this.selectedIndex].value && (window.location = this.options[this.selectedIndex].value);"><option class="fw-700 "><span class="fw-700">---Toolbox---</span></option><option value="/index.php?title=Jetty/HowTo/Using_Jetty_with_Eclipse&amp;action=info">Page information</option><option value="/index.php?title=Jetty/HowTo/Using_Jetty_with_Eclipse&amp;oldid=334766">Permanent link</option><option value="/index.php?title=Jetty/HowTo/Using_Jetty_with_Eclipse&amp;printable=yes">Printable version</option><option value="/Special:SpecialPages">Special pages</option><option value="/Special:RecentChangesLinked/Jetty/HowTo/Using_Jetty_with_Eclipse">Related changes</option><option value="/Special:WhatLinksHere/Jetty/HowTo/Using_Jetty_with_Eclipse">What links here</option></select><ul class="ul-left-nav fa-ul hidden-print leftnav hidden-xs hidden-sm"><li class="separator"><span class="separator">Toolbox</span></li><li><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/index.php?title=Jetty/HowTo/Using_Jetty_with_Eclipse&amp;action=info" id="t-info" title="More information about this page">Page information</a></li><li><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/index.php?title=Jetty/HowTo/Using_Jetty_with_Eclipse&amp;oldid=334766" id="t-permalink" title="Permanent link to this revision of the page">Permanent link</a></li><li><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/index.php?title=Jetty/HowTo/Using_Jetty_with_Eclipse&amp;printable=yes" id="t-print" rel="alternate" title="Printable version of this page [p]" accesskey="p">Printable version</a></li><li><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/Special:SpecialPages" id="t-specialpages" title="A list of all special pages [q]" accesskey="q">Special pages</a></li><li><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/Special:RecentChangesLinked/Jetty/HowTo/Using_Jetty_with_Eclipse" id="t-recentchangeslinked" title="Recent changes in pages linked from this page [k]" accesskey="k">Related changes</a></li><li><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/Special:WhatLinksHere/Jetty/HowTo/Using_Jetty_with_Eclipse" id="t-whatlinkshere" title="A list of all wiki pages that link here [j]" accesskey="j">What links here</a></li></ul>                                  </aside>
+                      <select onchange="this.options[this.selectedIndex].value &amp;&amp; (window.location = this.options[this.selectedIndex].value);" class="form-control margin-top-10 margin-bottom-10 visible-xs visible-sm"><option class="fw-700 ">---Navigation---</option><option value="/Main_Page">Main Page</option><option value="/Eclipsepedia:Community_portal">Community portal</option><option value="/Eclipsepedia:Current_events">Current events</option><option value="/Special:RecentChanges">Recent changes</option><option value="/Special:Random">Random page</option><option value="https://www.mediawiki.org/wiki/Special:MyLanguage/Help:Contents">Help</option></select><ul class="ul-left-nav fa-ul hidden-print leftnav hidden-xs hidden-sm"><li class="separator"><span class="separator">Navigation</span></li>                <li class=""><i class="fa fa-angle-double-right orange fa-fw"/> <a href="https://wiki.eclipse.org/Main_Page" id="n-mainpage" accesskey="z" title="Visit the main page [z]">Main Page</a></li>                <li class=""><i class="fa fa-angle-double-right orange fa-fw"/> <a href="https://wiki.eclipse.org/Eclipsepedia:Community_portal" id="n-portal" title="About the project, what you can do, where to find things">Community portal</a></li>                <li class=""><i class="fa fa-angle-double-right orange fa-fw"/> <a href="https://wiki.eclipse.org/Eclipsepedia:Current_events" id="n-currentevents" title="Find background information on current events">Current events</a></li>                <li class=""><i class="fa fa-angle-double-right orange fa-fw"/> <a accesskey="r" title="A list of recent changes in the wiki [r]" id="n-recentchanges" href="https://wiki.eclipse.org/Special:RecentChanges">Recent changes</a></li>                <li class=""><i class="fa fa-angle-double-right orange fa-fw"/> <a id="n-randompage" href="https://wiki.eclipse.org/Special:Random" title="Load a random page [x]" accesskey="x">Random page</a></li>                <li class=""><i class="fa fa-angle-double-right orange fa-fw"/> <a href="https://www.mediawiki.org/wiki/Special:MyLanguage/Help:Contents" id="n-help" title="The place to find out">Help</a></li></ul>            <select class="form-control margin-top-10 margin-bottom-10 visible-xs visible-sm" onchange="this.options[this.selectedIndex].value &amp;&amp; (window.location = this.options[this.selectedIndex].value);"><option class="fw-700 ">---Toolbox---</option><option value="/index.php?title=Jetty/HowTo/Using_Jetty_with_Eclipse&amp;action=info">Page information</option><option value="/index.php?title=Jetty/HowTo/Using_Jetty_with_Eclipse&amp;oldid=334766">Permanent link</option><option value="/index.php?title=Jetty/HowTo/Using_Jetty_with_Eclipse&amp;printable=yes">Printable version</option><option value="/Special:SpecialPages">Special pages</option><option value="/Special:RecentChangesLinked/Jetty/HowTo/Using_Jetty_with_Eclipse">Related changes</option><option value="/Special:WhatLinksHere/Jetty/HowTo/Using_Jetty_with_Eclipse">What links here</option></select><ul class="ul-left-nav fa-ul hidden-print leftnav hidden-xs hidden-sm"><li class="separator"><span class="separator">Toolbox</span></li><li><i class="fa fa-angle-double-right orange fa-fw"/> <a title="More information about this page" id="t-info" href="https://wiki.eclipse.org/index.php?title=Jetty/HowTo/Using_Jetty_with_Eclipse&amp;action=info">Page information</a></li><li><i class="fa fa-angle-double-right orange fa-fw"/> <a id="t-permalink" href="https://wiki.eclipse.org/index.php?title=Jetty/HowTo/Using_Jetty_with_Eclipse&amp;oldid=334766" title="Permanent link to this revision of the page">Permanent link</a></li><li><i class="fa fa-angle-double-right orange fa-fw"/> <a title="Printable version of this page [p]" accesskey="p" rel="alternate" href="https://wiki.eclipse.org/index.php?title=Jetty/HowTo/Using_Jetty_with_Eclipse&amp;printable=yes" id="t-print">Printable version</a></li><li><i class="fa fa-angle-double-right orange fa-fw"/> <a href="https://wiki.eclipse.org/Special:SpecialPages" id="t-specialpages" accesskey="q" title="A list of all special pages [q]">Special pages</a></li><li><i class="fa fa-angle-double-right orange fa-fw"/> <a href="https://wiki.eclipse.org/Special:RecentChangesLinked/Jetty/HowTo/Using_Jetty_with_Eclipse" id="t-recentchangeslinked" title="Recent changes in pages linked from this page [k]" accesskey="k">Related changes</a></li><li><i class="fa fa-angle-double-right orange fa-fw"/> <a title="A list of all wiki pages that link here [j]" accesskey="j" id="t-whatlinkshere" href="https://wiki.eclipse.org/Special:WhatLinksHere/Jetty/HowTo/Using_Jetty_with_Eclipse">What links here</a></li></ul>                                  </aside>
           <!-- /leftcol -->
 
           <!-- mainContent -->
-          <div id="mainContent" class="col-md-20">
+          <div class="col-md-20" id="mainContent">
                       <ul class="nav nav-tabs noprint hidden-print" role="tablist">
-                       <li id="ca-nstab-main" class="active"><a href="Using&#32;Jetty&#32;with&#32;Eclipse.html"  title="View the content page [c]" accesskey="c" tabindex="-1">Page</a></li>
-                        <li id="ca-talk" class="new"><a href="https://wiki.eclipse.org/index.php?title=Talk:Jetty/HowTo/Using_Jetty_with_Eclipse&amp;action=edit&amp;redlink=1"  title="Discussion about the content page [t]" accesskey="t" tabindex="-1">Discussion</a></li>
-                        <li id="ca-viewsource"><a href="https://wiki.eclipse.org/index.php?title=Jetty/HowTo/Using_Jetty_with_Eclipse&amp;action=edit"  title="This page is protected.&#10;You can view its source [e]" accesskey="e" tabindex="-1">View source</a></li>
-                        <li id="ca-history" class="collapsible"><a href="https://wiki.eclipse.org/index.php?title=Jetty/HowTo/Using_Jetty_with_Eclipse&amp;action=history"  title="Past revisions of this page [h]" accesskey="h" tabindex="-1">History</a></li>
+                       <li id="ca-nstab-main" class="active"><a title="View the content page [c]" accesskey="c" tabindex="-1" href="Using Jetty with Eclipse.html">Page</a></li>
+                        <li id="ca-talk" class="new"><a accesskey="t" title="Discussion about the content page [t]" tabindex="-1" href="https://wiki.eclipse.org/index.php?title=Talk:Jetty/HowTo/Using_Jetty_with_Eclipse&amp;action=edit&amp;redlink=1">Discussion</a></li>
+                        <li id="ca-viewsource"><a href="https://wiki.eclipse.org/index.php?title=Jetty/HowTo/Using_Jetty_with_Eclipse&amp;action=edit" tabindex="-1" accesskey="e" title="This page is protected.&#10;You can view its source [e]">View source</a></li>
+                        <li id="ca-history" class="collapsible"><a href="https://wiki.eclipse.org/index.php?title=Jetty/HowTo/Using_Jetty_with_Eclipse&amp;action=history" tabindex="-1" accesskey="h" title="Past revisions of this page [h]">History</a></li>
                       </ul>            <div class="tab-content background-white">
               <div id="tab-pane-main-page-content" class="tab-pane active">
 
                 
-                <h1 id="firstHeading" class="firstHeading page-header">
+                <h1 class="firstHeading page-header" id="firstHeading">
                   <span dir="auto">Jetty/HowTo/Using Jetty with Eclipse</span>
                 </h1>
                 <div id="main-page-content">
                                                       <!-- subtitle -->
-                  <div id="contentSub"  class="alert alert-small alert-warning"><span class="subpages">&lt; <a href="../../Jetty.html" title="Jetty">Jetty</a></span></div>
+                  <div id="contentSub" class="alert alert-small alert-warning"><span class="subpages">&lt; <a title="Jetty" href="../../Jetty.html">Jetty</a></span></div>
                   <!-- /subtitle -->
                   
                   
-                  <div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><p><br />
-</p><p><br />
+                  <div id="mw-content-text" lang="en" class="mw-content-ltr" dir="ltr"><p><br/>
+</p><p><br/>
 </p>
-<div id="toc" class="toc"><div id="toctitle"><h2>Contents</h2></div>
+<div class="toc" id="toc"><div id="toctitle"><h2>Contents</h2></div>
 <ul>
-<li class="toclevel-1"><a href="Using&#32;Jetty&#32;with&#32;Eclipse.html#Introduction"><span class="tocnumber">1</span> <span class="toctext">Introduction</span></a></li>
-<li class="toclevel-1"><a href="Using&#32;Jetty&#32;with&#32;Eclipse.html#WTP_Style_Use"><span class="tocnumber">2</span> <span class="toctext">WTP Style Use</span></a></li>
-<li class="toclevel-1"><a href="Using&#32;Jetty&#32;with&#32;Eclipse.html#Embedded_Use"><span class="tocnumber">3</span> <span class="toctext">Embedded Use</span></a></li>
-<li class="toclevel-1"><a href="Using&#32;Jetty&#32;with&#32;Eclipse.html#run-jetty-run"><span class="tocnumber">4</span> <span class="toctext">run-jetty-run</span></a></li>
-<li class="toclevel-1"><a href="Using&#32;Jetty&#32;with&#32;Eclipse.html#Testing_Use"><span class="tocnumber">5</span> <span class="toctext">Testing Use</span></a></li>
+<li class="toclevel-1"><a href="Using Jetty with Eclipse.html#Introduction"><span class="tocnumber">1</span> <span class="toctext">Introduction</span></a></li>
+<li class="toclevel-1"><a href="Using Jetty with Eclipse.html#WTP_Style_Use"><span class="tocnumber">2</span> <span class="toctext">WTP Style Use</span></a></li>
+<li class="toclevel-1"><a href="Using Jetty with Eclipse.html#Embedded_Use"><span class="tocnumber">3</span> <span class="toctext">Embedded Use</span></a></li>
+<li class="toclevel-1"><a href="Using Jetty with Eclipse.html#run-jetty-run"><span class="tocnumber">4</span> <span class="toctext">run-jetty-run</span></a></li>
+<li class="toclevel-1"><a href="Using Jetty with Eclipse.html#Testing_Use"><span class="tocnumber">5</span> <span class="toctext">Testing Use</span></a></li>
 </ul>
 </div>
 
 <h2><span class="mw-headline" id="Introduction">Introduction</span></h2>
 <div class="messagebox" style="background-color: #f9f6b7; border: 1px solid #c4c295; color: black; padding: 5px; margin: 1ex 0; min-height: 35px; padding-left: 45px;">
-<div style="float: left; margin-left: -40px;"><a href="https://wiki.eclipse.org/File:Warning2.png" class="image"><img alt="Warning2.png" src="../../images/3/37/Warning2.png" width="35" height="35" /></a></div>
-<div>Some or all of this content remains to be ported to Jetty 9 <a rel="nofollow" class="external text" href="http://www.eclipse.org/jetty/documentation/current">Documentation</a>.<br />If you are interested in migrating this content see our <a rel="nofollow" class="external text" href="http://www.eclipse.org/jetty/documentation/current/contributing-documentation.html">contribution guide</a> or <a rel="nofollow" class="external text" href="http://www.eclipse.org/jetty/documentation/current/community.html">contact us</a>.</div>
+<div style="float: left; margin-left: -40px;"><a class="image" href="https://wiki.eclipse.org/File:Warning2.png"><img height="35" width="35" src="../../images/3/37/Warning2.png" alt="Warning2.png"/></a></div>
+<div>Some or all of this content remains to be ported to Jetty 9 <a href="http://www.eclipse.org/jetty/documentation/current" class="external text" rel="nofollow">Documentation</a>.<br/>If you are interested in migrating this content see our <a rel="nofollow" class="external text" href="http://www.eclipse.org/jetty/documentation/current/contributing-documentation.html">contribution guide</a> or <a class="external text" rel="nofollow" href="http://www.eclipse.org/jetty/documentation/current/community.html">contact us</a>.</div>
 </div>
-<p><br />
+<p><br/>
 You can use Jetty in a variety of ways when developing in Eclipse.
 </p>
 <h2><span class="mw-headline" id="WTP_Style_Use">WTP Style Use</span></h2>
-<p>A problematic mechanism is the WTP style approach to webapp development.  Under certain circumstances this works for certain people and if it does, great, enjoy.  Here is a link to a <a href="../../Jetty&#32;WTP&#32;Plugin.html" title="Jetty WTP Plugin">Jetty WTP Plugin</a> that Angelo Zerr contributed.
+<p>A problematic mechanism is the WTP style approach to webapp development.  Under certain circumstances this works for certain people and if it does, great, enjoy.  Here is a link to a <a title="Jetty WTP Plugin" href="../../Jetty WTP Plugin.html">Jetty WTP Plugin</a> that Angelo Zerr contributed.
 </p>
 <h2><span class="mw-headline" id="Embedded_Use">Embedded Use</span></h2>
 <p>The embedded approach is an often used mechanism for developing in Eclipse.  This strategy involves writing a small main method that starts Jetty and deploys your servlets programmatically. You can control the starting and stopping of your webapp through normal runtime measures.  
 </p>
-<h2><span class="mw-headline" id="run-jetty-run">run-jetty-run</span></h2>
-<p><a rel="nofollow" class="external text" href="http://code.google.com/p/run-jetty-run/">Run-jetty-run</a> is a plugin that allows you to easily make run-configurations where Jetty starts a webapp. You point the run configuration to your webapp-directory, configure the context path and port, and you're pretty much done. Works for jetty 6, 7 and 8 - a version of each is included.
+<h2><span id="run-jetty-run" class="mw-headline">run-jetty-run</span></h2>
+<p><a href="http://code.google.com/p/run-jetty-run/" class="external text" rel="nofollow">Run-jetty-run</a> is a plugin that allows you to easily make run-configurations where Jetty starts a webapp. You point the run configuration to your webapp-directory, configure the context path and port, and you're pretty much done. Works for jetty 6, 7 and 8 - a version of each is included.
 </p>
-<h2><span class="mw-headline" id="Testing_Use">Testing Use</span></h2>
+<h2><span id="Testing_Use" class="mw-headline">Testing Use</span></h2>
 <p>You can use Jetty with JUnit or the like, where in @Before and @After there is a starting and stopping of a Jetty server. This is a popular approach to developing in Eclipse, and one that we employ heavily.  If you're interested in this approach, look through the unit tests for things like jetty-server and jetty-client for a wealth of examples.  Also see the <a rel="nofollow" class="external text" href="http://download.eclipse.org/jetty/stable-7/xref/org/eclipse/jetty/embedded/package-summary.html">embedded-examples project</a> for a number of simple examples in common usage scenarios.
 </p>
 <!-- 
@@ -397,7 +396,7 @@ Transclusion expansion time report (%,ms,calls,template)
  -->
 </div>
                                       <!-- catlinks -->
-                    <div id='catlinks' class='catlinks'><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="https://wiki.eclipse.org/Special:Categories" title="Special:Categories">Categories</a>: <ul><li><a href="https://wiki.eclipse.org/Category:Jetty" title="Category:Jetty">Jetty</a></li><li><a href="https://wiki.eclipse.org/Category:Jetty_Howto" title="Category:Jetty Howto">Jetty Howto</a></li></ul></div></div>                     <!-- /catlinks -->
+                    <div id="catlinks" class="catlinks"><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a title="Special:Categories" href="https://wiki.eclipse.org/Special:Categories">Categories</a>: <ul><li><a title="Category:Jetty" href="https://wiki.eclipse.org/Category:Jetty">Jetty</a></li><li><a href="https://wiki.eclipse.org/Category:Jetty_Howto" title="Category:Jetty Howto">Jetty Howto</a></li></ul></div></div>                     <!-- /catlinks -->
                                   </div>
               </div>
             </div>
@@ -406,7 +405,7 @@ Transclusion expansion time report (%,ms,calls,template)
 
                 <!-- printfooter -->
         <div class="printfooter">
-        Retrieved from "<a dir="ltr" href="https://wiki.eclipse.org/index.php?title=Jetty/HowTo/Using_Jetty_with_Eclipse&amp;oldid=334766">https://wiki.eclipse.org/index.php?title=Jetty/HowTo/Using_Jetty_with_Eclipse&amp;oldid=334766</a>"        </div>
+        Retrieved from "<a href="https://wiki.eclipse.org/index.php?title=Jetty/HowTo/Using_Jetty_with_Eclipse&amp;oldid=334766" dir="ltr">https://wiki.eclipse.org/index.php?title=Jetty/HowTo/Using_Jetty_with_Eclipse&amp;oldid=334766</a>"        </div>
         <!-- /printfooter -->
         
         
@@ -423,16 +422,16 @@ Transclusion expansion time report (%,ms,calls,template)
 </div>
 <div class="featured-footer featured-footer-newsletter background-secondary">
   <div class="container">
-    <p id="footercredit">This page was last modified 14:13, 23 April 2013 by <a href="https://wiki.eclipse.org/User:Jesse.mcconnell.gmail.com" title="User:Jesse.mcconnell.gmail.com">Jesse McConnell</a>. Based on work by <a href="https://wiki.eclipse.org/index.php?title=User:Eclipse.stolsvik.com&amp;action=edit&amp;redlink=1" class="new" title="User:Eclipse.stolsvik.com (page does not exist)">Endre  t</a> and <a href="https://wiki.eclipse.org/index.php?title=User:Boulay.intalio.com&amp;action=edit&amp;redlink=1" class="new" title="User:Boulay.intalio.com (page does not exist)">Shirley Boulay</a>.</p><p id="footerviews"></p>  </div>
+    <p id="footercredit">This page was last modified 14:13, 23 April 2013 by <a href="https://wiki.eclipse.org/User:Jesse.mcconnell.gmail.com" title="User:Jesse.mcconnell.gmail.com">Jesse McConnell</a>. Based on work by <a class="new" title="User:Eclipse.stolsvik.com (page does not exist)" href="https://wiki.eclipse.org/index.php?title=User:Eclipse.stolsvik.com&amp;action=edit&amp;redlink=1">Endre  t</a> and <a href="https://wiki.eclipse.org/index.php?title=User:Boulay.intalio.com&amp;action=edit&amp;redlink=1" title="User:Boulay.intalio.com (page does not exist)" class="new">Shirley Boulay</a>.</p><p id="footerviews"/>  </div>
 </div>
 </main> <!-- /#main-content-container-row -->
-<p id="back-to-top" class="noprint hidden-print">
-  <a class="visible-xs" href="Using&#32;Jetty&#32;with&#32;Eclipse.html#top">Back to the top</a>
+<p class="noprint hidden-print" id="back-to-top">
+  <a class="visible-xs" href="Using Jetty with Eclipse.html#top">Back to the top</a>
 </p>
 <footer id="solstice-footer">
   <div class="container">
     <div class="row">
-      <section class="col-sm-6 hidden-print" id="footer-eclipse-foundation">
+      <section id="footer-eclipse-foundation" class="col-sm-6 hidden-print">
         <h2 class="section-title">Eclipse Foundation</h2>
         <ul class="nav">
           <li><a href="https://www.eclipse.org/org/">About Us</a></li>
@@ -480,39 +479,39 @@ Transclusion expansion time report (%,ms,calls,template)
       <div class="col-sm-24 margin-top-20">
         <div class="row">
           <div id="copyright" class="col-md-16">
-            <p id="copyright-text">Copyright &copy; Eclipse Foundation, Inc. All Rights Reserved.</p>
+            <p id="copyright-text">Copyright © Eclipse Foundation, Inc. All Rights Reserved.</p>
           </div>
           <div class="col-md-8 social-media">
             <ul class="list-inline">
               <li>
-                <a class="social-media-link fa-stack fa-lg" href="https://twitter.com/EclipseFdn">
-                <i class="fa fa-circle-thin fa-stack-2x"></i>
-                <i class="fa fa-twitter fa-stack-1x"></i>
+                <a href="https://twitter.com/EclipseFdn" class="social-media-link fa-stack fa-lg">
+                <i class="fa fa-circle-thin fa-stack-2x"/>
+                <i class="fa fa-twitter fa-stack-1x"/>
                 </a>
               </li>
               <li>
-                <a class="social-media-link fa-stack fa-lg" href="https://www.facebook.com/eclipse.org">
-                <i class="fa fa-circle-thin fa-stack-2x"></i>
-                <i class="fa fa-facebook fa-stack-1x"></i>
+                <a href="https://www.facebook.com/eclipse.org" class="social-media-link fa-stack fa-lg">
+                <i class="fa fa-circle-thin fa-stack-2x"/>
+                <i class="fa fa-facebook fa-stack-1x"/>
                 </a>
               </li>
               <li>
-                <a class="social-media-link fa-stack fa-lg" href="https://www.youtube.com/user/EclipseFdn">
-                <i class="fa fa-circle-thin fa-stack-2x"></i>
-                <i class="fa fa-youtube fa-stack-1x"></i>
+                <a href="https://www.youtube.com/user/EclipseFdn" class="social-media-link fa-stack fa-lg">
+                <i class="fa fa-circle-thin fa-stack-2x"/>
+                <i class="fa fa-youtube fa-stack-1x"/>
                 </a>
               </li>
               <li>
                 <a class="social-media-link fa-stack fa-lg" href="https://www.linkedin.com/company/eclipse-foundation">
-                <i class="fa fa-circle-thin fa-stack-2x"></i>
-                <i class="fa fa-linkedin fa-stack-1x"></i>
+                <i class="fa fa-circle-thin fa-stack-2x"/>
+                <i class="fa fa-linkedin fa-stack-1x"/>
                 </a>
               </li>
             </ul>
           </div>
         </div>
       </div>
-      <a href="Using&#32;Jetty&#32;with&#32;Eclipse.html#" class="scrollup">Back to the top</a>
+      <a href="Using Jetty with Eclipse.html#" class="scrollup">Back to the top</a>
     </div>
   </div>
 </footer>
@@ -521,5 +520,6 @@ Transclusion expansion time report (%,ms,calls,template)
 mw.loader.state({"skins.solstice":"loading","user":"ready","user.groups":"ready"});mw.loader.load("/load.php?debug=false\u0026lang=en\u0026modules=skins.solstice\u0026only=scripts\u0026skin=solstice");mw.loader.load(["mediawiki.toc","mediawiki.action.view.postEdit","site","mediawiki.user","mediawiki.hidpi","mediawiki.page.ready","mediawiki.searchSuggest"]);
 } );</script><script>window.RLQ = window.RLQ || []; window.RLQ.push( function () {
 mw.config.set({"wgBackendResponseTime":555});
-} );</script>  </body>
-</html>
+} );</script>  
+
+</body></html>
