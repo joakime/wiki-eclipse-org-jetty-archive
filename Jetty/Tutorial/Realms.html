@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" class="client-nojs">
+<head>
+<meta charset="UTF-8"/>
+<title>Jetty/Tutorial/Realms - Eclipsepedia</title>
+<script>document.documentElement.className = document.documentElement.className.replace( /(^|\s)client-nojs(\s|$)/, "$1client-js$2" );</script>
+<script>window.RLQ = window.RLQ || []; window.RLQ.push( function () {
+mw.config.set({"wgCanonicalNamespace":"","wgCanonicalSpecialPageName":!1,"wgNamespaceNumber":0,"wgPageName":"Jetty/Tutorial/Realms","wgTitle":"Jetty/Tutorial/Realms","wgCurRevisionId":292629,"wgRevisionId":292629,"wgArticleId":23007,"wgIsArticle":!0,"wgIsRedirect":!1,"wgAction":"view","wgUserName":null,"wgUserGroups":["*"],"wgCategories":["Jetty","Jetty Tutorial"],"wgBreakFrames":!1,"wgPageContentLanguage":"en","wgPageContentModel":"wikitext","wgSeparatorTransformTable":["",""],"wgDigitTransformTable":["",""],"wgDefaultDateFormat":"dmy","wgMonthNames":["","January","February","March","April","May","June","July","August","September","October","November","December"],"wgMonthNamesShort":["","Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"wgRelevantPageName":"Jetty/Tutorial/Realms","wgRelevantArticleId":23007,"wgIsProbablyEditable":!1,"wgRestrictionEdit":[],"wgRestrictionMove":[],"wgWikiEditorEnabledModules":{"toolbar":!1,"dialogs":!1,"preview"
+:!1,"publish":!1},"wgCategoryTreePageCategoryOptions":"{\"mode\":0,\"hideprefix\":20,\"showcount\":true,\"namespaces\":false}"});mw.loader.implement("user.options",function($,jQuery){mw.user.options.set({"variant":"en"});});mw.loader.implement("user.tokens",function($,jQuery){mw.user.tokens.set({"editToken":"+\\","patrolToken":"+\\","watchToken":"+\\"});});mw.loader.load(["mediawiki.page.startup","mediawiki.legacy.wikibits"]);
+} );</script>
+<link rel="stylesheet" href="../../load.php%3Fdebug=false&amp;lang=en&amp;modules=mediawiki.legacy.commonPrint,shared|mediawiki.sectionAnchor&amp;only=styles&amp;skin=solstice.css"/>
+<link rel="stylesheet" href="../../skins/solstice/public/css/styles.css%3F303.css" media="screen, print"/>
+<meta name="ResourceLoaderDynamicStyles" content=""/>
+<style>a:lang(ar),a:lang(kk-arab),a:lang(mzn),a:lang(ps),a:lang(ur){text-decoration:none}</style>
+<script async="" src="../../load.php%3Fdebug=false&amp;lang=en&amp;modules=startup&amp;only=scripts&amp;skin=solstice"></script>
+<meta name="generator" content="MediaWiki 1.26.4"/>
+<link rel="shortcut icon" href="../../eclipse.org-common/themes/solstice/public/images/favicon.ico"/>
+<link rel="search" type="application/opensearchdescription+xml" href="https://wiki.eclipse.org/opensearch_desc.php" title="Eclipsepedia (en)"/>
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.eclipse.org/api.php?action=rsd"/>
+<link rel="alternate" type="application/atom+xml" title="Eclipsepedia Atom feed" href="https://wiki.eclipse.org/index.php?title=Special:RecentChanges&amp;feed=atom"/>
+<style type="text/css">
+/*<![CDATA[*/      
+#jetty-nav {
+  margin-bottom: 2em;
+}
+#jetty-nav ul {
+  padding: 3px 0 1px 1em;
+  margin:0;
+  border-bottom: 1px solid #aaa;
+}
+#jetty-nav li {
+  list-style: none;
+  margin: 0;
+  display: inline;
+}
+#jetty-nav li a {
+  padding: 3px 0.5em;
+  margin-left: 3px;
+  border: 1px solid #aaa;
+  border-bottom: none;
+  background: #eef;
+  text-decoration: none;
+}
+#jetty-nav li a:link { color: #448; }
+#jetty-nav li a:visited { color: #667; }
+#jetty-nav li a:hover {
+  color: #000;
+  background: #ccf;
+  border-color: #227;
+}
+#jetty-nav li span#current a
+{
+  background: #fff;
+  border-bottom: 1px solid #fff;
+}
+#jetty-nav li .selflink {
+  padding: 3px 0.5em;
+  margin-left: 3px;
+  border: 1px solid #aaa;
+  background: #fff;
+  border-bottom: 1px solid #fff;
+}
+table.jetty-table, .jetty-table table {
+  border: 1px solid #aaa;
+  border-collapse: collapse;
+}
+.jetty-table td {
+  border: 1px solid #aaa;
+  padding: 0.5em 1em;
+}
+.jetty-table th {
+  border: 1px solid #aaa;
+  background-color: #eef;
+}
+.jetty-table caption {
+  border: 1px #aaa solid;
+  margin: 1em 0 0.2em 0;
+  background-color: #ccf;
+  font-weight: bold;
+  font-size: 1.1em;
+}
+#content dl  {
+  border-left: 1px #aaa solid;
+  border-bottom: 1px #aaa solid;
+}
+#content dl dt {
+  float: left;
+  border-top: 1px solid #aaa;
+  padding: 0.5em 0 0 0.5em;
+}
+#content dl dd {
+  border: 1px solid #aaa;
+  border-bottom: none;
+}
+#content .narrow-list dl  {
+  width: 40em;
+}
+#content .narrow-list dl dt {
+  width: 14em;
+  line-height: 1.1em;
+}
+#content .narrow-list dl dd {
+  margin: 0 0 0 15em;
+  padding: 0.5em 1em;
+}
+#content .wide-list dl, #content dl {
+  width: 80em;
+}
+#content .wide-list dl dt, #content dl dt {
+  padding: 0.5em 1em;
+  width: 15em;
+}
+#content .wide-list dl dd, #content dl dd {
+  padding: 1em 1em 2em 2em;
+  margin: 0 0 0 17em;
+}
+#content .unbounded-list dl, #content .unbounded-list dl dd, #content .unbounded-list dl dt {
+  border: 0 none;
+  width: auto;
+  padding: 0 0 0 1em;
+}
+#content .unbounded-list dl dt {
+}
+#content p  {
+  margin-bottom: 0.5em;
+}
+#content li  {
+  line-height: 1.1em;
+}
+.infobox {
+  padding: 0.5em 1em;
+  background-color: #fff;
+  float: right;
+  margin: 0.5em;
+}
+/*]]>*/       
+</style>
+<style type="text/css">/*<![CDATA[*/
+.source-xml {line-height: normal;}
+.source-xml li, .source-xml pre {
+	line-height: normal; border: 0px none white;
+}
+/**
+ * GeSHi Dynamically Generated Stylesheet
+ * --------------------------------------
+ * Dynamically generated stylesheet for xml
+ * CSS class: source-xml, CSS id: 
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ * --------------------------------------
+ */
+.xml.source-xml .de1, .xml.source-xml .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;}
+.xml.source-xml  {font-family:monospace;}
+.xml.source-xml .imp {font-weight: bold; color: red;}
+.xml.source-xml li, .xml.source-xml .li1 {font-weight: normal; vertical-align:top;}
+.xml.source-xml .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.xml.source-xml .li2 {font-weight: bold; vertical-align:top;}
+.xml.source-xml .es0 {color: #000099; font-weight: bold;}
+.xml.source-xml .br0 {color: #66cc66;}
+.xml.source-xml .sy0 {color: #66cc66;}
+.xml.source-xml .st0 {color: #ff0000;}
+.xml.source-xml .nu0 {color: #cc66cc;}
+.xml.source-xml .sc-1 {color: #808080; font-style: italic;}
+.xml.source-xml .sc0 {color: #00bbdd;}
+.xml.source-xml .sc1 {color: #ddbb00;}
+.xml.source-xml .sc2 {color: #339933;}
+.xml.source-xml .sc3 {color: #009900;}
+.xml.source-xml .re0 {color: #000066;}
+.xml.source-xml .re1 {color: #000000; font-weight: bold;}
+.xml.source-xml .re2 {color: #000000; font-weight: bold;}
+.xml.source-xml .ln-xtra, .xml.source-xml li.ln-xtra, .xml.source-xml div.ln-xtra {background-color: #ffc;}
+.xml.source-xml span.xtra { display:block; }
+
+/*]]>*/
+</style>
+<style type="text/css">/*<![CDATA[*/
+.source-ini {line-height: normal;}
+.source-ini li, .source-ini pre {
+	line-height: normal; border: 0px none white;
+}
+/**
+ * GeSHi Dynamically Generated Stylesheet
+ * --------------------------------------
+ * Dynamically generated stylesheet for ini
+ * CSS class: source-ini, CSS id: 
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ * --------------------------------------
+ */
+.ini.source-ini .de1, .ini.source-ini .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;}
+.ini.source-ini  {font-family:monospace;}
+.ini.source-ini .imp {font-weight: bold; color: red;}
+.ini.source-ini li, .ini.source-ini .li1 {font-weight: normal; vertical-align:top;}
+.ini.source-ini .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.ini.source-ini .li2 {font-weight: bold; vertical-align:top;}
+.ini.source-ini .co0 {color: #666666; font-style: italic;}
+.ini.source-ini .sy0 {color: #000066; font-weight:bold;}
+.ini.source-ini .st0 {color: #933;}
+.ini.source-ini .re0 {color: #000066; font-weight:bold;}
+.ini.source-ini .re1 {color: #000099;}
+.ini.source-ini .re2 {color: #660066;}
+.ini.source-ini .ln-xtra, .ini.source-ini li.ln-xtra, .ini.source-ini div.ln-xtra {background-color: #ffc;}
+.ini.source-ini span.xtra { display:block; }
+
+/*]]>*/
+</style>
+<style type="text/css">/*<![CDATA[*/
+.source-sql {line-height: normal;}
+.source-sql li, .source-sql pre {
+	line-height: normal; border: 0px none white;
+}
+/**
+ * GeSHi Dynamically Generated Stylesheet
+ * --------------------------------------
+ * Dynamically generated stylesheet for sql
+ * CSS class: source-sql, CSS id: 
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ * --------------------------------------
+ */
+.sql.source-sql .de1, .sql.source-sql .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;}
+.sql.source-sql  {font-family:monospace;}
+.sql.source-sql .imp {font-weight: bold; color: red;}
+.sql.source-sql li, .sql.source-sql .li1 {font-weight: normal; vertical-align:top;}
+.sql.source-sql .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.sql.source-sql .li2 {font-weight: bold; vertical-align:top;}
+.sql.source-sql .kw1 {color: #993333; font-weight: bold;}
+.sql.source-sql .co1 {color: #808080; font-style: italic;}
+.sql.source-sql .coMULTI {color: #808080; font-style: italic;}
+.sql.source-sql .es0 {color: #000099; font-weight: bold;}
+.sql.source-sql .br0 {color: #66cc66;}
+.sql.source-sql .sy0 {color: #66cc66;}
+.sql.source-sql .st0 {color: #ff0000;}
+.sql.source-sql .nu0 {color: #cc66cc;}
+.sql.source-sql .ln-xtra, .sql.source-sql li.ln-xtra, .sql.source-sql div.ln-xtra {background-color: #ffc;}
+.sql.source-sql span.xtra { display:block; }
+
+/*]]>*/
+</style>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body class="mediawiki ltr sitedir-ltr ns-0 ns-subject page-Jetty_Tutorial_Realms skin-solstice action-view" id="solstice">
+
+<a class="sr-only" href="Realms.html#content">Skip to main content</a>
+<header class="header-wrapper" id="header-wrapper">
+  <div class="clearfix toolbar-container-wrapper">
+    <div class="container-fluid">
+      <div class="text-right toolbar-row row hidden-print">
+        <div class="col-md-24 row-toolbar-col">
+               <ul class="list-inline">
+                  <li id="pt-login">
+            <a href="https://wiki.eclipse.org/index.php?title=Special:UserLogin&amp;returnto=Jetty%2FTutorial%2FRealms" class="toolbar-link toolbar-login">
+              <i class="fa fa-sign-in fa-fw"></i> Log in            </a>
+          </li>
+                <li><a class="toolbar-link toolbar-manage-cookies dropdown-toggle"><i class="fa fa-wrench"></i> Manage Cookies</a></li>
+      </ul>
+            </div>
+      </div>
+    </div>
+  </div>
+  <div class="container-fluid">
+    <div class="row" id="header-row">
+      <div class="col-sm-5 col-md-4" id="header-left">
+        <div class="wrapper-logo-default"><a href="https://www.eclipse.org/"><img class="logo-eclipse-default hidden-xs" alt="Eclipse.org logo" width="160" src="https://www.eclipse.org/eclipse.org-common/themes/solstice/public/images/logo/eclipse-foundation-white-orange.svg"/></a></div>
+      </div>
+      <div class="col-sm-19 col-md-20 margin-top-10" id="main-menu-wrapper">
+        <div class="float-right hidden-xs" id="btn-call-for-action"><a href="https://eclipse.org/downloads/" class="btn btn-huge btn-warning"><i class="fa fa-download"></i> Download</a></div>
+        <div class="navbar yamm float-sm-right" id="main-menu">
+          <div class="navbar-collapse collapse" id="navbar-main-menu">
+            <ul class="nav navbar-nav">
+              <li><a href="https://www.eclipse.org/projects/" target="_self">Projects</a></li>
+              <li><a href="https://www.eclipse.org/org/workinggroups/" target="_self">Working Groups</a></li>
+              <li><a href="https://www.eclipse.org/membership/" target="_self">Members</a></li>
+              <li class="dropdown visible-xs">
+                <a href="Realms.html#" data-toggle="dropdown" class="dropdown-toggle">Community <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li><a href="http://marketplace.eclipse.org">Marketplace</a></li>
+                  <li><a href="http://events.eclipse.org">Events</a></li>
+                  <li><a href="http://www.planeteclipse.org/">Planet Eclipse</a></li>
+                  <li><a href="https://www.eclipse.org/community/eclipse_newsletter/">Newsletter</a></li>
+                  <li><a href="https://www.youtube.com/user/EclipseFdn">Videos</a></li>
+                  <li><a href="https://blogs.eclipse.org">Blogs</a></li>
+                </ul>
+              </li>
+              <li class="dropdown visible-xs">
+                <a href="Realms.html#" data-toggle="dropdown" class="dropdown-toggle">Participate <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li><a href="https://bugs.eclipse.org/bugs/">Report a Bug</a></li>
+                  <li><a href="https://www.eclipse.org/forums/">Forums</a></li>
+                  <li><a href="https://www.eclipse.org/mail/">Mailing Lists</a></li>
+                  <li><a href="https://wiki.eclipse.org/">Wiki</a></li>
+                  <li><a href="https://wiki.eclipse.org/IRC">IRC</a></li>
+                  <li><a href="https://www.eclipse.org/org/research/">Research</a></li>
+                </ul>
+              </li>
+              <li class="dropdown visible-xs">
+                <a href="Realms.html#" data-toggle="dropdown" class="dropdown-toggle">Eclipse IDE <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li><a href="https://www.eclipse.org/downloads">Download</a></li>
+                  <li><a href="https://www.eclipse.org/eclipseide">Learn More</a></li>
+                  <li><a href="https://help.eclipse.org">Documentation</a></li>
+                  <li><a href="https://www.eclipse.org/getting_started">Getting Started / Support</a></li>
+                  <li><a href="https://www.eclipse.org/contribute/">How to Contribute</a></li>
+                  <li><a href="https://www.eclipse.org/ide/">IDE and Tools</a></li>
+                  <li><a href="https://www.eclipse.org/forums/index.php/f/89/">Newcomer Forum</a></li>
+                </ul>
+              </li>
+              <!-- More -->
+              <li class="dropdown eclipse-more hidden-xs">
+                <a data-toggle="dropdown" class="dropdown-toggle" role="button">More<b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li>
+                    <!-- Content container to add padding -->
+                    <div class="yamm-content">
+                      <div class="row">
+                        <ul class="col-sm-8 list-unstyled">
+                          <li>
+                            <p><strong>Community</strong></p>
+                          </li>
+                          <li><a href="http://marketplace.eclipse.org">Marketplace</a></li>
+                          <li><a href="http://events.eclipse.org">Events</a></li>
+                          <li><a href="http://www.planeteclipse.org/">Planet Eclipse</a></li>
+                          <li><a href="https://www.eclipse.org/community/eclipse_newsletter/">Newsletter</a></li>
+                          <li><a href="https://www.youtube.com/user/EclipseFdn">Videos</a></li>
+                          <li><a href="https://blogs.eclipse.org">Blogs</a></li>
+                        </ul>
+                        <ul class="col-sm-8 list-unstyled">
+                          <li>
+                            <p><strong>Participate</strong></p>
+                          </li>
+                          <li><a href="https://bugs.eclipse.org/bugs/">Report a Bug</a></li>
+                          <li><a href="https://www.eclipse.org/forums/">Forums</a></li>
+                          <li><a href="https://www.eclipse.org/mail/">Mailing Lists</a></li>
+                          <li><a href="https://wiki.eclipse.org/">Wiki</a></li>
+                          <li><a href="https://wiki.eclipse.org/IRC">IRC</a></li>
+                          <li><a href="https://www.eclipse.org/org/research/">Research</a></li>
+                        </ul>
+                        <ul class="col-sm-8 list-unstyled">
+                          <li>
+                            <p><strong>Eclipse IDE</strong></p>
+                          </li>
+                          <li><a href="https://www.eclipse.org/downloads">Download</a></li>
+                          <li><a href="https://www.eclipse.org/eclipseide">Learn More</a></li>
+                          <li><a href="https://help.eclipse.org">Documentation</a></li>
+                          <li><a href="https://www.eclipse.org/getting_started">Getting Started / Support</a></li>
+                          <li><a href="https://www.eclipse.org/contribute/">How to Contribute</a></li>
+                          <li><a href="https://www.eclipse.org/ide/">IDE and Tools</a></li>
+                          <li><a href="https://www.eclipse.org/forums/index.php/f/89/">Newcomer Forum</a></li>
+                        </ul>
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-main-menu">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            </button>
+            <div class="wrapper-logo-mobile"><a class="navbar-brand visible-xs" href="https://www.eclipse.org/"><img class="logo-eclipse-default-mobile img-responsive" alt="Eclipse.org logo" width="160" src="https://www.eclipse.org/eclipse.org-common/themes/solstice/public/images/logo/eclipse-foundation-white-orange.svg"/></a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+<section class="default-breadcrumbs hidden-print" id="breadcrumb">
+  <div class="container-fluid">
+    <h3 class="sr-only">Breadcrumbs</h3>
+    <div class="row">
+      <div class="col-sm-24">
+        <ol class="breadcrumb">
+          <li><a href="https://www.eclipse.org/">Home</a></li>
+          <li><a href="https://wiki.eclipse.org/Main_Page">Eclipse Wiki</a></li>
+          <li class="active">Jetty/Tutorial/Realms</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- /#breadcrumb -->
+<main>
+<div class="container-fluid padding-15 padding-top-20">
+    
+    
+    <!-- content -->
+    <section id="content" class="mw-body container-full clearfix 0">
+      <div id="mw-js-message" style="display:none;"></div>
+
+      
+      <!-- bodyContent -->
+      <div id="bodyContent">
+
+        
+                <!-- jumpto -->
+        <div id="jump-to-nav" class="mw-jump">
+          Jump to: <a href="Realms.html#mw-head">navigation</a>,
+          <a href="Realms.html#p-search">search</a>
+        </div>
+        <!-- /jumpto -->
+        
+          <!-- leftcol -->
+          <aside class="col-md-4 noprint hidden-print" id="leftcol">
+                      <form class="input-group" role="form" id="form-eclipse-search" action="https://wiki.eclipse.org/index.php" id="searchform">
+              <input id="searchInput" class="search-query form-control" type="search" accesskey="f" title="Special:Search" placeholder="Search" name="search" value="">
+
+              <span class="input-group-btn">
+                <button value="search" id="mw-searchButton" type="submit" class="btn btn-default" title="Search the pages for this text" name="fulltext">
+                  <i class="fa fa-search"></i>
+                </button>
+              </span>
+            </form>
+                      <select class="form-control margin-top-10 margin-bottom-10 visible-xs visible-sm" onchange="this.options[this.selectedIndex].value && (window.location = this.options[this.selectedIndex].value);"><option class="fw-700 "><span class="fw-700">---Navigation---</span></option><option value="/Main_Page">Main Page</option><option value="/Eclipsepedia:Community_portal">Community portal</option><option value="/Eclipsepedia:Current_events">Current events</option><option value="/Special:RecentChanges">Recent changes</option><option value="/Special:Random">Random page</option><option value="https://www.mediawiki.org/wiki/Special:MyLanguage/Help:Contents">Help</option></select><ul class="ul-left-nav fa-ul hidden-print leftnav hidden-xs hidden-sm"><li class="separator"><span class="separator">Navigation</span></li>                <li class=""><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/Main_Page" id="n-mainpage" title="Visit the main page [z]" accesskey="z">Main Page</a></li>                <li class=""><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/Eclipsepedia:Community_portal" id="n-portal" title="About the project, what you can do, where to find things">Community portal</a></li>                <li class=""><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/Eclipsepedia:Current_events" id="n-currentevents" title="Find background information on current events">Current events</a></li>                <li class=""><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/Special:RecentChanges" id="n-recentchanges" title="A list of recent changes in the wiki [r]" accesskey="r">Recent changes</a></li>                <li class=""><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/Special:Random" id="n-randompage" title="Load a random page [x]" accesskey="x">Random page</a></li>                <li class=""><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://www.mediawiki.org/wiki/Special:MyLanguage/Help:Contents" id="n-help" title="The place to find out">Help</a></li></ul>            <select class="form-control margin-top-10 margin-bottom-10 visible-xs visible-sm" onchange="this.options[this.selectedIndex].value && (window.location = this.options[this.selectedIndex].value);"><option class="fw-700 "><span class="fw-700">---Toolbox---</span></option><option value="/index.php?title=Jetty/Tutorial/Realms&amp;action=info">Page information</option><option value="/index.php?title=Jetty/Tutorial/Realms&amp;oldid=292629">Permanent link</option><option value="/index.php?title=Jetty/Tutorial/Realms&amp;printable=yes">Printable version</option><option value="/Special:SpecialPages">Special pages</option><option value="/Special:RecentChangesLinked/Jetty/Tutorial/Realms">Related changes</option><option value="/Special:WhatLinksHere/Jetty/Tutorial/Realms">What links here</option></select><ul class="ul-left-nav fa-ul hidden-print leftnav hidden-xs hidden-sm"><li class="separator"><span class="separator">Toolbox</span></li><li><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/index.php?title=Jetty/Tutorial/Realms&amp;action=info" id="t-info" title="More information about this page">Page information</a></li><li><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/index.php?title=Jetty/Tutorial/Realms&amp;oldid=292629" id="t-permalink" title="Permanent link to this revision of the page">Permanent link</a></li><li><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/index.php?title=Jetty/Tutorial/Realms&amp;printable=yes" id="t-print" rel="alternate" title="Printable version of this page [p]" accesskey="p">Printable version</a></li><li><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/Special:SpecialPages" id="t-specialpages" title="A list of all special pages [q]" accesskey="q">Special pages</a></li><li><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/Special:RecentChangesLinked/Jetty/Tutorial/Realms" id="t-recentchangeslinked" title="Recent changes in pages linked from this page [k]" accesskey="k">Related changes</a></li><li><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/Special:WhatLinksHere/Jetty/Tutorial/Realms" id="t-whatlinkshere" title="A list of all wiki pages that link here [j]" accesskey="j">What links here</a></li></ul>                                  </aside>
+          <!-- /leftcol -->
+
+          <!-- mainContent -->
+          <div id="mainContent" class="col-md-20">
+                      <ul class="nav nav-tabs noprint hidden-print" role="tablist">
+                       <li id="ca-nstab-main" class="active"><a href="Realms.html"  title="View the content page [c]" accesskey="c" tabindex="-1">Page</a></li>
+                        <li id="ca-talk"><a href="https://wiki.eclipse.org/Talk:Jetty/Tutorial/Realms"  title="Discussion about the content page [t]" accesskey="t" tabindex="-1">Discussion</a></li>
+                        <li id="ca-viewsource"><a href="https://wiki.eclipse.org/index.php?title=Jetty/Tutorial/Realms&amp;action=edit"  title="This page is protected.&#10;You can view its source [e]" accesskey="e" tabindex="-1">View source</a></li>
+                        <li id="ca-history" class="collapsible"><a href="https://wiki.eclipse.org/index.php?title=Jetty/Tutorial/Realms&amp;action=history"  title="Past revisions of this page [h]" accesskey="h" tabindex="-1">History</a></li>
+                      </ul>            <div class="tab-content background-white">
+              <div id="tab-pane-main-page-content" class="tab-pane active">
+
+                
+                <h1 id="firstHeading" class="firstHeading page-header">
+                  <span dir="auto">Jetty/Tutorial/Realms</span>
+                </h1>
+                <div id="main-page-content">
+                                                      <!-- subtitle -->
+                  <div id="contentSub"  class="alert alert-small alert-warning"><span class="subpages">&lt; <a href="../../Jetty.html" title="Jetty">Jetty</a>&lrm; | <a href="../Tutorial.html" title="Jetty/Tutorial">Tutorial</a></span></div>
+                  <!-- /subtitle -->
+                  
+                  
+                  <div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><p><br />
+</p><p><br />
+</p>
+<div id="toc" class="toc"><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="Realms.html#Introduction"><span class="tocnumber">1</span> <span class="toctext">Introduction</span></a></li>
+<li class="toclevel-1"><a href="Realms.html#Details"><span class="tocnumber">2</span> <span class="toctext">Details</span></a>
+<ul>
+<li class="toclevel-2"><a href="Realms.html#HashLoginService"><span class="tocnumber">2.1</span> <span class="toctext">HashLoginService</span></a></li>
+<li class="toclevel-2"><a href="Realms.html#JDBCLoginService"><span class="tocnumber">2.2</span> <span class="toctext">JDBCLoginService</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1"><a href="Realms.html#Assigning_Realms"><span class="tocnumber">3</span> <span class="toctext">Assigning Realms</span></a></li>
+<li class="toclevel-1"><a href="Realms.html#Additional_Resources"><span class="tocnumber">4</span> <span class="toctext">Additional Resources</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Introduction">Introduction</span></h2>
+<p>This tutorial describes how to configure security realms to provide authentication and access control for web applications running in Jetty. A realm has a unique name, and is composed of a set of users. Each user has authentication information (for example, a password) and a set of roles associated with him/herself. You can configure one or many different realms depending on your needs. 
+</p>
+<ul><li> Configure a single realm to share common security information across all of your web applications. </li>
+<li> Configure distinct realms to partition your security information webapp by webapp.</li></ul>
+<h2><span class="mw-headline" id="Details">Details</span></h2>
+<p>A realm–known as a LoginService–is available to all web applications on a Server instance if you define it in a Jetty configuration file, for example $JETTY_HOME/etc/jetty.xml. Here's an example of defining an in-memory type of LoginService called the <i>HashLoginService</i> (note in Jetty 6 this was called the <i>HashUserRealm</i>):
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="xml source-xml"><pre class="de1"><span class="sc3"><span class="re1">&lt;Configure</span> <span class="re0">id</span>=<span class="st0">&quot;Server&quot;</span> <span class="re0">class</span>=<span class="st0">&quot;org.eclipse.jetty.server.Server&quot;</span><span class="re2">&gt;</span></span>
+&#160;
+    <span class="sc3"><span class="re1">&lt;Call</span> <span class="re0">name</span>=<span class="st0">&quot;addBean&quot;</span><span class="re2">&gt;</span></span>
+      <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">class</span>=<span class="st0">&quot;org.eclipse.jetty.security.HashLoginService&quot;</span><span class="re2">&gt;</span></span>
+          <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">&quot;name&quot;</span><span class="re2">&gt;</span></span>Test Realm<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
+          <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">&quot;config&quot;</span><span class="re2">&gt;</span><span class="re1">&lt;SystemProperty</span> <span class="re0">name</span>=<span class="st0">&quot;jetty.home&quot;</span> <span class="re0">default</span>=<span class="st0">&quot;.&quot;</span><span class="re2">/&gt;</span></span>/etc/realm.properties<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
+          <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">&quot;refreshInterval&quot;</span><span class="re2">&gt;</span></span>0<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span>
+      <span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;/Call<span class="re2">&gt;</span></span></span>
+&#160;
+&#160;
+<span class="sc3"><span class="re1">&lt;/Configure<span class="re2">&gt;</span></span></span></pre></div></div>
+<p>Alternatively, you can define a LoginService for just a single web application in a context file. Here's how to define the same HashLoginService, but inside
+a context xml file instead of a configuration file:
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="xml source-xml"><pre class="de1"><span class="sc3"><span class="re1">&lt;Configure</span> <span class="re0">class</span>=<span class="st0">&quot;org.eclipse.jetty.webapp.WebAppContext&quot;</span><span class="re2">&gt;</span></span>
+  <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">&quot;contextPath&quot;</span><span class="re2">&gt;</span></span>/test<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">&quot;war&quot;</span><span class="re2">&gt;</span><span class="re1">&lt;SystemProperty</span> <span class="re0">name</span>=<span class="st0">&quot;jetty.home&quot;</span> <span class="re0">default</span>=<span class="st0">&quot;.&quot;</span><span class="re2">/&gt;</span></span>/webapps/test<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
+&#160;
+  <span class="sc3"><span class="re1">&lt;Get</span> <span class="re0">name</span>=<span class="st0">&quot;securityHandler&quot;</span><span class="re2">&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">&quot;loginService&quot;</span><span class="re2">&gt;</span></span>
+      <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">class</span>=<span class="st0">&quot;org.eclipse.jetty.security.HashLoginService&quot;</span><span class="re2">&gt;</span></span>
+            <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">&quot;name&quot;</span><span class="re2">&gt;</span></span>Test Realm<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">&quot;config&quot;</span><span class="re2">&gt;</span><span class="re1">&lt;SystemProperty</span> <span class="re0">name</span>=<span class="st0">&quot;jetty.home&quot;</span> <span class="re0">default</span>=<span class="st0">&quot;.&quot;</span><span class="re2">/&gt;</span></span>/etc/realm.properties<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
+      <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;/Get<span class="re2">&gt;</span></span></span>
+&#160;
+<span class="sc3"><span class="re1">&lt;/Configure<span class="re2">&gt;</span></span></span></pre></div></div>
+<p>Jetty provides a number of different LoginService types from which you can choose.
+</p>
+<h3><span class="mw-headline" id="HashLoginService">HashLoginService</span></h3>
+<p>This LoginService is a simple realm whose authentication and authorization information is stored in a properties file. Each line in the file contains a username, a password, and zero or more role assignments. The format is:
+</p>
+<pre>username: password[,rolename ...]
+</pre>
+<p>where:
+</p>
+<ul><li> <b>username</b> is the user's unique identity;</li>
+<li> <b>password</b> is the user's (possibly obfuscated or MD5 encrypted) password;</li>
+<li> <b>rolename</b> is the user's role.</li></ul>
+<p>For example:
+</p>
+<pre>admin: CRYPT:ad1ks..kc.1Ug,server-administrator,content-administrator,admin
+other: OBF:1xmk1w261u9r1w1c1xmq
+guest: guest,read-only
+</pre>
+<p>You configure the HashLoginService with a name and a reference to the location of the properties file:
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="xml source-xml"><pre class="de1"><span class="sc3"><span class="re1">&lt;Item<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">class</span>=<span class="st0">&quot;org.eclipse.jetty.security.HashLoginService&quot;</span><span class="re2">&gt;</span></span>
+     <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">&quot;name&quot;</span><span class="re2">&gt;</span></span>Test Realm<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">&quot;config&quot;</span><span class="re2">&gt;</span><span class="re1">&lt;SystemProperty</span> <span class="re0">name</span>=<span class="st0">&quot;jetty.home&quot;</span> <span class="re0">default</span>=<span class="st0">&quot;.&quot;</span><span class="re2">/&gt;</span></span>/etc/realm.properties<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span>
+<span class="sc3"><span class="re1">&lt;/Item<span class="re2">&gt;</span></span></span></pre></div></div>
+<p>You can also configure it to check the properties file regularly for changes and reload when changes
+are detected. The reloadInterval is in seconds:
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="xml source-xml"><pre class="de1">  <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">class</span>=<span class="st0">&quot;org.eclipse.jetty.security.HashLoginService&quot;</span><span class="re2">&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">&quot;name&quot;</span><span class="re2">&gt;</span></span>Test Realm<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">&quot;config&quot;</span><span class="re2">&gt;</span><span class="re1">&lt;SystemProperty</span> <span class="re0">name</span>=<span class="st0">&quot;jetty.home&quot;</span> <span class="re0">default</span>=<span class="st0">&quot;.&quot;</span><span class="re2">/&gt;</span></span>/etc/realm.properties<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">&quot;reloadInterval&quot;</span><span class="re2">&gt;</span></span>5<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;Call</span> <span class="re0">name</span>=<span class="st0">&quot;start&quot;</span><span class="re2">&gt;</span><span class="re1">&lt;/Call<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span></pre></div></div>
+<h3><span class="mw-headline" id="JDBCLoginService">JDBCLoginService</span></h3>
+<p>In this implementation, authentication and role information is stored in a database accessed via JDBC. A properties file defines the JDBC connection and database table information. Here is an example of a properties file for this realm implementation:
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="ini source-ini"><pre class="de1"><span class="re1">jdbcdriver</span> <span class="sy0">=</span><span class="re2"> org.gjt.mm.mysql.Driver</span>
+<span class="re1">url</span> <span class="sy0">=</span><span class="re2"> jdbc:mysql://localhost/jetty</span>
+<span class="re1">username</span> <span class="sy0">=</span><span class="re2"> jetty</span>
+<span class="re1">password</span> <span class="sy0">=</span><span class="re2"> jetty</span>
+<span class="re1">usertable</span> <span class="sy0">=</span><span class="re2"> users</span>
+<span class="re1">usertablekey</span> <span class="sy0">=</span><span class="re2"> id</span>
+<span class="re1">usertableuserfield</span> <span class="sy0">=</span><span class="re2"> username</span>
+<span class="re1">usertablepasswordfield</span> <span class="sy0">=</span><span class="re2"> pwd</span>
+<span class="re1">roletable</span> <span class="sy0">=</span><span class="re2"> roles</span>
+<span class="re1">roletablekey</span> <span class="sy0">=</span><span class="re2"> id</span>
+<span class="re1">roletablerolefield</span> <span class="sy0">=</span><span class="re2"> role</span>
+<span class="re1">userroletable</span> <span class="sy0">=</span><span class="re2"> user_roles</span>
+<span class="re1">userroletableuserkey</span> <span class="sy0">=</span><span class="re2"> user_id</span>
+<span class="re1">userroletablerolekey</span> <span class="sy0">=</span><span class="re2"> role_id</span>
+<span class="re1">cachetime</span> <span class="sy0">=</span><span class="re2"> 300</span></pre></div></div>
+<p>The format of the database tables is (pseudo-sql):
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="sql source-sql"><pre class="de1">users
+<span class="br0">&#40;</span>
+  id <span class="kw1">INTEGER</span> <span class="kw1">PRIMARY</span> <span class="kw1">KEY</span><span class="sy0">,</span>
+  username <span class="kw1">VARCHAR</span><span class="br0">&#40;</span><span class="nu0">100</span><span class="br0">&#41;</span> <span class="kw1">NOT</span> <span class="kw1">NULL</span> <span class="kw1">UNIQUE</span> <span class="kw1">KEY</span><span class="sy0">,</span>
+  pwd <span class="kw1">VARCHAR</span><span class="br0">&#40;</span><span class="nu0">50</span><span class="br0">&#41;</span> <span class="kw1">NOT</span> <span class="kw1">NULL</span>
+<span class="br0">&#41;</span>;</pre></div></div>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="sql source-sql"><pre class="de1">user_roles
+<span class="br0">&#40;</span>
+  user_id <span class="kw1">INTEGER</span> <span class="kw1">NOT</span> <span class="kw1">NULL</span><span class="sy0">,</span>
+  role_id <span class="kw1">INTEGER</span> <span class="kw1">NOT</span> <span class="kw1">NULL</span><span class="sy0">,</span>
+  <span class="kw1">UNIQUE</span> <span class="kw1">KEY</span> <span class="br0">&#40;</span>user_id<span class="sy0">,</span> role_id<span class="br0">&#41;</span><span class="sy0">,</span>
+  <span class="kw1">INDEX</span><span class="br0">&#40;</span>user_id<span class="br0">&#41;</span>
+<span class="br0">&#41;</span>;</pre></div></div>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="sql source-sql"><pre class="de1">roles
+<span class="br0">&#40;</span>
+  id <span class="kw1">INTEGER</span> <span class="kw1">PRIMARY</span> <span class="kw1">KEY</span><span class="sy0">,</span>
+  <span class="kw1">ROLE</span> <span class="kw1">VARCHAR</span><span class="br0">&#40;</span><span class="nu0">100</span><span class="br0">&#41;</span> <span class="kw1">NOT</span> <span class="kw1">NULL</span> <span class="kw1">UNIQUE</span> <span class="kw1">KEY</span>
+<span class="br0">&#41;</span>;</pre></div></div>
+<p>Where:
+</p>
+<ul><li> <b>users</b> is a table containing one entry for every user consisting of:
+<ul><li> <b>id</b>–the unique identity of a user</li>
+<li> <b>user</b>–the name of the user</li>
+<li> <b>pwd</b>–the user's password (possibily obfuscated or MD5 encrypted)</li></ul></li></ul>
+<ul><li> <b>user-roles</b> is a table containing one row for every role granted to a user:
+<ul><li> <b>user_id</b>–the unique identity of the user</li>
+<li> <b>role_id</b>–the role for a user</li></ul></li></ul>
+<ul><li> <b>roles</b> is a a table containing one role for every role in the system:
+<ul><li> <b>id</b>–the unique identifier of a role</li>
+<li> <b>role</b>–a human-readable name for a role</li></ul></li></ul>
+<p>If you want to use obfuscated, MD5 hashed or encrypted passwords the 'pwd' column of the 'users' table must be large enough to hold the obfuscated, hashed or encrypted password text plus the appropriate prefix.
+</p><p>You define a JDBCLoginService with the name of the realm and the location of the properties file describing the database:
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="xml source-xml"><pre class="de1"><span class="sc3"><span class="re1">&lt;New</span> <span class="re0">class</span>=<span class="st0">&quot;org.eclipse.jetty.security.JDBCLoginService&quot;</span><span class="re2">&gt;</span></span>
+  <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">&quot;name&quot;</span><span class="re2">&gt;</span></span>Test JDBC Realm<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">&quot;config&quot;</span><span class="re2">&gt;</span></span>etc/jdbcRealm.properties<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
+<span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span></pre></div></div>
+<h2><span class="mw-headline" id="Assigning_Realms">Assigning Realms</span></h2>
+<p>You need to explicitly tell a context which realm (LoginService) to use if you have defined more than one in the Server. 
+</p>
+<ol><li> Configure realms on the server.</li>
+<li> Give the SecurityHandler for a context either the name of the realm you want to use, or give it the actual LoginService.</li></ol>
+<p>For example:
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="xml source-xml"><pre class="de1"><span class="sc3"><span class="re1">&lt;Configure</span> <span class="re0">class</span>=<span class="st0">&quot;org.eclipse.jetty.webapp.WebAppContext&quot;</span><span class="re2">&gt;</span></span>
+ <span class="sc3"><span class="re1">&lt;Get</span> <span class="re0">name</span>=<span class="st0">&quot;securityHandler&quot;</span><span class="re2">&gt;</span></span>
+   <span class="sc-1">&lt;!-- Either: --&gt;</span>
+   <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">&quot;loginService&quot;</span><span class="re2">&gt;</span></span>
+     <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">class</span>=<span class="st0">&quot;org.eclipse.jetty.security.HashLoginService&quot;</span><span class="re2">&gt;</span></span>
+           <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">&quot;name&quot;</span><span class="re2">&gt;</span></span>Test Realm<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
+     <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span>
+   <span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
+&#160;
+   <span class="sc-1">&lt;!-- or if you defined a LoginService called &quot;Test Realm&quot; in jetty.xml&#160;: --&gt;</span>
+   <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">&quot;realmName&quot;</span><span class="re2">&gt;</span></span>Test Realm<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
+&#160;
+ <span class="sc3"><span class="re1">&lt;/Get<span class="re2">&gt;</span></span></span></pre></div></div>
+<h2><span class="mw-headline" id="Additional_Resources">Additional Resources</span></h2>
+<p>See <a href="JAAS.html" title="Jetty/Tutorial/JAAS">Java Authentication and Authorization Service (JAAS)</a> tutorial for additional information about configuring security realms.
+</p>
+<!-- 
+NewPP limit report
+Cached time: 20211116063959
+Cache expiry: 86400
+Dynamic content: false
+CPU time usage: 0.100 seconds
+Real time usage: 0.103 seconds
+Preprocessor visited node count: 63/1000000
+Preprocessor generated node count: 368/1000000
+Post‐expand include size: 4604/2097152 bytes
+Template argument size: 4349/2097152 bytes
+Highest expansion depth: 4/40
+Expensive parser function count: 0/100
+-->
+
+<!-- 
+Transclusion expansion time report (%,ms,calls,template)
+100.00%   79.234      1 - -total
+100.00%   79.234      1 - Template:Jetty_Tutorial
+  6.66%    5.273      1 - Template:Jetty
+-->
+
+<!-- Saved in parser cache with key my_wiki:pcache:idhash:23007-0!*!0!!en!*!* and timestamp 20211116063959 and revision id 292629
+ -->
+</div>
+                                      <!-- catlinks -->
+                    <div id='catlinks' class='catlinks'><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="https://wiki.eclipse.org/Special:Categories" title="Special:Categories">Categories</a>: <ul><li><a href="https://wiki.eclipse.org/Category:Jetty" title="Category:Jetty">Jetty</a></li><li><a href="https://wiki.eclipse.org/Category:Jetty_Tutorial" title="Category:Jetty Tutorial">Jetty Tutorial</a></li></ul></div></div>                     <!-- /catlinks -->
+                                  </div>
+              </div>
+            </div>
+          </div>
+        <!-- /maincontent -->
+
+                <!-- printfooter -->
+        <div class="printfooter">
+        Retrieved from "<a dir="ltr" href="https://wiki.eclipse.org/index.php?title=Jetty/Tutorial/Realms&amp;oldid=292629">https://wiki.eclipse.org/index.php?title=Jetty/Tutorial/Realms&amp;oldid=292629</a>"        </div>
+        <!-- /printfooter -->
+        
+        
+        <!-- debughtml -->
+                <!-- /debughtml -->
+
+      </div>
+      <!-- /bodyContent -->
+    </section>
+    <!-- /content -->
+
+    <!-- footer -->
+    
+</div>
+<div class="featured-footer featured-footer-newsletter background-secondary">
+  <div class="container">
+    <p id="footercredit">This page was last modified 14:02, 1 March 2012 by <a href="https://wiki.eclipse.org/index.php?title=User:Boulay.intalio.com&amp;action=edit&amp;redlink=1" class="new" title="User:Boulay.intalio.com (page does not exist)">Shirley Boulay</a>. Based on work by <a href="https://wiki.eclipse.org/index.php?title=User:Michael.webtide.com&amp;action=edit&amp;redlink=1" class="new" title="User:Michael.webtide.com (page does not exist)">Michael Gorovoy</a> and <a href="https://wiki.eclipse.org/index.php?title=User:Janb.webtide.com&amp;action=edit&amp;redlink=1" class="new" title="User:Janb.webtide.com (page does not exist)">Jan Bartel</a>.</p><p id="footerviews"></p>  </div>
+</div>
+</main> <!-- /#main-content-container-row -->
+<p id="back-to-top" class="noprint hidden-print">
+  <a class="visible-xs" href="Realms.html#top">Back to the top</a>
+</p>
+<footer id="solstice-footer">
+  <div class="container">
+    <div class="row">
+      <section class="col-sm-6 hidden-print" id="footer-eclipse-foundation">
+        <h2 class="section-title">Eclipse Foundation</h2>
+        <ul class="nav">
+          <li><a href="https://www.eclipse.org/org/">About Us</a></li>
+          <li><a href="https://www.eclipse.org/org/foundation/contact.php">Contact Us</a></li>
+          <li><a href="https://www.eclipse.org/donate">Donate</a></li>
+          <li><a href="https://www.eclipse.org/membership/">Members</a></li>
+          <li><a href="https://www.eclipse.org/org/documents/">Governance</a></li>
+          <li><a href="https://www.eclipse.org/org/documents/Community_Code_of_Conduct.php">Code of Conduct</a></li>
+          <li><a href="https://www.eclipse.org/artwork/">Logo and Artwork</a></li>
+          <li><a href="https://www.eclipse.org/org/foundation/directors.php">Board of Directors</a></li>
+        </ul>
+      </section>
+      <section class="col-sm-6 hidden-print" id="footer-legal">
+        <h2 class="section-title">Legal</h2>
+        <ul class="nav">
+          <li><a href="https://www.eclipse.org/legal/privacy.php">Privacy Policy</a></li>
+          <li><a href="https://www.eclipse.org/legal/termsofuse.php">Terms of Use</a></li>
+          <li><a href="https://www.eclipse.org/legal/copyright.php">Copyright Agent</a></li>
+          <li><a href="https://www.eclipse.org/legal/epl-2.0/">Eclipse Public License</a></li>
+          <li><a href="https://www.eclipse.org/legal/">Legal Resources</a></li>
+        </ul>
+      </section>
+      <section class="col-sm-6 hidden-print" id="footer-useful-links">
+        <h2 class="section-title">Useful Links</h2>
+        <ul class="nav">
+          <li><a href="https://bugs.eclipse.org/bugs/">Report a Bug</a></li>
+          <li><a href="https://help.eclipse.org/">Documentation</a></li>
+          <li><a href="https://www.eclipse.org/contribute/">How to Contribute</a></li>
+          <li><a href="https://www.eclipse.org/mail/">Mailing Lists</a></li>
+          <li><a href="https://www.eclipse.org/forums/">Forums</a></li>
+          <li><a href="https://marketplace.eclipse.org/">Marketplace</a></li>
+        </ul>
+      </section>
+      <section class="col-sm-6 hidden-print" id="footer-other">
+        <h2 class="section-title">Other</h2>
+        <ul class="nav">
+          <li><a href="https://www.eclipse.org/ide/">IDE and Tools</a></li>
+          <li><a href="https://www.eclipse.org/projects">Projects</a></li>
+          <li><a href="https://www.eclipse.org/org/workinggroups/">Working Groups</a></li>
+          <li><a href="https://www.eclipse.org/org/research/">Research@Eclipse</a></li>
+          <li><a href="https://www.eclipse.org/security/">Report a Vulnerability</a></li>
+          <li><a href="https://status.eclipse.org">Service Status</a></li>
+        </ul>
+      </section>
+      <div class="col-sm-24 margin-top-20">
+        <div class="row">
+          <div id="copyright" class="col-md-16">
+            <p id="copyright-text">Copyright &copy; Eclipse Foundation, Inc. All Rights Reserved.</p>
+          </div>
+          <div class="col-md-8 social-media">
+            <ul class="list-inline">
+              <li>
+                <a class="social-media-link fa-stack fa-lg" href="https://twitter.com/EclipseFdn">
+                <i class="fa fa-circle-thin fa-stack-2x"></i>
+                <i class="fa fa-twitter fa-stack-1x"></i>
+                </a>
+              </li>
+              <li>
+                <a class="social-media-link fa-stack fa-lg" href="https://www.facebook.com/eclipse.org">
+                <i class="fa fa-circle-thin fa-stack-2x"></i>
+                <i class="fa fa-facebook fa-stack-1x"></i>
+                </a>
+              </li>
+              <li>
+                <a class="social-media-link fa-stack fa-lg" href="https://www.youtube.com/user/EclipseFdn">
+                <i class="fa fa-circle-thin fa-stack-2x"></i>
+                <i class="fa fa-youtube fa-stack-1x"></i>
+                </a>
+              </li>
+              <li>
+                <a class="social-media-link fa-stack fa-lg" href="https://www.linkedin.com/company/eclipse-foundation">
+                <i class="fa fa-circle-thin fa-stack-2x"></i>
+                <i class="fa fa-linkedin fa-stack-1x"></i>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <a href="Realms.html#" class="scrollup">Back to the top</a>
+    </div>
+  </div>
+</footer>
+    <!-- /footer -->
+    <script>window.RLQ = window.RLQ || []; window.RLQ.push( function () {
+mw.loader.state({"skins.solstice":"loading","user":"ready","user.groups":"ready"});mw.loader.load("/load.php?debug=false\u0026lang=en\u0026modules=skins.solstice\u0026only=scripts\u0026skin=solstice");mw.loader.load(["mediawiki.toc","mediawiki.action.view.postEdit","site","mediawiki.user","mediawiki.hidpi","mediawiki.page.ready","mediawiki.searchSuggest"]);
+} );</script><script>window.RLQ = window.RLQ || []; window.RLQ.push( function () {
+mw.config.set({"wgBackendResponseTime":371});
+} );</script>  </body>
+</html>

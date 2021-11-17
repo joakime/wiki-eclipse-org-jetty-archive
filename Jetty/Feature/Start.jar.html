@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" class="client-nojs">
+<head>
+<meta charset="UTF-8"/>
+<title>Jetty/Feature/Start.jar - Eclipsepedia</title>
+<script>document.documentElement.className = document.documentElement.className.replace( /(^|\s)client-nojs(\s|$)/, "$1client-js$2" );</script>
+<script>window.RLQ = window.RLQ || []; window.RLQ.push( function () {
+mw.config.set({"wgCanonicalNamespace":"","wgCanonicalSpecialPageName":!1,"wgNamespaceNumber":0,"wgPageName":"Jetty/Feature/Start.jar","wgTitle":"Jetty/Feature/Start.jar","wgCurRevisionId":334692,"wgRevisionId":334692,"wgArticleId":21647,"wgIsArticle":!0,"wgIsRedirect":!1,"wgAction":"view","wgUserName":null,"wgUserGroups":["*"],"wgCategories":["Jetty","Jetty Feature"],"wgBreakFrames":!1,"wgPageContentLanguage":"en","wgPageContentModel":"wikitext","wgSeparatorTransformTable":["",""],"wgDigitTransformTable":["",""],"wgDefaultDateFormat":"dmy","wgMonthNames":["","January","February","March","April","May","June","July","August","September","October","November","December"],"wgMonthNamesShort":["","Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"wgRelevantPageName":"Jetty/Feature/Start.jar","wgRelevantArticleId":21647,"wgIsProbablyEditable":!1,"wgRestrictionEdit":[],"wgRestrictionMove":[],"wgWikiEditorEnabledModules":{"toolbar":!1,"dialogs":!1,
+"preview":!1,"publish":!1},"wgCategoryTreePageCategoryOptions":"{\"mode\":0,\"hideprefix\":20,\"showcount\":true,\"namespaces\":false}"});mw.loader.implement("user.options",function($,jQuery){mw.user.options.set({"variant":"en"});});mw.loader.implement("user.tokens",function($,jQuery){mw.user.tokens.set({"editToken":"+\\","patrolToken":"+\\","watchToken":"+\\"});});mw.loader.load(["mediawiki.page.startup","mediawiki.legacy.wikibits"]);
+} );</script>
+<link rel="stylesheet" href="../../load.php%3Fdebug=false&amp;lang=en&amp;modules=mediawiki.legacy.commonPrint,shared|mediawiki.sectionAnchor&amp;only=styles&amp;skin=solstice.css"/>
+<link rel="stylesheet" href="../../skins/solstice/public/css/styles.css%3F303.css" media="screen, print"/>
+<meta name="ResourceLoaderDynamicStyles" content=""/>
+<style>a:lang(ar),a:lang(kk-arab),a:lang(mzn),a:lang(ps),a:lang(ur){text-decoration:none}</style>
+<script async="" src="../../load.php%3Fdebug=false&amp;lang=en&amp;modules=startup&amp;only=scripts&amp;skin=solstice"></script>
+<meta name="generator" content="MediaWiki 1.26.4"/>
+<link rel="shortcut icon" href="../../eclipse.org-common/themes/solstice/public/images/favicon.ico"/>
+<link rel="search" type="application/opensearchdescription+xml" href="https://wiki.eclipse.org/opensearch_desc.php" title="Eclipsepedia (en)"/>
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.eclipse.org/api.php?action=rsd"/>
+<link rel="alternate" type="application/atom+xml" title="Eclipsepedia Atom feed" href="https://wiki.eclipse.org/index.php?title=Special:RecentChanges&amp;feed=atom"/>
+<style type="text/css">
+/*<![CDATA[*/      
+#jetty-nav {
+  margin-bottom: 2em;
+}
+#jetty-nav ul {
+  padding: 3px 0 1px 1em;
+  margin:0;
+  border-bottom: 1px solid #aaa;
+}
+#jetty-nav li {
+  list-style: none;
+  margin: 0;
+  display: inline;
+}
+#jetty-nav li a {
+  padding: 3px 0.5em;
+  margin-left: 3px;
+  border: 1px solid #aaa;
+  border-bottom: none;
+  background: #eef;
+  text-decoration: none;
+}
+#jetty-nav li a:link { color: #448; }
+#jetty-nav li a:visited { color: #667; }
+#jetty-nav li a:hover {
+  color: #000;
+  background: #ccf;
+  border-color: #227;
+}
+#jetty-nav li span#current a
+{
+  background: #fff;
+  border-bottom: 1px solid #fff;
+}
+#jetty-nav li .selflink {
+  padding: 3px 0.5em;
+  margin-left: 3px;
+  border: 1px solid #aaa;
+  background: #fff;
+  border-bottom: 1px solid #fff;
+}
+table.jetty-table, .jetty-table table {
+  border: 1px solid #aaa;
+  border-collapse: collapse;
+}
+.jetty-table td {
+  border: 1px solid #aaa;
+  padding: 0.5em 1em;
+}
+.jetty-table th {
+  border: 1px solid #aaa;
+  background-color: #eef;
+}
+.jetty-table caption {
+  border: 1px #aaa solid;
+  margin: 1em 0 0.2em 0;
+  background-color: #ccf;
+  font-weight: bold;
+  font-size: 1.1em;
+}
+#content dl  {
+  border-left: 1px #aaa solid;
+  border-bottom: 1px #aaa solid;
+}
+#content dl dt {
+  float: left;
+  border-top: 1px solid #aaa;
+  padding: 0.5em 0 0 0.5em;
+}
+#content dl dd {
+  border: 1px solid #aaa;
+  border-bottom: none;
+}
+#content .narrow-list dl  {
+  width: 40em;
+}
+#content .narrow-list dl dt {
+  width: 14em;
+  line-height: 1.1em;
+}
+#content .narrow-list dl dd {
+  margin: 0 0 0 15em;
+  padding: 0.5em 1em;
+}
+#content .wide-list dl, #content dl {
+  width: 80em;
+}
+#content .wide-list dl dt, #content dl dt {
+  padding: 0.5em 1em;
+  width: 15em;
+}
+#content .wide-list dl dd, #content dl dd {
+  padding: 1em 1em 2em 2em;
+  margin: 0 0 0 17em;
+}
+#content .unbounded-list dl, #content .unbounded-list dl dd, #content .unbounded-list dl dt {
+  border: 0 none;
+  width: auto;
+  padding: 0 0 0 1em;
+}
+#content .unbounded-list dl dt {
+}
+#content p  {
+  margin-bottom: 0.5em;
+}
+#content li  {
+  line-height: 1.1em;
+}
+.infobox {
+  padding: 0.5em 1em;
+  background-color: #fff;
+  float: right;
+  margin: 0.5em;
+}
+/*]]>*/       
+</style>
+<style type="text/css">/*<![CDATA[*/
+.source-bash {line-height: normal;}
+.source-bash li, .source-bash pre {
+	line-height: normal; border: 0px none white;
+}
+/**
+ * GeSHi Dynamically Generated Stylesheet
+ * --------------------------------------
+ * Dynamically generated stylesheet for bash
+ * CSS class: source-bash, CSS id: 
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ * --------------------------------------
+ */
+.bash.source-bash .de1, .bash.source-bash .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;}
+.bash.source-bash  {font-family:monospace;}
+.bash.source-bash .imp {font-weight: bold; color: red;}
+.bash.source-bash li, .bash.source-bash .li1 {font-weight: normal; vertical-align:top;}
+.bash.source-bash .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.bash.source-bash .li2 {font-weight: bold; vertical-align:top;}
+.bash.source-bash .kw1 {color: #000000; font-weight: bold;}
+.bash.source-bash .kw2 {color: #c20cb9; font-weight: bold;}
+.bash.source-bash .kw3 {color: #7a0874; font-weight: bold;}
+.bash.source-bash .co0 {color: #666666; font-style: italic;}
+.bash.source-bash .co1 {color: #800000;}
+.bash.source-bash .co2 {color: #cc0000; font-style: italic;}
+.bash.source-bash .co3 {color: #000000; font-weight: bold;}
+.bash.source-bash .co4 {color: #666666;}
+.bash.source-bash .es1 {color: #000099; font-weight: bold;}
+.bash.source-bash .es2 {color: #007800;}
+.bash.source-bash .es3 {color: #007800;}
+.bash.source-bash .es4 {color: #007800;}
+.bash.source-bash .es5 {color: #780078;}
+.bash.source-bash .es_h {color: #000099; font-weight: bold;}
+.bash.source-bash .br0 {color: #7a0874; font-weight: bold;}
+.bash.source-bash .sy0 {color: #000000; font-weight: bold;}
+.bash.source-bash .st0 {color: #ff0000;}
+.bash.source-bash .st_h {color: #ff0000;}
+.bash.source-bash .nu0 {color: #000000;}
+.bash.source-bash .re0 {color: #007800;}
+.bash.source-bash .re1 {color: #007800;}
+.bash.source-bash .re2 {color: #007800;}
+.bash.source-bash .re4 {color: #007800;}
+.bash.source-bash .re5 {color: #660033;}
+.bash.source-bash .ln-xtra, .bash.source-bash li.ln-xtra, .bash.source-bash div.ln-xtra {background-color: #ffc;}
+.bash.source-bash span.xtra { display:block; }
+
+/*]]>*/
+</style>
+<style type="text/css">/*<![CDATA[*/
+.source-text {line-height: normal;}
+.source-text li, .source-text pre {
+	line-height: normal; border: 0px none white;
+}
+/**
+ * GeSHi Dynamically Generated Stylesheet
+ * --------------------------------------
+ * Dynamically generated stylesheet for text
+ * CSS class: source-text, CSS id: 
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ * --------------------------------------
+ */
+.text.source-text .de1, .text.source-text .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;}
+.text.source-text  {font-family:monospace;}
+.text.source-text .imp {font-weight: bold; color: red;}
+.text.source-text li, .text.source-text .li1 {font-weight: normal; vertical-align:top;}
+.text.source-text .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.text.source-text .li2 {font-weight: bold; vertical-align:top;}
+.text.source-text .ln-xtra, .text.source-text li.ln-xtra, .text.source-text div.ln-xtra {background-color: #ffc;}
+.text.source-text span.xtra { display:block; }
+
+/*]]>*/
+</style>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body class="mediawiki ltr sitedir-ltr ns-0 ns-subject page-Jetty_Feature_Start_jar skin-solstice action-view" id="solstice">
+
+<a class="sr-only" href="Start.jar.html#content">Skip to main content</a>
+<header class="header-wrapper" id="header-wrapper">
+  <div class="clearfix toolbar-container-wrapper">
+    <div class="container-fluid">
+      <div class="text-right toolbar-row row hidden-print">
+        <div class="col-md-24 row-toolbar-col">
+               <ul class="list-inline">
+                  <li id="pt-login">
+            <a href="https://wiki.eclipse.org/index.php?title=Special:UserLogin&amp;returnto=Jetty%2FFeature%2FStart.jar" class="toolbar-link toolbar-login">
+              <i class="fa fa-sign-in fa-fw"></i> Log in            </a>
+          </li>
+                <li><a class="toolbar-link toolbar-manage-cookies dropdown-toggle"><i class="fa fa-wrench"></i> Manage Cookies</a></li>
+      </ul>
+            </div>
+      </div>
+    </div>
+  </div>
+  <div class="container-fluid">
+    <div class="row" id="header-row">
+      <div class="col-sm-5 col-md-4" id="header-left">
+        <div class="wrapper-logo-default"><a href="https://www.eclipse.org/"><img class="logo-eclipse-default hidden-xs" alt="Eclipse.org logo" width="160" src="https://www.eclipse.org/eclipse.org-common/themes/solstice/public/images/logo/eclipse-foundation-white-orange.svg"/></a></div>
+      </div>
+      <div class="col-sm-19 col-md-20 margin-top-10" id="main-menu-wrapper">
+        <div class="float-right hidden-xs" id="btn-call-for-action"><a href="https://eclipse.org/downloads/" class="btn btn-huge btn-warning"><i class="fa fa-download"></i> Download</a></div>
+        <div class="navbar yamm float-sm-right" id="main-menu">
+          <div class="navbar-collapse collapse" id="navbar-main-menu">
+            <ul class="nav navbar-nav">
+              <li><a href="https://www.eclipse.org/projects/" target="_self">Projects</a></li>
+              <li><a href="https://www.eclipse.org/org/workinggroups/" target="_self">Working Groups</a></li>
+              <li><a href="https://www.eclipse.org/membership/" target="_self">Members</a></li>
+              <li class="dropdown visible-xs">
+                <a href="Start.jar.html#" data-toggle="dropdown" class="dropdown-toggle">Community <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li><a href="http://marketplace.eclipse.org">Marketplace</a></li>
+                  <li><a href="http://events.eclipse.org">Events</a></li>
+                  <li><a href="http://www.planeteclipse.org/">Planet Eclipse</a></li>
+                  <li><a href="https://www.eclipse.org/community/eclipse_newsletter/">Newsletter</a></li>
+                  <li><a href="https://www.youtube.com/user/EclipseFdn">Videos</a></li>
+                  <li><a href="https://blogs.eclipse.org">Blogs</a></li>
+                </ul>
+              </li>
+              <li class="dropdown visible-xs">
+                <a href="Start.jar.html#" data-toggle="dropdown" class="dropdown-toggle">Participate <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li><a href="https://bugs.eclipse.org/bugs/">Report a Bug</a></li>
+                  <li><a href="https://www.eclipse.org/forums/">Forums</a></li>
+                  <li><a href="https://www.eclipse.org/mail/">Mailing Lists</a></li>
+                  <li><a href="https://wiki.eclipse.org/">Wiki</a></li>
+                  <li><a href="https://wiki.eclipse.org/IRC">IRC</a></li>
+                  <li><a href="https://www.eclipse.org/org/research/">Research</a></li>
+                </ul>
+              </li>
+              <li class="dropdown visible-xs">
+                <a href="Start.jar.html#" data-toggle="dropdown" class="dropdown-toggle">Eclipse IDE <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li><a href="https://www.eclipse.org/downloads">Download</a></li>
+                  <li><a href="https://www.eclipse.org/eclipseide">Learn More</a></li>
+                  <li><a href="https://help.eclipse.org">Documentation</a></li>
+                  <li><a href="https://www.eclipse.org/getting_started">Getting Started / Support</a></li>
+                  <li><a href="https://www.eclipse.org/contribute/">How to Contribute</a></li>
+                  <li><a href="https://www.eclipse.org/ide/">IDE and Tools</a></li>
+                  <li><a href="https://www.eclipse.org/forums/index.php/f/89/">Newcomer Forum</a></li>
+                </ul>
+              </li>
+              <!-- More -->
+              <li class="dropdown eclipse-more hidden-xs">
+                <a data-toggle="dropdown" class="dropdown-toggle" role="button">More<b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li>
+                    <!-- Content container to add padding -->
+                    <div class="yamm-content">
+                      <div class="row">
+                        <ul class="col-sm-8 list-unstyled">
+                          <li>
+                            <p><strong>Community</strong></p>
+                          </li>
+                          <li><a href="http://marketplace.eclipse.org">Marketplace</a></li>
+                          <li><a href="http://events.eclipse.org">Events</a></li>
+                          <li><a href="http://www.planeteclipse.org/">Planet Eclipse</a></li>
+                          <li><a href="https://www.eclipse.org/community/eclipse_newsletter/">Newsletter</a></li>
+                          <li><a href="https://www.youtube.com/user/EclipseFdn">Videos</a></li>
+                          <li><a href="https://blogs.eclipse.org">Blogs</a></li>
+                        </ul>
+                        <ul class="col-sm-8 list-unstyled">
+                          <li>
+                            <p><strong>Participate</strong></p>
+                          </li>
+                          <li><a href="https://bugs.eclipse.org/bugs/">Report a Bug</a></li>
+                          <li><a href="https://www.eclipse.org/forums/">Forums</a></li>
+                          <li><a href="https://www.eclipse.org/mail/">Mailing Lists</a></li>
+                          <li><a href="https://wiki.eclipse.org/">Wiki</a></li>
+                          <li><a href="https://wiki.eclipse.org/IRC">IRC</a></li>
+                          <li><a href="https://www.eclipse.org/org/research/">Research</a></li>
+                        </ul>
+                        <ul class="col-sm-8 list-unstyled">
+                          <li>
+                            <p><strong>Eclipse IDE</strong></p>
+                          </li>
+                          <li><a href="https://www.eclipse.org/downloads">Download</a></li>
+                          <li><a href="https://www.eclipse.org/eclipseide">Learn More</a></li>
+                          <li><a href="https://help.eclipse.org">Documentation</a></li>
+                          <li><a href="https://www.eclipse.org/getting_started">Getting Started / Support</a></li>
+                          <li><a href="https://www.eclipse.org/contribute/">How to Contribute</a></li>
+                          <li><a href="https://www.eclipse.org/ide/">IDE and Tools</a></li>
+                          <li><a href="https://www.eclipse.org/forums/index.php/f/89/">Newcomer Forum</a></li>
+                        </ul>
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-main-menu">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            </button>
+            <div class="wrapper-logo-mobile"><a class="navbar-brand visible-xs" href="https://www.eclipse.org/"><img class="logo-eclipse-default-mobile img-responsive" alt="Eclipse.org logo" width="160" src="https://www.eclipse.org/eclipse.org-common/themes/solstice/public/images/logo/eclipse-foundation-white-orange.svg"/></a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+<section class="default-breadcrumbs hidden-print" id="breadcrumb">
+  <div class="container-fluid">
+    <h3 class="sr-only">Breadcrumbs</h3>
+    <div class="row">
+      <div class="col-sm-24">
+        <ol class="breadcrumb">
+          <li><a href="https://www.eclipse.org/">Home</a></li>
+          <li><a href="https://wiki.eclipse.org/Main_Page">Eclipse Wiki</a></li>
+          <li class="active">Jetty/Feature/Start.jar</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- /#breadcrumb -->
+<main>
+<div class="container-fluid padding-15 padding-top-20">
+    
+    
+    <!-- content -->
+    <section id="content" class="mw-body container-full clearfix 0">
+      <div id="mw-js-message" style="display:none;"></div>
+
+      
+      <!-- bodyContent -->
+      <div id="bodyContent">
+
+        
+                <!-- jumpto -->
+        <div id="jump-to-nav" class="mw-jump">
+          Jump to: <a href="Start.jar.html#mw-head">navigation</a>,
+          <a href="Start.jar.html#p-search">search</a>
+        </div>
+        <!-- /jumpto -->
+        
+          <!-- leftcol -->
+          <aside class="col-md-4 noprint hidden-print" id="leftcol">
+                      <form class="input-group" role="form" id="form-eclipse-search" action="https://wiki.eclipse.org/index.php" id="searchform">
+              <input id="searchInput" class="search-query form-control" type="search" accesskey="f" title="Special:Search" placeholder="Search" name="search" value="">
+
+              <span class="input-group-btn">
+                <button value="search" id="mw-searchButton" type="submit" class="btn btn-default" title="Search the pages for this text" name="fulltext">
+                  <i class="fa fa-search"></i>
+                </button>
+              </span>
+            </form>
+                      <select class="form-control margin-top-10 margin-bottom-10 visible-xs visible-sm" onchange="this.options[this.selectedIndex].value && (window.location = this.options[this.selectedIndex].value);"><option class="fw-700 "><span class="fw-700">---Navigation---</span></option><option value="/Main_Page">Main Page</option><option value="/Eclipsepedia:Community_portal">Community portal</option><option value="/Eclipsepedia:Current_events">Current events</option><option value="/Special:RecentChanges">Recent changes</option><option value="/Special:Random">Random page</option><option value="https://www.mediawiki.org/wiki/Special:MyLanguage/Help:Contents">Help</option></select><ul class="ul-left-nav fa-ul hidden-print leftnav hidden-xs hidden-sm"><li class="separator"><span class="separator">Navigation</span></li>                <li class=""><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/Main_Page" id="n-mainpage" title="Visit the main page [z]" accesskey="z">Main Page</a></li>                <li class=""><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/Eclipsepedia:Community_portal" id="n-portal" title="About the project, what you can do, where to find things">Community portal</a></li>                <li class=""><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/Eclipsepedia:Current_events" id="n-currentevents" title="Find background information on current events">Current events</a></li>                <li class=""><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/Special:RecentChanges" id="n-recentchanges" title="A list of recent changes in the wiki [r]" accesskey="r">Recent changes</a></li>                <li class=""><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/Special:Random" id="n-randompage" title="Load a random page [x]" accesskey="x">Random page</a></li>                <li class=""><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://www.mediawiki.org/wiki/Special:MyLanguage/Help:Contents" id="n-help" title="The place to find out">Help</a></li></ul>            <select class="form-control margin-top-10 margin-bottom-10 visible-xs visible-sm" onchange="this.options[this.selectedIndex].value && (window.location = this.options[this.selectedIndex].value);"><option class="fw-700 "><span class="fw-700">---Toolbox---</span></option><option value="/index.php?title=Jetty/Feature/Start.jar&amp;action=info">Page information</option><option value="/index.php?title=Jetty/Feature/Start.jar&amp;oldid=334692">Permanent link</option><option value="/index.php?title=Jetty/Feature/Start.jar&amp;printable=yes">Printable version</option><option value="/Special:SpecialPages">Special pages</option><option value="/Special:RecentChangesLinked/Jetty/Feature/Start.jar">Related changes</option><option value="/Special:WhatLinksHere/Jetty/Feature/Start.jar">What links here</option></select><ul class="ul-left-nav fa-ul hidden-print leftnav hidden-xs hidden-sm"><li class="separator"><span class="separator">Toolbox</span></li><li><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/index.php?title=Jetty/Feature/Start.jar&amp;action=info" id="t-info" title="More information about this page">Page information</a></li><li><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/index.php?title=Jetty/Feature/Start.jar&amp;oldid=334692" id="t-permalink" title="Permanent link to this revision of the page">Permanent link</a></li><li><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/index.php?title=Jetty/Feature/Start.jar&amp;printable=yes" id="t-print" rel="alternate" title="Printable version of this page [p]" accesskey="p">Printable version</a></li><li><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/Special:SpecialPages" id="t-specialpages" title="A list of all special pages [q]" accesskey="q">Special pages</a></li><li><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/Special:RecentChangesLinked/Jetty/Feature/Start.jar" id="t-recentchangeslinked" title="Recent changes in pages linked from this page [k]" accesskey="k">Related changes</a></li><li><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/Special:WhatLinksHere/Jetty/Feature/Start.jar" id="t-whatlinkshere" title="A list of all wiki pages that link here [j]" accesskey="j">What links here</a></li></ul>                                  </aside>
+          <!-- /leftcol -->
+
+          <!-- mainContent -->
+          <div id="mainContent" class="col-md-20">
+                      <ul class="nav nav-tabs noprint hidden-print" role="tablist">
+                       <li id="ca-nstab-main" class="active"><a href="Start.jar.html"  title="View the content page [c]" accesskey="c" tabindex="-1">Page</a></li>
+                        <li id="ca-talk"><a href="https://wiki.eclipse.org/Talk:Jetty/Feature/Start.jar"  title="Discussion about the content page [t]" accesskey="t" tabindex="-1">Discussion</a></li>
+                        <li id="ca-viewsource"><a href="https://wiki.eclipse.org/index.php?title=Jetty/Feature/Start.jar&amp;action=edit"  title="This page is protected.&#10;You can view its source [e]" accesskey="e" tabindex="-1">View source</a></li>
+                        <li id="ca-history" class="collapsible"><a href="https://wiki.eclipse.org/index.php?title=Jetty/Feature/Start.jar&amp;action=history"  title="Past revisions of this page [h]" accesskey="h" tabindex="-1">History</a></li>
+                      </ul>            <div class="tab-content background-white">
+              <div id="tab-pane-main-page-content" class="tab-pane active">
+
+                
+                <h1 id="firstHeading" class="firstHeading page-header">
+                  <span dir="auto">Jetty/Feature/Start.jar</span>
+                </h1>
+                <div id="main-page-content">
+                                                      <!-- subtitle -->
+                  <div id="contentSub"  class="alert alert-small alert-warning"><span class="subpages">&lt; <a href="../../Jetty.html" title="Jetty">Jetty</a>&lrm; | <a href="../Feature.html" title="Jetty/Feature">Feature</a></span></div>
+                  <!-- /subtitle -->
+                  
+                  
+                  <div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><p><br />
+</p><p><br />
+</p>
+<div id="toc" class="toc"><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="Start.jar.html#Introduction"><span class="tocnumber">1</span> <span class="toctext">Introduction</span></a></li>
+<li class="toclevel-1"><a href="Start.jar.html#Feature"><span class="tocnumber">2</span> <span class="toctext">Feature</span></a></li>
+<li class="toclevel-1"><a href="Start.jar.html#Building_the_Environment"><span class="tocnumber">3</span> <span class="toctext">Building the Environment</span></a></li>
+<li class="toclevel-1"><a href="Start.jar.html#Building_the_Classpath"><span class="tocnumber">4</span> <span class="toctext">Building the Classpath</span></a>
+<ul>
+<li class="toclevel-2"><a href="Start.jar.html#Setting_OPTIONS"><span class="tocnumber">4.1</span> <span class="toctext">Setting OPTIONS</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1"><a href="Start.jar.html#Building_the_Arguments"><span class="tocnumber">5</span> <span class="toctext">Building the Arguments</span></a></li>
+<li class="toclevel-1"><a href="Start.jar.html#Running_the_Main"><span class="tocnumber">6</span> <span class="toctext">Running the Main</span></a></li>
+<li class="toclevel-1"><a href="Start.jar.html#Setting_Defaults:_start.ini"><span class="tocnumber">7</span> <span class="toctext">Setting Defaults: start.ini</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Introduction">Introduction</span></h2>
+<div class="messagebox" style="background-color: #f9f6b7; border: 1px solid #c4c295; color: black; padding: 5px; margin: 1ex 0; min-height: 35px; padding-left: 45px; font-size: 150%; color: white; background-color: #FF8888; padding: 50px">
+<div style="float: left; margin-left: -40px;"><a href="https://wiki.eclipse.org/File:Warning2.png" class="image"><img alt="Warning2.png" src="../../images/3/37/Warning2.png" width="35" height="35" /></a></div>
+<div>Jetty 7 and Jetty 8 are now EOL (End of Life)<br />
+<p><br />
+<br />
+<br />
+THIS IS NOT THE DOCUMENTATION YOU ARE LOOKING FOR!!!!!<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+All development and stable releases are being performed with Jetty 9 and Jetty 10.<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+This <b>wiki is now officially out of date</b> and all content has been moved to the <a rel="nofollow" class="external text" href="http://www.eclipse.org/jetty/documentation">Jetty Documentation Hub</a><br /> 
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+</p>
+Direct Link to updated documentation: <a rel="nofollow" class="external free" href="http://www.eclipse.org/jetty/documentation/current/advanced-jetty-start.html">http://www.eclipse.org/jetty/documentation/current/advanced-jetty-start.html</a></div>
+</div>
+<p><br />
+Jetty is just a Java program that you can run like any other Java program once you set up a classpath. For example, you can run the SimplestServer from the <a href="../Tutorial/Embedding&#32;Jetty.html" title="Jetty/Tutorial/Embedding Jetty">Embedding Jetty Tutorial</a> as follows:
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="bash source-bash"><pre class="de1">java <span class="re5">-cp</span> <span class="re1">$JETTY_CLASSPATH</span> org.eclipse.jetty.embedded.SimplestServer</pre></div></div>
+<p>Similarly, if you configure your server with <a href="../Reference/jetty.xml&#32;syntax.html" title="Jetty/Reference/jetty.xml syntax"><tt>jetty.xml</tt></a> rather than a Java main, you can run the server with:
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="bash source-bash"><pre class="de1">java <span class="re5">-cp</span> <span class="re1">$JETTY_CLASSPATH</span> org.eclipse.jetty.xml.XmlConfiguration etc<span class="sy0">/</span>jetty.xml</pre></div></div>
+<p>The difficult part of both these examples is knowing what must be on the JETTY_CLASSPATH.  The Jetty server comes in over 46 Jars, so working out exactly which Jars you need can be difficult. If you develop with Maven, these Jar dependencies can be managed for you, but you still need to set up a classpath when running from the command line.
+</p><p>The <tt>start.jar</tt> mechanism is an executable Jar file that builds a class path and then executes your main program. It is a generic mechanism that you can use with any Java program. A <a rel="nofollow" class="external text" href="http://git.eclipse.org/c/jetty/org.eclipse.jetty.project.git/plain/jetty-start/src/main/resources/org/eclipse/jetty/start/start.config"><tt>start.config</tt></a> file controls its behaviour.  The standard <tt>start.jar</tt> comes with a <tt>start.config</tt> file for Jetty, so that you can start Jetty with:
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="bash source-bash"><pre class="de1">java <span class="re5">-jar</span> start.jar</pre></div></div>
+<p>You can see the effective command line <tt>start.jar</tt> generates by providing the --dry-run parameter:
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="bash source-bash"><pre class="de1">java <span class="re5">-jar</span> start.jar <span class="re5">--dry-run</span></pre></div></div>
+<p>which for the default case generates:
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="text source-text"><pre class="de1">/usr/lib/jvm/java-1.5.0-sun-1.5.0.19/jre/bin/java \
+-Djetty.home=/home/gregw/src/jetty-7.0.0/jetty-distribution/target/distribution \
+-cp /home/gregw/src/jetty-7.0.0/jetty-distribution/target/distribution/resources:\
+/home/gregw/src/jetty-7.0.0/jetty-distribution/target/distribution/lib/jetty-xml-7.0.0.RC6-SNAPSHOT.jar:\
+/home/gregw/src/jetty-7.0.0/jetty-distribution/target/distribution/lib/servlet-api-2.5.jar:\
+/home/gregw/src/jetty-7.0.0/jetty-distribution/target/distribution/lib/jetty-http-7.0.0.RC6-SNAPSHOT.jar:\
+/home/gregw/src/jetty-7.0.0/jetty-distribution/target/distribution/lib/jetty-continuation-7.0.0.RC6-SNAPSHOT.jar:\
+/home/gregw/src/jetty-7.0.0/jetty-distribution/target/distribution/lib/jetty-server-7.0.0.RC6-SNAPSHOT.jar:\
+/home/gregw/src/jetty-7.0.0/jetty-distribution/target/distribution/lib/jetty-security-7.0.0.RC6-SNAPSHOT.jar:\
+/home/gregw/src/jetty-7.0.0/jetty-distribution/target/distribution/lib/jetty-servlet-7.0.0.RC6-SNAPSHOT.jar:\
+/home/gregw/src/jetty-7.0.0/jetty-distribution/target/distribution/lib/jetty-webapp-7.0.0.RC6-SNAPSHOT.jar:\
+/home/gregw/src/jetty-7.0.0/jetty-distribution/target/distribution/lib/jetty-deploy-7.0.0.RC6-SNAPSHOT.jar:\
+/home/gregw/src/jetty-7.0.0/jetty-distribution/target/distribution/lib/jetty-servlets-7.0.0.RC6-SNAPSHOT.jar:\
+/home/gregw/src/jetty-7.0.0/jetty-distribution/target/distribution/lib/jetty-util-7.0.0.RC6-SNAPSHOT.jar:\
+/home/gregw/src/jetty-7.0.0/jetty-distribution/target/distribution/lib/jetty-io-7.0.0.RC6-SNAPSHOT.jar \
+org.eclipse.jetty.xml.XmlConfiguration \
+/home/gregw/src/jetty-7.0.0/jetty-distribution/target/distribution/etc/jetty.xml</pre></div></div>
+<h2><span class="mw-headline" id="Feature">Feature</span></h2>
+<h2><span class="mw-headline" id="Building_the_Environment">Building the Environment</span></h2>
+<p>The <tt>start.jar</tt> builds an environment of Java system properties and start properties that parameterize the start mechanism and the execution of the program. In a <a rel="nofollow" class="external text" href="http://git.eclipse.org/c/jetty/org.eclipse.jetty.project.git/plain/jetty-start/src/main/resources/org/eclipse/jetty/start/start.config"><tt>start.config</tt></a>, the string <tt>${name}</tt> is expanded to a start property and <tt>$(name)</tt> is expanded to either a start property or a system property.  
+</p><p>The main property set by the default <tt>start.config</tt> is <tt>jetty.home</tt>, which is assumed to be the directory in which <tt>start.jar</tt> is deployed.  If the <tt>jetty.home</tt> is not set with a <tt>-Djetty.home</tt>, then ".", ".." and some well known directories are searched for <tt>start.jar</tt>.
+</p><p>The <tt>$(version)</tt> property is also determined by examining the manifest of the <tt>start.jar</tt>.
+</p>
+<h2><span class="mw-headline" id="Building_the_Classpath">Building the Classpath</span></h2>
+<p>The default <tt>start.config</tt> assumes that all the Jetty Jars are in a directory tree under <tt>${jetty.home}/lib</tt>.  The following Jars are put on all classpaths built by the default start.config:
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="text source-text"><pre class="de1">&#160;
+$(jetty.home)/lib/jetty-util-$(version).jar
+$(jetty.home)/lib/jetty-io-$(version).jar</pre></div></div>
+<p>If you don't specify any OPTIONS, the following entries are also added by default:
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="text source-text"><pre class="de1">&#160;
+$(jetty.home)/resources/
+$(jetty.home)/lib/jetty-xml-$(version).jar  
+$(jetty.home)/lib/servlet-api-2.5.jar    
+$(jetty.home)/lib/jetty-http-$(version).jar  
+$(jetty.home)/lib/jetty-continuation-$(version).jar 
+$(jetty.home)/lib/jetty-server-$(version).jar 
+$(jetty.home)/lib/jetty-security-$(version).jar 
+$(jetty.home)/lib/jetty-servlet-$(version).jar   
+$(jetty.home)/lib/jetty-webapp-$(version).jar   
+$(jetty.home)/lib/jetty-deploy-$(version).jar  
+$(jetty.home)/lib/jetty-servlets-$(version).jar 
+$(jetty.home)/lib/ext/*.jar</pre></div></div>
+<p>This is sufficient to run most standard web applications.
+</p><p>If the system property <tt>${path}</tt> is defined, it is treated as a classpath string and prepended to the generated classpath. If the system property <tt>${lib}</tt> is defined, it is treated as a directory of Jars and all Jars discovered are prepended to the generated classpath.
+</p>
+<h3><span class="mw-headline" id="Setting_OPTIONS">Setting OPTIONS</span></h3>
+<p>You can specify options to the <tt>start.jar</tt> to change the default Jars added to the classpath:
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="bash source-bash"><pre class="de1">java <span class="re5">-jar</span> start.jar <span class="re2">OPTIONS</span>=Server,jmx,ajp,setuid</pre></div></div>
+<p>To list the options available, use: 
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="bash source-bash"><pre class="de1">java <span class="re5">-jar</span> start.jar <span class="re5">--help</span></pre></div></div>
+<p>If you specify an option, the default Jars listed above are not added to the classpath.
+</p><p>Three types of options are available:
+</p>
+<ul><li> <b>Convenience Options</b>–By convention, options starting with a capital letter are convenience options that include many other options. For example the "Server" option includes all the options commonly needed to run a server: xml,server,security,servlet,webapp,deploy and servlets options; while the option "server" contains just the Jars for the core HTTP server. "All" is the other convenience option.</li>
+<li> <b>Known module options</b>–The main known Jetty modules each have an option predefined to select their required Jars. Known options include xml, server, security, servlet, webapp, deploy, serlvets, rewrite, jmx, ajp, jndi, annotations, setuid, policy and client.</li>
+<li> <b>Discovered options</b>–Directories within <tt>${jetty.home}/lib</tt> can be discovered as options. The "lib/ext", "lib/jsp" and "lib/jta" are directories that can be discovered as an options.</li></ul>
+<p><br />
+</p>
+<h2><span class="mw-headline" id="Building_the_Arguments">Building the Arguments</span></h2>
+<p>The jetty <a rel="nofollow" class="external text" href="http://git.eclipse.org/c/jetty/org.eclipse.jetty.project.git/plain/jetty-start/src/main/resources/org/eclipse/jetty/start/start.config"><tt>start.config</tt></a> file lists has <tt>etc/jetty.xml</tt> as the default command line argument, which in the default case is the name of the configuration file passed to the XmlConfiguration main. If you need additional configuration files, you must list all the configuration files on the command line along with the options required for the classpath. For example, the following runs Jetty with JMX and AJP connector:
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="bash source-bash"><pre class="de1">java <span class="re5">-jar</span> start.jar <span class="re2">OPTIONS</span>=Server,jmx,ajp etc<span class="sy0">/</span>jetty-jmx.xml etc<span class="sy0">/</span>jetty.xml etc<span class="sy0">/</span>jetty-ajp.xml</pre></div></div>
+<p>Use the <tt>--help</tt> parameter to list the available XML configuration files.
+</p>
+<h2><span class="mw-headline" id="Running_the_Main">Running the Main</span></h2>
+<p>The jetty <tt>start.config</tt> has <tt>org.eclipse.jetty.xml.XmlConfiguration</tt> as the main class to run.  You can replace it with another class by setting the <tt>start.class</tt> system property.
+</p><p><br />
+</p>
+<h2><span class="mw-headline" id="Setting_Defaults:_start.ini">Setting Defaults: start.ini</span></h2>
+<p>If the file <tt>start.ini</tt> exists in the same directory as <tt>start.jar</tt>, it is read and every non-comment line is treated as a command line argument.  The following <tt>start.ini</tt> sets the options and default configuration files for using the server with JMX and SSL:
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="bash source-bash"><pre class="de1"><span class="co0">#===========================================================</span>
+<span class="co0"># Jetty start.jar arguments</span>
+<span class="co0">#-----------------------------------------------------------</span>
+<span class="re2">OPTIONS</span>=Server,jmx,resources
+etc<span class="sy0">/</span>jetty-jmx.xml
+etc<span class="sy0">/</span>jetty.xml
+etc<span class="sy0">/</span>jetty-ssl.xml</pre></div></div>
+<p>As well as normal <tt>start.jar</tt> arguments, it is possible to put JVM arguments in a <tt>start.ini</tt>.  However, because these cannot affect the JVM that is running <tt>start.jar</tt>, you should provide the <tt>--exec</tt> option so that a new JVM is spawned with the arguments.  The following <tt>start.ini</tt> example sets the JVM heap memory and enables remote JMX management:
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="bash source-bash"><pre class="de1"><span class="co0">#===========================================================</span>
+<span class="co0"># Jetty start.jar arguments</span>
+<span class="co0">#-----------------------------------------------------------</span>
+<span class="re5">--exec</span>
+<span class="re5">-Xmx512m</span>
+-Dcom.sun.management.jmxremote
+<span class="re2">OPTIONS</span>=Server,jmx,resources
+etc<span class="sy0">/</span>jetty-jmx.xml
+etc<span class="sy0">/</span>jetty.xml
+etc<span class="sy0">/</span>jetty-ssl.xml</pre></div></div>
+
+<!-- 
+NewPP limit report
+Cached time: 20211116145021
+Cache expiry: 86400
+Dynamic content: false
+CPU time usage: 0.260 seconds
+Real time usage: 0.272 seconds
+Preprocessor visited node count: 91/1000000
+Preprocessor generated node count: 560/1000000
+Post‐expand include size: 9241/2097152 bytes
+Template argument size: 7859/2097152 bytes
+Highest expansion depth: 5/40
+Expensive parser function count: 0/100
+-->
+
+<!-- 
+Transclusion expansion time report (%,ms,calls,template)
+100.00%  183.541      1 - -total
+100.00%  183.541      1 - Template:Jetty_Feature
+  5.30%    9.720      1 - Template:Jetty_Redirect
+  3.50%    6.427      1 - Template:Message
+  2.26%    4.157      1 - Template:Jetty
+-->
+
+<!-- Saved in parser cache with key my_wiki:pcache:idhash:21647-0!*!0!!en!5!* and timestamp 20211116145021 and revision id 334692
+ -->
+</div>
+                                      <!-- catlinks -->
+                    <div id='catlinks' class='catlinks'><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="https://wiki.eclipse.org/Special:Categories" title="Special:Categories">Categories</a>: <ul><li><a href="https://wiki.eclipse.org/Category:Jetty" title="Category:Jetty">Jetty</a></li><li><a href="https://wiki.eclipse.org/Category:Jetty_Feature" title="Category:Jetty Feature">Jetty Feature</a></li></ul></div></div>                     <!-- /catlinks -->
+                                  </div>
+              </div>
+            </div>
+          </div>
+        <!-- /maincontent -->
+
+                <!-- printfooter -->
+        <div class="printfooter">
+        Retrieved from "<a dir="ltr" href="https://wiki.eclipse.org/index.php?title=Jetty/Feature/Start.jar&amp;oldid=334692">https://wiki.eclipse.org/index.php?title=Jetty/Feature/Start.jar&amp;oldid=334692</a>"        </div>
+        <!-- /printfooter -->
+        
+        
+        <!-- debughtml -->
+                <!-- /debughtml -->
+
+      </div>
+      <!-- /bodyContent -->
+    </section>
+    <!-- /content -->
+
+    <!-- footer -->
+    
+</div>
+<div class="featured-footer featured-footer-newsletter background-secondary">
+  <div class="container">
+    <p id="footercredit">This page was last modified 12:55, 23 April 2013 by <a href="https://wiki.eclipse.org/User:Jesse.mcconnell.gmail.com" title="User:Jesse.mcconnell.gmail.com">Jesse McConnell</a>. Based on work by <a href="https://wiki.eclipse.org/index.php?title=User:Mondgesicht.gmx.net&amp;action=edit&amp;redlink=1" class="new" title="User:Mondgesicht.gmx.net (page does not exist)">Abdull </a>, <a href="https://wiki.eclipse.org/index.php?title=User:Boulay.intalio.com&amp;action=edit&amp;redlink=1" class="new" title="User:Boulay.intalio.com (page does not exist)">Shirley Boulay</a> and <a href="https://wiki.eclipse.org/index.php?title=User:Gregw.webtide.com&amp;action=edit&amp;redlink=1" class="new" title="User:Gregw.webtide.com (page does not exist)">Greg Wilkins</a>.</p><p id="footerviews"></p>  </div>
+</div>
+</main> <!-- /#main-content-container-row -->
+<p id="back-to-top" class="noprint hidden-print">
+  <a class="visible-xs" href="Start.jar.html#top">Back to the top</a>
+</p>
+<footer id="solstice-footer">
+  <div class="container">
+    <div class="row">
+      <section class="col-sm-6 hidden-print" id="footer-eclipse-foundation">
+        <h2 class="section-title">Eclipse Foundation</h2>
+        <ul class="nav">
+          <li><a href="https://www.eclipse.org/org/">About Us</a></li>
+          <li><a href="https://www.eclipse.org/org/foundation/contact.php">Contact Us</a></li>
+          <li><a href="https://www.eclipse.org/donate">Donate</a></li>
+          <li><a href="https://www.eclipse.org/membership/">Members</a></li>
+          <li><a href="https://www.eclipse.org/org/documents/">Governance</a></li>
+          <li><a href="https://www.eclipse.org/org/documents/Community_Code_of_Conduct.php">Code of Conduct</a></li>
+          <li><a href="https://www.eclipse.org/artwork/">Logo and Artwork</a></li>
+          <li><a href="https://www.eclipse.org/org/foundation/directors.php">Board of Directors</a></li>
+        </ul>
+      </section>
+      <section class="col-sm-6 hidden-print" id="footer-legal">
+        <h2 class="section-title">Legal</h2>
+        <ul class="nav">
+          <li><a href="https://www.eclipse.org/legal/privacy.php">Privacy Policy</a></li>
+          <li><a href="https://www.eclipse.org/legal/termsofuse.php">Terms of Use</a></li>
+          <li><a href="https://www.eclipse.org/legal/copyright.php">Copyright Agent</a></li>
+          <li><a href="https://www.eclipse.org/legal/epl-2.0/">Eclipse Public License</a></li>
+          <li><a href="https://www.eclipse.org/legal/">Legal Resources</a></li>
+        </ul>
+      </section>
+      <section class="col-sm-6 hidden-print" id="footer-useful-links">
+        <h2 class="section-title">Useful Links</h2>
+        <ul class="nav">
+          <li><a href="https://bugs.eclipse.org/bugs/">Report a Bug</a></li>
+          <li><a href="https://help.eclipse.org/">Documentation</a></li>
+          <li><a href="https://www.eclipse.org/contribute/">How to Contribute</a></li>
+          <li><a href="https://www.eclipse.org/mail/">Mailing Lists</a></li>
+          <li><a href="https://www.eclipse.org/forums/">Forums</a></li>
+          <li><a href="https://marketplace.eclipse.org/">Marketplace</a></li>
+        </ul>
+      </section>
+      <section class="col-sm-6 hidden-print" id="footer-other">
+        <h2 class="section-title">Other</h2>
+        <ul class="nav">
+          <li><a href="https://www.eclipse.org/ide/">IDE and Tools</a></li>
+          <li><a href="https://www.eclipse.org/projects">Projects</a></li>
+          <li><a href="https://www.eclipse.org/org/workinggroups/">Working Groups</a></li>
+          <li><a href="https://www.eclipse.org/org/research/">Research@Eclipse</a></li>
+          <li><a href="https://www.eclipse.org/security/">Report a Vulnerability</a></li>
+          <li><a href="https://status.eclipse.org">Service Status</a></li>
+        </ul>
+      </section>
+      <div class="col-sm-24 margin-top-20">
+        <div class="row">
+          <div id="copyright" class="col-md-16">
+            <p id="copyright-text">Copyright &copy; Eclipse Foundation, Inc. All Rights Reserved.</p>
+          </div>
+          <div class="col-md-8 social-media">
+            <ul class="list-inline">
+              <li>
+                <a class="social-media-link fa-stack fa-lg" href="https://twitter.com/EclipseFdn">
+                <i class="fa fa-circle-thin fa-stack-2x"></i>
+                <i class="fa fa-twitter fa-stack-1x"></i>
+                </a>
+              </li>
+              <li>
+                <a class="social-media-link fa-stack fa-lg" href="https://www.facebook.com/eclipse.org">
+                <i class="fa fa-circle-thin fa-stack-2x"></i>
+                <i class="fa fa-facebook fa-stack-1x"></i>
+                </a>
+              </li>
+              <li>
+                <a class="social-media-link fa-stack fa-lg" href="https://www.youtube.com/user/EclipseFdn">
+                <i class="fa fa-circle-thin fa-stack-2x"></i>
+                <i class="fa fa-youtube fa-stack-1x"></i>
+                </a>
+              </li>
+              <li>
+                <a class="social-media-link fa-stack fa-lg" href="https://www.linkedin.com/company/eclipse-foundation">
+                <i class="fa fa-circle-thin fa-stack-2x"></i>
+                <i class="fa fa-linkedin fa-stack-1x"></i>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <a href="Start.jar.html#" class="scrollup">Back to the top</a>
+    </div>
+  </div>
+</footer>
+    <!-- /footer -->
+    <script>window.RLQ = window.RLQ || []; window.RLQ.push( function () {
+mw.loader.state({"skins.solstice":"loading","user":"ready","user.groups":"ready"});mw.loader.load("/load.php?debug=false\u0026lang=en\u0026modules=skins.solstice\u0026only=scripts\u0026skin=solstice");mw.loader.load(["mediawiki.toc","mediawiki.action.view.postEdit","site","mediawiki.user","mediawiki.hidpi","mediawiki.page.ready","mediawiki.searchSuggest"]);
+} );</script><script>window.RLQ = window.RLQ || []; window.RLQ.push( function () {
+mw.config.set({"wgBackendResponseTime":454});
+} );</script>  </body>
+</html>

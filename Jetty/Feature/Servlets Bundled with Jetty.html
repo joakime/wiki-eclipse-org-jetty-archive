@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" class="client-nojs">
+<head>
+<meta charset="UTF-8"/>
+<title>Jetty/Feature/Servlets Bundled with Jetty - Eclipsepedia</title>
+<script>document.documentElement.className = document.documentElement.className.replace( /(^|\s)client-nojs(\s|$)/, "$1client-js$2" );</script>
+<script>window.RLQ = window.RLQ || []; window.RLQ.push( function () {
+mw.config.set({"wgCanonicalNamespace":"","wgCanonicalSpecialPageName":!1,"wgNamespaceNumber":0,"wgPageName":"Jetty/Feature/Servlets_Bundled_with_Jetty","wgTitle":"Jetty/Feature/Servlets Bundled with Jetty","wgCurRevisionId":335019,"wgRevisionId":335019,"wgArticleId":25942,"wgIsArticle":!0,"wgIsRedirect":!1,"wgAction":"view","wgUserName":null,"wgUserGroups":["*"],"wgCategories":["Jetty","Jetty Feature"],"wgBreakFrames":!1,"wgPageContentLanguage":"en","wgPageContentModel":"wikitext","wgSeparatorTransformTable":["",""],"wgDigitTransformTable":["",""],"wgDefaultDateFormat":"dmy","wgMonthNames":["","January","February","March","April","May","June","July","August","September","October","November","December"],"wgMonthNamesShort":["","Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"wgRelevantPageName":"Jetty/Feature/Servlets_Bundled_with_Jetty","wgRelevantArticleId":25942,"wgIsProbablyEditable":!1,"wgRestrictionEdit":[],"wgRestrictionMove":[],
+"wgWikiEditorEnabledModules":{"toolbar":!1,"dialogs":!1,"preview":!1,"publish":!1},"wgCategoryTreePageCategoryOptions":"{\"mode\":0,\"hideprefix\":20,\"showcount\":true,\"namespaces\":false}"});mw.loader.implement("user.options",function($,jQuery){mw.user.options.set({"variant":"en"});});mw.loader.implement("user.tokens",function($,jQuery){mw.user.tokens.set({"editToken":"+\\","patrolToken":"+\\","watchToken":"+\\"});});mw.loader.load(["mediawiki.page.startup","mediawiki.legacy.wikibits"]);
+} );</script>
+<link rel="stylesheet" href="../../load.php%3Fdebug=false&amp;lang=en&amp;modules=mediawiki.legacy.commonPrint,shared|mediawiki.sectionAnchor&amp;only=styles&amp;skin=solstice.css"/>
+<link rel="stylesheet" href="../../skins/solstice/public/css/styles.css%3F303.css" media="screen, print"/>
+<meta name="ResourceLoaderDynamicStyles" content=""/>
+<style>a:lang(ar),a:lang(kk-arab),a:lang(mzn),a:lang(ps),a:lang(ur){text-decoration:none}</style>
+<script async="" src="../../load.php%3Fdebug=false&amp;lang=en&amp;modules=startup&amp;only=scripts&amp;skin=solstice"></script>
+<meta name="generator" content="MediaWiki 1.26.4"/>
+<link rel="shortcut icon" href="../../eclipse.org-common/themes/solstice/public/images/favicon.ico"/>
+<link rel="search" type="application/opensearchdescription+xml" href="https://wiki.eclipse.org/opensearch_desc.php" title="Eclipsepedia (en)"/>
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.eclipse.org/api.php?action=rsd"/>
+<link rel="alternate" type="application/atom+xml" title="Eclipsepedia Atom feed" href="https://wiki.eclipse.org/index.php?title=Special:RecentChanges&amp;feed=atom"/>
+<style type="text/css">
+/*<![CDATA[*/      
+#jetty-nav {
+  margin-bottom: 2em;
+}
+#jetty-nav ul {
+  padding: 3px 0 1px 1em;
+  margin:0;
+  border-bottom: 1px solid #aaa;
+}
+#jetty-nav li {
+  list-style: none;
+  margin: 0;
+  display: inline;
+}
+#jetty-nav li a {
+  padding: 3px 0.5em;
+  margin-left: 3px;
+  border: 1px solid #aaa;
+  border-bottom: none;
+  background: #eef;
+  text-decoration: none;
+}
+#jetty-nav li a:link { color: #448; }
+#jetty-nav li a:visited { color: #667; }
+#jetty-nav li a:hover {
+  color: #000;
+  background: #ccf;
+  border-color: #227;
+}
+#jetty-nav li span#current a
+{
+  background: #fff;
+  border-bottom: 1px solid #fff;
+}
+#jetty-nav li .selflink {
+  padding: 3px 0.5em;
+  margin-left: 3px;
+  border: 1px solid #aaa;
+  background: #fff;
+  border-bottom: 1px solid #fff;
+}
+table.jetty-table, .jetty-table table {
+  border: 1px solid #aaa;
+  border-collapse: collapse;
+}
+.jetty-table td {
+  border: 1px solid #aaa;
+  padding: 0.5em 1em;
+}
+.jetty-table th {
+  border: 1px solid #aaa;
+  background-color: #eef;
+}
+.jetty-table caption {
+  border: 1px #aaa solid;
+  margin: 1em 0 0.2em 0;
+  background-color: #ccf;
+  font-weight: bold;
+  font-size: 1.1em;
+}
+#content dl  {
+  border-left: 1px #aaa solid;
+  border-bottom: 1px #aaa solid;
+}
+#content dl dt {
+  float: left;
+  border-top: 1px solid #aaa;
+  padding: 0.5em 0 0 0.5em;
+}
+#content dl dd {
+  border: 1px solid #aaa;
+  border-bottom: none;
+}
+#content .narrow-list dl  {
+  width: 40em;
+}
+#content .narrow-list dl dt {
+  width: 14em;
+  line-height: 1.1em;
+}
+#content .narrow-list dl dd {
+  margin: 0 0 0 15em;
+  padding: 0.5em 1em;
+}
+#content .wide-list dl, #content dl {
+  width: 80em;
+}
+#content .wide-list dl dt, #content dl dt {
+  padding: 0.5em 1em;
+  width: 15em;
+}
+#content .wide-list dl dd, #content dl dd {
+  padding: 1em 1em 2em 2em;
+  margin: 0 0 0 17em;
+}
+#content .unbounded-list dl, #content .unbounded-list dl dd, #content .unbounded-list dl dt {
+  border: 0 none;
+  width: auto;
+  padding: 0 0 0 1em;
+}
+#content .unbounded-list dl dt {
+}
+#content p  {
+  margin-bottom: 0.5em;
+}
+#content li  {
+  line-height: 1.1em;
+}
+.infobox {
+  padding: 0.5em 1em;
+  background-color: #fff;
+  float: right;
+  margin: 0.5em;
+}
+/*]]>*/       
+</style>
+<style type="text/css">/*<![CDATA[*/
+.source-text {line-height: normal;}
+.source-text li, .source-text pre {
+	line-height: normal; border: 0px none white;
+}
+/**
+ * GeSHi Dynamically Generated Stylesheet
+ * --------------------------------------
+ * Dynamically generated stylesheet for text
+ * CSS class: source-text, CSS id: 
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ * --------------------------------------
+ */
+.text.source-text .de1, .text.source-text .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;}
+.text.source-text  {font-family:monospace;}
+.text.source-text .imp {font-weight: bold; color: red;}
+.text.source-text li, .text.source-text .li1 {font-weight: normal; vertical-align:top;}
+.text.source-text .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.text.source-text .li2 {font-weight: bold; vertical-align:top;}
+.text.source-text .ln-xtra, .text.source-text li.ln-xtra, .text.source-text div.ln-xtra {background-color: #ffc;}
+.text.source-text span.xtra { display:block; }
+
+/*]]>*/
+</style>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body class="mediawiki ltr sitedir-ltr ns-0 ns-subject page-Jetty_Feature_Servlets_Bundled_with_Jetty skin-solstice action-view" id="solstice">
+
+<a class="sr-only" href="Servlets&#32;Bundled&#32;with&#32;Jetty.html#content">Skip to main content</a>
+<header class="header-wrapper" id="header-wrapper">
+  <div class="clearfix toolbar-container-wrapper">
+    <div class="container-fluid">
+      <div class="text-right toolbar-row row hidden-print">
+        <div class="col-md-24 row-toolbar-col">
+               <ul class="list-inline">
+                  <li id="pt-login">
+            <a href="https://wiki.eclipse.org/index.php?title=Special:UserLogin&amp;returnto=Jetty%2FFeature%2FServlets+Bundled+with+Jetty" class="toolbar-link toolbar-login">
+              <i class="fa fa-sign-in fa-fw"></i> Log in            </a>
+          </li>
+                <li><a class="toolbar-link toolbar-manage-cookies dropdown-toggle"><i class="fa fa-wrench"></i> Manage Cookies</a></li>
+      </ul>
+            </div>
+      </div>
+    </div>
+  </div>
+  <div class="container-fluid">
+    <div class="row" id="header-row">
+      <div class="col-sm-5 col-md-4" id="header-left">
+        <div class="wrapper-logo-default"><a href="https://www.eclipse.org/"><img class="logo-eclipse-default hidden-xs" alt="Eclipse.org logo" width="160" src="https://www.eclipse.org/eclipse.org-common/themes/solstice/public/images/logo/eclipse-foundation-white-orange.svg"/></a></div>
+      </div>
+      <div class="col-sm-19 col-md-20 margin-top-10" id="main-menu-wrapper">
+        <div class="float-right hidden-xs" id="btn-call-for-action"><a href="https://eclipse.org/downloads/" class="btn btn-huge btn-warning"><i class="fa fa-download"></i> Download</a></div>
+        <div class="navbar yamm float-sm-right" id="main-menu">
+          <div class="navbar-collapse collapse" id="navbar-main-menu">
+            <ul class="nav navbar-nav">
+              <li><a href="https://www.eclipse.org/projects/" target="_self">Projects</a></li>
+              <li><a href="https://www.eclipse.org/org/workinggroups/" target="_self">Working Groups</a></li>
+              <li><a href="https://www.eclipse.org/membership/" target="_self">Members</a></li>
+              <li class="dropdown visible-xs">
+                <a href="Servlets&#32;Bundled&#32;with&#32;Jetty.html#" data-toggle="dropdown" class="dropdown-toggle">Community <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li><a href="http://marketplace.eclipse.org">Marketplace</a></li>
+                  <li><a href="http://events.eclipse.org">Events</a></li>
+                  <li><a href="http://www.planeteclipse.org/">Planet Eclipse</a></li>
+                  <li><a href="https://www.eclipse.org/community/eclipse_newsletter/">Newsletter</a></li>
+                  <li><a href="https://www.youtube.com/user/EclipseFdn">Videos</a></li>
+                  <li><a href="https://blogs.eclipse.org">Blogs</a></li>
+                </ul>
+              </li>
+              <li class="dropdown visible-xs">
+                <a href="Servlets&#32;Bundled&#32;with&#32;Jetty.html#" data-toggle="dropdown" class="dropdown-toggle">Participate <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li><a href="https://bugs.eclipse.org/bugs/">Report a Bug</a></li>
+                  <li><a href="https://www.eclipse.org/forums/">Forums</a></li>
+                  <li><a href="https://www.eclipse.org/mail/">Mailing Lists</a></li>
+                  <li><a href="https://wiki.eclipse.org/">Wiki</a></li>
+                  <li><a href="https://wiki.eclipse.org/IRC">IRC</a></li>
+                  <li><a href="https://www.eclipse.org/org/research/">Research</a></li>
+                </ul>
+              </li>
+              <li class="dropdown visible-xs">
+                <a href="Servlets&#32;Bundled&#32;with&#32;Jetty.html#" data-toggle="dropdown" class="dropdown-toggle">Eclipse IDE <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li><a href="https://www.eclipse.org/downloads">Download</a></li>
+                  <li><a href="https://www.eclipse.org/eclipseide">Learn More</a></li>
+                  <li><a href="https://help.eclipse.org">Documentation</a></li>
+                  <li><a href="https://www.eclipse.org/getting_started">Getting Started / Support</a></li>
+                  <li><a href="https://www.eclipse.org/contribute/">How to Contribute</a></li>
+                  <li><a href="https://www.eclipse.org/ide/">IDE and Tools</a></li>
+                  <li><a href="https://www.eclipse.org/forums/index.php/f/89/">Newcomer Forum</a></li>
+                </ul>
+              </li>
+              <!-- More -->
+              <li class="dropdown eclipse-more hidden-xs">
+                <a data-toggle="dropdown" class="dropdown-toggle" role="button">More<b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li>
+                    <!-- Content container to add padding -->
+                    <div class="yamm-content">
+                      <div class="row">
+                        <ul class="col-sm-8 list-unstyled">
+                          <li>
+                            <p><strong>Community</strong></p>
+                          </li>
+                          <li><a href="http://marketplace.eclipse.org">Marketplace</a></li>
+                          <li><a href="http://events.eclipse.org">Events</a></li>
+                          <li><a href="http://www.planeteclipse.org/">Planet Eclipse</a></li>
+                          <li><a href="https://www.eclipse.org/community/eclipse_newsletter/">Newsletter</a></li>
+                          <li><a href="https://www.youtube.com/user/EclipseFdn">Videos</a></li>
+                          <li><a href="https://blogs.eclipse.org">Blogs</a></li>
+                        </ul>
+                        <ul class="col-sm-8 list-unstyled">
+                          <li>
+                            <p><strong>Participate</strong></p>
+                          </li>
+                          <li><a href="https://bugs.eclipse.org/bugs/">Report a Bug</a></li>
+                          <li><a href="https://www.eclipse.org/forums/">Forums</a></li>
+                          <li><a href="https://www.eclipse.org/mail/">Mailing Lists</a></li>
+                          <li><a href="https://wiki.eclipse.org/">Wiki</a></li>
+                          <li><a href="https://wiki.eclipse.org/IRC">IRC</a></li>
+                          <li><a href="https://www.eclipse.org/org/research/">Research</a></li>
+                        </ul>
+                        <ul class="col-sm-8 list-unstyled">
+                          <li>
+                            <p><strong>Eclipse IDE</strong></p>
+                          </li>
+                          <li><a href="https://www.eclipse.org/downloads">Download</a></li>
+                          <li><a href="https://www.eclipse.org/eclipseide">Learn More</a></li>
+                          <li><a href="https://help.eclipse.org">Documentation</a></li>
+                          <li><a href="https://www.eclipse.org/getting_started">Getting Started / Support</a></li>
+                          <li><a href="https://www.eclipse.org/contribute/">How to Contribute</a></li>
+                          <li><a href="https://www.eclipse.org/ide/">IDE and Tools</a></li>
+                          <li><a href="https://www.eclipse.org/forums/index.php/f/89/">Newcomer Forum</a></li>
+                        </ul>
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-main-menu">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            </button>
+            <div class="wrapper-logo-mobile"><a class="navbar-brand visible-xs" href="https://www.eclipse.org/"><img class="logo-eclipse-default-mobile img-responsive" alt="Eclipse.org logo" width="160" src="https://www.eclipse.org/eclipse.org-common/themes/solstice/public/images/logo/eclipse-foundation-white-orange.svg"/></a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+<section class="default-breadcrumbs hidden-print" id="breadcrumb">
+  <div class="container-fluid">
+    <h3 class="sr-only">Breadcrumbs</h3>
+    <div class="row">
+      <div class="col-sm-24">
+        <ol class="breadcrumb">
+          <li><a href="https://www.eclipse.org/">Home</a></li>
+          <li><a href="https://wiki.eclipse.org/Main_Page">Eclipse Wiki</a></li>
+          <li class="active">Jetty/Feature/Servlets Bundled with Jetty</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- /#breadcrumb -->
+<main>
+<div class="container-fluid padding-15 padding-top-20">
+    
+    
+    <!-- content -->
+    <section id="content" class="mw-body container-full clearfix 0">
+      <div id="mw-js-message" style="display:none;"></div>
+
+      
+      <!-- bodyContent -->
+      <div id="bodyContent">
+
+        
+                <!-- jumpto -->
+        <div id="jump-to-nav" class="mw-jump">
+          Jump to: <a href="Servlets&#32;Bundled&#32;with&#32;Jetty.html#mw-head">navigation</a>,
+          <a href="Servlets&#32;Bundled&#32;with&#32;Jetty.html#p-search">search</a>
+        </div>
+        <!-- /jumpto -->
+        
+          <!-- leftcol -->
+          <aside class="col-md-4 noprint hidden-print" id="leftcol">
+                      <form class="input-group" role="form" id="form-eclipse-search" action="https://wiki.eclipse.org/index.php" id="searchform">
+              <input id="searchInput" class="search-query form-control" type="search" accesskey="f" title="Special:Search" placeholder="Search" name="search" value="">
+
+              <span class="input-group-btn">
+                <button value="search" id="mw-searchButton" type="submit" class="btn btn-default" title="Search the pages for this text" name="fulltext">
+                  <i class="fa fa-search"></i>
+                </button>
+              </span>
+            </form>
+                      <select class="form-control margin-top-10 margin-bottom-10 visible-xs visible-sm" onchange="this.options[this.selectedIndex].value && (window.location = this.options[this.selectedIndex].value);"><option class="fw-700 "><span class="fw-700">---Navigation---</span></option><option value="/Main_Page">Main Page</option><option value="/Eclipsepedia:Community_portal">Community portal</option><option value="/Eclipsepedia:Current_events">Current events</option><option value="/Special:RecentChanges">Recent changes</option><option value="/Special:Random">Random page</option><option value="https://www.mediawiki.org/wiki/Special:MyLanguage/Help:Contents">Help</option></select><ul class="ul-left-nav fa-ul hidden-print leftnav hidden-xs hidden-sm"><li class="separator"><span class="separator">Navigation</span></li>                <li class=""><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/Main_Page" id="n-mainpage" title="Visit the main page [z]" accesskey="z">Main Page</a></li>                <li class=""><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/Eclipsepedia:Community_portal" id="n-portal" title="About the project, what you can do, where to find things">Community portal</a></li>                <li class=""><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/Eclipsepedia:Current_events" id="n-currentevents" title="Find background information on current events">Current events</a></li>                <li class=""><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/Special:RecentChanges" id="n-recentchanges" title="A list of recent changes in the wiki [r]" accesskey="r">Recent changes</a></li>                <li class=""><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/Special:Random" id="n-randompage" title="Load a random page [x]" accesskey="x">Random page</a></li>                <li class=""><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://www.mediawiki.org/wiki/Special:MyLanguage/Help:Contents" id="n-help" title="The place to find out">Help</a></li></ul>            <select class="form-control margin-top-10 margin-bottom-10 visible-xs visible-sm" onchange="this.options[this.selectedIndex].value && (window.location = this.options[this.selectedIndex].value);"><option class="fw-700 "><span class="fw-700">---Toolbox---</span></option><option value="/index.php?title=Jetty/Feature/Servlets_Bundled_with_Jetty&amp;action=info">Page information</option><option value="/index.php?title=Jetty/Feature/Servlets_Bundled_with_Jetty&amp;oldid=335019">Permanent link</option><option value="/index.php?title=Jetty/Feature/Servlets_Bundled_with_Jetty&amp;printable=yes">Printable version</option><option value="/Special:SpecialPages">Special pages</option><option value="/Special:RecentChangesLinked/Jetty/Feature/Servlets_Bundled_with_Jetty">Related changes</option><option value="/Special:WhatLinksHere/Jetty/Feature/Servlets_Bundled_with_Jetty">What links here</option></select><ul class="ul-left-nav fa-ul hidden-print leftnav hidden-xs hidden-sm"><li class="separator"><span class="separator">Toolbox</span></li><li><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/index.php?title=Jetty/Feature/Servlets_Bundled_with_Jetty&amp;action=info" id="t-info" title="More information about this page">Page information</a></li><li><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/index.php?title=Jetty/Feature/Servlets_Bundled_with_Jetty&amp;oldid=335019" id="t-permalink" title="Permanent link to this revision of the page">Permanent link</a></li><li><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/index.php?title=Jetty/Feature/Servlets_Bundled_with_Jetty&amp;printable=yes" id="t-print" rel="alternate" title="Printable version of this page [p]" accesskey="p">Printable version</a></li><li><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/Special:SpecialPages" id="t-specialpages" title="A list of all special pages [q]" accesskey="q">Special pages</a></li><li><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/Special:RecentChangesLinked/Jetty/Feature/Servlets_Bundled_with_Jetty" id="t-recentchangeslinked" title="Recent changes in pages linked from this page [k]" accesskey="k">Related changes</a></li><li><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/Special:WhatLinksHere/Jetty/Feature/Servlets_Bundled_with_Jetty" id="t-whatlinkshere" title="A list of all wiki pages that link here [j]" accesskey="j">What links here</a></li></ul>                                  </aside>
+          <!-- /leftcol -->
+
+          <!-- mainContent -->
+          <div id="mainContent" class="col-md-20">
+                      <ul class="nav nav-tabs noprint hidden-print" role="tablist">
+                       <li id="ca-nstab-main" class="active"><a href="Servlets&#32;Bundled&#32;with&#32;Jetty.html"  title="View the content page [c]" accesskey="c" tabindex="-1">Page</a></li>
+                        <li id="ca-talk" class="new"><a href="https://wiki.eclipse.org/index.php?title=Talk:Jetty/Feature/Servlets_Bundled_with_Jetty&amp;action=edit&amp;redlink=1"  title="Discussion about the content page [t]" accesskey="t" tabindex="-1">Discussion</a></li>
+                        <li id="ca-viewsource"><a href="https://wiki.eclipse.org/index.php?title=Jetty/Feature/Servlets_Bundled_with_Jetty&amp;action=edit"  title="This page is protected.&#10;You can view its source [e]" accesskey="e" tabindex="-1">View source</a></li>
+                        <li id="ca-history" class="collapsible"><a href="https://wiki.eclipse.org/index.php?title=Jetty/Feature/Servlets_Bundled_with_Jetty&amp;action=history"  title="Past revisions of this page [h]" accesskey="h" tabindex="-1">History</a></li>
+                      </ul>            <div class="tab-content background-white">
+              <div id="tab-pane-main-page-content" class="tab-pane active">
+
+                
+                <h1 id="firstHeading" class="firstHeading page-header">
+                  <span dir="auto">Jetty/Feature/Servlets Bundled with Jetty</span>
+                </h1>
+                <div id="main-page-content">
+                                                      <!-- subtitle -->
+                  <div id="contentSub"  class="alert alert-small alert-warning"><span class="subpages">&lt; <a href="../../Jetty.html" title="Jetty">Jetty</a>&lrm; | <a href="../Feature.html" title="Jetty/Feature">Feature</a></span></div>
+                  <!-- /subtitle -->
+                  
+                  
+                  <div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><p><br />
+</p><p><br />
+</p>
+<div id="toc" class="toc"><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="Servlets&#32;Bundled&#32;with&#32;Jetty.html#Introduction"><span class="tocnumber">1</span> <span class="toctext">Introduction</span></a></li>
+<li class="toclevel-1"><a href="Servlets&#32;Bundled&#32;with&#32;Jetty.html#Feature"><span class="tocnumber">2</span> <span class="toctext">Feature</span></a>
+<ul>
+<li class="toclevel-2"><a href="Servlets&#32;Bundled&#32;with&#32;Jetty.html#GzipFilter"><span class="tocnumber">2.1</span> <span class="toctext">GzipFilter</span></a></li>
+<li class="toclevel-2"><a href="Servlets&#32;Bundled&#32;with&#32;Jetty.html#MultiPartFilter"><span class="tocnumber">2.2</span> <span class="toctext">MultiPartFilter</span></a></li>
+<li class="toclevel-2"><a href="Servlets&#32;Bundled&#32;with&#32;Jetty.html#NoJspServlet"><span class="tocnumber">2.3</span> <span class="toctext">NoJspServlet</span></a></li>
+<li class="toclevel-2"><a href="Servlets&#32;Bundled&#32;with&#32;Jetty.html#ProxyServlet"><span class="tocnumber">2.4</span> <span class="toctext">ProxyServlet</span></a></li>
+<li class="toclevel-2"><a href="Servlets&#32;Bundled&#32;with&#32;Jetty.html#QoSFilter"><span class="tocnumber">2.5</span> <span class="toctext">QoSFilter</span></a></li>
+<li class="toclevel-2"><a href="Servlets&#32;Bundled&#32;with&#32;Jetty.html#DoSFilter"><span class="tocnumber">2.6</span> <span class="toctext">DoSFilter</span></a></li>
+<li class="toclevel-2"><a href="Servlets&#32;Bundled&#32;with&#32;Jetty.html#WelcomeFilter"><span class="tocnumber">2.7</span> <span class="toctext">WelcomeFilter</span></a></li>
+<li class="toclevel-2"><a href="Servlets&#32;Bundled&#32;with&#32;Jetty.html#DefaultServlet"><span class="tocnumber">2.8</span> <span class="toctext">DefaultServlet</span></a></li>
+<li class="toclevel-2"><a href="Servlets&#32;Bundled&#32;with&#32;Jetty.html#CGI"><span class="tocnumber">2.9</span> <span class="toctext">CGI</span></a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Introduction">Introduction</span></h2>
+<div class="messagebox" style="background-color: #f9f6b7; border: 1px solid #c4c295; color: black; padding: 5px; margin: 1ex 0; min-height: 35px; padding-left: 45px; font-size: 150%; color: white; background-color: #FF8888; padding: 50px">
+<div style="float: left; margin-left: -40px;"><a href="https://wiki.eclipse.org/File:Warning2.png" class="image"><img alt="Warning2.png" src="../../images/3/37/Warning2.png" width="35" height="35" /></a></div>
+<div>Jetty 7 and Jetty 8 are now EOL (End of Life)<br />
+<p><br />
+<br />
+<br />
+THIS IS NOT THE DOCUMENTATION YOU ARE LOOKING FOR!!!!!<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+All development and stable releases are being performed with Jetty 9 and Jetty 10.<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+This <b>wiki is now officially out of date</b> and all content has been moved to the <a rel="nofollow" class="external text" href="http://www.eclipse.org/jetty/documentation">Jetty Documentation Hub</a><br /> 
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+</p>
+Direct Link to updated documentation: <a rel="nofollow" class="external free" href="http://www.eclipse.org/jetty/documentation/current/advanced-extras.html">http://www.eclipse.org/jetty/documentation/current/advanced-extras.html</a></div>
+</div>
+<p><br />
+Jetty ships with a bundle of servlets that interact with the key classes. Most are in the org.eclipse.jetty.servlets package. These servlets are among the principle elements of Jetty as a component-based infrastructure that holds and runs J2EE applications. As described below, they play a major role in running and maintaining the Jetty server. For more information, see <a rel="nofollow" class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/servlets/package-summary.html">Servlets javadoc</a> for the package.
+</p>
+<h2><span class="mw-headline" id="Feature">Feature</span></h2>
+<h3><span class="mw-headline" id="GzipFilter">GzipFilter</span></h3>
+<p>The Jetty GzipFilter is a compression filter that you can apply to almost any dynamic resource (servlet). It fixes many of the bugs in commonly available compression filters–for example, it handles all ways to set content length. We have tested it with Jetty continuations and suspending requests.
+Some user-agents might be excluded from compression to avoid common browser bugs (yes, this means IE!). See <a rel="nofollow" class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/servlets/GzipFilter.html">GzipFilter javadoc</a>.
+</p>
+<h3><span class="mw-headline" id="MultiPartFilter">MultiPartFilter</span></h3>
+<p>The MultiPartFilter class implements the Filter interface that the web container calls. It acts as a decoder of the mulitpart/form-data stream that an HTML form sends using a file input item. It stores any files an HTML form sends to a temporary location. It also adds a file object to the request, which acts as an attribute. Other values are available through the usual getParameter API, and the setCharacterEncoding mechanism is respected when converting bytes to strings. See <a rel="nofollow" class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/servlets/MultiPartFilter.html">MultiPartFilter javadoc</a>.
+</p>
+<h3><span class="mw-headline" id="NoJspServlet">NoJspServlet</span></h3>
+<p>This NoJsp servlet extends the abstract class HttpServlet; it displays the code 500 error message "JSP support not configured." See <a rel="nofollow" class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/servlet/NoJspServlet.html">NojspServlet javadoc</a>.
+</p>
+<h3><span class="mw-headline" id="ProxyServlet">ProxyServlet</span></h3>
+<p>ProxyServlet is an experimental effort that implements the Servlet interface. It acts as an authorized servlet on behalf on another running servlet. It is not a substitute for the running servlet, but provides a mirror for the service. See <a rel="nofollow" class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/servlets/ProxyServlet.html">ProxyServlet javadoc</a>.
+</p>
+<h3><span class="mw-headline" id="QoSFilter">QoSFilter</span></h3>
+<p>The Quality of Service Filter limits the number of active requests to the number set by the "maxRequests" init parameter (default 10). If more requests than the set value are received, they are suspended and placed in priority queues. The getPriority(ServletRequest) method determines priorities, which are a value between zero and the value in the "maxPriority" init parameter (default 10), with higher values having higher priority.
+</p><p>This filter prevents wasting threads waiting for slow/limited resources such as a JDBC connection pool. It avoids consuming all of a container's thread pool. It also uses a priority system when resuming waiting requests. For example, consider a filter with a maxRequest limit slightly smaller than the container's thread pool, and a high priority allocated to admin users. Regardless of load, admin users are always able to access the web application. A semaphore polices the maxRequest limit, and the filter waits briefly while attempting to acquire the semaphore. Th "waitMS" init parameter controls waiting, avoiding the expense of a suspend if the semaphore is quickly available. If the system cannot obtain the semaphore, the request is suspended for the default suspend period of the container or the value set in the "suspendMs" init parameter. See <a rel="nofollow" class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/servlets/QoSFilter.html">QoSFilter javadoc</a>.
+</p>
+<h3><span class="mw-headline" id="DoSFilter">DoSFilter</span></h3>
+<p>This has been replaced by the QoSFilter.
+</p>
+<h3><span class="mw-headline" id="WelcomeFilter">WelcomeFilter</span></h3>
+<p>The WelcomeFilter is another servlet that also implements the Filter interface. It forwards any servlets to the necessary welcome display of an application when serviced. See <a rel="nofollow" class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/servlets/WelcomeFilter.html">WelcomeFilter javadoc</a>.
+</p>
+<h3><span class="mw-headline" id="DefaultServlet">DefaultServlet</span></h3>
+<p>The DefaultServlet implements the ResourceFactory interface and extends the HttpServlet abstract class. It is usually mapped to / and provides handling for static content, OPTION and TRACE methods for the context. The MOVE method is allowed if PUT and DELETE are allowed. See <a rel="nofollow" class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/servlet/DefaultServlet.html">DefaultServlet javadoc</a>.
+</p><p>Jetty supports the following initParameters:
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="text source-text"><pre class="de1">acceptRanges–If true, range requests and responses are supported.
+dirAllowed–If true, directory listings are returned if no welcome file is found. 
+  Otherwise 403 Forbidden displays.
+redirectWelcome–If true, welcome files are redirected rather that forwarded.
+gzip–If set to true, then static content is served as gzip content encoded if a matching 
+  resource is found ending with &quot;.gz&quot;.
+resourceBase–Set to replace the context resource base.
+aliases–If true, aliases of resources are allowed (that is, symbolic links and caps variations) 
+  and may bypass security constraints.
+maxCacheSize–Maximum total size of the cache or 0 for no cache.
+maxCachedFileSize–Maximum size of a file to cache.
+maxCachedFiles–Maximum number of files to cache.
+useFileMappedBuffer–If set to true, mapped file buffer serves static content when using 
+  NIO connector. Setting this value to false means that a direct buffer is used instead of a mapped file buffer. 
+  By default, this is set to true.</pre></div></div>
+<h3><span class="mw-headline" id="CGI">CGI</span></h3>
+<p>The CGI servlet class extends the abstract HttpServlet class. When the init parameter is called, the cgi bin directory is set with the cgibinResourceBase. Otherwise, it defaults to the resource base of the context. See  <a rel="nofollow" class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/servlets/CGI.html">CGI javadoc</a>.
+</p><p>The cgi bin uses three parameters:
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="text source-text"><pre class="de1">commandPrefix–The init parameter obtained when there is a prefix set to all commands directed to the method exec.
+Path–An init parameter passed to the exec environment as a PATH. This must be run unpacked 
+  somewhere in the filesystem.
+ENV_ –An init parameter that points to an environment variable with the name stripped of the
+  leading ENV_ and using the init parameter value.</pre></div></div>
+
+<!-- 
+NewPP limit report
+Cached time: 20211116202300
+Cache expiry: 86400
+Dynamic content: false
+CPU time usage: 0.100 seconds
+Real time usage: 0.110 seconds
+Preprocessor visited node count: 67/1000000
+Preprocessor generated node count: 384/1000000
+Post‐expand include size: 8125/2097152 bytes
+Template argument size: 6779/2097152 bytes
+Highest expansion depth: 5/40
+Expensive parser function count: 0/100
+-->
+
+<!-- 
+Transclusion expansion time report (%,ms,calls,template)
+100.00%   35.419      1 - -total
+100.00%   35.419      1 - Template:Jetty_Feature
+ 28.89%   10.234      1 - Template:Jetty_Redirect
+ 19.87%    7.039      1 - Template:Jetty
+ 18.22%    6.454      1 - Template:Message
+-->
+
+<!-- Saved in parser cache with key my_wiki:pcache:idhash:25942-0!*!*!!en!5!* and timestamp 20211116202300 and revision id 335019
+ -->
+</div>
+                                      <!-- catlinks -->
+                    <div id='catlinks' class='catlinks'><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="https://wiki.eclipse.org/Special:Categories" title="Special:Categories">Categories</a>: <ul><li><a href="https://wiki.eclipse.org/Category:Jetty" title="Category:Jetty">Jetty</a></li><li><a href="https://wiki.eclipse.org/Category:Jetty_Feature" title="Category:Jetty Feature">Jetty Feature</a></li></ul></div></div>                     <!-- /catlinks -->
+                                  </div>
+              </div>
+            </div>
+          </div>
+        <!-- /maincontent -->
+
+                <!-- printfooter -->
+        <div class="printfooter">
+        Retrieved from "<a dir="ltr" href="https://wiki.eclipse.org/index.php?title=Jetty/Feature/Servlets_Bundled_with_Jetty&amp;oldid=335019">https://wiki.eclipse.org/index.php?title=Jetty/Feature/Servlets_Bundled_with_Jetty&amp;oldid=335019</a>"        </div>
+        <!-- /printfooter -->
+        
+        
+        <!-- debughtml -->
+                <!-- /debughtml -->
+
+      </div>
+      <!-- /bodyContent -->
+    </section>
+    <!-- /content -->
+
+    <!-- footer -->
+    
+</div>
+<div class="featured-footer featured-footer-newsletter background-secondary">
+  <div class="container">
+    <p id="footercredit">This page was last modified 15:48, 25 April 2013 by <a href="https://wiki.eclipse.org/User:Jesse.mcconnell.gmail.com" title="User:Jesse.mcconnell.gmail.com">Jesse McConnell</a>. Based on work by <a href="https://wiki.eclipse.org/index.php?title=User:Boulay.intalio.com&amp;action=edit&amp;redlink=1" class="new" title="User:Boulay.intalio.com (page does not exist)">Shirley Boulay</a>, <a href="https://wiki.eclipse.org/index.php?title=User:Tangfulin.gmail.com&amp;action=edit&amp;redlink=1" class="new" title="User:Tangfulin.gmail.com (page does not exist)">tangfulin </a> and <a href="https://wiki.eclipse.org/index.php?title=User:Michael.webtide.com&amp;action=edit&amp;redlink=1" class="new" title="User:Michael.webtide.com (page does not exist)">Michael Gorovoy</a>.</p><p id="footerviews"></p>  </div>
+</div>
+</main> <!-- /#main-content-container-row -->
+<p id="back-to-top" class="noprint hidden-print">
+  <a class="visible-xs" href="Servlets&#32;Bundled&#32;with&#32;Jetty.html#top">Back to the top</a>
+</p>
+<footer id="solstice-footer">
+  <div class="container">
+    <div class="row">
+      <section class="col-sm-6 hidden-print" id="footer-eclipse-foundation">
+        <h2 class="section-title">Eclipse Foundation</h2>
+        <ul class="nav">
+          <li><a href="https://www.eclipse.org/org/">About Us</a></li>
+          <li><a href="https://www.eclipse.org/org/foundation/contact.php">Contact Us</a></li>
+          <li><a href="https://www.eclipse.org/donate">Donate</a></li>
+          <li><a href="https://www.eclipse.org/membership/">Members</a></li>
+          <li><a href="https://www.eclipse.org/org/documents/">Governance</a></li>
+          <li><a href="https://www.eclipse.org/org/documents/Community_Code_of_Conduct.php">Code of Conduct</a></li>
+          <li><a href="https://www.eclipse.org/artwork/">Logo and Artwork</a></li>
+          <li><a href="https://www.eclipse.org/org/foundation/directors.php">Board of Directors</a></li>
+        </ul>
+      </section>
+      <section class="col-sm-6 hidden-print" id="footer-legal">
+        <h2 class="section-title">Legal</h2>
+        <ul class="nav">
+          <li><a href="https://www.eclipse.org/legal/privacy.php">Privacy Policy</a></li>
+          <li><a href="https://www.eclipse.org/legal/termsofuse.php">Terms of Use</a></li>
+          <li><a href="https://www.eclipse.org/legal/copyright.php">Copyright Agent</a></li>
+          <li><a href="https://www.eclipse.org/legal/epl-2.0/">Eclipse Public License</a></li>
+          <li><a href="https://www.eclipse.org/legal/">Legal Resources</a></li>
+        </ul>
+      </section>
+      <section class="col-sm-6 hidden-print" id="footer-useful-links">
+        <h2 class="section-title">Useful Links</h2>
+        <ul class="nav">
+          <li><a href="https://bugs.eclipse.org/bugs/">Report a Bug</a></li>
+          <li><a href="https://help.eclipse.org/">Documentation</a></li>
+          <li><a href="https://www.eclipse.org/contribute/">How to Contribute</a></li>
+          <li><a href="https://www.eclipse.org/mail/">Mailing Lists</a></li>
+          <li><a href="https://www.eclipse.org/forums/">Forums</a></li>
+          <li><a href="https://marketplace.eclipse.org/">Marketplace</a></li>
+        </ul>
+      </section>
+      <section class="col-sm-6 hidden-print" id="footer-other">
+        <h2 class="section-title">Other</h2>
+        <ul class="nav">
+          <li><a href="https://www.eclipse.org/ide/">IDE and Tools</a></li>
+          <li><a href="https://www.eclipse.org/projects">Projects</a></li>
+          <li><a href="https://www.eclipse.org/org/workinggroups/">Working Groups</a></li>
+          <li><a href="https://www.eclipse.org/org/research/">Research@Eclipse</a></li>
+          <li><a href="https://www.eclipse.org/security/">Report a Vulnerability</a></li>
+          <li><a href="https://status.eclipse.org">Service Status</a></li>
+        </ul>
+      </section>
+      <div class="col-sm-24 margin-top-20">
+        <div class="row">
+          <div id="copyright" class="col-md-16">
+            <p id="copyright-text">Copyright &copy; Eclipse Foundation, Inc. All Rights Reserved.</p>
+          </div>
+          <div class="col-md-8 social-media">
+            <ul class="list-inline">
+              <li>
+                <a class="social-media-link fa-stack fa-lg" href="https://twitter.com/EclipseFdn">
+                <i class="fa fa-circle-thin fa-stack-2x"></i>
+                <i class="fa fa-twitter fa-stack-1x"></i>
+                </a>
+              </li>
+              <li>
+                <a class="social-media-link fa-stack fa-lg" href="https://www.facebook.com/eclipse.org">
+                <i class="fa fa-circle-thin fa-stack-2x"></i>
+                <i class="fa fa-facebook fa-stack-1x"></i>
+                </a>
+              </li>
+              <li>
+                <a class="social-media-link fa-stack fa-lg" href="https://www.youtube.com/user/EclipseFdn">
+                <i class="fa fa-circle-thin fa-stack-2x"></i>
+                <i class="fa fa-youtube fa-stack-1x"></i>
+                </a>
+              </li>
+              <li>
+                <a class="social-media-link fa-stack fa-lg" href="https://www.linkedin.com/company/eclipse-foundation">
+                <i class="fa fa-circle-thin fa-stack-2x"></i>
+                <i class="fa fa-linkedin fa-stack-1x"></i>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <a href="Servlets&#32;Bundled&#32;with&#32;Jetty.html#" class="scrollup">Back to the top</a>
+    </div>
+  </div>
+</footer>
+    <!-- /footer -->
+    <script>window.RLQ = window.RLQ || []; window.RLQ.push( function () {
+mw.loader.state({"skins.solstice":"loading","user":"ready","user.groups":"ready"});mw.loader.load("/load.php?debug=false\u0026lang=en\u0026modules=skins.solstice\u0026only=scripts\u0026skin=solstice");mw.loader.load(["mediawiki.toc","mediawiki.action.view.postEdit","site","mediawiki.user","mediawiki.hidpi","mediawiki.page.ready","mediawiki.searchSuggest"]);
+} );</script><script>window.RLQ = window.RLQ || []; window.RLQ.push( function () {
+mw.config.set({"wgBackendResponseTime":495});
+} );</script>  </body>
+</html>

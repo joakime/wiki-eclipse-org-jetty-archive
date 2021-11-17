@@ -1,0 +1,1281 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" class="client-nojs">
+<head>
+<meta charset="UTF-8"/>
+<title>Jetty/Reference/jetty.xml syntax - Eclipsepedia</title>
+<script>document.documentElement.className = document.documentElement.className.replace( /(^|\s)client-nojs(\s|$)/, "$1client-js$2" );</script>
+<script>window.RLQ = window.RLQ || []; window.RLQ.push( function () {
+mw.config.set({"wgCanonicalNamespace":"","wgCanonicalSpecialPageName":!1,"wgNamespaceNumber":0,"wgPageName":"Jetty/Reference/jetty.xml_syntax","wgTitle":"Jetty/Reference/jetty.xml syntax","wgCurRevisionId":334805,"wgRevisionId":334805,"wgArticleId":20646,"wgIsArticle":!0,"wgIsRedirect":!1,"wgAction":"view","wgUserName":null,"wgUserGroups":["*"],"wgCategories":["Jetty","Jetty Reference"],"wgBreakFrames":!1,"wgPageContentLanguage":"en","wgPageContentModel":"wikitext","wgSeparatorTransformTable":["",""],"wgDigitTransformTable":["",""],"wgDefaultDateFormat":"dmy","wgMonthNames":["","January","February","March","April","May","June","July","August","September","October","November","December"],"wgMonthNamesShort":["","Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"wgRelevantPageName":"Jetty/Reference/jetty.xml_syntax","wgRelevantArticleId":20646,"wgIsProbablyEditable":!1,"wgRestrictionEdit":[],"wgRestrictionMove":[],"wgWikiEditorEnabledModules":{
+"toolbar":!1,"dialogs":!1,"preview":!1,"publish":!1},"wgCategoryTreePageCategoryOptions":"{\"mode\":0,\"hideprefix\":20,\"showcount\":true,\"namespaces\":false}"});mw.loader.implement("user.options",function($,jQuery){mw.user.options.set({"variant":"en"});});mw.loader.implement("user.tokens",function($,jQuery){mw.user.tokens.set({"editToken":"+\\","patrolToken":"+\\","watchToken":"+\\"});});mw.loader.load(["mediawiki.page.startup","mediawiki.legacy.wikibits"]);
+} );</script>
+<link rel="stylesheet" href="../../load.php%3Fdebug=false&amp;lang=en&amp;modules=mediawiki.legacy.commonPrint,shared|mediawiki.sectionAnchor&amp;only=styles&amp;skin=solstice.css"/>
+<link rel="stylesheet" href="../../skins/solstice/public/css/styles.css%3F303.css" media="screen, print"/>
+<meta name="ResourceLoaderDynamicStyles" content=""/>
+<style>a:lang(ar),a:lang(kk-arab),a:lang(mzn),a:lang(ps),a:lang(ur){text-decoration:none}</style>
+<script async="" src="../../load.php%3Fdebug=false&amp;lang=en&amp;modules=startup&amp;only=scripts&amp;skin=solstice"></script>
+<meta name="generator" content="MediaWiki 1.26.4"/>
+<link rel="shortcut icon" href="../../eclipse.org-common/themes/solstice/public/images/favicon.ico"/>
+<link rel="search" type="application/opensearchdescription+xml" href="https://wiki.eclipse.org/opensearch_desc.php" title="Eclipsepedia (en)"/>
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.eclipse.org/api.php?action=rsd"/>
+<link rel="alternate" type="application/atom+xml" title="Eclipsepedia Atom feed" href="https://wiki.eclipse.org/index.php?title=Special:RecentChanges&amp;feed=atom"/>
+<style type="text/css">
+/*<![CDATA[*/      
+#jetty-nav {
+  margin-bottom: 2em;
+}
+#jetty-nav ul {
+  padding: 3px 0 1px 1em;
+  margin:0;
+  border-bottom: 1px solid #aaa;
+}
+#jetty-nav li {
+  list-style: none;
+  margin: 0;
+  display: inline;
+}
+#jetty-nav li a {
+  padding: 3px 0.5em;
+  margin-left: 3px;
+  border: 1px solid #aaa;
+  border-bottom: none;
+  background: #eef;
+  text-decoration: none;
+}
+#jetty-nav li a:link { color: #448; }
+#jetty-nav li a:visited { color: #667; }
+#jetty-nav li a:hover {
+  color: #000;
+  background: #ccf;
+  border-color: #227;
+}
+#jetty-nav li span#current a
+{
+  background: #fff;
+  border-bottom: 1px solid #fff;
+}
+#jetty-nav li .selflink {
+  padding: 3px 0.5em;
+  margin-left: 3px;
+  border: 1px solid #aaa;
+  background: #fff;
+  border-bottom: 1px solid #fff;
+}
+table.jetty-table, .jetty-table table {
+  border: 1px solid #aaa;
+  border-collapse: collapse;
+}
+.jetty-table td {
+  border: 1px solid #aaa;
+  padding: 0.5em 1em;
+}
+.jetty-table th {
+  border: 1px solid #aaa;
+  background-color: #eef;
+}
+.jetty-table caption {
+  border: 1px #aaa solid;
+  margin: 1em 0 0.2em 0;
+  background-color: #ccf;
+  font-weight: bold;
+  font-size: 1.1em;
+}
+#content dl  {
+  border-left: 1px #aaa solid;
+  border-bottom: 1px #aaa solid;
+}
+#content dl dt {
+  float: left;
+  border-top: 1px solid #aaa;
+  padding: 0.5em 0 0 0.5em;
+}
+#content dl dd {
+  border: 1px solid #aaa;
+  border-bottom: none;
+}
+#content .narrow-list dl  {
+  width: 40em;
+}
+#content .narrow-list dl dt {
+  width: 14em;
+  line-height: 1.1em;
+}
+#content .narrow-list dl dd {
+  margin: 0 0 0 15em;
+  padding: 0.5em 1em;
+}
+#content .wide-list dl, #content dl {
+  width: 80em;
+}
+#content .wide-list dl dt, #content dl dt {
+  padding: 0.5em 1em;
+  width: 15em;
+}
+#content .wide-list dl dd, #content dl dd {
+  padding: 1em 1em 2em 2em;
+  margin: 0 0 0 17em;
+}
+#content .unbounded-list dl, #content .unbounded-list dl dd, #content .unbounded-list dl dt {
+  border: 0 none;
+  width: auto;
+  padding: 0 0 0 1em;
+}
+#content .unbounded-list dl dt {
+}
+#content p  {
+  margin-bottom: 0.5em;
+}
+#content li  {
+  line-height: 1.1em;
+}
+.infobox {
+  padding: 0.5em 1em;
+  background-color: #fff;
+  float: right;
+  margin: 0.5em;
+}
+/*]]>*/       
+</style>
+<style type="text/css">/*<![CDATA[*/
+.source-xml {line-height: normal;}
+.source-xml li, .source-xml pre {
+	line-height: normal; border: 0px none white;
+}
+/**
+ * GeSHi Dynamically Generated Stylesheet
+ * --------------------------------------
+ * Dynamically generated stylesheet for xml
+ * CSS class: source-xml, CSS id: 
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ * --------------------------------------
+ */
+.xml.source-xml .de1, .xml.source-xml .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;}
+.xml.source-xml  {font-family:monospace;}
+.xml.source-xml .imp {font-weight: bold; color: red;}
+.xml.source-xml li, .xml.source-xml .li1 {font-weight: normal; vertical-align:top;}
+.xml.source-xml .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.xml.source-xml .li2 {font-weight: bold; vertical-align:top;}
+.xml.source-xml .es0 {color: #000099; font-weight: bold;}
+.xml.source-xml .br0 {color: #66cc66;}
+.xml.source-xml .sy0 {color: #66cc66;}
+.xml.source-xml .st0 {color: #ff0000;}
+.xml.source-xml .nu0 {color: #cc66cc;}
+.xml.source-xml .sc-1 {color: #808080; font-style: italic;}
+.xml.source-xml .sc0 {color: #00bbdd;}
+.xml.source-xml .sc1 {color: #ddbb00;}
+.xml.source-xml .sc2 {color: #339933;}
+.xml.source-xml .sc3 {color: #009900;}
+.xml.source-xml .re0 {color: #000066;}
+.xml.source-xml .re1 {color: #000000; font-weight: bold;}
+.xml.source-xml .re2 {color: #000000; font-weight: bold;}
+.xml.source-xml .ln-xtra, .xml.source-xml li.ln-xtra, .xml.source-xml div.ln-xtra {background-color: #ffc;}
+.xml.source-xml span.xtra { display:block; }
+
+/*]]>*/
+</style>
+<style type="text/css">/*<![CDATA[*/
+.source-java {line-height: normal;}
+.source-java li, .source-java pre {
+	line-height: normal; border: 0px none white;
+}
+/**
+ * GeSHi Dynamically Generated Stylesheet
+ * --------------------------------------
+ * Dynamically generated stylesheet for java
+ * CSS class: source-java, CSS id: 
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ * --------------------------------------
+ */
+.java.source-java .de1, .java.source-java .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;}
+.java.source-java  {font-family:monospace;}
+.java.source-java .imp {font-weight: bold; color: red;}
+.java.source-java li, .java.source-java .li1 {font-weight: normal; vertical-align:top;}
+.java.source-java .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.java.source-java .li2 {font-weight: bold; vertical-align:top;}
+.java.source-java .kw1 {color: #7F0055; font-weight: bold;}
+.java.source-java .kw2 {color: #7F0055; font-weight: bold;}
+.java.source-java .kw3 {color: #000000; font-weight: normal}
+.java.source-java .kw4 {color: #7F0055; font-weight: bold;}
+.java.source-java .co1 {color: #3F7F5F; font-style: italic;}
+.java.source-java .co2 {color: #3F7F5F;}
+.java.source-java .co3 {color: #3F7F5F; font-style: italic; font-weight: bold;}
+.java.source-java .coMULTI {color: #3F5FBF; font-style: italic;}
+.java.source-java .es0 {color: #000000;}
+.java.source-java .br0 {color: #000000;}
+.java.source-java .sy0 {color: #000000;}
+.java.source-java .st0 {color: #2A00ff;}
+.java.source-java .nu0 {color: #000000;}
+.java.source-java .me1 {color: #000000;}
+.java.source-java .me2 {color: #000000;}
+.java.source-java .ln-xtra, .java.source-java li.ln-xtra, .java.source-java div.ln-xtra {background-color: #ffc;}
+.java.source-java span.xtra { display:block; }
+
+/*]]>*/
+</style>
+<style type="text/css">
+/*<![CDATA[*/      
+#content #methods dl { width: 45em;  }
+#content #methods dl dt { width: 24em; padding-top: 1em; }
+#content #methods dl dd { margin-left: 26em; padding: 1em; }
+#content #methods dl pre { margin: 0; background-color: transparent; border-style: none;}
+/*]]>*/       
+</style>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body class="mediawiki ltr sitedir-ltr ns-0 ns-subject page-Jetty_Reference_jetty_xml_syntax skin-solstice action-view" id="solstice">
+
+<a class="sr-only" href="jetty.xml&#32;syntax.html#content">Skip to main content</a>
+<header class="header-wrapper" id="header-wrapper">
+  <div class="clearfix toolbar-container-wrapper">
+    <div class="container-fluid">
+      <div class="text-right toolbar-row row hidden-print">
+        <div class="col-md-24 row-toolbar-col">
+               <ul class="list-inline">
+                  <li id="pt-login">
+            <a href="https://wiki.eclipse.org/index.php?title=Special:UserLogin&amp;returnto=Jetty%2FReference%2Fjetty.xml+syntax" class="toolbar-link toolbar-login">
+              <i class="fa fa-sign-in fa-fw"></i> Log in            </a>
+          </li>
+                <li><a class="toolbar-link toolbar-manage-cookies dropdown-toggle"><i class="fa fa-wrench"></i> Manage Cookies</a></li>
+      </ul>
+            </div>
+      </div>
+    </div>
+  </div>
+  <div class="container-fluid">
+    <div class="row" id="header-row">
+      <div class="col-sm-5 col-md-4" id="header-left">
+        <div class="wrapper-logo-default"><a href="https://www.eclipse.org/"><img class="logo-eclipse-default hidden-xs" alt="Eclipse.org logo" width="160" src="https://www.eclipse.org/eclipse.org-common/themes/solstice/public/images/logo/eclipse-foundation-white-orange.svg"/></a></div>
+      </div>
+      <div class="col-sm-19 col-md-20 margin-top-10" id="main-menu-wrapper">
+        <div class="float-right hidden-xs" id="btn-call-for-action"><a href="https://eclipse.org/downloads/" class="btn btn-huge btn-warning"><i class="fa fa-download"></i> Download</a></div>
+        <div class="navbar yamm float-sm-right" id="main-menu">
+          <div class="navbar-collapse collapse" id="navbar-main-menu">
+            <ul class="nav navbar-nav">
+              <li><a href="https://www.eclipse.org/projects/" target="_self">Projects</a></li>
+              <li><a href="https://www.eclipse.org/org/workinggroups/" target="_self">Working Groups</a></li>
+              <li><a href="https://www.eclipse.org/membership/" target="_self">Members</a></li>
+              <li class="dropdown visible-xs">
+                <a href="jetty.xml&#32;syntax.html#" data-toggle="dropdown" class="dropdown-toggle">Community <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li><a href="http://marketplace.eclipse.org">Marketplace</a></li>
+                  <li><a href="http://events.eclipse.org">Events</a></li>
+                  <li><a href="http://www.planeteclipse.org/">Planet Eclipse</a></li>
+                  <li><a href="https://www.eclipse.org/community/eclipse_newsletter/">Newsletter</a></li>
+                  <li><a href="https://www.youtube.com/user/EclipseFdn">Videos</a></li>
+                  <li><a href="https://blogs.eclipse.org">Blogs</a></li>
+                </ul>
+              </li>
+              <li class="dropdown visible-xs">
+                <a href="jetty.xml&#32;syntax.html#" data-toggle="dropdown" class="dropdown-toggle">Participate <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li><a href="https://bugs.eclipse.org/bugs/">Report a Bug</a></li>
+                  <li><a href="https://www.eclipse.org/forums/">Forums</a></li>
+                  <li><a href="https://www.eclipse.org/mail/">Mailing Lists</a></li>
+                  <li><a href="https://wiki.eclipse.org/">Wiki</a></li>
+                  <li><a href="https://wiki.eclipse.org/IRC">IRC</a></li>
+                  <li><a href="https://www.eclipse.org/org/research/">Research</a></li>
+                </ul>
+              </li>
+              <li class="dropdown visible-xs">
+                <a href="jetty.xml&#32;syntax.html#" data-toggle="dropdown" class="dropdown-toggle">Eclipse IDE <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li><a href="https://www.eclipse.org/downloads">Download</a></li>
+                  <li><a href="https://www.eclipse.org/eclipseide">Learn More</a></li>
+                  <li><a href="https://help.eclipse.org">Documentation</a></li>
+                  <li><a href="https://www.eclipse.org/getting_started">Getting Started / Support</a></li>
+                  <li><a href="https://www.eclipse.org/contribute/">How to Contribute</a></li>
+                  <li><a href="https://www.eclipse.org/ide/">IDE and Tools</a></li>
+                  <li><a href="https://www.eclipse.org/forums/index.php/f/89/">Newcomer Forum</a></li>
+                </ul>
+              </li>
+              <!-- More -->
+              <li class="dropdown eclipse-more hidden-xs">
+                <a data-toggle="dropdown" class="dropdown-toggle" role="button">More<b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li>
+                    <!-- Content container to add padding -->
+                    <div class="yamm-content">
+                      <div class="row">
+                        <ul class="col-sm-8 list-unstyled">
+                          <li>
+                            <p><strong>Community</strong></p>
+                          </li>
+                          <li><a href="http://marketplace.eclipse.org">Marketplace</a></li>
+                          <li><a href="http://events.eclipse.org">Events</a></li>
+                          <li><a href="http://www.planeteclipse.org/">Planet Eclipse</a></li>
+                          <li><a href="https://www.eclipse.org/community/eclipse_newsletter/">Newsletter</a></li>
+                          <li><a href="https://www.youtube.com/user/EclipseFdn">Videos</a></li>
+                          <li><a href="https://blogs.eclipse.org">Blogs</a></li>
+                        </ul>
+                        <ul class="col-sm-8 list-unstyled">
+                          <li>
+                            <p><strong>Participate</strong></p>
+                          </li>
+                          <li><a href="https://bugs.eclipse.org/bugs/">Report a Bug</a></li>
+                          <li><a href="https://www.eclipse.org/forums/">Forums</a></li>
+                          <li><a href="https://www.eclipse.org/mail/">Mailing Lists</a></li>
+                          <li><a href="https://wiki.eclipse.org/">Wiki</a></li>
+                          <li><a href="https://wiki.eclipse.org/IRC">IRC</a></li>
+                          <li><a href="https://www.eclipse.org/org/research/">Research</a></li>
+                        </ul>
+                        <ul class="col-sm-8 list-unstyled">
+                          <li>
+                            <p><strong>Eclipse IDE</strong></p>
+                          </li>
+                          <li><a href="https://www.eclipse.org/downloads">Download</a></li>
+                          <li><a href="https://www.eclipse.org/eclipseide">Learn More</a></li>
+                          <li><a href="https://help.eclipse.org">Documentation</a></li>
+                          <li><a href="https://www.eclipse.org/getting_started">Getting Started / Support</a></li>
+                          <li><a href="https://www.eclipse.org/contribute/">How to Contribute</a></li>
+                          <li><a href="https://www.eclipse.org/ide/">IDE and Tools</a></li>
+                          <li><a href="https://www.eclipse.org/forums/index.php/f/89/">Newcomer Forum</a></li>
+                        </ul>
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-main-menu">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            </button>
+            <div class="wrapper-logo-mobile"><a class="navbar-brand visible-xs" href="https://www.eclipse.org/"><img class="logo-eclipse-default-mobile img-responsive" alt="Eclipse.org logo" width="160" src="https://www.eclipse.org/eclipse.org-common/themes/solstice/public/images/logo/eclipse-foundation-white-orange.svg"/></a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+<section class="default-breadcrumbs hidden-print" id="breadcrumb">
+  <div class="container-fluid">
+    <h3 class="sr-only">Breadcrumbs</h3>
+    <div class="row">
+      <div class="col-sm-24">
+        <ol class="breadcrumb">
+          <li><a href="https://www.eclipse.org/">Home</a></li>
+          <li><a href="https://wiki.eclipse.org/Main_Page">Eclipse Wiki</a></li>
+          <li class="active">Jetty/Reference/jetty.xml syntax</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- /#breadcrumb -->
+<main>
+<div class="container-fluid padding-15 padding-top-20">
+    
+    
+    <!-- content -->
+    <section id="content" class="mw-body container-full clearfix 0">
+      <div id="mw-js-message" style="display:none;"></div>
+
+      
+      <!-- bodyContent -->
+      <div id="bodyContent">
+
+        
+                <!-- jumpto -->
+        <div id="jump-to-nav" class="mw-jump">
+          Jump to: <a href="jetty.xml&#32;syntax.html#mw-head">navigation</a>,
+          <a href="jetty.xml&#32;syntax.html#p-search">search</a>
+        </div>
+        <!-- /jumpto -->
+        
+          <!-- leftcol -->
+          <aside class="col-md-4 noprint hidden-print" id="leftcol">
+                      <form class="input-group" role="form" id="form-eclipse-search" action="https://wiki.eclipse.org/index.php" id="searchform">
+              <input id="searchInput" class="search-query form-control" type="search" accesskey="f" title="Special:Search" placeholder="Search" name="search" value="">
+
+              <span class="input-group-btn">
+                <button value="search" id="mw-searchButton" type="submit" class="btn btn-default" title="Search the pages for this text" name="fulltext">
+                  <i class="fa fa-search"></i>
+                </button>
+              </span>
+            </form>
+                      <select class="form-control margin-top-10 margin-bottom-10 visible-xs visible-sm" onchange="this.options[this.selectedIndex].value && (window.location = this.options[this.selectedIndex].value);"><option class="fw-700 "><span class="fw-700">---Navigation---</span></option><option value="/Main_Page">Main Page</option><option value="/Eclipsepedia:Community_portal">Community portal</option><option value="/Eclipsepedia:Current_events">Current events</option><option value="/Special:RecentChanges">Recent changes</option><option value="/Special:Random">Random page</option><option value="https://www.mediawiki.org/wiki/Special:MyLanguage/Help:Contents">Help</option></select><ul class="ul-left-nav fa-ul hidden-print leftnav hidden-xs hidden-sm"><li class="separator"><span class="separator">Navigation</span></li>                <li class=""><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/Main_Page" id="n-mainpage" title="Visit the main page [z]" accesskey="z">Main Page</a></li>                <li class=""><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/Eclipsepedia:Community_portal" id="n-portal" title="About the project, what you can do, where to find things">Community portal</a></li>                <li class=""><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/Eclipsepedia:Current_events" id="n-currentevents" title="Find background information on current events">Current events</a></li>                <li class=""><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/Special:RecentChanges" id="n-recentchanges" title="A list of recent changes in the wiki [r]" accesskey="r">Recent changes</a></li>                <li class=""><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/Special:Random" id="n-randompage" title="Load a random page [x]" accesskey="x">Random page</a></li>                <li class=""><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://www.mediawiki.org/wiki/Special:MyLanguage/Help:Contents" id="n-help" title="The place to find out">Help</a></li></ul>            <select class="form-control margin-top-10 margin-bottom-10 visible-xs visible-sm" onchange="this.options[this.selectedIndex].value && (window.location = this.options[this.selectedIndex].value);"><option class="fw-700 "><span class="fw-700">---Toolbox---</span></option><option value="/index.php?title=Jetty/Reference/jetty.xml_syntax&amp;action=info">Page information</option><option value="/index.php?title=Jetty/Reference/jetty.xml_syntax&amp;oldid=334805">Permanent link</option><option value="/index.php?title=Jetty/Reference/jetty.xml_syntax&amp;printable=yes">Printable version</option><option value="/Special:SpecialPages">Special pages</option><option value="/Special:RecentChangesLinked/Jetty/Reference/jetty.xml_syntax">Related changes</option><option value="/Special:WhatLinksHere/Jetty/Reference/jetty.xml_syntax">What links here</option></select><ul class="ul-left-nav fa-ul hidden-print leftnav hidden-xs hidden-sm"><li class="separator"><span class="separator">Toolbox</span></li><li><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/index.php?title=Jetty/Reference/jetty.xml_syntax&amp;action=info" id="t-info" title="More information about this page">Page information</a></li><li><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/index.php?title=Jetty/Reference/jetty.xml_syntax&amp;oldid=334805" id="t-permalink" title="Permanent link to this revision of the page">Permanent link</a></li><li><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/index.php?title=Jetty/Reference/jetty.xml_syntax&amp;printable=yes" id="t-print" rel="alternate" title="Printable version of this page [p]" accesskey="p">Printable version</a></li><li><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/Special:SpecialPages" id="t-specialpages" title="A list of all special pages [q]" accesskey="q">Special pages</a></li><li><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/Special:RecentChangesLinked/Jetty/Reference/jetty.xml_syntax" id="t-recentchangeslinked" title="Recent changes in pages linked from this page [k]" accesskey="k">Related changes</a></li><li><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/Special:WhatLinksHere/Jetty/Reference/jetty.xml_syntax" id="t-whatlinkshere" title="A list of all wiki pages that link here [j]" accesskey="j">What links here</a></li></ul>                                  </aside>
+          <!-- /leftcol -->
+
+          <!-- mainContent -->
+          <div id="mainContent" class="col-md-20">
+                      <ul class="nav nav-tabs noprint hidden-print" role="tablist">
+                       <li id="ca-nstab-main" class="active"><a href="jetty.xml&#32;syntax.html"  title="View the content page [c]" accesskey="c" tabindex="-1">Page</a></li>
+                        <li id="ca-talk"><a href="https://wiki.eclipse.org/Talk:Jetty/Reference/jetty.xml_syntax"  title="Discussion about the content page [t]" accesskey="t" tabindex="-1">Discussion</a></li>
+                        <li id="ca-viewsource"><a href="https://wiki.eclipse.org/index.php?title=Jetty/Reference/jetty.xml_syntax&amp;action=edit"  title="This page is protected.&#10;You can view its source [e]" accesskey="e" tabindex="-1">View source</a></li>
+                        <li id="ca-history" class="collapsible"><a href="https://wiki.eclipse.org/index.php?title=Jetty/Reference/jetty.xml_syntax&amp;action=history"  title="Past revisions of this page [h]" accesskey="h" tabindex="-1">History</a></li>
+                      </ul>            <div class="tab-content background-white">
+              <div id="tab-pane-main-page-content" class="tab-pane active">
+
+                
+                <h1 id="firstHeading" class="firstHeading page-header">
+                  <span dir="auto">Jetty/Reference/jetty.xml syntax</span>
+                </h1>
+                <div id="main-page-content">
+                                                      <!-- subtitle -->
+                  <div id="contentSub"  class="alert alert-small alert-warning"><span class="subpages">&lt; <a href="../../Jetty.html" title="Jetty">Jetty</a>&lrm; | <a href="../Reference.html" title="Jetty/Reference">Reference</a></span></div>
+                  <!-- /subtitle -->
+                  
+                  
+                  <div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><p><br />
+</p><p><br />
+</p>
+<div id="toc" class="toc"><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="jetty.xml&#32;syntax.html#Introduction"><span class="tocnumber">1</span> <span class="toctext">Introduction</span></a></li>
+<li class="toclevel-1 tocsection-1"><a href="jetty.xml&#32;syntax.html#Basic_Example"><span class="tocnumber">2</span> <span class="toctext">Basic Example</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="jetty.xml&#32;syntax.html#Overview"><span class="tocnumber">2.1</span> <span class="toctext">Overview</span></a>
+<ul>
+<li class="toclevel-3 tocsection-3"><a href="jetty.xml&#32;syntax.html#Understanding_DTD_and_Parsing"><span class="tocnumber">2.1.1</span> <span class="toctext">Understanding DTD and Parsing</span></a></li>
+<li class="toclevel-3 tocsection-4"><a href="jetty.xml&#32;syntax.html#Using_Method_Calls"><span class="tocnumber">2.1.2</span> <span class="toctext">Using Method Calls</span></a></li>
+<li class="toclevel-3 tocsection-5"><a href="jetty.xml&#32;syntax.html#Coercing_Arguments_to_a_Type"><span class="tocnumber">2.1.3</span> <span class="toctext">Coercing Arguments to a Type</span></a></li>
+<li class="toclevel-3 tocsection-6"><a href="jetty.xml&#32;syntax.html#Referring_to_a_Class"><span class="tocnumber">2.1.4</span> <span class="toctext">Referring to a Class</span></a></li>
+<li class="toclevel-3 tocsection-7"><a href="jetty.xml&#32;syntax.html#Referring_to_an_Object"><span class="tocnumber">2.1.5</span> <span class="toctext">Referring to an Object</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-8"><a href="jetty.xml&#32;syntax.html#.3CConfigure.3E"><span class="tocnumber">3</span> <span class="toctext">&lt;Configure&gt;</span></a>
+<ul>
+<li class="toclevel-2 tocsection-9"><a href="jetty.xml&#32;syntax.html#Attributes"><span class="tocnumber">3.1</span> <span class="toctext">Attributes</span></a></li>
+<li class="toclevel-2 tocsection-10"><a href="jetty.xml&#32;syntax.html#Can_Contain"><span class="tocnumber">3.2</span> <span class="toctext">Can Contain</span></a></li>
+<li class="toclevel-2 tocsection-11"><a href="jetty.xml&#32;syntax.html#Examples"><span class="tocnumber">3.3</span> <span class="toctext">Examples</span></a>
+<ul>
+<li class="toclevel-3 tocsection-12"><a href="jetty.xml&#32;syntax.html#Basic_Example_2"><span class="tocnumber">3.3.1</span> <span class="toctext">Basic Example</span></a></li>
+<li class="toclevel-3 tocsection-13"><a href="jetty.xml&#32;syntax.html#Using_id_to_break_up_configuration_of_one_object_across_multiple_files"><span class="tocnumber">3.3.2</span> <span class="toctext">Using id to break up configuration of one object across multiple files</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-14"><a href="jetty.xml&#32;syntax.html#.3CSet.3E"><span class="tocnumber">4</span> <span class="toctext">&lt;Set&gt;</span></a>
+<ul>
+<li class="toclevel-2 tocsection-15"><a href="jetty.xml&#32;syntax.html#Attributes_2"><span class="tocnumber">4.1</span> <span class="toctext">Attributes</span></a></li>
+<li class="toclevel-2 tocsection-16"><a href="jetty.xml&#32;syntax.html#Can_Contain_2"><span class="tocnumber">4.2</span> <span class="toctext">Can Contain</span></a></li>
+<li class="toclevel-2 tocsection-17"><a href="jetty.xml&#32;syntax.html#Examples_2"><span class="tocnumber">4.3</span> <span class="toctext">Examples</span></a>
+<ul>
+<li class="toclevel-3 tocsection-18"><a href="jetty.xml&#32;syntax.html#Basic_Example_3"><span class="tocnumber">4.3.1</span> <span class="toctext">Basic Example</span></a></li>
+<li class="toclevel-3 tocsection-19"><a href="jetty.xml&#32;syntax.html#Set_via_a_System_Property"><span class="tocnumber">4.3.2</span> <span class="toctext">Set via a System Property</span></a></li>
+<li class="toclevel-3 tocsection-20"><a href="jetty.xml&#32;syntax.html#Creating_a_NewObject_and_Setting_It_on_the_Server"><span class="tocnumber">4.3.3</span> <span class="toctext">Creating a NewObject and Setting It on the Server</span></a></li>
+<li class="toclevel-3 tocsection-21"><a href="jetty.xml&#32;syntax.html#Invoking_a_Static_Setter"><span class="tocnumber">4.3.4</span> <span class="toctext">Invoking a Static Setter</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-22"><a href="jetty.xml&#32;syntax.html#.3CGet.3E"><span class="tocnumber">5</span> <span class="toctext">&lt;Get&gt;</span></a>
+<ul>
+<li class="toclevel-2 tocsection-23"><a href="jetty.xml&#32;syntax.html#Attributes_3"><span class="tocnumber">5.1</span> <span class="toctext">Attributes</span></a></li>
+<li class="toclevel-2 tocsection-24"><a href="jetty.xml&#32;syntax.html#Can_Contain_3"><span class="tocnumber">5.2</span> <span class="toctext">Can Contain</span></a></li>
+<li class="toclevel-2 tocsection-25"><a href="jetty.xml&#32;syntax.html#Examples_3"><span class="tocnumber">5.3</span> <span class="toctext">Examples</span></a>
+<ul>
+<li class="toclevel-3 tocsection-26"><a href="jetty.xml&#32;syntax.html#Basic_Example_4"><span class="tocnumber">5.3.1</span> <span class="toctext">Basic Example</span></a></li>
+<li class="toclevel-3 tocsection-27"><a href="jetty.xml&#32;syntax.html#Invoking_a_Static_Getter_and_Call_Methods_on_the_Returned_Object"><span class="tocnumber">5.3.2</span> <span class="toctext">Invoking a Static Getter and Call Methods on the Returned Object</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-28"><a href="jetty.xml&#32;syntax.html#.3CPut.3E"><span class="tocnumber">6</span> <span class="toctext">&lt;Put&gt;</span></a>
+<ul>
+<li class="toclevel-2 tocsection-29"><a href="jetty.xml&#32;syntax.html#Attributes_4"><span class="tocnumber">6.1</span> <span class="toctext">Attributes</span></a></li>
+<li class="toclevel-2 tocsection-30"><a href="jetty.xml&#32;syntax.html#Can_Contain_4"><span class="tocnumber">6.2</span> <span class="toctext">Can Contain</span></a></li>
+<li class="toclevel-2 tocsection-31"><a href="jetty.xml&#32;syntax.html#Example"><span class="tocnumber">6.3</span> <span class="toctext">Example</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-32"><a href="jetty.xml&#32;syntax.html#.3CCall.3E"><span class="tocnumber">7</span> <span class="toctext">&lt;Call&gt;</span></a>
+<ul>
+<li class="toclevel-2 tocsection-33"><a href="jetty.xml&#32;syntax.html#Attributes_5"><span class="tocnumber">7.1</span> <span class="toctext">Attributes</span></a></li>
+<li class="toclevel-2 tocsection-34"><a href="jetty.xml&#32;syntax.html#Can_Contain_5"><span class="tocnumber">7.2</span> <span class="toctext">Can Contain</span></a></li>
+<li class="toclevel-2 tocsection-35"><a href="jetty.xml&#32;syntax.html#Examples_4"><span class="tocnumber">7.3</span> <span class="toctext">Examples</span></a>
+<ul>
+<li class="toclevel-3 tocsection-36"><a href="jetty.xml&#32;syntax.html#Basic_example_5"><span class="tocnumber">7.3.1</span> <span class="toctext">Basic example</span></a></li>
+<li class="toclevel-3 tocsection-37"><a href="jetty.xml&#32;syntax.html#Invoking_a_static_method"><span class="tocnumber">7.3.2</span> <span class="toctext">Invoking a static method</span></a></li>
+<li class="toclevel-3 tocsection-38"><a href="jetty.xml&#32;syntax.html#Invoking_the_Actual_Method_Instead_of_Relying_on_Getter.2FSetter_Magic"><span class="tocnumber">7.3.3</span> <span class="toctext">Invoking the Actual Method Instead of Relying on Getter/Setter Magic</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-39"><a href="jetty.xml&#32;syntax.html#.3CArg.3E"><span class="tocnumber">8</span> <span class="toctext">&lt;Arg&gt;</span></a>
+<ul>
+<li class="toclevel-2 tocsection-40"><a href="jetty.xml&#32;syntax.html#Attributes_6"><span class="tocnumber">8.1</span> <span class="toctext">Attributes</span></a></li>
+<li class="toclevel-2 tocsection-41"><a href="jetty.xml&#32;syntax.html#Can_Contain_6"><span class="tocnumber">8.2</span> <span class="toctext">Can Contain</span></a></li>
+<li class="toclevel-2 tocsection-42"><a href="jetty.xml&#32;syntax.html#Examples_5"><span class="tocnumber">8.3</span> <span class="toctext">Examples</span></a>
+<ul>
+<li class="toclevel-3 tocsection-43"><a href="jetty.xml&#32;syntax.html#Basic_examples"><span class="tocnumber">8.3.1</span> <span class="toctext">Basic examples</span></a></li>
+<li class="toclevel-3 tocsection-44"><a href="jetty.xml&#32;syntax.html#Coercing_Type"><span class="tocnumber">8.3.2</span> <span class="toctext">Coercing Type</span></a></li>
+<li class="toclevel-3 tocsection-45"><a href="jetty.xml&#32;syntax.html#As_a_Parameter"><span class="tocnumber">8.3.3</span> <span class="toctext">As a Parameter</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-46"><a href="jetty.xml&#32;syntax.html#.3CNew.3E"><span class="tocnumber">9</span> <span class="toctext">&lt;New&gt;</span></a>
+<ul>
+<li class="toclevel-2 tocsection-47"><a href="jetty.xml&#32;syntax.html#Attributes_7"><span class="tocnumber">9.1</span> <span class="toctext">Attributes</span></a></li>
+<li class="toclevel-2 tocsection-48"><a href="jetty.xml&#32;syntax.html#Can_Contain_7"><span class="tocnumber">9.2</span> <span class="toctext">Can Contain</span></a></li>
+<li class="toclevel-2 tocsection-49"><a href="jetty.xml&#32;syntax.html#Examples_6"><span class="tocnumber">9.3</span> <span class="toctext">Examples</span></a>
+<ul>
+<li class="toclevel-3 tocsection-50"><a href="jetty.xml&#32;syntax.html#Basic_example_6"><span class="tocnumber">9.3.1</span> <span class="toctext">Basic example</span></a></li>
+<li class="toclevel-3 tocsection-51"><a href="jetty.xml&#32;syntax.html#Instantiate_with_the_Default_Constructor"><span class="tocnumber">9.3.2</span> <span class="toctext">Instantiate with the Default Constructor</span></a></li>
+<li class="toclevel-3 tocsection-52"><a href="jetty.xml&#32;syntax.html#Instantiate_with_Multiple_Arguments.2C_Then_Configuring_Further"><span class="tocnumber">9.3.3</span> <span class="toctext">Instantiate with Multiple Arguments, Then Configuring Further</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-53"><a href="jetty.xml&#32;syntax.html#.3CRef.3E"><span class="tocnumber">10</span> <span class="toctext">&lt;Ref&gt;</span></a>
+<ul>
+<li class="toclevel-2 tocsection-54"><a href="jetty.xml&#32;syntax.html#Attributes_8"><span class="tocnumber">10.1</span> <span class="toctext">Attributes</span></a></li>
+<li class="toclevel-2 tocsection-55"><a href="jetty.xml&#32;syntax.html#Can_Contain_8"><span class="tocnumber">10.2</span> <span class="toctext">Can Contain</span></a></li>
+<li class="toclevel-2 tocsection-56"><a href="jetty.xml&#32;syntax.html#Examples_7"><span class="tocnumber">10.3</span> <span class="toctext">Examples</span></a>
+<ul>
+<li class="toclevel-3 tocsection-57"><a href="jetty.xml&#32;syntax.html#Basic_example_7"><span class="tocnumber">10.3.1</span> <span class="toctext">Basic example</span></a></li>
+<li class="toclevel-3 tocsection-58"><a href="jetty.xml&#32;syntax.html#Manipulating_the_Object_Returned_by_Ref"><span class="tocnumber">10.3.2</span> <span class="toctext">Manipulating the Object Returned by Ref</span></a></li>
+<li class="toclevel-3 tocsection-59"><a href="jetty.xml&#32;syntax.html#Ref_vs._Nested_Elements"><span class="tocnumber">10.3.3</span> <span class="toctext">Ref vs. Nested Elements</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-60"><a href="jetty.xml&#32;syntax.html#.3CArray.3E"><span class="tocnumber">11</span> <span class="toctext">&lt;Array&gt;</span></a>
+<ul>
+<li class="toclevel-2 tocsection-61"><a href="jetty.xml&#32;syntax.html#Attributes_9"><span class="tocnumber">11.1</span> <span class="toctext">Attributes</span></a></li>
+<li class="toclevel-2 tocsection-62"><a href="jetty.xml&#32;syntax.html#Can_Contain_9"><span class="tocnumber">11.2</span> <span class="toctext">Can Contain</span></a></li>
+<li class="toclevel-2 tocsection-63"><a href="jetty.xml&#32;syntax.html#Example_2"><span class="tocnumber">11.3</span> <span class="toctext">Example</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-64"><a href="jetty.xml&#32;syntax.html#.3CItem.3E"><span class="tocnumber">12</span> <span class="toctext">&lt;Item&gt;</span></a>
+<ul>
+<li class="toclevel-2 tocsection-65"><a href="jetty.xml&#32;syntax.html#Attributes_10"><span class="tocnumber">12.1</span> <span class="toctext">Attributes</span></a></li>
+<li class="toclevel-2 tocsection-66"><a href="jetty.xml&#32;syntax.html#Can_Contain_10"><span class="tocnumber">12.2</span> <span class="toctext">Can Contain</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-67"><a href="jetty.xml&#32;syntax.html#.3CMap.3E"><span class="tocnumber">13</span> <span class="toctext">&lt;Map&gt;</span></a>
+<ul>
+<li class="toclevel-2 tocsection-68"><a href="jetty.xml&#32;syntax.html#Attributes_11"><span class="tocnumber">13.1</span> <span class="toctext">Attributes</span></a></li>
+<li class="toclevel-2 tocsection-69"><a href="jetty.xml&#32;syntax.html#Can_Contain_11"><span class="tocnumber">13.2</span> <span class="toctext">Can Contain</span></a></li>
+<li class="toclevel-2 tocsection-70"><a href="jetty.xml&#32;syntax.html#Example_3"><span class="tocnumber">13.3</span> <span class="toctext">Example</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-71"><a href="jetty.xml&#32;syntax.html#.3CEntry.3E"><span class="tocnumber">14</span> <span class="toctext">&lt;Entry&gt;</span></a>
+<ul>
+<li class="toclevel-2 tocsection-72"><a href="jetty.xml&#32;syntax.html#Attributes_12"><span class="tocnumber">14.1</span> <span class="toctext">Attributes</span></a></li>
+<li class="toclevel-2 tocsection-73"><a href="jetty.xml&#32;syntax.html#Can_Contain_12"><span class="tocnumber">14.2</span> <span class="toctext">Can Contain</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-74"><a href="jetty.xml&#32;syntax.html#.3CSystemProperty.3E"><span class="tocnumber">15</span> <span class="toctext">&lt;SystemProperty&gt;</span></a>
+<ul>
+<li class="toclevel-2 tocsection-75"><a href="jetty.xml&#32;syntax.html#Attributes_13"><span class="tocnumber">15.1</span> <span class="toctext">Attributes</span></a></li>
+<li class="toclevel-2 tocsection-76"><a href="jetty.xml&#32;syntax.html#Can_Contain_13"><span class="tocnumber">15.2</span> <span class="toctext">Can Contain</span></a></li>
+<li class="toclevel-2 tocsection-77"><a href="jetty.xml&#32;syntax.html#Example_4"><span class="tocnumber">15.3</span> <span class="toctext">Example</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-78"><a href="jetty.xml&#32;syntax.html#.3CProperty.3E"><span class="tocnumber">16</span> <span class="toctext">&lt;Property&gt;</span></a>
+<ul>
+<li class="toclevel-2 tocsection-79"><a href="jetty.xml&#32;syntax.html#Attributes_14"><span class="tocnumber">16.1</span> <span class="toctext">Attributes</span></a></li>
+<li class="toclevel-2 tocsection-80"><a href="jetty.xml&#32;syntax.html#Can_Contain_14"><span class="tocnumber">16.2</span> <span class="toctext">Can Contain</span></a></li>
+<li class="toclevel-2 tocsection-81"><a href="jetty.xml&#32;syntax.html#Example_5"><span class="tocnumber">16.3</span> <span class="toctext">Example</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-82"><a href="jetty.xml&#32;syntax.html#Additional_Resources"><span class="tocnumber">17</span> <span class="toctext">Additional Resources</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Introduction">Introduction</span></h2>
+<div class="messagebox" style="background-color: #f9f6b7; border: 1px solid #c4c295; color: black; padding: 5px; margin: 1ex 0; min-height: 35px; padding-left: 45px; font-size: 150%; color: white; background-color: #FF8888; padding: 50px">
+<div style="float: left; margin-left: -40px;"><a href="https://wiki.eclipse.org/File:Warning2.png" class="image"><img alt="Warning2.png" src="../../images/3/37/Warning2.png" width="35" height="35" /></a></div>
+<div>Jetty 7 and Jetty 8 are now EOL (End of Life)<br />
+<p><br />
+<br />
+<br />
+THIS IS NOT THE DOCUMENTATION YOU ARE LOOKING FOR!!!!!<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+All development and stable releases are being performed with Jetty 9 and Jetty 10.<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+This <b>wiki is now officially out of date</b> and all content has been moved to the <a rel="nofollow" class="external text" href="http://www.eclipse.org/jetty/documentation">Jetty Documentation Hub</a><br /> 
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+</p>
+Direct Link to updated documentation: <a rel="nofollow" class="external free" href="http://www.eclipse.org/jetty/documentation/current/reference-section.html#jetty-xml-syntax">http://www.eclipse.org/jetty/documentation/current/reference-section.html#jetty-xml-syntax</a></div>
+</div>
+<p><br />
+The Jetty XML syntax is a straightforward mapping of XML elements to a Java API so that POJOs can be instantiated and getters, setters and methods called. It is very similar to Inversion Of Control (IOC) or Dependency Injection (DI) frameworks like Spring or Plexus (but it predates all of them). Typically Jetty XML is used by <a href="jetty.xml.html" title="Jetty/Reference/jetty.xml">jetty.xml</a> to configure a <a rel="nofollow" class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/server/Server.html">Jetty server</a> or by a <a href="https://wiki.eclipse.org/index.php?title=Jetty/Reference/context.xml&amp;action=edit&amp;redlink=1" class="new" title="Jetty/Reference/context.xml (page does not exist)">context.xml</a> file to configure a <a rel="nofollow" class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/server/handler/ContextHandler.html">ContextHandler</a> or subclass, but you can also use the mechanism to configure arbitrary POJOs.
+</p><p>This page describes the basic syntax of Jetty XML configuration. See <a href="jetty.xml&#32;usage.html" title="Jetty/Reference/jetty.xml usage">jetty.xml Usage</a> for information on how you can use and combine Jetty XML. See <a href="https://wiki.eclipse.org/Jetty/#Configuration_Files" title="Jetty/" class="mw-redirect">Configuration Files</a> for specific examples.
+</p>
+<h2><span class="mw-headline" id="Basic_Example">Basic Example</span></h2>
+<p>The following XML configuration file creates some Java objects and sets some attributes:
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="xml source-xml"><pre class="de1"><span class="sc3"><span class="re1">&lt;?xml</span> <span class="re0">version</span>=<span class="st0">&quot;1.0&quot;</span><span class="re2">?&gt;</span></span>
+<span class="sc0">&lt;!DOCTYPE Configure PUBLIC &quot;-//Jetty//Configure//EN&quot; &quot;http://www.eclipse.org/jetty/configure.dtd&quot;&gt;</span>
+<span class="sc3"><span class="re1">&lt;Configure</span> <span class="re0">id</span>=<span class="st0">&quot;foo&quot;</span> <span class="re0">class</span>=<span class="st0">&quot;com.acme.Foo&quot;</span><span class="re2">&gt;</span></span>
+  <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">&quot;name&quot;</span><span class="re2">&gt;</span></span>demo<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">&quot;nested&quot;</span><span class="re2">&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">id</span>=<span class="st0">&quot;bar&quot;</span> <span class="re0">class</span>=<span class="st0">&quot;com.acme.Bar&quot;</span><span class="re2">&gt;</span></span>
+      <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>true<span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
+      <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">&quot;wibble&quot;</span><span class="re2">&gt;</span></span>10<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
+      <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">&quot;wobble&quot;</span><span class="re2">&gt;</span></span>xyz<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
+      <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">&quot;parent&quot;</span><span class="re2">&gt;</span><span class="re1">&lt;Ref</span> <span class="re0">id</span>=<span class="st0">&quot;foo&quot;</span><span class="re2">/&gt;</span><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
+      <span class="sc3"><span class="re1">&lt;Call</span> <span class="re0">name</span>=<span class="st0">&quot;init&quot;</span><span class="re2">&gt;</span></span>
+         <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>false<span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
+      <span class="sc3"><span class="re1">&lt;/Call<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
+&#160;
+  <span class="sc3"><span class="re1">&lt;Ref</span> <span class="re0">id</span>=<span class="st0">&quot;bar&quot;</span><span class="re2">&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">&quot;wibble&quot;</span><span class="re2">&gt;</span></span>20<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;Get</span> <span class="re0">name</span>=<span class="st0">&quot;parent&quot;</span><span class="re2">&gt;</span></span>
+      <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">&quot;name&quot;</span><span class="re2">&gt;</span></span>demo2<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;/Get<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;/Ref<span class="re2">&gt;</span></span></span>
+<span class="sc3"><span class="re1">&lt;/Configure<span class="re2">&gt;</span></span></span></pre></div></div>
+<p>The XML above is equivalent to the following java code:
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="java source-java"><pre class="de1">com.<span class="me1">acme</span>.<span class="me1">Foo</span> foo <span class="sy0">=</span> <span class="kw1">new</span> com.<span class="me1">acme</span>.<span class="me1">Foo</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+foo.<span class="me1">setName</span><span class="br0">&#40;</span><span class="st0">&quot;demo&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+&#160;
+com.<span class="me1">acme</span>.<span class="me1">Bar</span> bar <span class="sy0">=</span> <span class="kw1">new</span> com.<span class="me1">acme</span>.<span class="me1">Bar</span><span class="br0">&#40;</span><span class="kw2">true</span><span class="br0">&#41;</span><span class="sy0">;</span>
+bar.<span class="me1">setWibble</span><span class="br0">&#40;</span><span class="nu0">10</span><span class="br0">&#41;</span><span class="sy0">;</span>
+bar.<span class="me1">setWobble</span><span class="br0">&#40;</span><span class="st0">&quot;xyz&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+bar.<span class="me1">setParent</span><span class="br0">&#40;</span>foo<span class="br0">&#41;</span><span class="sy0">;</span>
+bar.<span class="me1">init</span><span class="br0">&#40;</span><span class="kw2">false</span><span class="br0">&#41;</span><span class="sy0">;</span>
+&#160;
+foo.<span class="me1">setNested</span><span class="br0">&#40;</span>bar<span class="br0">&#41;</span><span class="sy0">;</span>
+&#160;
+bar.<span class="me1">setWibble</span><span class="br0">&#40;</span><span class="nu0">20</span><span class="br0">&#41;</span><span class="sy0">;</span>
+bar.<span class="me1">getParent</span><span class="br0">&#40;</span><span class="br0">&#41;</span>.<span class="me1">setName</span><span class="br0">&#40;</span><span class="st0">&quot;demo2&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span></pre></div></div>
+<p><br />
+</p>
+<h3><span class="mw-headline" id="Overview">Overview</span></h3>
+<h4><span class="mw-headline" id="Understanding_DTD_and_Parsing">Understanding DTD and Parsing</span></h4>
+<p>The <a rel="nofollow" class="external text" href="http://www.eclipse.org/jetty/configure.dtd">document type descriptor (DTD)</a> describes all valid elements. The first two lines must reference the DTD, and you must substitute the appropriate class for the object you are trying to configure. See the appropriate jetty-*.xml <a href="https://wiki.eclipse.org/index.php?title=Etty/&amp;action=edit&amp;redlink=1" class="new" title="Etty/ (page does not exist)">references</a>.
+</p><p>The org.eclipse.jetty.xml.XmlConfiguration class parses the Jetty XML files using the configure.dtd descriptor.
+</p>
+<h4><span class="mw-headline" id="Using_Method_Calls">Using Method Calls</span></h4>
+<p>You configure Java objects with a sequence of <code>&lt;New&gt;, &lt;Set&gt;, &lt;Put&gt; and &lt;Call&gt;</code> elements: 
+</p>
+<div id="methods">
+<dl><dt> <div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="xml source-xml"><pre class="de1"><span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">&quot;Test&quot;</span><span class="re2">&gt;</span></span>value<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span></pre></div></div></dt>
+<dd> <div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="java source-java"><pre class="de1">obj.<span class="me1">setTest</span><span class="br0">&#40;</span><span class="st0">&quot;value&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span></pre></div></div></dd>
+<dt> <div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="xml source-xml"><pre class="de1"><span class="sc3"><span class="re1">&lt;Put</span>  <span class="re0">name</span>=<span class="st0">&quot;Test&quot;</span><span class="re2">&gt;</span></span>value<span class="sc3"><span class="re1">&lt;/Put<span class="re2">&gt;</span></span></span></pre></div></div></dt>
+<dd> <div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="java source-java"><pre class="de1">obj.<span class="me1">put</span><span class="br0">&#40;</span><span class="st0">&quot;Test&quot;</span>,<span class="st0">&quot;value&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span></pre></div></div></dd>
+<dt> <div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="xml source-xml"><pre class="de1"><span class="sc3"><span class="re1">&lt;Call</span> <span class="re0">name</span>=<span class="st0">&quot;test&quot;</span><span class="re2">&gt;</span><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>value<span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span><span class="re1">&lt;/Call<span class="re2">&gt;</span></span></span></pre></div></div></dt>
+<dd> <div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="java source-java"><pre class="de1">obj.<span class="me1">test</span><span class="br0">&#40;</span><span class="st0">&quot;value&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span></pre></div></div></dd>
+<dt> <div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="xml source-xml"><pre class="de1"><span class="sc3"><span class="re1">&lt;New</span> <span class="re0">class</span>=<span class="st0">&quot;com.acme.MyStuff&quot;</span><span class="re2">&gt;</span><span class="re1">&lt;Arg</span><span class="re2">/&gt;</span><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span></pre></div></div></dt>
+<dd> <div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="java source-java"><pre class="de1"><span class="kw1">new</span> com.<span class="me1">acme</span>.<span class="me1">MyStuff</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span></pre></div></div></dd></dl>
+</div> 
+<h4><span class="mw-headline" id="Coercing_Arguments_to_a_Type">Coercing Arguments to a Type</span></h4>
+<p>Jetty coerces values to match method arguments on a best effort approach, but you can also specify explicit types with the <tt>type</tt> attribute. Supported values for type are:
+</p><p>String, Character, Short, Byte, Integer, Long, Boolean, Float, Double,
+char, short, byte, int, long, boolean, float, double,
+URL, InetAddress, InetAddrPort, void
+</p><p>For Java classes, you can use either the fully-qualified class name, or just the class name.
+</p>
+<h4><span class="mw-headline" id="Referring_to_a_Class">Referring to a Class</span></h4>
+<p>If you do not specify the classname, Jetty assumes you are calling the method on <code>this</code>. Otherwise, use the <tt>class</tt> attribute to specify the fully-qualified class name of an object to configure. (You must always specify the class of the root Configure element.)
+</p>
+<h4><span class="mw-headline" id="Referring_to_an_Object">Referring to an Object</span></h4>
+<p>You can use the <tt>id</tt> attribute to store a reference to this object when first creating or referring to this object. You can then use the <code><a href="jetty.xml&#32;syntax.html#.3CRef.3E">&lt;Ref&gt;</a></code> tag to reference the object later. The id must be unique for each object you create.
+</p>
+<h2><span class="mw-headline" id=".3CConfigure.3E">&lt;Configure&gt;</span></h2>
+<p>This is the root element that specifies the class of object that is to be configured. It is usually either the Server, in <a href="jetty.xml.html" title="Jetty/Reference/jetty.xml">jetty.xml </a>, or a WebAppContext, in <a href="jetty-web.xml.html" title="Jetty/Reference/jetty-web.xml">jetty-web.xml</a>.
+</p>
+<h3><span class="mw-headline" id="Attributes">Attributes</span></h3>
+<dl><dt> id&#160;</dt>
+<dd> (optional), a reference to the object that was created. If you define multiple <code>&lt;Configure&gt;</code> tags with the same id, they will be treated as one object, even if they're in different files. You can use this to break up configuration of an object (such as the Server) across multiple files. </dd>
+<dt> class&#160;</dt>
+<dd> (optional), the fully qualified classname of the object to be configured. Could be <code>org.eclipse.jetty.server.Server</code>, <code>org.eclipse.jetty.webapp.WebAppContext</code>, a handler, etc.</dd></dl>
+<h3><span class="mw-headline" id="Can_Contain">Can Contain</span></h3>
+<p><a href="jetty.xml&#32;syntax.html#.3CSet.3E">&lt;Set&gt;</a>,<a href="jetty.xml&#32;syntax.html#.3CGet.3E">&lt;Get&gt;</a>, <a href="jetty.xml&#32;syntax.html#.3CPut.3E">&lt;Put&gt;</a>, <a href="jetty.xml&#32;syntax.html#.3CCall.3E">&lt;Call&gt;</a>, <a href="jetty.xml&#32;syntax.html#.3CNew.3E">&lt;New&gt;</a>, <a href="jetty.xml&#32;syntax.html#.3CRef.3E">&lt;Ref&gt;</a>, <a href="jetty.xml&#32;syntax.html#.3CArray.3E">&lt;Array&gt;</a>, <a href="jetty.xml&#32;syntax.html#.3CMap.3E">&lt;Map&gt;</a>, <a href="jetty.xml&#32;syntax.html#.3CProperty.3E">&lt;Property&gt;</a>
+</p>
+<h3><span class="mw-headline" id="Examples">Examples</span></h3>
+<h4><span class="mw-headline" id="Basic_Example_2">Basic Example</span></h4>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="xml source-xml"><pre class="de1"><span class="sc3"><span class="re1">&lt;Configure</span> <span class="re0">class</span>=<span class="st0">&quot;org.eclipse.jetty.server.Server&quot;</span><span class="re2">&gt;</span></span>
+  <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">&quot;port&quot;</span><span class="re2">&gt;</span></span>8080<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
+<span class="sc3"><span class="re1">&lt;/Configure<span class="re2">&gt;</span></span></span></pre></div></div>
+<p>This is equivalent to:
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="java source-java"><pre class="de1">org.<span class="me1">eclipse</span>.<span class="me1">jetty</span>.<span class="me1">server</span>.<span class="me1">Server</span> server <span class="sy0">=</span> <span class="kw1">new</span> org.<span class="me1">eclipse</span>.<span class="me1">jetty</span>.<span class="me1">server</span>.<span class="me1">Server</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+server.<span class="me1">setPort</span><span class="br0">&#40;</span><span class="nu0">8080</span><span class="br0">&#41;</span><span class="sy0">;</span></pre></div></div>
+<h4><span class="mw-headline" id="Using_id_to_break_up_configuration_of_one_object_across_multiple_files">Using <tt>id</tt> to break up configuration of one object across multiple files</span></h4>
+<p><tt>(etc/jetty.xml)</tt>
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="xml source-xml"><pre class="de1"><span class="sc3"><span class="re1">&lt;Configure</span> <span class="re0">id</span>=<span class="st0">&quot;Server&quot;</span> <span class="re0">class</span>=<span class="st0">&quot;org.eclipse.jetty.server.Server&quot;</span><span class="re2">&gt;</span></span>
+  <span class="sc-1">&lt;!-- basic configuration here --&gt;</span>
+<span class="sc3"><span class="re1">&lt;/Configure<span class="re2">&gt;</span></span></span></pre></div></div>
+<p><tt>(etc/jetty-logging.xml)</tt>
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="xml source-xml"><pre class="de1"><span class="sc3"><span class="re1">&lt;Configure</span> <span class="re0">id</span>=<span class="st0">&quot;Server&quot;</span> <span class="re0">class</span>=<span class="st0">&quot;org.eclipse.jetty.server.Server&quot;</span><span class="re2">&gt;</span></span>
+  <span class="sc-1">&lt;!-- assumes that you have the basic server configuration set up; this file only contains additional configuration for logging --&gt;</span>
+<span class="sc3"><span class="re1">&lt;/Configure<span class="re2">&gt;</span></span></span></pre></div></div>
+<p>Then run the combined configuration using:
+</p>
+<pre>java -jar start.jar etc/jetty.xml jetty-logging.xml
+</pre>
+<h2><span class="mw-headline" id=".3CSet.3E">&lt;Set&gt;</span></h2>
+<p>A Set element maps to a call to a setter method or field on the current object. It can contain text and/or elements such as Call, New, SystemProperty, etc., as values. The <tt>name</tt> and optional <tt>type</tt> attributes are used to select the setter method. If you do not specify a value type, white space is trimmed out of the value.  If it contains multiple elements as values, they are added as strings before being converted to any specified type.
+</p>
+<h3><span class="mw-headline" id="Attributes_2">Attributes</span></h3>
+<dl><dt> name&#160;</dt>
+<dd> (required), the name of the setter method to call, or the field to set. If the name given is <var>xxx</var>, then a set<var>Xxx</var> method is used. If the set<var>Xxx</var> method cannot be found, then the <var>xxx</var> field is used.</dd>
+<dt> type&#160;</dt>
+<dd> (optional), the declared <a href="jetty.xml&#32;syntax.html#Coercing_Arguments_to_a_Type">type</a> of the argument. See also discussion of type for <a href="jetty.xml&#32;syntax.html#Attributes_6">Arg</a> for how to define null and empty string values.</dd>
+<dt> class&#160;</dt>
+<dd>  (optional), if present, then this Set is treated as a static set method invocation</dd></dl>
+<h3><span class="mw-headline" id="Can_Contain_2">Can Contain</span></h3>
+<p>value text, <a href="jetty.xml&#32;syntax.html#.3CGet.3E">&lt;Get&gt;</a>, <a href="jetty.xml&#32;syntax.html#.3CCall.3E">&lt;Call&gt;</a>, <a href="jetty.xml&#32;syntax.html#.3CNew.3E">&lt;New&gt;</a>, <a href="jetty.xml&#32;syntax.html#.3CRef.3E">&lt;Ref&gt;</a>, <a href="jetty.xml&#32;syntax.html#.3CArray.3E">&lt;Array&gt;</a>, <a href="jetty.xml&#32;syntax.html#.3CMap.3E">&lt;Map&gt;</a>, <a href="jetty.xml&#32;syntax.html#.3CSystemProperty.3E">&lt;SystemProperty&gt;</a>, <a href="jetty.xml&#32;syntax.html#.3CProperty.3E">&lt;Property&gt;</a>
+</p>
+<h3><span class="mw-headline" id="Examples_2">Examples</span></h3>
+<h4><span class="mw-headline" id="Basic_Example_3">Basic Example</span></h4>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="xml source-xml"><pre class="de1"><span class="sc3"><span class="re1">&lt;Configure</span> <span class="re0">id</span>=<span class="st0">&quot;server&quot;</span> <span class="re0">class</span>=<span class="st0">&quot;org.eclipse.jetty.server.Server&quot;</span><span class="re2">&gt;</span></span>
+  <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">&quot;port&quot;</span><span class="re2">&gt;</span></span>8080<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
+<span class="sc3"><span class="re1">&lt;/Configure<span class="re2">&gt;</span></span></span></pre></div></div>
+<h4><span class="mw-headline" id="Set_via_a_System_Property">Set via a System Property</span></h4>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="xml source-xml"><pre class="de1"><span class="sc3"><span class="re1">&lt;Configure</span> <span class="re0">id</span>=<span class="st0">&quot;server&quot;</span> <span class="re0">class</span>=<span class="st0">&quot;org.eclipse.jetty.server.Server&quot;</span><span class="re2">&gt;</span></span>
+  <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">&quot;port&quot;</span><span class="re2">&gt;</span><span class="re1">&lt;SystemProperty</span> <span class="re0">name</span>=<span class="st0">&quot;jetty.port&quot;</span> <span class="re2">/&gt;</span><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
+<span class="sc3"><span class="re1">&lt;/Configure<span class="re2">&gt;</span></span></span></pre></div></div>
+<h4><span class="mw-headline" id="Creating_a_NewObject_and_Setting_It_on_the_Server">Creating a NewObject and Setting It on the Server</span></h4>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="xml source-xml"><pre class="de1"><span class="sc3"><span class="re1">&lt;Configure</span> <span class="re0">id</span>=<span class="st0">&quot;server&quot;</span> <span class="re0">class</span>=<span class="st0">&quot;org.eclipse.jetty.server.Server&quot;</span><span class="re2">&gt;</span></span>
+  <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">&quot;threadPool&quot;</span><span class="re2">&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">class</span>=<span class="st0">&quot;org.eclipse.jetty.util.thread.QueuedThreadPool&quot;</span><span class="re2">&gt;</span></span>
+      <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">&quot;minThreads&quot;</span><span class="re2">&gt;</span></span>10<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
+      <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">&quot;maxThreads&quot;</span><span class="re2">&gt;</span></span>1000<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
+<span class="sc3"><span class="re1">&lt;/Configure<span class="re2">&gt;</span></span></span></pre></div></div>
+<p>This is equivalent to:
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="java source-java"><pre class="de1">org.<span class="me1">eclipse</span>.<span class="me1">jetty</span>.<span class="me1">server</span>.<span class="me1">Server</span> server <span class="sy0">=</span> <span class="kw1">new</span> org.<span class="me1">eclipse</span>.<span class="me1">jetty</span>.<span class="me1">server</span>.<span class="me1">Server</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+&#160;
+org.<span class="me1">eclipse</span>.<span class="me1">jetty</span>.<span class="me1">util</span>.<span class="me1">thread</span>.<span class="me1">QueuedThreadPool</span> threadPool <span class="sy0">=</span> <span class="kw1">new</span> org.<span class="me1">eclipse</span>.<span class="me1">jetty</span>.<span class="me1">util</span>.<span class="me1">thread</span>.<span class="me1">QueuedThreadPool</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+threadPool.<span class="me1">setMinThreads</span><span class="br0">&#40;</span><span class="nu0">10</span><span class="br0">&#41;</span><span class="sy0">;</span>
+threadPool.<span class="me1">setMaxThreads</span><span class="br0">&#40;</span><span class="nu0">1000</span><span class="br0">&#41;</span><span class="sy0">;</span>
+&#160;
+server.<span class="me1">setThreadPool</span><span class="br0">&#40;</span>threadPool<span class="br0">&#41;</span><span class="sy0">;</span></pre></div></div>
+<h4><span class="mw-headline" id="Invoking_a_Static_Setter">Invoking a Static Setter</span></h4>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="xml source-xml"><pre class="de1"><span class="sc3"><span class="re1">&lt;Configure</span> <span class="re0">id</span>=<span class="st0">&quot;server&quot;</span> <span class="re0">class</span>=<span class="st0">&quot;org.eclipse.jetty.server.Server&quot;</span><span class="re2">&gt;</span></span>
+  <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">class</span>=<span class="st0">&quot;org.eclipse.jetty.util.log.Log&quot;</span> <span class="re0">name</span>=<span class="st0">&quot;logToParent&quot;</span><span class="re2">&gt;</span></span>loggerName<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
+<span class="sc3"><span class="re1">&lt;/Configure</span><span class="st0">&quot;&gt;</span></span></pre></div></div>
+<h2><span class="mw-headline" id=".3CGet.3E">&lt;Get&gt;</span></h2>
+<p>A Get element maps to a call to a getter method or field on the current object. It can contain nested elements such as <a href="jetty.xml&#32;syntax.html#.3CSet.3E">Set</a>, <a href="jetty.xml&#32;syntax.html#.3CPut.3E">Put</a>, <a href="jetty.xml&#32;syntax.html#.3CCall.3E">Call</a>, etc.; these act on the object returned by the Get call.
+</p>
+<h3><span class="mw-headline" id="Attributes_3">Attributes</span></h3>
+<dl><dt> name&#160;</dt>
+<dd> (required), the name of the getter method to call, or the field to get. If the name given is <var>xxx</var>, then a get<var>Xxx</var> method is used. If the get<var>Xxx</var> method cannot be found, then the <var>xxx</var> field is used.</dd>
+<dt> class&#160;</dt>
+<dd>  (optional), if present, then this Get is treated as a static getter or field.</dd>
+<dt> id&#160;</dt>
+<dd> (optional), if present, then you can use this id to refer to the returned object later.</dd></dl>
+<h3><span class="mw-headline" id="Can_Contain_3">Can Contain</span></h3>
+<p><a href="jetty.xml&#32;syntax.html#.3CSet.3E">&lt;Set&gt;</a>,<a href="jetty.xml&#32;syntax.html#.3CGet.3E">&lt;Get&gt;</a>, <a href="jetty.xml&#32;syntax.html#.3CPut.3E">&lt;Put&gt;</a>, <a href="jetty.xml&#32;syntax.html#.3CCall.3E">&lt;Call&gt;</a>, <a href="jetty.xml&#32;syntax.html#.3CNew.3E">&lt;New&gt;</a>, <a href="jetty.xml&#32;syntax.html#.3CRef.3E">&lt;Ref&gt;</a>, <a href="jetty.xml&#32;syntax.html#.3CArray.3E">&lt;Array&gt;</a>, <a href="jetty.xml&#32;syntax.html#.3CMap.3E">&lt;Map&gt;</a>, <a href="jetty.xml&#32;syntax.html#.3CProperty.3E">&lt;Property&gt;</a>
+</p>
+<h3><span class="mw-headline" id="Examples_3">Examples</span></h3>
+<h4><span class="mw-headline" id="Basic_Example_4">Basic Example</span></h4>
+<p>This simple example doesn't do much on its own. You would normally use this in conjunction with a <code>&lt;<a href="jetty.xml&#32;syntax.html#.3CRef.3E">Ref</a> id="Logger" /&gt;</code>.
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="xml source-xml"><pre class="de1"><span class="sc3"><span class="re1">&lt;Configure</span> <span class="re0">id</span>=<span class="st0">&quot;server&quot;</span> <span class="re0">class</span>=<span class="st0">&quot;org.eclipse.jetty.server.Server&quot;</span><span class="re2">&gt;</span></span>
+  <span class="sc3"><span class="re1">&lt;Get</span> <span class="re0">id</span>=<span class="st0">&quot;Logger&quot;</span> <span class="re0">class</span>=<span class="st0">&quot;org.eclipse.jetty.util.log.Log&quot;</span> <span class="re0">name</span>=<span class="st0">&quot;log&quot;</span><span class="re2">/&gt;</span></span>
+<span class="sc3"><span class="re1">&lt;/Configure<span class="re2">&gt;</span></span></span></pre></div></div>
+<h4><span class="mw-headline" id="Invoking_a_Static_Getter_and_Call_Methods_on_the_Returned_Object">Invoking a Static Getter and Call Methods on the Returned Object</span></h4>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="xml source-xml"><pre class="de1"><span class="sc3"><span class="re1">&lt;Configure</span> <span class="re0">id</span>=<span class="st0">&quot;server&quot;</span> <span class="re0">class</span>=<span class="st0">&quot;org.eclipse.jetty.server.Server&quot;</span><span class="re2">&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;Get</span> <span class="re0">class</span>=<span class="st0">&quot;java.lang.System&quot;</span> <span class="re0">name</span>=<span class="st0">&quot;out&quot;</span><span class="re2">&gt;</span></span>
+      <span class="sc3"><span class="re1">&lt;Call</span> <span class="re0">name</span>=<span class="st0">&quot;println&quot;</span><span class="re2">&gt;</span></span>
+        <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>Server version is: <span class="sc3"><span class="re1">&lt;Get</span> <span class="re0">class</span>=<span class="st0">&quot;org.eclipse.jetty.server.Server&quot;</span> <span class="re0">name</span>=<span class="st0">&quot;version&quot;</span><span class="re2">/&gt;</span><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
+      <span class="sc3"><span class="re1">&lt;/Call<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;/Get<span class="re2">&gt;</span></span></span>
+<span class="sc3"><span class="re1">&lt;/Configure<span class="re2">&gt;</span></span></span></pre></div></div>
+<h2><span class="mw-headline" id=".3CPut.3E">&lt;Put&gt;</span></h2>
+<p>A Put element maps to a call to a put method on the current object, which must implement the Map interface. It can contain text and/or elements such as Call, New, SystemProperty, etc. as values. If you do not specify a no value type, white space is trimmed out of the value.  If it contains multiple elements as values, they are added as strings before being converted to any specified type.
+</p>
+<h3><span class="mw-headline" id="Attributes_4">Attributes</span></h3>
+<dl><dt> name&#160;</dt>
+<dd> (required), used as the put key</dd>
+<dt> type&#160;</dt>
+<dd> (optional), forces the <a href="jetty.xml&#32;syntax.html#Coercing_Arguments_to_a_Type">type</a> of the value. See also discussion of type for <a href="jetty.xml&#32;syntax.html#Attributes_6"> Arg</a> for how to define null and empty string values.</dd></dl>
+<h3><span class="mw-headline" id="Can_Contain_4">Can Contain</span></h3>
+<p>value text, <a href="jetty.xml&#32;syntax.html#.3CGet.3E">&lt;Get&gt;</a>, <a href="jetty.xml&#32;syntax.html#.3CCall.3E">&lt;Call&gt;</a>, <a href="jetty.xml&#32;syntax.html#.3CNew.3E">&lt;New&gt;</a>, <a href="jetty.xml&#32;syntax.html#.3CRef.3E">&lt;Ref&gt;</a>, <a href="jetty.xml&#32;syntax.html#.3CArray.3E">&lt;Array&gt;</a>, <a href="jetty.xml&#32;syntax.html#.3CMap.3E">&lt;Map&gt;</a>, <a href="jetty.xml&#32;syntax.html#.3CSystemProperty.3E">&lt;SystemProperty&gt;</a>, <a href="jetty.xml&#32;syntax.html#.3CProperty.3E">&lt;Property&gt;</a>
+</p>
+<h3><span class="mw-headline" id="Example">Example</span></h3>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="xml source-xml"><pre class="de1"><span class="sc3"><span class="re1">&lt;Get</span> <span class="re0">name</span>=<span class="st0">&quot;someKindOfMap&quot;</span><span class="re2">&gt;</span></span>
+   <span class="sc3"><span class="re1">&lt;Put</span> <span class="re0">name</span>=<span class="st0">&quot;keyName&quot;</span><span class="re2">&gt;</span></span>objectValue<span class="sc3"><span class="re1">&lt;/Put<span class="re2">&gt;</span></span></span>
+<span class="sc3"><span class="re1">&lt;/Get<span class="re2">&gt;</span></span></span></pre></div></div>
+<h2><span class="mw-headline" id=".3CCall.3E">&lt;Call&gt;</span></h2>
+<p>A Call element maps to an arbitrary call to a method on the current object. It can contain a sequence of <a href="jetty.xml&#32;syntax.html#.3CArg.3E">Arg</a> elements followed by a sequence of configuration elements, such as <a href="jetty.xml&#32;syntax.html#.3CSet.3E">Set</a>, <a href="jetty.xml&#32;syntax.html#.3CPut.3E">Put</a>, <a href="jetty.xml&#32;syntax.html#.3CCall.3E">Call</a>. The <code>&lt;Arg&gt;</code>s are passed as arguments to the method; the sequence of configuration elements act on the object returned by the original call.
+</p>
+<h3><span class="mw-headline" id="Attributes_5">Attributes</span></h3>
+<dl><dt> name&#160;</dt>
+<dd> (required), the name of the arbitrary method to call. The method called will use the exact name you provide it.</dd>
+<dt> class&#160;</dt>
+<dd> (optional), if present, then this Call is treated as a static method.</dd>
+<dt> id&#160;</dt>
+<dd> (optional), if present,  you can use this id to refer to any object returned by the call, for later use.</dd></dl>
+<h3><span class="mw-headline" id="Can_Contain_5">Can Contain</span></h3>
+<p><a href="jetty.xml&#32;syntax.html#.3CArg.3E">&lt;Arg&gt;</a>, <a href="jetty.xml&#32;syntax.html#.3CSet.3E">&lt;Set&gt;</a>,<a href="jetty.xml&#32;syntax.html#.3CGet.3E">&lt;Get&gt;</a>, <a href="jetty.xml&#32;syntax.html#.3CPut.3E">&lt;Put&gt;</a>, <a href="jetty.xml&#32;syntax.html#.3CCall.3E">&lt;Call&gt;</a>, <a href="jetty.xml&#32;syntax.html#.3CNew.3E">&lt;New&gt;</a>, <a href="jetty.xml&#32;syntax.html#.3CRef.3E">&lt;Ref&gt;</a>, <a href="jetty.xml&#32;syntax.html#.3CArray.3E">&lt;Array&gt;</a>, <a href="jetty.xml&#32;syntax.html#.3CMap.3E">&lt;Map&gt;</a>, <a href="jetty.xml&#32;syntax.html#.3CProperty.3E">&lt;Property&gt;</a>
+</p>
+<h3><span class="mw-headline" id="Examples_4">Examples</span></h3>
+<h4><span class="mw-headline" id="Basic_example_5">Basic example</span></h4>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="xml source-xml"><pre class="de1"><span class="sc3"><span class="re1">&lt;Call</span> <span class="re0">name</span>=<span class="st0">&quot;doFoo&quot;</span><span class="re2">&gt;</span></span>
+  <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>bar<span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">&quot;test&quot;</span><span class="re2">&gt;</span></span>1, 2, 3<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
+<span class="sc3"><span class="re1">&lt;/Call<span class="re2">&gt;</span></span></span></pre></div></div>
+<p>This is equivalent to:
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="java source-java"><pre class="de1"><span class="kw3">Object</span> o2 <span class="sy0">=</span> o1.<span class="me1">doFoo</span><span class="br0">&#40;</span><span class="st0">&quot;bar&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+o2.<span class="me1">setTest</span><span class="br0">&#40;</span><span class="st0">&quot;1, 2, 3&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span></pre></div></div>
+<h4><span class="mw-headline" id="Invoking_a_static_method">Invoking a static method</span></h4>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="xml source-xml"><pre class="de1"><span class="sc3"><span class="re1">&lt;Call</span> <span class="re0">class</span>=<span class="st0">&quot;com.acme.Foo&quot;</span> <span class="re0">name</span>=<span class="st0">&quot;setString&quot;</span><span class="re2">&gt;</span></span>
+  <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>somestring<span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
+<span class="sc3"><span class="re1">&lt;/Call<span class="re2">&gt;</span></span></span></pre></div></div>
+<p>which is equivalent to:
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="java source-java"><pre class="de1">com.<span class="me1">acme</span>.<span class="me1">Foo</span>.<span class="me1">setString</span><span class="br0">&#40;</span><span class="st0">&quot;somestring&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span></pre></div></div>
+<h4><span class="mw-headline" id="Invoking_the_Actual_Method_Instead_of_Relying_on_Getter.2FSetter_Magic">Invoking the Actual Method Instead of Relying on Getter/Setter Magic</span></h4>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="xml source-xml"><pre class="de1"><span class="sc3"><span class="re1">&lt;Configure</span> <span class="re0">id</span>=<span class="st0">&quot;Server&quot;</span> <span class="re0">class</span>=<span class="st0">&quot;org.eclipse.jetty.server.Server&quot;</span><span class="re2">&gt;</span></span>
+  <span class="sc3"><span class="re1">&lt;Call</span> <span class="re0">name</span>=<span class="st0">&quot;getPort&quot;</span> <span class="re0">id</span>=<span class="st0">&quot;port&quot;</span> <span class="re2">/&gt;</span></span>
+  <span class="sc3"><span class="re1">&lt;Call</span> <span class="re0">class</span>=<span class="st0">&quot;com.acme.Environment&quot;</span> <span class="re0">name</span>=<span class="st0">&quot;setPort&quot;</span><span class="re2">&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>
+      <span class="sc3"><span class="re1">&lt;Ref</span> <span class="re0">id</span>=<span class="st0">&quot;port&quot;</span><span class="re2">/&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;/Call<span class="re2">&gt;</span></span></span>
+<span class="sc3"><span class="re1">&lt;/Configure<span class="re2">&gt;</span></span></span></pre></div></div>
+<p>which is equivalent to:
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="java source-java"><pre class="de1">org.<span class="me1">mortbay</span>.<span class="me1">jetty</span>.<span class="me1">Server</span> server <span class="sy0">=</span> <span class="kw1">new</span> org.<span class="me1">mortbay</span>.<span class="me1">jetty</span>.<span class="me1">Server</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+com.<span class="me1">acme</span>.<span class="kw3">Environment</span>.<span class="me1">setPort</span><span class="br0">&#40;</span> server.<span class="me1">getPort</span><span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#41;</span><span class="sy0">;</span></pre></div></div>
+<h2><span class="mw-headline" id=".3CArg.3E">&lt;Arg&gt;</span></h2>
+<p>An Arg element can be an argument of either a method or a constructor. Use it within <a href="jetty.xml&#32;syntax.html#.3CCall.3E">&lt;Call&gt;</a> and <a href="jetty.xml&#32;syntax.html#.3CNew.3E">&lt;New&gt;</a>. 
+</p><p>It can contain text and/or elements, such as Call, New, SystemProperty, etc., as values. The optional type attribute can force the type of the value. If you don't specify a type, white space is trimmed out of the value. If it contains multiple elements as values, they are added as strings before being converted to any specified type.
+</p>
+<h3><span class="mw-headline" id="Attributes_6">Attributes</span></h3>
+<dl><dt> type&#160;</dt>
+<dd> (optional), force the <a href="jetty.xml&#32;syntax.html#Coercing_Arguments_to_a_Type">type</a> of the argument. If you do not provide a value for the element, if you use type of "String", the value will be the empty string (""), otherwise it is null.</dd></dl>
+<h3><span class="mw-headline" id="Can_Contain_6">Can Contain</span></h3>
+<p>value text, <a href="jetty.xml&#32;syntax.html#.3CGet.3E">&lt;Get&gt;</a>, <a href="jetty.xml&#32;syntax.html#.3CCall.3E">&lt;Call&gt;</a>, <a href="jetty.xml&#32;syntax.html#.3CNew.3E">&lt;New&gt;</a>, <a href="jetty.xml&#32;syntax.html#.3CRef.3E">&lt;Ref&gt;</a>, <a href="jetty.xml&#32;syntax.html#.3CArray.3E">&lt;Array&gt;</a>, <a href="jetty.xml&#32;syntax.html#.3CMap.3E">&lt;Map&gt;</a>, <a href="jetty.xml&#32;syntax.html#.3CSystemProperty.3E">&lt;SystemProperty&gt;</a>, <a href="jetty.xml&#32;syntax.html#.3CProperty.3E">&lt;Property&gt;</a>
+</p>
+<h3><span class="mw-headline" id="Examples_5">Examples</span></h3>
+<h4><span class="mw-headline" id="Basic_examples">Basic examples</span></h4>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="xml source-xml"><pre class="de1"><span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>foo<span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span> <span class="sc-1">&lt;!-- String --&gt;</span>
+<span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>true<span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span> <span class="sc-1">&lt;!-- Boolean --&gt;</span>
+<span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>1<span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span> <span class="sc-1">&lt;!-- int, long, short, float, double --&gt;</span>
+<span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span><span class="re1">&lt;Ref</span> <span class="re0">id</span>=<span class="st0">&quot;foo&quot;</span> <span class="re2">/&gt;</span><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>  <span class="sc-1">&lt;!-- any object; reference a previously created object with id &quot;foo&quot;, and pass it as a parameter --&gt;</span>
+<span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span> <span class="sc-1">&lt;!-- null value --&gt;</span>
+<span class="sc3"><span class="re1">&lt;Arg</span> <span class="re0">type</span>=<span class="st0">&quot;String&quot;</span><span class="re2">&gt;</span><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span> <span class="sc-1">&lt;!-- empty string &quot;&quot; --&gt;</span></pre></div></div>
+<h4><span class="mw-headline" id="Coercing_Type">Coercing Type</span></h4>
+<p>This explicitly coerces the type to a boolean:
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="xml source-xml"><pre class="de1"><span class="sc3"><span class="re1">&lt;Arg</span> <span class="re0">type</span>=<span class="st0">&quot;boolean&quot;</span><span class="re2">&gt;</span></span>False<span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span></pre></div></div>
+<h4><span class="mw-headline" id="As_a_Parameter">As a Parameter</span></h4>
+<p>Here are a couple of examples of <code>&lt;Arg&gt;</code> being used as a parameter to methods and to constructors:
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="xml source-xml"><pre class="de1"><span class="sc3"><span class="re1">&lt;Call</span> <span class="re0">class</span>=<span class="st0">&quot;com.acme.Environment&quot;</span> <span class="re0">name</span>=<span class="st0">&quot;setFoo&quot;</span><span class="re2">&gt;</span></span>
+  <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">class</span>=<span class="st0">&quot;com.acme.Foo&quot;</span><span class="re2">&gt;</span></span>
+      <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>bar<span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
+<span class="sc3"><span class="re1">&lt;/Call<span class="re2">&gt;</span></span></span></pre></div></div>
+<p>This is equivalent to:
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="java source-java"><pre class="de1">com.<span class="me1">acme</span>.<span class="kw3">Environment</span>.<span class="me1">setFoo</span><span class="br0">&#40;</span><span class="kw1">new</span> com.<span class="me1">acme</span>.<span class="me1">Foo</span><span class="br0">&#40;</span><span class="st0">&quot;bar&quot;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy0">;</span></pre></div></div>
+<p><br />
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="xml source-xml"><pre class="de1"><span class="sc3"><span class="re1">&lt;New</span> <span class="re0">class</span>=<span class="st0">&quot;com.acme.Baz&quot;</span><span class="re2">&gt;</span></span>
+  <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;Call</span> <span class="re0">id</span>=<span class="st0">&quot;bar&quot;</span> <span class="re0">class</span>=<span class="st0">&quot;com.acme.MyStaticObjectFactory&quot;</span> <span class="re0">name</span>=<span class="st0">&quot;createObject&quot;</span><span class="re2">&gt;</span></span>
+      <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>2<span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;/Call<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
+<span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span></pre></div></div>
+<p>This is equivalent to:
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="java source-java"><pre class="de1"><span class="kw1">new</span> com.<span class="me1">acme</span>.<span class="me1">Baz</span><span class="br0">&#40;</span>com.<span class="me1">acme</span>.<span class="me1">MyStaticObjectFactory</span>.<span class="me1">createObject</span><span class="br0">&#40;</span><span class="nu0">2</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy0">;</span></pre></div></div>
+<h2><span class="mw-headline" id=".3CNew.3E">&lt;New&gt;</span></h2>
+<p>Instantiates an object. Equivalent to <code>new</code> in Java, and allows the creation of a new object. A New element can contain a sequence of <code>&lt;Arg&gt;</code>s, followed by a sequence of configuration elements (Set, Put, etc). <code>&lt;Arg&gt;</code>s are used to select a constructor for the object to be created. The sequence of configuration elements then acts on the newly-created object.
+</p>
+<h3><span class="mw-headline" id="Attributes_7">Attributes</span></h3>
+<dl><dt> class&#160;</dt>
+<dd> (required), fully qualified classname, which determines the type of the new object that is instantiated.</dd>
+<dt> id&#160;</dt>
+<dd> (optional), gives a unique name to the object which can be referenced later by <a href="jetty.xml&#32;syntax.html#.3CRef.3E">Ref</a> elements.</dd></dl>
+<h3><span class="mw-headline" id="Can_Contain_7">Can Contain</span></h3>
+<p><a href="jetty.xml&#32;syntax.html#.3CArg.3E">&lt;Arg&gt;</a>, <a href="jetty.xml&#32;syntax.html#.3CSet.3E">&lt;Set&gt;</a>,<a href="jetty.xml&#32;syntax.html#.3CGet.3E">&lt;Get&gt;</a>, <a href="jetty.xml&#32;syntax.html#.3CPut.3E">&lt;Put&gt;</a>, <a href="jetty.xml&#32;syntax.html#.3CCall.3E">&lt;Call&gt;</a>, <a href="jetty.xml&#32;syntax.html#.3CNew.3E">&lt;New&gt;</a>, <a href="jetty.xml&#32;syntax.html#.3CRef.3E">&lt;Ref&gt;</a>, <a href="jetty.xml&#32;syntax.html#.3CArray.3E">&lt;Array&gt;</a>, <a href="jetty.xml&#32;syntax.html#.3CMap.3E">&lt;Map&gt;</a>, <a href="jetty.xml&#32;syntax.html#.3CProperty.3E">&lt;Property&gt;</a>
+</p>
+<h3><span class="mw-headline" id="Examples_6">Examples</span></h3>
+<h4><span class="mw-headline" id="Basic_example_6">Basic example</span></h4>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="xml source-xml"><pre class="de1"><span class="sc3"><span class="re1">&lt;New</span> <span class="re0">class</span>=<span class="st0">&quot;com.acme.Foo&quot;</span><span class="re2">&gt;</span></span>
+  <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>bar<span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
+<span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span></pre></div></div>
+<p>which is equivalent to:
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="java source-java"><pre class="de1">com.<span class="me1">acme</span>.<span class="me1">Foo</span> foo <span class="sy0">=</span> <span class="kw1">new</span> com.<span class="me1">acme</span>.<span class="me1">Foo</span><span class="br0">&#40;</span><span class="st0">&quot;bar&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span></pre></div></div>
+<h4><span class="mw-headline" id="Instantiate_with_the_Default_Constructor">Instantiate with the Default Constructor</span></h4>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="xml source-xml"><pre class="de1"><span class="sc3"><span class="re1">&lt;New</span> <span class="re0">class</span>=<span class="st0">&quot;com.acme.Foo&quot;</span> <span class="re2">/&gt;</span></span></pre></div></div>
+<p>which is equivalent to:
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="java source-java"><pre class="de1">com.<span class="me1">acme</span>.<span class="me1">Foo</span> foo <span class="sy0">=</span> <span class="kw1">new</span> com.<span class="me1">acme</span>.<span class="me1">Foo</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span></pre></div></div>
+<h4><span class="mw-headline" id="Instantiate_with_Multiple_Arguments.2C_Then_Configuring_Further">Instantiate with Multiple Arguments, Then Configuring Further</span></h4>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="xml source-xml"><pre class="de1"> <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">id</span>=<span class="st0">&quot;foo&quot;</span> <span class="re0">class</span>=<span class="st0">&quot;com.acme.Foo&quot;</span><span class="re2">&gt;</span></span>
+   <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>bar<span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
+   <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>baz<span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
+   <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">&quot;test&quot;</span><span class="re2">&gt;</span></span>1, 2, 3<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
+ <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span></pre></div></div>
+<p>which is equivalent to:
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="java source-java"><pre class="de1"><span class="kw3">Object</span> foo <span class="sy0">=</span> <span class="kw1">new</span> com.<span class="me1">acme</span>.<span class="me1">Foo</span><span class="br0">&#40;</span><span class="st0">&quot;bar&quot;</span>, <span class="st0">&quot;baz&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+foo.<span class="me1">setTest</span><span class="br0">&#40;</span><span class="st0">&quot;1, 2, 3&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span></pre></div></div>
+<h2><span class="mw-headline" id=".3CRef.3E">&lt;Ref&gt;</span></h2>
+<p>A Ref element allows a previously created object to be referenced by a unique id. It can contain a sequence of elements, such as Set, Put, etc. which then act on the referenced object. You can also use a Ref element as a value for other elements such as Set and Arg.
+</p><p>The Ref element provides convenience and eases readability. You can usually achieve the effect of the Ref by nesting elements (method calls), but this can get complicated very easily. The Ref element makes it possible to refer to the same object if you're using it multiple times, or passing it into multiple methods. It also makes it possible to split up configuration across multiple files.
+</p>
+<h3><span class="mw-headline" id="Attributes_8">Attributes</span></h3>
+<dl><dt> id&#160;</dt>
+<dd> (required), the unique identifier used to name a previously created object.</dd></dl>
+<h3><span class="mw-headline" id="Can_Contain_8">Can Contain</span></h3>
+<p><a href="jetty.xml&#32;syntax.html#.3CSet.3E">&lt;Set&gt;</a>,<a href="jetty.xml&#32;syntax.html#.3CGet.3E">&lt;Get&gt;</a>, <a href="jetty.xml&#32;syntax.html#.3CPut.3E">&lt;Put&gt;</a>, <a href="jetty.xml&#32;syntax.html#.3CCall.3E">&lt;Call&gt;</a>, <a href="jetty.xml&#32;syntax.html#.3CNew.3E">&lt;New&gt;</a>, <a href="jetty.xml&#32;syntax.html#.3CRef.3E">&lt;Ref&gt;</a>, <a href="jetty.xml&#32;syntax.html#.3CArray.3E">&lt;Array&gt;</a>, <a href="jetty.xml&#32;syntax.html#.3CMap.3E">&lt;Map&gt;</a>, <a href="jetty.xml&#32;syntax.html#.3CProperty.3E">&lt;Property&gt;</a>
+</p>
+<h3><span class="mw-headline" id="Examples_7">Examples</span></h3>
+<h4><span class="mw-headline" id="Basic_example_7">Basic example</span></h4>
+<p>Use the referenced object as an argument to a method call or constructor:
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="xml source-xml"><pre class="de1"><span class="sc3"><span class="re1">&lt;Get</span> <span class="re0">id</span>=<span class="st0">&quot;foo&quot;</span> <span class="re0">name</span>=<span class="st0">&quot;xFoo&quot;</span> <span class="re2">/&gt;</span></span>
+<span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">&quot;test&quot;</span><span class="re2">&gt;</span><span class="re1">&lt;Ref</span> <span class="re0">id</span>=<span class="st0">&quot;foo&quot;</span><span class="re2">/&gt;</span><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span></pre></div></div>
+<p>This is equivalent to:
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="java source-java"><pre class="de1">foo <span class="sy0">=</span> getXFoo<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+setSomeMethod<span class="br0">&#40;</span>foo<span class="br0">&#41;</span><span class="sy0">;</span></pre></div></div>
+<h4><span class="mw-headline" id="Manipulating_the_Object_Returned_by_Ref">Manipulating the Object Returned by Ref</span></h4>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="xml source-xml"><pre class="de1"><span class="sc3"><span class="re1">&lt;Get</span> <span class="re0">id</span>=<span class="st0">&quot;foo&quot;</span> <span class="re0">name</span>=<span class="st0">&quot;xFoo&quot;</span> <span class="re2">/&gt;</span></span>
+<span class="sc3"><span class="re1">&lt;Ref</span> <span class="re0">id</span>=<span class="st0">&quot;foo&quot;</span><span class="re2">&gt;</span></span>
+  <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">&quot;test&quot;</span><span class="re2">&gt;</span></span>1, 2, 3<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
+<span class="sc3"><span class="re1">&lt;/Ref<span class="re2">&gt;</span></span></span></pre></div></div>
+<p>This is equivalent to:
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="java source-java"><pre class="de1">foo <span class="sy0">=</span> getXFoo<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+foo.<span class="me1">setTest</span><span class="br0">&#40;</span><span class="st0">&quot;1, 2, 3&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span></pre></div></div>
+<h4><span class="mw-headline" id="Ref_vs._Nested_Elements">Ref vs. Nested Elements</span></h4>
+<p>Here is an example of the difference in syntax between using the Ref element, and nesting method calls. They are exactly equivalent:
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="xml source-xml"><pre class="de1"><span class="sc-1">&lt;!-- using Ref in conjunction with Get --&gt;</span>
+<span class="sc3"><span class="re1">&lt;Configure</span> <span class="re0">id</span>=<span class="st0">&quot;Server&quot;</span> <span class="re0">class</span>=<span class="st0">&quot;org.eclipse.jetty.server.Server&quot;</span><span class="re2">&gt;</span></span>
+  <span class="sc3"><span class="re1">&lt;Get</span> <span class="re0">id</span>=<span class="st0">&quot;Logger&quot;</span> <span class="re0">class</span>=<span class="st0">&quot;org.eclipse.jetty.util.log.Log&quot;</span> <span class="re0">name</span>=<span class="st0">&quot;log&quot;</span><span class="re2">/&gt;</span></span>
+  <span class="sc3"><span class="re1">&lt;Ref</span> <span class="re0">id</span>=<span class="st0">&quot;Logger&quot;</span><span class="re2">&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">&quot;debugEnabled&quot;</span><span class="re2">&gt;</span></span>true<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;/Ref<span class="re2">&gt;</span></span></span>
+<span class="sc3"><span class="re1">&lt;/Configure<span class="re2">&gt;</span></span></span></pre></div></div>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="xml source-xml"><pre class="de1"><span class="sc-1">&lt;!-- calling the setter directly on the object returned by Get --&gt;</span>
+<span class="sc3"><span class="re1">&lt;Configure</span> <span class="re0">id</span>=<span class="st0">&quot;Server&quot;</span> <span class="re0">class</span>=<span class="st0">&quot;org.eclipse.jetty.server.Server&quot;</span><span class="re2">&gt;</span></span>
+  <span class="sc3"><span class="re1">&lt;Get</span> <span class="re0">class</span>=<span class="st0">&quot;org.eclipse.jetty.util.log.Log&quot;</span> <span class="re0">name</span>=<span class="st0">&quot;log&quot;</span><span class="re2">&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">&quot;debugEnabled&quot;</span><span class="re2">&gt;</span></span>true<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;/Get<span class="re2">&gt;</span></span></span>
+<span class="sc3"><span class="re1">&lt;/Configure<span class="re2">&gt;</span></span></span></pre></div></div>
+<p>Here is a more practical example, taken from the handler configuration section in <tt>etc/jetty.xml</tt>:
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="xml source-xml"><pre class="de1"><span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">&quot;handler&quot;</span><span class="re2">&gt;</span></span>
+  <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">id</span>=<span class="st0">&quot;Handlers&quot;</span> <span class="re0">class</span>=<span class="st0">&quot;org.eclipse.jetty.server.handler.HandlerCollection&quot;</span><span class="re2">&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">&quot;handlers&quot;</span><span class="re2">&gt;</span></span>
+      <span class="sc3"><span class="re1">&lt;Array</span> <span class="re0">type</span>=<span class="st0">&quot;org.eclipse.jetty.server.Handler&quot;</span><span class="re2">&gt;</span></span>
+        <span class="sc3"><span class="re1">&lt;Item<span class="re2">&gt;</span></span></span>
+          <span class="sc-1">&lt;!-- create a new instance of a ContextHandlerCollection named &quot;Contexts&quot; --&gt;</span>
+          <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">id</span>=<span class="st0">&quot;Contexts&quot;</span> <span class="re0">class</span>=<span class="st0">&quot;org.eclipse.jetty.server.handler.ContextHandlerCollection&quot;</span><span class="re2">/&gt;</span></span>
+        <span class="sc3"><span class="re1">&lt;/Item<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;Item<span class="re2">&gt;</span></span></span>
+          <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">id</span>=<span class="st0">&quot;DefaultHandler&quot;</span> <span class="re0">class</span>=<span class="st0">&quot;org.eclipse.jetty.server.handler.DefaultHandler&quot;</span><span class="re2">/&gt;</span></span>
+        <span class="sc3"><span class="re1">&lt;/Item<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;Item<span class="re2">&gt;</span></span></span>
+          <span class="sc-1">&lt;!-- create a new instance of a RequestLogHandler named &quot;RequestLog&quot;---&gt;</span>
+          <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">id</span>=<span class="st0">&quot;RequestLog&quot;</span> <span class="re0">class</span>=<span class="st0">&quot;org.eclipse.jetty.server.handler.RequestLogHandler&quot;</span><span class="re2">/&gt;</span></span>
+        <span class="sc3"><span class="re1">&lt;/Item<span class="re2">&gt;</span></span></span>
+      <span class="sc3"><span class="re1">&lt;/Array<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span>
+<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
+&#160;
+<span class="sc3"><span class="re1">&lt;Call</span> <span class="re0">name</span>=<span class="st0">&quot;addBean&quot;</span><span class="re2">&gt;</span></span>
+  <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">class</span>=<span class="st0">&quot;org.eclipse.jetty.deploy.ContextDeployer&quot;</span><span class="re2">&gt;</span></span>
+      <span class="sc-1">&lt;!-- pass in the ContextHandlerCollection object (&quot;Contexts&quot;) that was created earlier, as an argument --&gt;</span>
+      <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">&quot;contexts&quot;</span><span class="re2">&gt;</span><span class="re1">&lt;Ref</span> <span class="re0">id</span>=<span class="st0">&quot;Contexts&quot;</span><span class="re2">/&gt;</span><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
+<span class="sc3"><span class="re1">&lt;/Call<span class="re2">&gt;</span></span></span>
+&#160;
+<span class="sc-1">&lt;!-- configure the RequestLogHandler object (&quot;RequestLog&quot;) that we created earlier --&gt;</span>
+<span class="sc3"><span class="re1">&lt;Ref</span> <span class="re0">id</span>=<span class="st0">&quot;RequestLog&quot;</span><span class="re2">&gt;</span></span>
+  ....
+<span class="sc3"><span class="re1">&lt;/Ref<span class="re2">&gt;</span></span></span></pre></div></div>
+<h2><span class="mw-headline" id=".3CArray.3E">&lt;Array&gt;</span></h2>
+<p>An Array element allows the creation of a new array.
+</p>
+<h3><span class="mw-headline" id="Attributes_9">Attributes</span></h3>
+<dl><dt> type&#160;</dt>
+<dd> (optional), specify what <a href="jetty.xml&#32;syntax.html#Coercing_Arguments_to_a_Type">types</a> of items the array can contain.</dd>
+<dt> id&#160;</dt>
+<dd> (optional), unique identifier you can use to refer to the array later.</dd></dl>
+<h3><span class="mw-headline" id="Can_Contain_9">Can Contain</span></h3>
+<p><a href="jetty.xml&#32;syntax.html#.3CItem.3E">&lt;Item&gt;</a>
+</p>
+<h3><span class="mw-headline" id="Example_2">Example</span></h3>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="xml source-xml"><pre class="de1"> <span class="sc3"><span class="re1">&lt;Array</span> <span class="re0">type</span>=<span class="st0">&quot;java.lang.String&quot;</span><span class="re2">&gt;</span></span>
+   <span class="sc3"><span class="re1">&lt;Item<span class="re2">&gt;</span></span></span>value0<span class="sc3"><span class="re1">&lt;/Item<span class="re2">&gt;</span></span></span>
+   <span class="sc3"><span class="re1">&lt;Item<span class="re2">&gt;</span></span><span class="re1">&lt;New</span> <span class="re0">class</span>=<span class="st0">&quot;java.lang.String&quot;</span><span class="re2">&gt;</span><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>value1<span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span><span class="re1">&lt;/New<span class="re2">&gt;</span></span><span class="re1">&lt;/Item<span class="re2">&gt;</span></span></span>
+ <span class="sc3"><span class="re1">&lt;/Array<span class="re2">&gt;</span></span></span></pre></div></div>
+<p>This is equivalent to:
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="java source-java"><pre class="de1"><span class="kw3">String</span><span class="br0">&#91;</span><span class="br0">&#93;</span> a <span class="sy0">=</span> <span class="kw1">new</span> <span class="kw3">String</span><span class="br0">&#91;</span><span class="br0">&#93;</span> <span class="br0">&#123;</span> <span class="st0">&quot;value0&quot;</span>, <span class="kw1">new</span> <span class="kw3">String</span><span class="br0">&#40;</span><span class="st0">&quot;value1&quot;</span><span class="br0">&#41;</span> <span class="br0">&#125;</span><span class="sy0">;</span></pre></div></div>
+<h2><span class="mw-headline" id=".3CItem.3E">&lt;Item&gt;</span></h2>
+<p>An Item element defines an entry for <a href="jetty.xml&#32;syntax.html#.3CArray.3E">Array</a> and <a href="jetty.xml&#32;syntax.html#.3CMap.3E">Map</a> elements.
+</p>
+<h3><span class="mw-headline" id="Attributes_10">Attributes</span></h3>
+<dl><dt> type&#160;</dt>
+<dd> (optional), force the <a href="jetty.xml&#32;syntax.html#Coercing_Arguments_to_a_Type">types</a> of value.</dd>
+<dt> id&#160;</dt>
+<dd> (optional), unique identifier which you can use to refer to the array later.</dd></dl>
+<h3><span class="mw-headline" id="Can_Contain_10">Can Contain</span></h3>
+<p>value text, <a href="jetty.xml&#32;syntax.html#.3CGet.3E">&lt;Get&gt;</a>, <a href="jetty.xml&#32;syntax.html#.3CCall.3E">&lt;Call&gt;</a>, <a href="jetty.xml&#32;syntax.html#.3CNew.3E">&lt;New&gt;</a>, <a href="jetty.xml&#32;syntax.html#.3CRef.3E">&lt;Ref&gt;</a>, <a href="jetty.xml&#32;syntax.html#.3CArray.3E">&lt;Array&gt;</a>, <a href="jetty.xml&#32;syntax.html#.3CMap.3E">&lt;Map&gt;</a>, <a href="jetty.xml&#32;syntax.html#.3CSystemProperty.3E">&lt;SystemProperty&gt;</a>, <a href="jetty.xml&#32;syntax.html#.3CProperty.3E">&lt;Property&gt;</a>
+</p>
+<h2><span class="mw-headline" id=".3CMap.3E">&lt;Map&gt;</span></h2>
+<p>A Map element allows the creation of a new HashMap and to populate it with (key, value) pairs.
+</p>
+<h3><span class="mw-headline" id="Attributes_11">Attributes</span></h3>
+<dl><dt> id&#160;</dt>
+<dd> (optional), unique identifier you can use to refer to the map later.</dd></dl>
+<h3><span class="mw-headline" id="Can_Contain_11">Can Contain</span></h3>
+<p><a href="jetty.xml&#32;syntax.html#.3CEntry.3E">&lt;Entry&gt;</a>
+</p>
+<h3><span class="mw-headline" id="Example_3">Example</span></h3>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="xml source-xml"><pre class="de1"><span class="sc3"><span class="re1">&lt;Map<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;Entry<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;Item<span class="re2">&gt;</span></span></span>keyName<span class="sc3"><span class="re1">&lt;/Item<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;Item<span class="re2">&gt;</span></span><span class="re1">&lt;New</span> <span class="re0">class</span>=<span class="st0">&quot;java.lang.String&quot;</span><span class="re2">&gt;</span><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>value1<span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span><span class="re1">&lt;/New<span class="re2">&gt;</span></span><span class="re1">&lt;/Item<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;/Entry<span class="re2">&gt;</span></span></span>
+<span class="sc3"><span class="re1">&lt;/Map<span class="re2">&gt;</span></span></span></pre></div></div>
+<p>This is equivalent to:
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="java source-java"><pre class="de1"><span class="kw3">Map</span> m <span class="sy0">=</span> <span class="kw1">new</span> <span class="kw3">HashMap</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+m.<span class="me1">put</span><span class="br0">&#40;</span><span class="st0">&quot;keyName&quot;</span>, <span class="kw1">new</span> <span class="kw3">String</span><span class="br0">&#40;</span><span class="st0">&quot;value1&quot;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy0">;</span></pre></div></div>
+<h2><span class="mw-headline" id=".3CEntry.3E">&lt;Entry&gt;</span></h2>
+<p>An Entry element contains a key-value <a href="jetty.xml&#32;syntax.html#.3CItem.3E">&lt;Item&gt;</a> pair for a <a href="jetty.xml&#32;syntax.html#.3CMap.3E">Map</a>.
+</p>
+<h3><span class="mw-headline" id="Attributes_12">Attributes</span></h3>
+<p>No attributes.
+</p>
+<h3><span class="mw-headline" id="Can_Contain_12">Can Contain</span></h3>
+<p><a href="jetty.xml&#32;syntax.html#.3CItem.3E">Item</a>
+</p>
+<h2><span class="mw-headline" id=".3CSystemProperty.3E">&lt;SystemProperty&gt;</span></h2>
+<p>A SystemProperty element gets the value of a JVM system property. It can be used within elements which accept values, such as Set, Put, Arg, etc.
+</p>
+<h3><span class="mw-headline" id="Attributes_13">Attributes</span></h3>
+<dl><dt> name&#160;</dt>
+<dd> (required), property name </dd>
+<dt> default&#160;</dt>
+<dd> (optional), a default value as a fallback</dd>
+<dt> id&#160;</dt>
+<dd> (optional), unique identifier which you can use to refer to the array later.</dd></dl>
+<h3><span class="mw-headline" id="Can_Contain_13">Can Contain</span></h3>
+<p>Cannot contain anything.
+</p>
+<h3><span class="mw-headline" id="Example_4">Example</span></h3>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="xml source-xml"><pre class="de1"><span class="sc3"><span class="re1">&lt;SystemProperty</span> <span class="re0">name</span>=<span class="st0">&quot;jetty.port&quot;</span> <span class="re0">default</span>=<span class="st0">&quot;8080&quot;</span><span class="re2">/&gt;</span></span></pre></div></div>
+<p>That is equivalent to:
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="java source-java"><pre class="de1"><span class="kw3">System</span>.<span class="me1">getProperty</span><span class="br0">&#40;</span><span class="st0">&quot;jetty.port&quot;</span>, <span class="st0">&quot;8080&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span></pre></div></div>
+<p>Both try to retrieve the value of <tt>jetty.port</tt>. If <tt>jetty.port</tt> is not set, then <tt>8080</tt> will be used.
+</p>
+<h2><span class="mw-headline" id=".3CProperty.3E">&lt;Property&gt;</span></h2>
+<p>A Property element allows arbitrary properties to be retrieved by name. It can contain a sequence of elements, such as Set, Put, Call, etc., which act on the retrieved object.
+</p>
+<h3><span class="mw-headline" id="Attributes_14">Attributes</span></h3>
+<dl><dt> name&#160;</dt>
+<dd> (required), property name </dd>
+<dt> default&#160;</dt>
+<dd> (optional), a default value as a fallback</dd>
+<dt> id&#160;</dt>
+<dd> (optional), unique identifier which you can use to refer to the array later.</dd></dl>
+<h3><span class="mw-headline" id="Can_Contain_14">Can Contain</span></h3>
+<p><a href="jetty.xml&#32;syntax.html#.3CSet.3E">&lt;Set&gt;</a>,<a href="jetty.xml&#32;syntax.html#.3CGet.3E">&lt;Get&gt;</a>, <a href="jetty.xml&#32;syntax.html#.3CPut.3E">&lt;Put&gt;</a>, <a href="jetty.xml&#32;syntax.html#.3CCall.3E">&lt;Call&gt;</a>, <a href="jetty.xml&#32;syntax.html#.3CNew.3E">&lt;New&gt;</a>, <a href="jetty.xml&#32;syntax.html#.3CRef.3E">&lt;Ref&gt;</a>, <a href="jetty.xml&#32;syntax.html#.3CArray.3E">&lt;Array&gt;</a>, <a href="jetty.xml&#32;syntax.html#.3CMap.3E">&lt;Map&gt;</a>, <a href="jetty.xml&#32;syntax.html#.3CProperty.3E">&lt;Property&gt;</a>
+</p>
+<h3><span class="mw-headline" id="Example_5">Example</span></h3>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="xml source-xml"><pre class="de1"><span class="sc3"><span class="re1">&lt;Property</span> <span class="re0">name</span>=<span class="st0">&quot;Server&quot;</span><span class="re2">&gt;</span></span>
+  <span class="sc3"><span class="re1">&lt;Call</span> <span class="re0">id</span>=<span class="st0">&quot;jdbcIdMgr&quot;</span> <span class="re0">name</span>=<span class="st0">&quot;getAttribute&quot;</span><span class="re2">&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>jdbcIdMgr<span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;/Call<span class="re2">&gt;</span></span></span>
+<span class="sc3"><span class="re1">&lt;/Property<span class="re2">&gt;</span></span></span></pre></div></div>
+<h2><span class="mw-headline" id="Additional_Resources">Additional Resources</span></h2>
+<ul><li> <a rel="nofollow" class="external text" href="http://www.eclipse.org/jetty/configure.dtd">configure.dtd</a></li>
+<li> <a href="jetty.xml&#32;usage.html" title="Jetty/Reference/jetty.xml usage">jetty.xml Usage</a></li>
+<li> <a href="jetty.xml.html" title="Jetty/Reference/jetty.xml"> jetty.xml, server configuration file</a></li>
+<li> <a href="jetty-web.xml.html" title="Jetty/Reference/jetty-web.xml"> jetty-web.xml, webapp configuration file</a></li>
+<li> <a href="jetty-env.xml.html" title="Jetty/Reference/jetty-env.xml"> jetty-env.xml,  JNDI configuration file</a></li></ul>
+<p><br />
+</p>
+<!-- 
+NewPP limit report
+Cached time: 20211115225746
+Cache expiry: 86400
+Dynamic content: false
+CPU time usage: 0.884 seconds
+Real time usage: 1.055 seconds
+Preprocessor visited node count: 897/1000000
+Preprocessor generated node count: 1812/1000000
+Post‐expand include size: 6931/2097152 bytes
+Template argument size: 2755/2097152 bytes
+Highest expansion depth: 5/40
+Expensive parser function count: 0/100
+-->
+
+<!-- 
+Transclusion expansion time report (%,ms,calls,template)
+100.00%  898.430      1 - -total
+  1.94%   17.452      1 - Template:Jetty_Reference
+  1.74%   15.659      4 - Template:Jetty_DTD_Value
+  1.01%    9.082      1 - Template:Jetty_Redirect
+  0.72%    6.461      1 - Template:Message
+  0.54%    4.893      6 - Template:Jetty_DTD_Config
+  0.43%    3.832      1 - Template:Jetty
+-->
+
+<!-- Saved in parser cache with key my_wiki:pcache:idhash:20646-0!*!0!!en!5!* and timestamp 20211115225745 and revision id 334805
+ -->
+</div>
+                                      <!-- catlinks -->
+                    <div id='catlinks' class='catlinks'><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="https://wiki.eclipse.org/Special:Categories" title="Special:Categories">Categories</a>: <ul><li><a href="https://wiki.eclipse.org/Category:Jetty" title="Category:Jetty">Jetty</a></li><li><a href="https://wiki.eclipse.org/Category:Jetty_Reference" title="Category:Jetty Reference">Jetty Reference</a></li></ul></div></div>                     <!-- /catlinks -->
+                                  </div>
+              </div>
+            </div>
+          </div>
+        <!-- /maincontent -->
+
+                <!-- printfooter -->
+        <div class="printfooter">
+        Retrieved from "<a dir="ltr" href="https://wiki.eclipse.org/index.php?title=Jetty/Reference/jetty.xml_syntax&amp;oldid=334805">https://wiki.eclipse.org/index.php?title=Jetty/Reference/jetty.xml_syntax&amp;oldid=334805</a>"        </div>
+        <!-- /printfooter -->
+        
+        
+        <!-- debughtml -->
+                <!-- /debughtml -->
+
+      </div>
+      <!-- /bodyContent -->
+    </section>
+    <!-- /content -->
+
+    <!-- footer -->
+    
+</div>
+<div class="featured-footer featured-footer-newsletter background-secondary">
+  <div class="container">
+    <p id="footercredit">This page was last modified 14:41, 23 April 2013 by <a href="https://wiki.eclipse.org/User:Jesse.mcconnell.gmail.com" title="User:Jesse.mcconnell.gmail.com">Jesse McConnell</a>. Based on work by <a href="https://wiki.eclipse.org/index.php?title=User:Janb.intalio.com&amp;action=edit&amp;redlink=1" class="new" title="User:Janb.intalio.com (page does not exist)">Jan Bartel</a>, <a href="https://wiki.eclipse.org/index.php?title=User:Boulay.intalio.com&amp;action=edit&amp;redlink=1" class="new" title="User:Boulay.intalio.com (page does not exist)">Shirley Boulay</a> and <a href="https://wiki.eclipse.org/index.php?title=User:Gregw.webtide.com&amp;action=edit&amp;redlink=1" class="new" title="User:Gregw.webtide.com (page does not exist)">Greg Wilkins</a> and <a href="https://wiki.eclipse.org/index.php?title=Jetty/Reference/jetty.xml_syntax&amp;action=credits" title="Jetty/Reference/jetty.xml syntax">others</a>.</p><p id="footerviews"></p>  </div>
+</div>
+</main> <!-- /#main-content-container-row -->
+<p id="back-to-top" class="noprint hidden-print">
+  <a class="visible-xs" href="jetty.xml&#32;syntax.html#top">Back to the top</a>
+</p>
+<footer id="solstice-footer">
+  <div class="container">
+    <div class="row">
+      <section class="col-sm-6 hidden-print" id="footer-eclipse-foundation">
+        <h2 class="section-title">Eclipse Foundation</h2>
+        <ul class="nav">
+          <li><a href="https://www.eclipse.org/org/">About Us</a></li>
+          <li><a href="https://www.eclipse.org/org/foundation/contact.php">Contact Us</a></li>
+          <li><a href="https://www.eclipse.org/donate">Donate</a></li>
+          <li><a href="https://www.eclipse.org/membership/">Members</a></li>
+          <li><a href="https://www.eclipse.org/org/documents/">Governance</a></li>
+          <li><a href="https://www.eclipse.org/org/documents/Community_Code_of_Conduct.php">Code of Conduct</a></li>
+          <li><a href="https://www.eclipse.org/artwork/">Logo and Artwork</a></li>
+          <li><a href="https://www.eclipse.org/org/foundation/directors.php">Board of Directors</a></li>
+        </ul>
+      </section>
+      <section class="col-sm-6 hidden-print" id="footer-legal">
+        <h2 class="section-title">Legal</h2>
+        <ul class="nav">
+          <li><a href="https://www.eclipse.org/legal/privacy.php">Privacy Policy</a></li>
+          <li><a href="https://www.eclipse.org/legal/termsofuse.php">Terms of Use</a></li>
+          <li><a href="https://www.eclipse.org/legal/copyright.php">Copyright Agent</a></li>
+          <li><a href="https://www.eclipse.org/legal/epl-2.0/">Eclipse Public License</a></li>
+          <li><a href="https://www.eclipse.org/legal/">Legal Resources</a></li>
+        </ul>
+      </section>
+      <section class="col-sm-6 hidden-print" id="footer-useful-links">
+        <h2 class="section-title">Useful Links</h2>
+        <ul class="nav">
+          <li><a href="https://bugs.eclipse.org/bugs/">Report a Bug</a></li>
+          <li><a href="https://help.eclipse.org/">Documentation</a></li>
+          <li><a href="https://www.eclipse.org/contribute/">How to Contribute</a></li>
+          <li><a href="https://www.eclipse.org/mail/">Mailing Lists</a></li>
+          <li><a href="https://www.eclipse.org/forums/">Forums</a></li>
+          <li><a href="https://marketplace.eclipse.org/">Marketplace</a></li>
+        </ul>
+      </section>
+      <section class="col-sm-6 hidden-print" id="footer-other">
+        <h2 class="section-title">Other</h2>
+        <ul class="nav">
+          <li><a href="https://www.eclipse.org/ide/">IDE and Tools</a></li>
+          <li><a href="https://www.eclipse.org/projects">Projects</a></li>
+          <li><a href="https://www.eclipse.org/org/workinggroups/">Working Groups</a></li>
+          <li><a href="https://www.eclipse.org/org/research/">Research@Eclipse</a></li>
+          <li><a href="https://www.eclipse.org/security/">Report a Vulnerability</a></li>
+          <li><a href="https://status.eclipse.org">Service Status</a></li>
+        </ul>
+      </section>
+      <div class="col-sm-24 margin-top-20">
+        <div class="row">
+          <div id="copyright" class="col-md-16">
+            <p id="copyright-text">Copyright &copy; Eclipse Foundation, Inc. All Rights Reserved.</p>
+          </div>
+          <div class="col-md-8 social-media">
+            <ul class="list-inline">
+              <li>
+                <a class="social-media-link fa-stack fa-lg" href="https://twitter.com/EclipseFdn">
+                <i class="fa fa-circle-thin fa-stack-2x"></i>
+                <i class="fa fa-twitter fa-stack-1x"></i>
+                </a>
+              </li>
+              <li>
+                <a class="social-media-link fa-stack fa-lg" href="https://www.facebook.com/eclipse.org">
+                <i class="fa fa-circle-thin fa-stack-2x"></i>
+                <i class="fa fa-facebook fa-stack-1x"></i>
+                </a>
+              </li>
+              <li>
+                <a class="social-media-link fa-stack fa-lg" href="https://www.youtube.com/user/EclipseFdn">
+                <i class="fa fa-circle-thin fa-stack-2x"></i>
+                <i class="fa fa-youtube fa-stack-1x"></i>
+                </a>
+              </li>
+              <li>
+                <a class="social-media-link fa-stack fa-lg" href="https://www.linkedin.com/company/eclipse-foundation">
+                <i class="fa fa-circle-thin fa-stack-2x"></i>
+                <i class="fa fa-linkedin fa-stack-1x"></i>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <a href="jetty.xml&#32;syntax.html#" class="scrollup">Back to the top</a>
+    </div>
+  </div>
+</footer>
+    <!-- /footer -->
+    <script>window.RLQ = window.RLQ || []; window.RLQ.push( function () {
+mw.loader.state({"skins.solstice":"loading","user":"ready","user.groups":"ready"});mw.loader.load("/load.php?debug=false\u0026lang=en\u0026modules=skins.solstice\u0026only=scripts\u0026skin=solstice");mw.loader.load(["mediawiki.toc","mediawiki.action.view.postEdit","site","mediawiki.user","mediawiki.hidpi","mediawiki.page.ready","mediawiki.searchSuggest"]);
+} );</script><script>window.RLQ = window.RLQ || []; window.RLQ.push( function () {
+mw.config.set({"wgBackendResponseTime":360});
+} );</script>  </body>
+</html>

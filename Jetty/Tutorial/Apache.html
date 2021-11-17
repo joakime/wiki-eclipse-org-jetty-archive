@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" class="client-nojs">
+<head>
+<meta charset="UTF-8"/>
+<title>Jetty/Tutorial/Apache - Eclipsepedia</title>
+<script>document.documentElement.className = document.documentElement.className.replace( /(^|\s)client-nojs(\s|$)/, "$1client-js$2" );</script>
+<script>window.RLQ = window.RLQ || []; window.RLQ.push( function () {
+mw.config.set({"wgCanonicalNamespace":"","wgCanonicalSpecialPageName":!1,"wgNamespaceNumber":0,"wgPageName":"Jetty/Tutorial/Apache","wgTitle":"Jetty/Tutorial/Apache","wgCurRevisionId":334824,"wgRevisionId":334824,"wgArticleId":21646,"wgIsArticle":!0,"wgIsRedirect":!1,"wgAction":"view","wgUserName":null,"wgUserGroups":["*"],"wgCategories":["Jetty","Jetty Tutorial"],"wgBreakFrames":!1,"wgPageContentLanguage":"en","wgPageContentModel":"wikitext","wgSeparatorTransformTable":["",""],"wgDigitTransformTable":["",""],"wgDefaultDateFormat":"dmy","wgMonthNames":["","January","February","March","April","May","June","July","August","September","October","November","December"],"wgMonthNamesShort":["","Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"wgRelevantPageName":"Jetty/Tutorial/Apache","wgRelevantArticleId":21646,"wgIsProbablyEditable":!1,"wgRestrictionEdit":[],"wgRestrictionMove":[],"wgWikiEditorEnabledModules":{"toolbar":!1,"dialogs":!1,"preview"
+:!1,"publish":!1},"wgCategoryTreePageCategoryOptions":"{\"mode\":0,\"hideprefix\":20,\"showcount\":true,\"namespaces\":false}"});mw.loader.implement("user.options",function($,jQuery){mw.user.options.set({"variant":"en"});});mw.loader.implement("user.tokens",function($,jQuery){mw.user.tokens.set({"editToken":"+\\","patrolToken":"+\\","watchToken":"+\\"});});mw.loader.load(["mediawiki.page.startup","mediawiki.legacy.wikibits"]);
+} );</script>
+<link rel="stylesheet" href="../../load.php%3Fdebug=false&amp;lang=en&amp;modules=mediawiki.legacy.commonPrint,shared|mediawiki.sectionAnchor&amp;only=styles&amp;skin=solstice.css"/>
+<link rel="stylesheet" href="../../skins/solstice/public/css/styles.css%3F303.css" media="screen, print"/>
+<meta name="ResourceLoaderDynamicStyles" content=""/>
+<style>a:lang(ar),a:lang(kk-arab),a:lang(mzn),a:lang(ps),a:lang(ur){text-decoration:none}</style>
+<script async="" src="../../load.php%3Fdebug=false&amp;lang=en&amp;modules=startup&amp;only=scripts&amp;skin=solstice"></script>
+<meta name="generator" content="MediaWiki 1.26.4"/>
+<link rel="shortcut icon" href="../../eclipse.org-common/themes/solstice/public/images/favicon.ico"/>
+<link rel="search" type="application/opensearchdescription+xml" href="https://wiki.eclipse.org/opensearch_desc.php" title="Eclipsepedia (en)"/>
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.eclipse.org/api.php?action=rsd"/>
+<link rel="alternate" type="application/atom+xml" title="Eclipsepedia Atom feed" href="https://wiki.eclipse.org/index.php?title=Special:RecentChanges&amp;feed=atom"/>
+<style type="text/css">
+/*<![CDATA[*/      
+#jetty-nav {
+  margin-bottom: 2em;
+}
+#jetty-nav ul {
+  padding: 3px 0 1px 1em;
+  margin:0;
+  border-bottom: 1px solid #aaa;
+}
+#jetty-nav li {
+  list-style: none;
+  margin: 0;
+  display: inline;
+}
+#jetty-nav li a {
+  padding: 3px 0.5em;
+  margin-left: 3px;
+  border: 1px solid #aaa;
+  border-bottom: none;
+  background: #eef;
+  text-decoration: none;
+}
+#jetty-nav li a:link { color: #448; }
+#jetty-nav li a:visited { color: #667; }
+#jetty-nav li a:hover {
+  color: #000;
+  background: #ccf;
+  border-color: #227;
+}
+#jetty-nav li span#current a
+{
+  background: #fff;
+  border-bottom: 1px solid #fff;
+}
+#jetty-nav li .selflink {
+  padding: 3px 0.5em;
+  margin-left: 3px;
+  border: 1px solid #aaa;
+  background: #fff;
+  border-bottom: 1px solid #fff;
+}
+table.jetty-table, .jetty-table table {
+  border: 1px solid #aaa;
+  border-collapse: collapse;
+}
+.jetty-table td {
+  border: 1px solid #aaa;
+  padding: 0.5em 1em;
+}
+.jetty-table th {
+  border: 1px solid #aaa;
+  background-color: #eef;
+}
+.jetty-table caption {
+  border: 1px #aaa solid;
+  margin: 1em 0 0.2em 0;
+  background-color: #ccf;
+  font-weight: bold;
+  font-size: 1.1em;
+}
+#content dl  {
+  border-left: 1px #aaa solid;
+  border-bottom: 1px #aaa solid;
+}
+#content dl dt {
+  float: left;
+  border-top: 1px solid #aaa;
+  padding: 0.5em 0 0 0.5em;
+}
+#content dl dd {
+  border: 1px solid #aaa;
+  border-bottom: none;
+}
+#content .narrow-list dl  {
+  width: 40em;
+}
+#content .narrow-list dl dt {
+  width: 14em;
+  line-height: 1.1em;
+}
+#content .narrow-list dl dd {
+  margin: 0 0 0 15em;
+  padding: 0.5em 1em;
+}
+#content .wide-list dl, #content dl {
+  width: 80em;
+}
+#content .wide-list dl dt, #content dl dt {
+  padding: 0.5em 1em;
+  width: 15em;
+}
+#content .wide-list dl dd, #content dl dd {
+  padding: 1em 1em 2em 2em;
+  margin: 0 0 0 17em;
+}
+#content .unbounded-list dl, #content .unbounded-list dl dd, #content .unbounded-list dl dt {
+  border: 0 none;
+  width: auto;
+  padding: 0 0 0 1em;
+}
+#content .unbounded-list dl dt {
+}
+#content p  {
+  margin-bottom: 0.5em;
+}
+#content li  {
+  line-height: 1.1em;
+}
+.infobox {
+  padding: 0.5em 1em;
+  background-color: #fff;
+  float: right;
+  margin: 0.5em;
+}
+/*]]>*/       
+</style>
+<style type="text/css">/*<![CDATA[*/
+.source-apache {line-height: normal;}
+.source-apache li, .source-apache pre {
+	line-height: normal; border: 0px none white;
+}
+/**
+ * GeSHi Dynamically Generated Stylesheet
+ * --------------------------------------
+ * Dynamically generated stylesheet for apache
+ * CSS class: source-apache, CSS id: 
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ * --------------------------------------
+ */
+.apache.source-apache .de1, .apache.source-apache .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;}
+.apache.source-apache  {font-family:monospace;}
+.apache.source-apache .imp {font-weight: bold; color: red;}
+.apache.source-apache li, .apache.source-apache .li1 {font-weight: normal; vertical-align:top;}
+.apache.source-apache .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.apache.source-apache .li2 {font-weight: bold; vertical-align:top;}
+.apache.source-apache .kw1 {color: #00007f;}
+.apache.source-apache .kw2 {color: #0000ff;}
+.apache.source-apache .kw3 {color: #000000; font-weight:bold;}
+.apache.source-apache .co1 {color: #adadad; font-style: italic;}
+.apache.source-apache .es0 {color: #000099; font-weight: bold;}
+.apache.source-apache .br0 {color: #339933;}
+.apache.source-apache .sy0 {color: #008000;}
+.apache.source-apache .st0 {color: #7f007f;}
+.apache.source-apache .nu0 {color: #ff0000;}
+.apache.source-apache .ln-xtra, .apache.source-apache li.ln-xtra, .apache.source-apache div.ln-xtra {background-color: #ffc;}
+.apache.source-apache span.xtra { display:block; }
+
+/*]]>*/
+</style>
+<style type="text/css">/*<![CDATA[*/
+.source-bash {line-height: normal;}
+.source-bash li, .source-bash pre {
+	line-height: normal; border: 0px none white;
+}
+/**
+ * GeSHi Dynamically Generated Stylesheet
+ * --------------------------------------
+ * Dynamically generated stylesheet for bash
+ * CSS class: source-bash, CSS id: 
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ * --------------------------------------
+ */
+.bash.source-bash .de1, .bash.source-bash .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;}
+.bash.source-bash  {font-family:monospace;}
+.bash.source-bash .imp {font-weight: bold; color: red;}
+.bash.source-bash li, .bash.source-bash .li1 {font-weight: normal; vertical-align:top;}
+.bash.source-bash .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.bash.source-bash .li2 {font-weight: bold; vertical-align:top;}
+.bash.source-bash .kw1 {color: #000000; font-weight: bold;}
+.bash.source-bash .kw2 {color: #c20cb9; font-weight: bold;}
+.bash.source-bash .kw3 {color: #7a0874; font-weight: bold;}
+.bash.source-bash .co0 {color: #666666; font-style: italic;}
+.bash.source-bash .co1 {color: #800000;}
+.bash.source-bash .co2 {color: #cc0000; font-style: italic;}
+.bash.source-bash .co3 {color: #000000; font-weight: bold;}
+.bash.source-bash .co4 {color: #666666;}
+.bash.source-bash .es1 {color: #000099; font-weight: bold;}
+.bash.source-bash .es2 {color: #007800;}
+.bash.source-bash .es3 {color: #007800;}
+.bash.source-bash .es4 {color: #007800;}
+.bash.source-bash .es5 {color: #780078;}
+.bash.source-bash .es_h {color: #000099; font-weight: bold;}
+.bash.source-bash .br0 {color: #7a0874; font-weight: bold;}
+.bash.source-bash .sy0 {color: #000000; font-weight: bold;}
+.bash.source-bash .st0 {color: #ff0000;}
+.bash.source-bash .st_h {color: #ff0000;}
+.bash.source-bash .nu0 {color: #000000;}
+.bash.source-bash .re0 {color: #007800;}
+.bash.source-bash .re1 {color: #007800;}
+.bash.source-bash .re2 {color: #007800;}
+.bash.source-bash .re4 {color: #007800;}
+.bash.source-bash .re5 {color: #660033;}
+.bash.source-bash .ln-xtra, .bash.source-bash li.ln-xtra, .bash.source-bash div.ln-xtra {background-color: #ffc;}
+.bash.source-bash span.xtra { display:block; }
+
+/*]]>*/
+</style>
+<style type="text/css">/*<![CDATA[*/
+.source-xml {line-height: normal;}
+.source-xml li, .source-xml pre {
+	line-height: normal; border: 0px none white;
+}
+/**
+ * GeSHi Dynamically Generated Stylesheet
+ * --------------------------------------
+ * Dynamically generated stylesheet for xml
+ * CSS class: source-xml, CSS id: 
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ * --------------------------------------
+ */
+.xml.source-xml .de1, .xml.source-xml .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;}
+.xml.source-xml  {font-family:monospace;}
+.xml.source-xml .imp {font-weight: bold; color: red;}
+.xml.source-xml li, .xml.source-xml .li1 {font-weight: normal; vertical-align:top;}
+.xml.source-xml .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.xml.source-xml .li2 {font-weight: bold; vertical-align:top;}
+.xml.source-xml .es0 {color: #000099; font-weight: bold;}
+.xml.source-xml .br0 {color: #66cc66;}
+.xml.source-xml .sy0 {color: #66cc66;}
+.xml.source-xml .st0 {color: #ff0000;}
+.xml.source-xml .nu0 {color: #cc66cc;}
+.xml.source-xml .sc-1 {color: #808080; font-style: italic;}
+.xml.source-xml .sc0 {color: #00bbdd;}
+.xml.source-xml .sc1 {color: #ddbb00;}
+.xml.source-xml .sc2 {color: #339933;}
+.xml.source-xml .sc3 {color: #009900;}
+.xml.source-xml .re0 {color: #000066;}
+.xml.source-xml .re1 {color: #000000; font-weight: bold;}
+.xml.source-xml .re2 {color: #000000; font-weight: bold;}
+.xml.source-xml .ln-xtra, .xml.source-xml li.ln-xtra, .xml.source-xml div.ln-xtra {background-color: #ffc;}
+.xml.source-xml span.xtra { display:block; }
+
+/*]]>*/
+</style>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body class="mediawiki ltr sitedir-ltr ns-0 ns-subject page-Jetty_Tutorial_Apache skin-solstice action-view" id="solstice">
+
+<a class="sr-only" href="Apache.html#content">Skip to main content</a>
+<header class="header-wrapper" id="header-wrapper">
+  <div class="clearfix toolbar-container-wrapper">
+    <div class="container-fluid">
+      <div class="text-right toolbar-row row hidden-print">
+        <div class="col-md-24 row-toolbar-col">
+               <ul class="list-inline">
+                  <li id="pt-login">
+            <a href="https://wiki.eclipse.org/index.php?title=Special:UserLogin&amp;returnto=Jetty%2FTutorial%2FApache" class="toolbar-link toolbar-login">
+              <i class="fa fa-sign-in fa-fw"></i> Log in            </a>
+          </li>
+                <li><a class="toolbar-link toolbar-manage-cookies dropdown-toggle"><i class="fa fa-wrench"></i> Manage Cookies</a></li>
+      </ul>
+            </div>
+      </div>
+    </div>
+  </div>
+  <div class="container-fluid">
+    <div class="row" id="header-row">
+      <div class="col-sm-5 col-md-4" id="header-left">
+        <div class="wrapper-logo-default"><a href="https://www.eclipse.org/"><img class="logo-eclipse-default hidden-xs" alt="Eclipse.org logo" width="160" src="https://www.eclipse.org/eclipse.org-common/themes/solstice/public/images/logo/eclipse-foundation-white-orange.svg"/></a></div>
+      </div>
+      <div class="col-sm-19 col-md-20 margin-top-10" id="main-menu-wrapper">
+        <div class="float-right hidden-xs" id="btn-call-for-action"><a href="https://eclipse.org/downloads/" class="btn btn-huge btn-warning"><i class="fa fa-download"></i> Download</a></div>
+        <div class="navbar yamm float-sm-right" id="main-menu">
+          <div class="navbar-collapse collapse" id="navbar-main-menu">
+            <ul class="nav navbar-nav">
+              <li><a href="https://www.eclipse.org/projects/" target="_self">Projects</a></li>
+              <li><a href="https://www.eclipse.org/org/workinggroups/" target="_self">Working Groups</a></li>
+              <li><a href="https://www.eclipse.org/membership/" target="_self">Members</a></li>
+              <li class="dropdown visible-xs">
+                <a href="Apache.html#" data-toggle="dropdown" class="dropdown-toggle">Community <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li><a href="http://marketplace.eclipse.org">Marketplace</a></li>
+                  <li><a href="http://events.eclipse.org">Events</a></li>
+                  <li><a href="http://www.planeteclipse.org/">Planet Eclipse</a></li>
+                  <li><a href="https://www.eclipse.org/community/eclipse_newsletter/">Newsletter</a></li>
+                  <li><a href="https://www.youtube.com/user/EclipseFdn">Videos</a></li>
+                  <li><a href="https://blogs.eclipse.org">Blogs</a></li>
+                </ul>
+              </li>
+              <li class="dropdown visible-xs">
+                <a href="Apache.html#" data-toggle="dropdown" class="dropdown-toggle">Participate <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li><a href="https://bugs.eclipse.org/bugs/">Report a Bug</a></li>
+                  <li><a href="https://www.eclipse.org/forums/">Forums</a></li>
+                  <li><a href="https://www.eclipse.org/mail/">Mailing Lists</a></li>
+                  <li><a href="https://wiki.eclipse.org/">Wiki</a></li>
+                  <li><a href="https://wiki.eclipse.org/IRC">IRC</a></li>
+                  <li><a href="https://www.eclipse.org/org/research/">Research</a></li>
+                </ul>
+              </li>
+              <li class="dropdown visible-xs">
+                <a href="Apache.html#" data-toggle="dropdown" class="dropdown-toggle">Eclipse IDE <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li><a href="https://www.eclipse.org/downloads">Download</a></li>
+                  <li><a href="https://www.eclipse.org/eclipseide">Learn More</a></li>
+                  <li><a href="https://help.eclipse.org">Documentation</a></li>
+                  <li><a href="https://www.eclipse.org/getting_started">Getting Started / Support</a></li>
+                  <li><a href="https://www.eclipse.org/contribute/">How to Contribute</a></li>
+                  <li><a href="https://www.eclipse.org/ide/">IDE and Tools</a></li>
+                  <li><a href="https://www.eclipse.org/forums/index.php/f/89/">Newcomer Forum</a></li>
+                </ul>
+              </li>
+              <!-- More -->
+              <li class="dropdown eclipse-more hidden-xs">
+                <a data-toggle="dropdown" class="dropdown-toggle" role="button">More<b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li>
+                    <!-- Content container to add padding -->
+                    <div class="yamm-content">
+                      <div class="row">
+                        <ul class="col-sm-8 list-unstyled">
+                          <li>
+                            <p><strong>Community</strong></p>
+                          </li>
+                          <li><a href="http://marketplace.eclipse.org">Marketplace</a></li>
+                          <li><a href="http://events.eclipse.org">Events</a></li>
+                          <li><a href="http://www.planeteclipse.org/">Planet Eclipse</a></li>
+                          <li><a href="https://www.eclipse.org/community/eclipse_newsletter/">Newsletter</a></li>
+                          <li><a href="https://www.youtube.com/user/EclipseFdn">Videos</a></li>
+                          <li><a href="https://blogs.eclipse.org">Blogs</a></li>
+                        </ul>
+                        <ul class="col-sm-8 list-unstyled">
+                          <li>
+                            <p><strong>Participate</strong></p>
+                          </li>
+                          <li><a href="https://bugs.eclipse.org/bugs/">Report a Bug</a></li>
+                          <li><a href="https://www.eclipse.org/forums/">Forums</a></li>
+                          <li><a href="https://www.eclipse.org/mail/">Mailing Lists</a></li>
+                          <li><a href="https://wiki.eclipse.org/">Wiki</a></li>
+                          <li><a href="https://wiki.eclipse.org/IRC">IRC</a></li>
+                          <li><a href="https://www.eclipse.org/org/research/">Research</a></li>
+                        </ul>
+                        <ul class="col-sm-8 list-unstyled">
+                          <li>
+                            <p><strong>Eclipse IDE</strong></p>
+                          </li>
+                          <li><a href="https://www.eclipse.org/downloads">Download</a></li>
+                          <li><a href="https://www.eclipse.org/eclipseide">Learn More</a></li>
+                          <li><a href="https://help.eclipse.org">Documentation</a></li>
+                          <li><a href="https://www.eclipse.org/getting_started">Getting Started / Support</a></li>
+                          <li><a href="https://www.eclipse.org/contribute/">How to Contribute</a></li>
+                          <li><a href="https://www.eclipse.org/ide/">IDE and Tools</a></li>
+                          <li><a href="https://www.eclipse.org/forums/index.php/f/89/">Newcomer Forum</a></li>
+                        </ul>
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-main-menu">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            </button>
+            <div class="wrapper-logo-mobile"><a class="navbar-brand visible-xs" href="https://www.eclipse.org/"><img class="logo-eclipse-default-mobile img-responsive" alt="Eclipse.org logo" width="160" src="https://www.eclipse.org/eclipse.org-common/themes/solstice/public/images/logo/eclipse-foundation-white-orange.svg"/></a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+<section class="default-breadcrumbs hidden-print" id="breadcrumb">
+  <div class="container-fluid">
+    <h3 class="sr-only">Breadcrumbs</h3>
+    <div class="row">
+      <div class="col-sm-24">
+        <ol class="breadcrumb">
+          <li><a href="https://www.eclipse.org/">Home</a></li>
+          <li><a href="https://wiki.eclipse.org/Main_Page">Eclipse Wiki</a></li>
+          <li class="active">Jetty/Tutorial/Apache</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- /#breadcrumb -->
+<main>
+<div class="container-fluid padding-15 padding-top-20">
+    
+    
+    <!-- content -->
+    <section id="content" class="mw-body container-full clearfix 0">
+      <div id="mw-js-message" style="display:none;"></div>
+
+      
+      <!-- bodyContent -->
+      <div id="bodyContent">
+
+        
+                <!-- jumpto -->
+        <div id="jump-to-nav" class="mw-jump">
+          Jump to: <a href="Apache.html#mw-head">navigation</a>,
+          <a href="Apache.html#p-search">search</a>
+        </div>
+        <!-- /jumpto -->
+        
+          <!-- leftcol -->
+          <aside class="col-md-4 noprint hidden-print" id="leftcol">
+                      <form class="input-group" role="form" id="form-eclipse-search" action="https://wiki.eclipse.org/index.php" id="searchform">
+              <input id="searchInput" class="search-query form-control" type="search" accesskey="f" title="Special:Search" placeholder="Search" name="search" value="">
+
+              <span class="input-group-btn">
+                <button value="search" id="mw-searchButton" type="submit" class="btn btn-default" title="Search the pages for this text" name="fulltext">
+                  <i class="fa fa-search"></i>
+                </button>
+              </span>
+            </form>
+                      <select class="form-control margin-top-10 margin-bottom-10 visible-xs visible-sm" onchange="this.options[this.selectedIndex].value && (window.location = this.options[this.selectedIndex].value);"><option class="fw-700 "><span class="fw-700">---Navigation---</span></option><option value="/Main_Page">Main Page</option><option value="/Eclipsepedia:Community_portal">Community portal</option><option value="/Eclipsepedia:Current_events">Current events</option><option value="/Special:RecentChanges">Recent changes</option><option value="/Special:Random">Random page</option><option value="https://www.mediawiki.org/wiki/Special:MyLanguage/Help:Contents">Help</option></select><ul class="ul-left-nav fa-ul hidden-print leftnav hidden-xs hidden-sm"><li class="separator"><span class="separator">Navigation</span></li>                <li class=""><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/Main_Page" id="n-mainpage" title="Visit the main page [z]" accesskey="z">Main Page</a></li>                <li class=""><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/Eclipsepedia:Community_portal" id="n-portal" title="About the project, what you can do, where to find things">Community portal</a></li>                <li class=""><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/Eclipsepedia:Current_events" id="n-currentevents" title="Find background information on current events">Current events</a></li>                <li class=""><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/Special:RecentChanges" id="n-recentchanges" title="A list of recent changes in the wiki [r]" accesskey="r">Recent changes</a></li>                <li class=""><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/Special:Random" id="n-randompage" title="Load a random page [x]" accesskey="x">Random page</a></li>                <li class=""><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://www.mediawiki.org/wiki/Special:MyLanguage/Help:Contents" id="n-help" title="The place to find out">Help</a></li></ul>            <select class="form-control margin-top-10 margin-bottom-10 visible-xs visible-sm" onchange="this.options[this.selectedIndex].value && (window.location = this.options[this.selectedIndex].value);"><option class="fw-700 "><span class="fw-700">---Toolbox---</span></option><option value="/index.php?title=Jetty/Tutorial/Apache&amp;action=info">Page information</option><option value="/index.php?title=Jetty/Tutorial/Apache&amp;oldid=334824">Permanent link</option><option value="/index.php?title=Jetty/Tutorial/Apache&amp;printable=yes">Printable version</option><option value="/Special:SpecialPages">Special pages</option><option value="/Special:RecentChangesLinked/Jetty/Tutorial/Apache">Related changes</option><option value="/Special:WhatLinksHere/Jetty/Tutorial/Apache">What links here</option></select><ul class="ul-left-nav fa-ul hidden-print leftnav hidden-xs hidden-sm"><li class="separator"><span class="separator">Toolbox</span></li><li><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/index.php?title=Jetty/Tutorial/Apache&amp;action=info" id="t-info" title="More information about this page">Page information</a></li><li><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/index.php?title=Jetty/Tutorial/Apache&amp;oldid=334824" id="t-permalink" title="Permanent link to this revision of the page">Permanent link</a></li><li><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/index.php?title=Jetty/Tutorial/Apache&amp;printable=yes" id="t-print" rel="alternate" title="Printable version of this page [p]" accesskey="p">Printable version</a></li><li><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/Special:SpecialPages" id="t-specialpages" title="A list of all special pages [q]" accesskey="q">Special pages</a></li><li><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/Special:RecentChangesLinked/Jetty/Tutorial/Apache" id="t-recentchangeslinked" title="Recent changes in pages linked from this page [k]" accesskey="k">Related changes</a></li><li><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/Special:WhatLinksHere/Jetty/Tutorial/Apache" id="t-whatlinkshere" title="A list of all wiki pages that link here [j]" accesskey="j">What links here</a></li></ul>                                  </aside>
+          <!-- /leftcol -->
+
+          <!-- mainContent -->
+          <div id="mainContent" class="col-md-20">
+                      <ul class="nav nav-tabs noprint hidden-print" role="tablist">
+                       <li id="ca-nstab-main" class="active"><a href="Apache.html"  title="View the content page [c]" accesskey="c" tabindex="-1">Page</a></li>
+                        <li id="ca-talk"><a href="https://wiki.eclipse.org/Talk:Jetty/Tutorial/Apache"  title="Discussion about the content page [t]" accesskey="t" tabindex="-1">Discussion</a></li>
+                        <li id="ca-viewsource"><a href="https://wiki.eclipse.org/index.php?title=Jetty/Tutorial/Apache&amp;action=edit"  title="This page is protected.&#10;You can view its source [e]" accesskey="e" tabindex="-1">View source</a></li>
+                        <li id="ca-history" class="collapsible"><a href="https://wiki.eclipse.org/index.php?title=Jetty/Tutorial/Apache&amp;action=history"  title="Past revisions of this page [h]" accesskey="h" tabindex="-1">History</a></li>
+                      </ul>            <div class="tab-content background-white">
+              <div id="tab-pane-main-page-content" class="tab-pane active">
+
+                
+                <h1 id="firstHeading" class="firstHeading page-header">
+                  <span dir="auto">Jetty/Tutorial/Apache</span>
+                </h1>
+                <div id="main-page-content">
+                                                      <!-- subtitle -->
+                  <div id="contentSub"  class="alert alert-small alert-warning"><span class="subpages">&lt; <a href="../../Jetty.html" title="Jetty">Jetty</a>&lrm; | <a href="../Tutorial.html" title="Jetty/Tutorial">Tutorial</a></span></div>
+                  <!-- /subtitle -->
+                  
+                  
+                  <div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><p><br />
+</p><p><br />
+</p>
+<div id="toc" class="toc"><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="Apache.html#Introduction"><span class="tocnumber">1</span> <span class="toctext">Introduction</span></a></li>
+<li class="toclevel-1"><a href="Apache.html#Details"><span class="tocnumber">2</span> <span class="toctext">Details</span></a>
+<ul>
+<li class="toclevel-2"><a href="Apache.html#Which_Module_.3F"><span class="tocnumber">2.1</span> <span class="toctext">Which Module&#160;?</span></a></li>
+<li class="toclevel-2"><a href="Apache.html#Configuring_Apache"><span class="tocnumber">2.2</span> <span class="toctext">Configuring Apache</span></a></li>
+<li class="toclevel-2"><a href="Apache.html#Configuring_mod_proxy"><span class="tocnumber">2.3</span> <span class="toctext">Configuring mod_proxy</span></a></li>
+<li class="toclevel-2"><a href="Apache.html#Configuring_mod_proxy_http"><span class="tocnumber">2.4</span> <span class="toctext">Configuring mod_proxy_http</span></a></li>
+<li class="toclevel-2"><a href="Apache.html#Proxying_SSL_on_Apache_to_HTTP_on_Jetty"><span class="tocnumber">2.5</span> <span class="toctext">Proxying SSL on Apache to HTTP on Jetty</span></a></li>
+<li class="toclevel-2"><a href="Apache.html#Configuring_mod_proxy_ajp"><span class="tocnumber">2.6</span> <span class="toctext">Configuring mod_proxy_ajp</span></a></li>
+<li class="toclevel-2"><a href="Apache.html#Configuring_mod_proxy_balancer"><span class="tocnumber">2.7</span> <span class="toctext">Configuring mod_proxy_balancer</span></a></li>
+<li class="toclevel-2"><a href="Apache.html#Proxy_Rewriting"><span class="tocnumber">2.8</span> <span class="toctext">Proxy Rewriting</span></a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Introduction">Introduction</span></h2>
+<div class="messagebox" style="background-color: #f9f6b7; border: 1px solid #c4c295; color: black; padding: 5px; margin: 1ex 0; min-height: 35px; padding-left: 45px;">
+<div style="float: left; margin-left: -40px;"><a href="https://wiki.eclipse.org/File:Warning2.png" class="image"><img alt="Warning2.png" src="../../images/3/37/Warning2.png" width="35" height="35" /></a></div>
+<div>Some or all of this content remains to be ported to Jetty 9 <a rel="nofollow" class="external text" href="http://www.eclipse.org/jetty/documentation/current">Documentation</a>.<br />If you are interested in migrating this content see our <a rel="nofollow" class="external text" href="http://www.eclipse.org/jetty/documentation/current/contributing-documentation.html">contribution guide</a> or <a rel="nofollow" class="external text" href="http://www.eclipse.org/jetty/documentation/current/community.html">contact us</a>.</div>
+</div>
+<p><br />
+<a rel="nofollow" class="external text" href="http://httpd.apache.org/">Apache httpd</a> is a HTTP server written in C, that is often used to front other web services.
+Jetty is a full functional and optimized HTTP server and has no need of an apache httpd instance between it and the internet.  However, deployers often want to place an instance of apache between Jetty and the internet for some of the following "reasons":
+</p>
+<ul><li> <b>Performance</b>.   Apache Httpd does have slightly superior performance to jetty for pure HTTP request handling. However, for dynamic response generation, apache must pass the request to another process and the resulting double handling reduces the total throughput to less than direct requests to Jetty.     More over, with the advent of <a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/Comet_%28programming%29">comet</a> style web applications, long held requests are common and the apache thread model assigns a thread per outstanding request, so apache does not scale to large numbers of <a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/Comet_%28programming%29">comet</a> connections.</li></ul>
+<ul><li> <b>Static content</b>.  Apache Httpd is very good at serving static content fast.  However, Jetty is no slouch either as it can use direct memory mapped buffers for static content, so that only kernel space is used for the data transfer.  Besides, if your application has a lot of static content, then you will get much better results by either ensuring good client caching or serving the content from an <a rel="nofollow" class="external text" href="http://www.web-caching.com/cdns.html">CDNS edge cache</a>.</li></ul>
+<ul><li> <b>Security</b>. Some believe that apache gives them a more secure solution as there are no TCP/IP connections terminating on Jetty.  However, since Jetty is written in Java, it is not vulnerable to the class of security exploit that a server written in C is.  Jetty has a good security record, but has had some past issues, but mostly of the nature that would not have been helped by a fronting instance of Apache.</li></ul>
+<ul><li> <b>Load Balancing</b>. Apache has several options for load balancing between multiple servlet servers. These solutions are reasonable, but there are better software and appliance <a rel="nofollow" class="external text" href="http://www.google.com/search?q=load+balancers">load balancers</a> available.  The main limitation of apache as a load balancer is that it's threading model is not-asynchronous, so scaling is limited (specially for <a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/Comet_%28programming%29">comet</a> traffic).</li></ul>
+<ul><li> <b>Administration</b>. Often an enterprise has staff who are very familiar with apache and thus have a strong preference to deploy everything behind apache.  This can be a good reason to avoid chaos in a deployment environment, so long as some of the performance and scalability limitations do not affect your web application.</li></ul>
+<p>So if we have not yet convinced you to not use apache, read on for the best way to do it.  This tutorial can be followed step by step to build up more and more capabilities into your apache configuration.
+</p>
+<h2><span class="mw-headline" id="Details">Details</span></h2>
+<h3><span class="mw-headline" id="Which_Module_.3F">Which Module&#160;?</span></h3>
+<p>Apache provides two mechanisms by which a request that it can receive can be forwarded to a servlet container like Jetty. 
+</p><p><a rel="nofollow" class="external text" href="http://tomcat.apache.org/connectors-doc/">Mod_jk</a> is a module written specifically for communicating with the apache tomcat server via the AJP protocol. It includes a load balancer and some management interfaces. Jetty supports this protocol via it's AJP connector, but we do not recommend using mod_jk since:
+</p>
+<ul><li> While the binary AJP protocol is more compact than HTTP, there is little benefit from this as the link between apache and the servlet container is often either local or over a fast LAN. Jetty is highly optimized for handling HTTP and HTTP semantics are well known and documented. Using AJP can change those semantics and reduce some key optimizations. </li>
+<li> The mod_jk modules is maintained with the tomcat project rather than with the httpd project, thus it is not documented to the same standard as <a rel="nofollow" class="external text" href="http://httpd.apache.org/docs/2.2/mod/">other apache modules</a> and there are frequent version issues of which mod_jk should go with which apache.</li>
+<li> The AJP protocol has been at verion 13 for some time, however there have been changes in the protocol without changing of the version number. Incompatibilities can frequently result.</li></ul>
+<p>The <a rel="nofollow" class="external text" href="http://httpd.apache.org/docs/2.2/mod/mod_proxy.html">mod_proxy</a> modules are superior in features, maintained with apache httpd, support HTTP and AJP and has a rich load balancer.  We highly recommend using mod_proxy when using Jetty with apache.
+</p>
+<h3><span class="mw-headline" id="Configuring_Apache">Configuring Apache</span></h3>
+<p>Distributions of apache differ greatly about their approach to <a rel="nofollow" class="external text" href="http://httpd.apache.org/docs/2.2/configuring.html">apache configuration files</a>. The main difference is if the entire configuration is placed in a single file (apache.conf or httpd.conf) or split up into multiple directories of configuration files (conf.d, ports.conf, mods_available, mods-enabled) with the use of symlinks to activate modules. Configuration may also be done at the server level, or embeded within a VirtualHost configuration of the server.
+</p><p>This tutorial does not recommend or discuss in detail either approach and simply outlines the configuration directives needed. Where these directive are placed will depend greatly on your distribution and existing configuration.
+</p><p>In order to use any of the modules described below, they must first be loaded into the httpd server, so 
+the following directives can be used to load all the modules discussed
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="apache source-apache"><pre class="de1"><span class="kw1">LoadModule</span> proxy_module /usr/lib/apache2/modules/mod_proxy.so
+<span class="kw1">LoadModule</span> proxy_balancer_module /usr/lib/apache2/modules/mod_proxy_balancer.so
+<span class="kw1">LoadModule</span> proxy_http_module /usr/lib/apache2/modules/mod_proxy_http.so
+<span class="kw1">LoadModule</span> proxy_ajp_module /usr/lib/apache2/modules/mod_proxy_ajp.so
+<span class="kw1">LoadModule</span> jk_module /usr/lib/apache2/modules/mod_jk.so</pre></div></div>
+<p>In some distributions, these load directives can be enabled with symlinks:
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="bash source-bash"><pre class="de1"><span class="kw3">cd</span> <span class="re1">$APACHE_HOME</span><span class="sy0">/</span>mods-enabled
+<span class="kw2">ln</span> <span class="re5">-s</span> ..<span class="sy0">/</span>mods-available<span class="sy0">/</span>proxy.load proxy.load
+<span class="kw2">ln</span> <span class="re5">-s</span> ..<span class="sy0">/</span>mods-available<span class="sy0">/</span>proxy_http.load proxy_http.load</pre></div></div>
+<h3><span class="mw-headline" id="Configuring_mod_proxy">Configuring mod_proxy</span></h3>
+<p>The full documentation for configuring mod_proxy is available for apache <a rel="nofollow" class="external text" href="http://httpd.apache.org/docs/1.3/mod/mod_proxy.html">1.3</a>, <a rel="nofollow" class="external text" href="http://httpd.apache.org/docs/2.0/mod/mod_proxy.html">2.0</a>, <a rel="nofollow" class="external text" href="http://httpd.apache.org/docs/2.1/mod/mod_proxy.html">2.1</a>, <a rel="nofollow" class="external text" href="http://httpd.apache.org/docs/2.2/mod/mod_proxy.html">2.2</a>.
+</p><p>The following directives form a good base configuration for mod_proxy:
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="apache source-apache"><pre class="de1"><span class="co1"># Turn off support for true Proxy behaviour as we are acting as </span>
+<span class="co1"># a transparent proxy</span>
+<span class="kw1">ProxyRequests</span> <span class="kw2">Off</span>
+&#160;
+<span class="co1"># Turn off VIA header as we know where the requests are proxied</span>
+<span class="kw1">ProxyVia</span> <span class="kw2">Off</span>
+&#160;
+<span class="co1"># Turn on Host header preservation so that the servlet container</span>
+<span class="co1"># can write links with the correct host and rewriting can be avoided.</span>
+<span class="kw1">ProxyPreserveHost</span> <span class="kw2">On</span>
+&#160;
+&#160;
+<span class="co1"># Set the permissions for the proxy</span>
+&lt;<span class="kw3">Proxy</span> *&gt;
+  <span class="kw1">AddDefaultCharset</span> <span class="kw2">off</span>
+  <span class="kw1">Order</span> <span class="kw1">deny</span>,<span class="kw1">allow</span>
+  <span class="kw1">Allow</span> from <span class="kw2">all</span>
+&lt;/<span class="kw3">Proxy</span>&gt;
+&#160;
+<span class="co1"># Turn on Proxy status reporting at /status</span>
+<span class="co1"># This should be better protected than: Allow from all</span>
+<span class="kw1">ProxyStatus</span> <span class="kw2">On</span>
+&lt;<span class="kw3">Location</span> /status&gt;
+  <span class="kw1">SetHandler</span> server-status
+  <span class="kw1">Order</span> <span class="kw1">Deny</span>,<span class="kw1">Allow</span>
+  <span class="kw1">Allow</span> from <span class="kw2">all</span>
+&lt;/<span class="kw3">Location</span>&gt;</pre></div></div>
+<h3><span class="mw-headline" id="Configuring_mod_proxy_http">Configuring mod_proxy_http</span></h3>
+<p>To connect to servlet container with HTTP protocol, the ProxyPass directive can be used to send requests received on a particular URL to a Jetty instance.  The following example will proxy all requests received by apache on /test/* to the /context running on the local jetty instance on port 8080:
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="apache source-apache"><pre class="de1"><span class="kw1">ProxyPass</span> /test http://localhost:<span class="nu0">8080</span>/context</pre></div></div>
+<p>Alternately, the location directive can be used to group multiple directives for the same URL:
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="apache source-apache"><pre class="de1">&lt;<span class="kw3">Location</span> /test/&gt;
+  <span class="kw1">ProxyPass</span> /test http://localhost:<span class="nu0">8080</span>/context
+  <span class="kw1">SetEnv</span> proxy-<span class="kw2">nokeepalive</span> <span class="nu0">1</span>
+&lt;/<span class="kw3">Location</span>&gt;</pre></div></div>
+<p>The mod_proxy_http will set some additional headers on the requests that it proxies:
+</p>
+<ul><li> <b>X-Forwarded-For</b> - The IP address of the client</li>
+<li> <b>X-Forwarded-Host</b> - The original host requested by the client in the Host HTTP request header</li>
+<li> <b>X-Forwarded-Server</b> - The hostname of the proxy server</li></ul>
+<p>While not supported directly by mod_proxy_http, Jetty also understands the following experimental request header:
+</p>
+<ul><li> <b>X-Forwarded-Proto</b> - The URL protocol scheme of the original request</li></ul>
+<p>One option for setting this, if the protocol schema is static, is to use mod_headers RequestHeader directive.
+</p><p>If the values of these headers are meaningful to your web application, then Jetty can be configured to interpret them and make their values available via the servlet API. The setForwarded(true) method should be called on the connector.  This can be done in jetty.xml like:
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="xml source-xml"><pre class="de1"><span class="sc3"><span class="re1">&lt;Call</span> <span class="re0">name</span>=<span class="st0">&quot;addConnector&quot;</span><span class="re2">&gt;</span></span>
+  <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">class</span>=<span class="st0">&quot;org.eclipse.jetty.server.nio.SelectChannelConnector&quot;</span><span class="re2">&gt;</span></span>
+       <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">&quot;host&quot;</span><span class="re2">&gt;</span><span class="re1">&lt;SystemProperty</span> <span class="re0">name</span>=<span class="st0">&quot;jetty.host&quot;</span> <span class="re2">/&gt;</span><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
+       <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">&quot;port&quot;</span><span class="re2">&gt;</span><span class="re1">&lt;SystemProperty</span> <span class="re0">name</span>=<span class="st0">&quot;jetty.port&quot;</span> <span class="re0">default</span>=<span class="st0">&quot;8080&quot;</span><span class="re2">/&gt;</span><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
+       <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">&quot;forwarded&quot;</span><span class="re2">&gt;</span></span>true<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
+     <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span>
+   <span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
+<span class="sc3"><span class="re1">&lt;/Call<span class="re2">&gt;</span></span></span></pre></div></div>
+<h3><span class="mw-headline" id="Proxying_SSL_on_Apache_to_HTTP_on_Jetty">Proxying SSL on Apache to HTTP on Jetty</span></h3>
+<p>The situation here is:
+</p>
+<pre>
+  https                 http
+---------&gt;   Apache   -------&gt; Jetty
+</pre>
+<p>In other words, you have offloaded your SSL onto Apache and you want to use plain http to proxy to Jetty. You want Jetty to return all redirected pages using https:// to your Apache server. You can do that by setting the X-Forwarded-Proto as describe above.
+</p><p>If you need access on Jetty to some of the SSL information accessible on Apache, then you need to some configuration tricks on Apache to insert the SSL info as headers on outgoing requests. Follow the Apache configuration suggestions on <a rel="nofollow" class="external free" href="http://www.zeitoun.net/articles/client-certificate-x509-authentication-behind-reverse-proxy/start">http://www.zeitoun.net/articles/client-certificate-x509-authentication-behind-reverse-proxy/start</a> which shows you how to use mod_headers to insert the appropriate request headers. Of course you will also need to code your application to look for the corresponding custom request headers bearing the SSL information.
+</p><p><br />
+</p>
+<h3><span class="mw-headline" id="Configuring_mod_proxy_ajp">Configuring mod_proxy_ajp</span></h3>
+<p>To connect to servlet container with AJP protocol, the ProxyPass directive can be used to send requests received on a particular URL to a Jetty instance, using "ajp" as the protocol on the URL.  The following example will proxy all requests received by apache on /test/* to the /context running on the local jetty instance accepting AJP on port 8009:
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="apache source-apache"><pre class="de1"><span class="kw1">ProxyPass</span> /test ajp://localhost:<span class="nu0">8009</span>/context</pre></div></div>
+<p>In order to accept AJP, the jetty instance must be started with an AJP connector configured. This can normally be done with the command line like:
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="bash source-bash"><pre class="de1">java <span class="re5">-jar</span> start.jar <span class="re2">OPTIONS</span>=Server,ajp etc<span class="sy0">/</span>jetty.xml etc<span class="sy0">/</span>jetty-ajp.xml</pre></div></div>
+<p>The contents of the jetty-ajp.xml file simply add an AJP connector with the following
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="xml source-xml"><pre class="de1"><span class="sc3"><span class="re1">&lt;Call</span> <span class="re0">name</span>=<span class="st0">&quot;addConnector&quot;</span><span class="re2">&gt;</span></span>
+  <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>
+     <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">class</span>=<span class="st0">&quot;org.eclipse.jetty.ajp.Ajp13SocketConnector&quot;</span><span class="re2">&gt;</span></span>
+       <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">&quot;port&quot;</span><span class="re2">&gt;</span></span>8009<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
+     <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
+<span class="sc3"><span class="re1">&lt;/Call<span class="re2">&gt;</span></span></span></pre></div></div>
+<p>It is recommended to NOT use the AJP protocol, and superior performance and clearer semantics will be achieve using HTTP.
+</p>
+<h3><span class="mw-headline" id="Configuring_mod_proxy_balancer">Configuring mod_proxy_balancer</span></h3>
+<p>The full documentation for configuring mod_proxy_balancer is available for apache <a rel="nofollow" class="external text" href="http://httpd.apache.org/docs/2.1/mod/mod_proxy_balancer.html">2.1</a> and <a rel="nofollow" class="external text" href="http://httpd.apache.org/docs/2.2/mod/mod_proxy_balancer.html">2.2</a>.
+</p><p>The balancer allows a received request to be proxied to one of several Jetty instances using either HTTP or AJP as the protocol.  The following example shows how all requests to /test can be proxied to a two node cluster:
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="apache source-apache"><pre class="de1"><span class="kw1">ProxyPass</span> /test balancer://mycluster/context
+&lt;<span class="kw3">Proxy</span> balancer://mycluster&gt;
+    <span class="kw1">BalancerMember</span> http://myhost1.org:<span class="nu0">8080</span>
+    <span class="kw1">BalancerMember</span> http://myhost2.org:<span class="nu0">8080</span>
+&lt;/<span class="kw3">Proxy</span>&gt;</pre></div></div>
+<p>If your webapp uses sessions, then it is highly desirable to ensure that all requests for the same session are sent to the same node in the cluster.  This can be achieved by appending a worker name to the session ID used by Jetty.  This is achieved by configuring an instance of one of the Jetty <a rel="nofollow" class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/server/SessionIdManager.html">session ID managers</a> with the worker name. Usually, there will only be a single session ID manager per jetty instance which is referenced by all per context <a rel="nofollow" class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/server/SessionManager.html">session managers</a>. Here's an example of configuring a <a rel="nofollow" class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/server/session/HashSessionIdManager.html">HashSessionIdManager</a> in a jetty.xml file:
+</p><p><br />
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="xml source-xml"><pre class="de1"><span class="sc3"><span class="re1">&lt;Configure</span> <span class="re0">id</span>=<span class="st0">&quot;Server&quot;</span> <span class="re0">class</span>=<span class="st0">&quot;org.eclipse.jetty.server.Server&quot;</span><span class="re2">&gt;</span></span>
+<span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">&quot;sessionIdManager&quot;</span><span class="re2">&gt;</span></span>
+     <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">id</span>=<span class="st0">&quot;hashIdMgr&quot;</span> <span class="re0">class</span>=<span class="st0">&quot;org.eclipse.jetty.server.session.HashSessionIdManager&quot;</span><span class="re2">&gt;</span></span>
+         <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">&quot;workerName&quot;</span><span class="re2">&gt;</span></span>node1<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
+     <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span>
+ <span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
+ <span class="sc3"><span class="re1">&lt;Call</span> <span class="re0">name</span>=<span class="st0">&quot;setAttribute&quot;</span><span class="re2">&gt;</span></span>
+       <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>hashIdMgr<span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
+       <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span><span class="re1">&lt;Ref</span> <span class="re0">id</span>=<span class="st0">&quot;hashIdMgr&quot;</span><span class="re2">/&gt;</span><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
+ <span class="sc3"><span class="re1">&lt;/Call<span class="re2">&gt;</span></span></span>
+&#160;
+<span class="sc3"><span class="re1">&lt;/Configure<span class="re2">&gt;</span></span></span></pre></div></div>
+<p><br />
+We then need to configure each context with a reference to that session ID manager. You can do that either in code, in a WEB-INF/jetty-web.xml file inside the webapp, or in an external context.xml file. Here's an example of using a context.xml file to set up a session manager that references the single session ID manager: 
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="xml source-xml"><pre class="de1"><span class="sc3"><span class="re1">&lt;Ref</span> <span class="re0">name</span>=<span class="st0">&quot;Server&quot;</span> <span class="re0">id</span>=<span class="st0">&quot;Server&quot;</span><span class="re2">&gt;</span></span>
+   <span class="sc3"><span class="re1">&lt;Call</span> <span class="re0">id</span>=<span class="st0">&quot;hashIdMgr&quot;</span> <span class="re0">name</span>=<span class="st0">&quot;getAttribute&quot;</span><span class="re2">&gt;</span></span>
+     <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>hashIdMgr<span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
+   <span class="sc3"><span class="re1">&lt;/Call<span class="re2">&gt;</span></span></span>
+ <span class="sc3"><span class="re1">&lt;/Ref<span class="re2">&gt;</span></span></span>
+&#160;
+ <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">&quot;sessionHandler&quot;</span><span class="re2">&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">class</span>=<span class="st0">&quot;org.eclipse.jetty.server.session.SessionHandler&quot;</span><span class="re2">&gt;</span></span>
+      <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">id</span>=<span class="st0">&quot;hashMgr&quot;</span> <span class="re0">class</span>=<span class="st0">&quot;org.eclipse.jetty.server.session.HashSessionManager&quot;</span><span class="re2">&gt;</span></span>
+          <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">&quot;idManager&quot;</span><span class="re2">&gt;</span></span>
+            <span class="sc3"><span class="re1">&lt;Ref</span> <span class="re0">id</span>=<span class="st0">&quot;hashIdMgr&quot;</span><span class="re2">/&gt;</span></span>
+          <span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span>
+      <span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span>
+ <span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span></pre></div></div>
+<p>Once your jetty instances have been configured with worker names, then the following configuration will set up mod_proxy_balancer to look for those worker names in the JSESSIONID cookie and jsessionid URL parameter:
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="apache source-apache"><pre class="de1"><span class="kw1">ProxyPass</span> /test balancer://mycluster/context stickysession=JSESSIONID|jsessionid nofailover=<span class="kw2">On</span>
+&lt;<span class="kw3">Proxy</span> balancer://mycluster&gt;
+    <span class="kw1">BalancerMember</span> http://myhost1.org:<span class="nu0">8080</span> route=node1
+    <span class="kw1">BalancerMember</span> http://myhost2.org:<span class="nu0">8080</span> route=node2
+&lt;/<span class="kw3">Proxy</span>&gt;</pre></div></div>
+<p>If your cluster supports distributed sessions (via Database, Wadi, terracotta, gigaspaces, etc), then you can set nofailover=Off, so that if a node fails then the balancer will reroute the request to another node in the cluster.  Jetty will automatically rewrite the worker ID of a cookie for a rerouted request. With nofailover=On, an 503 unavailable response will be sent if a worker node fails.
+</p>
+<h3><span class="mw-headline" id="Proxy_Rewriting">Proxy Rewriting</span></h3>
+<p>When a request has been proxied to another server, often the response can be generated with incorrect links, cookie domains and redirection headers.  However, a well written web application will either use relative links and/or the Host header to generate absolute addresses.  So if ProxyPreserveHost directive is on, then often no rewriting is required.
+</p><p>However, not all web applications are well written with regards to the Host header, and some hard code domain names.  If this is the case with your webapp, then you may need to rewrite some headers and links. The following example shows how the ProxyPassReverse directives can be used to rewrite headers and cookies.
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="apache source-apache"><pre class="de1"><span class="kw1">ProxyPass</span> /mirror/foo/ http://backend.example.com/
+<span class="kw1">ProxyPassReverse</span> /mirror/foo/ http://backend.example.com/
+<span class="kw1">ProxyPassReverseCookieDomain</span> backend.example.com public.example.com
+<span class="kw1">ProxyPassReverseCookiePath</span> / /mirror/foo/</pre></div></div>
+<p>If there are links within the body of the response that need to be rewritten, then the non-apache 
+<a rel="nofollow" class="external text" href="http://apache.webthing.com/mod_proxy_html/">mod_proxy_html</a> may be used.
+</p>
+<!-- 
+NewPP limit report
+Cached time: 20211115213730
+Cache expiry: 86400
+Dynamic content: false
+CPU time usage: 0.204 seconds
+Real time usage: 0.249 seconds
+Preprocessor visited node count: 98/1000000
+Preprocessor generated node count: 603/1000000
+Post‐expand include size: 14812/2097152 bytes
+Template argument size: 13651/2097152 bytes
+Highest expansion depth: 5/40
+Expensive parser function count: 0/100
+-->
+
+<!-- 
+Transclusion expansion time report (%,ms,calls,template)
+100.00%  158.821      1 - -total
+100.00%  158.821      1 - Template:Jetty_Tutorial
+ 11.03%   17.517      1 - Template:Jetty_TODO
+  4.23%    6.726      1 - Template:Message
+  2.69%    4.273      1 - Template:Jetty
+-->
+
+<!-- Saved in parser cache with key my_wiki:pcache:idhash:21646-0!*!*!!en!5!* and timestamp 20211115213730 and revision id 334824
+ -->
+</div>
+                                      <!-- catlinks -->
+                    <div id='catlinks' class='catlinks'><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="https://wiki.eclipse.org/Special:Categories" title="Special:Categories">Categories</a>: <ul><li><a href="https://wiki.eclipse.org/Category:Jetty" title="Category:Jetty">Jetty</a></li><li><a href="https://wiki.eclipse.org/Category:Jetty_Tutorial" title="Category:Jetty Tutorial">Jetty Tutorial</a></li></ul></div></div>                     <!-- /catlinks -->
+                                  </div>
+              </div>
+            </div>
+          </div>
+        <!-- /maincontent -->
+
+                <!-- printfooter -->
+        <div class="printfooter">
+        Retrieved from "<a dir="ltr" href="https://wiki.eclipse.org/index.php?title=Jetty/Tutorial/Apache&amp;oldid=334824">https://wiki.eclipse.org/index.php?title=Jetty/Tutorial/Apache&amp;oldid=334824</a>"        </div>
+        <!-- /printfooter -->
+        
+        
+        <!-- debughtml -->
+                <!-- /debughtml -->
+
+      </div>
+      <!-- /bodyContent -->
+    </section>
+    <!-- /content -->
+
+    <!-- footer -->
+    
+</div>
+<div class="featured-footer featured-footer-newsletter background-secondary">
+  <div class="container">
+    <p id="footercredit">This page was last modified 15:02, 23 April 2013 by <a href="https://wiki.eclipse.org/User:Jesse.mcconnell.gmail.com" title="User:Jesse.mcconnell.gmail.com">Jesse McConnell</a>. Based on work by <a href="https://wiki.eclipse.org/index.php?title=User:Janb.intalio.com&amp;action=edit&amp;redlink=1" class="new" title="User:Janb.intalio.com (page does not exist)">Jan Bartel</a>, <a href="https://wiki.eclipse.org/User:Lajoie.itumi.biz" title="User:Lajoie.itumi.biz">Chad La Joie</a> and <a href="https://wiki.eclipse.org/index.php?title=User:Janb.webtide.com&amp;action=edit&amp;redlink=1" class="new" title="User:Janb.webtide.com (page does not exist)">Jan Bartel</a> and <a href="https://wiki.eclipse.org/index.php?title=Jetty/Tutorial/Apache&amp;action=credits" title="Jetty/Tutorial/Apache">others</a>.</p><p id="footerviews"></p>  </div>
+</div>
+</main> <!-- /#main-content-container-row -->
+<p id="back-to-top" class="noprint hidden-print">
+  <a class="visible-xs" href="Apache.html#top">Back to the top</a>
+</p>
+<footer id="solstice-footer">
+  <div class="container">
+    <div class="row">
+      <section class="col-sm-6 hidden-print" id="footer-eclipse-foundation">
+        <h2 class="section-title">Eclipse Foundation</h2>
+        <ul class="nav">
+          <li><a href="https://www.eclipse.org/org/">About Us</a></li>
+          <li><a href="https://www.eclipse.org/org/foundation/contact.php">Contact Us</a></li>
+          <li><a href="https://www.eclipse.org/donate">Donate</a></li>
+          <li><a href="https://www.eclipse.org/membership/">Members</a></li>
+          <li><a href="https://www.eclipse.org/org/documents/">Governance</a></li>
+          <li><a href="https://www.eclipse.org/org/documents/Community_Code_of_Conduct.php">Code of Conduct</a></li>
+          <li><a href="https://www.eclipse.org/artwork/">Logo and Artwork</a></li>
+          <li><a href="https://www.eclipse.org/org/foundation/directors.php">Board of Directors</a></li>
+        </ul>
+      </section>
+      <section class="col-sm-6 hidden-print" id="footer-legal">
+        <h2 class="section-title">Legal</h2>
+        <ul class="nav">
+          <li><a href="https://www.eclipse.org/legal/privacy.php">Privacy Policy</a></li>
+          <li><a href="https://www.eclipse.org/legal/termsofuse.php">Terms of Use</a></li>
+          <li><a href="https://www.eclipse.org/legal/copyright.php">Copyright Agent</a></li>
+          <li><a href="https://www.eclipse.org/legal/epl-2.0/">Eclipse Public License</a></li>
+          <li><a href="https://www.eclipse.org/legal/">Legal Resources</a></li>
+        </ul>
+      </section>
+      <section class="col-sm-6 hidden-print" id="footer-useful-links">
+        <h2 class="section-title">Useful Links</h2>
+        <ul class="nav">
+          <li><a href="https://bugs.eclipse.org/bugs/">Report a Bug</a></li>
+          <li><a href="https://help.eclipse.org/">Documentation</a></li>
+          <li><a href="https://www.eclipse.org/contribute/">How to Contribute</a></li>
+          <li><a href="https://www.eclipse.org/mail/">Mailing Lists</a></li>
+          <li><a href="https://www.eclipse.org/forums/">Forums</a></li>
+          <li><a href="https://marketplace.eclipse.org/">Marketplace</a></li>
+        </ul>
+      </section>
+      <section class="col-sm-6 hidden-print" id="footer-other">
+        <h2 class="section-title">Other</h2>
+        <ul class="nav">
+          <li><a href="https://www.eclipse.org/ide/">IDE and Tools</a></li>
+          <li><a href="https://www.eclipse.org/projects">Projects</a></li>
+          <li><a href="https://www.eclipse.org/org/workinggroups/">Working Groups</a></li>
+          <li><a href="https://www.eclipse.org/org/research/">Research@Eclipse</a></li>
+          <li><a href="https://www.eclipse.org/security/">Report a Vulnerability</a></li>
+          <li><a href="https://status.eclipse.org">Service Status</a></li>
+        </ul>
+      </section>
+      <div class="col-sm-24 margin-top-20">
+        <div class="row">
+          <div id="copyright" class="col-md-16">
+            <p id="copyright-text">Copyright &copy; Eclipse Foundation, Inc. All Rights Reserved.</p>
+          </div>
+          <div class="col-md-8 social-media">
+            <ul class="list-inline">
+              <li>
+                <a class="social-media-link fa-stack fa-lg" href="https://twitter.com/EclipseFdn">
+                <i class="fa fa-circle-thin fa-stack-2x"></i>
+                <i class="fa fa-twitter fa-stack-1x"></i>
+                </a>
+              </li>
+              <li>
+                <a class="social-media-link fa-stack fa-lg" href="https://www.facebook.com/eclipse.org">
+                <i class="fa fa-circle-thin fa-stack-2x"></i>
+                <i class="fa fa-facebook fa-stack-1x"></i>
+                </a>
+              </li>
+              <li>
+                <a class="social-media-link fa-stack fa-lg" href="https://www.youtube.com/user/EclipseFdn">
+                <i class="fa fa-circle-thin fa-stack-2x"></i>
+                <i class="fa fa-youtube fa-stack-1x"></i>
+                </a>
+              </li>
+              <li>
+                <a class="social-media-link fa-stack fa-lg" href="https://www.linkedin.com/company/eclipse-foundation">
+                <i class="fa fa-circle-thin fa-stack-2x"></i>
+                <i class="fa fa-linkedin fa-stack-1x"></i>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <a href="Apache.html#" class="scrollup">Back to the top</a>
+    </div>
+  </div>
+</footer>
+    <!-- /footer -->
+    <script>window.RLQ = window.RLQ || []; window.RLQ.push( function () {
+mw.loader.state({"skins.solstice":"loading","user":"ready","user.groups":"ready"});mw.loader.load("/load.php?debug=false\u0026lang=en\u0026modules=skins.solstice\u0026only=scripts\u0026skin=solstice");mw.loader.load(["mediawiki.toc","mediawiki.action.view.postEdit","site","mediawiki.user","mediawiki.hidpi","mediawiki.page.ready","mediawiki.searchSuggest"]);
+} );</script><script>window.RLQ = window.RLQ || []; window.RLQ.push( function () {
+mw.config.set({"wgBackendResponseTime":423});
+} );</script>  </body>
+</html>

@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" class="client-nojs">
+<head>
+<meta charset="UTF-8"/>
+<title>Jetty/Feature/Stress Testing CometD - Eclipsepedia</title>
+<script>document.documentElement.className = document.documentElement.className.replace( /(^|\s)client-nojs(\s|$)/, "$1client-js$2" );</script>
+<script>window.RLQ = window.RLQ || []; window.RLQ.push( function () {
+mw.config.set({"wgCanonicalNamespace":"","wgCanonicalSpecialPageName":!1,"wgNamespaceNumber":0,"wgPageName":"Jetty/Feature/Stress_Testing_CometD","wgTitle":"Jetty/Feature/Stress Testing CometD","wgCurRevisionId":334780,"wgRevisionId":334780,"wgArticleId":27561,"wgIsArticle":!0,"wgIsRedirect":!1,"wgAction":"view","wgUserName":null,"wgUserGroups":["*"],"wgCategories":["Jetty","Jetty Feature"],"wgBreakFrames":!1,"wgPageContentLanguage":"en","wgPageContentModel":"wikitext","wgSeparatorTransformTable":["",""],"wgDigitTransformTable":["",""],"wgDefaultDateFormat":"dmy","wgMonthNames":["","January","February","March","April","May","June","July","August","September","October","November","December"],"wgMonthNamesShort":["","Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"wgRelevantPageName":"Jetty/Feature/Stress_Testing_CometD","wgRelevantArticleId":27561,"wgIsProbablyEditable":!1,"wgRestrictionEdit":[],"wgRestrictionMove":[],"wgWikiEditorEnabledModules":{
+"toolbar":!1,"dialogs":!1,"preview":!1,"publish":!1},"wgCategoryTreePageCategoryOptions":"{\"mode\":0,\"hideprefix\":20,\"showcount\":true,\"namespaces\":false}"});mw.loader.implement("user.options",function($,jQuery){mw.user.options.set({"variant":"en"});});mw.loader.implement("user.tokens",function($,jQuery){mw.user.tokens.set({"editToken":"+\\","patrolToken":"+\\","watchToken":"+\\"});});mw.loader.load(["mediawiki.page.startup","mediawiki.legacy.wikibits"]);
+} );</script>
+<link rel="stylesheet" href="../../load.php%3Fdebug=false&amp;lang=en&amp;modules=mediawiki.legacy.commonPrint,shared|mediawiki.sectionAnchor&amp;only=styles&amp;skin=solstice.css"/>
+<link rel="stylesheet" href="../../skins/solstice/public/css/styles.css%3F303.css" media="screen, print"/>
+<meta name="ResourceLoaderDynamicStyles" content=""/>
+<style>a:lang(ar),a:lang(kk-arab),a:lang(mzn),a:lang(ps),a:lang(ur){text-decoration:none}</style>
+<script async="" src="../../load.php%3Fdebug=false&amp;lang=en&amp;modules=startup&amp;only=scripts&amp;skin=solstice"></script>
+<meta name="generator" content="MediaWiki 1.26.4"/>
+<link rel="shortcut icon" href="../../eclipse.org-common/themes/solstice/public/images/favicon.ico"/>
+<link rel="search" type="application/opensearchdescription+xml" href="https://wiki.eclipse.org/opensearch_desc.php" title="Eclipsepedia (en)"/>
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.eclipse.org/api.php?action=rsd"/>
+<link rel="alternate" type="application/atom+xml" title="Eclipsepedia Atom feed" href="https://wiki.eclipse.org/index.php?title=Special:RecentChanges&amp;feed=atom"/>
+<style type="text/css">
+/*<![CDATA[*/      
+#jetty-nav {
+  margin-bottom: 2em;
+}
+#jetty-nav ul {
+  padding: 3px 0 1px 1em;
+  margin:0;
+  border-bottom: 1px solid #aaa;
+}
+#jetty-nav li {
+  list-style: none;
+  margin: 0;
+  display: inline;
+}
+#jetty-nav li a {
+  padding: 3px 0.5em;
+  margin-left: 3px;
+  border: 1px solid #aaa;
+  border-bottom: none;
+  background: #eef;
+  text-decoration: none;
+}
+#jetty-nav li a:link { color: #448; }
+#jetty-nav li a:visited { color: #667; }
+#jetty-nav li a:hover {
+  color: #000;
+  background: #ccf;
+  border-color: #227;
+}
+#jetty-nav li span#current a
+{
+  background: #fff;
+  border-bottom: 1px solid #fff;
+}
+#jetty-nav li .selflink {
+  padding: 3px 0.5em;
+  margin-left: 3px;
+  border: 1px solid #aaa;
+  background: #fff;
+  border-bottom: 1px solid #fff;
+}
+table.jetty-table, .jetty-table table {
+  border: 1px solid #aaa;
+  border-collapse: collapse;
+}
+.jetty-table td {
+  border: 1px solid #aaa;
+  padding: 0.5em 1em;
+}
+.jetty-table th {
+  border: 1px solid #aaa;
+  background-color: #eef;
+}
+.jetty-table caption {
+  border: 1px #aaa solid;
+  margin: 1em 0 0.2em 0;
+  background-color: #ccf;
+  font-weight: bold;
+  font-size: 1.1em;
+}
+#content dl  {
+  border-left: 1px #aaa solid;
+  border-bottom: 1px #aaa solid;
+}
+#content dl dt {
+  float: left;
+  border-top: 1px solid #aaa;
+  padding: 0.5em 0 0 0.5em;
+}
+#content dl dd {
+  border: 1px solid #aaa;
+  border-bottom: none;
+}
+#content .narrow-list dl  {
+  width: 40em;
+}
+#content .narrow-list dl dt {
+  width: 14em;
+  line-height: 1.1em;
+}
+#content .narrow-list dl dd {
+  margin: 0 0 0 15em;
+  padding: 0.5em 1em;
+}
+#content .wide-list dl, #content dl {
+  width: 80em;
+}
+#content .wide-list dl dt, #content dl dt {
+  padding: 0.5em 1em;
+  width: 15em;
+}
+#content .wide-list dl dd, #content dl dd {
+  padding: 1em 1em 2em 2em;
+  margin: 0 0 0 17em;
+}
+#content .unbounded-list dl, #content .unbounded-list dl dd, #content .unbounded-list dl dt {
+  border: 0 none;
+  width: auto;
+  padding: 0 0 0 1em;
+}
+#content .unbounded-list dl dt {
+}
+#content p  {
+  margin-bottom: 0.5em;
+}
+#content li  {
+  line-height: 1.1em;
+}
+.infobox {
+  padding: 0.5em 1em;
+  background-color: #fff;
+  float: right;
+  margin: 0.5em;
+}
+/*]]>*/       
+</style>
+<style type="text/css">/*<![CDATA[*/
+.source-bash {line-height: normal;}
+.source-bash li, .source-bash pre {
+	line-height: normal; border: 0px none white;
+}
+/**
+ * GeSHi Dynamically Generated Stylesheet
+ * --------------------------------------
+ * Dynamically generated stylesheet for bash
+ * CSS class: source-bash, CSS id: 
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ * --------------------------------------
+ */
+.bash.source-bash .de1, .bash.source-bash .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;}
+.bash.source-bash  {font-family:monospace;}
+.bash.source-bash .imp {font-weight: bold; color: red;}
+.bash.source-bash li, .bash.source-bash .li1 {font-weight: normal; vertical-align:top;}
+.bash.source-bash .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.bash.source-bash .li2 {font-weight: bold; vertical-align:top;}
+.bash.source-bash .kw1 {color: #000000; font-weight: bold;}
+.bash.source-bash .kw2 {color: #c20cb9; font-weight: bold;}
+.bash.source-bash .kw3 {color: #7a0874; font-weight: bold;}
+.bash.source-bash .co0 {color: #666666; font-style: italic;}
+.bash.source-bash .co1 {color: #800000;}
+.bash.source-bash .co2 {color: #cc0000; font-style: italic;}
+.bash.source-bash .co3 {color: #000000; font-weight: bold;}
+.bash.source-bash .co4 {color: #666666;}
+.bash.source-bash .es1 {color: #000099; font-weight: bold;}
+.bash.source-bash .es2 {color: #007800;}
+.bash.source-bash .es3 {color: #007800;}
+.bash.source-bash .es4 {color: #007800;}
+.bash.source-bash .es5 {color: #780078;}
+.bash.source-bash .es_h {color: #000099; font-weight: bold;}
+.bash.source-bash .br0 {color: #7a0874; font-weight: bold;}
+.bash.source-bash .sy0 {color: #000000; font-weight: bold;}
+.bash.source-bash .st0 {color: #ff0000;}
+.bash.source-bash .st_h {color: #ff0000;}
+.bash.source-bash .nu0 {color: #000000;}
+.bash.source-bash .re0 {color: #007800;}
+.bash.source-bash .re1 {color: #007800;}
+.bash.source-bash .re2 {color: #007800;}
+.bash.source-bash .re4 {color: #007800;}
+.bash.source-bash .re5 {color: #660033;}
+.bash.source-bash .ln-xtra, .bash.source-bash li.ln-xtra, .bash.source-bash div.ln-xtra {background-color: #ffc;}
+.bash.source-bash span.xtra { display:block; }
+
+/*]]>*/
+</style>
+<style type="text/css">/*<![CDATA[*/
+.source-xml {line-height: normal;}
+.source-xml li, .source-xml pre {
+	line-height: normal; border: 0px none white;
+}
+/**
+ * GeSHi Dynamically Generated Stylesheet
+ * --------------------------------------
+ * Dynamically generated stylesheet for xml
+ * CSS class: source-xml, CSS id: 
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ * --------------------------------------
+ */
+.xml.source-xml .de1, .xml.source-xml .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;}
+.xml.source-xml  {font-family:monospace;}
+.xml.source-xml .imp {font-weight: bold; color: red;}
+.xml.source-xml li, .xml.source-xml .li1 {font-weight: normal; vertical-align:top;}
+.xml.source-xml .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.xml.source-xml .li2 {font-weight: bold; vertical-align:top;}
+.xml.source-xml .es0 {color: #000099; font-weight: bold;}
+.xml.source-xml .br0 {color: #66cc66;}
+.xml.source-xml .sy0 {color: #66cc66;}
+.xml.source-xml .st0 {color: #ff0000;}
+.xml.source-xml .nu0 {color: #cc66cc;}
+.xml.source-xml .sc-1 {color: #808080; font-style: italic;}
+.xml.source-xml .sc0 {color: #00bbdd;}
+.xml.source-xml .sc1 {color: #ddbb00;}
+.xml.source-xml .sc2 {color: #339933;}
+.xml.source-xml .sc3 {color: #009900;}
+.xml.source-xml .re0 {color: #000066;}
+.xml.source-xml .re1 {color: #000000; font-weight: bold;}
+.xml.source-xml .re2 {color: #000000; font-weight: bold;}
+.xml.source-xml .ln-xtra, .xml.source-xml li.ln-xtra, .xml.source-xml div.ln-xtra {background-color: #ffc;}
+.xml.source-xml span.xtra { display:block; }
+
+/*]]>*/
+</style>
+<style type="text/css">/*<![CDATA[*/
+.source-java {line-height: normal;}
+.source-java li, .source-java pre {
+	line-height: normal; border: 0px none white;
+}
+/**
+ * GeSHi Dynamically Generated Stylesheet
+ * --------------------------------------
+ * Dynamically generated stylesheet for java
+ * CSS class: source-java, CSS id: 
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ * --------------------------------------
+ */
+.java.source-java .de1, .java.source-java .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;}
+.java.source-java  {font-family:monospace;}
+.java.source-java .imp {font-weight: bold; color: red;}
+.java.source-java li, .java.source-java .li1 {font-weight: normal; vertical-align:top;}
+.java.source-java .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.java.source-java .li2 {font-weight: bold; vertical-align:top;}
+.java.source-java .kw1 {color: #7F0055; font-weight: bold;}
+.java.source-java .kw2 {color: #7F0055; font-weight: bold;}
+.java.source-java .kw3 {color: #000000; font-weight: normal}
+.java.source-java .kw4 {color: #7F0055; font-weight: bold;}
+.java.source-java .co1 {color: #3F7F5F; font-style: italic;}
+.java.source-java .co2 {color: #3F7F5F;}
+.java.source-java .co3 {color: #3F7F5F; font-style: italic; font-weight: bold;}
+.java.source-java .coMULTI {color: #3F5FBF; font-style: italic;}
+.java.source-java .es0 {color: #000000;}
+.java.source-java .br0 {color: #000000;}
+.java.source-java .sy0 {color: #000000;}
+.java.source-java .st0 {color: #2A00ff;}
+.java.source-java .nu0 {color: #000000;}
+.java.source-java .me1 {color: #000000;}
+.java.source-java .me2 {color: #000000;}
+.java.source-java .ln-xtra, .java.source-java li.ln-xtra, .java.source-java div.ln-xtra {background-color: #ffc;}
+.java.source-java span.xtra { display:block; }
+
+/*]]>*/
+</style>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body class="mediawiki ltr sitedir-ltr ns-0 ns-subject page-Jetty_Feature_Stress_Testing_CometD skin-solstice action-view" id="solstice">
+
+<a class="sr-only" href="Stress&#32;Testing&#32;CometD.html#content">Skip to main content</a>
+<header class="header-wrapper" id="header-wrapper">
+  <div class="clearfix toolbar-container-wrapper">
+    <div class="container-fluid">
+      <div class="text-right toolbar-row row hidden-print">
+        <div class="col-md-24 row-toolbar-col">
+               <ul class="list-inline">
+                  <li id="pt-login">
+            <a href="https://wiki.eclipse.org/index.php?title=Special:UserLogin&amp;returnto=Jetty%2FFeature%2FStress+Testing+CometD" class="toolbar-link toolbar-login">
+              <i class="fa fa-sign-in fa-fw"></i> Log in            </a>
+          </li>
+                <li><a class="toolbar-link toolbar-manage-cookies dropdown-toggle"><i class="fa fa-wrench"></i> Manage Cookies</a></li>
+      </ul>
+            </div>
+      </div>
+    </div>
+  </div>
+  <div class="container-fluid">
+    <div class="row" id="header-row">
+      <div class="col-sm-5 col-md-4" id="header-left">
+        <div class="wrapper-logo-default"><a href="https://www.eclipse.org/"><img class="logo-eclipse-default hidden-xs" alt="Eclipse.org logo" width="160" src="https://www.eclipse.org/eclipse.org-common/themes/solstice/public/images/logo/eclipse-foundation-white-orange.svg"/></a></div>
+      </div>
+      <div class="col-sm-19 col-md-20 margin-top-10" id="main-menu-wrapper">
+        <div class="float-right hidden-xs" id="btn-call-for-action"><a href="https://eclipse.org/downloads/" class="btn btn-huge btn-warning"><i class="fa fa-download"></i> Download</a></div>
+        <div class="navbar yamm float-sm-right" id="main-menu">
+          <div class="navbar-collapse collapse" id="navbar-main-menu">
+            <ul class="nav navbar-nav">
+              <li><a href="https://www.eclipse.org/projects/" target="_self">Projects</a></li>
+              <li><a href="https://www.eclipse.org/org/workinggroups/" target="_self">Working Groups</a></li>
+              <li><a href="https://www.eclipse.org/membership/" target="_self">Members</a></li>
+              <li class="dropdown visible-xs">
+                <a href="Stress&#32;Testing&#32;CometD.html#" data-toggle="dropdown" class="dropdown-toggle">Community <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li><a href="http://marketplace.eclipse.org">Marketplace</a></li>
+                  <li><a href="http://events.eclipse.org">Events</a></li>
+                  <li><a href="http://www.planeteclipse.org/">Planet Eclipse</a></li>
+                  <li><a href="https://www.eclipse.org/community/eclipse_newsletter/">Newsletter</a></li>
+                  <li><a href="https://www.youtube.com/user/EclipseFdn">Videos</a></li>
+                  <li><a href="https://blogs.eclipse.org">Blogs</a></li>
+                </ul>
+              </li>
+              <li class="dropdown visible-xs">
+                <a href="Stress&#32;Testing&#32;CometD.html#" data-toggle="dropdown" class="dropdown-toggle">Participate <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li><a href="https://bugs.eclipse.org/bugs/">Report a Bug</a></li>
+                  <li><a href="https://www.eclipse.org/forums/">Forums</a></li>
+                  <li><a href="https://www.eclipse.org/mail/">Mailing Lists</a></li>
+                  <li><a href="https://wiki.eclipse.org/">Wiki</a></li>
+                  <li><a href="https://wiki.eclipse.org/IRC">IRC</a></li>
+                  <li><a href="https://www.eclipse.org/org/research/">Research</a></li>
+                </ul>
+              </li>
+              <li class="dropdown visible-xs">
+                <a href="Stress&#32;Testing&#32;CometD.html#" data-toggle="dropdown" class="dropdown-toggle">Eclipse IDE <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li><a href="https://www.eclipse.org/downloads">Download</a></li>
+                  <li><a href="https://www.eclipse.org/eclipseide">Learn More</a></li>
+                  <li><a href="https://help.eclipse.org">Documentation</a></li>
+                  <li><a href="https://www.eclipse.org/getting_started">Getting Started / Support</a></li>
+                  <li><a href="https://www.eclipse.org/contribute/">How to Contribute</a></li>
+                  <li><a href="https://www.eclipse.org/ide/">IDE and Tools</a></li>
+                  <li><a href="https://www.eclipse.org/forums/index.php/f/89/">Newcomer Forum</a></li>
+                </ul>
+              </li>
+              <!-- More -->
+              <li class="dropdown eclipse-more hidden-xs">
+                <a data-toggle="dropdown" class="dropdown-toggle" role="button">More<b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li>
+                    <!-- Content container to add padding -->
+                    <div class="yamm-content">
+                      <div class="row">
+                        <ul class="col-sm-8 list-unstyled">
+                          <li>
+                            <p><strong>Community</strong></p>
+                          </li>
+                          <li><a href="http://marketplace.eclipse.org">Marketplace</a></li>
+                          <li><a href="http://events.eclipse.org">Events</a></li>
+                          <li><a href="http://www.planeteclipse.org/">Planet Eclipse</a></li>
+                          <li><a href="https://www.eclipse.org/community/eclipse_newsletter/">Newsletter</a></li>
+                          <li><a href="https://www.youtube.com/user/EclipseFdn">Videos</a></li>
+                          <li><a href="https://blogs.eclipse.org">Blogs</a></li>
+                        </ul>
+                        <ul class="col-sm-8 list-unstyled">
+                          <li>
+                            <p><strong>Participate</strong></p>
+                          </li>
+                          <li><a href="https://bugs.eclipse.org/bugs/">Report a Bug</a></li>
+                          <li><a href="https://www.eclipse.org/forums/">Forums</a></li>
+                          <li><a href="https://www.eclipse.org/mail/">Mailing Lists</a></li>
+                          <li><a href="https://wiki.eclipse.org/">Wiki</a></li>
+                          <li><a href="https://wiki.eclipse.org/IRC">IRC</a></li>
+                          <li><a href="https://www.eclipse.org/org/research/">Research</a></li>
+                        </ul>
+                        <ul class="col-sm-8 list-unstyled">
+                          <li>
+                            <p><strong>Eclipse IDE</strong></p>
+                          </li>
+                          <li><a href="https://www.eclipse.org/downloads">Download</a></li>
+                          <li><a href="https://www.eclipse.org/eclipseide">Learn More</a></li>
+                          <li><a href="https://help.eclipse.org">Documentation</a></li>
+                          <li><a href="https://www.eclipse.org/getting_started">Getting Started / Support</a></li>
+                          <li><a href="https://www.eclipse.org/contribute/">How to Contribute</a></li>
+                          <li><a href="https://www.eclipse.org/ide/">IDE and Tools</a></li>
+                          <li><a href="https://www.eclipse.org/forums/index.php/f/89/">Newcomer Forum</a></li>
+                        </ul>
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-main-menu">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            </button>
+            <div class="wrapper-logo-mobile"><a class="navbar-brand visible-xs" href="https://www.eclipse.org/"><img class="logo-eclipse-default-mobile img-responsive" alt="Eclipse.org logo" width="160" src="https://www.eclipse.org/eclipse.org-common/themes/solstice/public/images/logo/eclipse-foundation-white-orange.svg"/></a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+<section class="default-breadcrumbs hidden-print" id="breadcrumb">
+  <div class="container-fluid">
+    <h3 class="sr-only">Breadcrumbs</h3>
+    <div class="row">
+      <div class="col-sm-24">
+        <ol class="breadcrumb">
+          <li><a href="https://www.eclipse.org/">Home</a></li>
+          <li><a href="https://wiki.eclipse.org/Main_Page">Eclipse Wiki</a></li>
+          <li class="active">Jetty/Feature/Stress Testing CometD</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- /#breadcrumb -->
+<main>
+<div class="container-fluid padding-15 padding-top-20">
+    
+    
+    <!-- content -->
+    <section id="content" class="mw-body container-full clearfix 0">
+      <div id="mw-js-message" style="display:none;"></div>
+
+      
+      <!-- bodyContent -->
+      <div id="bodyContent">
+
+        
+                <!-- jumpto -->
+        <div id="jump-to-nav" class="mw-jump">
+          Jump to: <a href="Stress&#32;Testing&#32;CometD.html#mw-head">navigation</a>,
+          <a href="Stress&#32;Testing&#32;CometD.html#p-search">search</a>
+        </div>
+        <!-- /jumpto -->
+        
+          <!-- leftcol -->
+          <aside class="col-md-4 noprint hidden-print" id="leftcol">
+                      <form class="input-group" role="form" id="form-eclipse-search" action="https://wiki.eclipse.org/index.php" id="searchform">
+              <input id="searchInput" class="search-query form-control" type="search" accesskey="f" title="Special:Search" placeholder="Search" name="search" value="">
+
+              <span class="input-group-btn">
+                <button value="search" id="mw-searchButton" type="submit" class="btn btn-default" title="Search the pages for this text" name="fulltext">
+                  <i class="fa fa-search"></i>
+                </button>
+              </span>
+            </form>
+                      <select class="form-control margin-top-10 margin-bottom-10 visible-xs visible-sm" onchange="this.options[this.selectedIndex].value && (window.location = this.options[this.selectedIndex].value);"><option class="fw-700 "><span class="fw-700">---Navigation---</span></option><option value="/Main_Page">Main Page</option><option value="/Eclipsepedia:Community_portal">Community portal</option><option value="/Eclipsepedia:Current_events">Current events</option><option value="/Special:RecentChanges">Recent changes</option><option value="/Special:Random">Random page</option><option value="https://www.mediawiki.org/wiki/Special:MyLanguage/Help:Contents">Help</option></select><ul class="ul-left-nav fa-ul hidden-print leftnav hidden-xs hidden-sm"><li class="separator"><span class="separator">Navigation</span></li>                <li class=""><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/Main_Page" id="n-mainpage" title="Visit the main page [z]" accesskey="z">Main Page</a></li>                <li class=""><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/Eclipsepedia:Community_portal" id="n-portal" title="About the project, what you can do, where to find things">Community portal</a></li>                <li class=""><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/Eclipsepedia:Current_events" id="n-currentevents" title="Find background information on current events">Current events</a></li>                <li class=""><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/Special:RecentChanges" id="n-recentchanges" title="A list of recent changes in the wiki [r]" accesskey="r">Recent changes</a></li>                <li class=""><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/Special:Random" id="n-randompage" title="Load a random page [x]" accesskey="x">Random page</a></li>                <li class=""><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://www.mediawiki.org/wiki/Special:MyLanguage/Help:Contents" id="n-help" title="The place to find out">Help</a></li></ul>            <select class="form-control margin-top-10 margin-bottom-10 visible-xs visible-sm" onchange="this.options[this.selectedIndex].value && (window.location = this.options[this.selectedIndex].value);"><option class="fw-700 "><span class="fw-700">---Toolbox---</span></option><option value="/index.php?title=Jetty/Feature/Stress_Testing_CometD&amp;action=info">Page information</option><option value="/index.php?title=Jetty/Feature/Stress_Testing_CometD&amp;oldid=334780">Permanent link</option><option value="/index.php?title=Jetty/Feature/Stress_Testing_CometD&amp;printable=yes">Printable version</option><option value="/Special:SpecialPages">Special pages</option><option value="/Special:RecentChangesLinked/Jetty/Feature/Stress_Testing_CometD">Related changes</option><option value="/Special:WhatLinksHere/Jetty/Feature/Stress_Testing_CometD">What links here</option></select><ul class="ul-left-nav fa-ul hidden-print leftnav hidden-xs hidden-sm"><li class="separator"><span class="separator">Toolbox</span></li><li><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/index.php?title=Jetty/Feature/Stress_Testing_CometD&amp;action=info" id="t-info" title="More information about this page">Page information</a></li><li><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/index.php?title=Jetty/Feature/Stress_Testing_CometD&amp;oldid=334780" id="t-permalink" title="Permanent link to this revision of the page">Permanent link</a></li><li><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/index.php?title=Jetty/Feature/Stress_Testing_CometD&amp;printable=yes" id="t-print" rel="alternate" title="Printable version of this page [p]" accesskey="p">Printable version</a></li><li><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/Special:SpecialPages" id="t-specialpages" title="A list of all special pages [q]" accesskey="q">Special pages</a></li><li><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/Special:RecentChangesLinked/Jetty/Feature/Stress_Testing_CometD" id="t-recentchangeslinked" title="Recent changes in pages linked from this page [k]" accesskey="k">Related changes</a></li><li><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/Special:WhatLinksHere/Jetty/Feature/Stress_Testing_CometD" id="t-whatlinkshere" title="A list of all wiki pages that link here [j]" accesskey="j">What links here</a></li></ul>                                  </aside>
+          <!-- /leftcol -->
+
+          <!-- mainContent -->
+          <div id="mainContent" class="col-md-20">
+                      <ul class="nav nav-tabs noprint hidden-print" role="tablist">
+                       <li id="ca-nstab-main" class="active"><a href="Stress&#32;Testing&#32;CometD.html"  title="View the content page [c]" accesskey="c" tabindex="-1">Page</a></li>
+                        <li id="ca-talk" class="new"><a href="https://wiki.eclipse.org/index.php?title=Talk:Jetty/Feature/Stress_Testing_CometD&amp;action=edit&amp;redlink=1"  title="Discussion about the content page [t]" accesskey="t" tabindex="-1">Discussion</a></li>
+                        <li id="ca-viewsource"><a href="https://wiki.eclipse.org/index.php?title=Jetty/Feature/Stress_Testing_CometD&amp;action=edit"  title="This page is protected.&#10;You can view its source [e]" accesskey="e" tabindex="-1">View source</a></li>
+                        <li id="ca-history" class="collapsible"><a href="https://wiki.eclipse.org/index.php?title=Jetty/Feature/Stress_Testing_CometD&amp;action=history"  title="Past revisions of this page [h]" accesskey="h" tabindex="-1">History</a></li>
+                      </ul>            <div class="tab-content background-white">
+              <div id="tab-pane-main-page-content" class="tab-pane active">
+
+                
+                <h1 id="firstHeading" class="firstHeading page-header">
+                  <span dir="auto">Jetty/Feature/Stress Testing CometD</span>
+                </h1>
+                <div id="main-page-content">
+                                                      <!-- subtitle -->
+                  <div id="contentSub"  class="alert alert-small alert-warning"><span class="subpages">&lt; <a href="../../Jetty.html" title="Jetty">Jetty</a>&lrm; | <a href="../Feature.html" title="Jetty/Feature">Feature</a></span></div>
+                  <!-- /subtitle -->
+                  
+                  
+                  <div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><p><br />
+</p><p><br />
+</p>
+<div id="toc" class="toc"><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="Stress&#32;Testing&#32;CometD.html#Introduction"><span class="tocnumber">1</span> <span class="toctext">Introduction</span></a></li>
+<li class="toclevel-1"><a href="Stress&#32;Testing&#32;CometD.html#Feature"><span class="tocnumber">2</span> <span class="toctext">Feature</span></a></li>
+<li class="toclevel-1"><a href="Stress&#32;Testing&#32;CometD.html#Configuring.2Ftuning_the_operating_system_of_the_test_client_and_server_machines"><span class="tocnumber">3</span> <span class="toctext">Configuring/tuning the operating system of the test client and server machines</span></a></li>
+<li class="toclevel-1"><a href="Stress&#32;Testing&#32;CometD.html#Installing.2C_configuring_and_running_CometD"><span class="tocnumber">4</span> <span class="toctext">Installing, configuring and running CometD</span></a></li>
+<li class="toclevel-1"><a href="Stress&#32;Testing&#32;CometD.html#Installing.2C_configuring_and_running_the_Jetty_server"><span class="tocnumber">5</span> <span class="toctext">Installing, configuring and running the Jetty server</span></a>
+<ul>
+<li class="toclevel-2"><a href="Stress&#32;Testing&#32;CometD.html#Editing_the_Jetty_configuration_for_CometD_testing"><span class="tocnumber">5.1</span> <span class="toctext">Editing the Jetty configuration for CometD testing</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1"><a href="Stress&#32;Testing&#32;CometD.html#Running_the_Jetty_Bayeux_test_client"><span class="tocnumber">6</span> <span class="toctext">Running the Jetty Bayeux test client</span></a></li>
+<li class="toclevel-1"><a href="Stress&#32;Testing&#32;CometD.html#Interpreting_the_results"><span class="tocnumber">7</span> <span class="toctext">Interpreting the results</span></a>
+<ul>
+<li class="toclevel-2"><a href="Stress&#32;Testing&#32;CometD.html#Testing_load_balancers"><span class="tocnumber">7.1</span> <span class="toctext">Testing load balancers</span></a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Introduction">Introduction</span></h2>
+<div class="messagebox" style="background-color: #f9f6b7; border: 1px solid #c4c295; color: black; padding: 5px; margin: 1ex 0; min-height: 35px; padding-left: 45px;">
+<div style="float: left; margin-left: -40px;"><a href="https://wiki.eclipse.org/File:Warning2.png" class="image"><img alt="Warning2.png" src="../../images/3/37/Warning2.png" width="35" height="35" /></a></div>
+<div>Some or all of this content remains to be ported to Jetty 9 <a rel="nofollow" class="external text" href="http://www.eclipse.org/jetty/documentation/current">Documentation</a>.<br />If you are interested in migrating this content see our <a rel="nofollow" class="external text" href="http://www.eclipse.org/jetty/documentation/current/contributing-documentation.html">contribution guide</a> or <a rel="nofollow" class="external text" href="http://www.eclipse.org/jetty/documentation/current/community.html">contact us</a>.</div>
+</div>
+<p><br />
+These instructions describe how to stress test CometD from Jetty7 running on Unix. The same basic steps apply to Windows or Mac; please feel free to add details and terminology specific to these platforms to this wiki.
+</p><p>The basic steps are:
+</p>
+<ul><li><a href="Stress&#32;Testing&#32;CometD.html#Configuring.2Ftuning_the_operating_system_of_the_test_client_and_server_machines">Configuring/tuning the operating system of the test client and server machines</a></li></ul>
+<ul><li><a href="Stress&#32;Testing&#32;CometD.html#Installing.2C_configuring_and_running_the_Jetty_server">Installing, configuring and running the Jetty server</a></li></ul>
+<ul><li><a href="Stress&#32;Testing&#32;CometD.html#Editing_the_Jetty_configuration_for_CometD_testing">Editing the Jetty configuration for CometD testing</a></li></ul>
+<ul><li><a href="Stress&#32;Testing&#32;CometD.html#Running_the_Jetty_Bayeux_test_client">Running the Jetty Bayeux test client</a></li></ul>
+<ul><li><a href="Stress&#32;Testing&#32;CometD.html#Interpreting_the_results">Interpreting the results</a></li></ul>
+<ul><li><a href="Stress&#32;Testing&#32;CometD.html#Testing_load_balancers">Testing load balancers</a></li></ul>
+<h2><span class="mw-headline" id="Feature">Feature</span></h2>
+<h2><span class="mw-headline" id="Configuring.2Ftuning_the_operating_system_of_the_test_client_and_server_machines">Configuring/tuning the operating system of the test client and server machines</span></h2>
+<p>The operating system must be able to support the number of connections (file descriptors) for the test on both the server machine and the required test client machines.
+</p><p>For a Linux system, change the file descriptor limit in the /etc/security/limit.conf file. Add the following two lines (or change any existing <tt>nofile</tt> lines):
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="bash source-bash"><pre class="de1"><span class="sy0">*</span> hard nofile <span class="nu0">40000</span>
+<span class="sy0">*</span> hard nofile <span class="nu0">40000</span></pre></div></div>
+<p>You can tune many other values in the server stack; the <a rel="nofollow" class="external text" href="http://knowledgehub.zeus.com/articles/2005/09/02/tuning_zxtm_for_maximum_performance">zeus ZXTM</a> documentation provides a good overview.
+</p>
+<h2><span class="mw-headline" id="Installing.2C_configuring_and_running_CometD">Installing, configuring and running CometD</span></h2>
+<p>The CometD client and server are now in the <a rel="nofollow" class="external text" href="http://cometd.org/">CometD Project at The Dojo Foundation</a>, including downloads and documentation.
+</p>
+<h2><span class="mw-headline" id="Installing.2C_configuring_and_running_the_Jetty_server">Installing, configuring and running the Jetty server</span></h2>
+<p>Jetty installation is easy to accomplish. See <a href="../Starting/Downloads.html" title="Jetty/Starting/Downloads">Downloading Jetty</a>, and <a href="../Howto/Run&#32;Jetty.html" title="Jetty/Howto/Run Jetty">How to Run Jetty</a>.
+</p>
+<h3><span class="mw-headline" id="Editing_the_Jetty_configuration_for_CometD_testing">Editing the Jetty configuration for CometD testing</span></h3>
+<p>For the purposes of CometD testing, you need to edit the standard configuration of Jetty (<tt>etc/jetty.xml</tt> to change the connector configuration as follows:
+</p>
+<ul><li> Increase the max idle time.</li>
+<li> Increase the low resources connections.</li></ul>
+<p>The relevant section to update is:
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="xml source-xml"><pre class="de1">&#160;
+ <span class="sc3"><span class="re1">&lt;Call</span> <span class="re0">name</span>=<span class="st0">&quot;addConnector&quot;</span><span class="re2">&gt;</span></span>
+   <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>
+     <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">class</span>=<span class="st0">&quot;org.eclipse.jetty.nio.SelectChannelConnector&quot;</span><span class="re2">&gt;</span></span>
+       <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">&quot;host&quot;</span><span class="re2">&gt;</span><span class="re1">&lt;SystemProperty</span> <span class="re0">name</span>=<span class="st0">&quot;jetty.host&quot;</span> <span class="re2">/&gt;</span><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
+       <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">&quot;port&quot;</span><span class="re2">&gt;</span><span class="re1">&lt;SystemProperty</span> <span class="re0">name</span>=<span class="st0">&quot;jetty.port&quot;</span> <span class="re0">default</span>=<span class="st0">&quot;8080&quot;</span><span class="re2">/&gt;</span><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
+       <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">&quot;maxIdleTime&quot;</span><span class="re2">&gt;</span></span>300000<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
+       <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">&quot;Acceptors&quot;</span><span class="re2">&gt;</span></span>2<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
+       <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">&quot;statsOn&quot;</span><span class="re2">&gt;</span></span>false<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
+       <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">&quot;confidentialPort&quot;</span><span class="re2">&gt;</span></span>8443<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
+       <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">&quot;lowResourcesConnections&quot;</span><span class="re2">&gt;</span></span>25000<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
+       <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">&quot;lowResourcesMaxIdleTime&quot;</span><span class="re2">&gt;</span></span>5000<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
+         <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span>
+   <span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
+ <span class="sc3"><span class="re1">&lt;/Call<span class="re2">&gt;</span></span></span></pre></div></div>
+<p>To run the server with the additional memory needed for the test, use:
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="java source-java"><pre class="de1">&#160;
+ java <span class="sy0">-</span>Xmx2048m <span class="sy0">-</span>jar start.<span class="me1">jar</span> etc<span class="sy0">/</span>jetty.<span class="me1">xml</span></pre></div></div>
+<p>You should now be able to point a browser at the server at either:
+</p>
+<ul><li> http://localhost:8080/</li>
+<li> http://yourServerIpAddress:8080/</li></ul>
+<p>Specifically try out the CometD chat room with your browser to confirm that it is working.
+</p>
+<h2><span class="mw-headline" id="Running_the_Jetty_Bayeux_test_client">Running the Jetty Bayeux test client</span></h2>
+<p>The Jetty CometD Bayeux test client generates load simulating users in a chat room. To run the client:
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="bash source-bash"><pre class="de1"> <span class="kw3">cd</span> <span class="re1">$JETTY_HOME</span><span class="sy0">/</span>contrib<span class="sy0">/</span>cometd<span class="sy0">/</span>client
+ bin<span class="sy0">/</span>run.sh</pre></div></div>
+<div class="messagebox" style="background-color: #def3fe; border: 1px solid #c5d7e0; color: black; padding: 5px; margin: 1ex 0; min-height: 35px; padding-left: 45px;">
+<div style="float: left; margin-left: -40px;"><a href="https://wiki.eclipse.org/File:Note.png" class="image"><img alt="Note.png" src="../../images/c/cc/Note.png" width="35" height="35" /></a></div>
+<div><b>Depending on the version you might need to create a lib/cometd directory and put the cometd-api, cometd-java-server and cometd-java-client in it.</b>
+<ul><li> lib/cometd/</li>
+<li> lib/cometd/cometd-api-1.0.beta9.jar</li>
+<li> lib/cometd/cometd-client-6.1.19.jar</li>
+<li> lib/cometd/cometd-server-6.1.19.jar</li></ul>
+<b><br /></div></b>
+</div>
+<p><br />
+The client has a basic text UI that operates in two phases: 1) global configuration 2) test runs. An example global configuration phase looks like:
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="bash source-bash"><pre class="de1"> <span class="co0"># bin/run.sh</span>
+ <span class="nu0">2008</span>-04-06 <span class="nu0">13</span>:<span class="nu0">43</span>:<span class="nu0">57.545</span>::INFO:  Logging to STDERR via org.eclipse.log.StdErrLog
+ server<span class="br0">&#91;</span>localhost<span class="br0">&#93;</span>: 192.126.8.11
+ port<span class="br0">&#91;</span><span class="nu0">8080</span><span class="br0">&#93;</span>:
+ context<span class="br0">&#91;</span><span class="sy0">/</span>cometd<span class="br0">&#93;</span>:
+ base<span class="br0">&#91;</span><span class="sy0">/</span>chat<span class="sy0">/</span>demo<span class="br0">&#93;</span>:
+ rooms <span class="br0">&#91;</span><span class="nu0">100</span><span class="br0">&#93;</span>: <span class="nu0">10</span>
+ rooms per client <span class="br0">&#91;</span><span class="nu0">1</span><span class="br0">&#93;</span>:
+ max Latency <span class="br0">&#91;</span><span class="nu0">5000</span><span class="br0">&#93;</span>:</pre></div></div>
+<p>Use the Enter key to accept the default value, or enter a new value and then press <tt>Enter</tt>. The parameters and their meaning are:
+</p>
+<ul><li> <i>server</i>–Host name or IP address of the server running Jetty with CometD</li>
+<li> <i>8080</i>–Port (8080 unless you have changed it in jetty.xml)</li>
+<li> <i>context</i>–Context of the web application running CometD (CometD in the test server).</li>
+<li> <i>base</i>–Base Bayeux channel name used for chat room. Normally you would not change this.</li>
+<li> <i>rooms</i>–Number of chat rooms to create. This value combines with the number of users to determine the users per room. If you have 100 rooms and 1000 users, then you will have 10 users per room and every message sent is delivered 10 times. For runs with &gt;10k users, 1000 rooms is a reasonable value.</li>
+<li> <i>rooms per client</i>–Allows a simulated user to subscribe to multiple rooms. However, as these are randomly selected, values greater than 1 mean that the client is unable to accurately predict the number of messages that will be delivered. Leave this at 1 unless you are testing something specific.</li>
+<li> <i>max Latency</i>–Instructs Jetty to abort the test if the latency for delivering a message is greater than this value (in ms).</li></ul>
+<p>After the global configuration, the test client loops through individual tests cycles.¬† Again, press Enter to accept the default value. Two example iterations of the test cycle follow:
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="bash source-bash"><pre class="de1"> clients <span class="br0">&#91;</span><span class="nu0">100</span><span class="br0">&#93;</span>: <span class="nu0">100</span>
+ clients = 0010
+ clients = 0020
+ clients = 0030
+ clients = 0040
+ clients = 0050
+ clients = 0060
+ clients = 0070
+ clients = 0080
+ clients = 0090
+ clients = 0100
+ Clients: <span class="nu0">100</span> subscribed:<span class="nu0">100</span>
+ publish <span class="br0">&#91;</span><span class="nu0">1000</span><span class="br0">&#93;</span>: 
+ publish <span class="kw2">size</span> <span class="br0">&#91;</span><span class="nu0">50</span><span class="br0">&#93;</span>: 
+ pause <span class="br0">&#91;</span><span class="nu0">100</span><span class="br0">&#93;</span>: 
+ batch <span class="br0">&#91;</span><span class="nu0">10</span><span class="br0">&#93;</span>: 
+ 0011111111221111111111111111100000000000000000000000000000000000000000000000000000000000000000000000
+&#160;
+ Got:<span class="nu0">10000</span> of <span class="nu0">10000</span>
+ Got <span class="nu0">10000</span> at <span class="nu0">901</span><span class="sy0">/</span>s, latency min<span class="sy0">/</span>ave<span class="sy0">/</span>max =<span class="nu0">2</span><span class="sy0">/</span><span class="nu0">41</span><span class="sy0">/</span>922ms
+ <span class="re5">--</span>
+ clients <span class="br0">&#91;</span><span class="nu0">100</span><span class="br0">&#93;</span>: 
+ Clients: <span class="nu0">100</span> subscribed:<span class="nu0">100</span>
+ publish <span class="br0">&#91;</span><span class="nu0">1000</span><span class="br0">&#93;</span>: 
+ publish <span class="kw2">size</span> <span class="br0">&#91;</span><span class="nu0">50</span><span class="br0">&#93;</span>: 
+ pause <span class="br0">&#91;</span><span class="nu0">100</span><span class="br0">&#93;</span>: 
+ batch <span class="br0">&#91;</span><span class="nu0">10</span><span class="br0">&#93;</span>: 
+ 0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+&#160;
+ Got:<span class="nu0">10000</span> of <span class="nu0">10000</span>
+ Got <span class="nu0">10000</span> at <span class="nu0">972</span><span class="sy0">/</span>s, latency min<span class="sy0">/</span>ave<span class="sy0">/</span>max =<span class="nu0">3</span><span class="sy0">/</span><span class="nu0">26</span><span class="sy0">/</span>172ms
+ <span class="re5">--</span></pre></div></div>
+<p>The parameters that you can set follow:
+</p>
+<ul><li> <i>clients</i>–Number of clients to simulate. The clients are kept from one test iteration to the next, so if the number of clients changes, or an incremental number of new clients are created or destroyed, take that into account here. (Currently reducing clients produces a noisy exception as the connection is retried. You can ignore this exception).</li>
+<li> <i>publish</i>–Number of chat messages to publish for this test. The number of messages received is this number multiplied by the users per chat room (which is the number of clients divided by the global number of rooms).</li>
+<li> <i>publish size</i>–Size in bytes of the chat message to publish.</li>
+<li> <i>pause</i>–A period (in ms) to pause between batches of published messages.</li>
+<li> <i>batch</i>–Size of the batch of published messages to send in a burst.</li></ul>
+<p>While the test is executing, a series of digits outputs to show progress. The digits represent the current average latency in units of 100 ms. For example, 0 represents &lt; 100 ms latency from the time the client published the message to when it was received. And 1 represents a latency &gt;= 100 ms and &lt; 200 ms.
+At the end of the test cycle the summary is printed showing the total messages received, the message rate and the min/ave/max latency.
+</p>
+<h2><span class="mw-headline" id="Interpreting_the_results">Interpreting the results</span></h2>
+<p>Before producing numbers for interpretation, it is important to run a number of trials, which allows the system to "warm up." During the initial runs, the Java JIT compiler optimizes the code and populates object pools with reusable objects. Thus the first runs for a given number of clients is often slower. This can be seen in the test cycle shown above where the average latency initially grew to over 200 ms before it fell back to &lt; 100 ms. The average and maximum latency for the second run were far superior to the first run.
+It is also important to use long runs for producing results for the following reasons:
+</p>
+<ul><li> To reduce any statistical effect of the ramp-up and ramp-down periods.</li>
+<li> To ensure that any resources (for example, queues, memory, file descriptors) that are being used in a non-sustainable way have a chance to max out and cause errors, garbage collections or other adverse affects.</li>
+<li> To include in the results any occasional system hiccups caused by other system events</li></ul>
+<p>Typically it is best to start with short, low-volume test cycles, and to gradually reduce the pause or increase the batch to determine approximate maximum message rates. Then you can extend the test duration by increasing the number of messages published or the number of clients (which also increases the message rate as there are more users per room).
+A normal run should report no exceptions or timeouts. For a single server and single test client with one room per simulated client, the number of messages expected should always be the number received. If the server is running clustered, the messages received reduce by a factor equal to the number of servers. Similarly, if you are using multiple clients, since each test client sees messages published from the other test clients, the number of messages received will exceed the number sent.
+</p>
+<h3><span class="mw-headline" id="Testing_load_balancers">Testing load balancers</span></h3>
+<p>When testing a load balancer, be aware of the following:
+</p>
+<ul><li> Start with a cluster of one so that you can verify that no messages are being lost. Then increase the cluster size. </li>
+<li> You will not have exact message counts, and must adjust according to the number of nodes.</li>
+<li> It is very important that there is affinity, as the Bayeux client ID must be known on the worker node used, and both connections from the same simulated node must arrive at the same worker node. However, the test does not use HTTP sessions, so the balancer must set any cookies used for affinity (the test client handles set cookies).</li></ul>
+<div class="messagebox" style="background-color: #def3fe; border: 1px solid #c5d7e0; color: black; padding: 5px; margin: 1ex 0; min-height: 35px; padding-left: 45px;">
+<div style="float: left; margin-left: -40px;"><a href="https://wiki.eclipse.org/File:Note.png" class="image"><img alt="Note.png" src="../../images/c/cc/Note.png" width="35" height="35" /></a></div>
+<div><b>In reality, IP source hash is a sufficient affinity for Bayeux, but in this test, all clients come from the same IP address. Also note that the real dojo CometD client has good support for migrating to new nodes if affinity fails or the cluster changes. Also a real chat room server implementation would probably be backed by JMS so that multiple nodes would still represent a single chat space.</b><br /></div>
+</div>
+
+<!-- 
+NewPP limit report
+Cached time: 20211116153207
+Cache expiry: 86400
+Dynamic content: false
+CPU time usage: 0.308 seconds
+Real time usage: 0.328 seconds
+Preprocessor visited node count: 144/1000000
+Preprocessor generated node count: 579/1000000
+Post‐expand include size: 14731/2097152 bytes
+Template argument size: 12493/2097152 bytes
+Highest expansion depth: 6/40
+Expensive parser function count: 0/100
+-->
+
+<!-- 
+Transclusion expansion time report (%,ms,calls,template)
+100.00%  202.273      1 - Template:Jetty_Feature
+100.00%  202.273      1 - -total
+  9.78%   19.775      3 - Template:Message
+  8.06%   16.299      1 - Template:Jetty_TODO
+  7.38%   14.931      2 - Template:Note
+  3.57%    7.226      1 - Template:Jetty
+-->
+
+<!-- Saved in parser cache with key my_wiki:pcache:idhash:27561-0!*!0!!en!5!* and timestamp 20211116153206 and revision id 334780
+ -->
+</div>
+                                      <!-- catlinks -->
+                    <div id='catlinks' class='catlinks'><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="https://wiki.eclipse.org/Special:Categories" title="Special:Categories">Categories</a>: <ul><li><a href="https://wiki.eclipse.org/Category:Jetty" title="Category:Jetty">Jetty</a></li><li><a href="https://wiki.eclipse.org/Category:Jetty_Feature" title="Category:Jetty Feature">Jetty Feature</a></li></ul></div></div>                     <!-- /catlinks -->
+                                  </div>
+              </div>
+            </div>
+          </div>
+        <!-- /maincontent -->
+
+                <!-- printfooter -->
+        <div class="printfooter">
+        Retrieved from "<a dir="ltr" href="https://wiki.eclipse.org/index.php?title=Jetty/Feature/Stress_Testing_CometD&amp;oldid=334780">https://wiki.eclipse.org/index.php?title=Jetty/Feature/Stress_Testing_CometD&amp;oldid=334780</a>"        </div>
+        <!-- /printfooter -->
+        
+        
+        <!-- debughtml -->
+                <!-- /debughtml -->
+
+      </div>
+      <!-- /bodyContent -->
+    </section>
+    <!-- /content -->
+
+    <!-- footer -->
+    
+</div>
+<div class="featured-footer featured-footer-newsletter background-secondary">
+  <div class="container">
+    <p id="footercredit">This page was last modified 14:23, 23 April 2013 by <a href="https://wiki.eclipse.org/User:Jesse.mcconnell.gmail.com" title="User:Jesse.mcconnell.gmail.com">Jesse McConnell</a>. Based on work by <a href="https://wiki.eclipse.org/index.php?title=User:Boulay.intalio.com&amp;action=edit&amp;redlink=1" class="new" title="User:Boulay.intalio.com (page does not exist)">Shirley Boulay</a>.</p><p id="footerviews"></p>  </div>
+</div>
+</main> <!-- /#main-content-container-row -->
+<p id="back-to-top" class="noprint hidden-print">
+  <a class="visible-xs" href="Stress&#32;Testing&#32;CometD.html#top">Back to the top</a>
+</p>
+<footer id="solstice-footer">
+  <div class="container">
+    <div class="row">
+      <section class="col-sm-6 hidden-print" id="footer-eclipse-foundation">
+        <h2 class="section-title">Eclipse Foundation</h2>
+        <ul class="nav">
+          <li><a href="https://www.eclipse.org/org/">About Us</a></li>
+          <li><a href="https://www.eclipse.org/org/foundation/contact.php">Contact Us</a></li>
+          <li><a href="https://www.eclipse.org/donate">Donate</a></li>
+          <li><a href="https://www.eclipse.org/membership/">Members</a></li>
+          <li><a href="https://www.eclipse.org/org/documents/">Governance</a></li>
+          <li><a href="https://www.eclipse.org/org/documents/Community_Code_of_Conduct.php">Code of Conduct</a></li>
+          <li><a href="https://www.eclipse.org/artwork/">Logo and Artwork</a></li>
+          <li><a href="https://www.eclipse.org/org/foundation/directors.php">Board of Directors</a></li>
+        </ul>
+      </section>
+      <section class="col-sm-6 hidden-print" id="footer-legal">
+        <h2 class="section-title">Legal</h2>
+        <ul class="nav">
+          <li><a href="https://www.eclipse.org/legal/privacy.php">Privacy Policy</a></li>
+          <li><a href="https://www.eclipse.org/legal/termsofuse.php">Terms of Use</a></li>
+          <li><a href="https://www.eclipse.org/legal/copyright.php">Copyright Agent</a></li>
+          <li><a href="https://www.eclipse.org/legal/epl-2.0/">Eclipse Public License</a></li>
+          <li><a href="https://www.eclipse.org/legal/">Legal Resources</a></li>
+        </ul>
+      </section>
+      <section class="col-sm-6 hidden-print" id="footer-useful-links">
+        <h2 class="section-title">Useful Links</h2>
+        <ul class="nav">
+          <li><a href="https://bugs.eclipse.org/bugs/">Report a Bug</a></li>
+          <li><a href="https://help.eclipse.org/">Documentation</a></li>
+          <li><a href="https://www.eclipse.org/contribute/">How to Contribute</a></li>
+          <li><a href="https://www.eclipse.org/mail/">Mailing Lists</a></li>
+          <li><a href="https://www.eclipse.org/forums/">Forums</a></li>
+          <li><a href="https://marketplace.eclipse.org/">Marketplace</a></li>
+        </ul>
+      </section>
+      <section class="col-sm-6 hidden-print" id="footer-other">
+        <h2 class="section-title">Other</h2>
+        <ul class="nav">
+          <li><a href="https://www.eclipse.org/ide/">IDE and Tools</a></li>
+          <li><a href="https://www.eclipse.org/projects">Projects</a></li>
+          <li><a href="https://www.eclipse.org/org/workinggroups/">Working Groups</a></li>
+          <li><a href="https://www.eclipse.org/org/research/">Research@Eclipse</a></li>
+          <li><a href="https://www.eclipse.org/security/">Report a Vulnerability</a></li>
+          <li><a href="https://status.eclipse.org">Service Status</a></li>
+        </ul>
+      </section>
+      <div class="col-sm-24 margin-top-20">
+        <div class="row">
+          <div id="copyright" class="col-md-16">
+            <p id="copyright-text">Copyright &copy; Eclipse Foundation, Inc. All Rights Reserved.</p>
+          </div>
+          <div class="col-md-8 social-media">
+            <ul class="list-inline">
+              <li>
+                <a class="social-media-link fa-stack fa-lg" href="https://twitter.com/EclipseFdn">
+                <i class="fa fa-circle-thin fa-stack-2x"></i>
+                <i class="fa fa-twitter fa-stack-1x"></i>
+                </a>
+              </li>
+              <li>
+                <a class="social-media-link fa-stack fa-lg" href="https://www.facebook.com/eclipse.org">
+                <i class="fa fa-circle-thin fa-stack-2x"></i>
+                <i class="fa fa-facebook fa-stack-1x"></i>
+                </a>
+              </li>
+              <li>
+                <a class="social-media-link fa-stack fa-lg" href="https://www.youtube.com/user/EclipseFdn">
+                <i class="fa fa-circle-thin fa-stack-2x"></i>
+                <i class="fa fa-youtube fa-stack-1x"></i>
+                </a>
+              </li>
+              <li>
+                <a class="social-media-link fa-stack fa-lg" href="https://www.linkedin.com/company/eclipse-foundation">
+                <i class="fa fa-circle-thin fa-stack-2x"></i>
+                <i class="fa fa-linkedin fa-stack-1x"></i>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <a href="Stress&#32;Testing&#32;CometD.html#" class="scrollup">Back to the top</a>
+    </div>
+  </div>
+</footer>
+    <!-- /footer -->
+    <script>window.RLQ = window.RLQ || []; window.RLQ.push( function () {
+mw.loader.state({"skins.solstice":"loading","user":"ready","user.groups":"ready"});mw.loader.load("/load.php?debug=false\u0026lang=en\u0026modules=skins.solstice\u0026only=scripts\u0026skin=solstice");mw.loader.load(["mediawiki.toc","mediawiki.action.view.postEdit","site","mediawiki.user","mediawiki.hidpi","mediawiki.page.ready","mediawiki.searchSuggest"]);
+} );</script><script>window.RLQ = window.RLQ || []; window.RLQ.push( function () {
+mw.config.set({"wgBackendResponseTime":508});
+} );</script>  </body>
+</html>

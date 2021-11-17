@@ -1,0 +1,852 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" class="client-nojs">
+<head>
+<meta charset="UTF-8"/>
+<title>Jetty/Tutorial/Sifting Logs with Logback - Eclipsepedia</title>
+<script>document.documentElement.className = document.documentElement.className.replace( /(^|\s)client-nojs(\s|$)/, "$1client-js$2" );</script>
+<script>window.RLQ = window.RLQ || []; window.RLQ.push( function () {
+mw.config.set({"wgCanonicalNamespace":"","wgCanonicalSpecialPageName":!1,"wgNamespaceNumber":0,"wgPageName":"Jetty/Tutorial/Sifting_Logs_with_Logback","wgTitle":"Jetty/Tutorial/Sifting Logs with Logback","wgCurRevisionId":334820,"wgRevisionId":334820,"wgArticleId":33578,"wgIsArticle":!0,"wgIsRedirect":!1,"wgAction":"view","wgUserName":null,"wgUserGroups":["*"],"wgCategories":["Jetty","Jetty Tutorial"],"wgBreakFrames":!1,"wgPageContentLanguage":"en","wgPageContentModel":"wikitext","wgSeparatorTransformTable":["",""],"wgDigitTransformTable":["",""],"wgDefaultDateFormat":"dmy","wgMonthNames":["","January","February","March","April","May","June","July","August","September","October","November","December"],"wgMonthNamesShort":["","Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"wgRelevantPageName":"Jetty/Tutorial/Sifting_Logs_with_Logback","wgRelevantArticleId":33578,"wgIsProbablyEditable":!1,"wgRestrictionEdit":[],"wgRestrictionMove":[],
+"wgWikiEditorEnabledModules":{"toolbar":!1,"dialogs":!1,"preview":!1,"publish":!1},"wgCategoryTreePageCategoryOptions":"{\"mode\":0,\"hideprefix\":20,\"showcount\":true,\"namespaces\":false}"});mw.loader.implement("user.options",function($,jQuery){mw.user.options.set({"variant":"en"});});mw.loader.implement("user.tokens",function($,jQuery){mw.user.tokens.set({"editToken":"+\\","patrolToken":"+\\","watchToken":"+\\"});});mw.loader.load(["mediawiki.page.startup","mediawiki.legacy.wikibits"]);
+} );</script>
+<link rel="stylesheet" href="../../load.php%3Fdebug=false&amp;lang=en&amp;modules=mediawiki.legacy.commonPrint,shared|mediawiki.sectionAnchor&amp;only=styles&amp;skin=solstice.css"/>
+<link rel="stylesheet" href="../../skins/solstice/public/css/styles.css%3F303.css" media="screen, print"/>
+<meta name="ResourceLoaderDynamicStyles" content=""/>
+<style>a:lang(ar),a:lang(kk-arab),a:lang(mzn),a:lang(ps),a:lang(ur){text-decoration:none}</style>
+<script async="" src="../../load.php%3Fdebug=false&amp;lang=en&amp;modules=startup&amp;only=scripts&amp;skin=solstice"></script>
+<meta name="generator" content="MediaWiki 1.26.4"/>
+<link rel="shortcut icon" href="../../eclipse.org-common/themes/solstice/public/images/favicon.ico"/>
+<link rel="search" type="application/opensearchdescription+xml" href="https://wiki.eclipse.org/opensearch_desc.php" title="Eclipsepedia (en)"/>
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.eclipse.org/api.php?action=rsd"/>
+<link rel="alternate" type="application/atom+xml" title="Eclipsepedia Atom feed" href="https://wiki.eclipse.org/index.php?title=Special:RecentChanges&amp;feed=atom"/>
+<style type="text/css">
+/*<![CDATA[*/      
+#jetty-nav {
+  margin-bottom: 2em;
+}
+#jetty-nav ul {
+  padding: 3px 0 1px 1em;
+  margin:0;
+  border-bottom: 1px solid #aaa;
+}
+#jetty-nav li {
+  list-style: none;
+  margin: 0;
+  display: inline;
+}
+#jetty-nav li a {
+  padding: 3px 0.5em;
+  margin-left: 3px;
+  border: 1px solid #aaa;
+  border-bottom: none;
+  background: #eef;
+  text-decoration: none;
+}
+#jetty-nav li a:link { color: #448; }
+#jetty-nav li a:visited { color: #667; }
+#jetty-nav li a:hover {
+  color: #000;
+  background: #ccf;
+  border-color: #227;
+}
+#jetty-nav li span#current a
+{
+  background: #fff;
+  border-bottom: 1px solid #fff;
+}
+#jetty-nav li .selflink {
+  padding: 3px 0.5em;
+  margin-left: 3px;
+  border: 1px solid #aaa;
+  background: #fff;
+  border-bottom: 1px solid #fff;
+}
+table.jetty-table, .jetty-table table {
+  border: 1px solid #aaa;
+  border-collapse: collapse;
+}
+.jetty-table td {
+  border: 1px solid #aaa;
+  padding: 0.5em 1em;
+}
+.jetty-table th {
+  border: 1px solid #aaa;
+  background-color: #eef;
+}
+.jetty-table caption {
+  border: 1px #aaa solid;
+  margin: 1em 0 0.2em 0;
+  background-color: #ccf;
+  font-weight: bold;
+  font-size: 1.1em;
+}
+#content dl  {
+  border-left: 1px #aaa solid;
+  border-bottom: 1px #aaa solid;
+}
+#content dl dt {
+  float: left;
+  border-top: 1px solid #aaa;
+  padding: 0.5em 0 0 0.5em;
+}
+#content dl dd {
+  border: 1px solid #aaa;
+  border-bottom: none;
+}
+#content .narrow-list dl  {
+  width: 40em;
+}
+#content .narrow-list dl dt {
+  width: 14em;
+  line-height: 1.1em;
+}
+#content .narrow-list dl dd {
+  margin: 0 0 0 15em;
+  padding: 0.5em 1em;
+}
+#content .wide-list dl, #content dl {
+  width: 80em;
+}
+#content .wide-list dl dt, #content dl dt {
+  padding: 0.5em 1em;
+  width: 15em;
+}
+#content .wide-list dl dd, #content dl dd {
+  padding: 1em 1em 2em 2em;
+  margin: 0 0 0 17em;
+}
+#content .unbounded-list dl, #content .unbounded-list dl dd, #content .unbounded-list dl dt {
+  border: 0 none;
+  width: auto;
+  padding: 0 0 0 1em;
+}
+#content .unbounded-list dl dt {
+}
+#content p  {
+  margin-bottom: 0.5em;
+}
+#content li  {
+  line-height: 1.1em;
+}
+.infobox {
+  padding: 0.5em 1em;
+  background-color: #fff;
+  float: right;
+  margin: 0.5em;
+}
+/*]]>*/       
+</style>
+<style type="text/css">/*<![CDATA[*/
+.source-xml {line-height: normal;}
+.source-xml li, .source-xml pre {
+	line-height: normal; border: 0px none white;
+}
+/**
+ * GeSHi Dynamically Generated Stylesheet
+ * --------------------------------------
+ * Dynamically generated stylesheet for xml
+ * CSS class: source-xml, CSS id: 
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ * --------------------------------------
+ */
+.xml.source-xml .de1, .xml.source-xml .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;}
+.xml.source-xml  {font-family:monospace;}
+.xml.source-xml .imp {font-weight: bold; color: red;}
+.xml.source-xml li, .xml.source-xml .li1 {font-weight: normal; vertical-align:top;}
+.xml.source-xml .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.xml.source-xml .li2 {font-weight: bold; vertical-align:top;}
+.xml.source-xml .es0 {color: #000099; font-weight: bold;}
+.xml.source-xml .br0 {color: #66cc66;}
+.xml.source-xml .sy0 {color: #66cc66;}
+.xml.source-xml .st0 {color: #ff0000;}
+.xml.source-xml .nu0 {color: #cc66cc;}
+.xml.source-xml .sc-1 {color: #808080; font-style: italic;}
+.xml.source-xml .sc0 {color: #00bbdd;}
+.xml.source-xml .sc1 {color: #ddbb00;}
+.xml.source-xml .sc2 {color: #339933;}
+.xml.source-xml .sc3 {color: #009900;}
+.xml.source-xml .re0 {color: #000066;}
+.xml.source-xml .re1 {color: #000000; font-weight: bold;}
+.xml.source-xml .re2 {color: #000000; font-weight: bold;}
+.xml.source-xml .ln-xtra, .xml.source-xml li.ln-xtra, .xml.source-xml div.ln-xtra {background-color: #ffc;}
+.xml.source-xml span.xtra { display:block; }
+
+/*]]>*/
+</style>
+<style type="text/css">/*<![CDATA[*/
+.source-java {line-height: normal;}
+.source-java li, .source-java pre {
+	line-height: normal; border: 0px none white;
+}
+/**
+ * GeSHi Dynamically Generated Stylesheet
+ * --------------------------------------
+ * Dynamically generated stylesheet for java
+ * CSS class: source-java, CSS id: 
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ * --------------------------------------
+ */
+.java.source-java .de1, .java.source-java .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;}
+.java.source-java  {font-family:monospace;}
+.java.source-java .imp {font-weight: bold; color: red;}
+.java.source-java li, .java.source-java .li1 {font-weight: normal; vertical-align:top;}
+.java.source-java .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.java.source-java .li2 {font-weight: bold; vertical-align:top;}
+.java.source-java .kw1 {color: #7F0055; font-weight: bold;}
+.java.source-java .kw2 {color: #7F0055; font-weight: bold;}
+.java.source-java .kw3 {color: #000000; font-weight: normal}
+.java.source-java .kw4 {color: #7F0055; font-weight: bold;}
+.java.source-java .co1 {color: #3F7F5F; font-style: italic;}
+.java.source-java .co2 {color: #3F7F5F;}
+.java.source-java .co3 {color: #3F7F5F; font-style: italic; font-weight: bold;}
+.java.source-java .coMULTI {color: #3F5FBF; font-style: italic;}
+.java.source-java .es0 {color: #000000;}
+.java.source-java .br0 {color: #000000;}
+.java.source-java .sy0 {color: #000000;}
+.java.source-java .st0 {color: #2A00ff;}
+.java.source-java .nu0 {color: #000000;}
+.java.source-java .me1 {color: #000000;}
+.java.source-java .me2 {color: #000000;}
+.java.source-java .ln-xtra, .java.source-java li.ln-xtra, .java.source-java div.ln-xtra {background-color: #ffc;}
+.java.source-java span.xtra { display:block; }
+
+/*]]>*/
+</style>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body class="mediawiki ltr sitedir-ltr ns-0 ns-subject page-Jetty_Tutorial_Sifting_Logs_with_Logback skin-solstice action-view" id="solstice">
+
+<a class="sr-only" href="Sifting&#32;Logs&#32;with&#32;Logback.html#content">Skip to main content</a>
+<header class="header-wrapper" id="header-wrapper">
+  <div class="clearfix toolbar-container-wrapper">
+    <div class="container-fluid">
+      <div class="text-right toolbar-row row hidden-print">
+        <div class="col-md-24 row-toolbar-col">
+               <ul class="list-inline">
+                  <li id="pt-login">
+            <a href="https://wiki.eclipse.org/index.php?title=Special:UserLogin&amp;returnto=Jetty%2FTutorial%2FSifting+Logs+with+Logback" class="toolbar-link toolbar-login">
+              <i class="fa fa-sign-in fa-fw"></i> Log in            </a>
+          </li>
+                <li><a class="toolbar-link toolbar-manage-cookies dropdown-toggle"><i class="fa fa-wrench"></i> Manage Cookies</a></li>
+      </ul>
+            </div>
+      </div>
+    </div>
+  </div>
+  <div class="container-fluid">
+    <div class="row" id="header-row">
+      <div class="col-sm-5 col-md-4" id="header-left">
+        <div class="wrapper-logo-default"><a href="https://www.eclipse.org/"><img class="logo-eclipse-default hidden-xs" alt="Eclipse.org logo" width="160" src="https://www.eclipse.org/eclipse.org-common/themes/solstice/public/images/logo/eclipse-foundation-white-orange.svg"/></a></div>
+      </div>
+      <div class="col-sm-19 col-md-20 margin-top-10" id="main-menu-wrapper">
+        <div class="float-right hidden-xs" id="btn-call-for-action"><a href="https://eclipse.org/downloads/" class="btn btn-huge btn-warning"><i class="fa fa-download"></i> Download</a></div>
+        <div class="navbar yamm float-sm-right" id="main-menu">
+          <div class="navbar-collapse collapse" id="navbar-main-menu">
+            <ul class="nav navbar-nav">
+              <li><a href="https://www.eclipse.org/projects/" target="_self">Projects</a></li>
+              <li><a href="https://www.eclipse.org/org/workinggroups/" target="_self">Working Groups</a></li>
+              <li><a href="https://www.eclipse.org/membership/" target="_self">Members</a></li>
+              <li class="dropdown visible-xs">
+                <a href="Sifting&#32;Logs&#32;with&#32;Logback.html#" data-toggle="dropdown" class="dropdown-toggle">Community <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li><a href="http://marketplace.eclipse.org">Marketplace</a></li>
+                  <li><a href="http://events.eclipse.org">Events</a></li>
+                  <li><a href="http://www.planeteclipse.org/">Planet Eclipse</a></li>
+                  <li><a href="https://www.eclipse.org/community/eclipse_newsletter/">Newsletter</a></li>
+                  <li><a href="https://www.youtube.com/user/EclipseFdn">Videos</a></li>
+                  <li><a href="https://blogs.eclipse.org">Blogs</a></li>
+                </ul>
+              </li>
+              <li class="dropdown visible-xs">
+                <a href="Sifting&#32;Logs&#32;with&#32;Logback.html#" data-toggle="dropdown" class="dropdown-toggle">Participate <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li><a href="https://bugs.eclipse.org/bugs/">Report a Bug</a></li>
+                  <li><a href="https://www.eclipse.org/forums/">Forums</a></li>
+                  <li><a href="https://www.eclipse.org/mail/">Mailing Lists</a></li>
+                  <li><a href="https://wiki.eclipse.org/">Wiki</a></li>
+                  <li><a href="https://wiki.eclipse.org/IRC">IRC</a></li>
+                  <li><a href="https://www.eclipse.org/org/research/">Research</a></li>
+                </ul>
+              </li>
+              <li class="dropdown visible-xs">
+                <a href="Sifting&#32;Logs&#32;with&#32;Logback.html#" data-toggle="dropdown" class="dropdown-toggle">Eclipse IDE <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li><a href="https://www.eclipse.org/downloads">Download</a></li>
+                  <li><a href="https://www.eclipse.org/eclipseide">Learn More</a></li>
+                  <li><a href="https://help.eclipse.org">Documentation</a></li>
+                  <li><a href="https://www.eclipse.org/getting_started">Getting Started / Support</a></li>
+                  <li><a href="https://www.eclipse.org/contribute/">How to Contribute</a></li>
+                  <li><a href="https://www.eclipse.org/ide/">IDE and Tools</a></li>
+                  <li><a href="https://www.eclipse.org/forums/index.php/f/89/">Newcomer Forum</a></li>
+                </ul>
+              </li>
+              <!-- More -->
+              <li class="dropdown eclipse-more hidden-xs">
+                <a data-toggle="dropdown" class="dropdown-toggle" role="button">More<b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li>
+                    <!-- Content container to add padding -->
+                    <div class="yamm-content">
+                      <div class="row">
+                        <ul class="col-sm-8 list-unstyled">
+                          <li>
+                            <p><strong>Community</strong></p>
+                          </li>
+                          <li><a href="http://marketplace.eclipse.org">Marketplace</a></li>
+                          <li><a href="http://events.eclipse.org">Events</a></li>
+                          <li><a href="http://www.planeteclipse.org/">Planet Eclipse</a></li>
+                          <li><a href="https://www.eclipse.org/community/eclipse_newsletter/">Newsletter</a></li>
+                          <li><a href="https://www.youtube.com/user/EclipseFdn">Videos</a></li>
+                          <li><a href="https://blogs.eclipse.org">Blogs</a></li>
+                        </ul>
+                        <ul class="col-sm-8 list-unstyled">
+                          <li>
+                            <p><strong>Participate</strong></p>
+                          </li>
+                          <li><a href="https://bugs.eclipse.org/bugs/">Report a Bug</a></li>
+                          <li><a href="https://www.eclipse.org/forums/">Forums</a></li>
+                          <li><a href="https://www.eclipse.org/mail/">Mailing Lists</a></li>
+                          <li><a href="https://wiki.eclipse.org/">Wiki</a></li>
+                          <li><a href="https://wiki.eclipse.org/IRC">IRC</a></li>
+                          <li><a href="https://www.eclipse.org/org/research/">Research</a></li>
+                        </ul>
+                        <ul class="col-sm-8 list-unstyled">
+                          <li>
+                            <p><strong>Eclipse IDE</strong></p>
+                          </li>
+                          <li><a href="https://www.eclipse.org/downloads">Download</a></li>
+                          <li><a href="https://www.eclipse.org/eclipseide">Learn More</a></li>
+                          <li><a href="https://help.eclipse.org">Documentation</a></li>
+                          <li><a href="https://www.eclipse.org/getting_started">Getting Started / Support</a></li>
+                          <li><a href="https://www.eclipse.org/contribute/">How to Contribute</a></li>
+                          <li><a href="https://www.eclipse.org/ide/">IDE and Tools</a></li>
+                          <li><a href="https://www.eclipse.org/forums/index.php/f/89/">Newcomer Forum</a></li>
+                        </ul>
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-main-menu">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            </button>
+            <div class="wrapper-logo-mobile"><a class="navbar-brand visible-xs" href="https://www.eclipse.org/"><img class="logo-eclipse-default-mobile img-responsive" alt="Eclipse.org logo" width="160" src="https://www.eclipse.org/eclipse.org-common/themes/solstice/public/images/logo/eclipse-foundation-white-orange.svg"/></a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+<section class="default-breadcrumbs hidden-print" id="breadcrumb">
+  <div class="container-fluid">
+    <h3 class="sr-only">Breadcrumbs</h3>
+    <div class="row">
+      <div class="col-sm-24">
+        <ol class="breadcrumb">
+          <li><a href="https://www.eclipse.org/">Home</a></li>
+          <li><a href="https://wiki.eclipse.org/Main_Page">Eclipse Wiki</a></li>
+          <li class="active">Jetty/Tutorial/Sifting Logs with Logback</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- /#breadcrumb -->
+<main>
+<div class="container-fluid padding-15 padding-top-20">
+    
+    
+    <!-- content -->
+    <section id="content" class="mw-body container-full clearfix 0">
+      <div id="mw-js-message" style="display:none;"></div>
+
+      
+      <!-- bodyContent -->
+      <div id="bodyContent">
+
+        
+                <!-- jumpto -->
+        <div id="jump-to-nav" class="mw-jump">
+          Jump to: <a href="Sifting&#32;Logs&#32;with&#32;Logback.html#mw-head">navigation</a>,
+          <a href="Sifting&#32;Logs&#32;with&#32;Logback.html#p-search">search</a>
+        </div>
+        <!-- /jumpto -->
+        
+          <!-- leftcol -->
+          <aside class="col-md-4 noprint hidden-print" id="leftcol">
+                      <form class="input-group" role="form" id="form-eclipse-search" action="https://wiki.eclipse.org/index.php" id="searchform">
+              <input id="searchInput" class="search-query form-control" type="search" accesskey="f" title="Special:Search" placeholder="Search" name="search" value="">
+
+              <span class="input-group-btn">
+                <button value="search" id="mw-searchButton" type="submit" class="btn btn-default" title="Search the pages for this text" name="fulltext">
+                  <i class="fa fa-search"></i>
+                </button>
+              </span>
+            </form>
+                      <select class="form-control margin-top-10 margin-bottom-10 visible-xs visible-sm" onchange="this.options[this.selectedIndex].value && (window.location = this.options[this.selectedIndex].value);"><option class="fw-700 "><span class="fw-700">---Navigation---</span></option><option value="/Main_Page">Main Page</option><option value="/Eclipsepedia:Community_portal">Community portal</option><option value="/Eclipsepedia:Current_events">Current events</option><option value="/Special:RecentChanges">Recent changes</option><option value="/Special:Random">Random page</option><option value="https://www.mediawiki.org/wiki/Special:MyLanguage/Help:Contents">Help</option></select><ul class="ul-left-nav fa-ul hidden-print leftnav hidden-xs hidden-sm"><li class="separator"><span class="separator">Navigation</span></li>                <li class=""><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/Main_Page" id="n-mainpage" title="Visit the main page [z]" accesskey="z">Main Page</a></li>                <li class=""><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/Eclipsepedia:Community_portal" id="n-portal" title="About the project, what you can do, where to find things">Community portal</a></li>                <li class=""><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/Eclipsepedia:Current_events" id="n-currentevents" title="Find background information on current events">Current events</a></li>                <li class=""><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/Special:RecentChanges" id="n-recentchanges" title="A list of recent changes in the wiki [r]" accesskey="r">Recent changes</a></li>                <li class=""><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/Special:Random" id="n-randompage" title="Load a random page [x]" accesskey="x">Random page</a></li>                <li class=""><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://www.mediawiki.org/wiki/Special:MyLanguage/Help:Contents" id="n-help" title="The place to find out">Help</a></li></ul>            <select class="form-control margin-top-10 margin-bottom-10 visible-xs visible-sm" onchange="this.options[this.selectedIndex].value && (window.location = this.options[this.selectedIndex].value);"><option class="fw-700 "><span class="fw-700">---Toolbox---</span></option><option value="/index.php?title=Jetty/Tutorial/Sifting_Logs_with_Logback&amp;action=info">Page information</option><option value="/index.php?title=Jetty/Tutorial/Sifting_Logs_with_Logback&amp;oldid=334820">Permanent link</option><option value="/index.php?title=Jetty/Tutorial/Sifting_Logs_with_Logback&amp;printable=yes">Printable version</option><option value="/Special:SpecialPages">Special pages</option><option value="/Special:RecentChangesLinked/Jetty/Tutorial/Sifting_Logs_with_Logback">Related changes</option><option value="/Special:WhatLinksHere/Jetty/Tutorial/Sifting_Logs_with_Logback">What links here</option></select><ul class="ul-left-nav fa-ul hidden-print leftnav hidden-xs hidden-sm"><li class="separator"><span class="separator">Toolbox</span></li><li><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/index.php?title=Jetty/Tutorial/Sifting_Logs_with_Logback&amp;action=info" id="t-info" title="More information about this page">Page information</a></li><li><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/index.php?title=Jetty/Tutorial/Sifting_Logs_with_Logback&amp;oldid=334820" id="t-permalink" title="Permanent link to this revision of the page">Permanent link</a></li><li><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/index.php?title=Jetty/Tutorial/Sifting_Logs_with_Logback&amp;printable=yes" id="t-print" rel="alternate" title="Printable version of this page [p]" accesskey="p">Printable version</a></li><li><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/Special:SpecialPages" id="t-specialpages" title="A list of all special pages [q]" accesskey="q">Special pages</a></li><li><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/Special:RecentChangesLinked/Jetty/Tutorial/Sifting_Logs_with_Logback" id="t-recentchangeslinked" title="Recent changes in pages linked from this page [k]" accesskey="k">Related changes</a></li><li><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/Special:WhatLinksHere/Jetty/Tutorial/Sifting_Logs_with_Logback" id="t-whatlinkshere" title="A list of all wiki pages that link here [j]" accesskey="j">What links here</a></li></ul>                                  </aside>
+          <!-- /leftcol -->
+
+          <!-- mainContent -->
+          <div id="mainContent" class="col-md-20">
+                      <ul class="nav nav-tabs noprint hidden-print" role="tablist">
+                       <li id="ca-nstab-main" class="active"><a href="Sifting&#32;Logs&#32;with&#32;Logback.html"  title="View the content page [c]" accesskey="c" tabindex="-1">Page</a></li>
+                        <li id="ca-talk" class="new"><a href="https://wiki.eclipse.org/index.php?title=Talk:Jetty/Tutorial/Sifting_Logs_with_Logback&amp;action=edit&amp;redlink=1"  title="Discussion about the content page [t]" accesskey="t" tabindex="-1">Discussion</a></li>
+                        <li id="ca-viewsource"><a href="https://wiki.eclipse.org/index.php?title=Jetty/Tutorial/Sifting_Logs_with_Logback&amp;action=edit"  title="This page is protected.&#10;You can view its source [e]" accesskey="e" tabindex="-1">View source</a></li>
+                        <li id="ca-history" class="collapsible"><a href="https://wiki.eclipse.org/index.php?title=Jetty/Tutorial/Sifting_Logs_with_Logback&amp;action=history"  title="Past revisions of this page [h]" accesskey="h" tabindex="-1">History</a></li>
+                      </ul>            <div class="tab-content background-white">
+              <div id="tab-pane-main-page-content" class="tab-pane active">
+
+                
+                <h1 id="firstHeading" class="firstHeading page-header">
+                  <span dir="auto">Jetty/Tutorial/Sifting Logs with Logback</span>
+                </h1>
+                <div id="main-page-content">
+                                                      <!-- subtitle -->
+                  <div id="contentSub"  class="alert alert-small alert-warning"><span class="subpages">&lt; <a href="../../Jetty.html" title="Jetty">Jetty</a>&lrm; | <a href="../Tutorial.html" title="Jetty/Tutorial">Tutorial</a></span></div>
+                  <!-- /subtitle -->
+                  
+                  
+                  <div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><p><br />
+</p><p><br />
+</p>
+<div id="toc" class="toc"><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="Sifting&#32;Logs&#32;with&#32;Logback.html#Introduction"><span class="tocnumber">1</span> <span class="toctext">Introduction</span></a>
+<ul>
+<li class="toclevel-2"><a href="Sifting&#32;Logs&#32;with&#32;Logback.html#Modules"><span class="tocnumber">1.1</span> <span class="toctext">Modules</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1"><a href="Sifting&#32;Logs&#32;with&#32;Logback.html#Details"><span class="tocnumber">2</span> <span class="toctext">Details</span></a>
+<ul>
+<li class="toclevel-2"><a href="Sifting&#32;Logs&#32;with&#32;Logback.html#Configuring_Basic_Logback_for_Jetty"><span class="tocnumber">2.1</span> <span class="toctext">Configuring Basic Logback for Jetty</span></a></li>
+<li class="toclevel-2"><a href="Sifting&#32;Logs&#32;with&#32;Logback.html#Using_Logback_to_Sift_Logs_via_Hostname"><span class="tocnumber">2.2</span> <span class="toctext">Using Logback to Sift Logs via Hostname</span></a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Introduction">Introduction</span></h2>
+<div class="messagebox" style="background-color: #f9f6b7; border: 1px solid #c4c295; color: black; padding: 5px; margin: 1ex 0; min-height: 35px; padding-left: 45px; font-size: 150%; color: white; background-color: #FF8888; padding: 50px">
+<div style="float: left; margin-left: -40px;"><a href="https://wiki.eclipse.org/File:Warning2.png" class="image"><img alt="Warning2.png" src="../../images/3/37/Warning2.png" width="35" height="35" /></a></div>
+<div>Jetty 7 and Jetty 8 are now EOL (End of Life)<br />
+<p><br />
+<br />
+<br />
+THIS IS NOT THE DOCUMENTATION YOU ARE LOOKING FOR!!!!!<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+All development and stable releases are being performed with Jetty 9 and Jetty 10.<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+This <b>wiki is now officially out of date</b> and all content has been moved to the <a rel="nofollow" class="external text" href="http://www.eclipse.org/jetty/documentation">Jetty Documentation Hub</a><br /> 
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+</p>
+Direct Link to updated documentation: <a rel="nofollow" class="external free" href="http://www.eclipse.org/jetty/documentation/current/configuring-logging.html">http://www.eclipse.org/jetty/documentation/current/configuring-logging.html</a></div>
+</div>
+<p><br />
+This page describes how to create log files at the server level and name them based on an arbitrary context. You do this with SLF4J + Logback + Jetty Webapp Logging in the mix. Find example projects for this feature at github:<br /><a rel="nofollow" class="external free" href="https://github.com/jetty-project/jetty-and-logback-example">https://github.com/jetty-project/jetty-and-logback-example</a>
+</p>
+<h3><span class="mw-headline" id="Modules">Modules</span></h3>
+<dl><dt> /jetty-distro-with-logback-basic/</dt>
+<dd> Configures the jetty distribution with logback enabled at the server level with an example logback configuration.</dd>
+<dt> /jetty-distro-with-logback-sifting/</dt>
+<dd> Configures the jetty distribution with logback, centralized webapp logging, an MDC handler, and a sample logback configuration that performs sifting based  on the incoming Host header on the requests.</dd>
+<dt> /jetty-slf4j-mdc-handler/</dt>
+<dd> Provides the SLF4J MDC key/value pairs that Jetty needs to perform the sample sifting.</dd>
+<dt> /jetty-slf4j-test-webapp/</dt>
+<dd> A sample webapp+servlet that accepts arbitrary values on a form POST and logs them via SLF4J, so that you can see the results of this example.</dd></dl>
+<h2><span class="mw-headline" id="Details">Details</span></h2>
+<h3><span class="mw-headline" id="Configuring_Basic_Logback_for_Jetty">Configuring Basic Logback for Jetty</span></h3>
+<div class="messagebox" style="background-color: #def3fe; border: 1px solid #c5d7e0; color: black; padding: 5px; margin: 1ex 0; min-height: 35px; padding-left: 45px;">
+<div style="float: left; margin-left: -40px;"><a href="https://wiki.eclipse.org/File:Idea.png" class="image"><img alt="Idea.png" src="../../images/a/a4/Idea.png" width="35" height="35" /></a></div>
+<div><b>Important</b><br />See the <code>/jetty-distro-with-logback-basic/</code> for a Maven project that builds this configuration. Notice that the output directory<code> /jetty-distro-with-logback-basic/target/jetty-distro/</code> is where Maven builds it.</div>
+</div>
+<p><br />
+To configure basic logback for Jetty:
+</p>
+<ol><li> Unpack your Jetty 7.x or 8.x distribution zip of choice.<br /> This example uses 7.4.5.v20110725.</li>
+<li> Install the slf4j and logback jars into <code>${jetty.home}/lib/logging/.</code>
+<ul><li> <a rel="nofollow" class="external text" href="http://search.maven.org/#browse%7C-784682263">slf4j-api-1.6.1.jar</a></li>
+<li> <a rel="nofollow" class="external text" href="http://search.maven.org/#browse%7C-1948538962">logback-classic-0.9.29.jar</a></li>
+<li> <a rel="nofollow" class="external text" href="http://search.maven.org/#browse%7C-7494467053">logback-core-0.9.29.jar</a></li></ul></li>
+<li> Configure <a rel="nofollow" class="external text" href="https://github.com/jetty-project/jetty-and-logback-example/blob/master/jetty-distro-with-logback-basic/src/main/config/start.ini">${jetty.home}/start.ini</a> to add the lib/logging directory into the server classpath.  </li></ol>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="xml source-xml"><pre class="de1">===========================================================
+# Start classpath OPTIONS.
+# These control what classes are on the classpath
+# for a full listing do
+#   java -jar start.jar --list-options
+#-----------------------------------------------------------
+OPTIONS=Server,resources,logging,websocket,ext
+#-----------------------------------------------------------
+&#160;
+#===========================================================
+# Configuration files.
+# For a full list of available configuration files do
+#   java -jar start.jar --help
+#-----------------------------------------------------------
+etc/jetty.xml
+# etc/jetty-requestlog.xml
+etc/jetty-deploy.xml
+etc/jetty-webapps.xml
+etc/jetty-contexts.xml
+etc/jetty-testrealm.xml
+#===========================================================</pre></div></div>
+<ol start="4"> <li> Create a <a rel="nofollow" class="external text" href="https://github.com/jetty-project/jetty-and-logback-example/blob/master/jetty-distro-with-logback-basic/src/main/config/resources/logback.xml">${jetty.home}/resources/logback.xml</a> file with the configuration you want. </ol> 
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="xml source-xml"><pre class="de1"><span class="sc3"><span class="re1">&lt;?xml</span> <span class="re0">version</span>=<span class="st0">&quot;1.0&quot;</span> <span class="re0">encoding</span>=<span class="st0">&quot;UTF-8&quot;</span><span class="re2">?&gt;</span></span>
+<span class="sc-1">&lt;!--</span>
+<span class="sc-1">  Example LOGBACK Configuration File</span>
+&#160;
+<span class="sc-1">http://logback.qos.ch/manual/configuration.html</span>
+&#160;
+<span class="sc-1">  --&gt;</span>
+<span class="sc3"><span class="re1">&lt;configuration<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;appender</span> <span class="re0">name</span>=<span class="st0">&quot;STDOUT&quot;</span> <span class="re0">class</span>=<span class="st0">&quot;ch.qos.logback.core.ConsoleAppender&quot;</span><span class="re2">&gt;</span></span>
+   <span class="sc-1">&lt;!-- encoders are assigned the type</span>
+<span class="sc-1">         ch.qos.logback.classic.encoder.PatternLayoutEncoder by default --&gt;</span>
+    <span class="sc3"><span class="re1">&lt;encoder<span class="re2">&gt;</span></span></span>
+      <span class="sc3"><span class="re1">&lt;pattern<span class="re2">&gt;</span></span></span>%d{HH:mm:ss.SSS} [%thread]&#160;%-5level&#160;%logger{36} -&#160;%msg%n<span class="sc3"><span class="re1">&lt;/pattern<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;/encoder<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;/appender<span class="re2">&gt;</span></span></span>
+&#160;
+  <span class="sc3"><span class="re1">&lt;appender</span> <span class="re0">name</span>=<span class="st0">&quot;FILE&quot;</span> <span class="re0">class</span>=<span class="st0">&quot;ch.qos.logback.core.rolling.RollingFileAppender&quot;</span><span class="re2">&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;file<span class="re2">&gt;</span></span></span>${jetty.home}/logs/jetty.log<span class="sc3"><span class="re1">&lt;/file<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;rollingPolicy</span> <span class="re0">class</span>=<span class="st0">&quot;ch.qos.logback.core.rolling.TimeBasedRollingPolicy&quot;</span><span class="re2">&gt;</span></span>
+      <span class="sc-1">&lt;!-- daily rollover --&gt;</span>
+      <span class="sc3"><span class="re1">&lt;fileNamePattern<span class="re2">&gt;</span></span></span>jetty_%d{yyyy-MM-dd}.log<span class="sc3"><span class="re1">&lt;/fileNamePattern<span class="re2">&gt;</span></span></span>
+&#160;
+      <span class="sc-1">&lt;!-- keep 30 days' worth of history --&gt;</span>
+      <span class="sc3"><span class="re1">&lt;maxHistory<span class="re2">&gt;</span></span></span>30<span class="sc3"><span class="re1">&lt;/maxHistory<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;/rollingPolicy<span class="re2">&gt;</span></span></span>
+&#160;
+    <span class="sc3"><span class="re1">&lt;encoder<span class="re2">&gt;</span></span></span>
+      <span class="sc3"><span class="re1">&lt;pattern<span class="re2">&gt;</span></span></span>%-4relative [%thread]&#160;%-5level&#160;%logger{35} -&#160;%msg%n<span class="sc3"><span class="re1">&lt;/pattern<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;/encoder<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;/appender<span class="re2">&gt;</span></span></span>
+&#160;
+  <span class="sc3"><span class="re1">&lt;root</span> <span class="re0">level</span>=<span class="st0">&quot;info&quot;</span><span class="re2">&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;appender-ref</span> <span class="re0">ref</span>=<span class="st0">&quot;STDOUT&quot;</span> <span class="re2">/&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;appender-ref</span> <span class="re0">ref</span>=<span class="st0">&quot;FILE&quot;</span> <span class="re2">/&gt;</span></span>
+  <span class="sc3"><span class="re1">&lt;/root<span class="re2">&gt;</span></span></span>
+<span class="sc3"><span class="re1">&lt;/configuration<span class="re2">&gt;</span></span></span></pre></div></div>
+<p>That’s it, now you have (in the following order):
+</p>
+<ol><li> Jetty configured to use SLF4J<br /> (via <code>slf4j-api.jar</code> in the classpath on Jetty startup).</li>
+<li> SLF4J configured to use Logback<br /> (via <code>logback-core.jar</code> in the classpath at Jetty startup).</li>
+<li> Logback configured to produce output to:
+<ul><li> <code>${jetty.home}/logs/jetty.log</code> (with daily rolling).</li>
+<li> and STDOUT console.</li></ul></li></ol>
+<p>Now start Jetty.
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="java source-java"><pre class="de1">$ java <span class="sy0">-</span>jar start.<span class="me1">jar</span></pre></div></div>
+<p>Notice that SLF4J handles the log events Jetty  produces, while Logback  writes those events to the STDOUT console and <code>logs/jetty.log</code> file.
+</p>
+<h3><span class="mw-headline" id="Using_Logback_to_Sift_Logs_via_Hostname">Using Logback to Sift Logs via Hostname</span></h3>
+<p>Here is a more complex example: 
+</p>
+<ul><li> You have several virtual hosts, or a variety of DNS hostnames for the Jetty instance that is running. </li>
+<li> You want Jetty to capture the logging events your webapps produce into uniquely named log files according to the hostname that the request came in on.</li></ul>
+<p>This is possible with Logback, SLF4J and jetty WebappContextClassloader.
+</p><p>See the <code>/jetty-distro-with-logback-sifting/</code> project example from the github project listed above for a buildable configuration of the following:
+</p>
+<ol><li> Unpack your Jetty 7.x or 8.x distribution zip of choice. This example uses 7.4.5.v20110725.</li>
+<li> Install the slf4j and logback jars into <code>${jetty.home}/lib/logging/</code>.
+<ul><li> <a rel="nofollow" class="external text" href="http://search.maven.org/#browse%7C-784682263">slf4j-api-1.6.1.jar</a></li>
+<li> <a rel="nofollow" class="external text" href="http://search.maven.org/#browse%7C-1948538962">logback-classic-0.9.29.jar</a></li>
+<li> <a rel="nofollow" class="external text" href="http://search.maven.org/#browse%7C-749446705">logback-core-0.9.29.jar</a></li>
+<li> <a rel="nofollow" class="external text" href="http://search.maven.org/#browse%7C1693692108">jetty-webapp-logging.jar</a> (be sure you match your jetty version)</li>
+<li> <a rel="nofollow" class="external text" href="https://github.com/jetty-project/jetty-and-logback-example/tree/master/jetty-slf4j-mdc-handler">jetty-slf4j-mdc-handler.jar</a> -- from Github example project. Steps to compile to JAR
+<ol><li> Clone or <a rel="nofollow" class="external text" href="https://github.com/jetty-project/jetty-and-logback-example/archive/master.zip">download as ZIP</a> and unpack somewhere</li>
+<li> Go to <tt>jetty-slf4j-mdc-handler/</tt> subfolder</li>
+<li> Run <tt>mvn package</tt> (needs <a rel="nofollow" class="external text" href="http://maven.apache.org">Maven</a>, indeed)</li>
+<li> Get compiled JAR <tt>jetty-slf4j-mdc-handler-1.0-SNAPSHOT</tt> from <tt>jetty-slf4j-mdc-handler/target/</tt>.</li></ol></li></ul></li>
+<li> Configure <a rel="nofollow" class="external text" href="https://github.com/jetty-project/jetty-and-logback-example/blob/master/jetty-distro-with-logback-sifting/src/main/config/start.ini">${jetty.home}/start.ini</a> to add the <code>lib/logging</code> directory into the server classpath.  </li></ol>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="xml source-xml"><pre class="de1">#===========================================================
+# Start classpath OPTIONS.
+# These control what classes are on the classpath
+# for a full listing do
+#   java -jar start.jar --list-options
+#-----------------------------------------------------------
+OPTIONS=Server,resources,logging,websocket,ext
+#-----------------------------------------------------------
+&#160;
+#===========================================================
+# Configuration files.
+# For a full list of available configuration files do
+#   java -jar start.jar --help
+#-----------------------------------------------------------
+etc/jetty.xml
+# etc/jetty-requestlog.xml
+etc/jetty-mdc-handler.xml
+etc/jetty-deploy.xml
+etc/jetty-webapps.xml
+etc/jetty-contexts.xml
+etc/jetty-webapp-logging.xml
+etc/jetty-testrealm.xml
+#===========================================================</pre></div></div>
+<p>The key entries here are the addition of the <code>logging</code> OPTION to load the classes in <code>${jetty.home}/lib/logging</code> into the jetty server classpath, and the two new configuration files:
+</p>
+<dl><dt> <a rel="nofollow" class="external text" href="https://github.com/jetty-project/jetty-and-logback-example/blob/master/jetty-distro-with-logback-sifting/src/main/config/etc/jetty-mdc-handler.xml">etc/jetty-mdc-handler.xml</a></dt>
+<dd> Adds wraps the MDCHandler found in jetty-slf4j-mdc-handler around all of the handlers in Jetty Server.</dd>
+<dt> <a rel="nofollow" class="external text" href="http://git.codehaus.org/gitweb.cgi?p=jetty-project.git;a=blob;f=jetty-webapp-logging/src/main/config/etc/jetty-webapp-logging.xml;h=f69d9b540986b7c24a58de8c366844c717c0df20;hb=HEAD">etc/jetty-webapp-logging.xml</a></dt>
+<dd> Adds a DeploymentManager lifecycle handler that configures the created Webapp’s Classloaders to deny acccess to any webapp (WAR) file contained logger implementations in favor of using the ones that exist on the server classpath. This is a concept known as Centralized Webapp Logging.</dd></dl>
+<ol start="4"> <li> Create a <a rel="nofollow" class="external text" href="https://github.com/jetty-project/jetty-and-logback-example/blob/master/jetty-distro-with-logback-sifting/src/main/config/resources/logback.xml">${jetty.home}/resources/logback.xml</a> file with the configuration you want. </ol> 
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="xml source-xml"><pre class="de1"><span class="sc3"><span class="re1">&lt;?xml</span> <span class="re0">version</span>=<span class="st0">&quot;1.0&quot;</span> <span class="re0">encoding</span>=<span class="st0">&quot;UTF-8&quot;</span><span class="re2">?&gt;</span></span>
+<span class="sc-1">&lt;!--</span>
+<span class="sc-1">    Example LOGBACK Configuration File</span>
+&#160;
+<span class="sc-1">http://logback.qos.ch/manual/configuration.html</span>
+&#160;
+<span class="sc-1">   --&gt;</span>
+<span class="sc3"><span class="re1">&lt;configuration<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;appender</span> <span class="re0">name</span>=<span class="st0">&quot;STDOUT&quot;</span> <span class="re0">class</span>=<span class="st0">&quot;ch.qos.logback.core.ConsoleAppender&quot;</span><span class="re2">&gt;</span></span>
+    <span class="sc-1">&lt;!-- encoders are assigned the type</span>
+<span class="sc-1">         ch.qos.logback.classic.encoder.PatternLayoutEncoder by default --&gt;</span>
+    <span class="sc3"><span class="re1">&lt;encoder<span class="re2">&gt;</span></span></span>
+      <span class="sc3"><span class="re1">&lt;pattern<span class="re2">&gt;</span></span></span>%d{HH:mm:ss.SSS} [%thread]&#160;%-5level&#160;%logger{36} -&#160;%msg%n<span class="sc3"><span class="re1">&lt;/pattern<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;/encoder<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;/appender<span class="re2">&gt;</span></span></span>
+&#160;
+  <span class="sc3"><span class="re1">&lt;appender</span> <span class="re0">name</span>=<span class="st0">&quot;SIFT&quot;</span> <span class="re0">class</span>=<span class="st0">&quot;ch.qos.logback.classic.sift.SiftingAppender&quot;</span><span class="re2">&gt;</span></span>
+    <span class="sc-1">&lt;!-- in the absence of the class attribute, it is assumed that the</span>
+<span class="sc-1">         desired discriminator type is</span>
+<span class="sc-1">         ch.qos.logback.classic.sift.MDCBasedDiscriminator --&gt;</span>
+    <span class="sc3"><span class="re1">&lt;discriminator<span class="re2">&gt;</span></span></span>
+      <span class="sc3"><span class="re1">&lt;key<span class="re2">&gt;</span></span></span>host<span class="sc3"><span class="re1">&lt;/key<span class="re2">&gt;</span></span></span>
+      <span class="sc3"><span class="re1">&lt;defaultValue<span class="re2">&gt;</span></span></span>unknown<span class="sc3"><span class="re1">&lt;/defaultValue<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;/discriminator<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;sift<span class="re2">&gt;</span></span></span>
+      <span class="sc3"><span class="re1">&lt;appender</span> <span class="re0">name</span>=<span class="st0">&quot;FILE-${host}&quot;</span> <span class="re0">class</span>=<span class="st0">&quot;ch.qos.logback.core.rolling.RollingFileAppender&quot;</span><span class="re2">&gt;</span></span>
+        <span class="sc3"><span class="re1">&lt;file<span class="re2">&gt;</span></span></span>${jetty.home}/logs/jetty-${host}.log<span class="sc3"><span class="re1">&lt;/file<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;rollingPolicy</span> <span class="re0">class</span>=<span class="st0">&quot;ch.qos.logback.core.rolling.TimeBasedRollingPolicy&quot;</span><span class="re2">&gt;</span></span>
+          <span class="sc-1">&lt;!-- daily rollover --&gt;</span>
+          <span class="sc3"><span class="re1">&lt;fileNamePattern<span class="re2">&gt;</span></span></span>jetty-${host}_%d{yyyy-MM-dd}.log<span class="sc3"><span class="re1">&lt;/fileNamePattern<span class="re2">&gt;</span></span></span>
+&#160;
+          <span class="sc-1">&lt;!-- keep 30 days' worth of history --&gt;</span>
+          <span class="sc3"><span class="re1">&lt;maxHistory<span class="re2">&gt;</span></span></span>30<span class="sc3"><span class="re1">&lt;/maxHistory<span class="re2">&gt;</span></span></span>
+         <span class="sc3"><span class="re1">&lt;/rollingPolicy<span class="re2">&gt;</span></span></span>
+&#160;
+        <span class="sc3"><span class="re1">&lt;encoder<span class="re2">&gt;</span></span></span>
+          <span class="sc3"><span class="re1">&lt;pattern<span class="re2">&gt;</span></span></span>%-4relative [%thread]&#160;%-5level&#160;%logger{35} -&#160;%msg%n<span class="sc3"><span class="re1">&lt;/pattern<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;/encoder<span class="re2">&gt;</span></span></span>
+      <span class="sc3"><span class="re1">&lt;/appender<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;/sift<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;/appender<span class="re2">&gt;</span></span></span>
+&#160;
+  <span class="sc3"><span class="re1">&lt;root</span> <span class="re0">level</span>=<span class="st0">&quot;INFO&quot;</span><span class="re2">&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;appender-ref</span> <span class="re0">ref</span>=<span class="st0">&quot;STDOUT&quot;</span> <span class="re2">/&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;appender-ref</span> <span class="re0">ref</span>=<span class="st0">&quot;SIFT&quot;</span> <span class="re2">/&gt;</span></span>
+  <span class="sc3"><span class="re1">&lt;/root<span class="re2">&gt;</span></span></span>
+<span class="sc3"><span class="re1">&lt;/configuration<span class="re2">&gt;</span></span></span></pre></div></div>
+<p>That’s it, now you have (in the following order):
+</p>
+<ol><li> Jetty configured to use SLF4J<br /> (via <code>slf4j-api.jar</code> in the classpath on Jetty startup).</li>
+<li> Jetty is configured to modify incoming Webapp’s classloaders to favor server logging classes over the webapp’s own logging classes.<br /> (Centralized Webapp Logging).</li>
+<li> SLF4J configured to use Logback<br /> (via <code>logback-core.jar</code> in the classpath at Jetty startup).</li>
+<li> Logback configured to produce output to:
+<ul><li> <code>${jetty.home}/logs/jetty-${host}.log</code> (with daily rolling)  and using “unknown” for log events that don’t originate from a request.</li>
+<li> and STDOUT console.</li></ul></li></ol>
+<p>Now start Jetty.
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="java source-java"><pre class="de1">$ java <span class="sy0">-</span>jar start.<span class="me1">jar</span></pre></div></div>
+<p><br />
+<br />
+<a href="https://wiki.eclipse.org/File:Example-start-jetty.png" class="image"><img alt="Example-start-jetty.png" src="../../images/b/b8/Example-start-jetty.png" width="769" height="550" /></a>
+<br />
+<br />
+</p>
+<ol start="6."> <li> If you have started the distribution the example configuration produces, you can use the provided /slf4j-tests/ context to experiment with this.
+Use the default URL of <a rel="nofollow" class="external text" href="http://localhost:8080/slf4j-tests/">http://localhost:8080/slf4j-tests/</a>.</ol>
+<p><br />
+<br />
+<a href="https://wiki.eclipse.org/File:Example-form.png" class="image"><img alt="Example-form.png" src="../../images/c/cf/Example-form.png" width="769" height="550" /></a>
+<br />
+<br />
+</p>
+<ol start="7"> <li> Now try a few more URLs for the same Jetty instance.</ol>
+<p><br />
+</p>
+<ul><li> <a rel="nofollow" class="external free" href="http://127.0.0.1:8080/slf4j-tests/">http://127.0.0.1:8080/slf4j-tests/</a></li>
+<li> <a rel="nofollow" class="external free" href="http://127.0.1.1:8080/slf4j-tests/">http://127.0.1.1:8080/slf4j-tests/</a></li>
+<li> <a rel="nofollow" class="external free" href="http://your">http://your</a> development machine:8080/slf4j-tests/ (lapetus is the name of our development machine)</li>
+<li> <a rel="nofollow" class="external free" href="http://your">http://your</a> development machine.local:8080/slf4j-tests/</li></ul>
+<p>You should now have a few different log files in your <code>${jetty.home}/logs/</code> directory.
+<br />
+<br />
+<a href="https://wiki.eclipse.org/File:Example-logs-sifted.png" class="image"><img alt="Example-logs-sifted.png" src="../../images/2/23/Example-logs-sifted.png" width="769" height="276" /></a>
+</p>
+<!-- 
+NewPP limit report
+Cached time: 20211116184845
+Cache expiry: 86400
+Dynamic content: false
+CPU time usage: 0.176 seconds
+Real time usage: 0.299 seconds
+Preprocessor visited node count: 123/1000000
+Preprocessor generated node count: 597/1000000
+Post‐expand include size: 12352/2097152 bytes
+Template argument size: 10420/2097152 bytes
+Highest expansion depth: 6/40
+Expensive parser function count: 0/100
+-->
+
+<!-- 
+Transclusion expansion time report (%,ms,calls,template)
+100.00%   86.325      1 - -total
+100.00%   86.325      1 - Template:Jetty_Tutorial
+ 11.42%    9.862      1 - Template:Jetty_Redirect
+  9.74%    8.411      2 - Template:Message
+  5.63%    4.858      1 - Template:Tip
+  4.23%    3.651      1 - Template:Jetty
+-->
+
+<!-- Saved in parser cache with key my_wiki:pcache:idhash:33578-0!*!*!!en!5!* and timestamp 20211116184845 and revision id 334820
+ -->
+</div>
+                                      <!-- catlinks -->
+                    <div id='catlinks' class='catlinks'><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="https://wiki.eclipse.org/Special:Categories" title="Special:Categories">Categories</a>: <ul><li><a href="https://wiki.eclipse.org/Category:Jetty" title="Category:Jetty">Jetty</a></li><li><a href="https://wiki.eclipse.org/Category:Jetty_Tutorial" title="Category:Jetty Tutorial">Jetty Tutorial</a></li></ul></div></div>                     <!-- /catlinks -->
+                                  </div>
+              </div>
+            </div>
+          </div>
+        <!-- /maincontent -->
+
+                <!-- printfooter -->
+        <div class="printfooter">
+        Retrieved from "<a dir="ltr" href="https://wiki.eclipse.org/index.php?title=Jetty/Tutorial/Sifting_Logs_with_Logback&amp;oldid=334820">https://wiki.eclipse.org/index.php?title=Jetty/Tutorial/Sifting_Logs_with_Logback&amp;oldid=334820</a>"        </div>
+        <!-- /printfooter -->
+        
+        
+        <!-- debughtml -->
+                <!-- /debughtml -->
+
+      </div>
+      <!-- /bodyContent -->
+    </section>
+    <!-- /content -->
+
+    <!-- footer -->
+    
+</div>
+<div class="featured-footer featured-footer-newsletter background-secondary">
+  <div class="container">
+    <p id="footercredit">This page was last modified 14:57, 23 April 2013 by <a href="https://wiki.eclipse.org/User:Jesse.mcconnell.gmail.com" title="User:Jesse.mcconnell.gmail.com">Jesse McConnell</a>. Based on work by <a href="https://wiki.eclipse.org/index.php?title=User:Ljelinek.virtage.com&amp;action=edit&amp;redlink=1" class="new" title="User:Ljelinek.virtage.com (page does not exist)">Libor Jelínek</a> and <a href="https://wiki.eclipse.org/index.php?title=User:Boulay.intalio.com&amp;action=edit&amp;redlink=1" class="new" title="User:Boulay.intalio.com (page does not exist)">Shirley Boulay</a>.</p><p id="footerviews"></p>  </div>
+</div>
+</main> <!-- /#main-content-container-row -->
+<p id="back-to-top" class="noprint hidden-print">
+  <a class="visible-xs" href="Sifting&#32;Logs&#32;with&#32;Logback.html#top">Back to the top</a>
+</p>
+<footer id="solstice-footer">
+  <div class="container">
+    <div class="row">
+      <section class="col-sm-6 hidden-print" id="footer-eclipse-foundation">
+        <h2 class="section-title">Eclipse Foundation</h2>
+        <ul class="nav">
+          <li><a href="https://www.eclipse.org/org/">About Us</a></li>
+          <li><a href="https://www.eclipse.org/org/foundation/contact.php">Contact Us</a></li>
+          <li><a href="https://www.eclipse.org/donate">Donate</a></li>
+          <li><a href="https://www.eclipse.org/membership/">Members</a></li>
+          <li><a href="https://www.eclipse.org/org/documents/">Governance</a></li>
+          <li><a href="https://www.eclipse.org/org/documents/Community_Code_of_Conduct.php">Code of Conduct</a></li>
+          <li><a href="https://www.eclipse.org/artwork/">Logo and Artwork</a></li>
+          <li><a href="https://www.eclipse.org/org/foundation/directors.php">Board of Directors</a></li>
+        </ul>
+      </section>
+      <section class="col-sm-6 hidden-print" id="footer-legal">
+        <h2 class="section-title">Legal</h2>
+        <ul class="nav">
+          <li><a href="https://www.eclipse.org/legal/privacy.php">Privacy Policy</a></li>
+          <li><a href="https://www.eclipse.org/legal/termsofuse.php">Terms of Use</a></li>
+          <li><a href="https://www.eclipse.org/legal/copyright.php">Copyright Agent</a></li>
+          <li><a href="https://www.eclipse.org/legal/epl-2.0/">Eclipse Public License</a></li>
+          <li><a href="https://www.eclipse.org/legal/">Legal Resources</a></li>
+        </ul>
+      </section>
+      <section class="col-sm-6 hidden-print" id="footer-useful-links">
+        <h2 class="section-title">Useful Links</h2>
+        <ul class="nav">
+          <li><a href="https://bugs.eclipse.org/bugs/">Report a Bug</a></li>
+          <li><a href="https://help.eclipse.org/">Documentation</a></li>
+          <li><a href="https://www.eclipse.org/contribute/">How to Contribute</a></li>
+          <li><a href="https://www.eclipse.org/mail/">Mailing Lists</a></li>
+          <li><a href="https://www.eclipse.org/forums/">Forums</a></li>
+          <li><a href="https://marketplace.eclipse.org/">Marketplace</a></li>
+        </ul>
+      </section>
+      <section class="col-sm-6 hidden-print" id="footer-other">
+        <h2 class="section-title">Other</h2>
+        <ul class="nav">
+          <li><a href="https://www.eclipse.org/ide/">IDE and Tools</a></li>
+          <li><a href="https://www.eclipse.org/projects">Projects</a></li>
+          <li><a href="https://www.eclipse.org/org/workinggroups/">Working Groups</a></li>
+          <li><a href="https://www.eclipse.org/org/research/">Research@Eclipse</a></li>
+          <li><a href="https://www.eclipse.org/security/">Report a Vulnerability</a></li>
+          <li><a href="https://status.eclipse.org">Service Status</a></li>
+        </ul>
+      </section>
+      <div class="col-sm-24 margin-top-20">
+        <div class="row">
+          <div id="copyright" class="col-md-16">
+            <p id="copyright-text">Copyright &copy; Eclipse Foundation, Inc. All Rights Reserved.</p>
+          </div>
+          <div class="col-md-8 social-media">
+            <ul class="list-inline">
+              <li>
+                <a class="social-media-link fa-stack fa-lg" href="https://twitter.com/EclipseFdn">
+                <i class="fa fa-circle-thin fa-stack-2x"></i>
+                <i class="fa fa-twitter fa-stack-1x"></i>
+                </a>
+              </li>
+              <li>
+                <a class="social-media-link fa-stack fa-lg" href="https://www.facebook.com/eclipse.org">
+                <i class="fa fa-circle-thin fa-stack-2x"></i>
+                <i class="fa fa-facebook fa-stack-1x"></i>
+                </a>
+              </li>
+              <li>
+                <a class="social-media-link fa-stack fa-lg" href="https://www.youtube.com/user/EclipseFdn">
+                <i class="fa fa-circle-thin fa-stack-2x"></i>
+                <i class="fa fa-youtube fa-stack-1x"></i>
+                </a>
+              </li>
+              <li>
+                <a class="social-media-link fa-stack fa-lg" href="https://www.linkedin.com/company/eclipse-foundation">
+                <i class="fa fa-circle-thin fa-stack-2x"></i>
+                <i class="fa fa-linkedin fa-stack-1x"></i>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <a href="Sifting&#32;Logs&#32;with&#32;Logback.html#" class="scrollup">Back to the top</a>
+    </div>
+  </div>
+</footer>
+    <!-- /footer -->
+    <script>window.RLQ = window.RLQ || []; window.RLQ.push( function () {
+mw.loader.state({"skins.solstice":"loading","user":"ready","user.groups":"ready"});mw.loader.load("/load.php?debug=false\u0026lang=en\u0026modules=skins.solstice\u0026only=scripts\u0026skin=solstice");mw.loader.load(["mediawiki.toc","mediawiki.action.view.postEdit","site","mediawiki.user","mediawiki.hidpi","mediawiki.page.ready","mediawiki.searchSuggest"]);
+} );</script><script>window.RLQ = window.RLQ || []; window.RLQ.push( function () {
+mw.config.set({"wgBackendResponseTime":390});
+} );</script>  </body>
+</html>

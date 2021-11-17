@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" class="client-nojs">
+<head>
+<meta charset="UTF-8"/>
+<title>Jetty/Feature/Jetty OSGi - Eclipsepedia</title>
+<script>document.documentElement.className = document.documentElement.className.replace( /(^|\s)client-nojs(\s|$)/, "$1client-js$2" );</script>
+<script>window.RLQ = window.RLQ || []; window.RLQ.push( function () {
+mw.config.set({"wgCanonicalNamespace":"","wgCanonicalSpecialPageName":!1,"wgNamespaceNumber":0,"wgPageName":"Jetty/Feature/Jetty_OSGi","wgTitle":"Jetty/Feature/Jetty OSGi","wgCurRevisionId":334834,"wgRevisionId":334834,"wgArticleId":22707,"wgIsArticle":!0,"wgIsRedirect":!1,"wgAction":"view","wgUserName":null,"wgUserGroups":["*"],"wgCategories":["Jetty","OSGi"],"wgBreakFrames":!1,"wgPageContentLanguage":"en","wgPageContentModel":"wikitext","wgSeparatorTransformTable":["",""],"wgDigitTransformTable":["",""],"wgDefaultDateFormat":"dmy","wgMonthNames":["","January","February","March","April","May","June","July","August","September","October","November","December"],"wgMonthNamesShort":["","Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"wgRelevantPageName":"Jetty/Feature/Jetty_OSGi","wgRelevantArticleId":22707,"wgIsProbablyEditable":!1,"wgRestrictionEdit":[],"wgRestrictionMove":[],"wgWikiEditorEnabledModules":{"toolbar":!1,"dialogs":!1,"preview":
+!1,"publish":!1},"wgCategoryTreePageCategoryOptions":"{\"mode\":0,\"hideprefix\":20,\"showcount\":true,\"namespaces\":false}"});mw.loader.implement("user.options",function($,jQuery){mw.user.options.set({"variant":"en"});});mw.loader.implement("user.tokens",function($,jQuery){mw.user.tokens.set({"editToken":"+\\","patrolToken":"+\\","watchToken":"+\\"});});mw.loader.load(["mediawiki.page.startup","mediawiki.legacy.wikibits"]);
+} );</script>
+<link rel="stylesheet" href="../../load.php%3Fdebug=false&amp;lang=en&amp;modules=mediawiki.legacy.commonPrint,shared|mediawiki.sectionAnchor&amp;only=styles&amp;skin=solstice.css"/>
+<link rel="stylesheet" href="../../skins/solstice/public/css/styles.css%3F303.css" media="screen, print"/>
+<meta name="ResourceLoaderDynamicStyles" content=""/>
+<style>a:lang(ar),a:lang(kk-arab),a:lang(mzn),a:lang(ps),a:lang(ur){text-decoration:none}</style>
+<script async="" src="../../load.php%3Fdebug=false&amp;lang=en&amp;modules=startup&amp;only=scripts&amp;skin=solstice"></script>
+<meta name="generator" content="MediaWiki 1.26.4"/>
+<link rel="shortcut icon" href="../../eclipse.org-common/themes/solstice/public/images/favicon.ico"/>
+<link rel="search" type="application/opensearchdescription+xml" href="https://wiki.eclipse.org/opensearch_desc.php" title="Eclipsepedia (en)"/>
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.eclipse.org/api.php?action=rsd"/>
+<link rel="alternate" type="application/atom+xml" title="Eclipsepedia Atom feed" href="https://wiki.eclipse.org/index.php?title=Special:RecentChanges&amp;feed=atom"/>
+<style type="text/css">
+/*<![CDATA[*/      
+#jetty-nav {
+  margin-bottom: 2em;
+}
+#jetty-nav ul {
+  padding: 3px 0 1px 1em;
+  margin:0;
+  border-bottom: 1px solid #aaa;
+}
+#jetty-nav li {
+  list-style: none;
+  margin: 0;
+  display: inline;
+}
+#jetty-nav li a {
+  padding: 3px 0.5em;
+  margin-left: 3px;
+  border: 1px solid #aaa;
+  border-bottom: none;
+  background: #eef;
+  text-decoration: none;
+}
+#jetty-nav li a:link { color: #448; }
+#jetty-nav li a:visited { color: #667; }
+#jetty-nav li a:hover {
+  color: #000;
+  background: #ccf;
+  border-color: #227;
+}
+#jetty-nav li span#current a
+{
+  background: #fff;
+  border-bottom: 1px solid #fff;
+}
+#jetty-nav li .selflink {
+  padding: 3px 0.5em;
+  margin-left: 3px;
+  border: 1px solid #aaa;
+  background: #fff;
+  border-bottom: 1px solid #fff;
+}
+table.jetty-table, .jetty-table table {
+  border: 1px solid #aaa;
+  border-collapse: collapse;
+}
+.jetty-table td {
+  border: 1px solid #aaa;
+  padding: 0.5em 1em;
+}
+.jetty-table th {
+  border: 1px solid #aaa;
+  background-color: #eef;
+}
+.jetty-table caption {
+  border: 1px #aaa solid;
+  margin: 1em 0 0.2em 0;
+  background-color: #ccf;
+  font-weight: bold;
+  font-size: 1.1em;
+}
+#content dl  {
+  border-left: 1px #aaa solid;
+  border-bottom: 1px #aaa solid;
+}
+#content dl dt {
+  float: left;
+  border-top: 1px solid #aaa;
+  padding: 0.5em 0 0 0.5em;
+}
+#content dl dd {
+  border: 1px solid #aaa;
+  border-bottom: none;
+}
+#content .narrow-list dl  {
+  width: 40em;
+}
+#content .narrow-list dl dt {
+  width: 14em;
+  line-height: 1.1em;
+}
+#content .narrow-list dl dd {
+  margin: 0 0 0 15em;
+  padding: 0.5em 1em;
+}
+#content .wide-list dl, #content dl {
+  width: 80em;
+}
+#content .wide-list dl dt, #content dl dt {
+  padding: 0.5em 1em;
+  width: 15em;
+}
+#content .wide-list dl dd, #content dl dd {
+  padding: 1em 1em 2em 2em;
+  margin: 0 0 0 17em;
+}
+#content .unbounded-list dl, #content .unbounded-list dl dd, #content .unbounded-list dl dt {
+  border: 0 none;
+  width: auto;
+  padding: 0 0 0 1em;
+}
+#content .unbounded-list dl dt {
+}
+#content p  {
+  margin-bottom: 0.5em;
+}
+#content li  {
+  line-height: 1.1em;
+}
+.infobox {
+  padding: 0.5em 1em;
+  background-color: #fff;
+  float: right;
+  margin: 0.5em;
+}
+/*]]>*/       
+</style>
+<style type="text/css">/*<![CDATA[*/
+.source-xml {line-height: normal;}
+.source-xml li, .source-xml pre {
+	line-height: normal; border: 0px none white;
+}
+/**
+ * GeSHi Dynamically Generated Stylesheet
+ * --------------------------------------
+ * Dynamically generated stylesheet for xml
+ * CSS class: source-xml, CSS id: 
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ * --------------------------------------
+ */
+.xml.source-xml .de1, .xml.source-xml .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;}
+.xml.source-xml  {font-family:monospace;}
+.xml.source-xml .imp {font-weight: bold; color: red;}
+.xml.source-xml li, .xml.source-xml .li1 {font-weight: normal; vertical-align:top;}
+.xml.source-xml .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.xml.source-xml .li2 {font-weight: bold; vertical-align:top;}
+.xml.source-xml .es0 {color: #000099; font-weight: bold;}
+.xml.source-xml .br0 {color: #66cc66;}
+.xml.source-xml .sy0 {color: #66cc66;}
+.xml.source-xml .st0 {color: #ff0000;}
+.xml.source-xml .nu0 {color: #cc66cc;}
+.xml.source-xml .sc-1 {color: #808080; font-style: italic;}
+.xml.source-xml .sc0 {color: #00bbdd;}
+.xml.source-xml .sc1 {color: #ddbb00;}
+.xml.source-xml .sc2 {color: #339933;}
+.xml.source-xml .sc3 {color: #009900;}
+.xml.source-xml .re0 {color: #000066;}
+.xml.source-xml .re1 {color: #000000; font-weight: bold;}
+.xml.source-xml .re2 {color: #000000; font-weight: bold;}
+.xml.source-xml .ln-xtra, .xml.source-xml li.ln-xtra, .xml.source-xml div.ln-xtra {background-color: #ffc;}
+.xml.source-xml span.xtra { display:block; }
+
+/*]]>*/
+</style>
+<style type="text/css">/*<![CDATA[*/
+.source-java {line-height: normal;}
+.source-java li, .source-java pre {
+	line-height: normal; border: 0px none white;
+}
+/**
+ * GeSHi Dynamically Generated Stylesheet
+ * --------------------------------------
+ * Dynamically generated stylesheet for java
+ * CSS class: source-java, CSS id: 
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ * --------------------------------------
+ */
+.java.source-java .de1, .java.source-java .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;}
+.java.source-java  {font-family:monospace;}
+.java.source-java .imp {font-weight: bold; color: red;}
+.java.source-java li, .java.source-java .li1 {font-weight: normal; vertical-align:top;}
+.java.source-java .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.java.source-java .li2 {font-weight: bold; vertical-align:top;}
+.java.source-java .kw1 {color: #7F0055; font-weight: bold;}
+.java.source-java .kw2 {color: #7F0055; font-weight: bold;}
+.java.source-java .kw3 {color: #000000; font-weight: normal}
+.java.source-java .kw4 {color: #7F0055; font-weight: bold;}
+.java.source-java .co1 {color: #3F7F5F; font-style: italic;}
+.java.source-java .co2 {color: #3F7F5F;}
+.java.source-java .co3 {color: #3F7F5F; font-style: italic; font-weight: bold;}
+.java.source-java .coMULTI {color: #3F5FBF; font-style: italic;}
+.java.source-java .es0 {color: #000000;}
+.java.source-java .br0 {color: #000000;}
+.java.source-java .sy0 {color: #000000;}
+.java.source-java .st0 {color: #2A00ff;}
+.java.source-java .nu0 {color: #000000;}
+.java.source-java .me1 {color: #000000;}
+.java.source-java .me2 {color: #000000;}
+.java.source-java .ln-xtra, .java.source-java li.ln-xtra, .java.source-java div.ln-xtra {background-color: #ffc;}
+.java.source-java span.xtra { display:block; }
+
+/*]]>*/
+</style>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body class="mediawiki ltr sitedir-ltr ns-0 ns-subject page-Jetty_Feature_Jetty_OSGi skin-solstice action-view" id="solstice">
+
+<a class="sr-only" href="Jetty&#32;OSGi.html#content">Skip to main content</a>
+<header class="header-wrapper" id="header-wrapper">
+  <div class="clearfix toolbar-container-wrapper">
+    <div class="container-fluid">
+      <div class="text-right toolbar-row row hidden-print">
+        <div class="col-md-24 row-toolbar-col">
+               <ul class="list-inline">
+                  <li id="pt-login">
+            <a href="https://wiki.eclipse.org/index.php?title=Special:UserLogin&amp;returnto=Jetty%2FFeature%2FJetty+OSGi" class="toolbar-link toolbar-login">
+              <i class="fa fa-sign-in fa-fw"></i> Log in            </a>
+          </li>
+                <li><a class="toolbar-link toolbar-manage-cookies dropdown-toggle"><i class="fa fa-wrench"></i> Manage Cookies</a></li>
+      </ul>
+            </div>
+      </div>
+    </div>
+  </div>
+  <div class="container-fluid">
+    <div class="row" id="header-row">
+      <div class="col-sm-5 col-md-4" id="header-left">
+        <div class="wrapper-logo-default"><a href="https://www.eclipse.org/"><img class="logo-eclipse-default hidden-xs" alt="Eclipse.org logo" width="160" src="https://www.eclipse.org/eclipse.org-common/themes/solstice/public/images/logo/eclipse-foundation-white-orange.svg"/></a></div>
+      </div>
+      <div class="col-sm-19 col-md-20 margin-top-10" id="main-menu-wrapper">
+        <div class="float-right hidden-xs" id="btn-call-for-action"><a href="https://eclipse.org/downloads/" class="btn btn-huge btn-warning"><i class="fa fa-download"></i> Download</a></div>
+        <div class="navbar yamm float-sm-right" id="main-menu">
+          <div class="navbar-collapse collapse" id="navbar-main-menu">
+            <ul class="nav navbar-nav">
+              <li><a href="https://www.eclipse.org/projects/" target="_self">Projects</a></li>
+              <li><a href="https://www.eclipse.org/org/workinggroups/" target="_self">Working Groups</a></li>
+              <li><a href="https://www.eclipse.org/membership/" target="_self">Members</a></li>
+              <li class="dropdown visible-xs">
+                <a href="Jetty&#32;OSGi.html#" data-toggle="dropdown" class="dropdown-toggle">Community <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li><a href="http://marketplace.eclipse.org">Marketplace</a></li>
+                  <li><a href="http://events.eclipse.org">Events</a></li>
+                  <li><a href="http://www.planeteclipse.org/">Planet Eclipse</a></li>
+                  <li><a href="https://www.eclipse.org/community/eclipse_newsletter/">Newsletter</a></li>
+                  <li><a href="https://www.youtube.com/user/EclipseFdn">Videos</a></li>
+                  <li><a href="https://blogs.eclipse.org">Blogs</a></li>
+                </ul>
+              </li>
+              <li class="dropdown visible-xs">
+                <a href="Jetty&#32;OSGi.html#" data-toggle="dropdown" class="dropdown-toggle">Participate <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li><a href="https://bugs.eclipse.org/bugs/">Report a Bug</a></li>
+                  <li><a href="https://www.eclipse.org/forums/">Forums</a></li>
+                  <li><a href="https://www.eclipse.org/mail/">Mailing Lists</a></li>
+                  <li><a href="https://wiki.eclipse.org/">Wiki</a></li>
+                  <li><a href="https://wiki.eclipse.org/IRC">IRC</a></li>
+                  <li><a href="https://www.eclipse.org/org/research/">Research</a></li>
+                </ul>
+              </li>
+              <li class="dropdown visible-xs">
+                <a href="Jetty&#32;OSGi.html#" data-toggle="dropdown" class="dropdown-toggle">Eclipse IDE <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li><a href="https://www.eclipse.org/downloads">Download</a></li>
+                  <li><a href="https://www.eclipse.org/eclipseide">Learn More</a></li>
+                  <li><a href="https://help.eclipse.org">Documentation</a></li>
+                  <li><a href="https://www.eclipse.org/getting_started">Getting Started / Support</a></li>
+                  <li><a href="https://www.eclipse.org/contribute/">How to Contribute</a></li>
+                  <li><a href="https://www.eclipse.org/ide/">IDE and Tools</a></li>
+                  <li><a href="https://www.eclipse.org/forums/index.php/f/89/">Newcomer Forum</a></li>
+                </ul>
+              </li>
+              <!-- More -->
+              <li class="dropdown eclipse-more hidden-xs">
+                <a data-toggle="dropdown" class="dropdown-toggle" role="button">More<b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li>
+                    <!-- Content container to add padding -->
+                    <div class="yamm-content">
+                      <div class="row">
+                        <ul class="col-sm-8 list-unstyled">
+                          <li>
+                            <p><strong>Community</strong></p>
+                          </li>
+                          <li><a href="http://marketplace.eclipse.org">Marketplace</a></li>
+                          <li><a href="http://events.eclipse.org">Events</a></li>
+                          <li><a href="http://www.planeteclipse.org/">Planet Eclipse</a></li>
+                          <li><a href="https://www.eclipse.org/community/eclipse_newsletter/">Newsletter</a></li>
+                          <li><a href="https://www.youtube.com/user/EclipseFdn">Videos</a></li>
+                          <li><a href="https://blogs.eclipse.org">Blogs</a></li>
+                        </ul>
+                        <ul class="col-sm-8 list-unstyled">
+                          <li>
+                            <p><strong>Participate</strong></p>
+                          </li>
+                          <li><a href="https://bugs.eclipse.org/bugs/">Report a Bug</a></li>
+                          <li><a href="https://www.eclipse.org/forums/">Forums</a></li>
+                          <li><a href="https://www.eclipse.org/mail/">Mailing Lists</a></li>
+                          <li><a href="https://wiki.eclipse.org/">Wiki</a></li>
+                          <li><a href="https://wiki.eclipse.org/IRC">IRC</a></li>
+                          <li><a href="https://www.eclipse.org/org/research/">Research</a></li>
+                        </ul>
+                        <ul class="col-sm-8 list-unstyled">
+                          <li>
+                            <p><strong>Eclipse IDE</strong></p>
+                          </li>
+                          <li><a href="https://www.eclipse.org/downloads">Download</a></li>
+                          <li><a href="https://www.eclipse.org/eclipseide">Learn More</a></li>
+                          <li><a href="https://help.eclipse.org">Documentation</a></li>
+                          <li><a href="https://www.eclipse.org/getting_started">Getting Started / Support</a></li>
+                          <li><a href="https://www.eclipse.org/contribute/">How to Contribute</a></li>
+                          <li><a href="https://www.eclipse.org/ide/">IDE and Tools</a></li>
+                          <li><a href="https://www.eclipse.org/forums/index.php/f/89/">Newcomer Forum</a></li>
+                        </ul>
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-main-menu">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            </button>
+            <div class="wrapper-logo-mobile"><a class="navbar-brand visible-xs" href="https://www.eclipse.org/"><img class="logo-eclipse-default-mobile img-responsive" alt="Eclipse.org logo" width="160" src="https://www.eclipse.org/eclipse.org-common/themes/solstice/public/images/logo/eclipse-foundation-white-orange.svg"/></a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+<section class="default-breadcrumbs hidden-print" id="breadcrumb">
+  <div class="container-fluid">
+    <h3 class="sr-only">Breadcrumbs</h3>
+    <div class="row">
+      <div class="col-sm-24">
+        <ol class="breadcrumb">
+          <li><a href="https://www.eclipse.org/">Home</a></li>
+          <li><a href="https://wiki.eclipse.org/Main_Page">Eclipse Wiki</a></li>
+          <li class="active">Jetty/Feature/Jetty OSGi</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- /#breadcrumb -->
+<main>
+<div class="container-fluid padding-15 padding-top-20">
+    
+    
+    <!-- content -->
+    <section id="content" class="mw-body container-full clearfix 0">
+      <div id="mw-js-message" style="display:none;"></div>
+
+      
+      <!-- bodyContent -->
+      <div id="bodyContent">
+
+        
+                <!-- jumpto -->
+        <div id="jump-to-nav" class="mw-jump">
+          Jump to: <a href="Jetty&#32;OSGi.html#mw-head">navigation</a>,
+          <a href="Jetty&#32;OSGi.html#p-search">search</a>
+        </div>
+        <!-- /jumpto -->
+        
+          <!-- leftcol -->
+          <aside class="col-md-4 noprint hidden-print" id="leftcol">
+                      <form class="input-group" role="form" id="form-eclipse-search" action="https://wiki.eclipse.org/index.php" id="searchform">
+              <input id="searchInput" class="search-query form-control" type="search" accesskey="f" title="Special:Search" placeholder="Search" name="search" value="">
+
+              <span class="input-group-btn">
+                <button value="search" id="mw-searchButton" type="submit" class="btn btn-default" title="Search the pages for this text" name="fulltext">
+                  <i class="fa fa-search"></i>
+                </button>
+              </span>
+            </form>
+                      <select class="form-control margin-top-10 margin-bottom-10 visible-xs visible-sm" onchange="this.options[this.selectedIndex].value && (window.location = this.options[this.selectedIndex].value);"><option class="fw-700 "><span class="fw-700">---Navigation---</span></option><option value="/Main_Page">Main Page</option><option value="/Eclipsepedia:Community_portal">Community portal</option><option value="/Eclipsepedia:Current_events">Current events</option><option value="/Special:RecentChanges">Recent changes</option><option value="/Special:Random">Random page</option><option value="https://www.mediawiki.org/wiki/Special:MyLanguage/Help:Contents">Help</option></select><ul class="ul-left-nav fa-ul hidden-print leftnav hidden-xs hidden-sm"><li class="separator"><span class="separator">Navigation</span></li>                <li class=""><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/Main_Page" id="n-mainpage" title="Visit the main page [z]" accesskey="z">Main Page</a></li>                <li class=""><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/Eclipsepedia:Community_portal" id="n-portal" title="About the project, what you can do, where to find things">Community portal</a></li>                <li class=""><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/Eclipsepedia:Current_events" id="n-currentevents" title="Find background information on current events">Current events</a></li>                <li class=""><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/Special:RecentChanges" id="n-recentchanges" title="A list of recent changes in the wiki [r]" accesskey="r">Recent changes</a></li>                <li class=""><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/Special:Random" id="n-randompage" title="Load a random page [x]" accesskey="x">Random page</a></li>                <li class=""><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://www.mediawiki.org/wiki/Special:MyLanguage/Help:Contents" id="n-help" title="The place to find out">Help</a></li></ul>            <select class="form-control margin-top-10 margin-bottom-10 visible-xs visible-sm" onchange="this.options[this.selectedIndex].value && (window.location = this.options[this.selectedIndex].value);"><option class="fw-700 "><span class="fw-700">---Toolbox---</span></option><option value="/index.php?title=Jetty/Feature/Jetty_OSGi&amp;action=info">Page information</option><option value="/index.php?title=Jetty/Feature/Jetty_OSGi&amp;oldid=334834">Permanent link</option><option value="/index.php?title=Jetty/Feature/Jetty_OSGi&amp;printable=yes">Printable version</option><option value="/Special:SpecialPages">Special pages</option><option value="/Special:RecentChangesLinked/Jetty/Feature/Jetty_OSGi">Related changes</option><option value="/Special:WhatLinksHere/Jetty/Feature/Jetty_OSGi">What links here</option></select><ul class="ul-left-nav fa-ul hidden-print leftnav hidden-xs hidden-sm"><li class="separator"><span class="separator">Toolbox</span></li><li><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/index.php?title=Jetty/Feature/Jetty_OSGi&amp;action=info" id="t-info" title="More information about this page">Page information</a></li><li><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/index.php?title=Jetty/Feature/Jetty_OSGi&amp;oldid=334834" id="t-permalink" title="Permanent link to this revision of the page">Permanent link</a></li><li><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/index.php?title=Jetty/Feature/Jetty_OSGi&amp;printable=yes" id="t-print" rel="alternate" title="Printable version of this page [p]" accesskey="p">Printable version</a></li><li><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/Special:SpecialPages" id="t-specialpages" title="A list of all special pages [q]" accesskey="q">Special pages</a></li><li><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/Special:RecentChangesLinked/Jetty/Feature/Jetty_OSGi" id="t-recentchangeslinked" title="Recent changes in pages linked from this page [k]" accesskey="k">Related changes</a></li><li><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/Special:WhatLinksHere/Jetty/Feature/Jetty_OSGi" id="t-whatlinkshere" title="A list of all wiki pages that link here [j]" accesskey="j">What links here</a></li></ul>                                  </aside>
+          <!-- /leftcol -->
+
+          <!-- mainContent -->
+          <div id="mainContent" class="col-md-20">
+                      <ul class="nav nav-tabs noprint hidden-print" role="tablist">
+                       <li id="ca-nstab-main" class="active"><a href="Jetty&#32;OSGi.html"  title="View the content page [c]" accesskey="c" tabindex="-1">Page</a></li>
+                        <li id="ca-talk" class="new"><a href="https://wiki.eclipse.org/index.php?title=Talk:Jetty/Feature/Jetty_OSGi&amp;action=edit&amp;redlink=1"  title="Discussion about the content page [t]" accesskey="t" tabindex="-1">Discussion</a></li>
+                        <li id="ca-viewsource"><a href="https://wiki.eclipse.org/index.php?title=Jetty/Feature/Jetty_OSGi&amp;action=edit"  title="This page is protected.&#10;You can view its source [e]" accesskey="e" tabindex="-1">View source</a></li>
+                        <li id="ca-history" class="collapsible"><a href="https://wiki.eclipse.org/index.php?title=Jetty/Feature/Jetty_OSGi&amp;action=history"  title="Past revisions of this page [h]" accesskey="h" tabindex="-1">History</a></li>
+                      </ul>            <div class="tab-content background-white">
+              <div id="tab-pane-main-page-content" class="tab-pane active">
+
+                
+                <h1 id="firstHeading" class="firstHeading page-header">
+                  <span dir="auto">Jetty/Feature/Jetty OSGi</span>
+                </h1>
+                <div id="main-page-content">
+                                                      <!-- subtitle -->
+                  <div id="contentSub"  class="alert alert-small alert-warning"><span class="subpages">&lt; <a href="../../Jetty.html" title="Jetty">Jetty</a>&lrm; | <a href="../Feature.html" title="Jetty/Feature">Feature</a></span></div>
+                  <!-- /subtitle -->
+                  
+                  
+                  <div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><p><br />
+</p><p><br />
+</p>
+<div id="toc" class="toc"><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="Jetty&#32;OSGi.html#Introduction"><span class="tocnumber">1</span> <span class="toctext">Introduction</span></a></li>
+<li class="toclevel-1"><a href="Jetty&#32;OSGi.html#Feature"><span class="tocnumber">2</span> <span class="toctext">Feature</span></a>
+<ul>
+<li class="toclevel-2"><a href="Jetty&#32;OSGi.html#Jetty_bootstrapping_in_OSGi"><span class="tocnumber">2.1</span> <span class="toctext">Jetty bootstrapping in OSGi</span></a></li>
+<li class="toclevel-2"><a href="Jetty&#32;OSGi.html#OSGi.27s_HttpService_via_equinox_servlet_bridge"><span class="tocnumber">2.2</span> <span class="toctext">OSGi's HttpService via equinox servlet bridge</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1"><a href="Jetty&#32;OSGi.html#Deployment_of_web-applications_via_OSGi"><span class="tocnumber">3</span> <span class="toctext">Deployment of web-applications via OSGi</span></a>
+<ul>
+<li class="toclevel-2"><a href="Jetty&#32;OSGi.html#Support_for_RFC66"><span class="tocnumber">3.1</span> <span class="toctext">Support for RFC66</span></a>
+<ul>
+<li class="toclevel-3"><a href="Jetty&#32;OSGi.html#Manifest_headers_and_access_to_OSGI_in_the_servlet_context"><span class="tocnumber">3.1.1</span> <span class="toctext">Manifest headers and access to OSGI in the servlet context</span></a></li>
+<li class="toclevel-3"><a href="Jetty&#32;OSGi.html#.22war.22_URL_scheme"><span class="tocnumber">3.1.2</span> <span class="toctext">"war" URL scheme</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2"><a href="Jetty&#32;OSGi.html#Internals_and_extensions_to_RFC66"><span class="tocnumber">3.2</span> <span class="toctext">Internals and extensions to RFC66</span></a>
+<ul>
+<li class="toclevel-3"><a href="Jetty&#32;OSGi.html#Manifest_headers_specific_to_jetty"><span class="tocnumber">3.2.1</span> <span class="toctext">Manifest headers specific to jetty</span></a></li>
+<li class="toclevel-3"><a href="Jetty&#32;OSGi.html#The_OSGi_service_.27org.eclipse.jetty.server.handler.ContextHandler.27"><span class="tocnumber">3.2.2</span> <span class="toctext">The OSGi service 'org.eclipse.jetty.server.handler.ContextHandler'</span></a></li>
+<li class="toclevel-3"><a href="Jetty&#32;OSGi.html#Notes:_OSGi_services_versus_bundles_to_manage_web-applications."><span class="tocnumber">3.2.3</span> <span class="toctext">Notes: OSGi services versus bundles to manage web-applications.</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-1"><a href="Jetty&#32;OSGi.html#Architecture"><span class="tocnumber">4</span> <span class="toctext">Architecture</span></a>
+<ul>
+<li class="toclevel-2"><a href="Jetty&#32;OSGi.html#Classloader_tree"><span class="tocnumber">4.1</span> <span class="toctext">Classloader tree</span></a></li>
+<li class="toclevel-2"><a href="Jetty&#32;OSGi.html#Injecting_new_server-wide_features_into_jetty-osgi"><span class="tocnumber">4.2</span> <span class="toctext">Injecting new server-wide features into jetty-osgi</span></a></li>
+<li class="toclevel-2"><a href="Jetty&#32;OSGi.html#Centralized_logging_support_with_slf4j_and_logback-classic"><span class="tocnumber">4.3</span> <span class="toctext">Centralized logging support with slf4j and logback-classic</span></a></li>
+<li class="toclevel-2"><a href="Jetty&#32;OSGi.html#JSP_support:_Jasper_integration"><span class="tocnumber">4.4</span> <span class="toctext">JSP support: Jasper integration</span></a></li>
+<li class="toclevel-2"><a href="Jetty&#32;OSGi.html#Runtime_packaging"><span class="tocnumber">4.5</span> <span class="toctext">Runtime packaging</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1"><a href="Jetty&#32;OSGi.html#Next_steps"><span class="tocnumber">5</span> <span class="toctext">Next steps</span></a></li>
+<li class="toclevel-1"><a href="Jetty&#32;OSGi.html#Additional_Resources"><span class="tocnumber">6</span> <span class="toctext">Additional Resources</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Introduction">Introduction</span></h2>
+<div class="messagebox" style="background-color: #f9f6b7; border: 1px solid #c4c295; color: black; padding: 5px; margin: 1ex 0; min-height: 35px; padding-left: 45px; font-size: 150%; color: white; background-color: #FF8888; padding: 50px">
+<div style="float: left; margin-left: -40px;"><a href="https://wiki.eclipse.org/File:Warning2.png" class="image"><img alt="Warning2.png" src="../../images/3/37/Warning2.png" width="35" height="35" /></a></div>
+<div>Jetty 7 and Jetty 8 are now EOL (End of Life)<br />
+<p><br />
+<br />
+<br />
+THIS IS NOT THE DOCUMENTATION YOU ARE LOOKING FOR!!!!!<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+All development and stable releases are being performed with Jetty 9 and Jetty 10.<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+This <b>wiki is now officially out of date</b> and all content has been moved to the <a rel="nofollow" class="external text" href="http://www.eclipse.org/jetty/documentation">Jetty Documentation Hub</a><br /> 
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+</p>
+Direct Link to updated documentation: <a rel="nofollow" class="external free" href="http://www.eclipse.org/jetty/documentation/current/framework-jetty-osgi.html">http://www.eclipse.org/jetty/documentation/current/framework-jetty-osgi.html</a></div>
+</div>
+<p><br />
+Jetty on OSGi consists of bootstrapping a standard jetty server from OSGi.
+It supports the deployment of traditional J2EE web-applications as well as web-applications contained inside an OSGi bundle (RFC66).
+</p><p>The goal of Jetty on OSGi is to offer a migration path for traditional J2EE applications to run inside an OSGi container.
+It favours J2EE applications currently deployed on jetty: developers and IT administrators familiar with a jetty deployment will find the same folder structure and configuration files.
+</p><p>Jetty-on-OSGi also provides an SDK for Eclipse-PDE that supports the development and debugging of a mix of traditional web-applications and web-applications contained in an OSGi bundle: <a href="../Tutorial/Jetty-OSGi&#32;SDK.html" title="Jetty/Tutorial/Jetty-OSGi SDK">Jetty on OSGi SDK for Eclipse PDE</a>.
+</p><p>This document describes the internal architecture of Jetty-OSGi and describes the features supported.
+It assumes the reader is interested into taking advantage of OSGi.
+</p>
+<h2><span class="mw-headline" id="Feature">Feature</span></h2>
+<h3><span class="mw-headline" id="Jetty_bootstrapping_in_OSGi">Jetty bootstrapping in OSGi</span></h3>
+<p>A single bundle 'org.eclipse.jetty.osgi.boot' acts as an alternative to <a href="Start.jar.html" title="Jetty/Feature/Start.jar">Jetty's Start.jar</a>.
+It wires up all the jetty jars that can be located.
+It locates the ${jetty.home} folder where the configuration files are located.
+It starts a jetty server according to these configuration files:  
+</p><p>It locates a ${jetty.home} folder (or generates one by default) and starts a jetty server according to the <a href="../Reference/jetty.xml.html" title="Jetty/Reference/jetty.xml">jetty.xml</a> file. If you add extra configuration files, then please ensure that the first element configures the server instance with the id of "Server":
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="xml source-xml"><pre class="de1"> <span class="sc3"><span class="re1">&lt;Configure</span> <span class="re0">id</span>=<span class="st0">&quot;Server&quot;</span> <span class="re0">class</span>=<span class="st0">&quot;org.eclipse.jetty.server.Server&quot;</span><span class="re2">&gt;</span></span></pre></div></div>
+<p>The classloader inside which the jetty server is executing is a mix of the OSGi classloader provided by the 'org.eclipse.jetty.osgi.boot' bundle and also the jars and folders found inside ${jetty.home}/lib/ext and ${jetty.home}/resources.
+</p><p>The jetty.xml provided by default in jetty will deploy all web-applications found inside the ${jetty.home}/webapps
+and will read the jetty context files found inside ${jetty.home}/contexts.
+</p>
+<h3><span class="mw-headline" id="OSGi.27s_HttpService_via_equinox_servlet_bridge">OSGi's HttpService via equinox servlet bridge</span></h3>
+<p>Equinox packages a servlet that supports HttpService.
+Jetty-OSGi is distributed with a bundle that deploys this servlet and hence provides an implementation of HttpService.
+The URL mapping to this servlet is "/*": it will catch any request not caught by other handlers.
+</p>
+<h2><span class="mw-headline" id="Deployment_of_web-applications_via_OSGi">Deployment of web-applications via OSGi</span></h2>
+<h3><span class="mw-headline" id="Support_for_RFC66">Support for RFC66</span></h3>
+<p>RFC66 standardize the format of a bundle that contains a web-application and its lifecycle.
+The basic use-case is this one:
+When a bundle is started and contains "WEB-INF/web.xml", an RFC66 implementation will deploy the web-application contained in that bundle. The RFc66 implementation reads the manifest headers of the bundle for non-default deployment parameters of that web-application.
+</p><p>Jetty-OSGi takes advantage of jetty's native web-app deployer and context deployers and exposes those as extensions to RFC66.
+</p>
+<h4><span class="mw-headline" id="Manifest_headers_and_access_to_OSGI_in_the_servlet_context">Manifest headers and access to OSGI in the servlet context</span></h4>
+<p>The mandatory manifest header of RFC66 is supported:
+</p>
+<pre>Web-ContextPath: /theContextPath&lt;br&gt;</pre>
+<p>The default behavior when it is missing is also supported: the default context path is the symbolic name of the bundle that contains WEB-INF/web.xml.
+</p><p>The optional header "Jsp-ExtractLocation" is not supported currently.
+</p><p>A web-application deployed by OSGi contains a pointer to the org.osgi.BundleContext object as the attribute 'osgi-bundlecontext' of the servlet context.
+</p><p>Jetty-OSGi does not currently enforce that the WEB-INF/classes folder and the WEB-INF/lib/*.jar must be part of the Manifest entry "Bundle-Classpath". If they are not present, jetty-osgi will still load them in the classloader of the web-application.
+</p>
+<h4><span class="mw-headline" id=".22war.22_URL_scheme">"war" URL scheme</span></h4>
+<p>The "war" URL scheme specified by RFC66 support the installation of J2EE web archives - "war" files - into an OSGi environment.
+On the OSGi shell, it is possible to install a war file with a command like this one:
+</p>
+<pre>&gt;install war:file://path/to/pet.war&lt;br&gt;</pre>
+<p>The corresponding war file is transformed into a suitable OSGi bundle and installed on to the OSGi container.
+</p><p>The support for this protocol is mostly complete.
+The query string parameters that enable overriding the manifest headers and other settings have not been extensively tested.
+</p><p>Also RFC66 specifies a factory class that create URLs with the war scheme. This factory is not implemented currently.
+The factory is not specific to Jetty so hopefully it will be packaged with the OSGi APIs.
+</p><p>The support for the war scheme is almost fully decoupled from Jetty APIs. It could be used in any RFC66 implementation.
+It is in the bundle <a rel="nofollow" class="external text" href="http://dev.eclipse.org/viewcvs/viewvc.cgi/jetty/tags/jetty-7.2.2.v20101205/jetty-osgi/jetty-osgi-boot-warurl/?root=RT_JETTY">org.eclipse.jetty.osgi.warurl</a>.
+</p>
+<h3><span class="mw-headline" id="Internals_and_extensions_to_RFC66">Internals and extensions to RFC66</span></h3>
+<h4><span class="mw-headline" id="Manifest_headers_specific_to_jetty">Manifest headers specific to jetty</span></h4>
+<pre>Jetty-WarFolderPath: /path/to/a/webapp</pre>
+<p>This entry let's the user define a comma separated list of folder paths relative to the base folder of the bundle.
+Each folder will be deployed as a web-application.
+It is required that each folder contains WEB-INF/web.xml
+Each of those web-application will use its own classloader which is a child of the bundle's classloader that contains them.
+Hence each webapp can eventually contain WEB-INF/lib and WEB-INF/classes for libraries specific to that web-app.
+</p><p>Optionally, you can also include a <a rel="nofollow" class="external text" href="http://wiki.eclipse.org/Jetty/Feature/ContextDeployer#Contexts">context xml</a> file in the META-INF of your bundle called <b>jetty-webapp-context.xml</b> which will be applied to each webapp within the bundle to preconfigure it. Some settings within the webapp can be overridden by the manifest headers (eg Web-ContextPath). Of course you can also use jetty's <a rel="nofollow" class="external text" href="http://wiki.eclipse.org/Jetty/Reference/jetty-web.xml">WEB-INF/jetty-web.xml file</a> to post-configure the webapp too.
+</p>
+<pre>Jetty-ContextFilePath: /path/to/a/context/file.xml,/path/to/another/context/file.xml</pre>
+<p>This header is a comma separated list of <a rel="nofollow" class="external text" href="http://wiki.eclipse.org/Jetty/Feature/ContextDeployer#Contexts">context xml</a> files that will be executed by jetty. These files can configure a webapp, or any type of ContextHandler supported by Jetty.
+</p>
+<h4><span class="mw-headline" id="The_OSGi_service_.27org.eclipse.jetty.server.handler.ContextHandler.27">The OSGi service 'org.eclipse.jetty.server.handler.ContextHandler'</span></h4>
+<p>The internal mechanism through which jetty manages web-applications is through the OSGi service <a rel="nofollow" class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/index.html?org/eclipse/jetty/server/handler/ContextHandler.html">org.eclipse.jetty.server.handler.ContextHandler</a>.
+Whenever an instance of that service is registered, jetty-osgi will read the attached service parameters and deploy the corresponding web-application.
+</p><p>When such a service is unregistered, the corresponding web-application is undeployed.
+</p><p>The following static method illustrate how to deploy a web-application in OSGi programmatically:
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="java source-java"><pre class="de1"><span class="kw1">public</span> <span class="kw1">static</span> <span class="kw4">void</span> registerWebapplication<span class="br0">&#40;</span>Bundle contributor, <span class="kw3">String</span> webappFolderPath, <span class="kw3">String</span> contextPath<span class="br0">&#41;</span> <span class="kw1">throws</span> <span class="kw3">Exception</span>  <span class="br0">&#123;</span>
+        WebAppContext contextHandler <span class="sy0">=</span> <span class="kw1">new</span> WebAppContext<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+&#160;
+        <span class="kw3">Properties</span> dic <span class="sy0">=</span> <span class="kw1">new</span> <span class="kw3">Properties</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+        dic.<span class="me1">put</span><span class="br0">&#40;</span>OSGiWebappConstants.<span class="me1">SERVICE_PROP_WAR</span>, webappFolderPath<span class="br0">&#41;</span><span class="sy0">;</span>
+        dic.<span class="me1">put</span><span class="br0">&#40;</span>OSGiWebappConstants.<span class="me1">SERVICE_PROP_CONTEXT_PATH</span>, contextPath<span class="br0">&#41;</span><span class="sy0">;</span>
+&#160;
+        contributor.<span class="me1">getBundleContext</span><span class="br0">&#40;</span><span class="br0">&#41;</span>.<span class="me1">registerService</span><span class="br0">&#40;</span>ContextHandler.<span class="kw1">class</span>.<span class="me1">getName</span><span class="br0">&#40;</span><span class="br0">&#41;</span>, contextHandler, dic<span class="br0">&#41;</span><span class="sy0">;</span>
+<span class="br0">&#125;</span></pre></div></div>
+<p>When deploying a web-application, it is necessary to create a WebAppContext rather than a basic ContextHandler.
+</p><p>All possible parameters are defined as constants in the class <a rel="nofollow" class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/index.html?org/eclipse/jetty/osgi/boot/OSGiWebappConstants.html">org.eclipse.jetty.osgi.boot.OSGiWebappConstants</a>:
+</p>
+<table class="wikitable">
+<tr><th>Parameter</th><th>Description</th></tr>
+<tr><td>SERVICE_PROP_CONTEXT_PATH</td><td>The context path of the installed web-application.</td></tr>
+<tr><td>SERVICE_PROP_WAR</td><td>Path to the web-application folder. Those pathes are relative to the bundle location or to the  SERVICE_PROP_BUNDLE_INSTALL_LOCATION_OVERRIDE when it is specified.</td></tr>
+<tr><td>SERVICE_PROP_CONTEXT_FILE_PATH</td><td>Path to the jetty context files.</td></tr>
+<tr><td>SERVICE_PROP_BUNDLE_INSTALL_LOCATION_OVERRIDE</td><td>Base folder inside which all pathes are resolved. By default the location where the bundle is installed.</td></tr>
+<tr><td>SERVICE_PROP_EXTRA_CLASSPATH</td><td>Extra jars and folders added to the classloader of the web-application.</td></tr>
+<tr><td>SERVICE_PROP_WEB_XML_PATH</td><td>Path to the web.xml file when we don't default on WEB-INF/web.xml.</td></tr>
+<tr><td>SERVICE_PROP_DEFAULT_WEB_XML_PATH</td><td>Path to the defaultweb.xml file when we don't default on the one provided by Jetty.</td></tr>
+</table>
+<h4><span class="mw-headline" id="Notes:_OSGi_services_versus_bundles_to_manage_web-applications.">Notes: OSGi services versus bundles to manage web-applications.</span></h4>
+<p>It is (in my biased opinion) more interesting to manage web-applications via an OSGi service rather than via a bundle:
+</p>
+<ul><li> The lifecycle of an OSGi service is a lot finer than the life-cycle of a bundle. Developers can equally create or listen to them. Consoles are developped to administer them: change a parameter for a registered service via an admin console will trigger the reloading of the corresponding web-app with a new deployment parameter.</li>
+<li> There are many ways to create OSGi services and all of them inter-operable:
+<ul><li> java code that depends on OSGi API.</li>
+<li> IOC frameworks including OSGi declarative services, springsource.</li></ul></li>
+<li> OSGi services are a promising abstractions for distributed servers etc. Bundles are a lot more coupled to the life-cycle of classloaders and underlying jar files.</li></ul>
+<p>The support for RFC66'manifest headers basically consists of listening to the bundles lifecycle and issuing the corresponding registration of the 'org.eclipse.jetty.server.handler.ContextHandler'
+</p>
+<h2><span class="mw-headline" id="Architecture">Architecture</span></h2>
+<h3><span class="mw-headline" id="Classloader_tree">Classloader tree</span></h3>
+<pre>'org.eclipse.jetty.osgi.boot' (org.eclipse.jetty.*, javax.*, most optional) + dependencies_injected_by_fragments
+      jetty-server (${jetty.home}/resources, ${jetty.home}/lib/ext)
+      web-application (OSGi-bundle-that-contains-it, WEB-INF/classes, WEB-INF/lib, extraClasspath)
+</pre>
+<p>To be more precise we could mention the extra classloader for jsp that supports jasper and the taglibraries.
+</p>
+<h3><span class="mw-headline" id="Injecting_new_server-wide_features_into_jetty-osgi">Injecting new server-wide features into jetty-osgi</span></h3>
+<p>A common situation for framework developers is to make a set of library installed in the server's classloader and to have a hook in the life-cycle of the server.
+</p><p>This is supported in 2 ways:
+</p>
+<ul><li> The traditional J2EE way: locate the ${jetty.home} folder and add the libs to lib/ext then configure jetty.xml</li>
+<li> The OSGi way consists of installing a bundle-fragment hosted by 'org.eclipse.jetty.osgi.boot'</li></ul>
+<p>This will make the dependencies of the fragment available in the classloader of the server.
+In order to hook into the lifecycle of server it is possible to define an implementation of BundleActivator that will be invoked by the bundle 'org.eclipse.jetty.osgi.boot'.
+In order for this BundleActivator to be invoked it must be named following this convention: ${bundle.id.of.this.fragment}+".FragmentActivator"
+</p><p>Jetty-osgi is distributed with a number of optional bundles that illustrate this technique:
+Support for jsp with the bundle "org.eclipse.jetty.osgi.boot.jsp"
+Support for centralized logging on logback; "org.eclipse.jetty.osgi.boot.logback"
+</p>
+<h3><span class="mw-headline" id="Centralized_logging_support_with_slf4j_and_logback-classic">Centralized logging support with slf4j and logback-classic</span></h3>
+<p>In order to use logback/slf4j, make sure that your target platform contains those libraries.
+Then set the system property "logback.configurationFile" to point to your logback configuration file (more on Logback's <a rel="nofollow" class="external text" href="http://logback.qos.ch/manual/configuration.html">documentation</a>).
+</p>
+<h3><span class="mw-headline" id="JSP_support:_Jasper_integration">JSP support: Jasper integration</span></h3>
+<p>The optional bundle 'org.eclipse.jetty.osgi.jasper' adds support for jsp-2.1 and the standard tag libraries.
+TODO: support custom taglibs; make sure java server faces and other common libraries work well. 
+</p>
+<h3><span class="mw-headline" id="Runtime_packaging">Runtime packaging</span></h3>
+<p>felix or equinox.
+The bare framework with jetty*, javax*, slf4j*, logback* installed as well as a folder where new bundles can be hot-deploy simply by droping them in.
+A jetty.home folder with the expected folder hierarchy.
+</p>
+<h2><span class="mw-headline" id="Next_steps">Next steps</span></h2>
+<p>Better SDK with more UI for the config of jetty.
+Manage multiple instance of jetty.
+Better support for other frameworks that want to configure jetty themselves (geronimo, spring, eclipse-platform, nuxeo etc)
+</p>
+<h2><span class="mw-headline" id="Additional_Resources">Additional Resources</span></h2>
+<p><a href="../Tutorial/Jetty-OSGi&#32;SDK.html" title="Jetty/Tutorial/Jetty-OSGi SDK">Jetty on OSGi SDK for Eclipse PDE</a>.
+</p>
+<!-- 
+NewPP limit report
+Cached time: 20211115211828
+Cache expiry: 86400
+Dynamic content: false
+CPU time usage: 0.164 seconds
+Real time usage: 0.197 seconds
+Preprocessor visited node count: 95/1000000
+Preprocessor generated node count: 530/1000000
+Post‐expand include size: 15019/2097152 bytes
+Template argument size: 13636/2097152 bytes
+Highest expansion depth: 5/40
+Expensive parser function count: 0/100
+-->
+
+<!-- 
+Transclusion expansion time report (%,ms,calls,template)
+100.00%   86.923      1 - -total
+100.00%   86.923      1 - Template:Jetty_Feature
+ 31.49%   27.369      1 - Template:Jetty_Redirect
+ 18.53%   16.110      1 - Template:Message
+  6.14%    5.336      1 - Template:Jetty
+-->
+
+<!-- Saved in parser cache with key my_wiki:pcache:idhash:22707-0!*!0!!en!5!* and timestamp 20211115211828 and revision id 334834
+ -->
+</div>
+                                      <!-- catlinks -->
+                    <div id='catlinks' class='catlinks'><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="https://wiki.eclipse.org/Special:Categories" title="Special:Categories">Categories</a>: <ul><li><a href="https://wiki.eclipse.org/Category:Jetty" title="Category:Jetty">Jetty</a></li><li><a href="https://wiki.eclipse.org/index.php?title=Category:OSGi&amp;action=edit&amp;redlink=1" class="new" title="Category:OSGi (page does not exist)">OSGi</a></li></ul></div></div>                     <!-- /catlinks -->
+                                  </div>
+              </div>
+            </div>
+          </div>
+        <!-- /maincontent -->
+
+                <!-- printfooter -->
+        <div class="printfooter">
+        Retrieved from "<a dir="ltr" href="https://wiki.eclipse.org/index.php?title=Jetty/Feature/Jetty_OSGi&amp;oldid=334834">https://wiki.eclipse.org/index.php?title=Jetty/Feature/Jetty_OSGi&amp;oldid=334834</a>"        </div>
+        <!-- /printfooter -->
+        
+        
+        <!-- debughtml -->
+                <!-- /debughtml -->
+
+      </div>
+      <!-- /bodyContent -->
+    </section>
+    <!-- /content -->
+
+    <!-- footer -->
+    
+</div>
+<div class="featured-footer featured-footer-newsletter background-secondary">
+  <div class="container">
+    <p id="footercredit">This page was last modified 15:08, 23 April 2013 by <a href="https://wiki.eclipse.org/User:Jesse.mcconnell.gmail.com" title="User:Jesse.mcconnell.gmail.com">Jesse McConnell</a>. Based on work by <a href="https://wiki.eclipse.org/index.php?title=User:Eclipse.rc.gmail.com&amp;action=edit&amp;redlink=1" class="new" title="User:Eclipse.rc.gmail.com (page does not exist)">Rafael Chaves</a>, <a href="https://wiki.eclipse.org/index.php?title=User:Hmalphettes.intalio.com&amp;action=edit&amp;redlink=1" class="new" title="User:Hmalphettes.intalio.com (page does not exist)">Hugues Malphettes</a> and <a href="https://wiki.eclipse.org/index.php?title=User:Janb.intalio.com&amp;action=edit&amp;redlink=1" class="new" title="User:Janb.intalio.com (page does not exist)">Jan Bartel</a> and <a href="https://wiki.eclipse.org/index.php?title=Jetty/Feature/Jetty_OSGi&amp;action=credits" title="Jetty/Feature/Jetty OSGi">others</a>.</p><p id="footerviews"></p>  </div>
+</div>
+</main> <!-- /#main-content-container-row -->
+<p id="back-to-top" class="noprint hidden-print">
+  <a class="visible-xs" href="Jetty&#32;OSGi.html#top">Back to the top</a>
+</p>
+<footer id="solstice-footer">
+  <div class="container">
+    <div class="row">
+      <section class="col-sm-6 hidden-print" id="footer-eclipse-foundation">
+        <h2 class="section-title">Eclipse Foundation</h2>
+        <ul class="nav">
+          <li><a href="https://www.eclipse.org/org/">About Us</a></li>
+          <li><a href="https://www.eclipse.org/org/foundation/contact.php">Contact Us</a></li>
+          <li><a href="https://www.eclipse.org/donate">Donate</a></li>
+          <li><a href="https://www.eclipse.org/membership/">Members</a></li>
+          <li><a href="https://www.eclipse.org/org/documents/">Governance</a></li>
+          <li><a href="https://www.eclipse.org/org/documents/Community_Code_of_Conduct.php">Code of Conduct</a></li>
+          <li><a href="https://www.eclipse.org/artwork/">Logo and Artwork</a></li>
+          <li><a href="https://www.eclipse.org/org/foundation/directors.php">Board of Directors</a></li>
+        </ul>
+      </section>
+      <section class="col-sm-6 hidden-print" id="footer-legal">
+        <h2 class="section-title">Legal</h2>
+        <ul class="nav">
+          <li><a href="https://www.eclipse.org/legal/privacy.php">Privacy Policy</a></li>
+          <li><a href="https://www.eclipse.org/legal/termsofuse.php">Terms of Use</a></li>
+          <li><a href="https://www.eclipse.org/legal/copyright.php">Copyright Agent</a></li>
+          <li><a href="https://www.eclipse.org/legal/epl-2.0/">Eclipse Public License</a></li>
+          <li><a href="https://www.eclipse.org/legal/">Legal Resources</a></li>
+        </ul>
+      </section>
+      <section class="col-sm-6 hidden-print" id="footer-useful-links">
+        <h2 class="section-title">Useful Links</h2>
+        <ul class="nav">
+          <li><a href="https://bugs.eclipse.org/bugs/">Report a Bug</a></li>
+          <li><a href="https://help.eclipse.org/">Documentation</a></li>
+          <li><a href="https://www.eclipse.org/contribute/">How to Contribute</a></li>
+          <li><a href="https://www.eclipse.org/mail/">Mailing Lists</a></li>
+          <li><a href="https://www.eclipse.org/forums/">Forums</a></li>
+          <li><a href="https://marketplace.eclipse.org/">Marketplace</a></li>
+        </ul>
+      </section>
+      <section class="col-sm-6 hidden-print" id="footer-other">
+        <h2 class="section-title">Other</h2>
+        <ul class="nav">
+          <li><a href="https://www.eclipse.org/ide/">IDE and Tools</a></li>
+          <li><a href="https://www.eclipse.org/projects">Projects</a></li>
+          <li><a href="https://www.eclipse.org/org/workinggroups/">Working Groups</a></li>
+          <li><a href="https://www.eclipse.org/org/research/">Research@Eclipse</a></li>
+          <li><a href="https://www.eclipse.org/security/">Report a Vulnerability</a></li>
+          <li><a href="https://status.eclipse.org">Service Status</a></li>
+        </ul>
+      </section>
+      <div class="col-sm-24 margin-top-20">
+        <div class="row">
+          <div id="copyright" class="col-md-16">
+            <p id="copyright-text">Copyright &copy; Eclipse Foundation, Inc. All Rights Reserved.</p>
+          </div>
+          <div class="col-md-8 social-media">
+            <ul class="list-inline">
+              <li>
+                <a class="social-media-link fa-stack fa-lg" href="https://twitter.com/EclipseFdn">
+                <i class="fa fa-circle-thin fa-stack-2x"></i>
+                <i class="fa fa-twitter fa-stack-1x"></i>
+                </a>
+              </li>
+              <li>
+                <a class="social-media-link fa-stack fa-lg" href="https://www.facebook.com/eclipse.org">
+                <i class="fa fa-circle-thin fa-stack-2x"></i>
+                <i class="fa fa-facebook fa-stack-1x"></i>
+                </a>
+              </li>
+              <li>
+                <a class="social-media-link fa-stack fa-lg" href="https://www.youtube.com/user/EclipseFdn">
+                <i class="fa fa-circle-thin fa-stack-2x"></i>
+                <i class="fa fa-youtube fa-stack-1x"></i>
+                </a>
+              </li>
+              <li>
+                <a class="social-media-link fa-stack fa-lg" href="https://www.linkedin.com/company/eclipse-foundation">
+                <i class="fa fa-circle-thin fa-stack-2x"></i>
+                <i class="fa fa-linkedin fa-stack-1x"></i>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <a href="Jetty&#32;OSGi.html#" class="scrollup">Back to the top</a>
+    </div>
+  </div>
+</footer>
+    <!-- /footer -->
+    <script>window.RLQ = window.RLQ || []; window.RLQ.push( function () {
+mw.loader.state({"skins.solstice":"loading","user":"ready","user.groups":"ready"});mw.loader.load("/load.php?debug=false\u0026lang=en\u0026modules=skins.solstice\u0026only=scripts\u0026skin=solstice");mw.loader.load(["mediawiki.toc","mediawiki.action.view.postEdit","site","mediawiki.user","mediawiki.hidpi","mediawiki.page.ready","mediawiki.searchSuggest"]);
+} );</script><script>window.RLQ = window.RLQ || []; window.RLQ.push( function () {
+mw.config.set({"wgBackendResponseTime":470});
+} );</script>  </body>
+</html>

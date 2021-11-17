@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" class="client-nojs">
+<head>
+<meta charset="UTF-8"/>
+<title>Jetty/Tutorial/Terracota Session Clustering - Eclipsepedia</title>
+<script>document.documentElement.className = document.documentElement.className.replace( /(^|\s)client-nojs(\s|$)/, "$1client-js$2" );</script>
+<script>window.RLQ = window.RLQ || []; window.RLQ.push( function () {
+mw.config.set({"wgCanonicalNamespace":"","wgCanonicalSpecialPageName":!1,"wgNamespaceNumber":0,"wgPageName":"Jetty/Tutorial/Terracota_Session_Clustering","wgTitle":"Jetty/Tutorial/Terracota Session Clustering","wgCurRevisionId":208187,"wgRevisionId":208187,"wgArticleId":26004,"wgIsArticle":!0,"wgIsRedirect":!1,"wgAction":"view","wgUserName":null,"wgUserGroups":["*"],"wgCategories":["Jetty","Jetty Tutorial"],"wgBreakFrames":!1,"wgPageContentLanguage":"en","wgPageContentModel":"wikitext","wgSeparatorTransformTable":["",""],"wgDigitTransformTable":["",""],"wgDefaultDateFormat":"dmy","wgMonthNames":["","January","February","March","April","May","June","July","August","September","October","November","December"],"wgMonthNamesShort":["","Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"wgRelevantPageName":"Jetty/Tutorial/Terracota_Session_Clustering","wgRelevantArticleId":26004,"wgIsProbablyEditable":!1,"wgRestrictionEdit":[],"wgRestrictionMove":[],
+"wgWikiEditorEnabledModules":{"toolbar":!1,"dialogs":!1,"preview":!1,"publish":!1},"wgCategoryTreePageCategoryOptions":"{\"mode\":0,\"hideprefix\":20,\"showcount\":true,\"namespaces\":false}"});mw.loader.implement("user.options",function($,jQuery){mw.user.options.set({"variant":"en"});});mw.loader.implement("user.tokens",function($,jQuery){mw.user.tokens.set({"editToken":"+\\","patrolToken":"+\\","watchToken":"+\\"});});mw.loader.load(["mediawiki.page.startup","mediawiki.legacy.wikibits"]);
+} );</script>
+<link rel="stylesheet" href="../../load.php%3Fdebug=false&amp;lang=en&amp;modules=mediawiki.legacy.commonPrint,shared|mediawiki.sectionAnchor&amp;only=styles&amp;skin=solstice.css"/>
+<link rel="stylesheet" href="../../skins/solstice/public/css/styles.css%3F303.css" media="screen, print"/>
+<meta name="ResourceLoaderDynamicStyles" content=""/>
+<style>a:lang(ar),a:lang(kk-arab),a:lang(mzn),a:lang(ps),a:lang(ur){text-decoration:none}</style>
+<script async="" src="../../load.php%3Fdebug=false&amp;lang=en&amp;modules=startup&amp;only=scripts&amp;skin=solstice"></script>
+<meta name="generator" content="MediaWiki 1.26.4"/>
+<link rel="shortcut icon" href="../../eclipse.org-common/themes/solstice/public/images/favicon.ico"/>
+<link rel="search" type="application/opensearchdescription+xml" href="https://wiki.eclipse.org/opensearch_desc.php" title="Eclipsepedia (en)"/>
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.eclipse.org/api.php?action=rsd"/>
+<link rel="alternate" type="application/atom+xml" title="Eclipsepedia Atom feed" href="https://wiki.eclipse.org/index.php?title=Special:RecentChanges&amp;feed=atom"/>
+<style type="text/css">
+/*<![CDATA[*/      
+#jetty-nav {
+  margin-bottom: 2em;
+}
+#jetty-nav ul {
+  padding: 3px 0 1px 1em;
+  margin:0;
+  border-bottom: 1px solid #aaa;
+}
+#jetty-nav li {
+  list-style: none;
+  margin: 0;
+  display: inline;
+}
+#jetty-nav li a {
+  padding: 3px 0.5em;
+  margin-left: 3px;
+  border: 1px solid #aaa;
+  border-bottom: none;
+  background: #eef;
+  text-decoration: none;
+}
+#jetty-nav li a:link { color: #448; }
+#jetty-nav li a:visited { color: #667; }
+#jetty-nav li a:hover {
+  color: #000;
+  background: #ccf;
+  border-color: #227;
+}
+#jetty-nav li span#current a
+{
+  background: #fff;
+  border-bottom: 1px solid #fff;
+}
+#jetty-nav li .selflink {
+  padding: 3px 0.5em;
+  margin-left: 3px;
+  border: 1px solid #aaa;
+  background: #fff;
+  border-bottom: 1px solid #fff;
+}
+table.jetty-table, .jetty-table table {
+  border: 1px solid #aaa;
+  border-collapse: collapse;
+}
+.jetty-table td {
+  border: 1px solid #aaa;
+  padding: 0.5em 1em;
+}
+.jetty-table th {
+  border: 1px solid #aaa;
+  background-color: #eef;
+}
+.jetty-table caption {
+  border: 1px #aaa solid;
+  margin: 1em 0 0.2em 0;
+  background-color: #ccf;
+  font-weight: bold;
+  font-size: 1.1em;
+}
+#content dl  {
+  border-left: 1px #aaa solid;
+  border-bottom: 1px #aaa solid;
+}
+#content dl dt {
+  float: left;
+  border-top: 1px solid #aaa;
+  padding: 0.5em 0 0 0.5em;
+}
+#content dl dd {
+  border: 1px solid #aaa;
+  border-bottom: none;
+}
+#content .narrow-list dl  {
+  width: 40em;
+}
+#content .narrow-list dl dt {
+  width: 14em;
+  line-height: 1.1em;
+}
+#content .narrow-list dl dd {
+  margin: 0 0 0 15em;
+  padding: 0.5em 1em;
+}
+#content .wide-list dl, #content dl {
+  width: 80em;
+}
+#content .wide-list dl dt, #content dl dt {
+  padding: 0.5em 1em;
+  width: 15em;
+}
+#content .wide-list dl dd, #content dl dd {
+  padding: 1em 1em 2em 2em;
+  margin: 0 0 0 17em;
+}
+#content .unbounded-list dl, #content .unbounded-list dl dd, #content .unbounded-list dl dt {
+  border: 0 none;
+  width: auto;
+  padding: 0 0 0 1em;
+}
+#content .unbounded-list dl dt {
+}
+#content p  {
+  margin-bottom: 0.5em;
+}
+#content li  {
+  line-height: 1.1em;
+}
+.infobox {
+  padding: 0.5em 1em;
+  background-color: #fff;
+  float: right;
+  margin: 0.5em;
+}
+/*]]>*/       
+</style>
+<style type="text/css">/*<![CDATA[*/
+.source-bash {line-height: normal;}
+.source-bash li, .source-bash pre {
+	line-height: normal; border: 0px none white;
+}
+/**
+ * GeSHi Dynamically Generated Stylesheet
+ * --------------------------------------
+ * Dynamically generated stylesheet for bash
+ * CSS class: source-bash, CSS id: 
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ * --------------------------------------
+ */
+.bash.source-bash .de1, .bash.source-bash .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;}
+.bash.source-bash  {font-family:monospace;}
+.bash.source-bash .imp {font-weight: bold; color: red;}
+.bash.source-bash li, .bash.source-bash .li1 {font-weight: normal; vertical-align:top;}
+.bash.source-bash .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.bash.source-bash .li2 {font-weight: bold; vertical-align:top;}
+.bash.source-bash .kw1 {color: #000000; font-weight: bold;}
+.bash.source-bash .kw2 {color: #c20cb9; font-weight: bold;}
+.bash.source-bash .kw3 {color: #7a0874; font-weight: bold;}
+.bash.source-bash .co0 {color: #666666; font-style: italic;}
+.bash.source-bash .co1 {color: #800000;}
+.bash.source-bash .co2 {color: #cc0000; font-style: italic;}
+.bash.source-bash .co3 {color: #000000; font-weight: bold;}
+.bash.source-bash .co4 {color: #666666;}
+.bash.source-bash .es1 {color: #000099; font-weight: bold;}
+.bash.source-bash .es2 {color: #007800;}
+.bash.source-bash .es3 {color: #007800;}
+.bash.source-bash .es4 {color: #007800;}
+.bash.source-bash .es5 {color: #780078;}
+.bash.source-bash .es_h {color: #000099; font-weight: bold;}
+.bash.source-bash .br0 {color: #7a0874; font-weight: bold;}
+.bash.source-bash .sy0 {color: #000000; font-weight: bold;}
+.bash.source-bash .st0 {color: #ff0000;}
+.bash.source-bash .st_h {color: #ff0000;}
+.bash.source-bash .nu0 {color: #000000;}
+.bash.source-bash .re0 {color: #007800;}
+.bash.source-bash .re1 {color: #007800;}
+.bash.source-bash .re2 {color: #007800;}
+.bash.source-bash .re4 {color: #007800;}
+.bash.source-bash .re5 {color: #660033;}
+.bash.source-bash .ln-xtra, .bash.source-bash li.ln-xtra, .bash.source-bash div.ln-xtra {background-color: #ffc;}
+.bash.source-bash span.xtra { display:block; }
+
+/*]]>*/
+</style>
+<style type="text/css">/*<![CDATA[*/
+.source-xml {line-height: normal;}
+.source-xml li, .source-xml pre {
+	line-height: normal; border: 0px none white;
+}
+/**
+ * GeSHi Dynamically Generated Stylesheet
+ * --------------------------------------
+ * Dynamically generated stylesheet for xml
+ * CSS class: source-xml, CSS id: 
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ * --------------------------------------
+ */
+.xml.source-xml .de1, .xml.source-xml .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;}
+.xml.source-xml  {font-family:monospace;}
+.xml.source-xml .imp {font-weight: bold; color: red;}
+.xml.source-xml li, .xml.source-xml .li1 {font-weight: normal; vertical-align:top;}
+.xml.source-xml .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.xml.source-xml .li2 {font-weight: bold; vertical-align:top;}
+.xml.source-xml .es0 {color: #000099; font-weight: bold;}
+.xml.source-xml .br0 {color: #66cc66;}
+.xml.source-xml .sy0 {color: #66cc66;}
+.xml.source-xml .st0 {color: #ff0000;}
+.xml.source-xml .nu0 {color: #cc66cc;}
+.xml.source-xml .sc-1 {color: #808080; font-style: italic;}
+.xml.source-xml .sc0 {color: #00bbdd;}
+.xml.source-xml .sc1 {color: #ddbb00;}
+.xml.source-xml .sc2 {color: #339933;}
+.xml.source-xml .sc3 {color: #009900;}
+.xml.source-xml .re0 {color: #000066;}
+.xml.source-xml .re1 {color: #000000; font-weight: bold;}
+.xml.source-xml .re2 {color: #000000; font-weight: bold;}
+.xml.source-xml .ln-xtra, .xml.source-xml li.ln-xtra, .xml.source-xml div.ln-xtra {background-color: #ffc;}
+.xml.source-xml span.xtra { display:block; }
+
+/*]]>*/
+</style>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body class="mediawiki ltr sitedir-ltr ns-0 ns-subject page-Jetty_Tutorial_Terracota_Session_Clustering skin-solstice action-view" id="solstice">
+
+<a class="sr-only" href="Terracota&#32;Session&#32;Clustering.html#content">Skip to main content</a>
+<header class="header-wrapper" id="header-wrapper">
+  <div class="clearfix toolbar-container-wrapper">
+    <div class="container-fluid">
+      <div class="text-right toolbar-row row hidden-print">
+        <div class="col-md-24 row-toolbar-col">
+               <ul class="list-inline">
+                  <li id="pt-login">
+            <a href="https://wiki.eclipse.org/index.php?title=Special:UserLogin&amp;returnto=Jetty%2FTutorial%2FTerracota+Session+Clustering" class="toolbar-link toolbar-login">
+              <i class="fa fa-sign-in fa-fw"></i> Log in            </a>
+          </li>
+                <li><a class="toolbar-link toolbar-manage-cookies dropdown-toggle"><i class="fa fa-wrench"></i> Manage Cookies</a></li>
+      </ul>
+            </div>
+      </div>
+    </div>
+  </div>
+  <div class="container-fluid">
+    <div class="row" id="header-row">
+      <div class="col-sm-5 col-md-4" id="header-left">
+        <div class="wrapper-logo-default"><a href="https://www.eclipse.org/"><img class="logo-eclipse-default hidden-xs" alt="Eclipse.org logo" width="160" src="https://www.eclipse.org/eclipse.org-common/themes/solstice/public/images/logo/eclipse-foundation-white-orange.svg"/></a></div>
+      </div>
+      <div class="col-sm-19 col-md-20 margin-top-10" id="main-menu-wrapper">
+        <div class="float-right hidden-xs" id="btn-call-for-action"><a href="https://eclipse.org/downloads/" class="btn btn-huge btn-warning"><i class="fa fa-download"></i> Download</a></div>
+        <div class="navbar yamm float-sm-right" id="main-menu">
+          <div class="navbar-collapse collapse" id="navbar-main-menu">
+            <ul class="nav navbar-nav">
+              <li><a href="https://www.eclipse.org/projects/" target="_self">Projects</a></li>
+              <li><a href="https://www.eclipse.org/org/workinggroups/" target="_self">Working Groups</a></li>
+              <li><a href="https://www.eclipse.org/membership/" target="_self">Members</a></li>
+              <li class="dropdown visible-xs">
+                <a href="Terracota&#32;Session&#32;Clustering.html#" data-toggle="dropdown" class="dropdown-toggle">Community <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li><a href="http://marketplace.eclipse.org">Marketplace</a></li>
+                  <li><a href="http://events.eclipse.org">Events</a></li>
+                  <li><a href="http://www.planeteclipse.org/">Planet Eclipse</a></li>
+                  <li><a href="https://www.eclipse.org/community/eclipse_newsletter/">Newsletter</a></li>
+                  <li><a href="https://www.youtube.com/user/EclipseFdn">Videos</a></li>
+                  <li><a href="https://blogs.eclipse.org">Blogs</a></li>
+                </ul>
+              </li>
+              <li class="dropdown visible-xs">
+                <a href="Terracota&#32;Session&#32;Clustering.html#" data-toggle="dropdown" class="dropdown-toggle">Participate <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li><a href="https://bugs.eclipse.org/bugs/">Report a Bug</a></li>
+                  <li><a href="https://www.eclipse.org/forums/">Forums</a></li>
+                  <li><a href="https://www.eclipse.org/mail/">Mailing Lists</a></li>
+                  <li><a href="https://wiki.eclipse.org/">Wiki</a></li>
+                  <li><a href="https://wiki.eclipse.org/IRC">IRC</a></li>
+                  <li><a href="https://www.eclipse.org/org/research/">Research</a></li>
+                </ul>
+              </li>
+              <li class="dropdown visible-xs">
+                <a href="Terracota&#32;Session&#32;Clustering.html#" data-toggle="dropdown" class="dropdown-toggle">Eclipse IDE <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li><a href="https://www.eclipse.org/downloads">Download</a></li>
+                  <li><a href="https://www.eclipse.org/eclipseide">Learn More</a></li>
+                  <li><a href="https://help.eclipse.org">Documentation</a></li>
+                  <li><a href="https://www.eclipse.org/getting_started">Getting Started / Support</a></li>
+                  <li><a href="https://www.eclipse.org/contribute/">How to Contribute</a></li>
+                  <li><a href="https://www.eclipse.org/ide/">IDE and Tools</a></li>
+                  <li><a href="https://www.eclipse.org/forums/index.php/f/89/">Newcomer Forum</a></li>
+                </ul>
+              </li>
+              <!-- More -->
+              <li class="dropdown eclipse-more hidden-xs">
+                <a data-toggle="dropdown" class="dropdown-toggle" role="button">More<b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li>
+                    <!-- Content container to add padding -->
+                    <div class="yamm-content">
+                      <div class="row">
+                        <ul class="col-sm-8 list-unstyled">
+                          <li>
+                            <p><strong>Community</strong></p>
+                          </li>
+                          <li><a href="http://marketplace.eclipse.org">Marketplace</a></li>
+                          <li><a href="http://events.eclipse.org">Events</a></li>
+                          <li><a href="http://www.planeteclipse.org/">Planet Eclipse</a></li>
+                          <li><a href="https://www.eclipse.org/community/eclipse_newsletter/">Newsletter</a></li>
+                          <li><a href="https://www.youtube.com/user/EclipseFdn">Videos</a></li>
+                          <li><a href="https://blogs.eclipse.org">Blogs</a></li>
+                        </ul>
+                        <ul class="col-sm-8 list-unstyled">
+                          <li>
+                            <p><strong>Participate</strong></p>
+                          </li>
+                          <li><a href="https://bugs.eclipse.org/bugs/">Report a Bug</a></li>
+                          <li><a href="https://www.eclipse.org/forums/">Forums</a></li>
+                          <li><a href="https://www.eclipse.org/mail/">Mailing Lists</a></li>
+                          <li><a href="https://wiki.eclipse.org/">Wiki</a></li>
+                          <li><a href="https://wiki.eclipse.org/IRC">IRC</a></li>
+                          <li><a href="https://www.eclipse.org/org/research/">Research</a></li>
+                        </ul>
+                        <ul class="col-sm-8 list-unstyled">
+                          <li>
+                            <p><strong>Eclipse IDE</strong></p>
+                          </li>
+                          <li><a href="https://www.eclipse.org/downloads">Download</a></li>
+                          <li><a href="https://www.eclipse.org/eclipseide">Learn More</a></li>
+                          <li><a href="https://help.eclipse.org">Documentation</a></li>
+                          <li><a href="https://www.eclipse.org/getting_started">Getting Started / Support</a></li>
+                          <li><a href="https://www.eclipse.org/contribute/">How to Contribute</a></li>
+                          <li><a href="https://www.eclipse.org/ide/">IDE and Tools</a></li>
+                          <li><a href="https://www.eclipse.org/forums/index.php/f/89/">Newcomer Forum</a></li>
+                        </ul>
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-main-menu">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            </button>
+            <div class="wrapper-logo-mobile"><a class="navbar-brand visible-xs" href="https://www.eclipse.org/"><img class="logo-eclipse-default-mobile img-responsive" alt="Eclipse.org logo" width="160" src="https://www.eclipse.org/eclipse.org-common/themes/solstice/public/images/logo/eclipse-foundation-white-orange.svg"/></a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+<section class="default-breadcrumbs hidden-print" id="breadcrumb">
+  <div class="container-fluid">
+    <h3 class="sr-only">Breadcrumbs</h3>
+    <div class="row">
+      <div class="col-sm-24">
+        <ol class="breadcrumb">
+          <li><a href="https://www.eclipse.org/">Home</a></li>
+          <li><a href="https://wiki.eclipse.org/Main_Page">Eclipse Wiki</a></li>
+          <li class="active">Jetty/Tutorial/Terracota Session Clustering</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- /#breadcrumb -->
+<main>
+<div class="container-fluid padding-15 padding-top-20">
+    
+    
+    <!-- content -->
+    <section id="content" class="mw-body container-full clearfix 0">
+      <div id="mw-js-message" style="display:none;"></div>
+
+      
+      <!-- bodyContent -->
+      <div id="bodyContent">
+
+        
+                <!-- jumpto -->
+        <div id="jump-to-nav" class="mw-jump">
+          Jump to: <a href="Terracota&#32;Session&#32;Clustering.html#mw-head">navigation</a>,
+          <a href="Terracota&#32;Session&#32;Clustering.html#p-search">search</a>
+        </div>
+        <!-- /jumpto -->
+        
+          <!-- leftcol -->
+          <aside class="col-md-4 noprint hidden-print" id="leftcol">
+                      <form class="input-group" role="form" id="form-eclipse-search" action="https://wiki.eclipse.org/index.php" id="searchform">
+              <input id="searchInput" class="search-query form-control" type="search" accesskey="f" title="Special:Search" placeholder="Search" name="search" value="">
+
+              <span class="input-group-btn">
+                <button value="search" id="mw-searchButton" type="submit" class="btn btn-default" title="Search the pages for this text" name="fulltext">
+                  <i class="fa fa-search"></i>
+                </button>
+              </span>
+            </form>
+                      <select class="form-control margin-top-10 margin-bottom-10 visible-xs visible-sm" onchange="this.options[this.selectedIndex].value && (window.location = this.options[this.selectedIndex].value);"><option class="fw-700 "><span class="fw-700">---Navigation---</span></option><option value="/Main_Page">Main Page</option><option value="/Eclipsepedia:Community_portal">Community portal</option><option value="/Eclipsepedia:Current_events">Current events</option><option value="/Special:RecentChanges">Recent changes</option><option value="/Special:Random">Random page</option><option value="https://www.mediawiki.org/wiki/Special:MyLanguage/Help:Contents">Help</option></select><ul class="ul-left-nav fa-ul hidden-print leftnav hidden-xs hidden-sm"><li class="separator"><span class="separator">Navigation</span></li>                <li class=""><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/Main_Page" id="n-mainpage" title="Visit the main page [z]" accesskey="z">Main Page</a></li>                <li class=""><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/Eclipsepedia:Community_portal" id="n-portal" title="About the project, what you can do, where to find things">Community portal</a></li>                <li class=""><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/Eclipsepedia:Current_events" id="n-currentevents" title="Find background information on current events">Current events</a></li>                <li class=""><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/Special:RecentChanges" id="n-recentchanges" title="A list of recent changes in the wiki [r]" accesskey="r">Recent changes</a></li>                <li class=""><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/Special:Random" id="n-randompage" title="Load a random page [x]" accesskey="x">Random page</a></li>                <li class=""><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://www.mediawiki.org/wiki/Special:MyLanguage/Help:Contents" id="n-help" title="The place to find out">Help</a></li></ul>            <select class="form-control margin-top-10 margin-bottom-10 visible-xs visible-sm" onchange="this.options[this.selectedIndex].value && (window.location = this.options[this.selectedIndex].value);"><option class="fw-700 "><span class="fw-700">---Toolbox---</span></option><option value="/index.php?title=Jetty/Tutorial/Terracota_Session_Clustering&amp;action=info">Page information</option><option value="/index.php?title=Jetty/Tutorial/Terracota_Session_Clustering&amp;oldid=208187">Permanent link</option><option value="/index.php?title=Jetty/Tutorial/Terracota_Session_Clustering&amp;printable=yes">Printable version</option><option value="/Special:SpecialPages">Special pages</option><option value="/Special:RecentChangesLinked/Jetty/Tutorial/Terracota_Session_Clustering">Related changes</option><option value="/Special:WhatLinksHere/Jetty/Tutorial/Terracota_Session_Clustering">What links here</option></select><ul class="ul-left-nav fa-ul hidden-print leftnav hidden-xs hidden-sm"><li class="separator"><span class="separator">Toolbox</span></li><li><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/index.php?title=Jetty/Tutorial/Terracota_Session_Clustering&amp;action=info" id="t-info" title="More information about this page">Page information</a></li><li><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/index.php?title=Jetty/Tutorial/Terracota_Session_Clustering&amp;oldid=208187" id="t-permalink" title="Permanent link to this revision of the page">Permanent link</a></li><li><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/index.php?title=Jetty/Tutorial/Terracota_Session_Clustering&amp;printable=yes" id="t-print" rel="alternate" title="Printable version of this page [p]" accesskey="p">Printable version</a></li><li><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/Special:SpecialPages" id="t-specialpages" title="A list of all special pages [q]" accesskey="q">Special pages</a></li><li><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/Special:RecentChangesLinked/Jetty/Tutorial/Terracota_Session_Clustering" id="t-recentchangeslinked" title="Recent changes in pages linked from this page [k]" accesskey="k">Related changes</a></li><li><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/Special:WhatLinksHere/Jetty/Tutorial/Terracota_Session_Clustering" id="t-whatlinkshere" title="A list of all wiki pages that link here [j]" accesskey="j">What links here</a></li></ul>                                  </aside>
+          <!-- /leftcol -->
+
+          <!-- mainContent -->
+          <div id="mainContent" class="col-md-20">
+                      <ul class="nav nav-tabs noprint hidden-print" role="tablist">
+                       <li id="ca-nstab-main" class="active"><a href="Terracota&#32;Session&#32;Clustering.html"  title="View the content page [c]" accesskey="c" tabindex="-1">Page</a></li>
+                        <li id="ca-talk" class="new"><a href="https://wiki.eclipse.org/index.php?title=Talk:Jetty/Tutorial/Terracota_Session_Clustering&amp;action=edit&amp;redlink=1"  title="Discussion about the content page [t]" accesskey="t" tabindex="-1">Discussion</a></li>
+                        <li id="ca-viewsource"><a href="https://wiki.eclipse.org/index.php?title=Jetty/Tutorial/Terracota_Session_Clustering&amp;action=edit"  title="This page is protected.&#10;You can view its source [e]" accesskey="e" tabindex="-1">View source</a></li>
+                        <li id="ca-history" class="collapsible"><a href="https://wiki.eclipse.org/index.php?title=Jetty/Tutorial/Terracota_Session_Clustering&amp;action=history"  title="Past revisions of this page [h]" accesskey="h" tabindex="-1">History</a></li>
+                      </ul>            <div class="tab-content background-white">
+              <div id="tab-pane-main-page-content" class="tab-pane active">
+
+                
+                <h1 id="firstHeading" class="firstHeading page-header">
+                  <span dir="auto">Jetty/Tutorial/Terracota Session Clustering</span>
+                </h1>
+                <div id="main-page-content">
+                                                      <!-- subtitle -->
+                  <div id="contentSub"  class="alert alert-small alert-warning"><span class="subpages">&lt; <a href="../../Jetty.html" title="Jetty">Jetty</a>&lrm; | <a href="../Tutorial.html" title="Jetty/Tutorial">Tutorial</a></span></div>
+                  <!-- /subtitle -->
+                  
+                  
+                  <div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><p><br />
+</p><p><br />
+</p>
+<div id="toc" class="toc"><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="Terracota&#32;Session&#32;Clustering.html#Introduction"><span class="tocnumber">1</span> <span class="toctext">Introduction</span></a></li>
+<li class="toclevel-1"><a href="Terracota&#32;Session&#32;Clustering.html#Details"><span class="tocnumber">2</span> <span class="toctext">Details</span></a>
+<ul>
+<li class="toclevel-2"><a href="Terracota&#32;Session&#32;Clustering.html#Requirements"><span class="tocnumber">2.1</span> <span class="toctext">Requirements</span></a></li>
+<li class="toclevel-2"><a href="Terracota&#32;Session&#32;Clustering.html#Build_instructions"><span class="tocnumber">2.2</span> <span class="toctext">Build instructions</span></a></li>
+<li class="toclevel-2"><a href="Terracota&#32;Session&#32;Clustering.html#Jetty_Configuration_Files"><span class="tocnumber">2.3</span> <span class="toctext">Jetty Configuration Files</span></a>
+<ul>
+<li class="toclevel-3"><a href="Terracota&#32;Session&#32;Clustering.html#The_TerracottaSessionIdManager"><span class="tocnumber">2.3.1</span> <span class="toctext">The TerracottaSessionIdManager</span></a></li>
+<li class="toclevel-3"><a href="Terracota&#32;Session&#32;Clustering.html#The_TerracottaSessionManager"><span class="tocnumber">2.3.2</span> <span class="toctext">The TerracottaSessionManager</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2"><a href="Terracota&#32;Session&#32;Clustering.html#Terracotta_Configuration_File"><span class="tocnumber">2.4</span> <span class="toctext">Terracotta Configuration File</span></a>
+<ul>
+<li class="toclevel-3"><a href="Terracota&#32;Session&#32;Clustering.html#The_base_Terracotta_Configuration_File"><span class="tocnumber">2.4.1</span> <span class="toctext">The base Terracotta Configuration File</span></a></li>
+<li class="toclevel-3"><a href="Terracota&#32;Session&#32;Clustering.html#Modifications_to_the_Terracotta_Configuration_File"><span class="tocnumber">2.4.2</span> <span class="toctext">Modifications to the Terracotta Configuration File</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2"><a href="Terracota&#32;Session&#32;Clustering.html#Starting_Terracotta_and_Jetty"><span class="tocnumber">2.5</span> <span class="toctext">Starting Terracotta and Jetty</span></a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Introduction">Introduction</span></h2>
+<div class="messagebox" style="background-color: #f9f6b7; border: 1px solid #c4c295; color: black; padding: 5px; margin: 1ex 0; min-height: 35px; padding-left: 45px;">
+<div style="float: left; margin-left: -40px;"><a href="https://wiki.eclipse.org/File:Warning2.png" class="image"><img alt="Warning2.png" src="../../images/3/37/Warning2.png" width="35" height="35" /></a></div>
+<div><b>Attention:</b><br />This documentation is relevant for Jetty 6. Please see <a rel="nofollow" class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/server/session/JDBCSessionIdManager.html">JDBCSessionIdManager</a> and <a rel="nofollow" class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/server/session/JDBCSessionManager.html">JDBCSessionManager</a> javadoc for the corresponding Jetty 7 feature.</div>
+</div>
+<p><br />
+Jetty has been integrated with <a rel="nofollow" class="external text" href="http://www.terracotta.org">Terracotta</a>, providing a great clustering solution. Since Jetty 6.1.12, the Jetty-Terracotta integration has been rewritten to provide better performance. The Jetty-Terracotta integration is not bundled by default; it must be built from sources following the instructions below.
+</p>
+<h2><span class="mw-headline" id="Details">Details</span></h2>
+<h3><span class="mw-headline" id="Requirements">Requirements</span></h3>
+<ol><li> You need J2SE 1.5 or greater to build and run the Jetty-Terracotta integration.</li>
+<li> You need Jetty 6.1.12 or greater.</li>
+<li> You need to install Terracotta, we have tested <a rel="nofollow" class="external text" href="http://www.terracotta.org/web/display/orgsite/Download">Terracotta 2.6.4</a> or greater. We will refer to the installation directory as <tt>$TC_HOME</tt>.</li>
+<li> You need to download [/download/attachments/80907/tim-jetty-6.1-1.0.4.jar?version=1&amp;modificationDate=1226592637334 this] Jetty TIM (Terracotta Integration Module).</li></ol>
+<p>We are working on an updated version of the official Jetty TIM and update the instructions when the new version of the official Jetty TIM is compatible with the current Jetty-Terracotta integration. Don't be fooled by the '1.1.1' version on the official TIM, you really need this 1.0.4. The official Jetty TIM will be downloadable from the Terracotta Forge. Copy the downloaded Jetty TIM file <tt>tim-jetty-6.1-1.0.4.jar</tt> to <tt>$TC_HOME/modules/</tt>.
+</p>
+<h3><span class="mw-headline" id="Build_instructions">Build instructions</span></h3>
+<ol><li> Download and unzip a source bundle of Jetty 6.1.12 or greater from the distribution site. We will refer to the installation directory as <tt>$JETTY_HOME</tt>.</li>
+<li> Build it: </li></ol>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="bash source-bash"><pre class="de1">$ <span class="kw3">cd</span> <span class="re1">$JETTY_HOME</span>
+$ mvn clean <span class="kw2">install</span></pre></div></div>
+<ol><li> Copy the target/jetty-terracotta-sessions-6.1.12.jar you just built into <tt>$JETTY_HOME&gt;/lib/ext</tt>: </li></ol>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="bash source-bash"><pre class="de1"><span class="co4">$ </span><span class="kw2">cp</span> contrib<span class="sy0">/</span>terracotta<span class="sy0">/</span>target<span class="sy0">/</span>jetty-terracotta-sessions-6.1.12.jar <span class="re1">$JETTY_HOME</span><span class="sy0">&gt;/</span>lib<span class="sy0">/</span>ext<span class="sy0">/</span></pre></div></div>
+<h3><span class="mw-headline" id="Jetty_Configuration_Files">Jetty Configuration Files</span></h3>
+<p>Configuring Jetty to use Terracotta consists of creating a single TerracottaSessionIdManager per Jetty instance to generate unique session ids, and then setting up a special TerracottaSessionManager per each webapp that you want to be clustered.
+</p>
+<h4><span class="mw-headline" id="The_TerracottaSessionIdManager">The TerracottaSessionIdManager</span></h4>
+<p>One TerracottaSessionIdManager is configured per Jetty instance to generate unique session ids. These are the relevant lines to add to add to a separate <tt>$JETTY_HOME/etc/jetty-terracotta.xml</tt>:
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="xml source-xml"><pre class="de1"> <span class="sc3"><span class="re1">&lt;Configure</span> <span class="re0">id</span>=<span class="st0">&quot;Server&quot;</span> <span class="re0">class</span>=<span class="st0">&quot;org.mortbay.jetty.Server&quot;</span><span class="re2">&gt;</span></span>
+     <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">id</span>=<span class="st0">&quot;tcIdManager&quot;</span> <span class="re0">class</span>=<span class="st0">&quot;org.mortbay.terracotta.servlet.TerracottaSessionIdManager&quot;</span><span class="re2">&gt;</span></span>
+         <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>
+             <span class="sc3"><span class="re1">&lt;Ref</span> <span class="re0">id</span>=<span class="st0">&quot;Server&quot;</span> <span class="re2">/&gt;</span></span>
+         <span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
+         <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">&quot;workerName&quot;</span><span class="re2">&gt;</span></span>
+             <span class="sc3"><span class="re1">&lt;SystemProperty</span> <span class="re0">name</span>=<span class="st0">&quot;jetty.node&quot;</span> <span class="re0">default</span>=<span class="st0">&quot;node1&quot;</span> <span class="re2">/&gt;</span></span>
+         <span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
+     <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span>
+     <span class="sc3"><span class="re1">&lt;Call</span> <span class="re0">name</span>=<span class="st0">&quot;setAttribute&quot;</span><span class="re2">&gt;</span></span>
+         <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>tcIdManager<span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
+         <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>
+             <span class="sc3"><span class="re1">&lt;Ref</span> <span class="re0">id</span>=<span class="st0">&quot;tcIdManager&quot;</span> <span class="re2">/&gt;</span></span>
+         <span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
+     <span class="sc3"><span class="re1">&lt;/Call<span class="re2">&gt;</span></span></span>
+ <span class="sc3"><span class="re1">&lt;/Configure<span class="re2">&gt;</span></span></span></pre></div></div>
+<p>The TerracottaSessionIdManager is stored as an attribute on the Server instance for later retrieval under the name <tt>tcIdManager</tt>. The <tt>workerName</tt> is a unique name for the Jetty node. In the example above it is "node1" but you can use any naming scheme you'd like. This is useful when hardware components such as load balancers can "stick" the requests to the same node to improve performances by limiting the session migrations among nodes.
+</p>
+<h4><span class="mw-headline" id="The_TerracottaSessionManager">The TerracottaSessionManager</span></h4>
+<p>Each web application whose sessions you want to cluster must use a TerracottaSessionManager instead of the default HashSessionManager. The easiest way to do this is to create individual [/display/JETTY/ContextDeployer context deployer] config files for each web application, and include these lines:
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="xml source-xml"><pre class="de1"> <span class="sc3"><span class="re1">&lt;Configure</span> <span class="re0">class</span>=<span class="st0">&quot;org.mortbay.jetty.webapp.WebAppContext&quot;</span><span class="re2">&gt;</span></span>
+     ...
+     <span class="sc3"><span class="re1">&lt;Property</span> <span class="re0">name</span>=<span class="st0">&quot;Server&quot;</span> <span class="re0">id</span>=<span class="st0">&quot;Server&quot;</span><span class="re2">&gt;</span></span>
+         <span class="sc3"><span class="re1">&lt;Call</span> <span class="re0">id</span>=<span class="st0">&quot;tcIdManager&quot;</span> <span class="re0">name</span>=<span class="st0">&quot;getAttribute&quot;</span><span class="re2">&gt;</span></span>
+             <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>tcIdManager<span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
+         <span class="sc3"><span class="re1">&lt;/Call<span class="re2">&gt;</span></span></span>
+     <span class="sc3"><span class="re1">&lt;/Property<span class="re2">&gt;</span></span></span>
+     <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">&quot;sessionHandler&quot;</span><span class="re2">&gt;</span></span>
+         <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">class</span>=<span class="st0">&quot;org.mortbay.terracotta.servlet.TerracottaSessionHandler&quot;</span><span class="re2">&gt;</span></span>
+             <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>
+                 <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">class</span>=<span class="st0">&quot;org.mortbay.terracotta.servlet.TerracottaSessionManager&quot;</span><span class="re2">&gt;</span></span>
+                     <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">&quot;idManager&quot;</span><span class="re2">&gt;</span></span>
+                         <span class="sc3"><span class="re1">&lt;Ref</span> <span class="re0">id</span>=<span class="st0">&quot;tcIdManager&quot;</span> <span class="re2">/&gt;</span></span>
+                     <span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
+                 <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span>
+             <span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
+         <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span>
+     <span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
+     ...
+ <span class="sc3"><span class="re1">&lt;/Configure<span class="re2">&gt;</span></span></span></pre></div></div>
+<p>These lines ensure that a TerracottaSessionManager is established for each web application, and has access to the Jetty instance's unique TerracottaSessionIdManager we configured above.
+</p>
+<h3><span class="mw-headline" id="Terracotta_Configuration_File">Terracotta Configuration File</span></h3>
+<p>You need one Terracotta configuration file for each Jetty instance. In the Terracotta configuration file, part of the configuration is needed to setup correctly the Jetty-Terracotta integration, and the rest of the configuration is needed to setup the Terracotta server and the web applications.
+</p>
+<h4><span class="mw-headline" id="The_base_Terracotta_Configuration_File">The base Terracotta Configuration File</span></h4>
+<p>The base Terracotta configuration file that sets up the Jetty-Terracotta integration is the following:
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="xml source-xml"><pre class="de1"> <span class="sc3"><span class="re1">&lt;?xml</span> <span class="re0">version</span>=<span class="st0">&quot;1.0&quot;</span> <span class="re0">encoding</span>=<span class="st0">&quot;UTF-8&quot;</span><span class="re2">?&gt;</span></span>
+ <span class="sc3"><span class="re1">&lt;tc:tc-config</span> <span class="re0">xmlns:tc</span>=<span class="st0">&quot;http://www.terracotta.org/config&quot;</span></span>
+<span class="sc3">               <span class="re0">xmlns:xsi</span>=<span class="st0">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span></span>
+<span class="sc3">               <span class="re0">xsi:schemaLocation</span>=<span class="st0">&quot;http://www.terracotta.org/config http://www.terracotta.org/schema/terracotta-4.xsd&quot;</span><span class="re2">&gt;</span></span>
+     <span class="sc3"><span class="re1">&lt;servers<span class="re2">&gt;</span></span></span>
+         <span class="sc3"><span class="re1">&lt;server</span> <span class="re0">host</span>=<span class="st0">&quot;localhost&quot;</span><span class="re2">&gt;</span></span>
+             <span class="sc3"><span class="re1">&lt;data<span class="re2">&gt;</span></span></span>%(user.dir)/terracotta/server-data<span class="sc3"><span class="re1">&lt;/data<span class="re2">&gt;</span></span></span>
+             <span class="sc3"><span class="re1">&lt;logs<span class="re2">&gt;</span></span></span>%(user.dir)/terracotta/server-logs<span class="sc3"><span class="re1">&lt;/logs<span class="re2">&gt;</span></span></span>
+         <span class="sc3"><span class="re1">&lt;/server<span class="re2">&gt;</span></span></span>
+     <span class="sc3"><span class="re1">&lt;/servers<span class="re2">&gt;</span></span></span>
+&#160;
+     <span class="sc3"><span class="re1">&lt;clients<span class="re2">&gt;</span></span></span>
+         <span class="sc3"><span class="re1">&lt;modules<span class="re2">&gt;</span></span></span>
+             <span class="sc3"><span class="re1">&lt;module</span> <span class="re0">name</span>=<span class="st0">&quot;tim-jetty-6.1&quot;</span> <span class="re0">version</span>=<span class="st0">&quot;1.0.1&quot;</span> <span class="re2">/&gt;</span></span>
+         <span class="sc3"><span class="re1">&lt;/modules<span class="re2">&gt;</span></span></span>
+         <span class="sc3"><span class="re1">&lt;logs<span class="re2">&gt;</span></span></span>%(user.dir)/terracotta/client-logs<span class="sc3"><span class="re1">&lt;/logs<span class="re2">&gt;</span></span></span>
+     <span class="sc3"><span class="re1">&lt;/clients<span class="re2">&gt;</span></span></span>
+&#160;
+     <span class="sc3"><span class="re1">&lt;application<span class="re2">&gt;</span></span></span>
+         <span class="sc3"><span class="re1">&lt;dso<span class="re2">&gt;</span></span></span>
+             <span class="sc3"><span class="re1">&lt;instrumented-classes<span class="re2">&gt;</span></span></span>
+                 <span class="sc3"><span class="re1">&lt;include<span class="re2">&gt;</span></span></span>
+                     <span class="sc3"><span class="re1">&lt;class-expression<span class="re2">&gt;</span></span></span>...<span class="sc3"><span class="re1">&lt;/class-expression<span class="re2">&gt;</span></span></span>
+                 <span class="sc3"><span class="re1">&lt;/include<span class="re2">&gt;</span></span></span>
+             <span class="sc3"><span class="re1">&lt;/instrumented-classes<span class="re2">&gt;</span></span></span>
+         <span class="sc3"><span class="re1">&lt;/dso<span class="re2">&gt;</span></span></span>
+     <span class="sc3"><span class="re1">&lt;/application<span class="re2">&gt;</span></span></span>
+ <span class="sc3"><span class="re1">&lt;/tc:tc-config<span class="re2">&gt;</span></span></span></pre></div></div>
+<p>You can create a Terracotta configuration file wherever you prefer in the file system. The file will be referenced by path in a system property to be passed on the command line (see below). Copy and paste the example file content above into, for example, <tt>$JETTY_HOME/tc-config.xml</tt>.
+</p>
+<h4><span class="mw-headline" id="Modifications_to_the_Terracotta_Configuration_File">Modifications to the Terracotta Configuration File</span></h4>
+<p>There are few places that needs to be modified in order for the Terracotta configuration file to correctly cluster your web application.
+</p>
+<ol><li> Modify the location of the Terracotta server.</li></ol>
+<p>The server element has the <tt>host</tt> attribute that needs to be modified to point to the host name or host address of the Terracotta server. In most simple configurations this can be the local host, but in more advanced configurations the Terracotta server is deployed in a separate host.
+</p>
+<ol><li> Instrumented classes includes</li></ol>
+<p>If you web application puts in the HTTP session only instances of JDK available classes (such as <tt>java.lang.Integer</tt> or <tt>java.lang.String</tt>), then you do not need the instrumented-classes element. In case your web application puts in the HTTP session instances of classes belonging to the web application (such as a domain <tt>com.acme.domain.User</tt> class), then you need to specify also those classes as instrumented, for example:
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="xml source-xml"><pre class="de1">  <span class="sc3"><span class="re1">&lt;tc:tc-config</span> ...<span class="re2">&gt;</span></span>
+     ...
+     <span class="sc3"><span class="re1">&lt;application<span class="re2">&gt;</span></span></span>
+         <span class="sc3"><span class="re1">&lt;dso<span class="re2">&gt;</span></span></span>
+             <span class="sc3"><span class="re1">&lt;instrumented-classes<span class="re2">&gt;</span></span></span>
+                 <span class="sc3"><span class="re1">&lt;include<span class="re2">&gt;</span></span></span>
+                     <span class="sc3"><span class="re1">&lt;class-expression<span class="re2">&gt;</span></span></span>com.acme.domain.User<span class="sc3"><span class="re1">&lt;/class-expression<span class="re2">&gt;</span></span></span>
+                 <span class="sc3"><span class="re1">&lt;/include<span class="re2">&gt;</span></span></span>
+             <span class="sc3"><span class="re1">&lt;/instrumented-classes<span class="re2">&gt;</span></span></span>
+         <span class="sc3"><span class="re1">&lt;/dso<span class="re2">&gt;</span></span></span>
+     <span class="sc3"><span class="re1">&lt;/application<span class="re2">&gt;</span></span></span>
+     ...
+  <span class="sc3"><span class="re1">&lt;/tc:tc-config<span class="re2">&gt;</span></span></span></pre></div></div>
+<p>You can also specify class expressions to match multiple classes, as specified <a rel="nofollow" class="external text" href="http://www.terracotta.org/confluence/display/docs1/Configuration+Guide+and+Reference">here</a>.
+</p>
+<ol><li> Web application contexts</li></ol>
+<p>You do not need to specify the context path at which the web application is configured, by defining the <tt>web-application</tt> elements in the Terracotta configuration file, since the intention of clustering a context is already specified in the Jetty context configuration file.
+</p>
+<h3><span class="mw-headline" id="Starting_Terracotta_and_Jetty">Starting Terracotta and Jetty</span></h3>
+<p>The final steps require to start the Terracotta server and the Jetty servers.
+</p>
+<ol><li> Start the Terracotta server (in one console)</li></ol>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="bash source-bash"><pre class="de1">$ <span class="kw3">cd</span> <span class="re1">$TC_HOME</span><span class="sy0">/</span>bin<span class="sy0">/</span>
+$ .<span class="sy0">/</span>start-tc-server.sh</pre></div></div>
+<ol><li> Start the Jetty instance (in another console)</li></ol>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="bash source-bash"><pre class="de1">$ <span class="kw3">cd</span> <span class="re1">$JETTY_HOME</span><span class="sy0">/</span>
+$ <span class="re1">$TC_HOME</span><span class="sy0">/</span>bin<span class="sy0">/</span>dso-java.sh -Dtc.config=tc-config.xml <span class="re5">-jar</span> start.jar etc<span class="sy0">/</span>jetty.xml etc<span class="sy0">/</span>jetty-terracotta.xml</pre></div></div>
+<p>The command line above assumes that the Terracotta configuration file has been saved to <tt>$JETTY_HOME/tc-config.xml</tt>, and that the Jetty configuration file <tt>jetty-terracotta.xml</tt> is in its usual location under <tt>$JETTY_HOME/etc/</tt>. Repeat this step for all Jetty nodes and you are done.
+</p><p>Do not forget to change the <tt>workerName</tt> of the TerracottaSessionIdManager in each node you deploy (this is to help other hardware devices such as load balancers).
+</p><p>You can inspect that the clustering is working by starting the Terracotta administration console:
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="bash source-bash"><pre class="de1">$ <span class="kw3">cd</span> <span class="re1">$TC_HOME</span><span class="sy0">/</span>bin
+$ .<span class="sy0">/</span>admin.sh</pre></div></div>
+
+<!-- 
+NewPP limit report
+Cached time: 20211116033023
+Cache expiry: 86400
+Dynamic content: false
+CPU time usage: 0.280 seconds
+Real time usage: 0.312 seconds
+Preprocessor visited node count: 91/1000000
+Preprocessor generated node count: 553/1000000
+Post‐expand include size: 9136/2097152 bytes
+Template argument size: 8309/2097152 bytes
+Highest expansion depth: 6/40
+Expensive parser function count: 0/100
+-->
+
+<!-- 
+Transclusion expansion time report (%,ms,calls,template)
+100.00%  201.069      1 - -total
+100.00%  201.069      1 - Template:Jetty_Tutorial
+ 10.64%   21.402      1 - Template:Warning
+  6.82%   13.713      1 - Template:Message
+  3.99%    8.025      1 - Template:Jetty
+-->
+
+<!-- Saved in parser cache with key my_wiki:pcache:idhash:26004-0!*!*!!en!5!* and timestamp 20211116033022 and revision id 208187
+ -->
+</div>
+                                      <!-- catlinks -->
+                    <div id='catlinks' class='catlinks'><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="https://wiki.eclipse.org/Special:Categories" title="Special:Categories">Categories</a>: <ul><li><a href="https://wiki.eclipse.org/Category:Jetty" title="Category:Jetty">Jetty</a></li><li><a href="https://wiki.eclipse.org/Category:Jetty_Tutorial" title="Category:Jetty Tutorial">Jetty Tutorial</a></li></ul></div></div>                     <!-- /catlinks -->
+                                  </div>
+              </div>
+            </div>
+          </div>
+        <!-- /maincontent -->
+
+                <!-- printfooter -->
+        <div class="printfooter">
+        Retrieved from "<a dir="ltr" href="https://wiki.eclipse.org/index.php?title=Jetty/Tutorial/Terracota_Session_Clustering&amp;oldid=208187">https://wiki.eclipse.org/index.php?title=Jetty/Tutorial/Terracota_Session_Clustering&amp;oldid=208187</a>"        </div>
+        <!-- /printfooter -->
+        
+        
+        <!-- debughtml -->
+                <!-- /debughtml -->
+
+      </div>
+      <!-- /bodyContent -->
+    </section>
+    <!-- /content -->
+
+    <!-- footer -->
+    
+</div>
+<div class="featured-footer featured-footer-newsletter background-secondary">
+  <div class="container">
+    <p id="footercredit">This page was last modified 22:37, 21 June 2010 by <a href="https://wiki.eclipse.org/index.php?title=User:Michael.webtide.com&amp;action=edit&amp;redlink=1" class="new" title="User:Michael.webtide.com (page does not exist)">Michael Gorovoy</a>.</p><p id="footerviews"></p>  </div>
+</div>
+</main> <!-- /#main-content-container-row -->
+<p id="back-to-top" class="noprint hidden-print">
+  <a class="visible-xs" href="Terracota&#32;Session&#32;Clustering.html#top">Back to the top</a>
+</p>
+<footer id="solstice-footer">
+  <div class="container">
+    <div class="row">
+      <section class="col-sm-6 hidden-print" id="footer-eclipse-foundation">
+        <h2 class="section-title">Eclipse Foundation</h2>
+        <ul class="nav">
+          <li><a href="https://www.eclipse.org/org/">About Us</a></li>
+          <li><a href="https://www.eclipse.org/org/foundation/contact.php">Contact Us</a></li>
+          <li><a href="https://www.eclipse.org/donate">Donate</a></li>
+          <li><a href="https://www.eclipse.org/membership/">Members</a></li>
+          <li><a href="https://www.eclipse.org/org/documents/">Governance</a></li>
+          <li><a href="https://www.eclipse.org/org/documents/Community_Code_of_Conduct.php">Code of Conduct</a></li>
+          <li><a href="https://www.eclipse.org/artwork/">Logo and Artwork</a></li>
+          <li><a href="https://www.eclipse.org/org/foundation/directors.php">Board of Directors</a></li>
+        </ul>
+      </section>
+      <section class="col-sm-6 hidden-print" id="footer-legal">
+        <h2 class="section-title">Legal</h2>
+        <ul class="nav">
+          <li><a href="https://www.eclipse.org/legal/privacy.php">Privacy Policy</a></li>
+          <li><a href="https://www.eclipse.org/legal/termsofuse.php">Terms of Use</a></li>
+          <li><a href="https://www.eclipse.org/legal/copyright.php">Copyright Agent</a></li>
+          <li><a href="https://www.eclipse.org/legal/epl-2.0/">Eclipse Public License</a></li>
+          <li><a href="https://www.eclipse.org/legal/">Legal Resources</a></li>
+        </ul>
+      </section>
+      <section class="col-sm-6 hidden-print" id="footer-useful-links">
+        <h2 class="section-title">Useful Links</h2>
+        <ul class="nav">
+          <li><a href="https://bugs.eclipse.org/bugs/">Report a Bug</a></li>
+          <li><a href="https://help.eclipse.org/">Documentation</a></li>
+          <li><a href="https://www.eclipse.org/contribute/">How to Contribute</a></li>
+          <li><a href="https://www.eclipse.org/mail/">Mailing Lists</a></li>
+          <li><a href="https://www.eclipse.org/forums/">Forums</a></li>
+          <li><a href="https://marketplace.eclipse.org/">Marketplace</a></li>
+        </ul>
+      </section>
+      <section class="col-sm-6 hidden-print" id="footer-other">
+        <h2 class="section-title">Other</h2>
+        <ul class="nav">
+          <li><a href="https://www.eclipse.org/ide/">IDE and Tools</a></li>
+          <li><a href="https://www.eclipse.org/projects">Projects</a></li>
+          <li><a href="https://www.eclipse.org/org/workinggroups/">Working Groups</a></li>
+          <li><a href="https://www.eclipse.org/org/research/">Research@Eclipse</a></li>
+          <li><a href="https://www.eclipse.org/security/">Report a Vulnerability</a></li>
+          <li><a href="https://status.eclipse.org">Service Status</a></li>
+        </ul>
+      </section>
+      <div class="col-sm-24 margin-top-20">
+        <div class="row">
+          <div id="copyright" class="col-md-16">
+            <p id="copyright-text">Copyright &copy; Eclipse Foundation, Inc. All Rights Reserved.</p>
+          </div>
+          <div class="col-md-8 social-media">
+            <ul class="list-inline">
+              <li>
+                <a class="social-media-link fa-stack fa-lg" href="https://twitter.com/EclipseFdn">
+                <i class="fa fa-circle-thin fa-stack-2x"></i>
+                <i class="fa fa-twitter fa-stack-1x"></i>
+                </a>
+              </li>
+              <li>
+                <a class="social-media-link fa-stack fa-lg" href="https://www.facebook.com/eclipse.org">
+                <i class="fa fa-circle-thin fa-stack-2x"></i>
+                <i class="fa fa-facebook fa-stack-1x"></i>
+                </a>
+              </li>
+              <li>
+                <a class="social-media-link fa-stack fa-lg" href="https://www.youtube.com/user/EclipseFdn">
+                <i class="fa fa-circle-thin fa-stack-2x"></i>
+                <i class="fa fa-youtube fa-stack-1x"></i>
+                </a>
+              </li>
+              <li>
+                <a class="social-media-link fa-stack fa-lg" href="https://www.linkedin.com/company/eclipse-foundation">
+                <i class="fa fa-circle-thin fa-stack-2x"></i>
+                <i class="fa fa-linkedin fa-stack-1x"></i>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <a href="Terracota&#32;Session&#32;Clustering.html#" class="scrollup">Back to the top</a>
+    </div>
+  </div>
+</footer>
+    <!-- /footer -->
+    <script>window.RLQ = window.RLQ || []; window.RLQ.push( function () {
+mw.loader.state({"skins.solstice":"loading","user":"ready","user.groups":"ready"});mw.loader.load("/load.php?debug=false\u0026lang=en\u0026modules=skins.solstice\u0026only=scripts\u0026skin=solstice");mw.loader.load(["mediawiki.toc","mediawiki.action.view.postEdit","site","mediawiki.user","mediawiki.hidpi","mediawiki.page.ready","mediawiki.searchSuggest"]);
+} );</script><script>window.RLQ = window.RLQ || []; window.RLQ.push( function () {
+mw.config.set({"wgBackendResponseTime":439});
+} );</script>  </body>
+</html>

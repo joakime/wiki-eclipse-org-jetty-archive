@@ -1,0 +1,872 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" class="client-nojs">
+<head>
+<meta charset="UTF-8"/>
+<title>Jetty/Feature/Annotations - Eclipsepedia</title>
+<script>document.documentElement.className = document.documentElement.className.replace( /(^|\s)client-nojs(\s|$)/, "$1client-js$2" );</script>
+<script>window.RLQ = window.RLQ || []; window.RLQ.push( function () {
+mw.config.set({"wgCanonicalNamespace":"","wgCanonicalSpecialPageName":!1,"wgNamespaceNumber":0,"wgPageName":"Jetty/Feature/Annotations","wgTitle":"Jetty/Feature/Annotations","wgCurRevisionId":335322,"wgRevisionId":335322,"wgArticleId":25603,"wgIsArticle":!0,"wgIsRedirect":!1,"wgAction":"view","wgUserName":null,"wgUserGroups":["*"],"wgCategories":["Jetty","Jetty Feature"],"wgBreakFrames":!1,"wgPageContentLanguage":"en","wgPageContentModel":"wikitext","wgSeparatorTransformTable":["",""],"wgDigitTransformTable":["",""],"wgDefaultDateFormat":"dmy","wgMonthNames":["","January","February","March","April","May","June","July","August","September","October","November","December"],"wgMonthNamesShort":["","Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"wgRelevantPageName":"Jetty/Feature/Annotations","wgRelevantArticleId":25603,"wgIsProbablyEditable":!1,"wgRestrictionEdit":[],"wgRestrictionMove":[],"wgWikiEditorEnabledModules":{"toolbar":!1,"dialogs":
+!1,"preview":!1,"publish":!1},"wgCategoryTreePageCategoryOptions":"{\"mode\":0,\"hideprefix\":20,\"showcount\":true,\"namespaces\":false}"});mw.loader.implement("user.options",function($,jQuery){mw.user.options.set({"variant":"en"});});mw.loader.implement("user.tokens",function($,jQuery){mw.user.tokens.set({"editToken":"+\\","patrolToken":"+\\","watchToken":"+\\"});});mw.loader.load(["mediawiki.page.startup","mediawiki.legacy.wikibits"]);
+} );</script>
+<link rel="stylesheet" href="../../load.php%3Fdebug=false&amp;lang=en&amp;modules=mediawiki.legacy.commonPrint,shared|mediawiki.sectionAnchor&amp;only=styles&amp;skin=solstice.css"/>
+<link rel="stylesheet" href="../../skins/solstice/public/css/styles.css%3F303.css" media="screen, print"/>
+<meta name="ResourceLoaderDynamicStyles" content=""/>
+<style>a:lang(ar),a:lang(kk-arab),a:lang(mzn),a:lang(ps),a:lang(ur){text-decoration:none}</style>
+<script async="" src="../../load.php%3Fdebug=false&amp;lang=en&amp;modules=startup&amp;only=scripts&amp;skin=solstice"></script>
+<meta name="generator" content="MediaWiki 1.26.4"/>
+<link rel="shortcut icon" href="../../eclipse.org-common/themes/solstice/public/images/favicon.ico"/>
+<link rel="search" type="application/opensearchdescription+xml" href="https://wiki.eclipse.org/opensearch_desc.php" title="Eclipsepedia (en)"/>
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.eclipse.org/api.php?action=rsd"/>
+<link rel="alternate" type="application/atom+xml" title="Eclipsepedia Atom feed" href="https://wiki.eclipse.org/index.php?title=Special:RecentChanges&amp;feed=atom"/>
+<style type="text/css">
+/*<![CDATA[*/      
+#jetty-nav {
+  margin-bottom: 2em;
+}
+#jetty-nav ul {
+  padding: 3px 0 1px 1em;
+  margin:0;
+  border-bottom: 1px solid #aaa;
+}
+#jetty-nav li {
+  list-style: none;
+  margin: 0;
+  display: inline;
+}
+#jetty-nav li a {
+  padding: 3px 0.5em;
+  margin-left: 3px;
+  border: 1px solid #aaa;
+  border-bottom: none;
+  background: #eef;
+  text-decoration: none;
+}
+#jetty-nav li a:link { color: #448; }
+#jetty-nav li a:visited { color: #667; }
+#jetty-nav li a:hover {
+  color: #000;
+  background: #ccf;
+  border-color: #227;
+}
+#jetty-nav li span#current a
+{
+  background: #fff;
+  border-bottom: 1px solid #fff;
+}
+#jetty-nav li .selflink {
+  padding: 3px 0.5em;
+  margin-left: 3px;
+  border: 1px solid #aaa;
+  background: #fff;
+  border-bottom: 1px solid #fff;
+}
+table.jetty-table, .jetty-table table {
+  border: 1px solid #aaa;
+  border-collapse: collapse;
+}
+.jetty-table td {
+  border: 1px solid #aaa;
+  padding: 0.5em 1em;
+}
+.jetty-table th {
+  border: 1px solid #aaa;
+  background-color: #eef;
+}
+.jetty-table caption {
+  border: 1px #aaa solid;
+  margin: 1em 0 0.2em 0;
+  background-color: #ccf;
+  font-weight: bold;
+  font-size: 1.1em;
+}
+#content dl  {
+  border-left: 1px #aaa solid;
+  border-bottom: 1px #aaa solid;
+}
+#content dl dt {
+  float: left;
+  border-top: 1px solid #aaa;
+  padding: 0.5em 0 0 0.5em;
+}
+#content dl dd {
+  border: 1px solid #aaa;
+  border-bottom: none;
+}
+#content .narrow-list dl  {
+  width: 40em;
+}
+#content .narrow-list dl dt {
+  width: 14em;
+  line-height: 1.1em;
+}
+#content .narrow-list dl dd {
+  margin: 0 0 0 15em;
+  padding: 0.5em 1em;
+}
+#content .wide-list dl, #content dl {
+  width: 80em;
+}
+#content .wide-list dl dt, #content dl dt {
+  padding: 0.5em 1em;
+  width: 15em;
+}
+#content .wide-list dl dd, #content dl dd {
+  padding: 1em 1em 2em 2em;
+  margin: 0 0 0 17em;
+}
+#content .unbounded-list dl, #content .unbounded-list dl dd, #content .unbounded-list dl dt {
+  border: 0 none;
+  width: auto;
+  padding: 0 0 0 1em;
+}
+#content .unbounded-list dl dt {
+}
+#content p  {
+  margin-bottom: 0.5em;
+}
+#content li  {
+  line-height: 1.1em;
+}
+.infobox {
+  padding: 0.5em 1em;
+  background-color: #fff;
+  float: right;
+  margin: 0.5em;
+}
+/*]]>*/       
+</style>
+<style type="text/css">/*<![CDATA[*/
+.source-xml {line-height: normal;}
+.source-xml li, .source-xml pre {
+	line-height: normal; border: 0px none white;
+}
+/**
+ * GeSHi Dynamically Generated Stylesheet
+ * --------------------------------------
+ * Dynamically generated stylesheet for xml
+ * CSS class: source-xml, CSS id: 
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ * --------------------------------------
+ */
+.xml.source-xml .de1, .xml.source-xml .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;}
+.xml.source-xml  {font-family:monospace;}
+.xml.source-xml .imp {font-weight: bold; color: red;}
+.xml.source-xml li, .xml.source-xml .li1 {font-weight: normal; vertical-align:top;}
+.xml.source-xml .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.xml.source-xml .li2 {font-weight: bold; vertical-align:top;}
+.xml.source-xml .es0 {color: #000099; font-weight: bold;}
+.xml.source-xml .br0 {color: #66cc66;}
+.xml.source-xml .sy0 {color: #66cc66;}
+.xml.source-xml .st0 {color: #ff0000;}
+.xml.source-xml .nu0 {color: #cc66cc;}
+.xml.source-xml .sc-1 {color: #808080; font-style: italic;}
+.xml.source-xml .sc0 {color: #00bbdd;}
+.xml.source-xml .sc1 {color: #ddbb00;}
+.xml.source-xml .sc2 {color: #339933;}
+.xml.source-xml .sc3 {color: #009900;}
+.xml.source-xml .re0 {color: #000066;}
+.xml.source-xml .re1 {color: #000000; font-weight: bold;}
+.xml.source-xml .re2 {color: #000000; font-weight: bold;}
+.xml.source-xml .ln-xtra, .xml.source-xml li.ln-xtra, .xml.source-xml div.ln-xtra {background-color: #ffc;}
+.xml.source-xml span.xtra { display:block; }
+
+/*]]>*/
+</style>
+<style type="text/css">/*<![CDATA[*/
+.source-java {line-height: normal;}
+.source-java li, .source-java pre {
+	line-height: normal; border: 0px none white;
+}
+/**
+ * GeSHi Dynamically Generated Stylesheet
+ * --------------------------------------
+ * Dynamically generated stylesheet for java
+ * CSS class: source-java, CSS id: 
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ * --------------------------------------
+ */
+.java.source-java .de1, .java.source-java .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;}
+.java.source-java  {font-family:monospace;}
+.java.source-java .imp {font-weight: bold; color: red;}
+.java.source-java li, .java.source-java .li1 {font-weight: normal; vertical-align:top;}
+.java.source-java .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.java.source-java .li2 {font-weight: bold; vertical-align:top;}
+.java.source-java .kw1 {color: #7F0055; font-weight: bold;}
+.java.source-java .kw2 {color: #7F0055; font-weight: bold;}
+.java.source-java .kw3 {color: #000000; font-weight: normal}
+.java.source-java .kw4 {color: #7F0055; font-weight: bold;}
+.java.source-java .co1 {color: #3F7F5F; font-style: italic;}
+.java.source-java .co2 {color: #3F7F5F;}
+.java.source-java .co3 {color: #3F7F5F; font-style: italic; font-weight: bold;}
+.java.source-java .coMULTI {color: #3F5FBF; font-style: italic;}
+.java.source-java .es0 {color: #000000;}
+.java.source-java .br0 {color: #000000;}
+.java.source-java .sy0 {color: #000000;}
+.java.source-java .st0 {color: #2A00ff;}
+.java.source-java .nu0 {color: #000000;}
+.java.source-java .me1 {color: #000000;}
+.java.source-java .me2 {color: #000000;}
+.java.source-java .ln-xtra, .java.source-java li.ln-xtra, .java.source-java div.ln-xtra {background-color: #ffc;}
+.java.source-java span.xtra { display:block; }
+
+/*]]>*/
+</style>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body class="mediawiki ltr sitedir-ltr ns-0 ns-subject page-Jetty_Feature_Annotations skin-solstice action-view" id="solstice">
+
+<a class="sr-only" href="Annotations.html#content">Skip to main content</a>
+<header class="header-wrapper" id="header-wrapper">
+  <div class="clearfix toolbar-container-wrapper">
+    <div class="container-fluid">
+      <div class="text-right toolbar-row row hidden-print">
+        <div class="col-md-24 row-toolbar-col">
+               <ul class="list-inline">
+                  <li id="pt-login">
+            <a href="https://wiki.eclipse.org/index.php?title=Special:UserLogin&amp;returnto=Jetty%2FFeature%2FAnnotations" class="toolbar-link toolbar-login">
+              <i class="fa fa-sign-in fa-fw"></i> Log in            </a>
+          </li>
+                <li><a class="toolbar-link toolbar-manage-cookies dropdown-toggle"><i class="fa fa-wrench"></i> Manage Cookies</a></li>
+      </ul>
+            </div>
+      </div>
+    </div>
+  </div>
+  <div class="container-fluid">
+    <div class="row" id="header-row">
+      <div class="col-sm-5 col-md-4" id="header-left">
+        <div class="wrapper-logo-default"><a href="https://www.eclipse.org/"><img class="logo-eclipse-default hidden-xs" alt="Eclipse.org logo" width="160" src="https://www.eclipse.org/eclipse.org-common/themes/solstice/public/images/logo/eclipse-foundation-white-orange.svg"/></a></div>
+      </div>
+      <div class="col-sm-19 col-md-20 margin-top-10" id="main-menu-wrapper">
+        <div class="float-right hidden-xs" id="btn-call-for-action"><a href="https://eclipse.org/downloads/" class="btn btn-huge btn-warning"><i class="fa fa-download"></i> Download</a></div>
+        <div class="navbar yamm float-sm-right" id="main-menu">
+          <div class="navbar-collapse collapse" id="navbar-main-menu">
+            <ul class="nav navbar-nav">
+              <li><a href="https://www.eclipse.org/projects/" target="_self">Projects</a></li>
+              <li><a href="https://www.eclipse.org/org/workinggroups/" target="_self">Working Groups</a></li>
+              <li><a href="https://www.eclipse.org/membership/" target="_self">Members</a></li>
+              <li class="dropdown visible-xs">
+                <a href="Annotations.html#" data-toggle="dropdown" class="dropdown-toggle">Community <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li><a href="http://marketplace.eclipse.org">Marketplace</a></li>
+                  <li><a href="http://events.eclipse.org">Events</a></li>
+                  <li><a href="http://www.planeteclipse.org/">Planet Eclipse</a></li>
+                  <li><a href="https://www.eclipse.org/community/eclipse_newsletter/">Newsletter</a></li>
+                  <li><a href="https://www.youtube.com/user/EclipseFdn">Videos</a></li>
+                  <li><a href="https://blogs.eclipse.org">Blogs</a></li>
+                </ul>
+              </li>
+              <li class="dropdown visible-xs">
+                <a href="Annotations.html#" data-toggle="dropdown" class="dropdown-toggle">Participate <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li><a href="https://bugs.eclipse.org/bugs/">Report a Bug</a></li>
+                  <li><a href="https://www.eclipse.org/forums/">Forums</a></li>
+                  <li><a href="https://www.eclipse.org/mail/">Mailing Lists</a></li>
+                  <li><a href="https://wiki.eclipse.org/">Wiki</a></li>
+                  <li><a href="https://wiki.eclipse.org/IRC">IRC</a></li>
+                  <li><a href="https://www.eclipse.org/org/research/">Research</a></li>
+                </ul>
+              </li>
+              <li class="dropdown visible-xs">
+                <a href="Annotations.html#" data-toggle="dropdown" class="dropdown-toggle">Eclipse IDE <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li><a href="https://www.eclipse.org/downloads">Download</a></li>
+                  <li><a href="https://www.eclipse.org/eclipseide">Learn More</a></li>
+                  <li><a href="https://help.eclipse.org">Documentation</a></li>
+                  <li><a href="https://www.eclipse.org/getting_started">Getting Started / Support</a></li>
+                  <li><a href="https://www.eclipse.org/contribute/">How to Contribute</a></li>
+                  <li><a href="https://www.eclipse.org/ide/">IDE and Tools</a></li>
+                  <li><a href="https://www.eclipse.org/forums/index.php/f/89/">Newcomer Forum</a></li>
+                </ul>
+              </li>
+              <!-- More -->
+              <li class="dropdown eclipse-more hidden-xs">
+                <a data-toggle="dropdown" class="dropdown-toggle" role="button">More<b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li>
+                    <!-- Content container to add padding -->
+                    <div class="yamm-content">
+                      <div class="row">
+                        <ul class="col-sm-8 list-unstyled">
+                          <li>
+                            <p><strong>Community</strong></p>
+                          </li>
+                          <li><a href="http://marketplace.eclipse.org">Marketplace</a></li>
+                          <li><a href="http://events.eclipse.org">Events</a></li>
+                          <li><a href="http://www.planeteclipse.org/">Planet Eclipse</a></li>
+                          <li><a href="https://www.eclipse.org/community/eclipse_newsletter/">Newsletter</a></li>
+                          <li><a href="https://www.youtube.com/user/EclipseFdn">Videos</a></li>
+                          <li><a href="https://blogs.eclipse.org">Blogs</a></li>
+                        </ul>
+                        <ul class="col-sm-8 list-unstyled">
+                          <li>
+                            <p><strong>Participate</strong></p>
+                          </li>
+                          <li><a href="https://bugs.eclipse.org/bugs/">Report a Bug</a></li>
+                          <li><a href="https://www.eclipse.org/forums/">Forums</a></li>
+                          <li><a href="https://www.eclipse.org/mail/">Mailing Lists</a></li>
+                          <li><a href="https://wiki.eclipse.org/">Wiki</a></li>
+                          <li><a href="https://wiki.eclipse.org/IRC">IRC</a></li>
+                          <li><a href="https://www.eclipse.org/org/research/">Research</a></li>
+                        </ul>
+                        <ul class="col-sm-8 list-unstyled">
+                          <li>
+                            <p><strong>Eclipse IDE</strong></p>
+                          </li>
+                          <li><a href="https://www.eclipse.org/downloads">Download</a></li>
+                          <li><a href="https://www.eclipse.org/eclipseide">Learn More</a></li>
+                          <li><a href="https://help.eclipse.org">Documentation</a></li>
+                          <li><a href="https://www.eclipse.org/getting_started">Getting Started / Support</a></li>
+                          <li><a href="https://www.eclipse.org/contribute/">How to Contribute</a></li>
+                          <li><a href="https://www.eclipse.org/ide/">IDE and Tools</a></li>
+                          <li><a href="https://www.eclipse.org/forums/index.php/f/89/">Newcomer Forum</a></li>
+                        </ul>
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-main-menu">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            </button>
+            <div class="wrapper-logo-mobile"><a class="navbar-brand visible-xs" href="https://www.eclipse.org/"><img class="logo-eclipse-default-mobile img-responsive" alt="Eclipse.org logo" width="160" src="https://www.eclipse.org/eclipse.org-common/themes/solstice/public/images/logo/eclipse-foundation-white-orange.svg"/></a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+<section class="default-breadcrumbs hidden-print" id="breadcrumb">
+  <div class="container-fluid">
+    <h3 class="sr-only">Breadcrumbs</h3>
+    <div class="row">
+      <div class="col-sm-24">
+        <ol class="breadcrumb">
+          <li><a href="https://www.eclipse.org/">Home</a></li>
+          <li><a href="https://wiki.eclipse.org/Main_Page">Eclipse Wiki</a></li>
+          <li class="active">Jetty/Feature/Annotations</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- /#breadcrumb -->
+<main>
+<div class="container-fluid padding-15 padding-top-20">
+    
+    
+    <!-- content -->
+    <section id="content" class="mw-body container-full clearfix 0">
+      <div id="mw-js-message" style="display:none;"></div>
+
+      
+      <!-- bodyContent -->
+      <div id="bodyContent">
+
+        
+                <!-- jumpto -->
+        <div id="jump-to-nav" class="mw-jump">
+          Jump to: <a href="Annotations.html#mw-head">navigation</a>,
+          <a href="Annotations.html#p-search">search</a>
+        </div>
+        <!-- /jumpto -->
+        
+          <!-- leftcol -->
+          <aside class="col-md-4 noprint hidden-print" id="leftcol">
+                      <form class="input-group" role="form" id="form-eclipse-search" action="https://wiki.eclipse.org/index.php" id="searchform">
+              <input id="searchInput" class="search-query form-control" type="search" accesskey="f" title="Special:Search" placeholder="Search" name="search" value="">
+
+              <span class="input-group-btn">
+                <button value="search" id="mw-searchButton" type="submit" class="btn btn-default" title="Search the pages for this text" name="fulltext">
+                  <i class="fa fa-search"></i>
+                </button>
+              </span>
+            </form>
+                      <select class="form-control margin-top-10 margin-bottom-10 visible-xs visible-sm" onchange="this.options[this.selectedIndex].value && (window.location = this.options[this.selectedIndex].value);"><option class="fw-700 "><span class="fw-700">---Navigation---</span></option><option value="/Main_Page">Main Page</option><option value="/Eclipsepedia:Community_portal">Community portal</option><option value="/Eclipsepedia:Current_events">Current events</option><option value="/Special:RecentChanges">Recent changes</option><option value="/Special:Random">Random page</option><option value="https://www.mediawiki.org/wiki/Special:MyLanguage/Help:Contents">Help</option></select><ul class="ul-left-nav fa-ul hidden-print leftnav hidden-xs hidden-sm"><li class="separator"><span class="separator">Navigation</span></li>                <li class=""><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/Main_Page" id="n-mainpage" title="Visit the main page [z]" accesskey="z">Main Page</a></li>                <li class=""><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/Eclipsepedia:Community_portal" id="n-portal" title="About the project, what you can do, where to find things">Community portal</a></li>                <li class=""><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/Eclipsepedia:Current_events" id="n-currentevents" title="Find background information on current events">Current events</a></li>                <li class=""><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/Special:RecentChanges" id="n-recentchanges" title="A list of recent changes in the wiki [r]" accesskey="r">Recent changes</a></li>                <li class=""><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/Special:Random" id="n-randompage" title="Load a random page [x]" accesskey="x">Random page</a></li>                <li class=""><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://www.mediawiki.org/wiki/Special:MyLanguage/Help:Contents" id="n-help" title="The place to find out">Help</a></li></ul>            <select class="form-control margin-top-10 margin-bottom-10 visible-xs visible-sm" onchange="this.options[this.selectedIndex].value && (window.location = this.options[this.selectedIndex].value);"><option class="fw-700 "><span class="fw-700">---Toolbox---</span></option><option value="/index.php?title=Jetty/Feature/Annotations&amp;action=info">Page information</option><option value="/index.php?title=Jetty/Feature/Annotations&amp;oldid=335322">Permanent link</option><option value="/index.php?title=Jetty/Feature/Annotations&amp;printable=yes">Printable version</option><option value="/Special:SpecialPages">Special pages</option><option value="/Special:RecentChangesLinked/Jetty/Feature/Annotations">Related changes</option><option value="/Special:WhatLinksHere/Jetty/Feature/Annotations">What links here</option></select><ul class="ul-left-nav fa-ul hidden-print leftnav hidden-xs hidden-sm"><li class="separator"><span class="separator">Toolbox</span></li><li><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/index.php?title=Jetty/Feature/Annotations&amp;action=info" id="t-info" title="More information about this page">Page information</a></li><li><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/index.php?title=Jetty/Feature/Annotations&amp;oldid=335322" id="t-permalink" title="Permanent link to this revision of the page">Permanent link</a></li><li><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/index.php?title=Jetty/Feature/Annotations&amp;printable=yes" id="t-print" rel="alternate" title="Printable version of this page [p]" accesskey="p">Printable version</a></li><li><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/Special:SpecialPages" id="t-specialpages" title="A list of all special pages [q]" accesskey="q">Special pages</a></li><li><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/Special:RecentChangesLinked/Jetty/Feature/Annotations" id="t-recentchangeslinked" title="Recent changes in pages linked from this page [k]" accesskey="k">Related changes</a></li><li><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/Special:WhatLinksHere/Jetty/Feature/Annotations" id="t-whatlinkshere" title="A list of all wiki pages that link here [j]" accesskey="j">What links here</a></li></ul>                                  </aside>
+          <!-- /leftcol -->
+
+          <!-- mainContent -->
+          <div id="mainContent" class="col-md-20">
+                      <ul class="nav nav-tabs noprint hidden-print" role="tablist">
+                       <li id="ca-nstab-main" class="active"><a href="Annotations.html"  title="View the content page [c]" accesskey="c" tabindex="-1">Page</a></li>
+                        <li id="ca-talk" class="new"><a href="https://wiki.eclipse.org/index.php?title=Talk:Jetty/Feature/Annotations&amp;action=edit&amp;redlink=1"  title="Discussion about the content page [t]" accesskey="t" tabindex="-1">Discussion</a></li>
+                        <li id="ca-viewsource"><a href="https://wiki.eclipse.org/index.php?title=Jetty/Feature/Annotations&amp;action=edit"  title="This page is protected.&#10;You can view its source [e]" accesskey="e" tabindex="-1">View source</a></li>
+                        <li id="ca-history" class="collapsible"><a href="https://wiki.eclipse.org/index.php?title=Jetty/Feature/Annotations&amp;action=history"  title="Past revisions of this page [h]" accesskey="h" tabindex="-1">History</a></li>
+                      </ul>            <div class="tab-content background-white">
+              <div id="tab-pane-main-page-content" class="tab-pane active">
+
+                
+                <h1 id="firstHeading" class="firstHeading page-header">
+                  <span dir="auto">Jetty/Feature/Annotations</span>
+                </h1>
+                <div id="main-page-content">
+                                                      <!-- subtitle -->
+                  <div id="contentSub"  class="alert alert-small alert-warning"><span class="subpages">&lt; <a href="../../Jetty.html" title="Jetty">Jetty</a>&lrm; | <a href="../Feature.html" title="Jetty/Feature">Feature</a></span></div>
+                  <!-- /subtitle -->
+                  
+                  
+                  <div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><p><br />
+</p><p><br />
+</p>
+<div id="toc" class="toc"><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="Annotations.html#Introduction"><span class="tocnumber">1</span> <span class="toctext">Introduction</span></a></li>
+<li class="toclevel-1"><a href="Annotations.html#Feature"><span class="tocnumber">2</span> <span class="toctext">Feature</span></a></li>
+<li class="toclevel-1"><a href="Annotations.html#Set_up"><span class="tocnumber">3</span> <span class="toctext">Set up</span></a>
+<ul>
+<li class="toclevel-2"><a href="Annotations.html#Applying_the_configurations_to_a_single_webapp"><span class="tocnumber">3.1</span> <span class="toctext">Applying the configurations to a single webapp</span></a></li>
+<li class="toclevel-2"><a href="Annotations.html#Applying_the_configurations_to_webapps_deployed_by_a_deployer"><span class="tocnumber">3.2</span> <span class="toctext">Applying the configurations to webapps deployed by a deployer</span></a></li>
+<li class="toclevel-2"><a href="Annotations.html#Applying_the_configurations_to_all_webapps_in_a_server"><span class="tocnumber">3.3</span> <span class="toctext">Applying the configurations to all webapps in a server</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1"><a href="Annotations.html#Servlet_2.5_Annotations"><span class="tocnumber">4</span> <span class="toctext">Servlet 2.5 Annotations</span></a>
+<ul>
+<li class="toclevel-2"><a href="Annotations.html#Resource_Injections"><span class="tocnumber">4.1</span> <span class="toctext">Resource Injections</span></a></li>
+<li class="toclevel-2"><a href="Annotations.html#Lifecycle_callbacks:_PostConstruct_PreDestroy"><span class="tocnumber">4.2</span> <span class="toctext">Lifecycle callbacks: PostConstruct PreDestroy</span></a></li>
+<li class="toclevel-2"><a href="Annotations.html#Security:RunAs"><span class="tocnumber">4.3</span> <span class="toctext">Security:RunAs</span></a></li>
+<li class="toclevel-2"><a href="Annotations.html#Security:_DeclareRoles"><span class="tocnumber">4.4</span> <span class="toctext">Security: DeclareRoles</span></a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Introduction">Introduction</span></h2>
+<div class="messagebox" style="background-color: #f9f6b7; border: 1px solid #c4c295; color: black; padding: 5px; margin: 1ex 0; min-height: 35px; padding-left: 45px; font-size: 150%; color: white; background-color: #FF8888; padding: 50px">
+<div style="float: left; margin-left: -40px;"><a href="https://wiki.eclipse.org/File:Warning2.png" class="image"><img alt="Warning2.png" src="../../images/3/37/Warning2.png" width="35" height="35" /></a></div>
+<div>Jetty 7 and Jetty 8 are now EOL (End of Life)<br />
+<p><br />
+<br />
+<br />
+THIS IS NOT THE DOCUMENTATION YOU ARE LOOKING FOR!!!!!<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+All development and stable releases are being performed with Jetty 9 and Jetty 10.<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+This <b>wiki is now officially out of date</b> and all content has been moved to the <a rel="nofollow" class="external text" href="http://www.eclipse.org/jetty/documentation">Jetty Documentation Hub</a><br /> 
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+</p>
+Direct Link to updated documentation: <a rel="nofollow" class="external free" href="http://www.eclipse.org/jetty/documentation/current/annotations.html">http://www.eclipse.org/jetty/documentation/current/annotations.html</a></div>
+</div>
+<p><br />
+The <a rel="nofollow" class="external text" href="http://jcp.org/aboutJava/communityprocess/mrel/jsr154/index.html">Java Servlet 2.5 Specification</a> added the ability to inject <a href="JNDI.html" title="Jetty/Feature/JNDI">JNDI</a> resources into fields and methods of servlets, filters and listeners, and also to perform certain callbacks at various points in the lifecycle of a web application.
+</p><p>JNDI resource injection and the lifecycle callbacks can be specified entirely within the web.xml file, or alternatively marked up as annotations in your source code. You can even use a combination of annotations and web.xml declarations.
+</p><p>One important thing to be aware of is that the 2.5 Servlet Specification introduced a new attribute into the &lt;web-app&gt; element, the <b>metadata-complete</b> attribute. If true, then the web container will NOT search the webapp for source code annotations, and your web.xml file must contain all resources required. If false or not specified, then jetty is required to examine all servlets, filters and listeners in the webapp for annotations. Therefore, you can save startup time by using this attribute correctly - if you don't want to use annotations then ensure you mark <b>metadata-complete="true"</b>, otherwise you will pay the penalty of the code examination.
+</p><p>Here's an example of setting this attribute:
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="xml source-xml"><pre class="de1"><span class="sc3"><span class="re1">&lt;web-app</span> </span>
+<span class="sc3">   <span class="re0">xmlns</span>=<span class="st0">&quot;http://java.sun.com/xml/ns/j2ee&quot;</span> </span>
+<span class="sc3">   <span class="re0">xmlns:xsi</span>=<span class="st0">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span></span>
+<span class="sc3">   <span class="re0">xsi:schemaLocation</span>=<span class="st0">&quot;http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_5.xsd&quot;</span> </span>
+<span class="sc3">   <span class="re0">metadata-complete</span>=<span class="st0">&quot;false&quot;</span></span>
+<span class="sc3">   <span class="re0">version</span>=<span class="st0">&quot;2.5&quot;</span><span class="re2">&gt;</span></span></pre></div></div>
+<h2><span class="mw-headline" id="Feature">Feature</span></h2>
+<h2><span class="mw-headline" id="Set_up">Set up</span></h2>
+<p>Annotation processing is not enabled by default by the standard jetty distribution, only by the <a rel="nofollow" class="external text" href="http://dist.codehaus.org/jetty">jetty-hightide</a> distribution. To enable annotation processing you will need to do some configuration file setup, and also add the OPTIONS for annotation to put the annotation-related jars onto the classpath.
+</p><p>First, lets define the configuration setup needed:
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="xml source-xml"><pre class="de1"><span class="sc3"><span class="re1">&lt;Array</span> <span class="re0">id</span>=<span class="st0">&quot;plusConfig&quot;</span> <span class="re0">type</span>=<span class="st0">&quot;java.lang.String&quot;</span><span class="re2">&gt;</span></span>
+  <span class="sc3"><span class="re1">&lt;Item<span class="re2">&gt;</span></span></span>org.eclipse.jetty.webapp.WebInfConfiguration<span class="sc3"><span class="re1">&lt;/Item<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;Item<span class="re2">&gt;</span></span></span>org.eclipse.jetty.webapp.WebXmlConfiguration<span class="sc3"><span class="re1">&lt;/Item<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;Item<span class="re2">&gt;</span></span></span>org.eclipse.jetty.webapp.MetaInfConfiguration<span class="sc3"><span class="re1">&lt;/Item<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;Item<span class="re2">&gt;</span></span></span>org.eclipse.jetty.webapp.FragmentConfiguration<span class="sc3"><span class="re1">&lt;/Item<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;Item<span class="re2">&gt;</span></span></span>org.eclipse.jetty.plus.webapp.EnvConfiguration<span class="sc3"><span class="re1">&lt;/Item<span class="re2">&gt;</span></span></span>        <span class="sc-1">&lt;!-- added for JNDI --&gt;</span>
+  <span class="sc3"><span class="re1">&lt;Item<span class="re2">&gt;</span></span></span>org.eclipse.jetty.plus.webapp.PlusConfiguration<span class="sc3"><span class="re1">&lt;/Item<span class="re2">&gt;</span></span></span>       <span class="sc-1">&lt;!-- added for JNDI --&gt;</span>
+  <span class="sc3"><span class="re1">&lt;Item<span class="re2">&gt;</span></span></span>org.eclipse.jetty.annotations.AnnotationConfiguration<span class="sc3"><span class="re1">&lt;/Item<span class="re2">&gt;</span></span></span> <span class="sc-1">&lt;!-- added for annotations --&gt;</span>
+  <span class="sc3"><span class="re1">&lt;Item<span class="re2">&gt;</span></span></span>org.eclipse.jetty.webapp.JettyWebXmlConfiguration<span class="sc3"><span class="re1">&lt;/Item<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;Item<span class="re2">&gt;</span></span></span>org.eclipse.jetty.webapp.TagLibConfiguration<span class="sc3"><span class="re1">&lt;/Item<span class="re2">&gt;</span></span></span>
+<span class="sc3"><span class="re1">&lt;/Array<span class="re2">&gt;</span></span></span></pre></div></div>
+<p>The above is the basic set of configurations that need to be applied to a webapp upon deployment. You can apply these configurations to a specific webapp only, all webapps deployed by a particular deployer, or all webapps deployed into a server.
+</p>
+<div class="messagebox" style="background-color: #def3fe; border: 1px solid #c5d7e0; color: black; padding: 5px; margin: 1ex 0; min-height: 35px; padding-left: 45px;">
+<div style="float: left; margin-left: -40px;"><a href="https://wiki.eclipse.org/File:Idea.png" class="image"><img alt="Idea.png" src="../../images/a/a4/Idea.png" width="35" height="35" /></a></div>
+<div><b>Tip:</b><br />$JETTY_HOME/etc/jetty-plus.xml comes pre-setup with these configurations, and applies them to all webapps deployed into a Server instance. Edit <a href="Start.jar.html" title="Jetty/Feature/Start.jar">start.ini</a> to add jetty-plus.xml, and then add "annotations" to the list of OPTIONS and you're done.</div>
+</div>
+<p><br />
+</p>
+<h3><span class="mw-headline" id="Applying_the_configurations_to_a_single_webapp">Applying the configurations to a single webapp</span></h3>
+<p>If you elect <i>not</i> to use $JETTY_HOME/etc/jetty-plus.xml, and want to enable annotation processing for only a single webapp, you will need to create a context xml file for that webapp and put the configurations definition into it. Here's an example, which will set up annotation processing for the webapp in $JETTY_HOME/webapps/my-cool-webapp:
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="xml source-xml"><pre class="de1"><span class="sc3"><span class="re1">&lt;?xml</span> <span class="re0">version</span>=<span class="st0">&quot;1.0&quot;</span>  <span class="re0">encoding</span>=<span class="st0">&quot;ISO-8859-1&quot;</span><span class="re2">?&gt;</span></span>
+<span class="sc0">&lt;!DOCTYPE Configure PUBLIC &quot;-//Jetty//Configure//EN&quot; &quot;http://www.eclipse.org/jetty/configure.dtd&quot;&gt;</span>
+&#160;
+<span class="sc3"><span class="re1">&lt;Configure</span> <span class="re0">id</span>=<span class="st0">'wac'</span> <span class="re0">class</span>=<span class="st0">&quot;org.eclipse.jetty.webapp.WebAppContext&quot;</span><span class="re2">&gt;</span></span>
+&#160;
+  <span class="sc3"><span class="re1">&lt;Array</span> <span class="re0">id</span>=<span class="st0">&quot;plusConfig&quot;</span> <span class="re0">type</span>=<span class="st0">&quot;java.lang.String&quot;</span><span class="re2">&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;Item<span class="re2">&gt;</span></span></span>org.eclipse.jetty.webapp.WebInfConfiguration<span class="sc3"><span class="re1">&lt;/Item<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;Item<span class="re2">&gt;</span></span></span>org.eclipse.jetty.webapp.WebXmlConfiguration<span class="sc3"><span class="re1">&lt;/Item<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;Item<span class="re2">&gt;</span></span></span>org.eclipse.jetty.webapp.MetaInfConfiguration<span class="sc3"><span class="re1">&lt;/Item<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;Item<span class="re2">&gt;</span></span></span>org.eclipse.jetty.webapp.FragmentConfiguration<span class="sc3"><span class="re1">&lt;/Item<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;Item<span class="re2">&gt;</span></span></span>org.eclipse.jetty.plus.webapp.EnvConfiguration<span class="sc3"><span class="re1">&lt;/Item<span class="re2">&gt;</span></span></span> <span class="sc-1">&lt;!-- added for JNDI --&gt;</span>
+    <span class="sc3"><span class="re1">&lt;Item<span class="re2">&gt;</span></span></span>org.eclipse.jetty.plus.webapp.PlusConfiguration<span class="sc3"><span class="re1">&lt;/Item<span class="re2">&gt;</span></span></span>    <span class="sc-1">&lt;!-- added for JNDI --&gt;</span>
+    <span class="sc3"><span class="re1">&lt;Item<span class="re2">&gt;</span></span></span>org.eclipse.jetty.annotations.AnnotationConfiguration<span class="sc3"><span class="re1">&lt;/Item<span class="re2">&gt;</span></span></span> <span class="sc-1">&lt;!-- added for annotations --&gt;</span>
+    <span class="sc3"><span class="re1">&lt;Item<span class="re2">&gt;</span></span></span>org.eclipse.jetty.webapp.JettyWebXmlConfiguration<span class="sc3"><span class="re1">&lt;/Item<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;Item<span class="re2">&gt;</span></span></span>org.eclipse.jetty.webapp.TagLibConfiguration<span class="sc3"><span class="re1">&lt;/Item<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;/Array<span class="re2">&gt;</span></span></span>
+&#160;
+  <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">&quot;war&quot;</span><span class="re2">&gt;</span><span class="re1">&lt;SystemProperty</span> <span class="re0">name</span>=<span class="st0">&quot;jetty.home&quot;</span> <span class="re0">default</span>=<span class="st0">&quot;.&quot;</span><span class="re2">/&gt;</span></span>/webapps/my-cool-webapp<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">&quot;configurationClasses&quot;</span><span class="re2">&gt;</span><span class="re1">&lt;Ref</span> <span class="re0">id</span>=<span class="st0">&quot;plusConfig&quot;</span><span class="re2">/&gt;</span><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
+&#160;
+<span class="sc3"><span class="re1">&lt;/Configure<span class="re2">&gt;</span></span></span></pre></div></div>
+<p>Now add "annotations" to the OPTIONS definition in <a href="Start.jar.html" title="Jetty/Feature/Start.jar">start.ini</a> to get the annotation-processing related jars onto jetty's runtime classpath and you're ready to run.
+</p>
+<h3><span class="mw-headline" id="Applying_the_configurations_to_webapps_deployed_by_a_deployer">Applying the configurations to webapps deployed by a deployer</span></h3>
+<p>If you'd like to restrict the usage of annotations to only a subset of your webapps, you can copy them into a directory, and then set up a <a href="https://wiki.eclipse.org/Jetty/Feature/WebAppDeployer" title="Jetty/Feature/WebAppDeployer" class="mw-redirect">WebAppDeployer</a> for them which will apply the configurations.  For example, suppose you have moved the webapps into the directory $JETTY_HOME/plus-webapps, you can create a new xml configuration file (remembering to add it to <a href="Start.jar.html" title="Jetty/Feature/Start.jar">start.ini</a>, or edit an existing xml file), and add:
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="xml source-xml"><pre class="de1"><span class="sc3"><span class="re1">&lt;Configure</span> <span class="re0">id</span>=<span class="st0">&quot;Server&quot;</span> <span class="re0">class</span>=<span class="st0">&quot;org.eclipse.jetty.server.Server&quot;</span><span class="re2">&gt;</span></span>
+&#160;
+  <span class="sc3"><span class="re1">&lt;Array</span> <span class="re0">id</span>=<span class="st0">&quot;plusConfig&quot;</span> <span class="re0">type</span>=<span class="st0">&quot;java.lang.String&quot;</span><span class="re2">&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;Item<span class="re2">&gt;</span></span></span>org.eclipse.jetty.webapp.WebInfConfiguration<span class="sc3"><span class="re1">&lt;/Item<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;Item<span class="re2">&gt;</span></span></span>org.eclipse.jetty.webapp.WebXmlConfiguration<span class="sc3"><span class="re1">&lt;/Item<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;Item<span class="re2">&gt;</span></span></span>org.eclipse.jetty.webapp.MetaInfConfiguration<span class="sc3"><span class="re1">&lt;/Item<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;Item<span class="re2">&gt;</span></span></span>org.eclipse.jetty.webapp.FragmentConfiguration<span class="sc3"><span class="re1">&lt;/Item<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;Item<span class="re2">&gt;</span></span></span>org.eclipse.jetty.plus.webapp.EnvConfiguration<span class="sc3"><span class="re1">&lt;/Item<span class="re2">&gt;</span></span></span>        <span class="sc-1">&lt;!-- added for JNDI --&gt;</span>
+    <span class="sc3"><span class="re1">&lt;Item<span class="re2">&gt;</span></span></span>org.eclipse.jetty.plus.webapp.PlusConfiguration<span class="sc3"><span class="re1">&lt;/Item<span class="re2">&gt;</span></span></span>       <span class="sc-1">&lt;!-- added for JNDI --&gt;</span>
+    <span class="sc3"><span class="re1">&lt;Item<span class="re2">&gt;</span></span></span>org.eclipse.jetty.annotations.AnnotationConfiguration<span class="sc3"><span class="re1">&lt;/Item<span class="re2">&gt;</span></span></span> <span class="sc-1">&lt;!-- added for annotations --&gt;</span>
+    <span class="sc3"><span class="re1">&lt;Item<span class="re2">&gt;</span></span></span>org.eclipse.jetty.webapp.JettyWebXmlConfiguration<span class="sc3"><span class="re1">&lt;/Item<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;Item<span class="re2">&gt;</span></span></span>org.eclipse.jetty.webapp.TagLibConfiguration<span class="sc3"><span class="re1">&lt;/Item<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;/Array<span class="re2">&gt;</span></span></span>
+&#160;
+  <span class="sc3"><span class="re1">&lt;Ref</span> <span class="re0">id</span>=<span class="st0">&quot;DeploymentManager&quot;</span><span class="re2">&gt;</span></span>
+      <span class="sc3"><span class="re1">&lt;Call</span> <span class="re0">name</span>=<span class="st0">&quot;addAppProvider&quot;</span><span class="re2">&gt;</span></span>
+        <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>
+          <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">class</span>=<span class="st0">&quot;org.eclipse.jetty.deploy.providers.WebAppProvider&quot;</span><span class="re2">&gt;</span></span>
+            <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">&quot;monitoredDirName&quot;</span><span class="re2">&gt;</span><span class="re1">&lt;Property</span> <span class="re0">name</span>=<span class="st0">&quot;jetty.home&quot;</span> <span class="re0">default</span>=<span class="st0">&quot;.&quot;</span> <span class="re2">/&gt;</span></span>/webapps-plus<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">&quot;configurationClasses&quot;</span><span class="re2">&gt;</span><span class="re1">&lt;Ref</span> <span class="re0">id</span>=<span class="st0">&quot;plusConfig&quot;</span><span class="re2">/&gt;</span><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
+          <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
+      <span class="sc3"><span class="re1">&lt;/Call<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;/Ref<span class="re2">&gt;</span></span></span></pre></div></div>
+<p>Now add "annotations" to the OPTIONS definition in <a href="Start.jar.html" title="Jetty/Feature/Start.jar">start.ini</a> to get the annotation-processing related jars onto jetty's runtime classpath and you're ready to run.
+</p>
+<h3><span class="mw-headline" id="Applying_the_configurations_to_all_webapps_in_a_server">Applying the configurations to all webapps in a server</span></h3>
+<p>This is the approach taken in $JETTY_HOME/etc/jetty-plus.xml. You can simply add it to your <a href="Start.jar.html" title="Jetty/Feature/Start.jar">start.ini</a> file. For your information, here's what the file looks like:
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="xml source-xml"><pre class="de1"><span class="sc3"><span class="re1">&lt;?xml</span> <span class="re0">version</span>=<span class="st0">&quot;1.0&quot;</span>  <span class="re0">encoding</span>=<span class="st0">&quot;ISO-8859-1&quot;</span><span class="re2">?&gt;</span></span>
+<span class="sc0">&lt;!DOCTYPE Configure PUBLIC &quot;-//Jetty//Configure//EN&quot; &quot;http://www.eclipse.org/jetty/configure.dtd&quot;&gt;</span>
+&#160;
+<span class="sc3"><span class="re1">&lt;Configure</span> <span class="re0">id</span>=<span class="st0">&quot;Server&quot;</span> <span class="re0">class</span>=<span class="st0">&quot;org.eclipse.jetty.server.Server&quot;</span><span class="re2">&gt;</span></span>
+ <span class="sc3"><span class="re1">&lt;Array</span> <span class="re0">id</span>=<span class="st0">&quot;plusConfig&quot;</span> <span class="re0">type</span>=<span class="st0">&quot;java.lang.String&quot;</span><span class="re2">&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;Item<span class="re2">&gt;</span></span></span>org.eclipse.jetty.webapp.WebInfConfiguration<span class="sc3"><span class="re1">&lt;/Item<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;Item<span class="re2">&gt;</span></span></span>org.eclipse.jetty.webapp.WebXmlConfiguration<span class="sc3"><span class="re1">&lt;/Item<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;Item<span class="re2">&gt;</span></span></span>org.eclipse.jetty.webapp.MetaInfConfiguration<span class="sc3"><span class="re1">&lt;/Item<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;Item<span class="re2">&gt;</span></span></span>org.eclipse.jetty.webapp.FragmentConfiguration<span class="sc3"><span class="re1">&lt;/Item<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;Item<span class="re2">&gt;</span></span></span>org.eclipse.jetty.plus.webapp.EnvConfiguration<span class="sc3"><span class="re1">&lt;/Item<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;Item<span class="re2">&gt;</span></span></span>org.eclipse.jetty.plus.webapp.PlusConfiguration<span class="sc3"><span class="re1">&lt;/Item<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;Item<span class="re2">&gt;</span></span></span>org.eclipse.jetty.annotations.AnnotationConfiguration<span class="sc3"><span class="re1">&lt;/Item<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;Item<span class="re2">&gt;</span></span></span>org.eclipse.jetty.webapp.JettyWebXmlConfiguration<span class="sc3"><span class="re1">&lt;/Item<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;Item<span class="re2">&gt;</span></span></span>org.eclipse.jetty.webapp.TagLibConfiguration<span class="sc3"><span class="re1">&lt;/Item<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;/Array<span class="re2">&gt;</span></span></span>
+&#160;
+  <span class="sc3"><span class="re1">&lt;Call</span> <span class="re0">name</span>=<span class="st0">&quot;setAttribute&quot;</span><span class="re2">&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>org.eclipse.jetty.webapp.configuration<span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;Ref</span> <span class="re0">id</span>=<span class="st0">&quot;plusConfig&quot;</span><span class="re2">/&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;/Call<span class="re2">&gt;</span></span></span>
+<span class="sc3"><span class="re1">&lt;/Configure<span class="re2">&gt;</span></span></span></pre></div></div>
+<p>Now add "annotations" to the OPTIONS definition in <a href="Start.jar.html" title="Jetty/Feature/Start.jar">start.ini</a> to get the annotation-processing related jars onto jetty's runtime classpath and you're ready to run.
+</p><p><br />
+</p>
+<h2><span class="mw-headline" id="Servlet_2.5_Annotations">Servlet 2.5 Annotations</span></h2>
+<ul><li> @Resource equivalent to resource-ref, resource-env-ref, env-entry and message-destination-ref in web.xml</li>
+<li> @Resources declares java:comp/env name linkages for reference by <a href="JNDI.html" title="Jetty/Feature/JNDI">JNDI</a> lookups</li>
+<li> @PostConstruct equivalent to post-construct in web.xml</li>
+<li> @PreDestroy equivalent to pre-destroy in web.xml</li>
+<li> @RunAs equivalent to run-as in web.xml</li></ul>
+<h3><span class="mw-headline" id="Resource_Injections">Resource Injections</span></h3>
+<p>Resource injections make available an object from <a href="JNDI.html" title="Jetty/Feature/JNDI">JNDI</a> as the value of a field or method parameter of a servlet, filter or listener class.
+</p><p>We'll look at a couple of small examples of how to declare them in web.xml and how to declare them in code, but for more in-depth information, you should consult the <a rel="nofollow" class="external text" href="http://jcp.org/en/jsr/detail?id=250">Common Annotations for the Java Platform Specification (JSR250)</a>, the <a rel="nofollow" class="external text" href="http://jcp.org/en/jsr/detail?id=154">Servlet 2.5 Specification (JSR154)</a> and the <a rel="nofollow" class="external text" href="http://jcp.org/en/jsr/detail?id=244">JavaEE Specification v5 (JSR244)</a>.
+</p><p>Here is a small example of the injection of a DataSource resource via a web.xml declaration:
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="xml source-xml"><pre class="de1">  <span class="sc3"><span class="re1">&lt;resource-ref<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;res-ref-name<span class="re2">&gt;</span></span></span>jdbc/mydatasource<span class="sc3"><span class="re1">&lt;/res-ref-name<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;res-type<span class="re2">&gt;</span></span></span>javax.sql.DataSource<span class="sc3"><span class="re1">&lt;/res-type<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;res-auth<span class="re2">&gt;</span></span></span>Container<span class="sc3"><span class="re1">&lt;/res-auth<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;injection-target<span class="re2">&gt;</span></span></span>
+      <span class="sc3"><span class="re1">&lt;injection-target-class<span class="re2">&gt;</span></span></span>com.acme.MyServlet<span class="sc3"><span class="re1">&lt;/injection-target-class<span class="re2">&gt;</span></span></span>
+      <span class="sc3"><span class="re1">&lt;injection-target-name<span class="re2">&gt;</span></span></span>myDatasource<span class="sc3"><span class="re1">&lt;/injection-target-name<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;/injection-target<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;/resource-ref<span class="re2">&gt;</span></span></span></pre></div></div>
+<p>This example shows that the resource named java:comp/env/jdbc/mydatasource will be injected by Jetty into the the field named myDatasource or the method named setMyDatasource(javax.sql.DataSource) in the instance of the class com.acme.MyServlet before it goes into service.
+</p><p>The equivalent injection using an annotation on the field instead would be:
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="java source-java"><pre class="de1"><span class="kw1">import</span> <span class="co2">javax.sql.DataSource</span><span class="sy0">;</span>
+<span class="kw1">import</span> <span class="co2">javax.annotation.Resource</span><span class="sy0">;</span>
+<span class="kw1">import</span> <span class="co2">javax.servlet.http.HttpServlet</span><span class="sy0">;</span>
+&#160;
+<span class="kw1">public</span> <span class="kw1">class</span> MyServlet <span class="kw1">extends</span> HttpServlet
+<span class="br0">&#123;</span>
+    @Resource <span class="br0">&#40;</span>name<span class="sy0">=</span><span class="st0">&quot;jdbc/mydatasource&quot;</span>, type<span class="sy0">=</span>DataSource.<span class="kw1">class</span><span class="br0">&#41;</span>
+    <span class="kw1">private</span> DataSource foo<span class="sy0">;</span>
+&#160;
+<span class="br0">&#125;</span></pre></div></div>
+<p>The equivalent as an annotation on the method would be:
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="java source-java"><pre class="de1"><span class="kw1">import</span> <span class="co2">javax.sql.DataSource</span><span class="sy0">;</span>
+<span class="kw1">import</span> <span class="co2">javax.annotation.Resource</span><span class="sy0">;</span>
+<span class="kw1">import</span> <span class="co2">javax.servlet.http.HttpServlet</span><span class="sy0">;</span>
+&#160;
+<span class="kw1">public</span> <span class="kw1">class</span> MyServlet <span class="kw1">extends</span> HttpServlet
+<span class="br0">&#123;</span>
+    <span class="kw1">private</span> DataSource foo<span class="sy0">;</span>
+&#160;
+    @Resource <span class="br0">&#40;</span>name<span class="sy0">=</span><span class="st0">&quot;jdbc/mydatasource&quot;</span>, type<span class="sy0">=</span>DataSource.<span class="kw1">class</span><span class="br0">&#41;</span>
+    <span class="kw1">private</span> <span class="kw4">void</span> setMyDatasource <span class="br0">&#40;</span>DataSource ds<span class="br0">&#41;</span>
+    <span class="br0">&#123;</span>
+        foo <span class="sy0">=</span> ds<span class="sy0">;</span>
+    <span class="br0">&#125;</span>
+&#160;
+<span class="br0">&#125;</span></pre></div></div>
+<h3><span class="mw-headline" id="Lifecycle_callbacks:_PostConstruct_PreDestroy">Lifecycle callbacks: PostConstruct PreDestroy</span></h3>
+<p>The Servlet 2.5 Specification (JSR154) also introduces the concept of lifecycle callbacks. These are of two types: a post-construction callback, and a pre-destruction callback. The former will be invoked after all resource injections have been performed on an instance of a managed class (eg servlet, filter or listener) but before it goes into service. The latter is invoked just before the container removes the instance from service. Let's look at how you might declare these callbacks in a web.xml file:
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="xml source-xml"><pre class="de1"><span class="sc3"><span class="re1">&lt;post-construct<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;lifecycle-callback-class<span class="re2">&gt;</span></span></span>com.acme.MyServlet<span class="sc3"><span class="re1">&lt;/lifecycle-callback-class<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;lifecycle-callback-method<span class="re2">&gt;</span></span></span>myPostConstructMethod<span class="sc3"><span class="re1">&lt;/lifecycle-callback-method<span class="re2">&gt;</span></span></span>
+<span class="sc3"><span class="re1">&lt;/post-construct<span class="re2">&gt;</span></span></span>
+&#160;
+<span class="sc3"><span class="re1">&lt;pre-destroy<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;lifecycle-callback-class<span class="re2">&gt;</span></span></span>com.acme.MyServlet<span class="sc3"><span class="re1">&lt;/lifecycle-callback-class<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;lifecycle-callback-method<span class="re2">&gt;</span></span></span>myPreDestroyMethod<span class="sc3"><span class="re1">&lt;/lifecycle-callback-method<span class="re2">&gt;</span></span></span>
+<span class="sc3"><span class="re1">&lt;/pre-destroy<span class="re2">&gt;</span></span></span></pre></div></div>
+<p>The above example would invoke the method myPostConstructMethod() on the instance of the class com.acme.MyServlet before the servlet is put into service, and would invoke the method myPreDestroyMethod() on the instance before it goes out of service.
+</p><p>Here's how the annotations would look instead:
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="java source-java"><pre class="de1"><span class="kw1">import</span> <span class="co2">javax.annotation.PostConstruct</span><span class="sy0">;</span>
+<span class="kw1">import</span> <span class="co2">javax.annotation.PreDestroy</span><span class="sy0">;</span>
+<span class="kw1">import</span> <span class="co2">javax.servlet.http.HttpServlet</span><span class="sy0">;</span>
+&#160;
+<span class="kw1">public</span> <span class="kw1">class</span> MyServlet <span class="kw1">extends</span> HttpServlet
+<span class="br0">&#123;</span>
+    @PostConstruct
+    <span class="kw1">private</span> <span class="kw4">void</span> myPostConstructMethod <span class="br0">&#40;</span><span class="br0">&#41;</span>
+    <span class="br0">&#123;</span> 
+        <span class="kw3">System</span>.<span class="me1">err</span>.<span class="me1">println</span><span class="br0">&#40;</span><span class="st0">&quot;PostConstruct called&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+    <span class="br0">&#125;</span>
+&#160;
+    @PreDestroy
+    <span class="kw1">private</span> <span class="kw4">void</span> myPreDestroyMethod <span class="br0">&#40;</span><span class="br0">&#41;</span>
+    <span class="br0">&#123;</span>
+        <span class="kw3">System</span>.<span class="me1">err</span>.<span class="me1">println</span><span class="br0">&#40;</span><span class="st0">&quot;PreDestroy called&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+    <span class="br0">&#125;</span>
+<span class="br0">&#125;</span></pre></div></div>
+<h3><span class="mw-headline" id="Security:RunAs">Security:RunAs</span></h3>
+<p>The @RunAs annotation is equivalent to the run-as element in web.xml: it is a role which is propagated as the security identity in calls to EJBs. 
+</p><p>Here's an example of a web.xml declaration:
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="xml source-xml"><pre class="de1">  <span class="sc3"><span class="re1">&lt;servlet<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;servlet-name<span class="re2">&gt;</span></span></span>MyServlet<span class="sc3"><span class="re1">&lt;/servlet-name<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;servlet-class<span class="re2">&gt;</span></span></span>com.acme.MyServlet<span class="sc3"><span class="re1">&lt;/servlet-class<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;run-as<span class="re2">&gt;</span></span></span>special<span class="sc3"><span class="re1">&lt;/run-as<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;/servlet<span class="re2">&gt;</span></span></span></pre></div></div>
+<p>Here is the equivalent as an annotation:
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="java source-java"><pre class="de1"><span class="kw1">import</span> <span class="co2">javax.annotation.security.RunAs</span><span class="sy0">;</span>
+<span class="kw1">import</span> <span class="co2">javax.servlet.http.HttpServlet</span><span class="sy0">;</span>
+&#160;
+@RunAs<span class="br0">&#40;</span><span class="st0">&quot;special&quot;</span><span class="br0">&#41;</span>
+<span class="kw1">public</span> <span class="kw1">class</span> MyServlet <span class="kw1">extends</span> HttpServlet 
+<span class="br0">&#123;</span>
+<span class="br0">&#125;</span></pre></div></div>
+<h3><span class="mw-headline" id="Security:_DeclareRoles">Security: DeclareRoles</span></h3>
+<p>The @DeclareRoles annotation is equivalent to declaring security-role elements in web.xml. 
+</p><p>Here's an example of web.xml security-roles:
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="xml source-xml"><pre class="de1"> <span class="sc3"><span class="re1">&lt;security-role<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;role-name<span class="re2">&gt;</span></span></span>server-administrator<span class="sc3"><span class="re1">&lt;/role-name<span class="re2">&gt;</span></span></span>
+ <span class="sc3"><span class="re1">&lt;/security-role<span class="re2">&gt;</span></span></span>
+ <span class="sc3"><span class="re1">&lt;security-role<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;role-name<span class="re2">&gt;</span></span></span>user<span class="sc3"><span class="re1">&lt;/role-name<span class="re2">&gt;</span></span></span>
+ <span class="sc3"><span class="re1">&lt;/security-role<span class="re2">&gt;</span></span></span></pre></div></div>
+<p>Here's how they would look as an annotation instead:
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="java source-java"><pre class="de1"><span class="kw1">import</span> <span class="co2">javax.annotation.security.DeclareRoles</span><span class="sy0">;</span>
+<span class="kw1">import</span> <span class="co2">javax.servlet.http.HttpServlet</span><span class="sy0">;</span>
+&#160;
+@DeclareRoles<span class="br0">&#40;</span><span class="br0">&#123;</span><span class="st0">&quot;server-administrator&quot;</span>, <span class="st0">&quot;user&quot;</span><span class="br0">&#125;</span><span class="br0">&#41;</span>
+<span class="kw1">public</span> <span class="kw1">class</span> MyServlet <span class="kw1">extends</span> HttpServlet 
+<span class="br0">&#123;</span>
+    <span class="kw1">public</span> <span class="kw4">void</span> doGet<span class="br0">&#40;</span>HttpServletRequest request, HttpServletResponse response<span class="br0">&#41;</span> <span class="kw1">throws</span> ServletException, <span class="kw3">IOException</span>
+    <span class="br0">&#123;</span>  
+        <span class="kw4">boolean</span> result <span class="sy0">=</span> request.<span class="me1">isUserInRole</span><span class="br0">&#40;</span><span class="st0">&quot;server-administrator&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+    <span class="br0">&#125;</span>
+<span class="br0">&#125;</span></pre></div></div>
+
+<!-- 
+NewPP limit report
+Cached time: 20211116021145
+Cache expiry: 86400
+Dynamic content: false
+CPU time usage: 0.340 seconds
+Real time usage: 0.363 seconds
+Preprocessor visited node count: 136/1000000
+Preprocessor generated node count: 719/1000000
+Post‐expand include size: 12065/2097152 bytes
+Template argument size: 10149/2097152 bytes
+Highest expansion depth: 6/40
+Expensive parser function count: 0/100
+-->
+
+<!-- 
+Transclusion expansion time report (%,ms,calls,template)
+100.00%  243.108      1 - -total
+100.00%  243.108      1 - Template:Jetty_Feature
+  4.46%   10.832      1 - Template:Jetty_Redirect
+  4.13%   10.048      2 - Template:Message
+  3.06%    7.443      1 - Template:Jetty
+  2.54%    6.168      1 - Template:Tip
+-->
+
+<!-- Saved in parser cache with key my_wiki:pcache:idhash:25603-0!*!0!!en!5!* and timestamp 20211116021145 and revision id 335322
+ -->
+</div>
+                                      <!-- catlinks -->
+                    <div id='catlinks' class='catlinks'><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="https://wiki.eclipse.org/Special:Categories" title="Special:Categories">Categories</a>: <ul><li><a href="https://wiki.eclipse.org/Category:Jetty" title="Category:Jetty">Jetty</a></li><li><a href="https://wiki.eclipse.org/Category:Jetty_Feature" title="Category:Jetty Feature">Jetty Feature</a></li></ul></div></div>                     <!-- /catlinks -->
+                                  </div>
+              </div>
+            </div>
+          </div>
+        <!-- /maincontent -->
+
+                <!-- printfooter -->
+        <div class="printfooter">
+        Retrieved from "<a dir="ltr" href="https://wiki.eclipse.org/index.php?title=Jetty/Feature/Annotations&amp;oldid=335322">https://wiki.eclipse.org/index.php?title=Jetty/Feature/Annotations&amp;oldid=335322</a>"        </div>
+        <!-- /printfooter -->
+        
+        
+        <!-- debughtml -->
+                <!-- /debughtml -->
+
+      </div>
+      <!-- /bodyContent -->
+    </section>
+    <!-- /content -->
+
+    <!-- footer -->
+    
+</div>
+<div class="featured-footer featured-footer-newsletter background-secondary">
+  <div class="container">
+    <p id="footercredit">This page was last modified 09:47, 1 May 2013 by <a href="https://wiki.eclipse.org/User:Jesse.mcconnell.gmail.com" title="User:Jesse.mcconnell.gmail.com">Jesse McConnell</a>. Based on work by <a href="https://wiki.eclipse.org/index.php?title=User:Janb.intalio.com&amp;action=edit&amp;redlink=1" class="new" title="User:Janb.intalio.com (page does not exist)">Jan Bartel</a>, <a href="https://wiki.eclipse.org/index.php?title=User:Kaandok.gmail.com&amp;action=edit&amp;redlink=1" class="new" title="User:Kaandok.gmail.com (page does not exist)">Kaan</a> and <a href="https://wiki.eclipse.org/index.php?title=User:Boulay.intalio.com&amp;action=edit&amp;redlink=1" class="new" title="User:Boulay.intalio.com (page does not exist)">Shirley Boulay</a> and <a href="https://wiki.eclipse.org/index.php?title=Jetty/Feature/Annotations&amp;action=credits" title="Jetty/Feature/Annotations">others</a>.</p><p id="footerviews"></p>  </div>
+</div>
+</main> <!-- /#main-content-container-row -->
+<p id="back-to-top" class="noprint hidden-print">
+  <a class="visible-xs" href="Annotations.html#top">Back to the top</a>
+</p>
+<footer id="solstice-footer">
+  <div class="container">
+    <div class="row">
+      <section class="col-sm-6 hidden-print" id="footer-eclipse-foundation">
+        <h2 class="section-title">Eclipse Foundation</h2>
+        <ul class="nav">
+          <li><a href="https://www.eclipse.org/org/">About Us</a></li>
+          <li><a href="https://www.eclipse.org/org/foundation/contact.php">Contact Us</a></li>
+          <li><a href="https://www.eclipse.org/donate">Donate</a></li>
+          <li><a href="https://www.eclipse.org/membership/">Members</a></li>
+          <li><a href="https://www.eclipse.org/org/documents/">Governance</a></li>
+          <li><a href="https://www.eclipse.org/org/documents/Community_Code_of_Conduct.php">Code of Conduct</a></li>
+          <li><a href="https://www.eclipse.org/artwork/">Logo and Artwork</a></li>
+          <li><a href="https://www.eclipse.org/org/foundation/directors.php">Board of Directors</a></li>
+        </ul>
+      </section>
+      <section class="col-sm-6 hidden-print" id="footer-legal">
+        <h2 class="section-title">Legal</h2>
+        <ul class="nav">
+          <li><a href="https://www.eclipse.org/legal/privacy.php">Privacy Policy</a></li>
+          <li><a href="https://www.eclipse.org/legal/termsofuse.php">Terms of Use</a></li>
+          <li><a href="https://www.eclipse.org/legal/copyright.php">Copyright Agent</a></li>
+          <li><a href="https://www.eclipse.org/legal/epl-2.0/">Eclipse Public License</a></li>
+          <li><a href="https://www.eclipse.org/legal/">Legal Resources</a></li>
+        </ul>
+      </section>
+      <section class="col-sm-6 hidden-print" id="footer-useful-links">
+        <h2 class="section-title">Useful Links</h2>
+        <ul class="nav">
+          <li><a href="https://bugs.eclipse.org/bugs/">Report a Bug</a></li>
+          <li><a href="https://help.eclipse.org/">Documentation</a></li>
+          <li><a href="https://www.eclipse.org/contribute/">How to Contribute</a></li>
+          <li><a href="https://www.eclipse.org/mail/">Mailing Lists</a></li>
+          <li><a href="https://www.eclipse.org/forums/">Forums</a></li>
+          <li><a href="https://marketplace.eclipse.org/">Marketplace</a></li>
+        </ul>
+      </section>
+      <section class="col-sm-6 hidden-print" id="footer-other">
+        <h2 class="section-title">Other</h2>
+        <ul class="nav">
+          <li><a href="https://www.eclipse.org/ide/">IDE and Tools</a></li>
+          <li><a href="https://www.eclipse.org/projects">Projects</a></li>
+          <li><a href="https://www.eclipse.org/org/workinggroups/">Working Groups</a></li>
+          <li><a href="https://www.eclipse.org/org/research/">Research@Eclipse</a></li>
+          <li><a href="https://www.eclipse.org/security/">Report a Vulnerability</a></li>
+          <li><a href="https://status.eclipse.org">Service Status</a></li>
+        </ul>
+      </section>
+      <div class="col-sm-24 margin-top-20">
+        <div class="row">
+          <div id="copyright" class="col-md-16">
+            <p id="copyright-text">Copyright &copy; Eclipse Foundation, Inc. All Rights Reserved.</p>
+          </div>
+          <div class="col-md-8 social-media">
+            <ul class="list-inline">
+              <li>
+                <a class="social-media-link fa-stack fa-lg" href="https://twitter.com/EclipseFdn">
+                <i class="fa fa-circle-thin fa-stack-2x"></i>
+                <i class="fa fa-twitter fa-stack-1x"></i>
+                </a>
+              </li>
+              <li>
+                <a class="social-media-link fa-stack fa-lg" href="https://www.facebook.com/eclipse.org">
+                <i class="fa fa-circle-thin fa-stack-2x"></i>
+                <i class="fa fa-facebook fa-stack-1x"></i>
+                </a>
+              </li>
+              <li>
+                <a class="social-media-link fa-stack fa-lg" href="https://www.youtube.com/user/EclipseFdn">
+                <i class="fa fa-circle-thin fa-stack-2x"></i>
+                <i class="fa fa-youtube fa-stack-1x"></i>
+                </a>
+              </li>
+              <li>
+                <a class="social-media-link fa-stack fa-lg" href="https://www.linkedin.com/company/eclipse-foundation">
+                <i class="fa fa-circle-thin fa-stack-2x"></i>
+                <i class="fa fa-linkedin fa-stack-1x"></i>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <a href="Annotations.html#" class="scrollup">Back to the top</a>
+    </div>
+  </div>
+</footer>
+    <!-- /footer -->
+    <script>window.RLQ = window.RLQ || []; window.RLQ.push( function () {
+mw.loader.state({"skins.solstice":"loading","user":"ready","user.groups":"ready"});mw.loader.load("/load.php?debug=false\u0026lang=en\u0026modules=skins.solstice\u0026only=scripts\u0026skin=solstice");mw.loader.load(["mediawiki.toc","mediawiki.action.view.postEdit","site","mediawiki.user","mediawiki.hidpi","mediawiki.page.ready","mediawiki.searchSuggest"]);
+} );</script><script>window.RLQ = window.RLQ || []; window.RLQ.push( function () {
+mw.config.set({"wgBackendResponseTime":526});
+} );</script>  </body>
+</html>

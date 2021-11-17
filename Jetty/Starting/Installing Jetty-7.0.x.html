@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" class="client-nojs">
+<head>
+<meta charset="UTF-8"/>
+<title>Jetty/Starting/Installing Jetty-7.0.x - Eclipsepedia</title>
+<script>document.documentElement.className = document.documentElement.className.replace( /(^|\s)client-nojs(\s|$)/, "$1client-js$2" );</script>
+<script>window.RLQ = window.RLQ || []; window.RLQ.push( function () {
+mw.config.set({"wgCanonicalNamespace":"","wgCanonicalSpecialPageName":!1,"wgNamespaceNumber":0,"wgPageName":"Jetty/Starting/Installing_Jetty-7.0.x","wgTitle":"Jetty/Starting/Installing Jetty-7.0.x","wgCurRevisionId":167552,"wgRevisionId":167552,"wgArticleId":20236,"wgIsArticle":!0,"wgIsRedirect":!1,"wgAction":"view","wgUserName":null,"wgUserGroups":["*"],"wgCategories":["Jetty","Jetty Starting"],"wgBreakFrames":!1,"wgPageContentLanguage":"en","wgPageContentModel":"wikitext","wgSeparatorTransformTable":["",""],"wgDigitTransformTable":["",""],"wgDefaultDateFormat":"dmy","wgMonthNames":["","January","February","March","April","May","June","July","August","September","October","November","December"],"wgMonthNamesShort":["","Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"wgRelevantPageName":"Jetty/Starting/Installing_Jetty-7.0.x","wgRelevantArticleId":20236,"wgIsProbablyEditable":!1,"wgRestrictionEdit":[],"wgRestrictionMove":[],
+"wgWikiEditorEnabledModules":{"toolbar":!1,"dialogs":!1,"preview":!1,"publish":!1},"wgCategoryTreePageCategoryOptions":"{\"mode\":0,\"hideprefix\":20,\"showcount\":true,\"namespaces\":false}"});mw.loader.implement("user.options",function($,jQuery){mw.user.options.set({"variant":"en"});});mw.loader.implement("user.tokens",function($,jQuery){mw.user.tokens.set({"editToken":"+\\","patrolToken":"+\\","watchToken":"+\\"});});mw.loader.load(["mediawiki.page.startup","mediawiki.legacy.wikibits"]);
+} );</script>
+<link rel="stylesheet" href="../../load.php%3Fdebug=false&amp;lang=en&amp;modules=mediawiki.legacy.commonPrint,shared|mediawiki.sectionAnchor&amp;only=styles&amp;skin=solstice.css"/>
+<link rel="stylesheet" href="../../skins/solstice/public/css/styles.css%3F303.css" media="screen, print"/>
+<meta name="ResourceLoaderDynamicStyles" content=""/>
+<style>a:lang(ar),a:lang(kk-arab),a:lang(mzn),a:lang(ps),a:lang(ur){text-decoration:none}</style>
+<script async="" src="../../load.php%3Fdebug=false&amp;lang=en&amp;modules=startup&amp;only=scripts&amp;skin=solstice"></script>
+<meta name="generator" content="MediaWiki 1.26.4"/>
+<link rel="shortcut icon" href="../../eclipse.org-common/themes/solstice/public/images/favicon.ico"/>
+<link rel="search" type="application/opensearchdescription+xml" href="https://wiki.eclipse.org/opensearch_desc.php" title="Eclipsepedia (en)"/>
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.eclipse.org/api.php?action=rsd"/>
+<link rel="alternate" type="application/atom+xml" title="Eclipsepedia Atom feed" href="https://wiki.eclipse.org/index.php?title=Special:RecentChanges&amp;feed=atom"/>
+<style type="text/css">
+/*<![CDATA[*/      
+#jetty-nav {
+  margin-bottom: 2em;
+}
+#jetty-nav ul {
+  padding: 3px 0 1px 1em;
+  margin:0;
+  border-bottom: 1px solid #aaa;
+}
+#jetty-nav li {
+  list-style: none;
+  margin: 0;
+  display: inline;
+}
+#jetty-nav li a {
+  padding: 3px 0.5em;
+  margin-left: 3px;
+  border: 1px solid #aaa;
+  border-bottom: none;
+  background: #eef;
+  text-decoration: none;
+}
+#jetty-nav li a:link { color: #448; }
+#jetty-nav li a:visited { color: #667; }
+#jetty-nav li a:hover {
+  color: #000;
+  background: #ccf;
+  border-color: #227;
+}
+#jetty-nav li span#current a
+{
+  background: #fff;
+  border-bottom: 1px solid #fff;
+}
+#jetty-nav li .selflink {
+  padding: 3px 0.5em;
+  margin-left: 3px;
+  border: 1px solid #aaa;
+  background: #fff;
+  border-bottom: 1px solid #fff;
+}
+table.jetty-table, .jetty-table table {
+  border: 1px solid #aaa;
+  border-collapse: collapse;
+}
+.jetty-table td {
+  border: 1px solid #aaa;
+  padding: 0.5em 1em;
+}
+.jetty-table th {
+  border: 1px solid #aaa;
+  background-color: #eef;
+}
+.jetty-table caption {
+  border: 1px #aaa solid;
+  margin: 1em 0 0.2em 0;
+  background-color: #ccf;
+  font-weight: bold;
+  font-size: 1.1em;
+}
+#content dl  {
+  border-left: 1px #aaa solid;
+  border-bottom: 1px #aaa solid;
+}
+#content dl dt {
+  float: left;
+  border-top: 1px solid #aaa;
+  padding: 0.5em 0 0 0.5em;
+}
+#content dl dd {
+  border: 1px solid #aaa;
+  border-bottom: none;
+}
+#content .narrow-list dl  {
+  width: 40em;
+}
+#content .narrow-list dl dt {
+  width: 14em;
+  line-height: 1.1em;
+}
+#content .narrow-list dl dd {
+  margin: 0 0 0 15em;
+  padding: 0.5em 1em;
+}
+#content .wide-list dl, #content dl {
+  width: 80em;
+}
+#content .wide-list dl dt, #content dl dt {
+  padding: 0.5em 1em;
+  width: 15em;
+}
+#content .wide-list dl dd, #content dl dd {
+  padding: 1em 1em 2em 2em;
+  margin: 0 0 0 17em;
+}
+#content .unbounded-list dl, #content .unbounded-list dl dd, #content .unbounded-list dl dt {
+  border: 0 none;
+  width: auto;
+  padding: 0 0 0 1em;
+}
+#content .unbounded-list dl dt {
+}
+#content p  {
+  margin-bottom: 0.5em;
+}
+#content li  {
+  line-height: 1.1em;
+}
+.infobox {
+  padding: 0.5em 1em;
+  background-color: #fff;
+  float: right;
+  margin: 0.5em;
+}
+/*]]>*/       
+</style>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body class="mediawiki ltr sitedir-ltr ns-0 ns-subject page-Jetty_Starting_Installing_Jetty-7_0_x skin-solstice action-view" id="solstice">
+
+<a class="sr-only" href="Installing&#32;Jetty-7.0.x.html#content">Skip to main content</a>
+<header class="header-wrapper" id="header-wrapper">
+  <div class="clearfix toolbar-container-wrapper">
+    <div class="container-fluid">
+      <div class="text-right toolbar-row row hidden-print">
+        <div class="col-md-24 row-toolbar-col">
+               <ul class="list-inline">
+                  <li id="pt-login">
+            <a href="https://wiki.eclipse.org/index.php?title=Special:UserLogin&amp;returnto=Jetty%2FStarting%2FInstalling+Jetty-7.0.x" class="toolbar-link toolbar-login">
+              <i class="fa fa-sign-in fa-fw"></i> Log in            </a>
+          </li>
+                <li><a class="toolbar-link toolbar-manage-cookies dropdown-toggle"><i class="fa fa-wrench"></i> Manage Cookies</a></li>
+      </ul>
+            </div>
+      </div>
+    </div>
+  </div>
+  <div class="container-fluid">
+    <div class="row" id="header-row">
+      <div class="col-sm-5 col-md-4" id="header-left">
+        <div class="wrapper-logo-default"><a href="https://www.eclipse.org/"><img class="logo-eclipse-default hidden-xs" alt="Eclipse.org logo" width="160" src="https://www.eclipse.org/eclipse.org-common/themes/solstice/public/images/logo/eclipse-foundation-white-orange.svg"/></a></div>
+      </div>
+      <div class="col-sm-19 col-md-20 margin-top-10" id="main-menu-wrapper">
+        <div class="float-right hidden-xs" id="btn-call-for-action"><a href="https://eclipse.org/downloads/" class="btn btn-huge btn-warning"><i class="fa fa-download"></i> Download</a></div>
+        <div class="navbar yamm float-sm-right" id="main-menu">
+          <div class="navbar-collapse collapse" id="navbar-main-menu">
+            <ul class="nav navbar-nav">
+              <li><a href="https://www.eclipse.org/projects/" target="_self">Projects</a></li>
+              <li><a href="https://www.eclipse.org/org/workinggroups/" target="_self">Working Groups</a></li>
+              <li><a href="https://www.eclipse.org/membership/" target="_self">Members</a></li>
+              <li class="dropdown visible-xs">
+                <a href="Installing&#32;Jetty-7.0.x.html#" data-toggle="dropdown" class="dropdown-toggle">Community <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li><a href="http://marketplace.eclipse.org">Marketplace</a></li>
+                  <li><a href="http://events.eclipse.org">Events</a></li>
+                  <li><a href="http://www.planeteclipse.org/">Planet Eclipse</a></li>
+                  <li><a href="https://www.eclipse.org/community/eclipse_newsletter/">Newsletter</a></li>
+                  <li><a href="https://www.youtube.com/user/EclipseFdn">Videos</a></li>
+                  <li><a href="https://blogs.eclipse.org">Blogs</a></li>
+                </ul>
+              </li>
+              <li class="dropdown visible-xs">
+                <a href="Installing&#32;Jetty-7.0.x.html#" data-toggle="dropdown" class="dropdown-toggle">Participate <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li><a href="https://bugs.eclipse.org/bugs/">Report a Bug</a></li>
+                  <li><a href="https://www.eclipse.org/forums/">Forums</a></li>
+                  <li><a href="https://www.eclipse.org/mail/">Mailing Lists</a></li>
+                  <li><a href="https://wiki.eclipse.org/">Wiki</a></li>
+                  <li><a href="https://wiki.eclipse.org/IRC">IRC</a></li>
+                  <li><a href="https://www.eclipse.org/org/research/">Research</a></li>
+                </ul>
+              </li>
+              <li class="dropdown visible-xs">
+                <a href="Installing&#32;Jetty-7.0.x.html#" data-toggle="dropdown" class="dropdown-toggle">Eclipse IDE <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li><a href="https://www.eclipse.org/downloads">Download</a></li>
+                  <li><a href="https://www.eclipse.org/eclipseide">Learn More</a></li>
+                  <li><a href="https://help.eclipse.org">Documentation</a></li>
+                  <li><a href="https://www.eclipse.org/getting_started">Getting Started / Support</a></li>
+                  <li><a href="https://www.eclipse.org/contribute/">How to Contribute</a></li>
+                  <li><a href="https://www.eclipse.org/ide/">IDE and Tools</a></li>
+                  <li><a href="https://www.eclipse.org/forums/index.php/f/89/">Newcomer Forum</a></li>
+                </ul>
+              </li>
+              <!-- More -->
+              <li class="dropdown eclipse-more hidden-xs">
+                <a data-toggle="dropdown" class="dropdown-toggle" role="button">More<b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li>
+                    <!-- Content container to add padding -->
+                    <div class="yamm-content">
+                      <div class="row">
+                        <ul class="col-sm-8 list-unstyled">
+                          <li>
+                            <p><strong>Community</strong></p>
+                          </li>
+                          <li><a href="http://marketplace.eclipse.org">Marketplace</a></li>
+                          <li><a href="http://events.eclipse.org">Events</a></li>
+                          <li><a href="http://www.planeteclipse.org/">Planet Eclipse</a></li>
+                          <li><a href="https://www.eclipse.org/community/eclipse_newsletter/">Newsletter</a></li>
+                          <li><a href="https://www.youtube.com/user/EclipseFdn">Videos</a></li>
+                          <li><a href="https://blogs.eclipse.org">Blogs</a></li>
+                        </ul>
+                        <ul class="col-sm-8 list-unstyled">
+                          <li>
+                            <p><strong>Participate</strong></p>
+                          </li>
+                          <li><a href="https://bugs.eclipse.org/bugs/">Report a Bug</a></li>
+                          <li><a href="https://www.eclipse.org/forums/">Forums</a></li>
+                          <li><a href="https://www.eclipse.org/mail/">Mailing Lists</a></li>
+                          <li><a href="https://wiki.eclipse.org/">Wiki</a></li>
+                          <li><a href="https://wiki.eclipse.org/IRC">IRC</a></li>
+                          <li><a href="https://www.eclipse.org/org/research/">Research</a></li>
+                        </ul>
+                        <ul class="col-sm-8 list-unstyled">
+                          <li>
+                            <p><strong>Eclipse IDE</strong></p>
+                          </li>
+                          <li><a href="https://www.eclipse.org/downloads">Download</a></li>
+                          <li><a href="https://www.eclipse.org/eclipseide">Learn More</a></li>
+                          <li><a href="https://help.eclipse.org">Documentation</a></li>
+                          <li><a href="https://www.eclipse.org/getting_started">Getting Started / Support</a></li>
+                          <li><a href="https://www.eclipse.org/contribute/">How to Contribute</a></li>
+                          <li><a href="https://www.eclipse.org/ide/">IDE and Tools</a></li>
+                          <li><a href="https://www.eclipse.org/forums/index.php/f/89/">Newcomer Forum</a></li>
+                        </ul>
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-main-menu">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            </button>
+            <div class="wrapper-logo-mobile"><a class="navbar-brand visible-xs" href="https://www.eclipse.org/"><img class="logo-eclipse-default-mobile img-responsive" alt="Eclipse.org logo" width="160" src="https://www.eclipse.org/eclipse.org-common/themes/solstice/public/images/logo/eclipse-foundation-white-orange.svg"/></a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+<section class="default-breadcrumbs hidden-print" id="breadcrumb">
+  <div class="container-fluid">
+    <h3 class="sr-only">Breadcrumbs</h3>
+    <div class="row">
+      <div class="col-sm-24">
+        <ol class="breadcrumb">
+          <li><a href="https://www.eclipse.org/">Home</a></li>
+          <li><a href="https://wiki.eclipse.org/Main_Page">Eclipse Wiki</a></li>
+          <li class="active">Jetty/Starting/Installing Jetty-7.0.x</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- /#breadcrumb -->
+<main>
+<div class="container-fluid padding-15 padding-top-20">
+    
+    
+    <!-- content -->
+    <section id="content" class="mw-body container-full clearfix 0">
+      <div id="mw-js-message" style="display:none;"></div>
+
+      
+      <!-- bodyContent -->
+      <div id="bodyContent">
+
+        
+                <!-- jumpto -->
+        <div id="jump-to-nav" class="mw-jump">
+          Jump to: <a href="Installing&#32;Jetty-7.0.x.html#mw-head">navigation</a>,
+          <a href="Installing&#32;Jetty-7.0.x.html#p-search">search</a>
+        </div>
+        <!-- /jumpto -->
+        
+          <!-- leftcol -->
+          <aside class="col-md-4 noprint hidden-print" id="leftcol">
+                      <form class="input-group" role="form" id="form-eclipse-search" action="https://wiki.eclipse.org/index.php" id="searchform">
+              <input id="searchInput" class="search-query form-control" type="search" accesskey="f" title="Special:Search" placeholder="Search" name="search" value="">
+
+              <span class="input-group-btn">
+                <button value="search" id="mw-searchButton" type="submit" class="btn btn-default" title="Search the pages for this text" name="fulltext">
+                  <i class="fa fa-search"></i>
+                </button>
+              </span>
+            </form>
+                      <select class="form-control margin-top-10 margin-bottom-10 visible-xs visible-sm" onchange="this.options[this.selectedIndex].value && (window.location = this.options[this.selectedIndex].value);"><option class="fw-700 "><span class="fw-700">---Navigation---</span></option><option value="/Main_Page">Main Page</option><option value="/Eclipsepedia:Community_portal">Community portal</option><option value="/Eclipsepedia:Current_events">Current events</option><option value="/Special:RecentChanges">Recent changes</option><option value="/Special:Random">Random page</option><option value="https://www.mediawiki.org/wiki/Special:MyLanguage/Help:Contents">Help</option></select><ul class="ul-left-nav fa-ul hidden-print leftnav hidden-xs hidden-sm"><li class="separator"><span class="separator">Navigation</span></li>                <li class=""><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/Main_Page" id="n-mainpage" title="Visit the main page [z]" accesskey="z">Main Page</a></li>                <li class=""><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/Eclipsepedia:Community_portal" id="n-portal" title="About the project, what you can do, where to find things">Community portal</a></li>                <li class=""><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/Eclipsepedia:Current_events" id="n-currentevents" title="Find background information on current events">Current events</a></li>                <li class=""><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/Special:RecentChanges" id="n-recentchanges" title="A list of recent changes in the wiki [r]" accesskey="r">Recent changes</a></li>                <li class=""><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/Special:Random" id="n-randompage" title="Load a random page [x]" accesskey="x">Random page</a></li>                <li class=""><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://www.mediawiki.org/wiki/Special:MyLanguage/Help:Contents" id="n-help" title="The place to find out">Help</a></li></ul>            <select class="form-control margin-top-10 margin-bottom-10 visible-xs visible-sm" onchange="this.options[this.selectedIndex].value && (window.location = this.options[this.selectedIndex].value);"><option class="fw-700 "><span class="fw-700">---Toolbox---</span></option><option value="/index.php?title=Jetty/Starting/Installing_Jetty-7.0.x&amp;action=info">Page information</option><option value="/index.php?title=Jetty/Starting/Installing_Jetty-7.0.x&amp;oldid=167552">Permanent link</option><option value="/index.php?title=Jetty/Starting/Installing_Jetty-7.0.x&amp;printable=yes">Printable version</option><option value="/Special:SpecialPages">Special pages</option><option value="/Special:RecentChangesLinked/Jetty/Starting/Installing_Jetty-7.0.x">Related changes</option><option value="/Special:WhatLinksHere/Jetty/Starting/Installing_Jetty-7.0.x">What links here</option></select><ul class="ul-left-nav fa-ul hidden-print leftnav hidden-xs hidden-sm"><li class="separator"><span class="separator">Toolbox</span></li><li><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/index.php?title=Jetty/Starting/Installing_Jetty-7.0.x&amp;action=info" id="t-info" title="More information about this page">Page information</a></li><li><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/index.php?title=Jetty/Starting/Installing_Jetty-7.0.x&amp;oldid=167552" id="t-permalink" title="Permanent link to this revision of the page">Permanent link</a></li><li><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/index.php?title=Jetty/Starting/Installing_Jetty-7.0.x&amp;printable=yes" id="t-print" rel="alternate" title="Printable version of this page [p]" accesskey="p">Printable version</a></li><li><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/Special:SpecialPages" id="t-specialpages" title="A list of all special pages [q]" accesskey="q">Special pages</a></li><li><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/Special:RecentChangesLinked/Jetty/Starting/Installing_Jetty-7.0.x" id="t-recentchangeslinked" title="Recent changes in pages linked from this page [k]" accesskey="k">Related changes</a></li><li><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/Special:WhatLinksHere/Jetty/Starting/Installing_Jetty-7.0.x" id="t-whatlinkshere" title="A list of all wiki pages that link here [j]" accesskey="j">What links here</a></li></ul>                                  </aside>
+          <!-- /leftcol -->
+
+          <!-- mainContent -->
+          <div id="mainContent" class="col-md-20">
+                      <ul class="nav nav-tabs noprint hidden-print" role="tablist">
+                       <li id="ca-nstab-main" class="active"><a href="Installing&#32;Jetty-7.0.x.html"  title="View the content page [c]" accesskey="c" tabindex="-1">Page</a></li>
+                        <li id="ca-talk" class="new"><a href="https://wiki.eclipse.org/index.php?title=Talk:Jetty/Starting/Installing_Jetty-7.0.x&amp;action=edit&amp;redlink=1"  title="Discussion about the content page [t]" accesskey="t" tabindex="-1">Discussion</a></li>
+                        <li id="ca-viewsource"><a href="https://wiki.eclipse.org/index.php?title=Jetty/Starting/Installing_Jetty-7.0.x&amp;action=edit"  title="This page is protected.&#10;You can view its source [e]" accesskey="e" tabindex="-1">View source</a></li>
+                        <li id="ca-history" class="collapsible"><a href="https://wiki.eclipse.org/index.php?title=Jetty/Starting/Installing_Jetty-7.0.x&amp;action=history"  title="Past revisions of this page [h]" accesskey="h" tabindex="-1">History</a></li>
+                      </ul>            <div class="tab-content background-white">
+              <div id="tab-pane-main-page-content" class="tab-pane active">
+
+                
+                <h1 id="firstHeading" class="firstHeading page-header">
+                  <span dir="auto">Jetty/Starting/Installing Jetty-7.0.x</span>
+                </h1>
+                <div id="main-page-content">
+                                                      <!-- subtitle -->
+                  <div id="contentSub"  class="alert alert-small alert-warning"><span class="subpages">&lt; <a href="../../Jetty.html" title="Jetty">Jetty</a>&lrm; | <a href="../Starting.html" title="Jetty/Starting">Starting</a></span></div>
+                  <!-- /subtitle -->
+                  
+                  
+                  <div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="messagebox" style="background-color: #f9f6b7; border: 1px solid #c4c295; color: black; padding: 5px; margin: 1ex 0; min-height: 35px; padding-left: 45px;">
+<div style="float: left; margin-left: -40px;"><a href="https://wiki.eclipse.org/File:Warning2.png" class="image"><img alt="Warning2.png" src="../../images/3/37/Warning2.png" width="35" height="35" /></a></div>
+<div><b>This page is deprecated</b><br />We are splitting it up into different pages. Once all the information here is available elsewhere, the page will be wiped</div>
+</div>
+<p><br />
+</p><p><br />
+</p>
+<div id="toc" class="toc"><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="Installing&#32;Jetty-7.0.x.html#Introduction"><span class="tocnumber">1</span> <span class="toctext">Introduction</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="Installing&#32;Jetty-7.0.x.html#Prerequisites"><span class="tocnumber">2</span> <span class="toctext">Prerequisites</span></a>
+<ul>
+<li class="toclevel-2 tocsection-3"><a href="Installing&#32;Jetty-7.0.x.html#Hardware"><span class="tocnumber">2.1</span> <span class="toctext">Hardware</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="Installing&#32;Jetty-7.0.x.html#Operating_System"><span class="tocnumber">2.2</span> <span class="toctext">Operating System</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="Installing&#32;Jetty-7.0.x.html#Environment"><span class="tocnumber">2.3</span> <span class="toctext">Environment</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-6"><a href="Installing&#32;Jetty-7.0.x.html#Downloading_and_Installing_the_Jetty_Core_Components_Binary"><span class="tocnumber">3</span> <span class="toctext">Downloading and Installing the Jetty Core Components Binary</span></a>
+<ul>
+<li class="toclevel-2 tocsection-7"><a href="Installing&#32;Jetty-7.0.x.html#Download_the_Binary"><span class="tocnumber">3.1</span> <span class="toctext">Download the Binary</span></a></li>
+<li class="toclevel-2 tocsection-8"><a href="Installing&#32;Jetty-7.0.x.html#Unpack_the_Binary"><span class="tocnumber">3.2</span> <span class="toctext">Unpack the Binary</span></a></li>
+<li class="toclevel-2 tocsection-9"><a href="Installing&#32;Jetty-7.0.x.html#Inspect_the_Distribution"><span class="tocnumber">3.3</span> <span class="toctext">Inspect the Distribution</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-10"><a href="Installing&#32;Jetty-7.0.x.html#Starting_Jetty"><span class="tocnumber">4</span> <span class="toctext">Starting Jetty</span></a></li>
+<li class="toclevel-1 tocsection-11"><a href="Installing&#32;Jetty-7.0.x.html#Stopping_Jetty"><span class="tocnumber">5</span> <span class="toctext">Stopping Jetty</span></a></li>
+<li class="toclevel-1 tocsection-12"><a href="Installing&#32;Jetty-7.0.x.html#Testing_Jetty"><span class="tocnumber">6</span> <span class="toctext">Testing Jetty</span></a></li>
+<li class="toclevel-1 tocsection-13"><a href="Installing&#32;Jetty-7.0.x.html#Configuring_Jetty"><span class="tocnumber">7</span> <span class="toctext">Configuring Jetty</span></a></li>
+<li class="toclevel-1 tocsection-14"><a href="Installing&#32;Jetty-7.0.x.html#Configuring_Jetty_Classpath_on_Startup"><span class="tocnumber">8</span> <span class="toctext">Configuring Jetty Classpath on Startup</span></a></li>
+<li class="toclevel-1 tocsection-15"><a href="Installing&#32;Jetty-7.0.x.html#Deploying_Web_Applications"><span class="tocnumber">9</span> <span class="toctext">Deploying Web Applications</span></a></li>
+<li class="toclevel-1 tocsection-16"><a href="Installing&#32;Jetty-7.0.x.html#Downloading_Other_Binaries"><span class="tocnumber">10</span> <span class="toctext">Downloading Other Binaries</span></a></li>
+<li class="toclevel-1 tocsection-17"><a href="Installing&#32;Jetty-7.0.x.html#Obtaining_and_Building_from_Source"><span class="tocnumber">11</span> <span class="toctext">Obtaining and Building from Source</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Introduction">Introduction</span></h2>
+<p>The following provides detailed instructions for downloading and installing the latest version of Jetty 7. If you just want to get up and running, see the <a href="https://wiki.eclipse.org/Jetty/Starting/Quick_Start_Guide" title="Jetty/Starting/Quick Start Guide" class="mw-redirect">Quick Start Guide</a>.
+</p>
+<h2><span class="mw-headline" id="Prerequisites">Prerequisites</span></h2>
+<h3><span class="mw-headline" id="Hardware">Hardware</span></h3>
+<ul><li> ~7 MB of disk space for Jetty source</li>
+<li> ~7 MB for Jetty 7 binaries</li></ul>
+<h3><span class="mw-headline" id="Operating_System">Operating System</span></h3>
+<ul><li> Any operating system that supports J2SE 1.5 or greater.</li></ul>
+<h3><span class="mw-headline" id="Environment">Environment</span></h3>
+<ul><li> J2SE 1.5 or <a rel="nofollow" class="external text" href="http://java.sun.com/javase/downloads/index.jsp">greater</a></li></ul>
+<h2><span class="mw-headline" id="Downloading_and_Installing_the_Jetty_Core_Components_Binary">Downloading and Installing the Jetty Core Components Binary</span></h2>
+<h3><span class="mw-headline" id="Download_the_Binary">Download the Binary</span></h3>
+<p>The Jetty core component binaries can be found on the <a rel="nofollow" class="external text" href="http://www.eclipse.org/jetty/downloads.php">Jetty downloads page</a>. 
+</p>
+<h3><span class="mw-headline" id="Unpack_the_Binary">Unpack the Binary</span></h3>
+<p>Unzip the binary; it will be extracted into a directory called jetty-distribution-<var>VERSION</var>. The rest of the instructions in this wiki will refer to this location as <var>$JETTY_HOME</var>.
+</p>
+<h3><span class="mw-headline" id="Inspect_the_Distribution">Inspect the Distribution</span></h3>
+<p>Unzip the distribution you just downloaded. The top-level directory should look like:
+</p>
+<pre>about.html  contexts            etc   javadoc  LICENSE-APACHE-2.0.txt    logs      notice.html  resources  webapps
+bin         contexts-available  lib   LICENSE-ECLIPSE-1.0.html  META-INF  README.txt   start.jar
+</pre>
+<div class="unbounded-list">
+<dl><dt> about.html&#160;</dt>
+<dd> "About This Content" page from Eclipse</dd>
+<dt> bin&#160;</dt>
+<dd> directory for shell scripts to help automate the building and running of Jetty</dd>
+<dt> contexts&#160;</dt>
+<dd> hot deploy directory</dd>
+<dt> contexts-available&#160;</dt>
+<dd> directory for additional example contexts</dd>
+<dt> etc&#160;</dt>
+<dd> directory for Jetty configuration files </dd>
+<dt> javadoc&#160;</dt>
+<dd> contains the javadoc; needs to be built first  </dd>
+<dt> lib&#160;</dt>
+<dd> contains all the JAR files necessary to run jetty-7</dd>
+<dt> LICENSE-APACHE-2.0.TXT&#160;</dt>
+<dd> license file for Jetty (Jetty 7 is dual-licensed)</dd>
+<dt> LICENSE-ECLIPSE-1.0.HTML&#160;</dt>
+<dd> license file for Jetty (Jetty 7 is dual-licensed)</dd>
+<dt> logs&#160;</dt>
+<dd> directory for request logs</dd>
+<dt> META-INF&#160;</dt>
+<dd> for packaging</dd>
+<dt> notice.html&#160;</dt>
+<dd> licenses applicable to Jetty, as well as any exceptions</dd>
+<dt> README.TXT&#160;</dt>
+<dd> contains useful getting started information</dd>
+<dt> resources&#160;</dt>
+<dd> directory containing additional resources for configuration</dd>
+<dt> start.jar&#160;</dt>
+<dd> JAR which invokes jetty-7 (see also <a href="https://wiki.eclipse.org/index.php?title=Running_Jetty&amp;action=edit&amp;redlink=1" class="new" title="Running Jetty (page does not exist)">Running Jetty</a>)</dd>
+<dt> webapps&#160;</dt>
+<dd> directory containing webapps which will be run under the default configuration of Jetty; contains demo webapps</dd></dl>
+</div>
+<h2><span class="mw-headline" id="Starting_Jetty">Starting Jetty</span></h2>
+<p>To start Jetty, open the command shell, and:
+</p>
+<pre>cd $JETTY_HOME
+java -jar start.jar
+</pre>
+<p>This starts Jetty running on port 8080.
+</p>
+<div class="messagebox" style="background-color: #f9f6b7; border: 1px solid #c4c295; color: black; padding: 5px; margin: 1ex 0; min-height: 35px; padding-left: 45px;">
+<div style="float: left; margin-left: -40px;"><a href="https://wiki.eclipse.org/File:Warning2.png" class="image"><img alt="Warning2.png" src="../../images/3/37/Warning2.png" width="35" height="35" /></a></div>
+<div><b>Jetty will not start if another process is using port 8080</b><br />The port number can be changed by editing the <tt>$JETTY_HOME/etc/jetty.xml</tt> file. For more details see <a href="https://wiki.eclipse.org/index.php?title=Jetty/Configuration&amp;action=edit&amp;redlink=1" class="new" title="Jetty/Configuration (page does not exist)">Configuring Jetty</a>. The rest of the instructions in this wiki will assume that you are using port 8080</div>
+</div>
+<p><br />
+</p>
+<h2><span class="mw-headline" id="Stopping_Jetty">Stopping Jetty</span></h2>
+<p>From the command shell where Jetty is running, type <tt>&lt;ctrl-c&gt;</tt>
+</p>
+<h2><span class="mw-headline" id="Testing_Jetty">Testing Jetty</span></h2>
+<p>When Jetty starts, it deploys a test web application on port 8080.  To check if Jetty is running properly navigate to the <var>test</var> URL from a browser. For example:
+</p>
+<pre><a rel="nofollow" class="external free" href="http://localhost:8080/test">http://localhost:8080/test</a>
+</pre>
+<div class="messagebox" style="background-color: #def3fe; border: 1px solid #c5d7e0; color: black; padding: 5px; margin: 1ex 0; min-height: 35px; padding-left: 45px;">
+<div style="float: left; margin-left: -40px;"><a href="https://wiki.eclipse.org/File:Note.png" class="image"><img alt="Note.png" src="../../images/c/cc/Note.png" width="35" height="35" /></a></div>
+<div><b>Port and host defaults</b><br />If you started Jetty on another host, substitute that host name for <var>localhost</var>. If you used a different port number you will also need to change <var>8080</var> to the correct number. Unless otherwise noted, the rest of the instructions in this wiki will assume that you are using <var>localhost</var> and port <var>8080</var>.</div>
+</div>
+<p><br />
+</p>
+<h2><span class="mw-headline" id="Configuring_Jetty">Configuring Jetty</span></h2>
+<p>To run Jetty with specific configuration files, do
+</p>
+<pre>java -jar start.jar etc/jetty.xml etc/jetty-someotherfile.xml etc/myconfiguration.xml
+</pre>
+<p>The part of the command following <tt>-jar start.jar</tt> specifies the names of configuration files. These files instruct Jetty which ports to listen on, which webapps to deploy, and generally configure all container-related customizable settings. You may have only one configuration file, or you may have many, depending on your needs. These configuration files may be any name you want.
+</p><p>Running Jetty with 
+</p>
+<pre> java -jar start.jar 
+</pre>
+<p>is exactly the same as
+</p>
+<pre> java -jar start.jar etc/jetty.xml
+</pre>
+<p>The <tt>etc/jetty.xml</tt> file that is provided in the distribution includes many examples of alternative configuration settings that can be uncommented. For your convenience, this configuration instructs Jetty to deploy all webapps found in the webapps directory. Therefore, in order to deploy a new webapp, you need not do anything more than drop your war file or unpacked war file into the webapps directory.
+</p><p>In-depth configuration information can be found in <a href="https://wiki.eclipse.org/index.php?title=Jetty/Configuration&amp;action=edit&amp;redlink=1" class="new" title="Jetty/Configuration (page does not exist)">Configuration Documentation</a>.
+</p>
+<h2><span class="mw-headline" id="Configuring_Jetty_Classpath_on_Startup">Configuring Jetty Classpath on Startup</span></h2>
+<p>To control what files are available through the classpath, pass in options  when starting Jetty, e.g.,
+</p>
+<pre> java -jar start.jar OPTIONS=jetty,jsp,ssl
+</pre>
+<p>The default options are <tt>OPTIONS=default,*</tt>, which make available the modules for basic Jetty functionality, the <tt>$(jetty.home)/lib/ext directory</tt>, and the <tt>$(jetty.home)/resources</tt> directory.
+</p><p>A reference guide for the start.jar mechanism which controls the OPTIONS behavior can be found at <a href="https://wiki.eclipse.org/index.php?title=Jetty/Reference/Customizing_Startup&amp;action=edit&amp;redlink=1" class="new" title="Jetty/Reference/Customizing Startup (page does not exist)">Jetty/Reference/Customizing Startup</a>.
+</p>
+<h2><span class="mw-headline" id="Deploying_Web_Applications">Deploying Web Applications</span></h2>
+<p>The default installation of Jetty is configured to look for standard webapps in <tt>$JETTY_HOME/webapps</tt>. Webapps here will be discovered at startup, and do not support hot deployment.
+</p><p>For non-standard contexts, or if you need to support hot deployment, put XML configuration files to configure your contexts into <tt>$JETTY_HOME/contexts</tt>. 
+</p>
+<div class="messagebox" style="background-color: #def3fe; border: 1px solid #c5d7e0; color: black; padding: 5px; margin: 1ex 0; min-height: 35px; padding-left: 45px;">
+<div style="float: left; margin-left: -40px;"><a href="https://wiki.eclipse.org/File:Idea.png" class="image"><img alt="Idea.png" src="../../images/a/a4/Idea.png" width="35" height="35" /></a></div>
+<div><b>Root context</b><br />The easiest way to make your webapp the root context (/) is to name it "root.war".</div>
+</div>
+<p><br />
+</p>
+<h2><span class="mw-headline" id="Downloading_Other_Binaries">Downloading Other Binaries</span></h2>
+<p>Other available binaries and packages for download are listed on <a href="Downloads.html" title="Jetty/Starting/Downloads">Downloads</a>.
+</p>
+<h2><span class="mw-headline" id="Obtaining_and_Building_from_Source">Obtaining and Building from Source</span></h2>
+<p>You can also build a custom version of Jetty from the source code.
+</p><p>Check out the source code using SVN:
+</p>
+<ul><li> <a rel="nofollow" class="external text" href="http://dev.eclipse.org/svnroot/rt/org.eclipse.jetty/">Jetty 7 core components</a></li>
+<li> <a rel="nofollow" class="external text" href="http://svn.codehaus.org/jetty/jetty/trunk/">Jetty 7 additional accessories and integrations</a> </li></ul>
+<p>Follow the rest of the instructions on <a href="../Contributor/Building.html" title="Jetty/Contributor/Building">Building</a>.
+</p>
+<!-- 
+NewPP limit report
+Cached time: 20211116022911
+Cache expiry: 86400
+Dynamic content: false
+CPU time usage: 0.160 seconds
+Real time usage: 0.186 seconds
+Preprocessor visited node count: 227/1000000
+Preprocessor generated node count: 572/1000000
+Post‐expand include size: 5012/2097152 bytes
+Template argument size: 2774/2097152 bytes
+Highest expansion depth: 5/40
+Expensive parser function count: 0/100
+-->
+
+<!-- 
+Transclusion expansion time report (%,ms,calls,template)
+100.00%   45.293      1 - -total
+ 48.44%   21.938      4 - Template:Message
+ 43.35%   19.635      2 - Template:Warning
+ 19.01%    8.612      1 - Template:Note
+ 17.92%    8.116      1 - Template:Tip
+ 13.54%    6.132      1 - Template:Jetty
+-->
+
+<!-- Saved in parser cache with key my_wiki:pcache:idhash:20236-0!*!0!!en!5!* and timestamp 20211116022911 and revision id 167552
+ -->
+</div>
+                                      <!-- catlinks -->
+                    <div id='catlinks' class='catlinks'><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="https://wiki.eclipse.org/Special:Categories" title="Special:Categories">Categories</a>: <ul><li><a href="https://wiki.eclipse.org/Category:Jetty" title="Category:Jetty">Jetty</a></li><li><a href="https://wiki.eclipse.org/Category:Jetty_Starting" title="Category:Jetty Starting">Jetty Starting</a></li></ul></div></div>                     <!-- /catlinks -->
+                                  </div>
+              </div>
+            </div>
+          </div>
+        <!-- /maincontent -->
+
+                <!-- printfooter -->
+        <div class="printfooter">
+        Retrieved from "<a dir="ltr" href="https://wiki.eclipse.org/index.php?title=Jetty/Starting/Installing_Jetty-7.0.x&amp;oldid=167552">https://wiki.eclipse.org/index.php?title=Jetty/Starting/Installing_Jetty-7.0.x&amp;oldid=167552</a>"        </div>
+        <!-- /printfooter -->
+        
+        
+        <!-- debughtml -->
+                <!-- /debughtml -->
+
+      </div>
+      <!-- /bodyContent -->
+    </section>
+    <!-- /content -->
+
+    <!-- footer -->
+    
+</div>
+<div class="featured-footer featured-footer-newsletter background-secondary">
+  <div class="container">
+    <p id="footercredit">This page was last modified 04:38, 12 August 2009 by <a href="https://wiki.eclipse.org/index.php?title=User:Athena.webtide.com&amp;action=edit&amp;redlink=1" class="new" title="User:Athena.webtide.com (page does not exist)">Athena Yao</a>.</p><p id="footerviews"></p>  </div>
+</div>
+</main> <!-- /#main-content-container-row -->
+<p id="back-to-top" class="noprint hidden-print">
+  <a class="visible-xs" href="Installing&#32;Jetty-7.0.x.html#top">Back to the top</a>
+</p>
+<footer id="solstice-footer">
+  <div class="container">
+    <div class="row">
+      <section class="col-sm-6 hidden-print" id="footer-eclipse-foundation">
+        <h2 class="section-title">Eclipse Foundation</h2>
+        <ul class="nav">
+          <li><a href="https://www.eclipse.org/org/">About Us</a></li>
+          <li><a href="https://www.eclipse.org/org/foundation/contact.php">Contact Us</a></li>
+          <li><a href="https://www.eclipse.org/donate">Donate</a></li>
+          <li><a href="https://www.eclipse.org/membership/">Members</a></li>
+          <li><a href="https://www.eclipse.org/org/documents/">Governance</a></li>
+          <li><a href="https://www.eclipse.org/org/documents/Community_Code_of_Conduct.php">Code of Conduct</a></li>
+          <li><a href="https://www.eclipse.org/artwork/">Logo and Artwork</a></li>
+          <li><a href="https://www.eclipse.org/org/foundation/directors.php">Board of Directors</a></li>
+        </ul>
+      </section>
+      <section class="col-sm-6 hidden-print" id="footer-legal">
+        <h2 class="section-title">Legal</h2>
+        <ul class="nav">
+          <li><a href="https://www.eclipse.org/legal/privacy.php">Privacy Policy</a></li>
+          <li><a href="https://www.eclipse.org/legal/termsofuse.php">Terms of Use</a></li>
+          <li><a href="https://www.eclipse.org/legal/copyright.php">Copyright Agent</a></li>
+          <li><a href="https://www.eclipse.org/legal/epl-2.0/">Eclipse Public License</a></li>
+          <li><a href="https://www.eclipse.org/legal/">Legal Resources</a></li>
+        </ul>
+      </section>
+      <section class="col-sm-6 hidden-print" id="footer-useful-links">
+        <h2 class="section-title">Useful Links</h2>
+        <ul class="nav">
+          <li><a href="https://bugs.eclipse.org/bugs/">Report a Bug</a></li>
+          <li><a href="https://help.eclipse.org/">Documentation</a></li>
+          <li><a href="https://www.eclipse.org/contribute/">How to Contribute</a></li>
+          <li><a href="https://www.eclipse.org/mail/">Mailing Lists</a></li>
+          <li><a href="https://www.eclipse.org/forums/">Forums</a></li>
+          <li><a href="https://marketplace.eclipse.org/">Marketplace</a></li>
+        </ul>
+      </section>
+      <section class="col-sm-6 hidden-print" id="footer-other">
+        <h2 class="section-title">Other</h2>
+        <ul class="nav">
+          <li><a href="https://www.eclipse.org/ide/">IDE and Tools</a></li>
+          <li><a href="https://www.eclipse.org/projects">Projects</a></li>
+          <li><a href="https://www.eclipse.org/org/workinggroups/">Working Groups</a></li>
+          <li><a href="https://www.eclipse.org/org/research/">Research@Eclipse</a></li>
+          <li><a href="https://www.eclipse.org/security/">Report a Vulnerability</a></li>
+          <li><a href="https://status.eclipse.org">Service Status</a></li>
+        </ul>
+      </section>
+      <div class="col-sm-24 margin-top-20">
+        <div class="row">
+          <div id="copyright" class="col-md-16">
+            <p id="copyright-text">Copyright &copy; Eclipse Foundation, Inc. All Rights Reserved.</p>
+          </div>
+          <div class="col-md-8 social-media">
+            <ul class="list-inline">
+              <li>
+                <a class="social-media-link fa-stack fa-lg" href="https://twitter.com/EclipseFdn">
+                <i class="fa fa-circle-thin fa-stack-2x"></i>
+                <i class="fa fa-twitter fa-stack-1x"></i>
+                </a>
+              </li>
+              <li>
+                <a class="social-media-link fa-stack fa-lg" href="https://www.facebook.com/eclipse.org">
+                <i class="fa fa-circle-thin fa-stack-2x"></i>
+                <i class="fa fa-facebook fa-stack-1x"></i>
+                </a>
+              </li>
+              <li>
+                <a class="social-media-link fa-stack fa-lg" href="https://www.youtube.com/user/EclipseFdn">
+                <i class="fa fa-circle-thin fa-stack-2x"></i>
+                <i class="fa fa-youtube fa-stack-1x"></i>
+                </a>
+              </li>
+              <li>
+                <a class="social-media-link fa-stack fa-lg" href="https://www.linkedin.com/company/eclipse-foundation">
+                <i class="fa fa-circle-thin fa-stack-2x"></i>
+                <i class="fa fa-linkedin fa-stack-1x"></i>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <a href="Installing&#32;Jetty-7.0.x.html#" class="scrollup">Back to the top</a>
+    </div>
+  </div>
+</footer>
+    <!-- /footer -->
+    <script>window.RLQ = window.RLQ || []; window.RLQ.push( function () {
+mw.loader.state({"skins.solstice":"loading","user":"ready","user.groups":"ready"});mw.loader.load("/load.php?debug=false\u0026lang=en\u0026modules=skins.solstice\u0026only=scripts\u0026skin=solstice");mw.loader.load(["mediawiki.toc","mediawiki.action.view.postEdit","site","mediawiki.user","mediawiki.hidpi","mediawiki.page.ready","mediawiki.searchSuggest"]);
+} );</script><script>window.RLQ = window.RLQ || []; window.RLQ.push( function () {
+mw.config.set({"wgBackendResponseTime":434});
+} );</script>  </body>
+</html>

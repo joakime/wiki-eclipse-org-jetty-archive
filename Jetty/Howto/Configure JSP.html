@@ -1,0 +1,1115 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" class="client-nojs">
+<head>
+<meta charset="UTF-8"/>
+<title>Jetty/Howto/Configure JSP - Eclipsepedia</title>
+<script>document.documentElement.className = document.documentElement.className.replace( /(^|\s)client-nojs(\s|$)/, "$1client-js$2" );</script>
+<script>window.RLQ = window.RLQ || []; window.RLQ.push( function () {
+mw.config.set({"wgCanonicalNamespace":"","wgCanonicalSpecialPageName":!1,"wgNamespaceNumber":0,"wgPageName":"Jetty/Howto/Configure_JSP","wgTitle":"Jetty/Howto/Configure JSP","wgCurRevisionId":334724,"wgRevisionId":334724,"wgArticleId":31877,"wgIsArticle":!0,"wgIsRedirect":!1,"wgAction":"view","wgUserName":null,"wgUserGroups":["*"],"wgCategories":["Jetty","Jetty Howto"],"wgBreakFrames":!1,"wgPageContentLanguage":"en","wgPageContentModel":"wikitext","wgSeparatorTransformTable":["",""],"wgDigitTransformTable":["",""],"wgDefaultDateFormat":"dmy","wgMonthNames":["","January","February","March","April","May","June","July","August","September","October","November","December"],"wgMonthNamesShort":["","Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"wgRelevantPageName":"Jetty/Howto/Configure_JSP","wgRelevantArticleId":31877,"wgIsProbablyEditable":!1,"wgRestrictionEdit":[],"wgRestrictionMove":[],"wgWikiEditorEnabledModules":{"toolbar":!1,"dialogs":!1,
+"preview":!1,"publish":!1},"wgCategoryTreePageCategoryOptions":"{\"mode\":0,\"hideprefix\":20,\"showcount\":true,\"namespaces\":false}"});mw.loader.implement("user.options",function($,jQuery){mw.user.options.set({"variant":"en"});});mw.loader.implement("user.tokens",function($,jQuery){mw.user.tokens.set({"editToken":"+\\","patrolToken":"+\\","watchToken":"+\\"});});mw.loader.load(["mediawiki.page.startup","mediawiki.legacy.wikibits"]);
+} );</script>
+<link rel="stylesheet" href="../../load.php%3Fdebug=false&amp;lang=en&amp;modules=mediawiki.legacy.commonPrint,shared|mediawiki.sectionAnchor&amp;only=styles&amp;skin=solstice.css"/>
+<link rel="stylesheet" href="../../skins/solstice/public/css/styles.css%3F303.css" media="screen, print"/>
+<meta name="ResourceLoaderDynamicStyles" content=""/>
+<style>a:lang(ar),a:lang(kk-arab),a:lang(mzn),a:lang(ps),a:lang(ur){text-decoration:none}</style>
+<script async="" src="../../load.php%3Fdebug=false&amp;lang=en&amp;modules=startup&amp;only=scripts&amp;skin=solstice"></script>
+<meta name="generator" content="MediaWiki 1.26.4"/>
+<link rel="shortcut icon" href="../../eclipse.org-common/themes/solstice/public/images/favicon.ico"/>
+<link rel="search" type="application/opensearchdescription+xml" href="https://wiki.eclipse.org/opensearch_desc.php" title="Eclipsepedia (en)"/>
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.eclipse.org/api.php?action=rsd"/>
+<link rel="alternate" type="application/atom+xml" title="Eclipsepedia Atom feed" href="https://wiki.eclipse.org/index.php?title=Special:RecentChanges&amp;feed=atom"/>
+<style type="text/css">
+/*<![CDATA[*/      
+#jetty-nav {
+  margin-bottom: 2em;
+}
+#jetty-nav ul {
+  padding: 3px 0 1px 1em;
+  margin:0;
+  border-bottom: 1px solid #aaa;
+}
+#jetty-nav li {
+  list-style: none;
+  margin: 0;
+  display: inline;
+}
+#jetty-nav li a {
+  padding: 3px 0.5em;
+  margin-left: 3px;
+  border: 1px solid #aaa;
+  border-bottom: none;
+  background: #eef;
+  text-decoration: none;
+}
+#jetty-nav li a:link { color: #448; }
+#jetty-nav li a:visited { color: #667; }
+#jetty-nav li a:hover {
+  color: #000;
+  background: #ccf;
+  border-color: #227;
+}
+#jetty-nav li span#current a
+{
+  background: #fff;
+  border-bottom: 1px solid #fff;
+}
+#jetty-nav li .selflink {
+  padding: 3px 0.5em;
+  margin-left: 3px;
+  border: 1px solid #aaa;
+  background: #fff;
+  border-bottom: 1px solid #fff;
+}
+table.jetty-table, .jetty-table table {
+  border: 1px solid #aaa;
+  border-collapse: collapse;
+}
+.jetty-table td {
+  border: 1px solid #aaa;
+  padding: 0.5em 1em;
+}
+.jetty-table th {
+  border: 1px solid #aaa;
+  background-color: #eef;
+}
+.jetty-table caption {
+  border: 1px #aaa solid;
+  margin: 1em 0 0.2em 0;
+  background-color: #ccf;
+  font-weight: bold;
+  font-size: 1.1em;
+}
+#content dl  {
+  border-left: 1px #aaa solid;
+  border-bottom: 1px #aaa solid;
+}
+#content dl dt {
+  float: left;
+  border-top: 1px solid #aaa;
+  padding: 0.5em 0 0 0.5em;
+}
+#content dl dd {
+  border: 1px solid #aaa;
+  border-bottom: none;
+}
+#content .narrow-list dl  {
+  width: 40em;
+}
+#content .narrow-list dl dt {
+  width: 14em;
+  line-height: 1.1em;
+}
+#content .narrow-list dl dd {
+  margin: 0 0 0 15em;
+  padding: 0.5em 1em;
+}
+#content .wide-list dl, #content dl {
+  width: 80em;
+}
+#content .wide-list dl dt, #content dl dt {
+  padding: 0.5em 1em;
+  width: 15em;
+}
+#content .wide-list dl dd, #content dl dd {
+  padding: 1em 1em 2em 2em;
+  margin: 0 0 0 17em;
+}
+#content .unbounded-list dl, #content .unbounded-list dl dd, #content .unbounded-list dl dt {
+  border: 0 none;
+  width: auto;
+  padding: 0 0 0 1em;
+}
+#content .unbounded-list dl dt {
+}
+#content p  {
+  margin-bottom: 0.5em;
+}
+#content li  {
+  line-height: 1.1em;
+}
+.infobox {
+  padding: 0.5em 1em;
+  background-color: #fff;
+  float: right;
+  margin: 0.5em;
+}
+/*]]>*/       
+</style>
+<style type="text/css">/*<![CDATA[*/
+.source-xml {line-height: normal;}
+.source-xml li, .source-xml pre {
+	line-height: normal; border: 0px none white;
+}
+/**
+ * GeSHi Dynamically Generated Stylesheet
+ * --------------------------------------
+ * Dynamically generated stylesheet for xml
+ * CSS class: source-xml, CSS id: 
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ * --------------------------------------
+ */
+.xml.source-xml .de1, .xml.source-xml .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;}
+.xml.source-xml  {font-family:monospace;}
+.xml.source-xml .imp {font-weight: bold; color: red;}
+.xml.source-xml li, .xml.source-xml .li1 {font-weight: normal; vertical-align:top;}
+.xml.source-xml .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.xml.source-xml .li2 {font-weight: bold; vertical-align:top;}
+.xml.source-xml .es0 {color: #000099; font-weight: bold;}
+.xml.source-xml .br0 {color: #66cc66;}
+.xml.source-xml .sy0 {color: #66cc66;}
+.xml.source-xml .st0 {color: #ff0000;}
+.xml.source-xml .nu0 {color: #cc66cc;}
+.xml.source-xml .sc-1 {color: #808080; font-style: italic;}
+.xml.source-xml .sc0 {color: #00bbdd;}
+.xml.source-xml .sc1 {color: #ddbb00;}
+.xml.source-xml .sc2 {color: #339933;}
+.xml.source-xml .sc3 {color: #009900;}
+.xml.source-xml .re0 {color: #000066;}
+.xml.source-xml .re1 {color: #000000; font-weight: bold;}
+.xml.source-xml .re2 {color: #000000; font-weight: bold;}
+.xml.source-xml .ln-xtra, .xml.source-xml li.ln-xtra, .xml.source-xml div.ln-xtra {background-color: #ffc;}
+.xml.source-xml span.xtra { display:block; }
+
+/*]]>*/
+</style>
+<style type="text/css">/*<![CDATA[*/
+.source-text {line-height: normal;}
+.source-text li, .source-text pre {
+	line-height: normal; border: 0px none white;
+}
+/**
+ * GeSHi Dynamically Generated Stylesheet
+ * --------------------------------------
+ * Dynamically generated stylesheet for text
+ * CSS class: source-text, CSS id: 
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ * --------------------------------------
+ */
+.text.source-text .de1, .text.source-text .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;}
+.text.source-text  {font-family:monospace;}
+.text.source-text .imp {font-weight: bold; color: red;}
+.text.source-text li, .text.source-text .li1 {font-weight: normal; vertical-align:top;}
+.text.source-text .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.text.source-text .li2 {font-weight: bold; vertical-align:top;}
+.text.source-text .ln-xtra, .text.source-text li.ln-xtra, .text.source-text div.ln-xtra {background-color: #ffc;}
+.text.source-text span.xtra { display:block; }
+
+/*]]>*/
+</style>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body class="mediawiki ltr sitedir-ltr ns-0 ns-subject page-Jetty_Howto_Configure_JSP skin-solstice action-view" id="solstice">
+
+<a class="sr-only" href="Configure&#32;JSP.html#content">Skip to main content</a>
+<header class="header-wrapper" id="header-wrapper">
+  <div class="clearfix toolbar-container-wrapper">
+    <div class="container-fluid">
+      <div class="text-right toolbar-row row hidden-print">
+        <div class="col-md-24 row-toolbar-col">
+               <ul class="list-inline">
+                  <li id="pt-login">
+            <a href="https://wiki.eclipse.org/index.php?title=Special:UserLogin&amp;returnto=Jetty%2FHowto%2FConfigure+JSP" class="toolbar-link toolbar-login">
+              <i class="fa fa-sign-in fa-fw"></i> Log in            </a>
+          </li>
+                <li><a class="toolbar-link toolbar-manage-cookies dropdown-toggle"><i class="fa fa-wrench"></i> Manage Cookies</a></li>
+      </ul>
+            </div>
+      </div>
+    </div>
+  </div>
+  <div class="container-fluid">
+    <div class="row" id="header-row">
+      <div class="col-sm-5 col-md-4" id="header-left">
+        <div class="wrapper-logo-default"><a href="https://www.eclipse.org/"><img class="logo-eclipse-default hidden-xs" alt="Eclipse.org logo" width="160" src="https://www.eclipse.org/eclipse.org-common/themes/solstice/public/images/logo/eclipse-foundation-white-orange.svg"/></a></div>
+      </div>
+      <div class="col-sm-19 col-md-20 margin-top-10" id="main-menu-wrapper">
+        <div class="float-right hidden-xs" id="btn-call-for-action"><a href="https://eclipse.org/downloads/" class="btn btn-huge btn-warning"><i class="fa fa-download"></i> Download</a></div>
+        <div class="navbar yamm float-sm-right" id="main-menu">
+          <div class="navbar-collapse collapse" id="navbar-main-menu">
+            <ul class="nav navbar-nav">
+              <li><a href="https://www.eclipse.org/projects/" target="_self">Projects</a></li>
+              <li><a href="https://www.eclipse.org/org/workinggroups/" target="_self">Working Groups</a></li>
+              <li><a href="https://www.eclipse.org/membership/" target="_self">Members</a></li>
+              <li class="dropdown visible-xs">
+                <a href="Configure&#32;JSP.html#" data-toggle="dropdown" class="dropdown-toggle">Community <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li><a href="http://marketplace.eclipse.org">Marketplace</a></li>
+                  <li><a href="http://events.eclipse.org">Events</a></li>
+                  <li><a href="http://www.planeteclipse.org/">Planet Eclipse</a></li>
+                  <li><a href="https://www.eclipse.org/community/eclipse_newsletter/">Newsletter</a></li>
+                  <li><a href="https://www.youtube.com/user/EclipseFdn">Videos</a></li>
+                  <li><a href="https://blogs.eclipse.org">Blogs</a></li>
+                </ul>
+              </li>
+              <li class="dropdown visible-xs">
+                <a href="Configure&#32;JSP.html#" data-toggle="dropdown" class="dropdown-toggle">Participate <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li><a href="https://bugs.eclipse.org/bugs/">Report a Bug</a></li>
+                  <li><a href="https://www.eclipse.org/forums/">Forums</a></li>
+                  <li><a href="https://www.eclipse.org/mail/">Mailing Lists</a></li>
+                  <li><a href="https://wiki.eclipse.org/">Wiki</a></li>
+                  <li><a href="https://wiki.eclipse.org/IRC">IRC</a></li>
+                  <li><a href="https://www.eclipse.org/org/research/">Research</a></li>
+                </ul>
+              </li>
+              <li class="dropdown visible-xs">
+                <a href="Configure&#32;JSP.html#" data-toggle="dropdown" class="dropdown-toggle">Eclipse IDE <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li><a href="https://www.eclipse.org/downloads">Download</a></li>
+                  <li><a href="https://www.eclipse.org/eclipseide">Learn More</a></li>
+                  <li><a href="https://help.eclipse.org">Documentation</a></li>
+                  <li><a href="https://www.eclipse.org/getting_started">Getting Started / Support</a></li>
+                  <li><a href="https://www.eclipse.org/contribute/">How to Contribute</a></li>
+                  <li><a href="https://www.eclipse.org/ide/">IDE and Tools</a></li>
+                  <li><a href="https://www.eclipse.org/forums/index.php/f/89/">Newcomer Forum</a></li>
+                </ul>
+              </li>
+              <!-- More -->
+              <li class="dropdown eclipse-more hidden-xs">
+                <a data-toggle="dropdown" class="dropdown-toggle" role="button">More<b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li>
+                    <!-- Content container to add padding -->
+                    <div class="yamm-content">
+                      <div class="row">
+                        <ul class="col-sm-8 list-unstyled">
+                          <li>
+                            <p><strong>Community</strong></p>
+                          </li>
+                          <li><a href="http://marketplace.eclipse.org">Marketplace</a></li>
+                          <li><a href="http://events.eclipse.org">Events</a></li>
+                          <li><a href="http://www.planeteclipse.org/">Planet Eclipse</a></li>
+                          <li><a href="https://www.eclipse.org/community/eclipse_newsletter/">Newsletter</a></li>
+                          <li><a href="https://www.youtube.com/user/EclipseFdn">Videos</a></li>
+                          <li><a href="https://blogs.eclipse.org">Blogs</a></li>
+                        </ul>
+                        <ul class="col-sm-8 list-unstyled">
+                          <li>
+                            <p><strong>Participate</strong></p>
+                          </li>
+                          <li><a href="https://bugs.eclipse.org/bugs/">Report a Bug</a></li>
+                          <li><a href="https://www.eclipse.org/forums/">Forums</a></li>
+                          <li><a href="https://www.eclipse.org/mail/">Mailing Lists</a></li>
+                          <li><a href="https://wiki.eclipse.org/">Wiki</a></li>
+                          <li><a href="https://wiki.eclipse.org/IRC">IRC</a></li>
+                          <li><a href="https://www.eclipse.org/org/research/">Research</a></li>
+                        </ul>
+                        <ul class="col-sm-8 list-unstyled">
+                          <li>
+                            <p><strong>Eclipse IDE</strong></p>
+                          </li>
+                          <li><a href="https://www.eclipse.org/downloads">Download</a></li>
+                          <li><a href="https://www.eclipse.org/eclipseide">Learn More</a></li>
+                          <li><a href="https://help.eclipse.org">Documentation</a></li>
+                          <li><a href="https://www.eclipse.org/getting_started">Getting Started / Support</a></li>
+                          <li><a href="https://www.eclipse.org/contribute/">How to Contribute</a></li>
+                          <li><a href="https://www.eclipse.org/ide/">IDE and Tools</a></li>
+                          <li><a href="https://www.eclipse.org/forums/index.php/f/89/">Newcomer Forum</a></li>
+                        </ul>
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-main-menu">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            </button>
+            <div class="wrapper-logo-mobile"><a class="navbar-brand visible-xs" href="https://www.eclipse.org/"><img class="logo-eclipse-default-mobile img-responsive" alt="Eclipse.org logo" width="160" src="https://www.eclipse.org/eclipse.org-common/themes/solstice/public/images/logo/eclipse-foundation-white-orange.svg"/></a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+<section class="default-breadcrumbs hidden-print" id="breadcrumb">
+  <div class="container-fluid">
+    <h3 class="sr-only">Breadcrumbs</h3>
+    <div class="row">
+      <div class="col-sm-24">
+        <ol class="breadcrumb">
+          <li><a href="https://www.eclipse.org/">Home</a></li>
+          <li><a href="https://wiki.eclipse.org/Main_Page">Eclipse Wiki</a></li>
+          <li class="active">Jetty/Howto/Configure JSP</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- /#breadcrumb -->
+<main>
+<div class="container-fluid padding-15 padding-top-20">
+    
+    
+    <!-- content -->
+    <section id="content" class="mw-body container-full clearfix 0">
+      <div id="mw-js-message" style="display:none;"></div>
+
+      
+      <!-- bodyContent -->
+      <div id="bodyContent">
+
+        
+                <!-- jumpto -->
+        <div id="jump-to-nav" class="mw-jump">
+          Jump to: <a href="Configure&#32;JSP.html#mw-head">navigation</a>,
+          <a href="Configure&#32;JSP.html#p-search">search</a>
+        </div>
+        <!-- /jumpto -->
+        
+          <!-- leftcol -->
+          <aside class="col-md-4 noprint hidden-print" id="leftcol">
+                      <form class="input-group" role="form" id="form-eclipse-search" action="https://wiki.eclipse.org/index.php" id="searchform">
+              <input id="searchInput" class="search-query form-control" type="search" accesskey="f" title="Special:Search" placeholder="Search" name="search" value="">
+
+              <span class="input-group-btn">
+                <button value="search" id="mw-searchButton" type="submit" class="btn btn-default" title="Search the pages for this text" name="fulltext">
+                  <i class="fa fa-search"></i>
+                </button>
+              </span>
+            </form>
+                      <select class="form-control margin-top-10 margin-bottom-10 visible-xs visible-sm" onchange="this.options[this.selectedIndex].value && (window.location = this.options[this.selectedIndex].value);"><option class="fw-700 "><span class="fw-700">---Navigation---</span></option><option value="/Main_Page">Main Page</option><option value="/Eclipsepedia:Community_portal">Community portal</option><option value="/Eclipsepedia:Current_events">Current events</option><option value="/Special:RecentChanges">Recent changes</option><option value="/Special:Random">Random page</option><option value="https://www.mediawiki.org/wiki/Special:MyLanguage/Help:Contents">Help</option></select><ul class="ul-left-nav fa-ul hidden-print leftnav hidden-xs hidden-sm"><li class="separator"><span class="separator">Navigation</span></li>                <li class=""><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/Main_Page" id="n-mainpage" title="Visit the main page [z]" accesskey="z">Main Page</a></li>                <li class=""><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/Eclipsepedia:Community_portal" id="n-portal" title="About the project, what you can do, where to find things">Community portal</a></li>                <li class=""><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/Eclipsepedia:Current_events" id="n-currentevents" title="Find background information on current events">Current events</a></li>                <li class=""><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/Special:RecentChanges" id="n-recentchanges" title="A list of recent changes in the wiki [r]" accesskey="r">Recent changes</a></li>                <li class=""><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/Special:Random" id="n-randompage" title="Load a random page [x]" accesskey="x">Random page</a></li>                <li class=""><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://www.mediawiki.org/wiki/Special:MyLanguage/Help:Contents" id="n-help" title="The place to find out">Help</a></li></ul>            <select class="form-control margin-top-10 margin-bottom-10 visible-xs visible-sm" onchange="this.options[this.selectedIndex].value && (window.location = this.options[this.selectedIndex].value);"><option class="fw-700 "><span class="fw-700">---Toolbox---</span></option><option value="/index.php?title=Jetty/Howto/Configure_JSP&amp;action=info">Page information</option><option value="/index.php?title=Jetty/Howto/Configure_JSP&amp;oldid=334724">Permanent link</option><option value="/index.php?title=Jetty/Howto/Configure_JSP&amp;printable=yes">Printable version</option><option value="/Special:SpecialPages">Special pages</option><option value="/Special:RecentChangesLinked/Jetty/Howto/Configure_JSP">Related changes</option><option value="/Special:WhatLinksHere/Jetty/Howto/Configure_JSP">What links here</option></select><ul class="ul-left-nav fa-ul hidden-print leftnav hidden-xs hidden-sm"><li class="separator"><span class="separator">Toolbox</span></li><li><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/index.php?title=Jetty/Howto/Configure_JSP&amp;action=info" id="t-info" title="More information about this page">Page information</a></li><li><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/index.php?title=Jetty/Howto/Configure_JSP&amp;oldid=334724" id="t-permalink" title="Permanent link to this revision of the page">Permanent link</a></li><li><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/index.php?title=Jetty/Howto/Configure_JSP&amp;printable=yes" id="t-print" rel="alternate" title="Printable version of this page [p]" accesskey="p">Printable version</a></li><li><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/Special:SpecialPages" id="t-specialpages" title="A list of all special pages [q]" accesskey="q">Special pages</a></li><li><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/Special:RecentChangesLinked/Jetty/Howto/Configure_JSP" id="t-recentchangeslinked" title="Recent changes in pages linked from this page [k]" accesskey="k">Related changes</a></li><li><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/Special:WhatLinksHere/Jetty/Howto/Configure_JSP" id="t-whatlinkshere" title="A list of all wiki pages that link here [j]" accesskey="j">What links here</a></li></ul>                                  </aside>
+          <!-- /leftcol -->
+
+          <!-- mainContent -->
+          <div id="mainContent" class="col-md-20">
+                      <ul class="nav nav-tabs noprint hidden-print" role="tablist">
+                       <li id="ca-nstab-main" class="active"><a href="Configure&#32;JSP.html"  title="View the content page [c]" accesskey="c" tabindex="-1">Page</a></li>
+                        <li id="ca-talk" class="new"><a href="https://wiki.eclipse.org/index.php?title=Talk:Jetty/Howto/Configure_JSP&amp;action=edit&amp;redlink=1"  title="Discussion about the content page [t]" accesskey="t" tabindex="-1">Discussion</a></li>
+                        <li id="ca-viewsource"><a href="https://wiki.eclipse.org/index.php?title=Jetty/Howto/Configure_JSP&amp;action=edit"  title="This page is protected.&#10;You can view its source [e]" accesskey="e" tabindex="-1">View source</a></li>
+                        <li id="ca-history" class="collapsible"><a href="https://wiki.eclipse.org/index.php?title=Jetty/Howto/Configure_JSP&amp;action=history"  title="Past revisions of this page [h]" accesskey="h" tabindex="-1">History</a></li>
+                      </ul>            <div class="tab-content background-white">
+              <div id="tab-pane-main-page-content" class="tab-pane active">
+
+                
+                <h1 id="firstHeading" class="firstHeading page-header">
+                  <span dir="auto">Jetty/Howto/Configure JSP</span>
+                </h1>
+                <div id="main-page-content">
+                                                      <!-- subtitle -->
+                  <div id="contentSub"  class="alert alert-small alert-warning"><span class="subpages">&lt; <a href="../../Jetty.html" title="Jetty">Jetty</a>&lrm; | <a href="../Howto.html" title="Jetty/Howto">Howto</a></span></div>
+                  <!-- /subtitle -->
+                  
+                  
+                  <div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><p><br />
+</p><p><br />
+</p>
+<div id="toc" class="toc"><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="Configure&#32;JSP.html#Introduction"><span class="tocnumber">1</span> <span class="toctext">Introduction</span></a></li>
+<li class="toclevel-1"><a href="Configure&#32;JSP.html#Compiling_JSPs"><span class="tocnumber">2</span> <span class="toctext">Compiling JSPs</span></a>
+<ul>
+<li class="toclevel-2"><a href="Configure&#32;JSP.html#Jetty_Maven_Plugin"><span class="tocnumber">2.1</span> <span class="toctext">Jetty Maven Plugin</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1"><a href="Configure&#32;JSP.html#Configuring_JSP"><span class="tocnumber">3</span> <span class="toctext">Configuring JSP</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="Configure&#32;JSP.html#Understanding_JSP_2.1_Parameters"><span class="tocnumber">4</span> <span class="toctext">Understanding JSP 2.1 Parameters</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="Configure&#32;JSP.html#Modifying_the_Configuration"><span class="tocnumber">5</span> <span class="toctext">Modifying the Configuration</span></a>
+<ul>
+<li class="toclevel-2 tocsection-6"><a href="Configure&#32;JSP.html#Overriding_webdefault.xml"><span class="tocnumber">5.1</span> <span class="toctext">Overriding webdefault.xml</span></a></li>
+<li class="toclevel-2 tocsection-7"><a href="Configure&#32;JSP.html#Configuring_the_JSP_Servlet_in_web.xml"><span class="tocnumber">5.2</span> <span class="toctext">Configuring the JSP Servlet in web.xml</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-8"><a href="Configure&#32;JSP.html#Using_JSTL_Taglibs_for_Jetty_7.x_and_8.x"><span class="tocnumber">6</span> <span class="toctext">Using JSTL Taglibs for Jetty 7.x and 8.x</span></a>
+<ul>
+<li class="toclevel-2 tocsection-9"><a href="Configure&#32;JSP.html#Jetty_7.x"><span class="tocnumber">6.1</span> <span class="toctext">Jetty 7.x</span></a></li>
+<li class="toclevel-2 tocsection-10"><a href="Configure&#32;JSP.html#Jetty_8.x"><span class="tocnumber">6.2</span> <span class="toctext">Jetty 8.x</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-11"><a href="Configure&#32;JSP.html#Using_JSF_Taglibs"><span class="tocnumber">7</span> <span class="toctext">Using JSF Taglibs</span></a>
+<ul>
+<li class="toclevel-2 tocsection-12"><a href="Configure&#32;JSP.html#Jetty_Standalone"><span class="tocnumber">7.1</span> <span class="toctext">Jetty Standalone</span></a></li>
+<li class="toclevel-2 tocsection-13"><a href="Configure&#32;JSP.html#Jetty_Maven_Plugin_2"><span class="tocnumber">7.2</span> <span class="toctext">Jetty Maven Plugin</span></a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Introduction">Introduction</span></h2>
+<div class="messagebox" style="background-color: #f9f6b7; border: 1px solid #c4c295; color: black; padding: 5px; margin: 1ex 0; min-height: 35px; padding-left: 45px; font-size: 150%; color: white; background-color: #FF8888; padding: 50px">
+<div style="float: left; margin-left: -40px;"><a href="https://wiki.eclipse.org/File:Warning2.png" class="image"><img alt="Warning2.png" src="../../images/3/37/Warning2.png" width="35" height="35" /></a></div>
+<div>Jetty 7 and Jetty 8 are now EOL (End of Life)<br />
+<p><br />
+<br />
+<br />
+THIS IS NOT THE DOCUMENTATION YOU ARE LOOKING FOR!!!!!<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+All development and stable releases are being performed with Jetty 9 and Jetty 10.<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+This <b>wiki is now officially out of date</b> and all content has been moved to the <a rel="nofollow" class="external text" href="http://www.eclipse.org/jetty/documentation">Jetty Documentation Hub</a><br /> 
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+</p>
+Direct Link to updated documentation: <a rel="nofollow" class="external free" href="http://www.eclipse.org/jetty/documentation/current/configuring-jsp.html">http://www.eclipse.org/jetty/documentation/current/configuring-jsp.html</a></div>
+</div>
+<p><br />
+This page provides information about configuring JSP.
+</p>
+<h2><span class="mw-headline" id="Compiling_JSPs">Compiling JSPs</span></h2>
+<p>To compile <tt>.jsp</tt> files into Java classes, you need a Java compiler. You can acquire a Java compiler from the JVM if you are using a full JDK, or from a third party Jar.
+</p><p>In versions of Jetty prior to 7.5.0, the JSP infrastructure made use of the Eclipse Java Compiler (<tt>ecj.jar</tt>) which is supplied in <tt>$JETTY_HOME/lib/jsp</tt>. For jetty-7.5.0 we upgraded the version of JSP to <tt>jsp-impl-2.1.3.b10</tt> (from Glassfish). In this version, the JSP infrastructure ALWAYS tries to acquire a Java compiler from the JVM if the version of Java is 1.6 or above. Therefore, if you are using a JRE, JSPs are unable to compile so you must use a full JDK. Alternatively, you can precompile your JSPs (which is preferable in a production deployment in any case). The <a href="https://wiki.eclipse.org/Jetty/Feature/Jetty_Jspc_Maven_Plugin" title="Jetty/Feature/Jetty Jspc Maven Plugin">Jetty JSPC Maven Plugin</a> is helpful for precompilation.
+</p><p>If using jetty-7.5.5 and beyond (including jetty-8.x), you can use <i>either</i> a full JDK <i>or</i> a JRE in combination with a third party Java compiler (such as ecj which we distribute in $JETTY_HOME/lib/jsp). To use the ecj compiler, you need to set a SystemProperty. You can do this either in your code or in a jetty config file. Here's the snippet that you can put into <tt>jetty.xml</tt>:
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="xml source-xml"><pre class="de1">  <span class="sc3"><span class="re1">&lt;Call</span> <span class="re0">class</span>=<span class="st0">&quot;java.lang.System&quot;</span>  <span class="re0">name</span>=<span class="st0">&quot;setProperty&quot;</span><span class="re2">&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>org.apache.jasper.compiler.disablejsr199<span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>true<span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;/Call<span class="re2">&gt;</span></span></span></pre></div></div>
+<p>Or alternatively, you can put this System property into <tt>start.ini</tt>:
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="text source-text"><pre class="de1"> -Dorg.apache.jasper.compiler.disablejsr199=true</pre></div></div>
+<h3><span class="mw-headline" id="Jetty_Maven_Plugin">Jetty Maven Plugin</span></h3>
+<p>Since jetty-7.5.0 we upgraded the version of JSP to <tt>jsp-impl-2.1.3.b10</tt> (from Glassfish). In this version, the JSP infrastructure ALWAYS tries to acquire a Java compiler from the JVM if the version of Java is 1.6 or above. Therefore, if you are using a JRE, JSPs are unable to compile so you must use a full JDK.
+</p><p>We hope to be able to introduce a patch to allow the use of 3rd party jars in an upcoming release of the plugin. This page will be updated when we have more information.
+</p><p><br />
+</p>
+<h2><span class="mw-headline" id="Configuring_JSP">Configuring JSP</span></h2>
+<p>The JSP engine has many configuration parameters. Some parameters affect only precompilation, and some affect runtime recompilation checking. Parameters also differ between the 2.0 and 2.1 release of the JSP engine. This page lists the configuration parameters, their meanings and their default settings.
+</p>
+<div class="messagebox" style="background-color: #f9f6b7; border: 1px solid #c4c295; color: black; padding: 5px; margin: 1ex 0; min-height: 35px; padding-left: 45px;">
+<div style="float: left; margin-left: -40px;"><a href="https://wiki.eclipse.org/File:Important.png" class="image"><img alt="Important.png" src="../../images/f/ff/Important.png" width="35" height="35" /></a></div>
+<div><b>Be careful</b><br />
+<ul><li> For all of the parameters below, if the value you set doesn't take effect, try using all lower case instead of camel case, as JSP is inconsistent in its parameter naming strategy.</li>
+<li> Be aware that for JDK1.6, the default for <i>keepgenerated</i> is <i>false</i>, therefore <tt>.java</tt> files will only be left after compilation if a compilation error occurs.</div></li></ul>
+</div>
+<h2><span class="mw-headline" id="Understanding_JSP_2.1_Parameters">Understanding JSP 2.1 Parameters</span></h2>
+<table border="1" cellspacing="0">
+
+
+
+<tr>
+<th scope="col" width="100"> init param
+</th>
+<th scope="col" width="500"> Description
+</th>
+<th scope="col" width="100"> Default
+</th>
+<th scope="col" width="100"> webdefault.xml
+</th></tr>
+<tr>
+<td> development
+</td>
+<td> If <tt>development=true</tt>, recompilation checks occur on each request. See also <tt>modificationTestInterval</tt>.
+</td>
+<td> TRUE
+</td>
+<td> -
+</td></tr>
+<tr>
+<td> fork
+</td>
+<td> Should Ant fork its java compiles of JSP pages?
+</td>
+<td> TRUE
+</td>
+<td> FALSE
+</td></tr>
+<tr>
+<td> keepgenerated
+</td>
+<td> Do you want to keep the generated Java files around?
+</td>
+<td> FALSE
+</td>
+<td> -
+</td></tr>
+<tr>
+<td> saveByteCode
+</td>
+<td> If class files are generated as byte arrays, should they be saved to disk at the end of compilations?
+</td>
+<td> FALSE
+</td>
+<td> -
+</td></tr>
+<tr>
+<td> trimSpaces
+</td>
+<td> Should white spaces between directives or actions be trimmed?
+</td>
+<td> FALSE
+</td>
+<td> -
+</td></tr>
+<tr>
+<td> enablePooling
+</td>
+<td> Determines whether tag handler pooling is enabled.
+</td>
+<td> TRUE
+</td>
+<td> -
+</td></tr>
+<tr>
+<td> mappedFile
+</td>
+<td> Support for mapped Files. Generates a servlet that has a print statement per line of the JSP file.
+</td>
+<td> TRUE
+</td>
+<td> -
+</td></tr>
+<tr>
+<td> sendErrorToClient
+</td>
+<td> If false, stack traces, etc., are sent to std error instead of the client's browser.
+</td>
+<td> FALSE
+</td>
+<td> -
+</td></tr>
+<tr>
+<td> classdebuginfo
+</td>
+<td> Include debugging info in class file.
+</td>
+<td> TRUE
+</td>
+<td> -
+</td></tr>
+<tr>
+<td> checkInterval
+</td>
+<td> Interval in seconds between background recompile checks. Only relevant if <tt>development=false</tt>.
+</td>
+<td> 0
+</td>
+<td> -
+</td></tr>
+<tr>
+<td> suppressSmap
+</td>
+<td> Generation of SMAP info for JSR45 debugging.
+</td>
+<td> FALSE
+</td>
+<td> -
+</td></tr>
+<tr>
+<td> dumpSmap
+</td>
+<td> Dump SMAP JSR45 info to a file.
+</td>
+<td> FALSE
+</td>
+<td> -
+</td></tr>
+<tr>
+<td> genStrAsCharArray
+</td>
+<td> Option for generating Strings.
+</td>
+<td> FALSE
+</td>
+<td> -
+</td></tr>
+<tr>
+<td> genStrAsByteArray
+</td>
+<td> Option for generating Strings.
+</td>
+<td> TRUE
+</td>
+<td> -
+</td></tr>
+<tr>
+<td> defaultBufferNone
+</td>
+<td>
+</td>
+<td> FALSE
+</td>
+<td> -
+</td></tr>
+<tr>
+<td> errorOnUseBeanInvalidClassAttribute
+</td>
+<td>
+</td>
+<td> FALSE
+</td>
+<td> -
+</td></tr>
+<tr>
+<td> scratchDir
+</td>
+<td>
+<p>Directory where servlets are generated. Jetty sets this value according to the [/display/JETTY/Temporary+Directories work dir] settings for the webapp.
+</p>
+</td>
+<td> -
+</td>
+<td> -
+</td></tr>
+<tr>
+<td> compiler
+</td>
+<td> Determined at runtime. For Jetty this is the Eclipse jdt compiler.
+</td></tr>
+<tr>
+<td> compilerTargetVM
+</td>
+<td> Target vm to compile for.
+</td>
+<td> 1.5
+</td>
+<td> -
+</td></tr>
+<tr>
+<td> compilerSourceVM
+</td>
+<td> Sets source compliance level for the jdt compiler.
+</td>
+<td> 1.5
+</td>
+<td> -
+</td></tr>
+<tr>
+<td> javaEncoding
+</td>
+<td> Pass through the encoding to use for the compilation.
+</td>
+<td> UTF8
+</td>
+<td> -
+</td></tr>
+<tr>
+<td> modificationTestInterval
+</td>
+<td> If <tt>development=true</tt>, interval between recompilation checks, triggered by a request.
+</td>
+<td> 0
+</td>
+<td> -
+</td></tr>
+<tr>
+<td> xpoweredBy
+</td>
+<td> Generate an X-Powered-By response header.
+</td>
+<td> FALSE
+</td>
+<td> FALSE
+</td></tr>
+<tr>
+<td> usePrecompiled/use-precompiled
+</td>
+<td>
+</td>
+<td> FALSE
+</td>
+<td> -
+</td></tr>
+<tr>
+<td> validating/enableTldValidation
+</td>
+<td> Whether or not to validate tag files against the schema.
+</td>
+<td> FALSE
+</td>
+<td>
+</td></tr>
+<tr>
+<td> reload-interval
+</td>
+<td> If <tt>reload-interval=0</tt>, then no runtime checking of JSP, otherwise sets the checking interval for both <tt>development=true</tt> and <tt>development=false</tt>.
+</td>
+<td>
+</td>
+<td>
+</td></tr>
+<tr>
+<td> initial-capacity/initialCapacity
+</td>
+<td> The initial capacity of the hash maps mapping the name of the JSP to class and JSP file.
+</td>
+<td>
+</td>
+<td>
+</td></tr>
+<tr>
+<td> httpMethods
+</td>
+<td> List of names of http methods which the JSP servlet will service (there is no requirement that these names are restricted to the set defined by rfc2616). Null or a value of "*" means any and all methods. Names should be comma, tab or newline delimited.
+</td>
+<td> Null
+</td>
+<td>
+</td></tr></table>
+<p><br />
+Much confusion generally ensues about the <tt>development</tt>, <tt>checkInterval</tt> and <tt>modificationTestInterval</tt> parameters and JSP runtime recompilation. Here is a factoring out of the various options:
+</p>
+<ol>
+<li>Check the JSP files for possible recompilation on every request: 
+
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="xml source-xml"><pre class="de1"><span class="sc3"><span class="re1">&lt;init-param<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;param-name<span class="re2">&gt;</span></span></span>development&gt;<span class="sc3"><span class="re1">&lt;/param-name<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;param-value<span class="re2">&gt;</span></span></span>true&gt;<span class="sc3"><span class="re1">&lt;/param-value<span class="re2">&gt;</span></span></span>
+<span class="sc3"><span class="re1">&lt;/init-param<span class="re2">&gt;</span></span></span></pre></div></div>
+<li>Only check approximately every N seconds, where a request will trigger the time-lapse calculation. This example checks every 60 seconds:
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="xml source-xml"><pre class="de1"><span class="sc3"><span class="re1">&lt;init-param<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;param-name<span class="re2">&gt;</span></span></span>development&gt;<span class="sc3"><span class="re1">&lt;/param-name<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;param-value<span class="re2">&gt;</span></span></span>true&gt;<span class="sc3"><span class="re1">&lt;/param-value<span class="re2">&gt;</span></span></span>
+<span class="sc3"><span class="re1">&lt;/init-param<span class="re2">&gt;</span></span></span>
+<span class="sc3"><span class="re1">&lt;init-param<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;param-name<span class="re2">&gt;</span></span></span>modificationTestInterval&gt;<span class="sc3"><span class="re1">&lt;/param-name<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;param-value<span class="re2">&gt;</span></span></span>60&gt;<span class="sc3"><span class="re1">&lt;/param-value<span class="re2">&gt;</span></span></span>
+<span class="sc3"><span class="re1">&lt;/init-param<span class="re2">&gt;</span></span></span></pre></div></div>
+<li>Do no checking whatsoever, but still compile the JSP on the very first hit. (Note: this <i>reload-interval</i> parameter is shorthand for a <i>development=false</i> and <i>checkInterval=0</i> combination.):  
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="xml source-xml"><pre class="de1"><span class="sc3"><span class="re1">&lt;init-param<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;param-name<span class="re2">&gt;</span></span></span>reload-interval&gt;<span class="sc3"><span class="re1">&lt;/param-name<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;param-value<span class="re2">&gt;</span></span></span>-1&gt;<span class="sc3"><span class="re1">&lt;/param-value<span class="re2">&gt;</span></span></span>
+<span class="sc3"><span class="re1">&lt;/init-param<span class="re2">&gt;</span></span></span></pre></div></div>
+<li>Don't do any request-time checking, but instead start a background thread to do checks every N seconds. This example checks every 60 seconds:  
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="xml source-xml"><pre class="de1"><span class="sc3"><span class="re1">&lt;init-param<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;param-name<span class="re2">&gt;</span></span></span>development&gt;<span class="sc3"><span class="re1">&lt;/param-name<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;param-value<span class="re2">&gt;</span></span></span>false&gt;<span class="sc3"><span class="re1">&lt;/param-value<span class="re2">&gt;</span></span></span>
+ <span class="sc3"><span class="re1">&lt;/init-param<span class="re2">&gt;</span></span></span>
+ <span class="sc3"><span class="re1">&lt;init-param<span class="re2">&gt;</span></span></span>
+         <span class="sc3"><span class="re1">&lt;param-name<span class="re2">&gt;</span></span></span>checkInterval&gt;<span class="sc3"><span class="re1">&lt;/param-name<span class="re2">&gt;</span></span></span>
+         <span class="sc3"><span class="re1">&lt;param-value<span class="re2">&gt;</span></span></span>60&gt;<span class="sc3"><span class="re1">&lt;/param-value<span class="re2">&gt;</span></span></span>
+<span class="sc3"><span class="re1">&lt;/init-param<span class="re2">&gt;</span></span></span></pre></div></div>
+<p><br />
+</p>
+<h2><span class="mw-headline" id="Modifying_the_Configuration">Modifying the Configuration</span></h2>
+<p>There are several options for modifying the Jasper JSP servlet configuration. 
+</p>
+<h3><span class="mw-headline" id="Overriding_webdefault.xml">Overriding <tt>webdefault.xml</tt></span></h3>
+<p>You can make a copy of the <a href="../Reference/webdefault.xml.html" title="Jetty/Reference/webdefault.xml">webdefault.xml</a> shipped with Jetty, apply your changes, and use it instead of the shipped version. The example below shows how to do this when using the Jetty Maven plugin.
+</p>
+ <div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="xml source-xml"><pre class="de1">  <span class="sc3"><span class="re1">&lt;plugin<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;groupId<span class="re2">&gt;</span></span></span>org.mortbay.jetty<span class="sc3"><span class="re1">&lt;/groupId<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;artifactId<span class="re2">&gt;</span></span></span>jetty-maven-plugin<span class="sc3"><span class="re1">&lt;/artifactId<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;configuration<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;webAppConfig<span class="re2">&gt;</span></span></span>
+      <span class="sc3"><span class="re1">&lt;defaultsDescriptor<span class="re2">&gt;</span></span></span>src/main/resources/webdefault.xml<span class="sc3"><span class="re1">&lt;/defaultsDescriptor<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;/webAppConfig<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;connectors<span class="re2">&gt;</span></span></span>
+    ..</pre></div></div>
+<p>If you're using Jetty standalone, and you want to change the JSP settings for just one or a few of your webapps, then copy the <tt>$JETTY_HOME/etc/webdefault.xml</tt> file somewhere, modify it, and then use a <a href="https://wiki.eclipse.org/Jetty/Feature/ContextDeployer" title="Jetty/Feature/ContextDeployer" class="mw-redirect">context xml</a> file to set this file as the webdefaults for your webapp. Here's a snippet:
+</p>
+ <div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="xml source-xml"><pre class="de1"> <span class="sc3"><span class="re1">&lt;Configure</span> <span class="re0">class</span>=<span class="re2">&gt;</span></span>&quot;org.eclipse.jetty.webapp.WebAppContext&quot;&gt;
+&#160;
+   <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="re2">&gt;</span></span>&quot;contextPath&quot;&gt;/foo<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
+   <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="re2">&gt;</span></span>&quot;war&quot;&gt;<span class="sc3"><span class="re1">&lt;SystemProperty</span> <span class="re0">name</span>=<span class="re2">&gt;</span></span>&quot;jetty.home&quot; &gt;default=&gt;&quot;.&quot;/&gt;/webapps/foobar.war<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
+   <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="re2">&gt;</span></span>&quot;defaultsDescriptor&quot;&gt;/home/smith/dev/webdefault.xml<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
+&#160;
+ <span class="sc3"><span class="re1">&lt;/Configure<span class="re2">&gt;</span></span></span></pre></div></div>
+<p>If you want to change the JSP settings for all of the webapps, then edit the <tt>$JETTY_HOME/etc/webdefaults.xml</tt> file directly instead.
+</p>
+<h3><span class="mw-headline" id="Configuring_the_JSP_Servlet_in_web.xml">Configuring the JSP Servlet in <tt>web.xml</tt></span></h3>
+<p>Another option is to add an entry for the Jasper JSP servlet to the <i>web.xml</i> file of your webapp. You can use the entry in <a href="../Reference/webdefault.xml.html" title="Jetty/Reference/webdefault.xml">webdefault.xml</a> as a starting point.
+</p>
+ <div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="xml source-xml"><pre class="de1"> <span class="sc3"><span class="re1">&lt;servlet</span> <span class="re0">id</span>=<span class="re2">&gt;</span></span>&quot;jsp&quot;&gt;
+     <span class="sc3"><span class="re1">&lt;servlet-name<span class="re2">&gt;</span></span></span>jsp<span class="sc3"><span class="re1">&lt;/servlet-name<span class="re2">&gt;</span></span></span>
+     <span class="sc3"><span class="re1">&lt;servlet-class<span class="re2">&gt;</span></span></span>org.apache.jasper.servlet.JspServlet<span class="sc3"><span class="re1">&lt;/servlet-class<span class="re2">&gt;</span></span></span>
+     <span class="sc3"><span class="re1">&lt;init-param<span class="re2">&gt;</span></span></span>
+         <span class="sc3"><span class="re1">&lt;param-name<span class="re2">&gt;</span></span></span>logVerbosityLevel<span class="sc3"><span class="re1">&lt;/param-name<span class="re2">&gt;</span></span></span>
+         <span class="sc3"><span class="re1">&lt;param-value<span class="re2">&gt;</span></span></span>DEBUG<span class="sc3"><span class="re1">&lt;/param-value<span class="re2">&gt;</span></span></span>
+     <span class="sc3"><span class="re1">&lt;/init-param<span class="re2">&gt;</span></span></span>
+     <span class="sc3"><span class="re1">&lt;init-param<span class="re2">&gt;</span></span></span>
+         <span class="sc3"><span class="re1">&lt;param-name<span class="re2">&gt;</span></span></span>fork<span class="sc3"><span class="re1">&lt;/param-name<span class="re2">&gt;</span></span></span>
+         <span class="sc3"><span class="re1">&lt;param-value<span class="re2">&gt;</span></span></span>false<span class="sc3"><span class="re1">&lt;/param-value<span class="re2">&gt;</span></span></span>
+     <span class="sc3"><span class="re1">&lt;/init-param<span class="re2">&gt;</span></span></span>
+     <span class="sc3"><span class="re1">&lt;init-param<span class="re2">&gt;</span></span></span>
+         <span class="sc3"><span class="re1">&lt;param-name<span class="re2">&gt;</span></span></span>keepgenerated<span class="sc3"><span class="re1">&lt;/param-name<span class="re2">&gt;</span></span></span>
+         <span class="sc3"><span class="re1">&lt;param-value<span class="re2">&gt;</span></span></span>true<span class="sc3"><span class="re1">&lt;/param-value<span class="re2">&gt;</span></span></span>
+     <span class="sc3"><span class="re1">&lt;/init-param<span class="re2">&gt;</span></span></span>
+     ...
+&#160;
+     <span class="sc3"><span class="re1">&lt;load-on-startup<span class="re2">&gt;</span></span></span>0<span class="sc3"><span class="re1">&lt;/load-on-startup<span class="re2">&gt;</span></span></span>
+   <span class="sc3"><span class="re1">&lt;/servlet<span class="re2">&gt;</span></span></span>
+&#160;
+   <span class="sc3"><span class="re1">&lt;servlet-mapping<span class="re2">&gt;</span></span></span>
+     <span class="sc3"><span class="re1">&lt;servlet-name<span class="re2">&gt;</span></span></span>jsp<span class="sc3"><span class="re1">&lt;/servlet-name<span class="re2">&gt;</span></span></span>
+     <span class="sc3"><span class="re1">&lt;url-pattern<span class="re2">&gt;</span></span></span>*.jsp<span class="sc3"><span class="re1">&lt;/url-pattern<span class="re2">&gt;</span></span></span>
+     <span class="sc3"><span class="re1">&lt;url-pattern<span class="re2">&gt;</span></span></span>*.jspf<span class="sc3"><span class="re1">&lt;/url-pattern<span class="re2">&gt;</span></span></span>
+     <span class="sc3"><span class="re1">&lt;url-pattern<span class="re2">&gt;</span></span></span>*.jspx<span class="sc3"><span class="re1">&lt;/url-pattern<span class="re2">&gt;</span></span></span>
+     <span class="sc3"><span class="re1">&lt;url-pattern<span class="re2">&gt;</span></span></span>*.xsp<span class="sc3"><span class="re1">&lt;/url-pattern<span class="re2">&gt;</span></span></span>
+     <span class="sc3"><span class="re1">&lt;url-pattern<span class="re2">&gt;</span></span></span>*.JSP<span class="sc3"><span class="re1">&lt;/url-pattern<span class="re2">&gt;</span></span></span>
+     <span class="sc3"><span class="re1">&lt;url-pattern<span class="re2">&gt;</span></span></span>*.JSPF<span class="sc3"><span class="re1">&lt;/url-pattern<span class="re2">&gt;</span></span></span>
+     <span class="sc3"><span class="re1">&lt;url-pattern<span class="re2">&gt;</span></span></span>*.JSPX<span class="sc3"><span class="re1">&lt;/url-pattern<span class="re2">&gt;</span></span></span>
+     <span class="sc3"><span class="re1">&lt;url-pattern<span class="re2">&gt;</span></span></span>*.XSP<span class="sc3"><span class="re1">&lt;/url-pattern<span class="re2">&gt;</span></span></span>
+   <span class="sc3"><span class="re1">&lt;/servlet-mapping<span class="re2">&gt;</span></span></span>
+&#160;
+   <span class="sc3"><span class="re1">&lt;servlet</span> <span class="re0">id</span>=<span class="re2">&gt;</span></span>&quot;my-servlet&quot;&gt;
+     <span class="sc3"><span class="re1">&lt;servlet-name<span class="re2">&gt;</span></span></span>myServlet<span class="sc3"><span class="re1">&lt;/servlet-name<span class="re2">&gt;</span></span></span>
+     <span class="sc3"><span class="re1">&lt;servlet-class<span class="re2">&gt;</span></span></span>com.acme.servlet.MyServlet<span class="sc3"><span class="re1">&lt;/servlet-class<span class="re2">&gt;</span></span></span>
+      ...</pre></div></div>
+<h2><span class="mw-headline" id="Using_JSTL_Taglibs_for_Jetty_7.x_and_8.x">Using JSTL Taglibs for Jetty 7.x and 8.x</span></h2>
+<hr />
+<h3><span class="mw-headline" id="Jetty_7.x">Jetty 7.x</span></h3>
+<p>The JSTL tags are present in the <tt>org.apache.taglibs.standard.glassfish</tt> Jar in <tt>$JETTY_HOME/lib/jsp</tt>. For the Jetty/jsp integration to find them, you need to configure a pattern that defines the names of files in the container's classpath that contain <tt>.tld</tt> files. You must define the pattern as a context attribute on <i>each</i> context that you deploy. The context attribute and pattern is:
+</p>
+<pre> attribute: org.eclipse.jetty.server.webapp.ContainerIncludeJarPattern
+ value: .*/.*jsp-api-[^/]*\.jar$|.*/.*jsp-[^/]*\.jar$|.*/.*taglibs[^/]*\.jar$
+</pre>
+<p>If you are using the Jetty deployers (that is, your <tt>start.ini</tt> file contains <tt>etc/jetty-deploy.xml</tt>), you don't need to do anything, as the pattern is pre-defined in <tt>etc/jetty-deploy.xml</tt>, and the deployer makes sure the attribute is set on each and every context it deploys. If you are NOT using the deployers, you need to configure the attribute on <i>each</i> context you set. Here's an example:
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="xml source-xml"><pre class="de1"><span class="sc3"><span class="re1">&lt;New</span> <span class="re0">class</span>=<span class="st0">&quot;org.eclipse.jetty.webapp.WebAppContext&quot;</span><span class="re2">&gt;</span></span>
+  <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span><span class="re1">&lt;Ref</span> <span class="re0">id</span>=<span class="st0">&quot;Contexts&quot;</span><span class="re2">/&gt;</span><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span><span class="re1">&lt;SystemProperty</span> <span class="re0">name</span>=<span class="st0">&quot;jetty.home&quot;</span> <span class="re0">default</span>=<span class="st0">&quot;.&quot;</span><span class="re2">/&gt;</span></span>/webapps/test.war<span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>/test<span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
+   <span class="sc3"><span class="re1">&lt;Call</span> <span class="re0">name</span>=<span class="st0">&quot;setAttribute&quot;</span><span class="re2">&gt;</span></span>
+            <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>org.eclipse.jetty.server.webapp.ContainerIncludeJarPattern<span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>.*/.*jsp-api-[^/]*\.jar$|.*/.*jsp-[^/]*\.jar$|.*/.*taglibs[^/]*\.jar$<span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
+   <span class="sc3"><span class="re1">&lt;/Call<span class="re2">&gt;</span></span></span>
+<span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span></pre></div></div>
+<div class="messagebox" style="background-color: #def3fe; border: 1px solid #c5d7e0; color: black; padding: 5px; margin: 1ex 0; min-height: 35px; padding-left: 45px;">
+<div style="float: left; margin-left: -40px;"><a href="https://wiki.eclipse.org/File:Note.png" class="image"><img alt="Note.png" src="../../images/c/cc/Note.png" width="35" height="35" /></a></div>
+<div><b>Note</b><br />You can use the <tt>org.eclipse.jetty.server.webapp.ContainerIncludeJarPattern</tt> for more than identifying Jars that contain tlds. Its purpose is to supply a pattern of names of Jars on the container's classpath whose /META-INF directories should be scanned for resources, for fragments, or for tlds.</div>
+</div>
+<p><br />
+</p>
+<h3><span class="mw-headline" id="Jetty_8.x">Jetty 8.x</span></h3>
+<p>The version of JSP 2.2 engine that jetty uses employs a Servlet 3.0 way of finding tlds (see <a rel="nofollow" class="external text" href="http://download.oracle.com/javaee/6/api/javax/servlet/ServletContainerInitializer.html">ServletContainerInitializer.html</a>) , and thus does <i>not</i> require that you define <tt>org.eclipse.jetty.server.webapp.ContainerIncludeJarPattern</tt>.
+</p>
+<h2><span class="mw-headline" id="Using_JSF_Taglibs">Using JSF Taglibs</span></h2>
+<h3><span class="mw-headline" id="Jetty_Standalone">Jetty Standalone</span></h3>
+<p>If you want to use JSF with your webapp, you need to copy the jsf implementation jar (ie whichever Jar contains the <tt>META-INF/*.tld</tt> files from your chosen JSF implementation) into <tt>$JETTY_HOME/lib/jsp</tt>. This is because the version of the jsp engine from Glassfish that we are using <i>requires</i> that the JSF tags are on the container's classpath, and <i>not</i> on the webapp's classpath.
+</p><p>If you are using <b>jetty-7.x</b>, then you will need to add the jsf implementation jar to the set of container jars that are scanned for TLDs. The set of jars is specified as a java Pattern as the value of the ContextAttribute <tt>org.eclipse.jetty.server.webapp.ContainerIncludeJarPattern</tt>. You need to add a pattern that matches the name of the implementation jar.
+</p><p>You can set this ContextAttribute on just a particular webapp, or for all webapps.
+</p><p>To set on just one webapp, create or edit a <a href="https://wiki.eclipse.org/Jetty/Feature/ContextDeployer" title="Jetty/Feature/ContextDeployer" class="mw-redirect">context xml</a> file that describes your webapp. Assuming the implementation jar is called <tt>javax.faces-2.1.6.jar</tt>:
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="xml source-xml"><pre class="de1"><span class="sc3"><span class="re1">&lt;Configure</span> <span class="re0">class</span>=<span class="st0">&quot;org.eclipse.jetty.webapp.WebAppContext&quot;</span><span class="re2">&gt;</span></span>
+&#160;
+    <span class="sc3"><span class="re1">&lt;Call</span> <span class="re0">name</span>=<span class="st0">&quot;setAttribute&quot;</span><span class="re2">&gt;</span></span>
+      <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>org.eclipse.jetty.server.webapp.ContainerIncludeJarPattern<span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
+      <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>.*/.*javax.faces-[^/]*\.jar$|.*/.*jsp-api-[^/]*\.jar$|.*/.*jsp-[^/]*\.jar$|.*/.*taglibs[^/]*\.jar$<span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;/Call<span class="re2">&gt;</span></span></span>
+&#160;
+<span class="sc3"><span class="re1">&lt;/Configure<span class="re2">&gt;</span></span></span></pre></div></div>
+<p>If you're deploying via code, the equivalent is to call the <a rel="nofollow" class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/webapp/WebAppContext.html">WebAppContext.setAttribute(String name, String value)</a> method.
+</p><p>If you'd like to use jsf with all of your webapps, then assuming you're using the <a href="../Feature/Deployment&#32;Manager.html" title="Jetty/Feature/Deployment Manager">DeploymentManager</a>, edit <tt>$JETTY_HOME/etc/jetty-deploy.xml</tt>. Assuming the implementation jar is named <tt>javax.faces-2.1.6.jar</tt>:
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="xml source-xml"><pre class="de1">&#160;
+ <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">id</span>=<span class="st0">&quot;DeploymentManager&quot;</span> <span class="re0">class</span>=<span class="st0">&quot;org.eclipse.jetty.deploy.DeploymentManager&quot;</span><span class="re2">&gt;</span></span>
+          <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">&quot;contexts&quot;</span><span class="re2">&gt;</span></span>
+            <span class="sc3"><span class="re1">&lt;Ref</span> <span class="re0">id</span>=<span class="st0">&quot;Contexts&quot;</span> <span class="re2">/&gt;</span></span>
+          <span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
+          <span class="sc3"><span class="re1">&lt;Call</span> <span class="re0">name</span>=<span class="st0">&quot;setContextAttribute&quot;</span><span class="re2">&gt;</span></span>
+            <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>org.eclipse.jetty.server.webapp.ContainerIncludeJarPattern<span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>.*/.*javax.faces-[^/]*\.jar$|.*/.*jsp-api-[^/]*\.jar$|.*/.*jsp-[^/]*\.jar$|.*/.*taglibs[^/]*\.jar$<span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
+          <span class="sc3"><span class="re1">&lt;/Call<span class="re2">&gt;</span></span></span></pre></div></div>
+<p>If you are using <b>jetty-8.x</b> you do not need to add this pattern because Servlet Spec. 3.0 uses a different method of finding TLD descriptors.
+</p>
+<h3><span class="mw-headline" id="Jetty_Maven_Plugin_2">Jetty Maven Plugin</span></h3>
+<p>For versions prior to 7.5.0, then your jsf jars <i>should be normal webapp dependencies</i>. You do not need to do anything else to configure jetty for use with jsf.
+</p><p>From versions 7.5.0 onwards, the version of the jsp engine from Glassfish that we are using <i>requires</i> that the JSF tags are on the container's classpath, and <i>not</i> on the webapp's classpath, so you need to make your jsf jars dependencies of the <i>plugin</i> and <i>not</i> the webapp itself, eg:
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="xml source-xml"><pre class="de1">   <span class="sc3"><span class="re1">&lt;plugin<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;groupId<span class="re2">&gt;</span></span></span>org.mortbay.jetty<span class="sc3"><span class="re1">&lt;/groupId<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;artifactId<span class="re2">&gt;</span></span></span>jetty-maven-plugin<span class="sc3"><span class="re1">&lt;/artifactId<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;configuration<span class="re2">&gt;</span></span></span>
+       <span class="sc3"><span class="re1">&lt;webAppConfig<span class="re2">&gt;</span></span></span>
+         <span class="sc3"><span class="re1">&lt;contextPath<span class="re2">&gt;</span></span></span>/${artifactId}<span class="sc3"><span class="re1">&lt;/contextPath<span class="re2">&gt;</span></span></span>
+       <span class="sc3"><span class="re1">&lt;/webAppConfig<span class="re2">&gt;</span></span></span>
+       <span class="sc3"><span class="re1">&lt;scanIntervalSeconds<span class="re2">&gt;</span></span></span>5<span class="sc3"><span class="re1">&lt;/scanIntervalSeconds<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;/configuration<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;dependencies<span class="re2">&gt;</span></span></span>
+      <span class="sc3"><span class="re1">&lt;dependency<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;groupId<span class="re2">&gt;</span></span></span>com.sun.faces<span class="sc3"><span class="re1">&lt;/groupId<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;artifactId<span class="re2">&gt;</span></span></span>jsf-api<span class="sc3"><span class="re1">&lt;/artifactId<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;version<span class="re2">&gt;</span></span></span>2.0.8<span class="sc3"><span class="re1">&lt;/version<span class="re2">&gt;</span></span></span>
+      <span class="sc3"><span class="re1">&lt;/dependency<span class="re2">&gt;</span></span></span>
+      <span class="sc3"><span class="re1">&lt;dependency<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;groupId<span class="re2">&gt;</span></span></span>com.sun.faces<span class="sc3"><span class="re1">&lt;/groupId<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;artifactId<span class="re2">&gt;</span></span></span>jsf-impl<span class="sc3"><span class="re1">&lt;/artifactId<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;version<span class="re2">&gt;</span></span></span>2.0.8<span class="sc3"><span class="re1">&lt;/version<span class="re2">&gt;</span></span></span>
+     <span class="sc3"><span class="re1">&lt;/dependency<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;/dependencies<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;/plugin<span class="re2">&gt;</span></span></span></pre></div></div>
+<p>From versions 7.5.0 to 7.6.1, the maven jetty plugin will not scan the jsf dependency jars for the tlds containing the startup listeners. If you are using these versions, we recommend you upgrade to a more recent version. If this is not possible, then you should define the relevant listener in your web.xml:
+</p><p>For MyFaces:
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="xml source-xml"><pre class="de1"> <span class="sc3"><span class="re1">&lt;listener<span class="re2">&gt;</span></span></span>
+     <span class="sc3"><span class="re1">&lt;listener-class<span class="re2">&gt;</span></span></span>org.apache.myfaces.webapp.StartupServletContextListener<span class="sc3"><span class="re1">&lt;/listener-class<span class="re2">&gt;</span></span></span>
+ <span class="sc3"><span class="re1">&lt;/listener<span class="re2">&gt;</span></span></span></pre></div></div>
+<p>For Mojarra:
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="xml source-xml"><pre class="de1">  <span class="sc3"><span class="re1">&lt;listener<span class="re2">&gt;</span></span></span>
+       <span class="sc3"><span class="re1">&lt;listener-class<span class="re2">&gt;</span></span></span>com.sun.faces.config.ConfigureListener<span class="sc3"><span class="re1">&lt;/listener-class<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;/listener<span class="re2">&gt;</span></span></span></pre></div></div>
+From version 7.6.2 onwards the jetty plugin will ensure that the tlds containing the startup listeners from the 2 most common jsf implementations (Mojarra and MyFaces) will be automatically detected.</li>
+</li>
+</li>
+</li>
+</ol>
+
+<!-- 
+NewPP limit report
+Cached time: 20211116130626
+Cache expiry: 86400
+Dynamic content: false
+CPU time usage: 0.208 seconds
+Real time usage: 0.227 seconds
+Preprocessor visited node count: 284/1000000
+Preprocessor generated node count: 948/1000000
+Post‐expand include size: 9175/2097152 bytes
+Template argument size: 6743/2097152 bytes
+Highest expansion depth: 6/40
+Expensive parser function count: 0/100
+-->
+
+<!-- 
+Transclusion expansion time report (%,ms,calls,template)
+100.00%   83.332      1 - -total
+ 49.31%   41.094      1 - Template:Jetty_Howto
+ 17.44%   14.530      3 - Template:Message
+ 13.10%   10.919      1 - Template:Jetty_Redirect
+ 11.93%    9.942      1 - Template:Note
+  6.35%    5.295      1 - Template:Important
+  4.82%    4.018      1 - Template:Jetty
+-->
+
+<!-- Saved in parser cache with key my_wiki:pcache:idhash:31877-0!*!0!!en!5!* and timestamp 20211116130626 and revision id 334724
+ -->
+</div>
+                                      <!-- catlinks -->
+                    <div id='catlinks' class='catlinks'><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="https://wiki.eclipse.org/Special:Categories" title="Special:Categories">Categories</a>: <ul><li><a href="https://wiki.eclipse.org/Category:Jetty" title="Category:Jetty">Jetty</a></li><li><a href="https://wiki.eclipse.org/Category:Jetty_Howto" title="Category:Jetty Howto">Jetty Howto</a></li></ul></div></div>                     <!-- /catlinks -->
+                                  </div>
+              </div>
+            </div>
+          </div>
+        <!-- /maincontent -->
+
+                <!-- printfooter -->
+        <div class="printfooter">
+        Retrieved from "<a dir="ltr" href="https://wiki.eclipse.org/index.php?title=Jetty/Howto/Configure_JSP&amp;oldid=334724">https://wiki.eclipse.org/index.php?title=Jetty/Howto/Configure_JSP&amp;oldid=334724</a>"        </div>
+        <!-- /printfooter -->
+        
+        
+        <!-- debughtml -->
+                <!-- /debughtml -->
+
+      </div>
+      <!-- /bodyContent -->
+    </section>
+    <!-- /content -->
+
+    <!-- footer -->
+    
+</div>
+<div class="featured-footer featured-footer-newsletter background-secondary">
+  <div class="container">
+    <p id="footercredit">This page was last modified 13:40, 23 April 2013 by <a href="https://wiki.eclipse.org/User:Jesse.mcconnell.gmail.com" title="User:Jesse.mcconnell.gmail.com">Jesse McConnell</a>. Based on work by <a href="https://wiki.eclipse.org/index.php?title=User:Mathieu.ruellan.gmail.com&amp;action=edit&amp;redlink=1" class="new" title="User:Mathieu.ruellan.gmail.com (page does not exist)">Mathieu Ruellan</a>, <a href="https://wiki.eclipse.org/index.php?title=User:Janb.intalio.com&amp;action=edit&amp;redlink=1" class="new" title="User:Janb.intalio.com (page does not exist)">Jan Bartel</a> and <a href="https://wiki.eclipse.org/index.php?title=User:Janb.webtide.com&amp;action=edit&amp;redlink=1" class="new" title="User:Janb.webtide.com (page does not exist)">Jan Bartel</a> and <a href="https://wiki.eclipse.org/index.php?title=Jetty/Howto/Configure_JSP&amp;action=credits" title="Jetty/Howto/Configure JSP">others</a>.</p><p id="footerviews"></p>  </div>
+</div>
+</main> <!-- /#main-content-container-row -->
+<p id="back-to-top" class="noprint hidden-print">
+  <a class="visible-xs" href="Configure&#32;JSP.html#top">Back to the top</a>
+</p>
+<footer id="solstice-footer">
+  <div class="container">
+    <div class="row">
+      <section class="col-sm-6 hidden-print" id="footer-eclipse-foundation">
+        <h2 class="section-title">Eclipse Foundation</h2>
+        <ul class="nav">
+          <li><a href="https://www.eclipse.org/org/">About Us</a></li>
+          <li><a href="https://www.eclipse.org/org/foundation/contact.php">Contact Us</a></li>
+          <li><a href="https://www.eclipse.org/donate">Donate</a></li>
+          <li><a href="https://www.eclipse.org/membership/">Members</a></li>
+          <li><a href="https://www.eclipse.org/org/documents/">Governance</a></li>
+          <li><a href="https://www.eclipse.org/org/documents/Community_Code_of_Conduct.php">Code of Conduct</a></li>
+          <li><a href="https://www.eclipse.org/artwork/">Logo and Artwork</a></li>
+          <li><a href="https://www.eclipse.org/org/foundation/directors.php">Board of Directors</a></li>
+        </ul>
+      </section>
+      <section class="col-sm-6 hidden-print" id="footer-legal">
+        <h2 class="section-title">Legal</h2>
+        <ul class="nav">
+          <li><a href="https://www.eclipse.org/legal/privacy.php">Privacy Policy</a></li>
+          <li><a href="https://www.eclipse.org/legal/termsofuse.php">Terms of Use</a></li>
+          <li><a href="https://www.eclipse.org/legal/copyright.php">Copyright Agent</a></li>
+          <li><a href="https://www.eclipse.org/legal/epl-2.0/">Eclipse Public License</a></li>
+          <li><a href="https://www.eclipse.org/legal/">Legal Resources</a></li>
+        </ul>
+      </section>
+      <section class="col-sm-6 hidden-print" id="footer-useful-links">
+        <h2 class="section-title">Useful Links</h2>
+        <ul class="nav">
+          <li><a href="https://bugs.eclipse.org/bugs/">Report a Bug</a></li>
+          <li><a href="https://help.eclipse.org/">Documentation</a></li>
+          <li><a href="https://www.eclipse.org/contribute/">How to Contribute</a></li>
+          <li><a href="https://www.eclipse.org/mail/">Mailing Lists</a></li>
+          <li><a href="https://www.eclipse.org/forums/">Forums</a></li>
+          <li><a href="https://marketplace.eclipse.org/">Marketplace</a></li>
+        </ul>
+      </section>
+      <section class="col-sm-6 hidden-print" id="footer-other">
+        <h2 class="section-title">Other</h2>
+        <ul class="nav">
+          <li><a href="https://www.eclipse.org/ide/">IDE and Tools</a></li>
+          <li><a href="https://www.eclipse.org/projects">Projects</a></li>
+          <li><a href="https://www.eclipse.org/org/workinggroups/">Working Groups</a></li>
+          <li><a href="https://www.eclipse.org/org/research/">Research@Eclipse</a></li>
+          <li><a href="https://www.eclipse.org/security/">Report a Vulnerability</a></li>
+          <li><a href="https://status.eclipse.org">Service Status</a></li>
+        </ul>
+      </section>
+      <div class="col-sm-24 margin-top-20">
+        <div class="row">
+          <div id="copyright" class="col-md-16">
+            <p id="copyright-text">Copyright &copy; Eclipse Foundation, Inc. All Rights Reserved.</p>
+          </div>
+          <div class="col-md-8 social-media">
+            <ul class="list-inline">
+              <li>
+                <a class="social-media-link fa-stack fa-lg" href="https://twitter.com/EclipseFdn">
+                <i class="fa fa-circle-thin fa-stack-2x"></i>
+                <i class="fa fa-twitter fa-stack-1x"></i>
+                </a>
+              </li>
+              <li>
+                <a class="social-media-link fa-stack fa-lg" href="https://www.facebook.com/eclipse.org">
+                <i class="fa fa-circle-thin fa-stack-2x"></i>
+                <i class="fa fa-facebook fa-stack-1x"></i>
+                </a>
+              </li>
+              <li>
+                <a class="social-media-link fa-stack fa-lg" href="https://www.youtube.com/user/EclipseFdn">
+                <i class="fa fa-circle-thin fa-stack-2x"></i>
+                <i class="fa fa-youtube fa-stack-1x"></i>
+                </a>
+              </li>
+              <li>
+                <a class="social-media-link fa-stack fa-lg" href="https://www.linkedin.com/company/eclipse-foundation">
+                <i class="fa fa-circle-thin fa-stack-2x"></i>
+                <i class="fa fa-linkedin fa-stack-1x"></i>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <a href="Configure&#32;JSP.html#" class="scrollup">Back to the top</a>
+    </div>
+  </div>
+</footer>
+    <!-- /footer -->
+    <script>window.RLQ = window.RLQ || []; window.RLQ.push( function () {
+mw.loader.state({"skins.solstice":"loading","user":"ready","user.groups":"ready"});mw.loader.load("/load.php?debug=false\u0026lang=en\u0026modules=skins.solstice\u0026only=scripts\u0026skin=solstice");mw.loader.load(["mediawiki.toc","mediawiki.action.view.postEdit","site","mediawiki.user","mediawiki.hidpi","mediawiki.page.ready","mediawiki.searchSuggest"]);
+} );</script><script>window.RLQ = window.RLQ || []; window.RLQ.push( function () {
+mw.config.set({"wgBackendResponseTime":379});
+} );</script>  </body>
+</html>

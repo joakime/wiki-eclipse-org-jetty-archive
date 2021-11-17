@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" class="client-nojs">
+<head>
+<meta charset="UTF-8"/>
+<title>Jetty/Troubleshooting - Eclipsepedia</title>
+<script>document.documentElement.className = document.documentElement.className.replace( /(^|\s)client-nojs(\s|$)/, "$1client-js$2" );</script>
+<script>window.RLQ = window.RLQ || []; window.RLQ.push( function () {
+mw.config.set({"wgCanonicalNamespace":"","wgCanonicalSpecialPageName":!1,"wgNamespaceNumber":0,"wgPageName":"Jetty/Troubleshooting","wgTitle":"Jetty/Troubleshooting","wgCurRevisionId":269285,"wgRevisionId":269285,"wgArticleId":20307,"wgIsArticle":!0,"wgIsRedirect":!1,"wgAction":"view","wgUserName":null,"wgUserGroups":["*"],"wgCategories":["Jetty","Jetty FAQ","Draft Documentation"],"wgBreakFrames":!1,"wgPageContentLanguage":"en","wgPageContentModel":"wikitext","wgSeparatorTransformTable":["",""],"wgDigitTransformTable":["",""],"wgDefaultDateFormat":"dmy","wgMonthNames":["","January","February","March","April","May","June","July","August","September","October","November","December"],"wgMonthNamesShort":["","Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"wgRelevantPageName":"Jetty/Troubleshooting","wgRelevantArticleId":20307,"wgIsProbablyEditable":!1,"wgRestrictionEdit":[],"wgRestrictionMove":[],"wgWikiEditorEnabledModules":{"toolbar":!1,
+"dialogs":!1,"preview":!1,"publish":!1},"wgCategoryTreePageCategoryOptions":"{\"mode\":0,\"hideprefix\":20,\"showcount\":true,\"namespaces\":false}"});mw.loader.implement("user.options",function($,jQuery){mw.user.options.set({"variant":"en"});});mw.loader.implement("user.tokens",function($,jQuery){mw.user.tokens.set({"editToken":"+\\","patrolToken":"+\\","watchToken":"+\\"});});mw.loader.load(["mediawiki.page.startup","mediawiki.legacy.wikibits"]);
+} );</script>
+<link rel="stylesheet" href="../load.php%3Fdebug=false&amp;lang=en&amp;modules=mediawiki.legacy.commonPrint,shared|mediawiki.sectionAnchor&amp;only=styles&amp;skin=solstice.css"/>
+<link rel="stylesheet" href="../skins/solstice/public/css/styles.css%3F303.css" media="screen, print"/>
+<meta name="ResourceLoaderDynamicStyles" content=""/>
+<style>a:lang(ar),a:lang(kk-arab),a:lang(mzn),a:lang(ps),a:lang(ur){text-decoration:none}</style>
+<script async="" src="../load.php%3Fdebug=false&amp;lang=en&amp;modules=startup&amp;only=scripts&amp;skin=solstice"></script>
+<meta name="generator" content="MediaWiki 1.26.4"/>
+<link rel="shortcut icon" href="../eclipse.org-common/themes/solstice/public/images/favicon.ico"/>
+<link rel="search" type="application/opensearchdescription+xml" href="https://wiki.eclipse.org/opensearch_desc.php" title="Eclipsepedia (en)"/>
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.eclipse.org/api.php?action=rsd"/>
+<link rel="alternate" type="application/atom+xml" title="Eclipsepedia Atom feed" href="https://wiki.eclipse.org/index.php?title=Special:RecentChanges&amp;feed=atom"/>
+<style type="text/css">
+/*<![CDATA[*/      
+#jetty-nav {
+  margin-bottom: 2em;
+}
+#jetty-nav ul {
+  padding: 3px 0 1px 1em;
+  margin:0;
+  border-bottom: 1px solid #aaa;
+}
+#jetty-nav li {
+  list-style: none;
+  margin: 0;
+  display: inline;
+}
+#jetty-nav li a {
+  padding: 3px 0.5em;
+  margin-left: 3px;
+  border: 1px solid #aaa;
+  border-bottom: none;
+  background: #eef;
+  text-decoration: none;
+}
+#jetty-nav li a:link { color: #448; }
+#jetty-nav li a:visited { color: #667; }
+#jetty-nav li a:hover {
+  color: #000;
+  background: #ccf;
+  border-color: #227;
+}
+#jetty-nav li span#current a
+{
+  background: #fff;
+  border-bottom: 1px solid #fff;
+}
+#jetty-nav li .selflink {
+  padding: 3px 0.5em;
+  margin-left: 3px;
+  border: 1px solid #aaa;
+  background: #fff;
+  border-bottom: 1px solid #fff;
+}
+table.jetty-table, .jetty-table table {
+  border: 1px solid #aaa;
+  border-collapse: collapse;
+}
+.jetty-table td {
+  border: 1px solid #aaa;
+  padding: 0.5em 1em;
+}
+.jetty-table th {
+  border: 1px solid #aaa;
+  background-color: #eef;
+}
+.jetty-table caption {
+  border: 1px #aaa solid;
+  margin: 1em 0 0.2em 0;
+  background-color: #ccf;
+  font-weight: bold;
+  font-size: 1.1em;
+}
+#content dl  {
+  border-left: 1px #aaa solid;
+  border-bottom: 1px #aaa solid;
+}
+#content dl dt {
+  float: left;
+  border-top: 1px solid #aaa;
+  padding: 0.5em 0 0 0.5em;
+}
+#content dl dd {
+  border: 1px solid #aaa;
+  border-bottom: none;
+}
+#content .narrow-list dl  {
+  width: 40em;
+}
+#content .narrow-list dl dt {
+  width: 14em;
+  line-height: 1.1em;
+}
+#content .narrow-list dl dd {
+  margin: 0 0 0 15em;
+  padding: 0.5em 1em;
+}
+#content .wide-list dl, #content dl {
+  width: 80em;
+}
+#content .wide-list dl dt, #content dl dt {
+  padding: 0.5em 1em;
+  width: 15em;
+}
+#content .wide-list dl dd, #content dl dd {
+  padding: 1em 1em 2em 2em;
+  margin: 0 0 0 17em;
+}
+#content .unbounded-list dl, #content .unbounded-list dl dd, #content .unbounded-list dl dt {
+  border: 0 none;
+  width: auto;
+  padding: 0 0 0 1em;
+}
+#content .unbounded-list dl dt {
+}
+#content p  {
+  margin-bottom: 0.5em;
+}
+#content li  {
+  line-height: 1.1em;
+}
+.infobox {
+  padding: 0.5em 1em;
+  background-color: #fff;
+  float: right;
+  margin: 0.5em;
+}
+/*]]>*/       
+</style>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body class="mediawiki ltr sitedir-ltr ns-0 ns-subject page-Jetty_Troubleshooting skin-solstice action-view" id="solstice">
+
+<a class="sr-only" href="Troubleshooting.html#content">Skip to main content</a>
+<header class="header-wrapper" id="header-wrapper">
+  <div class="clearfix toolbar-container-wrapper">
+    <div class="container-fluid">
+      <div class="text-right toolbar-row row hidden-print">
+        <div class="col-md-24 row-toolbar-col">
+               <ul class="list-inline">
+                  <li id="pt-login">
+            <a href="https://wiki.eclipse.org/index.php?title=Special:UserLogin&amp;returnto=Jetty%2FTroubleshooting" class="toolbar-link toolbar-login">
+              <i class="fa fa-sign-in fa-fw"></i> Log in            </a>
+          </li>
+                <li><a class="toolbar-link toolbar-manage-cookies dropdown-toggle"><i class="fa fa-wrench"></i> Manage Cookies</a></li>
+      </ul>
+            </div>
+      </div>
+    </div>
+  </div>
+  <div class="container-fluid">
+    <div class="row" id="header-row">
+      <div class="col-sm-5 col-md-4" id="header-left">
+        <div class="wrapper-logo-default"><a href="https://www.eclipse.org/"><img class="logo-eclipse-default hidden-xs" alt="Eclipse.org logo" width="160" src="https://www.eclipse.org/eclipse.org-common/themes/solstice/public/images/logo/eclipse-foundation-white-orange.svg"/></a></div>
+      </div>
+      <div class="col-sm-19 col-md-20 margin-top-10" id="main-menu-wrapper">
+        <div class="float-right hidden-xs" id="btn-call-for-action"><a href="https://eclipse.org/downloads/" class="btn btn-huge btn-warning"><i class="fa fa-download"></i> Download</a></div>
+        <div class="navbar yamm float-sm-right" id="main-menu">
+          <div class="navbar-collapse collapse" id="navbar-main-menu">
+            <ul class="nav navbar-nav">
+              <li><a href="https://www.eclipse.org/projects/" target="_self">Projects</a></li>
+              <li><a href="https://www.eclipse.org/org/workinggroups/" target="_self">Working Groups</a></li>
+              <li><a href="https://www.eclipse.org/membership/" target="_self">Members</a></li>
+              <li class="dropdown visible-xs">
+                <a href="Troubleshooting.html#" data-toggle="dropdown" class="dropdown-toggle">Community <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li><a href="http://marketplace.eclipse.org">Marketplace</a></li>
+                  <li><a href="http://events.eclipse.org">Events</a></li>
+                  <li><a href="http://www.planeteclipse.org/">Planet Eclipse</a></li>
+                  <li><a href="https://www.eclipse.org/community/eclipse_newsletter/">Newsletter</a></li>
+                  <li><a href="https://www.youtube.com/user/EclipseFdn">Videos</a></li>
+                  <li><a href="https://blogs.eclipse.org">Blogs</a></li>
+                </ul>
+              </li>
+              <li class="dropdown visible-xs">
+                <a href="Troubleshooting.html#" data-toggle="dropdown" class="dropdown-toggle">Participate <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li><a href="https://bugs.eclipse.org/bugs/">Report a Bug</a></li>
+                  <li><a href="https://www.eclipse.org/forums/">Forums</a></li>
+                  <li><a href="https://www.eclipse.org/mail/">Mailing Lists</a></li>
+                  <li><a href="https://wiki.eclipse.org/">Wiki</a></li>
+                  <li><a href="https://wiki.eclipse.org/IRC">IRC</a></li>
+                  <li><a href="https://www.eclipse.org/org/research/">Research</a></li>
+                </ul>
+              </li>
+              <li class="dropdown visible-xs">
+                <a href="Troubleshooting.html#" data-toggle="dropdown" class="dropdown-toggle">Eclipse IDE <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li><a href="https://www.eclipse.org/downloads">Download</a></li>
+                  <li><a href="https://www.eclipse.org/eclipseide">Learn More</a></li>
+                  <li><a href="https://help.eclipse.org">Documentation</a></li>
+                  <li><a href="https://www.eclipse.org/getting_started">Getting Started / Support</a></li>
+                  <li><a href="https://www.eclipse.org/contribute/">How to Contribute</a></li>
+                  <li><a href="https://www.eclipse.org/ide/">IDE and Tools</a></li>
+                  <li><a href="https://www.eclipse.org/forums/index.php/f/89/">Newcomer Forum</a></li>
+                </ul>
+              </li>
+              <!-- More -->
+              <li class="dropdown eclipse-more hidden-xs">
+                <a data-toggle="dropdown" class="dropdown-toggle" role="button">More<b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li>
+                    <!-- Content container to add padding -->
+                    <div class="yamm-content">
+                      <div class="row">
+                        <ul class="col-sm-8 list-unstyled">
+                          <li>
+                            <p><strong>Community</strong></p>
+                          </li>
+                          <li><a href="http://marketplace.eclipse.org">Marketplace</a></li>
+                          <li><a href="http://events.eclipse.org">Events</a></li>
+                          <li><a href="http://www.planeteclipse.org/">Planet Eclipse</a></li>
+                          <li><a href="https://www.eclipse.org/community/eclipse_newsletter/">Newsletter</a></li>
+                          <li><a href="https://www.youtube.com/user/EclipseFdn">Videos</a></li>
+                          <li><a href="https://blogs.eclipse.org">Blogs</a></li>
+                        </ul>
+                        <ul class="col-sm-8 list-unstyled">
+                          <li>
+                            <p><strong>Participate</strong></p>
+                          </li>
+                          <li><a href="https://bugs.eclipse.org/bugs/">Report a Bug</a></li>
+                          <li><a href="https://www.eclipse.org/forums/">Forums</a></li>
+                          <li><a href="https://www.eclipse.org/mail/">Mailing Lists</a></li>
+                          <li><a href="https://wiki.eclipse.org/">Wiki</a></li>
+                          <li><a href="https://wiki.eclipse.org/IRC">IRC</a></li>
+                          <li><a href="https://www.eclipse.org/org/research/">Research</a></li>
+                        </ul>
+                        <ul class="col-sm-8 list-unstyled">
+                          <li>
+                            <p><strong>Eclipse IDE</strong></p>
+                          </li>
+                          <li><a href="https://www.eclipse.org/downloads">Download</a></li>
+                          <li><a href="https://www.eclipse.org/eclipseide">Learn More</a></li>
+                          <li><a href="https://help.eclipse.org">Documentation</a></li>
+                          <li><a href="https://www.eclipse.org/getting_started">Getting Started / Support</a></li>
+                          <li><a href="https://www.eclipse.org/contribute/">How to Contribute</a></li>
+                          <li><a href="https://www.eclipse.org/ide/">IDE and Tools</a></li>
+                          <li><a href="https://www.eclipse.org/forums/index.php/f/89/">Newcomer Forum</a></li>
+                        </ul>
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-main-menu">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            </button>
+            <div class="wrapper-logo-mobile"><a class="navbar-brand visible-xs" href="https://www.eclipse.org/"><img class="logo-eclipse-default-mobile img-responsive" alt="Eclipse.org logo" width="160" src="https://www.eclipse.org/eclipse.org-common/themes/solstice/public/images/logo/eclipse-foundation-white-orange.svg"/></a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+<section class="default-breadcrumbs hidden-print" id="breadcrumb">
+  <div class="container-fluid">
+    <h3 class="sr-only">Breadcrumbs</h3>
+    <div class="row">
+      <div class="col-sm-24">
+        <ol class="breadcrumb">
+          <li><a href="https://www.eclipse.org/">Home</a></li>
+          <li><a href="https://wiki.eclipse.org/Main_Page">Eclipse Wiki</a></li>
+          <li class="active">Jetty/Troubleshooting</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- /#breadcrumb -->
+<main>
+<div class="container-fluid padding-15 padding-top-20">
+    
+    
+    <!-- content -->
+    <section id="content" class="mw-body container-full clearfix 0">
+      <div id="mw-js-message" style="display:none;"></div>
+
+      
+      <!-- bodyContent -->
+      <div id="bodyContent">
+
+        
+                <!-- jumpto -->
+        <div id="jump-to-nav" class="mw-jump">
+          Jump to: <a href="Troubleshooting.html#mw-head">navigation</a>,
+          <a href="Troubleshooting.html#p-search">search</a>
+        </div>
+        <!-- /jumpto -->
+        
+          <!-- leftcol -->
+          <aside class="col-md-4 noprint hidden-print" id="leftcol">
+                      <form class="input-group" role="form" id="form-eclipse-search" action="https://wiki.eclipse.org/index.php" id="searchform">
+              <input id="searchInput" class="search-query form-control" type="search" accesskey="f" title="Special:Search" placeholder="Search" name="search" value="">
+
+              <span class="input-group-btn">
+                <button value="search" id="mw-searchButton" type="submit" class="btn btn-default" title="Search the pages for this text" name="fulltext">
+                  <i class="fa fa-search"></i>
+                </button>
+              </span>
+            </form>
+                      <select class="form-control margin-top-10 margin-bottom-10 visible-xs visible-sm" onchange="this.options[this.selectedIndex].value && (window.location = this.options[this.selectedIndex].value);"><option class="fw-700 "><span class="fw-700">---Navigation---</span></option><option value="/Main_Page">Main Page</option><option value="/Eclipsepedia:Community_portal">Community portal</option><option value="/Eclipsepedia:Current_events">Current events</option><option value="/Special:RecentChanges">Recent changes</option><option value="/Special:Random">Random page</option><option value="https://www.mediawiki.org/wiki/Special:MyLanguage/Help:Contents">Help</option></select><ul class="ul-left-nav fa-ul hidden-print leftnav hidden-xs hidden-sm"><li class="separator"><span class="separator">Navigation</span></li>                <li class=""><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/Main_Page" id="n-mainpage" title="Visit the main page [z]" accesskey="z">Main Page</a></li>                <li class=""><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/Eclipsepedia:Community_portal" id="n-portal" title="About the project, what you can do, where to find things">Community portal</a></li>                <li class=""><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/Eclipsepedia:Current_events" id="n-currentevents" title="Find background information on current events">Current events</a></li>                <li class=""><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/Special:RecentChanges" id="n-recentchanges" title="A list of recent changes in the wiki [r]" accesskey="r">Recent changes</a></li>                <li class=""><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/Special:Random" id="n-randompage" title="Load a random page [x]" accesskey="x">Random page</a></li>                <li class=""><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://www.mediawiki.org/wiki/Special:MyLanguage/Help:Contents" id="n-help" title="The place to find out">Help</a></li></ul>            <select class="form-control margin-top-10 margin-bottom-10 visible-xs visible-sm" onchange="this.options[this.selectedIndex].value && (window.location = this.options[this.selectedIndex].value);"><option class="fw-700 "><span class="fw-700">---Toolbox---</span></option><option value="/index.php?title=Jetty/Troubleshooting&amp;action=info">Page information</option><option value="/index.php?title=Jetty/Troubleshooting&amp;oldid=269285">Permanent link</option><option value="/index.php?title=Jetty/Troubleshooting&amp;printable=yes">Printable version</option><option value="/Special:SpecialPages">Special pages</option><option value="/Special:RecentChangesLinked/Jetty/Troubleshooting">Related changes</option><option value="/Special:WhatLinksHere/Jetty/Troubleshooting">What links here</option></select><ul class="ul-left-nav fa-ul hidden-print leftnav hidden-xs hidden-sm"><li class="separator"><span class="separator">Toolbox</span></li><li><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/index.php?title=Jetty/Troubleshooting&amp;action=info" id="t-info" title="More information about this page">Page information</a></li><li><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/index.php?title=Jetty/Troubleshooting&amp;oldid=269285" id="t-permalink" title="Permanent link to this revision of the page">Permanent link</a></li><li><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/index.php?title=Jetty/Troubleshooting&amp;printable=yes" id="t-print" rel="alternate" title="Printable version of this page [p]" accesskey="p">Printable version</a></li><li><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/Special:SpecialPages" id="t-specialpages" title="A list of all special pages [q]" accesskey="q">Special pages</a></li><li><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/Special:RecentChangesLinked/Jetty/Troubleshooting" id="t-recentchangeslinked" title="Recent changes in pages linked from this page [k]" accesskey="k">Related changes</a></li><li><i class="fa fa-angle-double-right orange fa-fw"></i> <a href="https://wiki.eclipse.org/Special:WhatLinksHere/Jetty/Troubleshooting" id="t-whatlinkshere" title="A list of all wiki pages that link here [j]" accesskey="j">What links here</a></li></ul>                                  </aside>
+          <!-- /leftcol -->
+
+          <!-- mainContent -->
+          <div id="mainContent" class="col-md-20">
+                      <ul class="nav nav-tabs noprint hidden-print" role="tablist">
+                       <li id="ca-nstab-main" class="active"><a href="Troubleshooting.html"  title="View the content page [c]" accesskey="c" tabindex="-1">Page</a></li>
+                        <li id="ca-talk" class="new"><a href="https://wiki.eclipse.org/index.php?title=Talk:Jetty/Troubleshooting&amp;action=edit&amp;redlink=1"  title="Discussion about the content page [t]" accesskey="t" tabindex="-1">Discussion</a></li>
+                        <li id="ca-viewsource"><a href="https://wiki.eclipse.org/index.php?title=Jetty/Troubleshooting&amp;action=edit"  title="This page is protected.&#10;You can view its source [e]" accesskey="e" tabindex="-1">View source</a></li>
+                        <li id="ca-history" class="collapsible"><a href="https://wiki.eclipse.org/index.php?title=Jetty/Troubleshooting&amp;action=history"  title="Past revisions of this page [h]" accesskey="h" tabindex="-1">History</a></li>
+                      </ul>            <div class="tab-content background-white">
+              <div id="tab-pane-main-page-content" class="tab-pane active">
+
+                
+                <h1 id="firstHeading" class="firstHeading page-header">
+                  <span dir="auto">Jetty/Troubleshooting</span>
+                </h1>
+                <div id="main-page-content">
+                                                      <!-- subtitle -->
+                  <div id="contentSub"  class="alert alert-small alert-warning"><span class="subpages">&lt; <a href="../Jetty.html" title="Jetty">Jetty</a></span></div>
+                  <!-- /subtitle -->
+                  
+                  
+                  <div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><p><br />
+</p><p><br />
+</p>
+<div id="toc" class="toc"><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="Troubleshooting.html#Big_Problems"><span class="tocnumber">1</span> <span class="toctext">Big Problems</span></a>
+<ul>
+<li class="toclevel-2"><a href="Troubleshooting.html#What_about_locked_files_on_Windows.3F"><span class="tocnumber">1.1</span> <span class="toctext">What about locked files on Windows?</span></a></li>
+<li class="toclevel-2"><a href="Troubleshooting.html#Why_isn.27t_my_application.2Fservlet.2Fcontent_served.3F"><span class="tocnumber">1.2</span> <span class="toctext">Why isn't my application/servlet/content served?</span></a></li>
+<li class="toclevel-2"><a href="Troubleshooting.html#Jetty_has_locked_up.3F"><span class="tocnumber">1.3</span> <span class="toctext">Jetty has locked up?</span></a></li>
+<li class="toclevel-2"><a href="Troubleshooting.html#JSP_support_not_configured.3F"><span class="tocnumber">1.4</span> <span class="toctext">JSP support not configured?</span></a></li>
+<li class="toclevel-2"><a href="Troubleshooting.html#Why_does_StressTest.java_fail_on_Mac_OS.3F"><span class="tocnumber">1.5</span> <span class="toctext">Why does StressTest.java fail on Mac OS?</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-2"><a href="Troubleshooting.html#Logs_and_Warnings"><span class="tocnumber">2</span> <span class="toctext">Logs and Warnings</span></a>
+<ul>
+<li class="toclevel-2"><a href="Troubleshooting.html#Why_do_I_get_JVM_Bugs_reported.3F"><span class="tocnumber">2.1</span> <span class="toctext">Why do I get JVM Bugs reported?</span></a></li>
+<li class="toclevel-2"><a href="Troubleshooting.html#Why_do_I_get_a_.22Save_could_not_be_completed.22_error_in_Eclipse_whenever_I_try_to_save_a_file_while_Jetty_is_running.3F"><span class="tocnumber">2.2</span> <span class="toctext">Why do I get a "Save could not be completed" error in Eclipse whenever I try to save a file while Jetty is running?</span></a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Big_Problems">Big Problems</span></h2>
+<h3><span class="mw-headline" id="What_about_locked_files_on_Windows.3F"><a href="https://wiki.eclipse.org/File:Question_Mark.png" class="image"><img alt="Question Mark.png" src="../images/6/60/Question_Mark.png" width="40" height="40" /></a> What about locked files on Windows?</span></h3>
+<div style="border: 1px solid #BBF; border-radius: 5px; padding: 10px; -moz-border-radius:10px;">Easy! read this! <a rel="nofollow" class="external free" href="http://wiki.eclipse.org/Jetty/Howto/Deal_with_Locked_Windows_Files">http://wiki.eclipse.org/Jetty/Howto/Deal_with_Locked_Windows_Files</a></div>
+<p><br />
+</p>
+<h3><span class="mw-headline" id="Why_isn.27t_my_application.2Fservlet.2Fcontent_served.3F"><a href="https://wiki.eclipse.org/File:Question_Mark.png" class="image"><img alt="Question Mark.png" src="../images/6/60/Question_Mark.png" width="40" height="40" /></a> Why isn't my application/servlet/content served?</span></h3>
+<div style="border: 1px solid #BBF; border-radius: 5px; padding: 10px; -moz-border-radius:10px;">To diagnose the problem:
+<ul><li> If you think your application is running, but you get a 404 response, make sure that you have correctly <a href="Howto/SetContextPath.html" title="Jetty/Howto/SetContextPath">set the context path</a>.</li></ul>
+<ul><li> If you click a link to access the application, make sure you don't have a relative URL problem.  Remember that a link to foo/bar on a page at /myapp/page goes to /myapp/foo/bar.  If you want it to go to /myapp/page/foo/bar, make sure the browser is redirected from /myapp/page to /myapp/page/.</li></ul>
+<ul><li> If you still cannot get your content, look in the requestlog to see the exact URL that is being requested.</li></ul>
+<ul><li> If you receive a 503 Unavailable response, an exception occurred while deploying the web application. Check the log for details.</div></li></ul>
+<p><br />
+</p>
+<h3><span class="mw-headline" id="Jetty_has_locked_up.3F"><a href="https://wiki.eclipse.org/File:Question_Mark.png" class="image"><img alt="Question Mark.png" src="../images/6/60/Question_Mark.png" width="40" height="40" /></a> Jetty has locked up?</span></h3>
+<div style="border: 1px solid #BBF; border-radius: 5px; padding: 10px; -moz-border-radius:10px;">If your requests are not getting any responses, a frequent description of the problem is that "Jetty locked up." To diagnose such problems, it is very important to work out exactly what has locked up.
+<ul><li> You can test whether the JVM has locked up completely by trying to use a tool like Jconsole or jvisualvm to attach to the process. </li></ul>
+<ul><li><ul><li> If you cannot attach to the process, it is likely something has gone wrong with the JVM and/or the operating system rather than Jetty itself.</li></ul></li></ul>
+<ul><li><ul><li> If you can attach to the JVM with Jconsole and/or jvisualvm, look to see how many threads are allocated and what tasks they are doing.  A frequent cause of lockups is a slow database so that all the threads in the thread pool end up waiting for a JDBC connection from the connection pool.</li></ul></li></ul>
+<ul><li> You can test whether Jetty is completely locked up by trying some simple requests to see if they get a response. Opening <a rel="nofollow" class="external free" href="http://thehost.com/favicon.icon">http://thehost.com/favicon.icon</a> or some other image directly is often a good way to see if Jetty is still running.  If it is, try some simple requests within the application that use minimal features (no authentication, no database, for example) and see if any of those requests work.</li></ul>
+<ul><li> Finally, you can use telnet as a fake HTTP client to see if Jetty is accepting connections.  If you telnet to the port (80 or 8080) and you see a "Connected to www.example.com" message, Jetty is still accepting connections. Next try typing a request like "OPTION * HTTP/1.0" and press <b>Enter</b> twice to see if you get an HTTP response:</li></ul>
+   <pre>
+   # telnet blogs.webtide.com 80
+   Trying 72.32.76.94...
+   Connected to blogs.webtide.com.
+   Escape character is '^]'.
+   OPTION * HTTP/1.0
+   HTTP/1.1 503 Service Unavailable
+   Cache-Control: must-revalidate,no-cache,no-store
+   Content-Type: text/html;charset=ISO-8859-1
+   Content-Length: 1287
+   Server: Jetty(7.0.0.v20091005)
+   </pre>
+<p>Check that the <i>Server</i> in the response field is Jetty (and not a load balancer, etc.).
+</p>
+Doing tests like these helps narrow down exactly which component has locked up.   Getting a thread dump (with jstack or ctl-\ or jvisualvm) is also invaluable to diagnose what the threads are doing.</div>
+<p><br />
+</p><p><br />
+</p>
+<h3><span class="mw-headline" id="JSP_support_not_configured.3F"><a href="https://wiki.eclipse.org/File:Question_Mark.png" class="image"><img alt="Question Mark.png" src="../images/6/60/Question_Mark.png" width="40" height="40" /></a> JSP support not configured?</span></h3>
+<div style="border: 1px solid #BBF; border-radius: 5px; padding: 10px; -moz-border-radius:10px;">JSP is an option for Jetty.  You must specify the JSP option for the <a href="Howto/Run&#32;Jetty.html" title="Jetty/Howto/Run Jetty">start.jar command line</a>. (As of Jetty 7.1.x, the jetty@eclipse download includes the JSP Jars.)
+<p>If JSP is incorrectly configured, each context started produces an error message like: 
+</p>
+<pre>
+INFO::NO JSP Support for /, did not find org.apache.jasper.servlet.JspServlet
+</pre>
+A request to a JSP generates a 500 response with the message "500 JSP support not configured"</div>
+<p><br />
+</p>
+<h3><span class="mw-headline" id="Why_does_StressTest.java_fail_on_Mac_OS.3F"><a href="https://wiki.eclipse.org/File:Question_Mark.png" class="image"><img alt="Question Mark.png" src="../images/6/60/Question_Mark.png" width="40" height="40" /></a> Why does StressTest.java fail on Mac OS?</span></h3>
+<div style="border: 1px solid #BBF; border-radius: 5px; padding: 10px; -moz-border-radius:10px;">StressTest in jetty-server might fail on Mac OS X due to an insufficient port range. Most operating systems have a limit of 65535 available TCP/IP ports.
+<p>Read the following wikipedia entry for details:
+</p><p><a rel="nofollow" class="external free" href="http://en.wikipedia.org/wiki/Ephemeral_port">http://en.wikipedia.org/wiki/Ephemeral_port</a>
+</p><p>[...]The IANA suggests 49152 to 65535 as "dynamic and/or private ports.[...]
+</p><p>[...]Many Linux kernels use 32768 to 61000.[...]
+</p><p>We have fixed the test code to make it run successfully on Mac OS. If it nonetheless fails on your Mac OS, raise the port range by executing the following two commands in a terminal:
+</p>
+<pre>
+sudo sysctl -w net.inet.ip.portrange.first=32768
+sudo sysctl -w net.inet.ip.portrange.hifirst=32768
+</pre>
+It seems that Apple raised the limits for Mac OS Lion, so on Lion it should work from scratch. If not, apply the <tt>sysctl</tt> commands and retry.</div>
+<h2><span class="mw-headline" id="Logs_and_Warnings">Logs and Warnings</span></h2>
+<h3><span class="mw-headline" id="Why_do_I_get_JVM_Bugs_reported.3F"><a href="https://wiki.eclipse.org/File:Question_Mark.png" class="image"><img alt="Question Mark.png" src="../images/6/60/Question_Mark.png" width="40" height="40" /></a> Why do I get JVM Bugs reported?</span></h3>
+<div style="border: 1px solid #BBF; border-radius: 5px; padding: 10px; -moz-border-radius:10px;">Yes! 
+There are several NIO bugs in the JVM (especially for Linux) that are not fixed in the 1.6.x series. Jetty has implemented a number of <a href="Feature/JVM&#32;NIO&#32;Bug.html" title="Jetty/Feature/JVM NIO Bug">JVM NIO Bug work arounds</a> that keep a Jetty server working efficiently in the presence of these problems.</div>
+<p><br />
+</p>
+<h3><span class="mw-headline" id="Why_do_I_get_a_.22Save_could_not_be_completed.22_error_in_Eclipse_whenever_I_try_to_save_a_file_while_Jetty_is_running.3F"><a href="https://wiki.eclipse.org/File:Question_Mark.png" class="image"><img alt="Question Mark.png" src="../images/6/60/Question_Mark.png" width="40" height="40" /></a> Why do I get a "Save could not be completed" error in Eclipse whenever I try to save a file while Jetty is running?</span></h3>
+<div style="border: 1px solid #BBF; border-radius: 5px; padding: 10px; -moz-border-radius:10px;">This is a limitation of Windows -- having a file open in one process means that you can't write to that same file with another process. Since Jetty has mapped the file to its cache, which prevents the file from being edited, you need to turn off caching to work around the problem. You can turn off caching in the default servlet by setting <code>&lt;useFileMappedBuffer&gt;</code> to <code>false</code> in <a href="Reference/webdefault.xml.html" title="Jetty/Reference/webdefault.xml">webdefault.xml</a>.</div>
+
+<!-- 
+NewPP limit report
+Cached time: 20211116175532
+Cache expiry: 86400
+Dynamic content: false
+CPU time usage: 0.156 seconds
+Real time usage: 0.309 seconds
+Preprocessor visited node count: 118/1000000
+Preprocessor generated node count: 366/1000000
+Post‐expand include size: 6394/2097152 bytes
+Template argument size: 4851/2097152 bytes
+Highest expansion depth: 4/40
+Expensive parser function count: 0/100
+-->
+
+<!-- 
+Transclusion expansion time report (%,ms,calls,template)
+100.00%   60.481      1 - -total
+ 52.35%   31.664      1 - Template:Jetty_FAQ_Section
+ 41.81%   25.289      7 - Template:Jetty_FAQ
+ 23.82%   14.409      1 - Template:Jetty
+-->
+
+<!-- Saved in parser cache with key my_wiki:pcache:idhash:20307-0!*!0!!en!5!* and timestamp 20211116175532 and revision id 269285
+ -->
+</div>
+                                      <!-- catlinks -->
+                    <div id='catlinks' class='catlinks'><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="https://wiki.eclipse.org/Special:Categories" title="Special:Categories">Categories</a>: <ul><li><a href="https://wiki.eclipse.org/Category:Jetty" title="Category:Jetty">Jetty</a></li><li><a href="https://wiki.eclipse.org/Category:Jetty_FAQ" title="Category:Jetty FAQ">Jetty FAQ</a></li><li><a href="https://wiki.eclipse.org/Category:Draft_Documentation" title="Category:Draft Documentation">Draft Documentation</a></li></ul></div></div>                     <!-- /catlinks -->
+                                  </div>
+              </div>
+            </div>
+          </div>
+        <!-- /maincontent -->
+
+                <!-- printfooter -->
+        <div class="printfooter">
+        Retrieved from "<a dir="ltr" href="https://wiki.eclipse.org/index.php?title=Jetty/Troubleshooting&amp;oldid=269285">https://wiki.eclipse.org/index.php?title=Jetty/Troubleshooting&amp;oldid=269285</a>"        </div>
+        <!-- /printfooter -->
+        
+        
+        <!-- debughtml -->
+                <!-- /debughtml -->
+
+      </div>
+      <!-- /bodyContent -->
+    </section>
+    <!-- /content -->
+
+    <!-- footer -->
+    
+</div>
+<div class="featured-footer featured-footer-newsletter background-secondary">
+  <div class="container">
+    <p id="footercredit">This page was last modified 15:29, 20 September 2011 by <a href="https://wiki.eclipse.org/User:Jesse.mcconnell.gmail.com" title="User:Jesse.mcconnell.gmail.com">Jesse McConnell</a>. Based on work by <a href="https://wiki.eclipse.org/index.php?title=User:Boulay.intalio.com&amp;action=edit&amp;redlink=1" class="new" title="User:Boulay.intalio.com (page does not exist)">Shirley Boulay</a>, <a href="https://wiki.eclipse.org/index.php?title=User:Gregw.webtide.com&amp;action=edit&amp;redlink=1" class="new" title="User:Gregw.webtide.com (page does not exist)">Greg Wilkins</a> and <a href="https://wiki.eclipse.org/index.php?title=User:Athena.webtide.com&amp;action=edit&amp;redlink=1" class="new" title="User:Athena.webtide.com (page does not exist)">Athena Yao</a>.</p><p id="footerviews"></p>  </div>
+</div>
+</main> <!-- /#main-content-container-row -->
+<p id="back-to-top" class="noprint hidden-print">
+  <a class="visible-xs" href="Troubleshooting.html#top">Back to the top</a>
+</p>
+<footer id="solstice-footer">
+  <div class="container">
+    <div class="row">
+      <section class="col-sm-6 hidden-print" id="footer-eclipse-foundation">
+        <h2 class="section-title">Eclipse Foundation</h2>
+        <ul class="nav">
+          <li><a href="https://www.eclipse.org/org/">About Us</a></li>
+          <li><a href="https://www.eclipse.org/org/foundation/contact.php">Contact Us</a></li>
+          <li><a href="https://www.eclipse.org/donate">Donate</a></li>
+          <li><a href="https://www.eclipse.org/membership/">Members</a></li>
+          <li><a href="https://www.eclipse.org/org/documents/">Governance</a></li>
+          <li><a href="https://www.eclipse.org/org/documents/Community_Code_of_Conduct.php">Code of Conduct</a></li>
+          <li><a href="https://www.eclipse.org/artwork/">Logo and Artwork</a></li>
+          <li><a href="https://www.eclipse.org/org/foundation/directors.php">Board of Directors</a></li>
+        </ul>
+      </section>
+      <section class="col-sm-6 hidden-print" id="footer-legal">
+        <h2 class="section-title">Legal</h2>
+        <ul class="nav">
+          <li><a href="https://www.eclipse.org/legal/privacy.php">Privacy Policy</a></li>
+          <li><a href="https://www.eclipse.org/legal/termsofuse.php">Terms of Use</a></li>
+          <li><a href="https://www.eclipse.org/legal/copyright.php">Copyright Agent</a></li>
+          <li><a href="https://www.eclipse.org/legal/epl-2.0/">Eclipse Public License</a></li>
+          <li><a href="https://www.eclipse.org/legal/">Legal Resources</a></li>
+        </ul>
+      </section>
+      <section class="col-sm-6 hidden-print" id="footer-useful-links">
+        <h2 class="section-title">Useful Links</h2>
+        <ul class="nav">
+          <li><a href="https://bugs.eclipse.org/bugs/">Report a Bug</a></li>
+          <li><a href="https://help.eclipse.org/">Documentation</a></li>
+          <li><a href="https://www.eclipse.org/contribute/">How to Contribute</a></li>
+          <li><a href="https://www.eclipse.org/mail/">Mailing Lists</a></li>
+          <li><a href="https://www.eclipse.org/forums/">Forums</a></li>
+          <li><a href="https://marketplace.eclipse.org/">Marketplace</a></li>
+        </ul>
+      </section>
+      <section class="col-sm-6 hidden-print" id="footer-other">
+        <h2 class="section-title">Other</h2>
+        <ul class="nav">
+          <li><a href="https://www.eclipse.org/ide/">IDE and Tools</a></li>
+          <li><a href="https://www.eclipse.org/projects">Projects</a></li>
+          <li><a href="https://www.eclipse.org/org/workinggroups/">Working Groups</a></li>
+          <li><a href="https://www.eclipse.org/org/research/">Research@Eclipse</a></li>
+          <li><a href="https://www.eclipse.org/security/">Report a Vulnerability</a></li>
+          <li><a href="https://status.eclipse.org">Service Status</a></li>
+        </ul>
+      </section>
+      <div class="col-sm-24 margin-top-20">
+        <div class="row">
+          <div id="copyright" class="col-md-16">
+            <p id="copyright-text">Copyright &copy; Eclipse Foundation, Inc. All Rights Reserved.</p>
+          </div>
+          <div class="col-md-8 social-media">
+            <ul class="list-inline">
+              <li>
+                <a class="social-media-link fa-stack fa-lg" href="https://twitter.com/EclipseFdn">
+                <i class="fa fa-circle-thin fa-stack-2x"></i>
+                <i class="fa fa-twitter fa-stack-1x"></i>
+                </a>
+              </li>
+              <li>
+                <a class="social-media-link fa-stack fa-lg" href="https://www.facebook.com/eclipse.org">
+                <i class="fa fa-circle-thin fa-stack-2x"></i>
+                <i class="fa fa-facebook fa-stack-1x"></i>
+                </a>
+              </li>
+              <li>
+                <a class="social-media-link fa-stack fa-lg" href="https://www.youtube.com/user/EclipseFdn">
+                <i class="fa fa-circle-thin fa-stack-2x"></i>
+                <i class="fa fa-youtube fa-stack-1x"></i>
+                </a>
+              </li>
+              <li>
+                <a class="social-media-link fa-stack fa-lg" href="https://www.linkedin.com/company/eclipse-foundation">
+                <i class="fa fa-circle-thin fa-stack-2x"></i>
+                <i class="fa fa-linkedin fa-stack-1x"></i>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <a href="Troubleshooting.html#" class="scrollup">Back to the top</a>
+    </div>
+  </div>
+</footer>
+    <!-- /footer -->
+    <script>window.RLQ = window.RLQ || []; window.RLQ.push( function () {
+mw.loader.state({"skins.solstice":"loading","user":"ready","user.groups":"ready"});mw.loader.load("/load.php?debug=false\u0026lang=en\u0026modules=skins.solstice\u0026only=scripts\u0026skin=solstice");mw.loader.load(["mediawiki.toc","mediawiki.action.view.postEdit","site","mediawiki.user","mediawiki.hidpi","mediawiki.page.ready","mediawiki.searchSuggest"]);
+} );</script><script>window.RLQ = window.RLQ || []; window.RLQ.push( function () {
+mw.config.set({"wgBackendResponseTime":442});
+} );</script>  </body>
+</html>
