@@ -95,24 +95,6 @@
               <h2>
                 <span class="mw-headline" id="Introduction">Introduction</span>
               </h2>
-              <div class="messagebox" style="background-color: #f9f6b7; border: 1px solid #c4c295; color: black; padding: 5px; margin: 1ex 0; min-height: 35px; padding-left: 45px;">
-                <div style="float: left; margin-left: -40px;">
-                  <a class="image" href="https://wiki.eclipse.org/File:Warning2.png">
-                    <img alt="Warning2.png" height="35" src="../../images/3/37/Warning2.png" width="35" />
-                  </a>
-                </div>
-                <div>
-                  Some or all of this content remains to be ported to Jetty 9
-                  <a class="external text" href="http://www.eclipse.org/jetty/documentation/current" rel="nofollow">Documentation</a>
-                  .
-                  <br />
-                  If you are interested in migrating this content see our
-                  <a class="external text" href="http://www.eclipse.org/jetty/documentation/current/contributing-documentation.html" rel="nofollow">contribution guide</a>
-                  or
-                  <a class="external text" href="http://www.eclipse.org/jetty/documentation/current/community.html" rel="nofollow">contact us</a>
-                  .
-                </div>
-              </div>
               <p>
                 <br />
                 These instructions describe how to stress test CometD from Jetty7 running on Unix. The same basic steps apply to Windows or Mac; please feel free to add details and terminology specific to these platforms to this wiki.
@@ -415,25 +397,6 @@
                   </pre>
                 </div>
               </div>
-              <div class="messagebox" style="background-color: #def3fe; border: 1px solid #c5d7e0; color: black; padding: 5px; margin: 1ex 0; min-height: 35px; padding-left: 45px;">
-                <div style="float: left; margin-left: -40px;">
-                  <a class="image" href="https://wiki.eclipse.org/File:Note.png">
-                    <img alt="Note.png" height="35" src="../../images/c/cc/Note.png" width="35" />
-                  </a>
-                </div>
-                <div>
-                  <b>Depending on the version you might need to create a lib/cometd directory and put the cometd-api, cometd-java-server and cometd-java-client in it.</b>
-                  <ul>
-                    <li>lib/cometd/</li>
-                    <li>lib/cometd/cometd-api-1.0.beta9.jar</li>
-                    <li>lib/cometd/cometd-client-6.1.19.jar</li>
-                    <li>lib/cometd/cometd-server-6.1.19.jar</li>
-                  </ul>
-                  <b>
-                    <br />
-                  </b>
-                </div>
-              </div>
               <p>
                 <br />
                 The client has a basic text UI that operates in two phases: 1) global configuration 2) test runs. An example global configuration phase looks like:
@@ -696,17 +659,6 @@ A normal run should report no exceptions or timeouts. For a single server and si
                 <li>You will not have exact message counts, and must adjust according to the number of nodes.</li>
                 <li>It is very important that there is affinity, as the Bayeux client ID must be known on the worker node used, and both connections from the same simulated node must arrive at the same worker node. However, the test does not use HTTP sessions, so the balancer must set any cookies used for affinity (the test client handles set cookies).</li>
               </ul>
-              <div class="messagebox" style="background-color: #def3fe; border: 1px solid #c5d7e0; color: black; padding: 5px; margin: 1ex 0; min-height: 35px; padding-left: 45px;">
-                <div style="float: left; margin-left: -40px;">
-                  <a class="image" href="https://wiki.eclipse.org/File:Note.png">
-                    <img alt="Note.png" height="35" src="../../images/c/cc/Note.png" width="35" />
-                  </a>
-                </div>
-                <div>
-                  <b>In reality, IP source hash is a sufficient affinity for Bayeux, but in this test, all clients come from the same IP address. Also note that the real dojo CometD client has good support for migrating to new nodes if affinity fails or the cluster changes. Also a real chat room server implementation would probably be backed by JMS so that multiple nodes would still represent a single chat space.</b>
-                  <br />
-                </div>
-              </div>
             </div>
             <div class="catlinks" id="catlinks">
               <div class="mw-normal-catlinks" id="mw-normal-catlinks">
