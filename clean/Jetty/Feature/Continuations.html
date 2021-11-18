@@ -5,6 +5,17 @@
     <link href="../../wiki-style.css" media="screen, print" rel="stylesheet" />
   </head>
   <body>
+    <div class="heading">
+      <p class="heading-title">Archive of wiki.eclipse.org/jetty for End of Life (EOL) Eclipse Jetty 7 and Eclipse Jetty 8.</p>
+      <p class="heading-link">
+        For up-to-date documentation see
+        <a href="https://eclipse.org/jetty">Eclipse Jetty</a>
+        project page.
+      </p>
+      <p class="heading-nav">
+        <a href="Jetty.html">Eclipse Jetty 7 Archive Home</a>
+      </p>
+    </div>
     <div class="col-md-20" id="mainContent">
       <div class="tab-content background-white">
         <div class="tab-pane active" id="tab-pane-main-page-content">
@@ -21,7 +32,6 @@
               </span>
             </div>
             <div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="en">
-
               <div class="toc" id="toc">
                 <div id="toctitle">
                   <h2>Contents</h2>
@@ -341,7 +351,7 @@
               </h3>
               <p>
                 From Jetty 7 onwards, the
-                <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/continuation/Continuation.html" rel="nofollow">Continuations API</a>
+                <a class="external text" href="https://archive.eclipse.org/jetty/7.6.16.v20140903/apidocs/org/eclipse/jetty/continuation/Continuation.html" rel="nofollow">Continuations API</a>
                 has been extended to be a general purpose API that will work asynchronously on any servlet-3.0 container, as well as on Jetty 6, 7, or 8. Continuations will also work in blocking mode with any servlet 2.5 container. Continuations should be considered an application abstraction and portability layer on top of the implementation detail of asynchronous servlets.
               </p>
               <h3>
@@ -352,7 +362,7 @@
               </h4>
               <p>
                 The
-                <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/continuation/ContinuationSupport.html" rel="nofollow">ContinuationSupport</a>
+                <a class="external text" href="https://archive.eclipse.org/jetty/7.6.16.v20140903/apidocs/org/eclipse/jetty/continuation/ContinuationSupport.html" rel="nofollow">ContinuationSupport</a>
                 factory class can be used to obtain a continuation instance associated with a request:
               </p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
@@ -408,7 +418,7 @@
                 method.  Unlike jetty-6 continuations, an exception is not thrown by suspend and the method should return normally.  This allows the registration of the continuation to occur after suspension and avoids the need for a mutex.  If an exception is desirable (to bypass code that is unaware of continuations and may try to commit the response), then
                 <code>continuation.undispatch()</code>
                 may be called to exit the current thread from the current dispatch by throwing a
-                <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/continuation/ContinuationThrowable.html" rel="nofollow">ContinuationThrowable</a>
+                <a class="external text" href="https://archive.eclipse.org/jetty/7.6.16.v20140903/apidocs/org/eclipse/jetty/continuation/ContinuationThrowable.html" rel="nofollow">ContinuationThrowable</a>
                 .
               </p>
               <p>
@@ -461,7 +471,7 @@
               </h4>
               <p>
                 An application may monitor the status of a continuation by using a
-                <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/continuation/ContinuationListener.html" rel="nofollow">ContinuationListener</a>
+                <a class="external text" href="https://archive.eclipse.org/jetty/7.6.16.v20140903/apidocs/org/eclipse/jetty/continuation/ContinuationListener.html" rel="nofollow">ContinuationListener</a>
                 :
               </p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
@@ -593,7 +603,7 @@
                 The
                 <a class="external text" href="https://archive.eclipse.org/jetty/7.6.16.v20140903/xref/org/eclipse/jetty/servlets/QoSFilter.html" rel="nofollow">QoSFilter</a>
                 (
-                <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/servlets/QoSFilter.html" rel="nofollow">javadoc</a>
+                <a class="external text" href="https://archive.eclipse.org/jetty/7.6.16.v20140903/apidocs/org/eclipse/jetty/servlets/QoSFilter.html" rel="nofollow">javadoc</a>
                 ), uses suspend/resume style to limit the number of requests simultaneously within the filter.  This can be used to protect a JDBC connection pool or other limited resource from too many simultaneous requests.
               </p>
               <p>If too many requests are received, the extra requests wait for a short time on a semaphore, before being suspended.  As requests within the filter return, they use a priority queue to resume the suspended requests.  This allows your authenticated or priority users to get a better share of your server's resources when the machine is under load.</p>
@@ -604,7 +614,7 @@
                 The
                 <a class="external text" href="https://archive.eclipse.org/jetty/7.6.16.v20140903/xref/org/eclipse/jetty/servlets/DoSFilter.html" rel="nofollow">DosFilter</a>
                 (
-                <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/servlets/DoSFilter.html" rel="nofollow">javadoc</a>
+                <a class="external text" href="https://archive.eclipse.org/jetty/7.6.16.v20140903/apidocs/org/eclipse/jetty/servlets/DoSFilter.html" rel="nofollow">javadoc</a>
                 ) is similar to the QoSFilter, but protects a web application from a denial of service attack, as much as is possible from within a web application.
               </p>
               <p>If too many requests are detected coming from one source, then those requests are suspended and a warning generated.  This works on the assumption that the attacker may be written in simple blocking style, so by suspending you are hopefully consuming their resources.   True protection from DOS can only be achieved by network devices (or eugenics :)).</p>
@@ -615,7 +625,7 @@
                 The
                 <a class="external text" href="https://archive.eclipse.org/jetty/7.6.16.v20140903/xref/org/eclipse/jetty/servlets/ProxyServlet.html" rel="nofollow">ProxyServlet</a>
                 uses the suspend/complete style and the Jetty asynchronous
-                <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/client/HttpClient.html" rel="nofollow">HTTP client</a>
+                <a class="external text" href="https://archive.eclipse.org/jetty/7.6.16.v20140903/apidocs/org/eclipse/jetty/client/HttpClient.html" rel="nofollow">HTTP client</a>
                 to implement a scalable Proxy server (or transparent proxy).
               </p>
               <h4>

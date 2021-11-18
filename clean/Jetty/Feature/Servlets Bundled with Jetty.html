@@ -5,6 +5,17 @@
     <link href="../../wiki-style.css" media="screen, print" rel="stylesheet" />
   </head>
   <body>
+    <div class="heading">
+      <p class="heading-title">Archive of wiki.eclipse.org/jetty for End of Life (EOL) Eclipse Jetty 7 and Eclipse Jetty 8.</p>
+      <p class="heading-link">
+        For up-to-date documentation see
+        <a href="https://eclipse.org/jetty">Eclipse Jetty</a>
+        project page.
+      </p>
+      <p class="heading-nav">
+        <a href="Jetty.html">Eclipse Jetty 7 Archive Home</a>
+      </p>
+    </div>
     <div class="col-md-20" id="mainContent">
       <div class="tab-content background-white">
         <div class="tab-pane active" id="tab-pane-main-page-content">
@@ -21,7 +32,6 @@
               </span>
             </div>
             <div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="en">
-
               <div class="toc" id="toc">
                 <div id="toctitle">
                   <h2>Contents</h2>
@@ -103,7 +113,7 @@
               <p>
                 <br />
                 Jetty ships with a bundle of servlets that interact with the key classes. Most are in the org.eclipse.jetty.servlets package. These servlets are among the principle elements of Jetty as a component-based infrastructure that holds and runs J2EE applications. As described below, they play a major role in running and maintaining the Jetty server. For more information, see
-                <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/servlets/package-summary.html" rel="nofollow">Servlets javadoc</a>
+                <a class="external text" href="https://archive.eclipse.org/jetty/7.6.16.v20140903/apidocs/org/eclipse/jetty/servlets/package-summary.html" rel="nofollow">Servlets javadoc</a>
                 for the package.
               </p>
               <h2>
@@ -115,7 +125,7 @@
               <p>
                 The Jetty GzipFilter is a compression filter that you can apply to almost any dynamic resource (servlet). It fixes many of the bugs in commonly available compression filters–for example, it handles all ways to set content length. We have tested it with Jetty continuations and suspending requests.
 Some user-agents might be excluded from compression to avoid common browser bugs (yes, this means IE!). See
-                <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/servlets/GzipFilter.html" rel="nofollow">GzipFilter javadoc</a>
+                <a class="external text" href="https://archive.eclipse.org/jetty/7.6.16.v20140903/apidocs/org/eclipse/jetty/servlets/GzipFilter.html" rel="nofollow">GzipFilter javadoc</a>
                 .
               </p>
               <h3>
@@ -123,7 +133,7 @@ Some user-agents might be excluded from compression to avoid common browser bugs
               </h3>
               <p>
                 The MultiPartFilter class implements the Filter interface that the web container calls. It acts as a decoder of the mulitpart/form-data stream that an HTML form sends using a file input item. It stores any files an HTML form sends to a temporary location. It also adds a file object to the request, which acts as an attribute. Other values are available through the usual getParameter API, and the setCharacterEncoding mechanism is respected when converting bytes to strings. See
-                <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/servlets/MultiPartFilter.html" rel="nofollow">MultiPartFilter javadoc</a>
+                <a class="external text" href="https://archive.eclipse.org/jetty/7.6.16.v20140903/apidocs/org/eclipse/jetty/servlets/MultiPartFilter.html" rel="nofollow">MultiPartFilter javadoc</a>
                 .
               </p>
               <h3>
@@ -131,7 +141,7 @@ Some user-agents might be excluded from compression to avoid common browser bugs
               </h3>
               <p>
                 This NoJsp servlet extends the abstract class HttpServlet; it displays the code 500 error message "JSP support not configured." See
-                <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/servlet/NoJspServlet.html" rel="nofollow">NojspServlet javadoc</a>
+                <a class="external text" href="https://archive.eclipse.org/jetty/7.6.16.v20140903/apidocs/org/eclipse/jetty/servlet/NoJspServlet.html" rel="nofollow">NojspServlet javadoc</a>
                 .
               </p>
               <h3>
@@ -139,7 +149,7 @@ Some user-agents might be excluded from compression to avoid common browser bugs
               </h3>
               <p>
                 ProxyServlet is an experimental effort that implements the Servlet interface. It acts as an authorized servlet on behalf on another running servlet. It is not a substitute for the running servlet, but provides a mirror for the service. See
-                <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/servlets/ProxyServlet.html" rel="nofollow">ProxyServlet javadoc</a>
+                <a class="external text" href="https://archive.eclipse.org/jetty/7.6.16.v20140903/apidocs/org/eclipse/jetty/servlets/ProxyServlet.html" rel="nofollow">ProxyServlet javadoc</a>
                 .
               </p>
               <h3>
@@ -148,7 +158,7 @@ Some user-agents might be excluded from compression to avoid common browser bugs
               <p>The Quality of Service Filter limits the number of active requests to the number set by the "maxRequests" init parameter (default 10). If more requests than the set value are received, they are suspended and placed in priority queues. The getPriority(ServletRequest) method determines priorities, which are a value between zero and the value in the "maxPriority" init parameter (default 10), with higher values having higher priority.</p>
               <p>
                 This filter prevents wasting threads waiting for slow/limited resources such as a JDBC connection pool. It avoids consuming all of a container's thread pool. It also uses a priority system when resuming waiting requests. For example, consider a filter with a maxRequest limit slightly smaller than the container's thread pool, and a high priority allocated to admin users. Regardless of load, admin users are always able to access the web application. A semaphore polices the maxRequest limit, and the filter waits briefly while attempting to acquire the semaphore. Th "waitMS" init parameter controls waiting, avoiding the expense of a suspend if the semaphore is quickly available. If the system cannot obtain the semaphore, the request is suspended for the default suspend period of the container or the value set in the "suspendMs" init parameter. See
-                <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/servlets/QoSFilter.html" rel="nofollow">QoSFilter javadoc</a>
+                <a class="external text" href="https://archive.eclipse.org/jetty/7.6.16.v20140903/apidocs/org/eclipse/jetty/servlets/QoSFilter.html" rel="nofollow">QoSFilter javadoc</a>
                 .
               </p>
               <h3>
@@ -160,7 +170,7 @@ Some user-agents might be excluded from compression to avoid common browser bugs
               </h3>
               <p>
                 The WelcomeFilter is another servlet that also implements the Filter interface. It forwards any servlets to the necessary welcome display of an application when serviced. See
-                <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/servlets/WelcomeFilter.html" rel="nofollow">WelcomeFilter javadoc</a>
+                <a class="external text" href="https://archive.eclipse.org/jetty/7.6.16.v20140903/apidocs/org/eclipse/jetty/servlets/WelcomeFilter.html" rel="nofollow">WelcomeFilter javadoc</a>
                 .
               </p>
               <h3>
@@ -168,7 +178,7 @@ Some user-agents might be excluded from compression to avoid common browser bugs
               </h3>
               <p>
                 The DefaultServlet implements the ResourceFactory interface and extends the HttpServlet abstract class. It is usually mapped to / and provides handling for static content, OPTION and TRACE methods for the context. The MOVE method is allowed if PUT and DELETE are allowed. See
-                <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/servlet/DefaultServlet.html" rel="nofollow">DefaultServlet javadoc</a>
+                <a class="external text" href="https://archive.eclipse.org/jetty/7.6.16.v20140903/apidocs/org/eclipse/jetty/servlet/DefaultServlet.html" rel="nofollow">DefaultServlet javadoc</a>
                 .
               </p>
               <p>Jetty supports the following initParameters:</p>
@@ -196,7 +206,7 @@ useFileMappedBuffer–If set to true, mapped file buffer serves static content w
               </h3>
               <p>
                 The CGI servlet class extends the abstract HttpServlet class. When the init parameter is called, the cgi bin directory is set with the cgibinResourceBase. Otherwise, it defaults to the resource base of the context. See
-                <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/servlets/CGI.html" rel="nofollow">CGI javadoc</a>
+                <a class="external text" href="https://archive.eclipse.org/jetty/7.6.16.v20140903/apidocs/org/eclipse/jetty/servlets/CGI.html" rel="nofollow">CGI javadoc</a>
                 .
               </p>
               <p>The cgi bin uses three parameters:</p>

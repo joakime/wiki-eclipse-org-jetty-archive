@@ -5,6 +5,17 @@
     <link href="../../wiki-style.css" media="screen, print" rel="stylesheet" />
   </head>
   <body>
+    <div class="heading">
+      <p class="heading-title">Archive of wiki.eclipse.org/jetty for End of Life (EOL) Eclipse Jetty 7 and Eclipse Jetty 8.</p>
+      <p class="heading-link">
+        For up-to-date documentation see
+        <a href="https://eclipse.org/jetty">Eclipse Jetty</a>
+        project page.
+      </p>
+      <p class="heading-nav">
+        <a href="Jetty.html">Eclipse Jetty 7 Archive Home</a>
+      </p>
+    </div>
     <div class="col-md-20" id="mainContent">
       <div class="tab-content background-white">
         <div class="tab-pane active" id="tab-pane-main-page-content">
@@ -21,7 +32,6 @@
               </span>
             </div>
             <div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="en">
-
               <div class="toc" id="toc">
                 <div id="toctitle">
                   <h2>Contents</h2>
@@ -118,7 +128,7 @@
               </h2>
               <p>
                 The
-                <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/server/Handler.html" rel="nofollow">Handler</a>
+                <a class="external text" href="https://archive.eclipse.org/jetty/7.6.16.v20140903/apidocs/org/eclipse/jetty/server/Handler.html" rel="nofollow">Handler</a>
                 interface provides Jetty's core of content generation or manipulation. Classes that implement this interface are used to coordinate requests, filter requests and generate content.
               </p>
               <p>The core API of the Handler interface is</p>
@@ -153,9 +163,9 @@ Generating Handlers - Handlers that produce content (ResourceHandler and Servlet
                 and
                 <a class="external text" href="http://download.oracle.com/docs/cd/E17477_01/javaee/5/api/javax/servlet/http/HttpServletResponse.html" rel="nofollow">Servlet Response</a>
                 . These are the standard APIs and are moderately restricted in what can be done to the request and response. More often than not, access to the jetty implementations of these classes is required:
-                <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/server/Request.html" rel="nofollow">Request</a>
+                <a class="external text" href="https://archive.eclipse.org/jetty/7.6.16.v20140903/apidocs/org/eclipse/jetty/server/Request.html" rel="nofollow">Request</a>
                 and
-                <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/server/Response.html" rel="nofollow">Response</a>
+                <a class="external text" href="https://archive.eclipse.org/jetty/7.6.16.v20140903/apidocs/org/eclipse/jetty/server/Response.html" rel="nofollow">Response</a>
                 . However, as the request and response may be wrapped by handlers, filters and servlets, it is not possible to pass the implementation directly. The following mantra retrieves the core implementation objects from under any wrappers:
               </p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
@@ -189,7 +199,7 @@ Response base_response <span class="sy0">=</span> response <span class="kw1">ins
               </h3>
               <p>
                 The
-                <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/embedded/OneHandler.html" rel="nofollow">OneHandler</a>
+                <a class="external text" href="https://archive.eclipse.org/jetty/7.6.16.v20140903/apidocs/org/eclipse/jetty/embedded/OneHandler.html" rel="nofollow">OneHandler</a>
                 embedded example shows how a simple handler can generate a response.
               </p>
               <p>The normal servlet response API can be used and will typically set some status, content headers and then write out the content:</p>
@@ -242,7 +252,7 @@ Response base_response <span class="sy0">=</span> response <span class="kw1">ins
               </div>
               <p>
                 The classes that implement the
-                <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/server/handler/HandlerWrapper.html" rel="nofollow">HandlerWrapper</a>
+                <a class="external text" href="https://archive.eclipse.org/jetty/7.6.16.v20140903/apidocs/org/eclipse/jetty/server/handler/HandlerWrapper.html" rel="nofollow">HandlerWrapper</a>
                 class are typically handler filters of this style.
               </p>
               <h3>
@@ -250,24 +260,24 @@ Response base_response <span class="sy0">=</span> response <span class="kw1">ins
               </h3>
               <p>
                 A handler might simply inspect the request and use the target, request URI or other information to select another handler to pass the request to. These handlers typically implement the
-                <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/server/HandlerContainer.html" rel="nofollow">HandlerContainer</a>
+                <a class="external text" href="https://archive.eclipse.org/jetty/7.6.16.v20140903/apidocs/org/eclipse/jetty/server/HandlerContainer.html" rel="nofollow">HandlerContainer</a>
                 interface.
               </p>
               <p>Examples include:</p>
               <ul>
                 <li>
-                  <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/server/handler/HandlerCollection.html" rel="nofollow">Class Handler Collection</a>
+                  <a class="external text" href="https://archive.eclipse.org/jetty/7.6.16.v20140903/apidocs/org/eclipse/jetty/server/handler/HandlerCollection.html" rel="nofollow">Class Handler Collection</a>
                   - A collection of handlers, where each handler is called regardless of the state of the request. This is typically used to pass a request to a
-                  <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/server/handler/ContextHandlerCollection.html" rel="nofollow">ContextHandlerCollection</a>
+                  <a class="external text" href="https://archive.eclipse.org/jetty/7.6.16.v20140903/apidocs/org/eclipse/jetty/server/handler/ContextHandlerCollection.html" rel="nofollow">ContextHandlerCollection</a>
                   and then the a
-                  <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/server/handler/RequestLogHandler.html" rel="nofollow">RequestLogHandler</a>
+                  <a class="external text" href="https://archive.eclipse.org/jetty/7.6.16.v20140903/apidocs/org/eclipse/jetty/server/handler/RequestLogHandler.html" rel="nofollow">RequestLogHandler</a>
                 </li>
                 <li>
-                  <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/server/handler/HandlerList.html" rel="nofollow">HandlerList</a>
+                  <a class="external text" href="https://archive.eclipse.org/jetty/7.6.16.v20140903/apidocs/org/eclipse/jetty/server/handler/HandlerList.html" rel="nofollow">HandlerList</a>
                   - A list of handlers which are called in turn until the request state is set as handled.
                 </li>
                 <li>
-                  <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/server/handler/ContextHandlerCollection.html" rel="nofollow">ContextHandlerCollection</a>
+                  <a class="external text" href="https://archive.eclipse.org/jetty/7.6.16.v20140903/apidocs/org/eclipse/jetty/server/handler/ContextHandlerCollection.html" rel="nofollow">ContextHandlerCollection</a>
                   - collection of Handlers of which one is selected by best match for the context path.
                 </li>
               </ul>
@@ -278,7 +288,7 @@ Response base_response <span class="sy0">=</span> response <span class="kw1">ins
                 See
                 <a class="external text" href="https://archive.eclipse.org/jetty/7.6.16.v20140903/xref/" rel="nofollow">Jetty 7 Latest Source XRef</a>
                 and
-                <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/" rel="nofollow">Jetty 7 Latest JavaDoc</a>
+                <a class="external text" href="https://archive.eclipse.org/jetty/7.6.16.v20140903/apidocs/" rel="nofollow">Jetty 7 Latest JavaDoc</a>
                 for detailed information on each Jetty handler.
               </p>
             </div>

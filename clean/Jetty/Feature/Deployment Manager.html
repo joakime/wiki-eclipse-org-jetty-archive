@@ -5,6 +5,17 @@
     <link href="../../wiki-style.css" media="screen, print" rel="stylesheet" />
   </head>
   <body>
+    <div class="heading">
+      <p class="heading-title">Archive of wiki.eclipse.org/jetty for End of Life (EOL) Eclipse Jetty 7 and Eclipse Jetty 8.</p>
+      <p class="heading-link">
+        For up-to-date documentation see
+        <a href="https://eclipse.org/jetty">Eclipse Jetty</a>
+        project page.
+      </p>
+      <p class="heading-nav">
+        <a href="Jetty.html">Eclipse Jetty 7 Archive Home</a>
+      </p>
+    </div>
     <div class="col-md-20" id="mainContent">
       <div class="tab-content background-white">
         <div class="tab-pane active" id="tab-pane-main-page-content">
@@ -21,7 +32,6 @@
               </span>
             </div>
             <div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="en">
-
               <div class="toc" id="toc">
                 <div id="toctitle">
                   <h2>Contents</h2>
@@ -67,7 +77,7 @@
               <p>
                 <br />
                 In order for Jetty to serve content (static or dynamic), you need to create a
-                <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/server/handler/ContextHandler.html" rel="nofollow">ContextHandler</a>
+                <a class="external text" href="https://archive.eclipse.org/jetty/7.6.16.v20140903/apidocs/org/eclipse/jetty/server/handler/ContextHandler.html" rel="nofollow">ContextHandler</a>
                 and add it to Jetty in the appropriate place.  A pluggable DeploymentManager exists in Jetty 7 to make this process easier.  The Jetty distribution contains example DeploymentManager configurations to deploy WAR files found in a directory to Jetty, and to deploy Jetty context.xml files into Jetty as well.
               </p>
               <h2>
@@ -84,13 +94,13 @@
               </h3>
               <p>
                 Before Jetty deploys an application, an
-                <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/deploy/AppProvider.html" rel="nofollow">AppProvider</a>
+                <a class="external text" href="https://archive.eclipse.org/jetty/7.6.16.v20140903/apidocs/org/eclipse/jetty/deploy/AppProvider.html" rel="nofollow">AppProvider</a>
                 identifies the App and then provides it to the Deployment Manager. Two AppProviders come with the Jetty distribution:
               </p>
               <ul>
                 <li>
                   <b>
-                    <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/deploy/providers/WebAppProvider.html" rel="nofollow">WebAppProvider</a>
+                    <a class="external text" href="https://archive.eclipse.org/jetty/7.6.16.v20140903/apidocs/org/eclipse/jetty/deploy/providers/WebAppProvider.html" rel="nofollow">WebAppProvider</a>
                   </b>
                   –monitors a directory for
                   <tt>*.war</tt>
@@ -103,7 +113,7 @@
               <ul>
                 <li>
                   <b>
-                    <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/deploy/providers/ContextProvider.html" rel="nofollow">ContextProvider</a>
+                    <a class="external text" href="https://archive.eclipse.org/jetty/7.6.16.v20140903/apidocs/org/eclipse/jetty/deploy/providers/ContextProvider.html" rel="nofollow">ContextProvider</a>
                   </b>
                   –monitors a directory for
                   <tt>*.xml</tt>
@@ -121,7 +131,7 @@
               </h3>
               <p>
                 The core feature of the DeploymentManager is the
-                <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/deploy/AppLifeCycle.html" rel="nofollow">Application LifeCycle Graph</a>
+                <a class="external text" href="https://archive.eclipse.org/jetty/7.6.16.v20140903/apidocs/org/eclipse/jetty/deploy/AppLifeCycle.html" rel="nofollow">Application LifeCycle Graph</a>
                 .
               </p>
               <p>
@@ -132,7 +142,7 @@
               <p>The nodes and edges of this graph are pre-defined in Jetty along the most common actions and states found. These nodes and edges are not hardcoded; you can adjust  and add to them depending on your needs (for example, any complex requirements for added workflow, approvals, staging, distribution, coordinated deploys for a cluster or cloud, etc.).</p>
               <p>
                 New Applications enter this graph at the Undeployed node, and the
-                <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/deploy/DeploymentManager.html#requestAppGoal(org.eclipse.jetty.deploy.App," rel="nofollow">java.lang.String) DeploymentManager.requestAppGoal(App,String)</a>
+                <a class="external text" href="https://archive.eclipse.org/jetty/7.6.16.v20140903/apidocs/org/eclipse/jetty/deploy/DeploymentManager.html#requestAppGoal(org.eclipse.jetty.deploy.App," rel="nofollow">java.lang.String) DeploymentManager.requestAppGoal(App,String)</a>
                 method pushes them through the graph.
               </p>
               <h3>
@@ -140,7 +150,7 @@
               </h3>
               <p>
                 A set of default
-                <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/deploy/AppLifeCycle.Binding.html" rel="nofollow">AppLifeCycle.Bindings</a>
+                <a class="external text" href="https://archive.eclipse.org/jetty/7.6.16.v20140903/apidocs/org/eclipse/jetty/deploy/AppLifeCycle.Binding.html" rel="nofollow">AppLifeCycle.Bindings</a>
                 defines standard behavior, and handles deploying, starting, stopping, and undeploying applications. If you choose, you can write your own AppLifeCycle.Binding's and assign them to anywhere on the Application LifeCycle graph.
               </p>
               <p>Examples of new AppLifeCycle.Binding implementations that you can write include:</p>
@@ -154,19 +164,19 @@
               <p>There are four default bindings:</p>
               <ul>
                 <li>
-                  <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/deploy/bindings/StandardDeployer.html" rel="nofollow">StandardDeployer</a>
+                  <a class="external text" href="https://archive.eclipse.org/jetty/7.6.16.v20140903/apidocs/org/eclipse/jetty/deploy/bindings/StandardDeployer.html" rel="nofollow">StandardDeployer</a>
                   –Deploys the ContextHandler into Jetty in the appropriate place.
                 </li>
                 <li>
-                  <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/deploy/bindings/StandardStarter.html" rel="nofollow">StandardStarter</a>
+                  <a class="external text" href="https://archive.eclipse.org/jetty/7.6.16.v20140903/apidocs/org/eclipse/jetty/deploy/bindings/StandardStarter.html" rel="nofollow">StandardStarter</a>
                   –Sets the ContextHandler to started and start accepting incoming requests.
                 </li>
                 <li>
-                  <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/deploy/bindings/StandardStopper.html" rel="nofollow">StandardStopper</a>
+                  <a class="external text" href="https://archive.eclipse.org/jetty/7.6.16.v20140903/apidocs/org/eclipse/jetty/deploy/bindings/StandardStopper.html" rel="nofollow">StandardStopper</a>
                   –Stops the ContextHandler and stop accepting incoming requests.
                 </li>
                 <li>
-                  <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/deploy/bindings/StandardUndeployer.html" rel="nofollow">StandardUndeployer</a>
+                  <a class="external text" href="https://archive.eclipse.org/jetty/7.6.16.v20140903/apidocs/org/eclipse/jetty/deploy/bindings/StandardUndeployer.html" rel="nofollow">StandardUndeployer</a>
                   –Removes the ContextHandler from Jetty.
                 </li>
               </ul>

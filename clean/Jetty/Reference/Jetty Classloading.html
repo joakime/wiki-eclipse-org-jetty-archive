@@ -5,6 +5,17 @@
     <link href="../../wiki-style.css" media="screen, print" rel="stylesheet" />
   </head>
   <body>
+    <div class="heading">
+      <p class="heading-title">Archive of wiki.eclipse.org/jetty for End of Life (EOL) Eclipse Jetty 7 and Eclipse Jetty 8.</p>
+      <p class="heading-link">
+        For up-to-date documentation see
+        <a href="https://eclipse.org/jetty">Eclipse Jetty</a>
+        project page.
+      </p>
+      <p class="heading-nav">
+        <a href="Jetty.html">Eclipse Jetty 7 Archive Home</a>
+      </p>
+    </div>
     <div class="col-md-20" id="mainContent">
       <div class="tab-content background-white">
         <div class="tab-pane active" id="tab-pane-main-page-content">
@@ -21,7 +32,6 @@
               </span>
             </div>
             <div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="en">
-
               <div class="toc" id="toc">
                 <div id="toctitle">
                   <h2>Contents</h2>
@@ -119,7 +129,7 @@
               <ul>
                 <li>
                   Server implementation classes like
-                  <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/index.html?org/eclipse/jetty/server/Server.html" rel="nofollow">org.eclipse.jetty.server.Server</a>
+                  <a class="external text" href="https://archive.eclipse.org/jetty/7.6.16.v20140903/apidocs/index.html?org/eclipse/jetty/server/Server.html" rel="nofollow">org.eclipse.jetty.server.Server</a>
                   should be hidden from the web application and should not be available in any classloader. Unfortunately the specification does not state what classes are
                   <i>Server</i>
                   classes, and it is unclear if common libraries like the Xerces parser should be treated as Implementation classes.
@@ -131,7 +141,7 @@
               <p>Jetty provides configuration options to control the three webapp class loading issues identified above.</p>
               <p>
                 You can configure webapp classloading  by several methods on the
-                <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/webapp/WebAppContext.html" rel="nofollow">org.eclipse.jetty.webapp.WebAppContext</a>
+                <a class="external text" href="https://archive.eclipse.org/jetty/7.6.16.v20140903/apidocs/org/eclipse/jetty/webapp/WebAppContext.html" rel="nofollow">org.eclipse.jetty.webapp.WebAppContext</a>
                 . You can call these methods directly if you are working with the Jetty API, or you can inject methods from a context XML file if you are using the
                 <a class="mw-redirect" href="https://wiki.eclipse.org/Jetty/Feature/ContextDeployer" title="Jetty/Feature/ContextDeployer">Context Provider</a>
                 . You CANNOT set these methods from a
@@ -143,7 +153,7 @@
               </h3>
               <p>
                 The method
-                <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/webapp/WebAppContext.html#isParentLoaderPriority()" rel="nofollow">org.eclipse.jetty.webapp.WebAppContext.setParentLoaderPriority(boolean)</a>
+                <a class="external text" href="https://archive.eclipse.org/jetty/7.6.16.v20140903/apidocs/org/eclipse/jetty/webapp/WebAppContext.html#isParentLoaderPriority()" rel="nofollow">org.eclipse.jetty.webapp.WebAppContext.setParentLoaderPriority(boolean)</a>
                 allows control over the priority given to webapp classes over system classes. If you set it to false (the default), Jetty uses standard webapp classloading priority. However, if in this mode some classes that are dependencies of other classes are loaded from the parent classloader (due to settings of system classes below), so ambiguities might arise as both the webapp and system classloader versions can end up being loaded.
               </p>
               <p>If set to true, then Jetty uses normal JavaSE classloading priority, and gives priority to the parent/system classloader. This avoids the issues of multiple versions of a class within a webapp, but the version the parent/system loader provides must be the right version for all webapps you configure in this way.</p>
@@ -152,9 +162,9 @@
               </h3>
               <p>
                 You can call the methods
-                <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/webapp/WebAppContext.html#setSystemClasses%28java.lang.String%5B%5D%29" rel="nofollow">org.eclipse.jetty.webapp.WebAppContext.setSystemClasses(String Array)</a>
+                <a class="external text" href="https://archive.eclipse.org/jetty/7.6.16.v20140903/apidocs/org/eclipse/jetty/webapp/WebAppContext.html#setSystemClasses%28java.lang.String%5B%5D%29" rel="nofollow">org.eclipse.jetty.webapp.WebAppContext.setSystemClasses(String Array)</a>
                 or
-                <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/webapp/WebAppContext.html#addSystemClass(java.lang.String)" rel="nofollow">org.eclipse.jetty.webapp.WebAppContext.addSystemClass(String)</a>
+                <a class="external text" href="https://archive.eclipse.org/jetty/7.6.16.v20140903/apidocs/org/eclipse/jetty/webapp/WebAppContext.html#addSystemClass(java.lang.String)" rel="nofollow">org.eclipse.jetty.webapp.WebAppContext.addSystemClass(String)</a>
                 to allow fine control over which classes are considered System classes.
               </p>
               <ul>
@@ -218,9 +228,9 @@
               </h3>
               <p>
                 You can call the methods
-                <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/webapp/WebAppContext.html#setServerClasses%28java.lang.String%5B%5D%29" rel="nofollow">org.eclipse.jetty.webapp.WebAppContext.setServerClasses(String Array)</a>
+                <a class="external text" href="https://archive.eclipse.org/jetty/7.6.16.v20140903/apidocs/org/eclipse/jetty/webapp/WebAppContext.html#setServerClasses%28java.lang.String%5B%5D%29" rel="nofollow">org.eclipse.jetty.webapp.WebAppContext.setServerClasses(String Array)</a>
                 or
-                <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/webapp/WebAppContext.html#addServerClass(java.lang.String)" rel="nofollow">org.eclipse.jetty.webapp.WebAppContext.addServerClass(String)</a>
+                <a class="external text" href="https://archive.eclipse.org/jetty/7.6.16.v20140903/apidocs/org/eclipse/jetty/webapp/WebAppContext.html#addServerClass(java.lang.String)" rel="nofollow">org.eclipse.jetty.webapp.WebAppContext.addServerClass(String)</a>
                 to allow fine control over which classes are considered Server classes.
               </p>
               <ul>
@@ -285,7 +295,7 @@
               </h3>
               <p>
                 You can add an additional classpath to a context classloader by calling
-                <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/webapp/WebAppContext.html#setExtraClasspath(java.lang.String)" rel="nofollow">org.eclipse.jetty.webapp.WebAppContext.setExtraClasspath(String)</a>
+                <a class="external text" href="https://archive.eclipse.org/jetty/7.6.16.v20140903/apidocs/org/eclipse/jetty/webapp/WebAppContext.html#setExtraClasspath(java.lang.String)" rel="nofollow">org.eclipse.jetty.webapp.WebAppContext.setExtraClasspath(String)</a>
                 with a comma-separated list of paths. You can do so directly to the API  via a context XML file such as the following:
               </p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
@@ -303,7 +313,7 @@
               </h2>
               <p>
                 If none of the alternatives already described meet your needs, you can always provide a custom classloader for your webapp. We recommend, but do not require, that your custom loader subclasses
-                <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/webapp/WebAppClassLoader.html" rel="nofollow">WebAppClassLoader</a>
+                <a class="external text" href="https://archive.eclipse.org/jetty/7.6.16.v20140903/apidocs/org/eclipse/jetty/webapp/WebAppClassLoader.html" rel="nofollow">WebAppClassLoader</a>
                 . You configure the classloader for the webapp like so:
               </p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
