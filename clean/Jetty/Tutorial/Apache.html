@@ -26,7 +26,7 @@
 <li class="toclevel-1"><a href="Apache.html#Introduction"><span class="tocnumber">1</span> <span class="toctext">Introduction</span></a></li>
 <li class="toclevel-1"><a href="Apache.html#Details"><span class="tocnumber">2</span> <span class="toctext">Details</span></a>
 <ul>
-<li class="toclevel-2"><a href="Apache.html#Which_Module_.3F"><span class="tocnumber">2.1</span> <span class="toctext">Which Module ?</span></a></li>
+<li class="toclevel-2"><a href="Apache.html#Which_Module_.3F"><span class="tocnumber">2.1</span> <span class="toctext">Which Module ?</span></a></li>
 <li class="toclevel-2"><a href="Apache.html#Configuring_Apache"><span class="tocnumber">2.2</span> <span class="toctext">Configuring Apache</span></a></li>
 <li class="toclevel-2"><a href="Apache.html#Configuring_mod_proxy"><span class="tocnumber">2.3</span> <span class="toctext">Configuring mod_proxy</span></a></li>
 <li class="toclevel-2"><a href="Apache.html#Configuring_mod_proxy_http"><span class="tocnumber">2.4</span> <span class="toctext">Configuring mod_proxy_http</span></a></li>
@@ -56,7 +56,7 @@ Jetty is a full functional and optimized HTTP server and has no need of an apach
 <p>So if we have not yet convinced you to not use apache, read on for the best way to do it.  This tutorial can be followed step by step to build up more and more capabilities into your apache configuration.
 </p>
 <h2><span class="mw-headline" id="Details">Details</span></h2>
-<h3><span id="Which_Module_.3F" class="mw-headline">Which Module ?</span></h3>
+<h3><span id="Which_Module_.3F" class="mw-headline">Which Module ?</span></h3>
 <p>Apache provides two mechanisms by which a request that it can receive can be forwarded to a servlet container like Jetty. 
 </p><p><a rel="nofollow" class="external text" href="http://tomcat.apache.org/connectors-doc/">Mod_jk</a> is a module written specifically for communicating with the apache tomcat server via the AJP protocol. It includes a load balancer and some management interfaces. Jetty supports this protocol via it's AJP connector, but we do not recommend using mod_jk since:
 </p>
@@ -88,22 +88,22 @@ the following directives can be used to load all the modules discussed
 <div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="apache source-apache"><pre class="de1"><span class="co1"># Turn off support for true Proxy behaviour as we are acting as </span>
 <span class="co1"># a transparent proxy</span>
 <span class="kw1">ProxyRequests</span> <span class="kw2">Off</span>
- 
+
 <span class="co1"># Turn off VIA header as we know where the requests are proxied</span>
 <span class="kw1">ProxyVia</span> <span class="kw2">Off</span>
- 
+
 <span class="co1"># Turn on Host header preservation so that the servlet container</span>
 <span class="co1"># can write links with the correct host and rewriting can be avoided.</span>
 <span class="kw1">ProxyPreserveHost</span> <span class="kw2">On</span>
- 
- 
+
+
 <span class="co1"># Set the permissions for the proxy</span>
 &lt;<span class="kw3">Proxy</span> *&gt;
   <span class="kw1">AddDefaultCharset</span> <span class="kw2">off</span>
   <span class="kw1">Order</span> <span class="kw1">deny</span>,<span class="kw1">allow</span>
   <span class="kw1">Allow</span> from <span class="kw2">all</span>
 &lt;/<span class="kw3">Proxy</span>&gt;
- 
+
 <span class="co1"># Turn on Proxy status reporting at /status</span>
 <span class="co1"># This should be better protected than: Allow from all</span>
 <span class="kw1">ProxyStatus</span> <span class="kw2">On</span>
@@ -192,7 +192,7 @@ the following directives can be used to load all the modules discussed
        <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>hashIdMgr<span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
        <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span><span class="re1">&lt;Ref</span> <span class="re0">id</span>=<span class="st0">"hashIdMgr"</span><span class="re2">/&gt;</span><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
  <span class="sc3"><span class="re1">&lt;/Call<span class="re2">&gt;</span></span></span>
- 
+
 <span class="sc3"><span class="re1">&lt;/Configure<span class="re2">&gt;</span></span></span></pre></div></div>
 <p><br/>
 We then need to configure each context with a reference to that session ID manager. You can do that either in code, in a WEB-INF/jetty-web.xml file inside the webapp, or in an external context.xml file. Here's an example of using a context.xml file to set up a session manager that references the single session ID manager: 
@@ -202,7 +202,7 @@ We then need to configure each context with a reference to that session ID manag
      <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>hashIdMgr<span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
    <span class="sc3"><span class="re1">&lt;/Call<span class="re2">&gt;</span></span></span>
  <span class="sc3"><span class="re1">&lt;/Ref<span class="re2">&gt;</span></span></span>
- 
+
  <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"sessionHandler"</span><span class="re2">&gt;</span></span>
     <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.server.session.SessionHandler"</span><span class="re2">&gt;</span></span>
       <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>

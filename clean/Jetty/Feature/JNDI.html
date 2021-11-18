@@ -149,7 +149,7 @@ Save the file.
 <p>If you only have a few webapps that you want to use with JNDI, you can apply the augmented list of Configurations specifically to those webapps. To do that, create a context XML file for each web app, and set up the Configuration classes. Here's an example of how that would look:
 </p>
 <div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="xml source-xml"><pre class="de1"><span class="sc3"><span class="re1">&lt;Configure</span> <span class="re0">id</span>=<span class="st0">'wac'</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.webapp.WebAppContext"</span><span class="re2">&gt;</span></span>
- 
+
   <span class="sc3"><span class="re1">&lt;Array</span> <span class="re0">id</span>=<span class="st0">"plusConfig"</span> <span class="re0">type</span>=<span class="st0">"java.lang.String"</span><span class="re2">&gt;</span></span>
     <span class="sc3"><span class="re1">&lt;Item<span class="re2">&gt;</span></span></span>org.eclipse.jetty.webapp.WebInfConfiguration<span class="sc3"><span class="re1">&lt;/Item<span class="re2">&gt;</span></span></span>
     <span class="sc3"><span class="re1">&lt;Item<span class="re2">&gt;</span></span></span>org.eclipse.jetty.webapp.WebXmlConfiguration<span class="sc3"><span class="re1">&lt;/Item<span class="re2">&gt;</span></span></span>
@@ -160,10 +160,10 @@ Save the file.
     <span class="sc3"><span class="re1">&lt;Item<span class="re2">&gt;</span></span></span>org.eclipse.jetty.webapp.JettyWebXmlConfiguration<span class="sc3"><span class="re1">&lt;/Item<span class="re2">&gt;</span></span></span>
     <span class="sc3"><span class="re1">&lt;Item<span class="re2">&gt;</span></span></span>org.eclipse.jetty.webapp.TagLibConfiguration<span class="sc3"><span class="re1">&lt;/Item<span class="re2">&gt;</span></span></span>
   <span class="sc3"><span class="re1">&lt;/Array<span class="re2">&gt;</span></span></span>
- 
+
   <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"war"</span><span class="re2">&gt;</span><span class="re1">&lt;SystemProperty</span> <span class="re0">name</span>=<span class="st0">"jetty.home"</span> <span class="re0">default</span>=<span class="st0">"."</span><span class="re2">/&gt;</span></span>/webapps/my-cool-webapp<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
   <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"configurationClasses"</span><span class="re2">&gt;</span><span class="re1">&lt;Ref</span> <span class="re0">refid</span>=<span class="st0">"plusConfig"</span><span class="re2">/&gt;</span><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
- 
+
 <span class="sc3"><span class="re1">&lt;/Configure<span class="re2">&gt;</span></span></span></pre></div></div>
 <p>Now you're ready for the next step, which is to put the JNDI jars onto jetty's classpath, described in Adding JNDI Implementation Jars to the Jetty Classpath.
 </p><p><br/>
@@ -254,7 +254,7 @@ Save the file.
 </p><p>To use the <code>env-entry</code> configured above, use code in your servlet/filter/etc., such as:
 </p>
 <div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="java source-java"><pre class="de1"><span class="kw1">import</span> <span class="co2">javax.naming.InitialContext</span><span class="sy0">;</span>
- 
+
 <span class="kw3">InitialContext</span> ic <span class="sy0">=</span> <span class="kw1">new</span> <span class="kw3">InitialContext</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
 <span class="kw3">Integer</span> mySpecialValue <span class="sy0">=</span> <span class="br0">(</span><span class="kw3">Integer</span><span class="br0">)</span>ic.<span class="me1">lookup</span><span class="br0">(</span><span class="st0">"java:comp/env/mySpecialValue"</span><span class="br0">)</span><span class="sy0">;</span></pre></div></div>
 <h4><span id="Configuring_resource-refs_and_resource-env-refs" class="mw-headline">Configuring resource-refs and resource-env-refs</span></h4>
@@ -262,10 +262,10 @@ Save the file.
 </p><p>The <a rel="nofollow" href="http://jcp.org/aboutJava/communityprocess/pr/jsr244/index.html" class="external text">J2EE Specification</a> recommends that DataSources be stored in <code>java:comp/env/jdbc</code>, JMS connection factories under <code>java:comp/env/jms</code>, JavaMail connection factories under <code>java:comp/env/mail</code> and URL connection factories under <code>java:comp/env/url</code>. For example:
 </p>
 <table>
-<tbody><tr><td>Resource Type</td><td> </td><td>Name in <code>jetty.xml</code></td><td> </td><td>Environment Lookup</td></tr>
-<tr><td>javax.sql.DataSource</td><td> </td><td>jdbc/myDB</td><td> </td><td>java:comp/env/jdbc/myDB</td></tr>
-<tr><td>javax.jms.QueueConnectionFactory</td><td> </td><td>jms/myQueue</td><td> </td><td>java:comp/env/jms/myQueue</td></tr>
-<tr><td>javax.mail.Session</td><td> </td><td>mail/myMailService</td><td> </td><td>java:comp/env/mail/myMailService</td></tr>
+<tbody><tr><td>Resource Type</td><td> </td><td>Name in <code>jetty.xml</code></td><td> </td><td>Environment Lookup</td></tr>
+<tr><td>javax.sql.DataSource</td><td> </td><td>jdbc/myDB</td><td> </td><td>java:comp/env/jdbc/myDB</td></tr>
+<tr><td>javax.jms.QueueConnectionFactory</td><td> </td><td>jms/myQueue</td><td> </td><td>java:comp/env/jms/myQueue</td></tr>
+<tr><td>javax.mail.Session</td><td> </td><td>mail/myMailService</td><td> </td><td>java:comp/env/mail/myMailService</td></tr>
 </tbody></table>
 <h4><span class="mw-headline" id="Configuring_DataSources">Configuring DataSources</span></h4>
 <p>Here is an example of configuring a <code>javax.sql.DataSource</code>. Jetty can use any DataSource implementation available on its classpath. In this example, the DataSource is from the <a rel="nofollow" class="external text" href="http://db.apache.org/derby">Derby</a> relational database, but you can use any implementation of a <code>javax.sql.DataSource</code>. This example, configures it as scoped to a web app with the id of <i>wac</i>:
@@ -295,7 +295,7 @@ Save the file.
 </p>
 <div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="java source-java"><pre class="de1"><span class="kw1">import</span> <span class="co2">javax.naming.InitialContext</span><span class="sy0">;</span>
 <span class="kw1">import</span> <span class="co2">javax.sql.DataSource</span><span class="sy0">;</span>
- 
+
 <span class="kw3">InitialContext</span> ic <span class="sy0">=</span> <span class="kw1">new</span> <span class="kw3">InitialContext</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
 DataSource myDS <span class="sy0">=</span> <span class="br0">(</span>DataSource<span class="br0">)</span>ic.<span class="me1">lookup</span><span class="br0">(</span><span class="st0">"java:comp/env/jdbc/myds"</span><span class="br0">)</span><span class="sy0">;</span></pre></div></div>
 <div class="messagebox" style="background-color: #def3fe; border: 1px solid #c5d7e0; color: black; padding: 5px; margin: 1ex 0; min-height: 35px; padding-left: 45px;">
@@ -523,10 +523,9 @@ Then you can link jdbc/myds into your webapp's namespace as java:comp/env/jdbc/m
 
 </div>
 
-                    <div class="catlinks" id="catlinks"></li><li><a title="Category:Jetty Feature" href="https://wiki.eclipse.org/Category:Jetty_Feature">Jetty Feature</a></li></ul></div></div>
+                    <div class="catlinks" id="catlinks"><li><a title="Category:Jetty Feature" href="https://wiki.eclipse.org/Category:Jetty_Feature">Jetty Feature</a></li></div></div>
                                   </div>
               </div>
             </div>
-          </div>
 </body>
 </html>

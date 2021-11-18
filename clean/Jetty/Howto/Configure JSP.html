@@ -434,11 +434,11 @@ Much confusion generally ensues about the <tt>development</tt>, <tt>checkInterva
 <p>If you're using Jetty standalone, and you want to change the JSP settings for just one or a few of your webapps, then copy the <tt>$JETTY_HOME/etc/webdefault.xml</tt> file somewhere, modify it, and then use a <a href="https://wiki.eclipse.org/Jetty/Feature/ContextDeployer" title="Jetty/Feature/ContextDeployer" class="mw-redirect">context xml</a> file to set this file as the webdefaults for your webapp. Here's a snippet:
 </p>
  <div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="xml source-xml"><pre class="de1"> <span class="sc3"><span class="re1">&lt;Configure</span> <span class="re0">class</span>=<span class="re2">&gt;</span></span>"org.eclipse.jetty.webapp.WebAppContext"&gt;
- 
+
    <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="re2">&gt;</span></span>"contextPath"&gt;/foo<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
    <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="re2">&gt;</span></span>"war"&gt;<span class="sc3"><span class="re1">&lt;SystemProperty</span> <span class="re0">name</span>=<span class="re2">&gt;</span></span>"jetty.home" &gt;default=&gt;"."/&gt;/webapps/foobar.war<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
    <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="re2">&gt;</span></span>"defaultsDescriptor"&gt;/home/smith/dev/webdefault.xml<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
- 
+
  <span class="sc3"><span class="re1">&lt;/Configure<span class="re2">&gt;</span></span></span></pre></div></div>
 <p>If you want to change the JSP settings for all of the webapps, then edit the <tt>$JETTY_HOME/etc/webdefaults.xml</tt> file directly instead.
 </p>
@@ -461,10 +461,10 @@ Much confusion generally ensues about the <tt>development</tt>, <tt>checkInterva
          <span class="sc3"><span class="re1">&lt;param-value<span class="re2">&gt;</span></span></span>true<span class="sc3"><span class="re1">&lt;/param-value<span class="re2">&gt;</span></span></span>
      <span class="sc3"><span class="re1">&lt;/init-param<span class="re2">&gt;</span></span></span>
      ...
- 
+
      <span class="sc3"><span class="re1">&lt;load-on-startup<span class="re2">&gt;</span></span></span>0<span class="sc3"><span class="re1">&lt;/load-on-startup<span class="re2">&gt;</span></span></span>
    <span class="sc3"><span class="re1">&lt;/servlet<span class="re2">&gt;</span></span></span>
- 
+
    <span class="sc3"><span class="re1">&lt;servlet-mapping<span class="re2">&gt;</span></span></span>
      <span class="sc3"><span class="re1">&lt;servlet-name<span class="re2">&gt;</span></span></span>jsp<span class="sc3"><span class="re1">&lt;/servlet-name<span class="re2">&gt;</span></span></span>
      <span class="sc3"><span class="re1">&lt;url-pattern<span class="re2">&gt;</span></span></span>*.jsp<span class="sc3"><span class="re1">&lt;/url-pattern<span class="re2">&gt;</span></span></span>
@@ -476,7 +476,7 @@ Much confusion generally ensues about the <tt>development</tt>, <tt>checkInterva
      <span class="sc3"><span class="re1">&lt;url-pattern<span class="re2">&gt;</span></span></span>*.JSPX<span class="sc3"><span class="re1">&lt;/url-pattern<span class="re2">&gt;</span></span></span>
      <span class="sc3"><span class="re1">&lt;url-pattern<span class="re2">&gt;</span></span></span>*.XSP<span class="sc3"><span class="re1">&lt;/url-pattern<span class="re2">&gt;</span></span></span>
    <span class="sc3"><span class="re1">&lt;/servlet-mapping<span class="re2">&gt;</span></span></span>
- 
+
    <span class="sc3"><span class="re1">&lt;servlet</span> <span class="re0">id</span>=<span class="re2">&gt;</span></span>"my-servlet"&gt;
      <span class="sc3"><span class="re1">&lt;servlet-name<span class="re2">&gt;</span></span></span>myServlet<span class="sc3"><span class="re1">&lt;/servlet-name<span class="re2">&gt;</span></span></span>
      <span class="sc3"><span class="re1">&lt;servlet-class<span class="re2">&gt;</span></span></span>com.acme.servlet.MyServlet<span class="sc3"><span class="re1">&lt;/servlet-class<span class="re2">&gt;</span></span></span>
@@ -517,17 +517,17 @@ Much confusion generally ensues about the <tt>development</tt>, <tt>checkInterva
 </p><p>To set on just one webapp, create or edit a <a href="https://wiki.eclipse.org/Jetty/Feature/ContextDeployer" title="Jetty/Feature/ContextDeployer" class="mw-redirect">context xml</a> file that describes your webapp. Assuming the implementation jar is called <tt>javax.faces-2.1.6.jar</tt>:
 </p>
 <div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="xml source-xml"><pre class="de1"><span class="sc3"><span class="re1">&lt;Configure</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.webapp.WebAppContext"</span><span class="re2">&gt;</span></span>
- 
+
     <span class="sc3"><span class="re1">&lt;Call</span> <span class="re0">name</span>=<span class="st0">"setAttribute"</span><span class="re2">&gt;</span></span>
       <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>org.eclipse.jetty.server.webapp.ContainerIncludeJarPattern<span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
       <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>.*/.*javax.faces-[^/]*\.jar$|.*/.*jsp-api-[^/]*\.jar$|.*/.*jsp-[^/]*\.jar$|.*/.*taglibs[^/]*\.jar$<span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
     <span class="sc3"><span class="re1">&lt;/Call<span class="re2">&gt;</span></span></span>
- 
+
 <span class="sc3"><span class="re1">&lt;/Configure<span class="re2">&gt;</span></span></span></pre></div></div>
 <p>If you're deploying via code, the equivalent is to call the <a rel="nofollow" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/webapp/WebAppContext.html" class="external text">WebAppContext.setAttribute(String name, String value)</a> method.
 </p><p>If you'd like to use jsf with all of your webapps, then assuming you're using the <a href="../Feature/Deployment Manager.html" title="Jetty/Feature/Deployment Manager">DeploymentManager</a>, edit <tt>$JETTY_HOME/etc/jetty-deploy.xml</tt>. Assuming the implementation jar is named <tt>javax.faces-2.1.6.jar</tt>:
 </p>
-<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="xml source-xml"><pre class="de1"> 
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="xml source-xml"><pre class="de1">
  <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">id</span>=<span class="st0">"DeploymentManager"</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.deploy.DeploymentManager"</span><span class="re2">&gt;</span></span>
           <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"contexts"</span><span class="re2">&gt;</span></span>
             <span class="sc3"><span class="re1">&lt;Ref</span> <span class="re0">id</span>=<span class="st0">"Contexts"</span> <span class="re2">/&gt;</span></span>

@@ -88,18 +88,18 @@ cd ..<span class="sy0">/</span>..</pre></div></div>
 <p>Configuring Jetty via Spring is simply a matter of calling the API as Spring beans.  The following is the default jetty-spring.xml file:
 </p>
 <div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="xml source-xml"><pre class="de1"><span class="sc3"><span class="re1">&lt;beans<span class="re2">&gt;</span></span></span>
- 
+
   <span class="sc3"><span class="re1">&lt;bean</span> <span class="re0">id</span>=<span class="st0">"contexts"</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.server.handler.ContextHandlerCollection"</span><span class="re2">/&gt;</span></span>
- 
+
   <span class="sc3"><span class="re1">&lt;bean</span> <span class="re0">id</span>=<span class="st0">"Server"</span> <span class="re0">class</span>=<span class="st0">"org.mortbay.jetty.spring.Server"</span> <span class="re0">init-method</span>=<span class="st0">"start"</span> <span class="re0">destroy-method</span>=<span class="st0">"stop"</span><span class="re2">&gt;</span></span>
- 
+
     <span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span class="st0">"threadPool"</span><span class="re2">&gt;</span></span>  
       <span class="sc3"><span class="re1">&lt;bean</span> <span class="re0">id</span>=<span class="st0">"ThreadPool"</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.util.thread.QueuedThreadPool"</span><span class="re2">&gt;</span></span>
         <span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span class="st0">"minThreads"</span> <span class="re0">value</span>=<span class="st0">"10"</span><span class="re2">/&gt;</span></span>
         <span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span class="st0">"maxThreads"</span> <span class="re0">value</span>=<span class="st0">"50"</span><span class="re2">/&gt;</span></span>
       <span class="sc3"><span class="re1">&lt;/bean<span class="re2">&gt;</span></span></span>
     <span class="sc3"><span class="re1">&lt;/property<span class="re2">&gt;</span></span></span>
- 
+
     <span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span class="st0">"connectors"</span><span class="re2">&gt;</span></span>
       <span class="sc3"><span class="re1">&lt;list<span class="re2">&gt;</span></span></span>
         <span class="sc3"><span class="re1">&lt;bean</span> <span class="re0">id</span>=<span class="st0">"Connector"</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.server.nio.SelectChannelConnector"</span><span class="re2">&gt;</span></span>
@@ -107,7 +107,7 @@ cd ..<span class="sy0">/</span>..</pre></div></div>
         <span class="sc3"><span class="re1">&lt;/bean<span class="re2">&gt;</span></span></span>
       <span class="sc3"><span class="re1">&lt;/list<span class="re2">&gt;</span></span></span>
     <span class="sc3"><span class="re1">&lt;/property<span class="re2">&gt;</span></span></span>
- 
+
     <span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span class="st0">"handler"</span><span class="re2">&gt;</span></span>
       <span class="sc3"><span class="re1">&lt;bean</span> <span class="re0">id</span>=<span class="st0">"handlers"</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.server.handler.HandlerCollection"</span><span class="re2">&gt;</span></span>
         <span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span class="st0">"handlers"</span><span class="re2">&gt;</span></span>
@@ -118,7 +118,7 @@ cd ..<span class="sy0">/</span>..</pre></div></div>
         <span class="sc3"><span class="re1">&lt;/property<span class="re2">&gt;</span></span></span>
       <span class="sc3"><span class="re1">&lt;/bean<span class="re2">&gt;</span></span></span>
     <span class="sc3"><span class="re1">&lt;/property<span class="re2">&gt;</span></span></span>
- 
+
     <span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span class="st0">"beans"</span><span class="re2">&gt;</span></span>
       <span class="sc3"><span class="re1">&lt;list<span class="re2">&gt;</span></span></span>
         <span class="sc3"><span class="re1">&lt;bean</span> <span class="re0">id</span>=<span class="st0">"ContextDeployer"</span> <span class="re0">class</span>=<span class="st0">"org.mortbay.jetty.spring.ContextDeployer"</span><span class="re2">&gt;</span></span>
@@ -126,25 +126,25 @@ cd ..<span class="sy0">/</span>..</pre></div></div>
           <span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span class="st0">"contextsDir"</span> <span class="re0">value</span>=<span class="st0">"contexts"</span><span class="re2">/&gt;</span></span>
           <span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span class="st0">"scanInterval"</span> <span class="re0">value</span>=<span class="st0">"5"</span><span class="re2">/&gt;</span></span>
         <span class="sc3"><span class="re1">&lt;/bean<span class="re2">&gt;</span></span></span>
- 
+
         <span class="sc3"><span class="re1">&lt;bean</span> <span class="re0">id</span>=<span class="st0">"WebAppDeployer"</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.deploy.WebAppDeployer"</span><span class="re2">&gt;</span></span>
           <span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span class="st0">"contexts"</span> <span class="re0">ref</span>=<span class="st0">"contexts"</span><span class="re2">/&gt;</span></span>
           <span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span class="st0">"webAppDir"</span> <span class="re0">value</span>=<span class="st0">"webapps"</span><span class="re2">/&gt;</span></span>
           <span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span class="st0">"extract"</span> <span class="re0">value</span>=<span class="st0">"true"</span><span class="re2">/&gt;</span></span>
           <span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span class="st0">"defaultsDescriptor"</span> <span class="re0">value</span>=<span class="st0">"etc/webdefault.xml"</span><span class="re2">/&gt;</span></span>
         <span class="sc3"><span class="re1">&lt;/bean<span class="re2">&gt;</span></span></span>
- 
+
         <span class="sc3"><span class="re1">&lt;bean</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.security.HashLoginService"</span><span class="re2">&gt;</span></span>
           <span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span class="st0">"name"</span> <span class="re0">value</span>=<span class="st0">"Test Realm"</span><span class="re2">/&gt;</span></span>
           <span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span class="st0">"config"</span> <span class="re0">value</span>=<span class="st0">"etc/realm.properties"</span><span class="re2">/&gt;</span></span>
           <span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span class="st0">"refreshInterval"</span> <span class="re0">value</span>=<span class="st0">"0"</span><span class="re2">/&gt;</span></span>
         <span class="sc3"><span class="re1">&lt;/bean<span class="re2">&gt;</span></span></span>
- 
+
       <span class="sc3"><span class="re1">&lt;/list<span class="re2">&gt;</span></span></span>
     <span class="sc3"><span class="re1">&lt;/property<span class="re2">&gt;</span></span></span>
- 
+
   <span class="sc3"><span class="re1">&lt;/bean<span class="re2">&gt;</span></span></span>
- 
+
 <span class="sc3"><span class="re1">&lt;/beans<span class="re2">&gt;</span></span></span></pre></div></div>
 <h2><span id="Running_Jetty_with_Spring" class="mw-headline">Running Jetty with Spring</span></h2>
 <p>There are many ways to launch Spring, including the Jetty <a href="../Feature/Start.jar.html" title="Jetty/Feature/Start.jar">start.jar</a> mechanism. The following command line starts the Jetty Spring config file including with the jetty-hightide distribution from codehaus:

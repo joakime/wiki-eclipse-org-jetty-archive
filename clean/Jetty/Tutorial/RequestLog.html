@@ -131,7 +131,7 @@ ContextHandlerCollection contexts <span class="sy0">=</span> <span class="kw1">n
 RequestLogHandler requestLogHandler <span class="sy0">=</span> <span class="kw1">new</span> RequestLogHandler<span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
 handlers.<span class="me1">setHandlers</span><span class="br0">(</span><span class="kw1">new</span> Handler<span class="br0">[</span><span class="br0">]</span><span class="br0">{</span>contexts,<span class="kw1">new</span> DefaultHandler<span class="br0">(</span><span class="br0">)</span>,requestLogHandler<span class="br0">}</span><span class="br0">)</span><span class="sy0">;</span>
 server.<span class="me1">setHandler</span><span class="br0">(</span>handlers<span class="br0">)</span><span class="sy0">;</span>
- 
+
 NCSARequestLog requestLog <span class="sy0">=</span> <span class="kw1">new</span> NCSARequestLog<span class="br0">(</span><span class="st0">"./logs/jetty-yyyy_mm_dd.request.log"</span><span class="br0">)</span><span class="sy0">;</span>
 requestLog.<span class="me1">setRetainDays</span><span class="br0">(</span><span class="nu0">90</span><span class="br0">)</span><span class="sy0">;</span>
 requestLog.<span class="me1">setAppend</span><span class="br0">(</span><span class="kw2">true</span><span class="br0">)</span><span class="sy0">;</span>
@@ -167,23 +167,34 @@ requestLogHandler.<span class="me1">setRequestLog</span><span class="br0">(</spa
 Some examples can be gleaned from CustomRequestLog source codes:
 </p>
 <div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="java source-java"><pre class="de1">    <span class="kw1">public</span> <span class="kw1">static</span> <span class="kw1">final</span> <span class="kw3">String</span> DEFAULT_DATE_FORMAT <span class="sy0">=</span> <span class="st0">"dd/MMM/yyyy:HH:mm:ss ZZZ"</span><span class="sy0">;</span>
-    <span class="kw1">public</span> <span class="kw1">static</span> <span class="kw1">final</span> <span class="kw3">String</span> NCSA_FORMAT <span class="sy0">=</span> <span class="st0">"%{client}a - %u %t <span class="es0">\"</span>%r<span class="es0">\"</span> %s %O"</span><span class="sy0">;</span>
+    <span class="kw1">public</span> <span class="kw1">static</span> <span class="kw1">final</span> <span class="kw3">String</span> NCSA_FORMAT <span class="sy0">=</span> <span class="st0">"%{client}a - %u %t <span class="es0">\"</span>%r<span class="es0">\"</span> %s %O"</span><span class="sy0">;</span>
     <span class="kw1">public</span> <span class="kw1">static</span> <span class="kw1">final</span> <span class="kw3">String</span> EXTENDED_NCSA_FORMAT <span class="sy0">=</span> NCSA_FORMAT <span class="sy0">+</span> <span class="st0">" <span class="es0">\"</span>%{Referer}i<span class="es0">\"</span> <span class="es0">\"</span>%{User-Agent}i<span class="es0">\"</span>"</span><span class="sy0">;</span></pre></div></div>
-<p>What is a little less obvious is how to use the %t time format spec. The time format spec takes a form of 
+<p>What is a little less obvious is how to use the %t time format spec. The time format spec takes a form of
 </p>
 <pre>%{format|timeZone|locale}t</pre>
 <p>Those '|' characters and the braces around the parameter are necessary. For example, to specify a different timezone. the format string looks this way:
 </p>
-<pre>"%{client}a - %u %{dd/MMM/yyyy:HH:mm:ss ZZZ|GMT+5}t \"%r\" %s %O"
+<pre>"%{client}a - %u %{dd/MMM/yyyy:HH:mm:ss ZZZ|GMT+5}t \"%r\" %s %O"
 </pre>
 
 
 </div>
 
-                    <div id="catlinks" class="catlinks"><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="https://wiki.eclipse.org/Special:Categories" title="Special:Categories">Categories</a>: <ul><li><a href="https://wiki.eclipse.org/Category:Jetty" title="Category:Jetty">Jetty</a></li><li><a title="Category:Jetty Tutorial" href="https://wiki.eclipse.org/Category:Jetty_Tutorial">Jetty Tutorial</a></li></ul></div></div>
+                      <div id="catlinks" class="catlinks">
+                          <div id="mw-normal-catlinks" class="mw-normal-catlinks">
+                              <a href="https://wiki.eclipse.org/Special:Categories" title="Special:Categories">Categories</a>:
+                              <ul>
+                                  <li><a href="https://wiki.eclipse.org/Category:Jetty" title="Category:Jetty">Jetty</a></li>
+                                  <li>
+                                      <a title="Category:Jetty Tutorial" href="https://wiki.eclipse.org/Category:Jetty_Tutorial">Jetty
+                                          Tutorial</a></li>
+                              </ul>
+                          </div>
+                      </div>
                                   </div>
               </div>
             </div>
           </div>
+</div>
 </body>
 </html>

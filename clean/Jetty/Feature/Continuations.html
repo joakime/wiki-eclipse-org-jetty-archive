@@ -30,7 +30,7 @@
 <ul>
 <li class="toclevel-1"><a href="Continuations.html#Introduction"><span class="tocnumber">1</span> <span class="toctext">Introduction</span></a>
 <ul>
-<li class="toclevel-2"><a href="Continuations.html#Why_Asynchronous_Servlets_.3F"><span class="tocnumber">1.1</span> <span class="toctext">Why Asynchronous Servlets ?</span></a>
+<li class="toclevel-2"><a href="Continuations.html#Why_Asynchronous_Servlets_.3F"><span class="tocnumber">1.1</span> <span class="toctext">Why Asynchronous Servlets ?</span></a>
 <ul>
 <li class="toclevel-3"><a href="Continuations.html#Not_Asynchronous_IO"><span class="tocnumber">1.1.1</span> <span class="toctext">Not Asynchronous IO</span></a></li>
 <li class="toclevel-3"><a href="Continuations.html#Asynchronous_Waiting"><span class="tocnumber">1.1.2</span> <span class="toctext">Asynchronous Waiting</span></a></li>
@@ -92,7 +92,7 @@
 </div>
 <p><br/>
 </p>
-<h3><span id="Why_Asynchronous_Servlets_.3F" class="mw-headline">Why Asynchronous Servlets ?</span></h3>
+<h3><span id="Why_Asynchronous_Servlets_.3F" class="mw-headline">Why Asynchronous Servlets ?</span></h3>
 <h4><span class="mw-headline" id="Not_Asynchronous_IO">Not Asynchronous IO</span></h4>
 <p>The concept of Asynchronous Servlets is often confused with Asynchronous IO or the use of NIO. However, Asynchronous Servlets are not primarily motivated by asynchronous IO, since:
 </p>
@@ -165,7 +165,7 @@
 <h4><span class="mw-headline" id="Suspending_a_Request">Suspending a Request</span></h4>
 <p>To suspend a request, the suspend method is called on the continuation:
 </p>
-<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="java source-java"><pre class="de1"> 
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="java source-java"><pre class="de1">
 <span class="kw4">void</span> doGet<span class="br0">(</span>HttpServletRequest request, HttpServletResponse response<span class="br0">)</span>
 <span class="br0">{</span>
     ...
@@ -211,14 +211,14 @@
 <div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="java source-java"><pre class="de1"><span class="kw4">void</span> doGet<span class="br0">(</span>HttpServletRequest request, HttpServletResponse response<span class="br0">)</span>
 <span class="br0">{</span>
     ...
- 
+
     <span class="me1">Continuation</span> continuation <span class="sy0">=</span> ContinuationSupport.<span class="me1">getContinuation</span><span class="br0">(</span>request<span class="br0">)</span><span class="sy0">;</span>
     continuation.<span class="me1">addContinuationListener</span><span class="br0">(</span><span class="kw1">new</span> ContinuationListener<span class="br0">(</span><span class="br0">)</span>
     <span class="br0">{</span>
       <span class="kw1">public</span> <span class="kw4">void</span> onTimeout<span class="br0">(</span>Continuation continuation<span class="br0">)</span> <span class="br0">{</span> ... <span class="br0">}</span>
       <span class="kw1">public</span> <span class="kw4">void</span> onComplete<span class="br0">(</span>Continuation continuation<span class="br0">)</span> <span class="br0">{</span> ... <span class="br0">}</span>
     <span class="br0">}</span><span class="br0">)</span><span class="sy0">;</span>
- 
+
     continuation.<span class="me1">suspend</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
     ...
 <span class="br0">}</span></pre></div></div>
@@ -235,17 +235,17 @@
      <span class="kw1">if</span> <span class="br0">(</span>results<span class="sy0">==</span><span class="kw2">null</span><span class="br0">)</span>
      <span class="br0">{</span>
        <span class="kw1">final</span> Continuation continuation <span class="sy0">=</span> ContinuationSupport.<span class="me1">getContinuation</span><span class="br0">(</span>request<span class="br0">)</span><span class="sy0">;</span>
- 
+
        <span class="co1">// if this is not a timeout</span>
        <span class="kw1">if</span> <span class="br0">(</span>continuation.<span class="me1">isExpired</span><span class="br0">(</span><span class="br0">)</span><span class="br0">)</span>
        <span class="br0">{</span>
          sendMyTimeoutResponse<span class="br0">(</span>response<span class="br0">)</span><span class="sy0">;</span>
          <span class="kw1">return</span><span class="sy0">;</span>
        <span class="br0">}</span>
- 
+
        <span class="co1">// suspend the request</span>
        continuation.<span class="me1">suspend</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span> <span class="co1">// always suspend before registration</span>
- 
+
        <span class="co1">// register with async service.  The code here will depend on the</span>
        <span class="co1">// the service used (see Jetty HttpClient for example)</span>
        myAsyncHandler.<span class="me1">register</span><span class="br0">(</span><span class="kw1">new</span> MyHandler<span class="br0">(</span><span class="br0">)</span>
@@ -258,7 +258,7 @@
        <span class="br0">}</span><span class="br0">)</span><span class="sy0">;</span>
        <span class="kw1">return</span><span class="sy0">;</span> <span class="co1">// or continuation.undispatch();</span>
      <span class="br0">}</span>
- 
+
      <span class="co1">// Send the results</span>
      sendMyResultResponse<span class="br0">(</span>response,results<span class="br0">)</span><span class="sy0">;</span>
 <span class="br0">}</span></pre></div></div>
@@ -271,17 +271,17 @@
 <div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="java source-java"><pre class="de1"><span class="kw4">void</span> doGet<span class="br0">(</span>HttpServletRequest request, HttpServletResponse response<span class="br0">)</span>
 <span class="br0">{</span>
      <span class="kw1">final</span> Continuation continuation <span class="sy0">=</span> ContinuationSupport.<span class="me1">getContinuation</span><span class="br0">(</span>request<span class="br0">)</span><span class="sy0">;</span>
- 
+
      <span class="co1">// if this is not a timeout</span>
      <span class="kw1">if</span> <span class="br0">(</span>continuation.<span class="me1">isExpired</span><span class="br0">(</span><span class="br0">)</span><span class="br0">)</span>
      <span class="br0">{</span>
        sendMyTimeoutResponse<span class="br0">(</span>request,response<span class="br0">)</span><span class="sy0">;</span>
        <span class="kw1">return</span><span class="sy0">;</span>
      <span class="br0">}</span>
- 
+
      <span class="co1">// suspend the request</span>
      continuation.<span class="me1">suspend</span><span class="br0">(</span>response<span class="br0">)</span><span class="sy0">;</span> <span class="co1">// response may be wrapped.</span>
- 
+
      <span class="co1">// register with async service.  The code here will depend on the</span>
      <span class="co1">// the service used (see Jetty HttpClient for example)</span>
      myAsyncHandler.<span class="me1">register</span><span class="br0">(</span><span class="kw1">new</span> MyHandler<span class="br0">(</span><span class="br0">)</span>
@@ -306,7 +306,7 @@
 </p>
 <h4><span class="mw-headline" id="Denial_of_Service_Filter">Denial of Service Filter</span></h4>
 <p>The <a rel="nofollow" href="http://download.eclipse.org/jetty/stable-7/xref/org/eclipse/jetty/servlets/DoSFilter.html" class="external text">DosFilter</a>(<a href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/servlets/DoSFilter.html" class="external text" rel="nofollow">javadoc</a>) is similar to the QoSFilter, but protects a web application from a denial of service attack, as much as is possible from within a web application.
-</p><p>If too many requests are detected coming from one source, then those requests are suspended and a warning generated.  This works on the assumption that the attacker may be written in simple blocking style, so by suspending you are hopefully consuming their resources.   True protection from DOS can only be achieved by network devices (or eugenics :)).
+</p><p>If too many requests are detected coming from one source, then those requests are suspended and a warning generated.  This works on the assumption that the attacker may be written in simple blocking style, so by suspending you are hopefully consuming their resources.   True protection from DOS can only be achieved by network devices (or eugenics :)).
 </p>
 <h4><span id="Proxy_Servlet" class="mw-headline">Proxy Servlet</span></h4>
 <p>The <a rel="nofollow" href="http://download.eclipse.org/jetty/stable-7/xref/org/eclipse/jetty/servlets/ProxyServlet.html" class="external text">ProxyServlet</a> uses the suspend/complete style and the Jetty asynchronous <a rel="nofollow" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/client/HttpClient.html" class="external text">HTTP client</a> to implement a scalable Proxy server (or transparent proxy).

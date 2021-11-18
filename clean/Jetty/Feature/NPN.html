@@ -104,7 +104,7 @@ Refer to <a class="external text" href="http://download.eclipse.org/jetty/stable
 <div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="java source-java"><pre class="de1">SSLContext sslContext <span class="sy0">=</span> ...<span class="sy0">;</span>
 SSLSocket sslSocket <span class="sy0">=</span> <span class="br0">(</span>SSLSocket<span class="br0">)</span>context.<span class="me1">getSocketFactory</span><span class="br0">(</span><span class="br0">)</span>
         .<span class="me1">createSocket</span><span class="br0">(</span><span class="st0">"localhost"</span>, server.<span class="me1">getLocalPort</span><span class="br0">(</span><span class="br0">)</span><span class="br0">)</span><span class="sy0">;</span>
- 
+
 NextProtoNego.<span class="me1">put</span><span class="br0">(</span>sslSocket, <span class="kw1">new</span> NextProtoNego.<span class="me1">ClientProvider</span><span class="br0">(</span><span class="br0">)</span>
 <span class="br0">{</span>
     @Override
@@ -112,12 +112,12 @@ NextProtoNego.<span class="me1">put</span><span class="br0">(</span>sslSocket, <
     <span class="br0">{</span>
         <span class="kw1">return</span> <span class="kw2">true</span><span class="sy0">;</span>
     <span class="br0">}</span>
- 
+
     @Override
     <span class="kw1">public</span> <span class="kw4">void</span> unsupported<span class="br0">(</span><span class="br0">)</span>
     <span class="br0">{</span>
     <span class="br0">}</span>
- 
+
     @Override
     <span class="kw1">public</span> <span class="kw3">String</span> selectProtocol<span class="br0">(</span>List<span class="sy0">&lt;</span>String<span class="sy0">&gt;</span> protocols<span class="br0">)</span>
     <span class="br0">{</span>
@@ -139,13 +139,13 @@ NextProtoNego.<span class="me1">put</span><span class="br0">(</span>sslSocket, <
     <span class="kw1">public</span> <span class="kw4">void</span> unsupported<span class="br0">(</span><span class="br0">)</span>
     <span class="br0">{</span>
     <span class="br0">}</span>
- 
+
     @Override
     <span class="kw1">public</span> List<span class="sy0">&lt;</span>String<span class="sy0">&gt;</span> protocols<span class="br0">(</span><span class="br0">)</span>
     <span class="br0">{</span>
         <span class="kw1">return</span> <span class="kw3">Arrays</span>.<span class="me1">asList</span><span class="br0">(</span><span class="st0">"http/1.1"</span><span class="br0">)</span><span class="sy0">;</span>
     <span class="br0">}</span>
- 
+
     @Override
     <span class="kw1">public</span> <span class="kw4">void</span> protocolSelected<span class="br0">(</span><span class="kw3">String</span> protocol<span class="br0">)</span>
     <span class="br0">{</span>
@@ -168,11 +168,11 @@ NextProtoNego.<span class="me1">put</span><span class="br0">(</span>sslSocket, <
 The solution that we use with Maven is to specify an additional command line argument to the Surefire plugin:
 </p>
 <div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="xml source-xml"><pre class="de1"><span class="sc3"><span class="re1">&lt;project</span> ...<span class="re2">&gt;</span></span>
- 
+
   <span class="sc3"><span class="re1">&lt;properties<span class="re2">&gt;</span></span></span>
     <span class="sc3"><span class="re1">&lt;npn-version<span class="re2">&gt;</span></span></span>7.6.2.v20120308<span class="sc3"><span class="re1">&lt;/npn-version<span class="re2">&gt;</span></span></span>
   <span class="sc3"><span class="re1">&lt;/properties<span class="re2">&gt;</span></span></span>
- 
+
   <span class="sc3"><span class="re1">&lt;build<span class="re2">&gt;</span></span></span>
     <span class="sc3"><span class="re1">&lt;plugins<span class="re2">&gt;</span></span></span>
       <span class="sc3"><span class="re1">&lt;plugin<span class="re2">&gt;</span></span></span>
@@ -181,14 +181,14 @@ The solution that we use with Maven is to specify an additional command line arg
           <span class="sc3"><span class="re1">&lt;argLine<span class="re2">&gt;</span></span></span>-Xbootclasspath/p:${settings.localRepository}/org/mortbay/jetty/npn/npn-boot/${npn-version}/npn-boot-${npn-version}.jar<span class="sc3"><span class="re1">&lt;/argLine<span class="re2">&gt;</span></span></span>
         <span class="sc3"><span class="re1">&lt;/configuration<span class="re2">&gt;</span></span></span>
       <span class="sc3"><span class="re1">&lt;/plugin<span class="re2">&gt;</span></span></span>
- 
+
       ...
- 
+
     <span class="sc3"><span class="re1">&lt;/plugins<span class="re2">&gt;</span></span></span>
   <span class="sc3"><span class="re1">&lt;/build<span class="re2">&gt;</span></span></span>
- 
+
   ...
- 
+
 <span class="sc3"><span class="re1">&lt;/project<span class="re2">&gt;</span></span></span></pre></div></div>
 <h3><span class="mw-headline" id="Debugging">Debugging</span></h3>
 <p>You can enable debug logging for the NPN implementation in this way:

@@ -71,7 +71,7 @@ It is sometimes useful to preserve existing Sessions across restarts of Jetty. T
 <h2><span id="Enabling_Persistence" class="mw-headline">Enabling Persistence</span></h2>
 <p>A SessionManager does just what its name suggests–it manages the lifecycle and state of Sessions on behalf of a webapp. Each webapp must have its own unique SessionManager instance. Enabling persistence is as simple as configuring the HashSessionManager as the SessionManager for a webapp and telling it where on disk to store the sessions:
 </p>
-<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="xml source-xml"><pre class="de1"> 
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="xml source-xml"><pre class="de1">
 <span class="sc3"><span class="re1">&lt;Configure</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.webapp.WebAppContext"</span><span class="re2">&gt;</span></span>
   .
   .
@@ -102,7 +102,7 @@ The above example uses a configuration file suitable for the <a class="external 
 <p>You might need to ensure that the sessions are loaded AFTER the servlet environment starts up (by default, Jetty eagerly loads sessions as part of the container startup, but before it initializes the servlet environment). For example, the Wicket web framework requires the servlet environment to be available when sessions are activated.
 </p><p>Using <tt>SessionManager.setLazyLoad(true)</tt>, Jetty loads sessions lazily either when it receives the first request for a session, or the session scavenger runs for the first time, whichever happens first. Here's how the configuration looks in XML:
 </p>
-<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="xml source-xml"><pre class="de1"> 
+<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="xml source-xml"><pre class="de1">
 <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"sessionHandler"</span><span class="re2">&gt;</span></span>
   <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.servlet.SessionHandler"</span><span class="re2">&gt;</span></span>
     <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>
@@ -115,7 +115,7 @@ The above example uses a configuration file suitable for the <a class="external 
 <h3><span class="mw-headline" id="Enabling_Persistence_for_the_Jetty_Maven_Plugin">Enabling Persistence for the Jetty Maven Plugin</span></h3>
 <p>To enable session persistence for the Jetty Maven plugin, set up the HashSessionManager in the &lt;configuration&gt; section like so:
 </p>
-<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="xml source-xml"><pre class="de1"> 
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="xml source-xml"><pre class="de1">
 <span class="sc3"><span class="re1">&lt;plugin<span class="re2">&gt;</span></span></span>
   <span class="sc3"><span class="re1">&lt;groupId<span class="re2">&gt;</span></span></span>org.mortbay.jetty<span class="sc3"><span class="re1">&lt;/groupId<span class="re2">&gt;</span></span></span>
   <span class="sc3"><span class="re1">&lt;artifactId<span class="re2">&gt;</span></span></span>jetty-maven-plugin<span class="sc3"><span class="re1">&lt;/artifactId<span class="re2">&gt;</span></span></span>
@@ -147,10 +147,19 @@ The above example uses a configuration file suitable for the <a class="external 
 
 </div>
 
-                    <div id="catlinks" class="catlinks"><div class="mw-normal-catlinks" id="mw-normal-catlinks"><a href="https://wiki.eclipse.org/Special:Categories" title="Special:Categories">Categories</a>: <ul><li><a href="https://wiki.eclipse.org/Category:Jetty" title="Category:Jetty">Jetty</a></li><li><a title="Category:Jetty Howto" href="https://wiki.eclipse.org/Category:Jetty_Howto">Jetty Howto</a></li></ul></div></div>
+                      <div id="catlinks" class="catlinks">
+                          <div class="mw-normal-catlinks" id="mw-normal-catlinks">
+                              <a href="https://wiki.eclipse.org/Special:Categories" title="Special:Categories">Categories</a>:
+                              <ul>
+                                  <li><a href="https://wiki.eclipse.org/Category:Jetty" title="Category:Jetty">Jetty</a></li>
+                                  <li><a title="Category:Jetty Howto" href="https://wiki.eclipse.org/Category:Jetty_Howto">Jetty Howto</a></li>
+                              </ul>
+                          </div>
+                      </div>
                                   </div>
               </div>
             </div>
           </div>
+</div>
 </body>
 </html>

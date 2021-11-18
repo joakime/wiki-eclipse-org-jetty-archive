@@ -335,36 +335,36 @@ waffle.jaas.WindowsLoginModule sufficient debug=true;
 <p>If you want to implement your own custom LoginModule, there are two classes you should be familiar with:
 </p>
 <div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="java source-java"><pre class="de1">AbstractLoginModule.<span class="me1">java</span>
- 
+
 <span class="kw1">package</span> <span class="co2">org.eclipse.jetty.plus.jaas.spi</span><span class="sy0">;</span>
- 
+
 <span class="kw1">public</span> <span class="kw1">abstract</span> <span class="kw1">class</span> AbstractLoginModule <span class="kw1">implements</span> LoginModule
 <span class="br0">{</span>
   ...
   <span class="kw1">public</span> <span class="kw1">abstract</span> UserInfo getUserInfo <span class="br0">(</span><span class="kw3">String</span> username<span class="br0">)</span> <span class="kw1">throws</span> <span class="kw3">Exception</span><span class="sy0">;</span>
 <span class="br0">}</span></pre></div></div>
 <div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="java source-java"><pre class="de1">UserInfo.<span class="me1">java</span>
- 
+
 <span class="kw1">package</span> <span class="co2">org.eclipse.jetty.plus.jaas.spi</span><span class="sy0">;</span>
- 
+
 <span class="kw1">public</span> <span class="kw1">class</span> UserInfo
 <span class="br0">{</span>
- 
+
   <span class="kw1">public</span> UserInfo <span class="br0">(</span><span class="kw3">String</span> userName, Credential credential, <span class="kw3">List</span> roleNames<span class="br0">)</span>
   <span class="br0">{</span>
     ...
   <span class="br0">}</span>
- 
+
   <span class="kw1">public</span> <span class="kw3">String</span> getUserName<span class="br0">(</span><span class="br0">)</span>
   <span class="br0">{</span>
     ...
   <span class="br0">}</span>
- 
+
   <span class="kw1">public</span> <span class="kw3">List</span> getRoleNames <span class="br0">(</span><span class="br0">)</span>
   <span class="br0">{</span>
     ...
   <span class="br0">}</span>
- 
+
   <span class="kw1">public</span> <span class="kw4">boolean</span> checkCredential <span class="br0">(</span><span class="kw3">Object</span> suppliedCredential<span class="br0">)</span>
   <span class="br0">{</span>
      ...
@@ -391,13 +391,13 @@ waffle.jaas.WindowsLoginModule sufficient debug=true;
 <p>As all servlet containers intercept and process a form submission with action <tt>j_security_check</tt>, it is usually not possible to insert any extra input fields onto a login form with which to perform authentication: you may only pass <tt>j_username</tt> and <tt>j_password</tt>. For those rare occasions when this is not good enough, and you require more information from the user in order to authenticate them, you can use the JAAS callback handler <tt>org.mortbay.jetty.plus.jaas.callback.RequestParameterCallback</tt>. This callback handler gives you access to all parameters passed in the form submission. To use it, in the <tt>login()</tt> method of your custom login module, add the RequestParameterCallback to the list of callback handlers the login module uses, tell it which parameters you are want, and then get the value of the parameter back. Here's an example:
 </p>
 <div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="java source-java"><pre class="de1">FooLoginModule.<span class="me1">java</span>
- 
+
 <span class="kw1">public</span> <span class="kw1">class</span> FooLoginModule <span class="kw1">extends</span> AbstractLoginModule
 <span class="br0">{</span>
         .
         .
         .
- 
+
      <span class="kw1">public</span> <span class="kw4">boolean</span> login<span class="br0">(</span><span class="br0">)</span>
         <span class="kw1">throws</span> LoginException
      <span class="br0">{</span>
@@ -407,7 +407,7 @@ waffle.jaas.WindowsLoginModule sufficient debug=true;
         <span class="me1">Callback</span><span class="br0">[</span><span class="br0">]</span> callbacks <span class="sy0">=</span> <span class="kw1">new</span> Callback<span class="br0">[</span><span class="nu0">3</span><span class="br0">]</span><span class="sy0">;</span>
         callbacks<span class="br0">[</span><span class="nu0">0</span><span class="br0">]</span> <span class="sy0">=</span> <span class="kw1">new</span> NameCallback<span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
         callbacks<span class="br0">[</span><span class="nu0">1</span><span class="br0">]</span> <span class="sy0">=</span> <span class="kw1">new</span> ObjectCallback<span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
- 
+
         <span class="co1">//as an example, look for a param named "extrainfo" in the request</span>
         <span class="co1">//use one RequestParameterCallback() instance for each param you want to access</span>
         callbacks<span class="br0">[</span><span class="nu0">2</span><span class="br0">]</span> <span class="sy0">=</span> <span class="kw1">new</span> RequestParameterCallback <span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
@@ -419,7 +419,7 @@ waffle.jaas.WindowsLoginModule sufficient debug=true;
         <span class="kw3">String</span> userName <span class="sy0">=</span> <span class="br0">(</span><span class="br0">(</span>NameCallback<span class="br0">)</span>callbacks<span class="br0">[</span><span class="nu0">0</span><span class="br0">]</span><span class="br0">)</span>.<span class="me1">getName</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
         <span class="kw3">Object</span> pwd <span class="sy0">=</span> <span class="br0">(</span><span class="br0">(</span>ObjectCallback<span class="br0">)</span>callbacks<span class="br0">[</span><span class="nu0">1</span><span class="br0">]</span><span class="br0">)</span>.<span class="me1">getObject</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
         <span class="kw3">List</span> paramValues <span class="sy0">=</span> <span class="br0">(</span><span class="br0">(</span>RequestParameterCallback<span class="br0">)</span>callbacks<span class="br0">[</span><span class="nu0">2</span><span class="br0">]</span><span class="br0">)</span>.<span class="me1">getParameterValues</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
- 
+
         <span class="co1">//use the userName, pwd and the value(s) of the parameter named "extrainfo" to</span>
         <span class="co1">//authenticate the user</span>
         .

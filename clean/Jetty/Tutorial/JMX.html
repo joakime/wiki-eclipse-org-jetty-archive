@@ -106,12 +106,12 @@ The simplest way to access the MBeans that are published by Jetty is to use the 
 <p>If Jetty is embedded into an application, the following snippet of code shows how to create and configure an MBeanContainer instance:
 </p>
 <div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="java source-java"><pre class="de1">Server _server <span class="sy0">=</span> <span class="kw1">new</span> Server<span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
- 
+
 <span class="co1">// Setup JMX</span>
 MBeanContainer mbContainer<span class="sy0">=</span><span class="kw1">new</span> MBeanContainer<span class="br0">(</span>ManagementFactory.<span class="me1">getPlatformMBeanServer</span><span class="br0">(</span><span class="br0">)</span><span class="br0">)</span><span class="sy0">;</span>
 _server.<span class="me1">getContainer</span><span class="br0">(</span><span class="br0">)</span>.<span class="me1">addEventListener</span><span class="br0">(</span>mbContainer<span class="br0">)</span><span class="sy0">;</span>
 _server.<span class="me1">addBean</span><span class="br0">(</span>mbContainer<span class="br0">)</span><span class="sy0">;</span>
- 
+
 <span class="co1">// Register loggers as MBeans</span>
 mbContainer.<span class="me1">addBean</span><span class="br0">(</span>Log.<span class="me1">getLog</span><span class="br0">(</span><span class="br0">)</span><span class="br0">)</span><span class="sy0">;</span></pre></div></div>
 <p>Please note that MBeanContainer is created immediately after the Server is created, and immediately after it is registered as an EventListener of the Server's Container object. 

@@ -169,11 +169,11 @@ Whenever an instance of that service is registered, jetty-osgi will read the att
 </p>
 <div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="java source-java"><pre class="de1"><span class="kw1">public</span> <span class="kw1">static</span> <span class="kw4">void</span> registerWebapplication<span class="br0">(</span>Bundle contributor, <span class="kw3">String</span> webappFolderPath, <span class="kw3">String</span> contextPath<span class="br0">)</span> <span class="kw1">throws</span> <span class="kw3">Exception</span>  <span class="br0">{</span>
         WebAppContext contextHandler <span class="sy0">=</span> <span class="kw1">new</span> WebAppContext<span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
- 
+
         <span class="kw3">Properties</span> dic <span class="sy0">=</span> <span class="kw1">new</span> <span class="kw3">Properties</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
         dic.<span class="me1">put</span><span class="br0">(</span>OSGiWebappConstants.<span class="me1">SERVICE_PROP_WAR</span>, webappFolderPath<span class="br0">)</span><span class="sy0">;</span>
         dic.<span class="me1">put</span><span class="br0">(</span>OSGiWebappConstants.<span class="me1">SERVICE_PROP_CONTEXT_PATH</span>, contextPath<span class="br0">)</span><span class="sy0">;</span>
- 
+
         contributor.<span class="me1">getBundleContext</span><span class="br0">(</span><span class="br0">)</span>.<span class="me1">registerService</span><span class="br0">(</span>ContextHandler.<span class="kw1">class</span>.<span class="me1">getName</span><span class="br0">(</span><span class="br0">)</span>, contextHandler, dic<span class="br0">)</span><span class="sy0">;</span>
 <span class="br0">}</span></pre></div></div>
 <p>When deploying a web-application, it is necessary to create a WebAppContext rather than a basic ContextHandler.

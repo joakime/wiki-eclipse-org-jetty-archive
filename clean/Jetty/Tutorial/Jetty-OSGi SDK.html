@@ -136,10 +136,10 @@ Click on "Add..." and choose the option "Nothing:" start with an empty Target Pl
 <ul><li> Create a new class ActivatorTest</li>
 <li> Make a method that will be run by JUnit to test that the activator is started:</li></ul>
 <div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="java source-java"><pre class="de1"><span class="kw1">package</span> <span class="co2">org.eclipse.jetty.rt.example.test</span><span class="sy0">;</span>
- 
+
 <span class="kw1">import</span> <span class="co2">org.junit.Assert</span><span class="sy0">;</span>
 <span class="kw1">import</span> <span class="co2">org.junit.Test</span><span class="sy0">;</span>
- 
+
 <span class="co3">/**
  * Tests that the activator was indeed loaded
  */</span>
@@ -189,7 +189,7 @@ Web-ContextPath: /test</pre></div></div>
 <span class="sc3">   <span class="re0">xmlns:xsi</span>=<span class="st0">"http://www.w3.org/2001/XMLSchema-instance"</span></span>
 <span class="sc3">   <span class="re0">xsi:schemaLocation</span>=<span class="st0">"http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"</span></span>
 <span class="sc3">   <span class="re0">version</span>=<span class="st0">"2.5"</span><span class="re2">&gt;</span></span>
- 
+
    <span class="sc3"><span class="re1">&lt;display-name<span class="re2">&gt;</span></span></span>Hello Webapp<span class="sc3"><span class="re1">&lt;/display-name<span class="re2">&gt;</span></span></span>
    <span class="sc3"><span class="re1">&lt;servlet<span class="re2">&gt;</span></span></span>
         <span class="sc3"><span class="re1">&lt;servlet-name<span class="re2">&gt;</span></span></span>theservlet<span class="sc3"><span class="re1">&lt;/servlet-name<span class="re2">&gt;</span></span></span>
@@ -200,23 +200,23 @@ Web-ContextPath: /test</pre></div></div>
         <span class="sc3"><span class="re1">&lt;servlet-name<span class="re2">&gt;</span></span></span>theservlet<span class="sc3"><span class="re1">&lt;/servlet-name<span class="re2">&gt;</span></span></span>
         <span class="sc3"><span class="re1">&lt;url-pattern<span class="re2">&gt;</span></span></span>/*<span class="sc3"><span class="re1">&lt;/url-pattern<span class="re2">&gt;</span></span></span>
     <span class="sc3"><span class="re1">&lt;/servlet-mapping<span class="re2">&gt;</span></span></span>
- 
+
 <span class="sc3"><span class="re1">&lt;/web-app<span class="re2">&gt;</span></span></span></pre></div></div>
 <ul><li> Create a org.eclipse.jetty.example.webapp.Servlet class</li></ul>
 <div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="java source-java"><pre class="de1"><span class="kw1">package</span> <span class="co2">org.eclipse.jetty.example.webapp</span><span class="sy0">;</span>
- 
+
 <span class="kw1">import</span> <span class="co2">java.io.IOException</span><span class="sy0">;</span>
- 
+
 <span class="kw1">import</span> <span class="co2">javax.servlet.ServletConfig</span><span class="sy0">;</span>
 <span class="kw1">import</span> <span class="co2">javax.servlet.ServletException</span><span class="sy0">;</span>
 <span class="kw1">import</span> <span class="co2">javax.servlet.http.HttpServlet</span><span class="sy0">;</span>
 <span class="kw1">import</span> <span class="co2">javax.servlet.http.HttpServletRequest</span><span class="sy0">;</span>
 <span class="kw1">import</span> <span class="co2">javax.servlet.http.HttpServletResponse</span><span class="sy0">;</span>
- 
+
 <span class="co3">/** A simple servlet */</span>
 <span class="kw1">public</span> <span class="kw1">class</span> Servlet <span class="kw1">extends</span> HttpServlet <span class="br0">{</span>
 	<span class="kw1">private</span> <span class="kw1">static</span> <span class="kw1">final</span> <span class="kw4">long</span> serialVersionUID <span class="sy0">=</span> 1L<span class="sy0">;</span>
- 
+
 	<span class="kw1">public</span> <span class="kw4">void</span> init<span class="br0">(</span>ServletConfig config<span class="br0">)</span> <span class="kw1">throws</span> ServletException <span class="br0">{</span>
 		<span class="kw3">System</span>.<span class="me1">err</span>.<span class="me1">println</span><span class="br0">(</span><span class="st0">"Initializing the servlet"</span><span class="br0">)</span><span class="sy0">;;</span>
 	<span class="br0">}</span>
@@ -235,7 +235,7 @@ Some extra steps are necessary to prevent all logs from appearing on the console
 <span class="sc3"><span class="re1">&lt;configuration<span class="re2">&gt;</span></span></span>
 	<span class="sc3"><span class="re1">&lt;appender</span> <span class="re0">name</span>=<span class="st0">"STDOUT"</span> <span class="re0">class</span>=<span class="st0">"ch.qos.logback.core.ConsoleAppender"</span><span class="re2">&gt;</span></span>
 		<span class="sc3"><span class="re1">&lt;encoder<span class="re2">&gt;</span></span></span>
-			<span class="sc3"><span class="re1">&lt;pattern<span class="re2">&gt;</span></span></span>%-4relative [%thread] %-5level %class - %msg%n<span class="sc3"><span class="re1">&lt;/pattern<span class="re2">&gt;</span></span></span>
+			<span class="sc3"><span class="re1">&lt;pattern<span class="re2">&gt;</span></span></span>%-4relative [%thread] %-5level %class - %msg%n<span class="sc3"><span class="re1">&lt;/pattern<span class="re2">&gt;</span></span></span>
 		<span class="sc3"><span class="re1">&lt;/encoder<span class="re2">&gt;</span></span></span>
 	<span class="sc3"><span class="re1">&lt;/appender<span class="re2">&gt;</span></span></span>
 	<span class="sc3"><span class="re1">&lt;root<span class="re2">&gt;</span></span></span>
@@ -282,7 +282,7 @@ Bundle-ActivationPolicy: lazy</pre></div></div>
 Create the ServletTest class:
 </p>
 <div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="java source-java"><pre class="de1"><span class="kw1">package</span> <span class="co2">org.eclipse.jetty.rt.example.test</span><span class="sy0">;</span>
- 
+
 <span class="kw1">import</span> <span class="co2">org.eclipse.jetty.client.*</span><span class="sy0">;</span>
 <span class="kw1">import</span> <span class="co2">org.eclipse.jetty.util.Attributes</span><span class="sy0">;</span>
 <span class="kw1">import</span> <span class="co2">org.eclipse.jetty.http.HttpBuffers</span><span class="sy0">;</span>
@@ -295,27 +295,27 @@ Create the ServletTest class:
 <span class="kw1">import</span> <span class="co2">org.osgi.framework.Bundle</span><span class="sy0">;</span>
 <span class="kw1">import</span> <span class="co2">org.osgi.framework.BundleException</span><span class="sy0">;</span>
 <span class="kw1">import</span> <span class="co2">org.osgi.framework.FrameworkUtil</span><span class="sy0">;</span>
- 
+
 <span class="co3">/**
  * 
  */</span>
 <span class="kw1">public</span> <span class="kw1">class</span> ServletTest <span class="br0">{</span>
- 
+
 	<span class="kw1">private</span> HttpClient _client<span class="sy0">;</span>
- 
+
     <span class="kw1">protected</span> <span class="kw4">void</span> startClient<span class="br0">(</span><span class="br0">)</span> <span class="kw1">throws</span> <span class="kw3">Exception</span> <span class="br0">{</span>
 	    _client <span class="sy0">=</span> <span class="kw1">new</span> HttpClient<span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
 	    _client.<span class="me1">setConnectorType</span><span class="br0">(</span>HttpClient.<span class="me1">CONNECTOR_SELECT_CHANNEL</span><span class="br0">)</span><span class="sy0">;</span>
 	    _client.<span class="me1">start</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
     <span class="br0">}</span>
- 
+
 	<span class="kw1">protected</span> <span class="kw4">void</span> stopClient<span class="br0">(</span><span class="br0">)</span> <span class="kw1">throws</span> <span class="kw3">Exception</span> <span class="br0">{</span>
 		<span class="kw1">if</span> <span class="br0">(</span>_client <span class="sy0">!=</span> <span class="kw2">null</span><span class="br0">)</span> <span class="br0">{</span>
 			_client.<span class="me1">stop</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
 			_client <span class="sy0">=</span> <span class="kw2">null</span><span class="sy0">;</span>
 		<span class="br0">}</span>
 	<span class="br0">}</span>
- 
+
 	<span class="co3">/**
 	 * Make sure the webapp is started before this test is run.
 	 * Could be done via the Launch Configuration
@@ -342,17 +342,17 @@ Create the ServletTest class:
 			<span class="br0">}</span>
 		<span class="br0">}</span>
 	<span class="br0">}</span>
- 
+
 	@Test <span class="kw1">public</span> <span class="kw4">void</span> testGet<span class="br0">(</span><span class="br0">)</span> <span class="kw1">throws</span> <span class="kw3">Exception</span> <span class="br0">{</span>
 		startClient<span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
- 
+
 		ContentExchange getExchange <span class="sy0">=</span> <span class="kw1">new</span> ContentExchange<span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
 		getExchange.<span class="me1">setURL</span><span class="br0">(</span><span class="st0">"http://localhost:8080/test/"</span><span class="br0">)</span><span class="sy0">;</span>
 		getExchange.<span class="me1">setMethod</span><span class="br0">(</span>HttpMethods.<span class="me1">GET</span><span class="br0">)</span><span class="sy0">;</span>
- 
+
 		_client.<span class="me1">send</span><span class="br0">(</span>getExchange<span class="br0">)</span><span class="sy0">;</span>
 		<span class="kw4">int</span> state <span class="sy0">=</span> getExchange.<span class="me1">waitForDone</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
- 
+
 		<span class="kw3">String</span> content <span class="sy0">=</span> <span class="st0">""</span><span class="sy0">;</span>
 		<span class="kw4">int</span> responseStatus <span class="sy0">=</span> getExchange.<span class="me1">getResponseStatus</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
 		<span class="kw1">if</span> <span class="br0">(</span>responseStatus <span class="sy0">==</span> HttpStatus.<span class="me1">OK_200</span><span class="br0">)</span> <span class="br0">{</span>
@@ -360,11 +360,11 @@ Create the ServletTest class:
 		<span class="br0">}</span>
 		<span class="kw3">System</span>.<span class="me1">err</span>.<span class="me1">println</span><span class="br0">(</span><span class="st0">"Got the content: "</span> <span class="sy0">+</span> content<span class="br0">)</span><span class="sy0">;</span>
 		stopClient<span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
- 
+
 		<span class="kw1">Assert</span>.<span class="me1">assertEquals</span><span class="br0">(</span>HttpStatus.<span class="me1">OK_200</span>, responseStatus<span class="br0">)</span><span class="sy0">;</span>
 		<span class="kw1">Assert</span>.<span class="me1">assertEquals</span><span class="br0">(</span><span class="st0">"Howdy!"</span>, content<span class="br0">)</span><span class="sy0">;</span>
 	<span class="br0">}</span>
- 
+
 <span class="br0">}</span></pre></div></div>
 <p><a class="internal" href="https://wiki.eclipse.org/images/1/19/Org.eclipse.rt.example.webapp-1.0.0.qualifier.zip" title="Org.eclipse.rt.example.webapp-1.0.0.qualifier.zip">Archive of the web-bundle and the webtest bundles</a>
 </p>
@@ -382,7 +382,7 @@ PDE supports importing an eclipse installation as a Target Platform.
 
 </div>
 
-                    <div class="catlinks" id="catlinks"></li><li><a class="new" href="edit" title="Category:OSGi (page does not exist)">OSGi</a></li></ul></div></div>
+                    <div class="catlinks" id="catlinks"><li><a class="new" href="edit" title="Category:OSGi (page does not exist)">OSGi</a></li></div></div>
                                   </div>
               </div>
 </body>

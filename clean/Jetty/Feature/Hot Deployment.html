@@ -64,7 +64,7 @@ Jetty provides capability to deploy an arbitrary context or web application by m
 <p>The deployment manager is a state-oriented mechanism suitable for developers and embedded users to customize to a variety of use cases.  An example follows of the <tt>jetty.xml</tt> that creates the basic deployment manager, which Jetty then uses to plug in the ContextProvider and the WebAppProvider that back the Hot Deployment mechanism.  This example also provides information about adding another node to the deployment state, in this case a debug binding.  In the Jetty distribution this XML is in the <tt>jetty-deploy.xml</tt> file, which combined with the <tt>jetty-contexts.xml</tt> and <tt>jetty-webapps.xml</tt> files comprise the stock jetty hot deployment mechanism.
 </p>
 <div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="xml source-xml"><pre class="de1"><span class="sc3"><span class="re1">&lt;Configure</span> <span class="re0">id</span>=<span class="st0">"Server"</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.server.Server"</span><span class="re2">&gt;</span></span>
- 
+
     <span class="sc3"><span class="re1">&lt;Call</span> <span class="re0">name</span>=<span class="st0">"addBean"</span><span class="re2">&gt;</span></span>
       <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>
         <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">id</span>=<span class="st0">"DeploymentManager"</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.deploy.DeploymentManager"</span><span class="re2">&gt;</span></span>
@@ -75,8 +75,8 @@ Jetty provides capability to deploy an arbitrary context or web application by m
             <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>org.eclipse.jetty.server.webapp.ContainerIncludeJarPattern<span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
             <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>.*/jsp-api-[^/]*\.jar$|.*/jsp-[^/]*\.jar$<span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
           <span class="sc3"><span class="re1">&lt;/Call<span class="re2">&gt;</span></span></span>
- 
- 
+
+
           <span class="sc-1">&lt;!-- Add a customize step to the deployment lifecycle --&gt;</span>
           <span class="sc-1">&lt;!-- uncomment and replace DebugBinding with your extended AppLifeCycle.Binding class </span>
 <span class="sc-1">          &lt;Call name="insertLifeCycleNode"&gt;</span>
@@ -92,7 +92,7 @@ Jetty provides capability to deploy an arbitrary context or web application by m
 <span class="sc-1">            &lt;/Arg&gt;</span>
 <span class="sc-1">          &lt;/Call&gt;</span>
 <span class="sc-1">          --&gt;</span>
- 
+
         <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span>
       <span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
     <span class="sc3"><span class="re1">&lt;/Call<span class="re2">&gt;</span></span></span>
@@ -109,5 +109,6 @@ Jetty provides capability to deploy an arbitrary context or web application by m
               </div>
             </div>
           </div>
+</div>
 </body>
 </html>

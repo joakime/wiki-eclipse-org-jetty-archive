@@ -146,7 +146,7 @@ Jetty has a slogan, "Don't deploy your application in Jetty, deploy Jetty in you
 <span class="br0">{</span>
     Server server <span class="sy0">=</span> <span class="kw1">new</span> Server<span class="br0">(</span><span class="nu0">8080</span><span class="br0">)</span><span class="sy0">;</span>
     server.<span class="me1">setHandler</span><span class="br0">(</span><span class="kw1">new</span> HelloHandler<span class="br0">(</span><span class="br0">)</span><span class="br0">)</span><span class="sy0">;</span>
- 
+
     server.<span class="me1">start</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
     server.<span class="me1">join</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
 <span class="br0">}</span></pre></div></div>
@@ -161,18 +161,18 @@ Jetty has a slogan, "Don't deploy your application in Jetty, deploy Jetty in you
     <span class="kw1">public</span> <span class="kw1">static</span> <span class="kw4">void</span> main<span class="br0">(</span><span class="kw3">String</span><span class="br0">[</span><span class="br0">]</span> args<span class="br0">)</span> <span class="kw1">throws</span> <span class="kw3">Exception</span>
     <span class="br0">{</span>
         Server server <span class="sy0">=</span> <span class="kw1">new</span> Server<span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
- 
+
         SelectChannelConnector connector0 <span class="sy0">=</span> <span class="kw1">new</span> SelectChannelConnector<span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
         connector0.<span class="me1">setPort</span><span class="br0">(</span><span class="nu0">8080</span><span class="br0">)</span><span class="sy0">;</span>
         connector0.<span class="me1">setMaxIdleTime</span><span class="br0">(</span><span class="nu0">30000</span><span class="br0">)</span><span class="sy0">;</span>
         connector0.<span class="me1">setRequestHeaderSize</span><span class="br0">(</span><span class="nu0">8192</span><span class="br0">)</span><span class="sy0">;</span>
- 
+
         SelectChannelConnector connector1 <span class="sy0">=</span> <span class="kw1">new</span> SelectChannelConnector<span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
         connector1.<span class="me1">setHost</span><span class="br0">(</span><span class="st0">"127.0.0.1"</span><span class="br0">)</span><span class="sy0">;</span>
         connector1.<span class="me1">setPort</span><span class="br0">(</span><span class="nu0">8888</span><span class="br0">)</span><span class="sy0">;</span>
         connector1.<span class="me1">setThreadPool</span><span class="br0">(</span><span class="kw1">new</span> QueuedThreadPool<span class="br0">(</span><span class="nu0">20</span><span class="br0">)</span><span class="br0">)</span><span class="sy0">;</span>
         connector1.<span class="me1">setName</span><span class="br0">(</span><span class="st0">"admin"</span><span class="br0">)</span><span class="sy0">;</span>
- 
+
         SslSelectChannelConnector ssl_connector <span class="sy0">=</span> <span class="kw1">new</span> SslSelectChannelConnector<span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
         <span class="kw3">String</span> jetty_home <span class="sy0">=</span> 
           <span class="kw3">System</span>.<span class="me1">getProperty</span><span class="br0">(</span><span class="st0">"jetty.home"</span>,<span class="st0">"../jetty-distribution/target/distribution"</span><span class="br0">)</span><span class="sy0">;</span>
@@ -182,11 +182,11 @@ Jetty has a slogan, "Don't deploy your application in Jetty, deploy Jetty in you
         cf.<span class="me1">setKeyStore</span><span class="br0">(</span>jetty_home <span class="sy0">+</span> <span class="st0">"/etc/keystore"</span><span class="br0">)</span><span class="sy0">;</span>
         cf.<span class="me1">setKeyStorePassword</span><span class="br0">(</span><span class="st0">"OBF:1vny1zlo1x8e1vnw1vn61x8g1zlu1vn4"</span><span class="br0">)</span><span class="sy0">;</span>
         cf.<span class="me1">setKeyManagerPassword</span><span class="br0">(</span><span class="st0">"OBF:1u2u1wml1z7s1z7a1wnl1u2g"</span><span class="br0">)</span><span class="sy0">;</span>
- 
+
         server.<span class="me1">setConnectors</span><span class="br0">(</span><span class="kw1">new</span> Connector<span class="br0">[</span><span class="br0">]</span><span class="br0">{</span> connector0, connector1, ssl_connector <span class="br0">}</span><span class="br0">)</span><span class="sy0">;</span>
- 
+
         server.<span class="me1">setHandler</span><span class="br0">(</span><span class="kw1">new</span> HelloHandler<span class="br0">(</span><span class="br0">)</span><span class="br0">)</span><span class="sy0">;</span>
- 
+
         server.<span class="me1">start</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
         server.<span class="me1">join</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
     <span class="br0">}</span>
@@ -211,17 +211,17 @@ Jetty has a slogan, "Don't deploy your application in Jetty, deploy Jetty in you
         SelectChannelConnector connector <span class="sy0">=</span> <span class="kw1">new</span> SelectChannelConnector<span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
         connector.<span class="me1">setPort</span><span class="br0">(</span><span class="nu0">8080</span><span class="br0">)</span><span class="sy0">;</span>
         server.<span class="me1">addConnector</span><span class="br0">(</span>connector<span class="br0">)</span><span class="sy0">;</span>
- 
+
         ResourceHandler resource_handler <span class="sy0">=</span> <span class="kw1">new</span> ResourceHandler<span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
         resource_handler.<span class="me1">setDirectoriesListed</span><span class="br0">(</span><span class="kw2">true</span><span class="br0">)</span><span class="sy0">;</span>
         resource_handler.<span class="me1">setWelcomeFiles</span><span class="br0">(</span><span class="kw1">new</span> <span class="kw3">String</span><span class="br0">[</span><span class="br0">]</span><span class="br0">{</span> <span class="st0">"index.html"</span> <span class="br0">}</span><span class="br0">)</span><span class="sy0">;</span>
- 
+
         resource_handler.<span class="me1">setResourceBase</span><span class="br0">(</span><span class="st0">"."</span><span class="br0">)</span><span class="sy0">;</span>
- 
+
         HandlerList handlers <span class="sy0">=</span> <span class="kw1">new</span> HandlerList<span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
         handlers.<span class="me1">setHandlers</span><span class="br0">(</span><span class="kw1">new</span> Handler<span class="br0">[</span><span class="br0">]</span> <span class="br0">{</span> resource_handler, <span class="kw1">new</span> DefaultHandler<span class="br0">(</span><span class="br0">)</span> <span class="br0">}</span><span class="br0">)</span><span class="sy0">;</span>
         server.<span class="me1">setHandler</span><span class="br0">(</span>handlers<span class="br0">)</span><span class="sy0">;</span>
- 
+
         server.<span class="me1">start</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
         server.<span class="me1">join</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
     <span class="br0">}</span>
@@ -233,9 +233,9 @@ Jetty has a slogan, "Don't deploy your application in Jetty, deploy Jetty in you
 </p>
 <div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="xml source-xml"><pre class="de1"><span class="sc3"><span class="re1">&lt;?xml</span> <span class="re0">version</span>=<span class="st0">"1.0"</span><span class="re2">?&gt;</span></span>
 <span class="sc0">&lt;!DOCTYPE Configure PUBLIC "-//Jetty//Configure//EN" "http://www.eclipse.org/jetty/configure.dtd"&gt;</span>
- 
+
 <span class="sc3"><span class="re1">&lt;Configure</span> <span class="re0">id</span>=<span class="st0">"FileServer"</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.server.Server"</span><span class="re2">&gt;</span></span>
- 
+
     <span class="sc3"><span class="re1">&lt;Call</span> <span class="re0">name</span>=<span class="st0">"addConnector"</span><span class="re2">&gt;</span></span>
       <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>
           <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.server.nio.SelectChannelConnector"</span><span class="re2">&gt;</span></span>
@@ -243,7 +243,7 @@ Jetty has a slogan, "Don't deploy your application in Jetty, deploy Jetty in you
           <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span>
       <span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
     <span class="sc3"><span class="re1">&lt;/Call<span class="re2">&gt;</span></span></span>
- 
+
     <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"handler"</span><span class="re2">&gt;</span></span>
       <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.server.handler.HandlerList"</span><span class="re2">&gt;</span></span>
         <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"handlers"</span><span class="re2">&gt;</span></span>
@@ -284,7 +284,7 @@ Jetty has a slogan, "Don't deploy your application in Jetty, deploy Jetty in you
 </p>
 <div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="xml source-xml"><pre class="de1"><span class="sc3"><span class="re1">&lt;beans<span class="re2">&gt;</span></span></span>
   <span class="sc3"><span class="re1">&lt;bean</span> <span class="re0">id</span>=<span class="st0">"Server"</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.server.Server"</span> <span class="re0">init-method</span>=<span class="st0">"start"</span> <span class="re0">destroy-method</span>=<span class="st0">"stop"</span><span class="re2">&gt;</span></span>
- 
+
     <span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span class="st0">"connectors"</span><span class="re2">&gt;</span></span>
       <span class="sc3"><span class="re1">&lt;list<span class="re2">&gt;</span></span></span>
         <span class="sc3"><span class="re1">&lt;bean</span> <span class="re0">id</span>=<span class="st0">"Connector"</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.server.nio.SelectChannelConnector"</span><span class="re2">&gt;</span></span>
@@ -292,7 +292,7 @@ Jetty has a slogan, "Don't deploy your application in Jetty, deploy Jetty in you
         <span class="sc3"><span class="re1">&lt;/bean<span class="re2">&gt;</span></span></span>
       <span class="sc3"><span class="re1">&lt;/list<span class="re2">&gt;</span></span></span>
     <span class="sc3"><span class="re1">&lt;/property<span class="re2">&gt;</span></span></span>
- 
+
     <span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span class="st0">"handler"</span><span class="re2">&gt;</span></span>
       <span class="sc3"><span class="re1">&lt;bean</span> <span class="re0">id</span>=<span class="st0">"handlers"</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.server.handler.HandlerList"</span><span class="re2">&gt;</span></span>
         <span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span class="st0">"handlers"</span><span class="re2">&gt;</span></span>
@@ -333,15 +333,15 @@ Jetty has a slogan, "Don't deploy your application in Jetty, deploy Jetty in you
     <span class="kw1">public</span> <span class="kw1">static</span> <span class="kw4">void</span> main<span class="br0">(</span><span class="kw3">String</span><span class="br0">[</span><span class="br0">]</span> args<span class="br0">)</span> <span class="kw1">throws</span> <span class="kw3">Exception</span>
     <span class="br0">{</span>
         Server server <span class="sy0">=</span> <span class="kw1">new</span> Server<span class="br0">(</span><span class="nu0">8080</span><span class="br0">)</span><span class="sy0">;</span>
- 
+
         ContextHandler context <span class="sy0">=</span> <span class="kw1">new</span> ContextHandler<span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
         context.<span class="me1">setContextPath</span><span class="br0">(</span><span class="st0">"/hello"</span><span class="br0">)</span><span class="sy0">;</span>
         context.<span class="me1">setResourceBase</span><span class="br0">(</span><span class="st0">"."</span><span class="br0">)</span><span class="sy0">;</span>
         context.<span class="me1">setClassLoader</span><span class="br0">(</span><span class="kw3">Thread</span>.<span class="me1">currentThread</span><span class="br0">(</span><span class="br0">)</span>.<span class="me1">getContextClassLoader</span><span class="br0">(</span><span class="br0">)</span><span class="br0">)</span><span class="sy0">;</span>
         server.<span class="me1">setHandler</span><span class="br0">(</span>context<span class="br0">)</span><span class="sy0">;</span>
- 
+
         context.<span class="me1">setHandler</span><span class="br0">(</span><span class="kw1">new</span> HelloHandler<span class="br0">(</span><span class="br0">)</span><span class="br0">)</span><span class="sy0">;</span>
- 
+
         server.<span class="me1">start</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
         server.<span class="me1">join</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
     <span class="br0">}</span>
@@ -373,15 +373,15 @@ Jetty has a slogan, "Don't deploy your application in Jetty, deploy Jetty in you
     <span class="kw1">public</span> <span class="kw1">static</span> <span class="kw4">void</span> main<span class="br0">(</span><span class="kw3">String</span><span class="br0">[</span><span class="br0">]</span> args<span class="br0">)</span> <span class="kw1">throws</span> <span class="kw3">Exception</span>
     <span class="br0">{</span>
         Server server <span class="sy0">=</span> <span class="kw1">new</span> Server<span class="br0">(</span><span class="nu0">8080</span><span class="br0">)</span><span class="sy0">;</span>
- 
+
         ServletContextHandler context <span class="sy0">=</span> <span class="kw1">new</span> ServletContextHandler<span class="br0">(</span>ServletContextHandler.<span class="me1">SESSIONS</span><span class="br0">)</span><span class="sy0">;</span>
         context.<span class="me1">setContextPath</span><span class="br0">(</span><span class="st0">"/"</span><span class="br0">)</span><span class="sy0">;</span>
         server.<span class="me1">setHandler</span><span class="br0">(</span>context<span class="br0">)</span><span class="sy0">;</span>
- 
+
         context.<span class="me1">addServlet</span><span class="br0">(</span><span class="kw1">new</span> ServletHolder<span class="br0">(</span><span class="kw1">new</span> HelloServlet<span class="br0">(</span><span class="br0">)</span><span class="br0">)</span>,<span class="st0">"/*"</span><span class="br0">)</span><span class="sy0">;</span>
         context.<span class="me1">addServlet</span><span class="br0">(</span><span class="kw1">new</span> ServletHolder<span class="br0">(</span><span class="kw1">new</span> HelloServlet<span class="br0">(</span><span class="st0">"Buongiorno Mondo"</span><span class="br0">)</span><span class="br0">)</span>,<span class="st0">"/it/*"</span><span class="br0">)</span><span class="sy0">;</span>
         context.<span class="me1">addServlet</span><span class="br0">(</span><span class="kw1">new</span> ServletHolder<span class="br0">(</span><span class="kw1">new</span> HelloServlet<span class="br0">(</span><span class="st0">"Bonjour le Monde"</span><span class="br0">)</span><span class="br0">)</span>,<span class="st0">"/fr/*"</span><span class="br0">)</span><span class="sy0">;</span>
- 
+
         server.<span class="me1">start</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
         server.<span class="me1">join</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
     <span class="br0">}</span>
@@ -394,14 +394,14 @@ Jetty has a slogan, "Don't deploy your application in Jetty, deploy Jetty in you
     <span class="kw1">public</span> <span class="kw1">static</span> <span class="kw4">void</span> main<span class="br0">(</span><span class="kw3">String</span><span class="br0">[</span><span class="br0">]</span> args<span class="br0">)</span> <span class="kw1">throws</span> <span class="kw3">Exception</span>
     <span class="br0">{</span>
         <span class="kw3">String</span> jetty_home <span class="sy0">=</span> <span class="kw3">System</span>.<span class="me1">getProperty</span><span class="br0">(</span><span class="st0">"jetty.home"</span>,<span class="st0">".."</span><span class="br0">)</span><span class="sy0">;</span>
- 
+
         Server server <span class="sy0">=</span> <span class="kw1">new</span> Server<span class="br0">(</span><span class="nu0">8080</span><span class="br0">)</span><span class="sy0">;</span>
- 
+
         WebAppContext webapp <span class="sy0">=</span> <span class="kw1">new</span> WebAppContext<span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
         webapp.<span class="me1">setContextPath</span><span class="br0">(</span><span class="st0">"/"</span><span class="br0">)</span><span class="sy0">;</span>
         webapp.<span class="me1">setWar</span><span class="br0">(</span>jetty_home<span class="sy0">+</span><span class="st0">"/webapps/test.war"</span><span class="br0">)</span><span class="sy0">;</span>
         server.<span class="me1">setHandler</span><span class="br0">(</span>webapp<span class="br0">)</span><span class="sy0">;</span>
- 
+
         server.<span class="me1">start</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
         server.<span class="me1">join</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
     <span class="br0">}</span>
@@ -413,15 +413,15 @@ Jetty has a slogan, "Don't deploy your application in Jetty, deploy Jetty in you
     <span class="kw1">public</span> <span class="kw1">static</span> <span class="kw4">void</span> main<span class="br0">(</span><span class="kw3">String</span><span class="br0">[</span><span class="br0">]</span> args<span class="br0">)</span> <span class="kw1">throws</span> <span class="kw3">Exception</span>
     <span class="br0">{</span>
         Server server <span class="sy0">=</span> <span class="kw1">new</span> Server<span class="br0">(</span><span class="nu0">8080</span><span class="br0">)</span><span class="sy0">;</span>
- 
+
         WebAppContext context <span class="sy0">=</span> <span class="kw1">new</span> WebAppContext<span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
         context.<span class="me1">setDescriptor</span><span class="br0">(</span>webapp<span class="sy0">+</span><span class="st0">"/WEB-INF/web.xml"</span><span class="br0">)</span><span class="sy0">;</span>
         context.<span class="me1">setResourceBase</span><span class="br0">(</span><span class="st0">"../test-jetty-webapp/src/main/webapp"</span><span class="br0">)</span><span class="sy0">;</span>
         context.<span class="me1">setContextPath</span><span class="br0">(</span><span class="st0">"/"</span><span class="br0">)</span><span class="sy0">;</span>
         context.<span class="me1">setParentLoaderPriority</span><span class="br0">(</span><span class="kw2">true</span><span class="br0">)</span><span class="sy0">;</span>
- 
+
         server.<span class="me1">setHandler</span><span class="br0">(</span>context<span class="br0">)</span><span class="sy0">;</span>
- 
+
         server.<span class="me1">start</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
         server.<span class="me1">join</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
     <span class="br0">}</span>
@@ -434,22 +434,22 @@ Jetty has a slogan, "Don't deploy your application in Jetty, deploy Jetty in you
     <span class="kw1">public</span> <span class="kw1">static</span> <span class="kw4">void</span> main<span class="br0">(</span><span class="kw3">String</span><span class="br0">[</span><span class="br0">]</span> args<span class="br0">)</span> <span class="kw1">throws</span> <span class="kw3">Exception</span>
     <span class="br0">{</span>
         Server server <span class="sy0">=</span> <span class="kw1">new</span> Server<span class="br0">(</span><span class="nu0">8080</span><span class="br0">)</span><span class="sy0">;</span>
- 
+
         ServletContextHandler context0 <span class="sy0">=</span> <span class="kw1">new</span> ServletContextHandler<span class="br0">(</span>ServletContextHandler.<span class="me1">SESSIONS</span><span class="br0">)</span><span class="sy0">;</span>
         context0.<span class="me1">setContextPath</span><span class="br0">(</span><span class="st0">"/ctx0"</span><span class="br0">)</span><span class="sy0">;</span>
         context0.<span class="me1">addServlet</span><span class="br0">(</span><span class="kw1">new</span> ServletHolder<span class="br0">(</span><span class="kw1">new</span> HelloServlet<span class="br0">(</span><span class="br0">)</span><span class="br0">)</span>,<span class="st0">"/*"</span><span class="br0">)</span><span class="sy0">;</span>
         context0.<span class="me1">addServlet</span><span class="br0">(</span><span class="kw1">new</span> ServletHolder<span class="br0">(</span><span class="kw1">new</span> HelloServlet<span class="br0">(</span><span class="st0">"Buongiorno Mondo"</span><span class="br0">)</span><span class="br0">)</span>,<span class="st0">"/it/*"</span><span class="br0">)</span><span class="sy0">;</span>
         context0.<span class="me1">addServlet</span><span class="br0">(</span><span class="kw1">new</span> ServletHolder<span class="br0">(</span><span class="kw1">new</span> HelloServlet<span class="br0">(</span><span class="st0">"Bonjour le Monde"</span><span class="br0">)</span><span class="br0">)</span>,<span class="st0">"/fr/*"</span><span class="br0">)</span><span class="sy0">;</span>
- 
+
         WebAppContext webapp <span class="sy0">=</span> <span class="kw1">new</span> WebAppContext<span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
         webapp.<span class="me1">setContextPath</span><span class="br0">(</span><span class="st0">"/ctx1"</span><span class="br0">)</span><span class="sy0">;</span>
         webapp.<span class="me1">setWar</span><span class="br0">(</span>jetty_home<span class="sy0">+</span><span class="st0">"/webapps/test.war"</span><span class="br0">)</span><span class="sy0">;</span>
- 
+
         ContextHandlerCollection contexts <span class="sy0">=</span> <span class="kw1">new</span> ContextHandlerCollection<span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
         contexts.<span class="me1">setHandlers</span><span class="br0">(</span><span class="kw1">new</span> Handler<span class="br0">[</span><span class="br0">]</span> <span class="br0">{</span> context0, webapp <span class="br0">}</span><span class="br0">)</span><span class="sy0">;</span>
- 
+
         server.<span class="me1">setHandler</span><span class="br0">(</span>contexts<span class="br0">)</span><span class="sy0">;</span>
- 
+
         server.<span class="me1">start</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
         server.<span class="me1">join</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
     <span class="br0">}</span>

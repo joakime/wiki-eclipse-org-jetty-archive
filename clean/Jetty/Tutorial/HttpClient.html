@@ -106,17 +106,17 @@ You normally need one HttpClient instance for all your needs, even if you plan t
 </p><p>The exchange must be configured with two mandatory fields: the address to connect to, and the request URI, or equivalently with an absolute URL:
 </p>
 <div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="java source-java"><pre class="de1">HttpExchange exchange <span class="sy0">=</span> <span class="kw1">new</span> HttpExchange<span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
- 
+
 <span class="co1">// Optionally set the HTTP method</span>
 exchange.<span class="me1">setMethod</span><span class="br0">(</span><span class="st0">"POST"</span><span class="br0">)</span><span class="sy0">;</span>
- 
+
 exchange.<span class="me1">setAddress</span><span class="br0">(</span><span class="kw1">new</span> Address<span class="br0">(</span><span class="st0">"ping.host.com"</span>, <span class="nu0">80</span><span class="br0">)</span><span class="br0">)</span><span class="sy0">;</span>
 exchange.<span class="me1">setURI</span><span class="br0">(</span><span class="st0">"/ping"</span><span class="br0">)</span><span class="sy0">;</span>
 <span class="co1">// Or, equivalently, this:</span>
 exchange.<span class="me1">setURL</span><span class="br0">(</span><span class="st0">"http://ping.host.com/ping"</span><span class="br0">)</span><span class="sy0">;</span>
- 
+
 client.<span class="me1">send</span><span class="br0">(</span>exchange<span class="br0">)</span><span class="sy0">;</span>
- 
+
 <span class="kw3">System</span>.<span class="me1">out</span>.<span class="me1">println</span><span class="br0">(</span><span class="st0">"Exchange sent"</span><span class="br0">)</span><span class="sy0">;</span></pre></div></div>
 <p>The most important thing to remember is that the <tt>send()</tt> method returns immediately after dispatching the exchange to a thread pool for execution, so the <tt>System.out</tt> is executed immediately after the <tt>send()</tt> method. It may be well true that the <tt>System.out</tt> is executed well before the exchange is actually executed, as well as it may be well true that the <tt>System.out</tt> is executed after the exchange is completely executed (when even the request has been received).
 </p><p>Beware of not assuming anything about the status of the exchange just because you called <tt>send()</tt>.
@@ -159,15 +159,15 @@ This is possible by using the <tt>HttpExchange.waitForDone()</tt> method:
 </p>
 <div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="java source-java"><pre class="de1">HttpClient client <span class="sy0">=</span> <span class="kw1">new</span> HttpClient<span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
 client.<span class="me1">start</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
- 
+
 ContentExchange exchange <span class="sy0">=</span> <span class="kw1">new</span> ContentExchange<span class="br0">(</span><span class="kw2">true</span><span class="br0">)</span><span class="sy0">;</span>
 exchange.<span class="me1">setURL</span><span class="br0">(</span><span class="st0">"http://foobar.com/baz"</span><span class="br0">)</span><span class="sy0">;</span>
- 
+
 client.<span class="me1">send</span><span class="br0">(</span>exchange<span class="br0">)</span><span class="sy0">;</span>
- 
+
 <span class="co1">// Waits until the exchange is terminated</span>
 <span class="kw4">int</span> exchangeState <span class="sy0">=</span> exchange.<span class="me1">waitForDone</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
- 
+
 <span class="kw1">if</span> <span class="br0">(</span>exchangeState <span class="sy0">==</span> HttpExchange.<span class="me1">STATUS_COMPLETED</span><span class="br0">)</span>
     doSomething<span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
 <span class="kw1">else</span> <span class="kw1">if</span> <span class="br0">(</span>exchangeState <span class="sy0">==</span> HttpExchange.<span class="me1">STATUS_EXCEPTED</span><span class="br0">)</span>

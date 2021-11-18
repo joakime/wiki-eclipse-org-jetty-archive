@@ -90,13 +90,13 @@ There are several ways to create custom error pages in Jetty that are described 
 </p>
 <div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="xml source-xml"><pre class="de1"><span class="sc3"><span class="re1">&lt;?xml</span> <span class="re0">version</span>=<span class="st0">"1.0"</span>  <span class="re0">encoding</span>=<span class="st0">"ISO-8859-1"</span><span class="re2">?&gt;</span></span>
 <span class="sc0">&lt;!DOCTYPE Configure PUBLIC "-//Mort Bay Consulting//DTD Configure//EN" "http://jetty.mortbay.org/configure.dtd"&gt;</span>
- 
+
 <span class="sc3"><span class="re1">&lt;Configure</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.webapp.WebAppContext"</span><span class="re2">&gt;</span></span>
   <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"contextPath"</span><span class="re2">&gt;</span></span>/test<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
   <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"war"</span><span class="re2">&gt;</span></span>
     <span class="sc3"><span class="re1">&lt;SystemProperty</span> <span class="re0">name</span>=<span class="st0">"jetty.home"</span> <span class="re0">default</span>=<span class="st0">"."</span><span class="re2">/&gt;</span></span>/webapps/test
   <span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
- 
+
   <span class="sc-1">&lt;!-- by Code --&gt;</span>
   <span class="sc3"><span class="re1">&lt;Get</span> <span class="re0">name</span>=<span class="st0">"errorHandler"</span><span class="re2">&gt;</span></span>
     <span class="sc3"><span class="re1">&lt;Call</span> <span class="re0">name</span>=<span class="st0">"addErrorPage"</span><span class="re2">&gt;</span></span>
@@ -104,7 +104,7 @@ There are several ways to create custom error pages in Jetty that are described 
       <span class="sc3"><span class="re1">&lt;Arg</span> <span class="re0">type</span>=<span class="st0">"String"</span><span class="re2">&gt;</span></span>/jspsnoop/ERROR/404<span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
     <span class="sc3"><span class="re1">&lt;/Call<span class="re2">&gt;</span></span></span>
   <span class="sc3"><span class="re1">&lt;/Get<span class="re2">&gt;</span></span></span>
- 
+
   <span class="sc-1">&lt;!-- by Exception --&gt;</span>
   <span class="sc3"><span class="re1">&lt;Get</span> <span class="re0">name</span>=<span class="st0">"errorHandler"</span><span class="re2">&gt;</span></span>
     <span class="sc3"><span class="re1">&lt;Call</span> <span class="re0">name</span>=<span class="st0">"addErrorPage"</span><span class="re2">&gt;</span></span>
@@ -116,7 +116,7 @@ There are several ways to create custom error pages in Jetty that are described 
       <span class="sc3"><span class="re1">&lt;Arg</span> <span class="re0">type</span>=<span class="st0">"String"</span><span class="re2">&gt;</span></span>/jspsnoop/IOException<span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
     <span class="sc3"><span class="re1">&lt;/Call<span class="re2">&gt;</span></span></span>
   <span class="sc3"><span class="re1">&lt;/Get<span class="re2">&gt;</span></span></span>
- 
+
   <span class="sc-1">&lt;!-- by Code Range --&gt;</span>
   <span class="sc3"><span class="re1">&lt;Get</span> <span class="re0">name</span>=<span class="st0">"errorHandler"</span><span class="re2">&gt;</span></span>
     <span class="sc3"><span class="re1">&lt;Call</span> <span class="re0">name</span>=<span class="st0">"addErrorPage"</span><span class="re2">&gt;</span></span>
@@ -143,17 +143,17 @@ The custom error handler may be set on the context via the API or via a context 
 </p>
 <div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="xml source-xml"><pre class="de1"><span class="sc3"><span class="re1">&lt;?xml</span> <span class="re0">version</span>=<span class="st0">"1.0"</span>  <span class="re0">encoding</span>=<span class="st0">"ISO-8859-1"</span><span class="re2">?&gt;</span></span>
 <span class="sc0">&lt;!DOCTYPE Configure PUBLIC "-//Mort Bay Consulting//DTD Configure//EN" "http://jetty.mortbay.org/configure.dtd"&gt;</span>
- 
+
 <span class="sc3"><span class="re1">&lt;Configure</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.server.handler.ContextHandler"</span><span class="re2">&gt;</span></span>
   <span class="sc3"><span class="re1">&lt;Call</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.util.log.Log"</span> <span class="re0">name</span>=<span class="st0">"debug"</span><span class="re2">&gt;</span><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>Configure javadoc.xml<span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span><span class="re1">&lt;/Call<span class="re2">&gt;</span></span></span>
   <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"contextPath"</span><span class="re2">&gt;</span></span>/javadoc<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
   <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"resourceBase"</span><span class="re2">&gt;</span><span class="re1">&lt;SystemProperty</span> <span class="re0">name</span>=<span class="st0">"jetty.home"</span> <span class="re0">default</span>=<span class="st0">"."</span><span class="re2">/&gt;</span></span>/javadoc/<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
- 
+
   <span class="sc-1">&lt;!-- Instantiate your own error handler --&gt;</span>
   <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"errorHandler"</span><span class="re2">&gt;</span></span>
     <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">class</span>=<span class="st0">"com.acme.handler.MyErrorHandler"</span><span class="re2">/&gt;</span></span>
   <span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
- 
+
 <span class="sc3"><span class="re1">&lt;/Configure<span class="re2">&gt;</span></span></span></pre></div></div>
 <h2><span id="Server_level_404_error" class="mw-headline">Server level 404 error</span></h2>
 <p>One may get a 'page not found' when a request is made to the server for a resource that is outside of any registered contexts. As an example, you have a domain name pointing to your public server IP yet no context is registered with jetty to serve pages for that domain. As a consequence, the server, by default, will give a listing of all contexts running on the server.

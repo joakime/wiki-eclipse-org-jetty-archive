@@ -58,7 +58,7 @@
 <h4><span class="mw-headline" id="Configuring_the_JDBCSessionIdManager">Configuring the JDBCSessionIdManager</span></h4>
 <p>We need to configure an org.mortbay.jetty.servlet.JDBCSessionIdManager instance, either in embedded code or in a jetty.xml file. Here is an example of a jetty.xml setup:
 </p>
-<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="xml source-xml"><pre class="de1"> 
+<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="xml source-xml"><pre class="de1">
  <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"sessionIdManager"</span><span class="re2">&gt;</span></span>
      <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">id</span>=<span class="st0">"jdbcidmgr"</span> <span class="re0">class</span>=<span class="st0">"org.mortbay.jetty.servlet.JDBCSessionIdManager"</span><span class="re2">&gt;</span></span>
          <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span><span class="re1">&lt;Ref</span> <span class="re0">id</span>=<span class="st0">"Server"</span><span class="re2">/&gt;</span><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
@@ -73,7 +73,7 @@
  <span class="sc3"><span class="re1">&lt;/Call<span class="re2">&gt;</span></span></span></pre></div></div>
 <p>You'll notice that the JDBCSessionIdManager needs access to a database. The above configures it with the name of a javax.sql.DataSource that is defined elsewhere. Consult <a title="Jetty/Feature/JNDI" href="../Feature/JNDI.html">Jetty JNDI</a> feature guide for more information on how to configure database access with Jetty. If you don't wish to use a DataSource, you can configure jdbc Driver information instead. Here's an example:
 </p>
-<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="xml source-xml"><pre class="de1"> 
+<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="xml source-xml"><pre class="de1">
  <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"sessionIdManager"</span><span class="re2">&gt;</span></span>
      <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">id</span>=<span class="st0">"jdbcidmgr"</span> <span class="re0">class</span>=<span class="st0">"org.mortbay.jetty.servlet.JDBCSessionIdManager"</span><span class="re2">&gt;</span></span>
          <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span><span class="re1">&lt;Ref</span> <span class="re0">id</span>=<span class="st0">"Server"</span><span class="re2">/&gt;</span><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
@@ -91,7 +91,7 @@
  <span class="sc3"><span class="re1">&lt;/Call<span class="re2">&gt;</span></span></span></pre></div></div>
 <p>As jetty config files are direct mappings of xml to java, it is quite straightforward to see how this would be done in code, but here's an example anyway:
 </p>
-<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="java source-java"><pre class="de1"> 
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="java source-java"><pre class="de1">
  Server server <span class="sy0">=</span> <span class="kw1">new</span> Server<span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
      ...
  <span class="me1">JDBCSessionIdManager</span> idMgr <span class="sy0">=</span> <span class="kw1">new</span> JDBCSessionIdManager<span class="br0">(</span>server<span class="br0">)</span><span class="sy0">;</span>
@@ -106,13 +106,13 @@
 <p>The way you configure a JDBCSessionManager is a little different depending on whether you're configuring from a context xml file or a jetty-web.xml file, or code. The basic difference is how you get a reference to the Jetty org.mortbay.jetty.server.Jetty instance.
 </p><p>From a context xml file, you reference the Server instance as a Property:
 </p>
-<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="xml source-xml"><pre class="de1"> 
+<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="xml source-xml"><pre class="de1">
  <span class="sc3"><span class="re1">&lt;Property</span> <span class="re0">name</span>=<span class="st0">"Server"</span> <span class="re0">id</span>=<span class="st0">"Server"</span><span class="re2">&gt;</span></span>
    <span class="sc3"><span class="re1">&lt;Call</span> <span class="re0">id</span>=<span class="st0">"jdbcIdMgr"</span> <span class="re0">name</span>=<span class="st0">"getAttribute"</span><span class="re2">&gt;</span></span>
      <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>jdbcIdMgr<span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
    <span class="sc3"><span class="re1">&lt;/Call<span class="re2">&gt;</span></span></span>
  <span class="sc3"><span class="re1">&lt;/Property<span class="re2">&gt;</span></span></span>
- 
+
  <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"sessionHandler"</span><span class="re2">&gt;</span></span>
     <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">class</span>=<span class="st0">"org.mortbay.jetty.servlet.SessionHandler"</span><span class="re2">&gt;</span></span>
       <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>
@@ -126,7 +126,7 @@
  <span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span></pre></div></div>
 <p>From a WEB-INF/jetty-web.xml file, you can reference the Server instance directly:
 </p>
-<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="xml source-xml"><pre class="de1"> 
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="xml source-xml"><pre class="de1">
  <span class="sc3"><span class="re1">&lt;Get</span> <span class="re0">name</span>=<span class="st0">"server"</span><span class="re2">&gt;</span></span>
     <span class="sc3"><span class="re1">&lt;Get</span> <span class="re0">id</span>=<span class="st0">"jdbcIdMgr"</span> <span class="re0">name</span>=<span class="st0">"sessionIdManager"</span><span class="re2">/&gt;</span></span>
  <span class="sc3"><span class="re1">&lt;/Get<span class="re2">&gt;</span></span></span>
@@ -143,10 +143,10 @@
  <span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span></pre></div></div>
 <p>If you're embedding this in code:
 </p>
-<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="java source-java"><pre class="de1"> 
+<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="java source-java"><pre class="de1">
  <span class="co1">//assuming you have already set up the JDBCSessionIdManager as shown earlier</span>
  <span class="co1">//and have a reference to the Server instance:</span>
- 
+
  WebAppContext wac <span class="sy0">=</span> <span class="kw1">new</span> WebAppContext<span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
   ... <span class="co1">//configure your webapp context</span>
  JDBCSessionManager jdbcMgr <span class="sy0">=</span> <span class="kw1">new</span> JDBCSessionManager<span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>

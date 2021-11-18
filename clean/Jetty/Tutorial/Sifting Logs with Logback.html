@@ -80,9 +80,9 @@ This page describes how to create log files at the server level and name them ba
 <dl><dt> /jetty-distro-with-logback-basic/</dt>
 <dd> Configures the jetty distribution with logback enabled at the server level with an example logback configuration.</dd>
 <dt> /jetty-distro-with-logback-sifting/</dt>
-<dd> Configures the jetty distribution with logback, centralized webapp logging, an MDC handler, and a sample logback configuration that performs sifting based  on the incoming Host header on the requests.</dd>
+<dd> Configures the jetty distribution with logback, centralized webapp logging, an MDC handler, and a sample logback configuration that performs sifting based  on the incoming Host header on the requests.</dd>
 <dt> /jetty-slf4j-mdc-handler/</dt>
-<dd> Provides the SLF4J MDC key/value pairs that Jetty needs to perform the sample sifting.</dd>
+<dd> Provides the SLF4J MDC key/value pairs that Jetty needs to perform the sample sifting.</dd>
 <dt> /jetty-slf4j-test-webapp/</dt>
 <dd> A sample webapp+servlet that accepts arbitrary values on a form POST and logs them via SLF4J, so that you can see the results of this example.</dd></dl>
 <h2><span id="Details" class="mw-headline">Details</span></h2>
@@ -108,7 +108,7 @@ To configure basic logback for Jetty:
 #-----------------------------------------------------------
 OPTIONS=Server,resources,logging,websocket,ext
 #-----------------------------------------------------------
- 
+
 #===========================================================
 # Configuration files.
 # For a full list of available configuration files do
@@ -125,34 +125,34 @@ etc/jetty-testrealm.xml
 <div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="xml source-xml"><pre class="de1"><span class="sc3"><span class="re1">&lt;?xml</span> <span class="re0">version</span>=<span class="st0">"1.0"</span> <span class="re0">encoding</span>=<span class="st0">"UTF-8"</span><span class="re2">?&gt;</span></span>
 <span class="sc-1">&lt;!--</span>
 <span class="sc-1">  Example LOGBACK Configuration File</span>
- 
+
 <span class="sc-1">http://logback.qos.ch/manual/configuration.html</span>
- 
+
 <span class="sc-1">  --&gt;</span>
 <span class="sc3"><span class="re1">&lt;configuration<span class="re2">&gt;</span></span></span>
   <span class="sc3"><span class="re1">&lt;appender</span> <span class="re0">name</span>=<span class="st0">"STDOUT"</span> <span class="re0">class</span>=<span class="st0">"ch.qos.logback.core.ConsoleAppender"</span><span class="re2">&gt;</span></span>
    <span class="sc-1">&lt;!-- encoders are assigned the type</span>
 <span class="sc-1">         ch.qos.logback.classic.encoder.PatternLayoutEncoder by default --&gt;</span>
     <span class="sc3"><span class="re1">&lt;encoder<span class="re2">&gt;</span></span></span>
-      <span class="sc3"><span class="re1">&lt;pattern<span class="re2">&gt;</span></span></span>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n<span class="sc3"><span class="re1">&lt;/pattern<span class="re2">&gt;</span></span></span>
+      <span class="sc3"><span class="re1">&lt;pattern<span class="re2">&gt;</span></span></span>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n<span class="sc3"><span class="re1">&lt;/pattern<span class="re2">&gt;</span></span></span>
     <span class="sc3"><span class="re1">&lt;/encoder<span class="re2">&gt;</span></span></span>
   <span class="sc3"><span class="re1">&lt;/appender<span class="re2">&gt;</span></span></span>
- 
+
   <span class="sc3"><span class="re1">&lt;appender</span> <span class="re0">name</span>=<span class="st0">"FILE"</span> <span class="re0">class</span>=<span class="st0">"ch.qos.logback.core.rolling.RollingFileAppender"</span><span class="re2">&gt;</span></span>
     <span class="sc3"><span class="re1">&lt;file<span class="re2">&gt;</span></span></span>${jetty.home}/logs/jetty.log<span class="sc3"><span class="re1">&lt;/file<span class="re2">&gt;</span></span></span>
     <span class="sc3"><span class="re1">&lt;rollingPolicy</span> <span class="re0">class</span>=<span class="st0">"ch.qos.logback.core.rolling.TimeBasedRollingPolicy"</span><span class="re2">&gt;</span></span>
       <span class="sc-1">&lt;!-- daily rollover --&gt;</span>
       <span class="sc3"><span class="re1">&lt;fileNamePattern<span class="re2">&gt;</span></span></span>jetty_%d{yyyy-MM-dd}.log<span class="sc3"><span class="re1">&lt;/fileNamePattern<span class="re2">&gt;</span></span></span>
- 
+
       <span class="sc-1">&lt;!-- keep 30 days' worth of history --&gt;</span>
       <span class="sc3"><span class="re1">&lt;maxHistory<span class="re2">&gt;</span></span></span>30<span class="sc3"><span class="re1">&lt;/maxHistory<span class="re2">&gt;</span></span></span>
     <span class="sc3"><span class="re1">&lt;/rollingPolicy<span class="re2">&gt;</span></span></span>
- 
+
     <span class="sc3"><span class="re1">&lt;encoder<span class="re2">&gt;</span></span></span>
-      <span class="sc3"><span class="re1">&lt;pattern<span class="re2">&gt;</span></span></span>%-4relative [%thread] %-5level %logger{35} - %msg%n<span class="sc3"><span class="re1">&lt;/pattern<span class="re2">&gt;</span></span></span>
+      <span class="sc3"><span class="re1">&lt;pattern<span class="re2">&gt;</span></span></span>%-4relative [%thread] %-5level %logger{35} - %msg%n<span class="sc3"><span class="re1">&lt;/pattern<span class="re2">&gt;</span></span></span>
     <span class="sc3"><span class="re1">&lt;/encoder<span class="re2">&gt;</span></span></span>
   <span class="sc3"><span class="re1">&lt;/appender<span class="re2">&gt;</span></span></span>
- 
+
   <span class="sc3"><span class="re1">&lt;root</span> <span class="re0">level</span>=<span class="st0">"info"</span><span class="re2">&gt;</span></span>
     <span class="sc3"><span class="re1">&lt;appender-ref</span> <span class="re0">ref</span>=<span class="st0">"STDOUT"</span> <span class="re2">/&gt;</span></span>
     <span class="sc3"><span class="re1">&lt;appender-ref</span> <span class="re0">ref</span>=<span class="st0">"FILE"</span> <span class="re2">/&gt;</span></span>
@@ -198,7 +198,7 @@ etc/jetty-testrealm.xml
 #-----------------------------------------------------------
 OPTIONS=Server,resources,logging,websocket,ext
 #-----------------------------------------------------------
- 
+
 #===========================================================
 # Configuration files.
 # For a full list of available configuration files do
@@ -213,29 +213,29 @@ etc/jetty-contexts.xml
 etc/jetty-webapp-logging.xml
 etc/jetty-testrealm.xml
 #===========================================================</pre></div></div>
-<p>The key entries here are the addition of the <code>logging</code> OPTION to load the classes in <code>${jetty.home}/lib/logging</code> into the jetty server classpath, and the two new configuration files:
+<p>The key entries here are the addition of the <code>logging</code> OPTION to load the classes in <code>${jetty.home}/lib/logging</code> into the jetty server classpath, and the two new configuration files:
 </p>
 <dl><dt> <a rel="nofollow" href="https://github.com/jetty-project/jetty-and-logback-example/blob/master/jetty-distro-with-logback-sifting/src/main/config/etc/jetty-mdc-handler.xml" class="external text">etc/jetty-mdc-handler.xml</a></dt>
 <dd> Adds wraps the MDCHandler found in jetty-slf4j-mdc-handler around all of the handlers in Jetty Server.</dd>
 <dt> <a class="external text" href="http://git.codehaus.org/gitweb.cgi?p=jetty-project.git;a=blob;f=jetty-webapp-logging/src/main/config/etc/jetty-webapp-logging.xml;h=f69d9b540986b7c24a58de8c366844c717c0df20;hb=HEAD" rel="nofollow">etc/jetty-webapp-logging.xml</a></dt>
-<dd> Adds a DeploymentManager lifecycle handler that configures the created Webapp’s Classloaders to deny acccess to any webapp (WAR) file contained logger implementations in favor of using the ones that exist on the server classpath. This is a concept known as Centralized Webapp Logging.</dd></dl>
+<dd> Adds a DeploymentManager lifecycle handler that configures the created Webapp’s Classloaders to deny acccess to any webapp (WAR) file contained logger implementations in favor of using the ones that exist on the server classpath. This is a concept known as Centralized Webapp Logging.</dd></dl>
 <ol start="4"> <li> Create a <a class="external text" rel="nofollow" href="https://github.com/jetty-project/jetty-and-logback-example/blob/master/jetty-distro-with-logback-sifting/src/main/config/resources/logback.xml">${jetty.home}/resources/logback.xml</a> file with the configuration you want. </li></ol> 
 <div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="xml source-xml"><pre class="de1"><span class="sc3"><span class="re1">&lt;?xml</span> <span class="re0">version</span>=<span class="st0">"1.0"</span> <span class="re0">encoding</span>=<span class="st0">"UTF-8"</span><span class="re2">?&gt;</span></span>
 <span class="sc-1">&lt;!--</span>
 <span class="sc-1">    Example LOGBACK Configuration File</span>
- 
+
 <span class="sc-1">http://logback.qos.ch/manual/configuration.html</span>
- 
+
 <span class="sc-1">   --&gt;</span>
 <span class="sc3"><span class="re1">&lt;configuration<span class="re2">&gt;</span></span></span>
   <span class="sc3"><span class="re1">&lt;appender</span> <span class="re0">name</span>=<span class="st0">"STDOUT"</span> <span class="re0">class</span>=<span class="st0">"ch.qos.logback.core.ConsoleAppender"</span><span class="re2">&gt;</span></span>
     <span class="sc-1">&lt;!-- encoders are assigned the type</span>
 <span class="sc-1">         ch.qos.logback.classic.encoder.PatternLayoutEncoder by default --&gt;</span>
     <span class="sc3"><span class="re1">&lt;encoder<span class="re2">&gt;</span></span></span>
-      <span class="sc3"><span class="re1">&lt;pattern<span class="re2">&gt;</span></span></span>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n<span class="sc3"><span class="re1">&lt;/pattern<span class="re2">&gt;</span></span></span>
+      <span class="sc3"><span class="re1">&lt;pattern<span class="re2">&gt;</span></span></span>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n<span class="sc3"><span class="re1">&lt;/pattern<span class="re2">&gt;</span></span></span>
     <span class="sc3"><span class="re1">&lt;/encoder<span class="re2">&gt;</span></span></span>
   <span class="sc3"><span class="re1">&lt;/appender<span class="re2">&gt;</span></span></span>
- 
+
   <span class="sc3"><span class="re1">&lt;appender</span> <span class="re0">name</span>=<span class="st0">"SIFT"</span> <span class="re0">class</span>=<span class="st0">"ch.qos.logback.classic.sift.SiftingAppender"</span><span class="re2">&gt;</span></span>
     <span class="sc-1">&lt;!-- in the absence of the class attribute, it is assumed that the</span>
 <span class="sc-1">         desired discriminator type is</span>
@@ -250,18 +250,18 @@ etc/jetty-testrealm.xml
         <span class="sc3"><span class="re1">&lt;rollingPolicy</span> <span class="re0">class</span>=<span class="st0">"ch.qos.logback.core.rolling.TimeBasedRollingPolicy"</span><span class="re2">&gt;</span></span>
           <span class="sc-1">&lt;!-- daily rollover --&gt;</span>
           <span class="sc3"><span class="re1">&lt;fileNamePattern<span class="re2">&gt;</span></span></span>jetty-${host}_%d{yyyy-MM-dd}.log<span class="sc3"><span class="re1">&lt;/fileNamePattern<span class="re2">&gt;</span></span></span>
- 
+
           <span class="sc-1">&lt;!-- keep 30 days' worth of history --&gt;</span>
           <span class="sc3"><span class="re1">&lt;maxHistory<span class="re2">&gt;</span></span></span>30<span class="sc3"><span class="re1">&lt;/maxHistory<span class="re2">&gt;</span></span></span>
          <span class="sc3"><span class="re1">&lt;/rollingPolicy<span class="re2">&gt;</span></span></span>
- 
+
         <span class="sc3"><span class="re1">&lt;encoder<span class="re2">&gt;</span></span></span>
-          <span class="sc3"><span class="re1">&lt;pattern<span class="re2">&gt;</span></span></span>%-4relative [%thread] %-5level %logger{35} - %msg%n<span class="sc3"><span class="re1">&lt;/pattern<span class="re2">&gt;</span></span></span>
+          <span class="sc3"><span class="re1">&lt;pattern<span class="re2">&gt;</span></span></span>%-4relative [%thread] %-5level %logger{35} - %msg%n<span class="sc3"><span class="re1">&lt;/pattern<span class="re2">&gt;</span></span></span>
         <span class="sc3"><span class="re1">&lt;/encoder<span class="re2">&gt;</span></span></span>
       <span class="sc3"><span class="re1">&lt;/appender<span class="re2">&gt;</span></span></span>
     <span class="sc3"><span class="re1">&lt;/sift<span class="re2">&gt;</span></span></span>
   <span class="sc3"><span class="re1">&lt;/appender<span class="re2">&gt;</span></span></span>
- 
+
   <span class="sc3"><span class="re1">&lt;root</span> <span class="re0">level</span>=<span class="st0">"INFO"</span><span class="re2">&gt;</span></span>
     <span class="sc3"><span class="re1">&lt;appender-ref</span> <span class="re0">ref</span>=<span class="st0">"STDOUT"</span> <span class="re2">/&gt;</span></span>
     <span class="sc3"><span class="re1">&lt;appender-ref</span> <span class="re0">ref</span>=<span class="st0">"SIFT"</span> <span class="re2">/&gt;</span></span>
@@ -270,10 +270,10 @@ etc/jetty-testrealm.xml
 <p>That’s it, now you have (in the following order):
 </p>
 <ol><li> Jetty configured to use SLF4J<br/> (via <code>slf4j-api.jar</code> in the classpath on Jetty startup).</li>
-<li> Jetty is configured to modify incoming Webapp’s classloaders to favor server logging classes over the webapp’s own logging classes.<br/> (Centralized Webapp Logging).</li>
+<li> Jetty is configured to modify incoming Webapp’s classloaders to favor server logging classes over the webapp’s own logging classes.<br/> (Centralized Webapp Logging).</li>
 <li> SLF4J configured to use Logback<br/> (via <code>logback-core.jar</code> in the classpath at Jetty startup).</li>
 <li> Logback configured to produce output to:
-<ul><li> <code>${jetty.home}/logs/jetty-${host}.log</code> (with daily rolling)  and using “unknown” for log events that don’t originate from a request.</li>
+<ul><li> <code>${jetty.home}/logs/jetty-${host}.log</code> (with daily rolling)  and using “unknown” for log events that don’t originate from a request.</li>
 <li> and STDOUT console.</li></ul></li></ol>
 <p>Now start Jetty.
 </p>

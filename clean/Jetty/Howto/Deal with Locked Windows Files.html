@@ -64,14 +64,14 @@ Jetty buffers static content for webapps such as HTML files, CSS files, images, 
 <p>Jetty provides a configuration switch in the <tt>webdefault.xml</tt> file for the <tt>DefaultServlet</tt> that enables or disables the use of memory-mapped files. If you are running on Windows and are having file-locking problems, you should set this switch to disable memory-mapped file buffers.
 </p><p>The default <tt>webdefault.xml</tt> file is in the <tt>lib/jetty.jar</tt> at <tt>org/eclipse/jetty/webapp/webdefault.xml</tt>. Extract it to a convenient disk location and edit it to change <tt>useFileMappedBuffer</tt> to <tt>false</tt>.
 </p>
-<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="xml source-xml"><pre class="de1"> 
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="xml source-xml"><pre class="de1">
  <span class="sc3"><span class="re1">&lt;init-param<span class="re2">&gt;</span></span></span>
    <span class="sc3"><span class="re1">&lt;param-name<span class="re2">&gt;</span></span></span>useFileMappedBuffer<span class="sc3"><span class="re1">&lt;/param-name<span class="re2">&gt;</span></span></span>
    <span class="sc3"><span class="re1">&lt;param-value<span class="re2">&gt;</span></span></span>true<span class="sc3"><span class="re1">&lt;/param-value<span class="re2">&gt;</span></span></span> <span class="sc-1">&lt;!-- change to false --&gt;</span>
  <span class="sc3"><span class="re1">&lt;/init-param<span class="re2">&gt;</span></span></span></pre></div></div>
 <p>Make sure to apply your custom <tt>webdefault.xml</tt> file to all of your webapps. You can do that by changing the configuration of the <a title="Jetty/Feature/Deployment Manager" href="../Feature/Deployment Manager.html">Deployment Manager</a> in <tt>etc/jetty.xml</tt>.
 </p>
-<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="xml source-xml"><pre class="de1"> 
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="xml source-xml"><pre class="de1">
      <span class="sc3"><span class="re1">&lt;Call</span> <span class="re0">name</span>=<span class="st0">"addLifeCycle"</span><span class="re2">&gt;</span></span>
        <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>
          <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">class</span>=<span class="st0">"org.mortbay.jetty.deployer.WebAppDeployer"</span><span class="re2">&gt;</span></span>
@@ -86,7 +86,7 @@ Jetty buffers static content for webapps such as HTML files, CSS files, images, 
      <span class="sc3"><span class="re1">&lt;/Call<span class="re2">&gt;</span></span></span></pre></div></div>
 <p>Alternatively, if you have individually configured your webapps with context xml files, you need to call the <tt>WebAppContext.setDefaultsDescriptor(String path)</tt> method:
 </p>
-<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="xml source-xml"><pre class="de1"> 
+<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="xml source-xml"><pre class="de1">
  <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">id</span>=<span class="st0">"myWebAppContext"</span>  <span class="re0">class</span>=<span class="st0">"org.mortbay.jetty.webapp.WebAppContext"</span><span class="re2">&gt;</span></span>
    <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"contextPath"</span><span class="re2">&gt;</span></span>/<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
    <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"war"</span><span class="re2">&gt;</span></span>./webapps/fredapp<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
@@ -97,7 +97,7 @@ Jetty buffers static content for webapps such as HTML files, CSS files, images, 
 <h2><span class="mw-headline" id="Alternate_Remedy">Alternate Remedy</span></h2>
 <p>You can force a WebAppContext to always copy a web app directory on deployment to avoid the file locking issue. Configure this in a context deployment file as follows:
 </p>
-<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="xml source-xml"><pre class="de1"> 
+<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="xml source-xml"><pre class="de1">
  <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">id</span>=<span class="st0">"myWebAppContext"</span>  <span class="re0">class</span>=<span class="st0">"org.mortbay.jetty.webapp.WebAppContext"</span><span class="re2">&gt;</span></span>
    <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"contextPath"</span><span class="re2">&gt;</span></span>/<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
    <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"war"</span><span class="re2">&gt;</span></span>./webapps/fredapp<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
@@ -107,7 +107,7 @@ Jetty buffers static content for webapps such as HTML files, CSS files, images, 
   <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span></pre></div></div>
 <p>You can also configure the default Jetty Servlet directly in the <tt>web.xml</tt>. For example:
 </p>
-<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="xml source-xml"><pre class="de1"> 
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="xml source-xml"><pre class="de1">
  <span class="sc3"><span class="re1">&lt;web-app</span> ...<span class="re2">&gt;</span></span>
  ...
  <span class="sc3"><span class="re1">&lt;servlet<span class="re2">&gt;</span></span></span>

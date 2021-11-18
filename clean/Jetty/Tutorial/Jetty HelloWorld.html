@@ -88,13 +88,13 @@ your class path.  If you want to use Maven or standard web applications, see the
 <div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="java source-java"><pre class="de1"><span class="kw1">import</span> <span class="co2">javax.servlet.http.HttpServletRequest</span><span class="sy0">;</span>
 <span class="kw1">import</span> <span class="co2">javax.servlet.http.HttpServletResponse</span><span class="sy0">;</span>
 <span class="kw1">import</span> <span class="co2">javax.servlet.ServletException</span><span class="sy0">;</span>
- 
+
 <span class="kw1">import</span> <span class="co2">java.io.IOException</span><span class="sy0">;</span>
- 
+
 <span class="kw1">import</span> <span class="co2">org.eclipse.jetty.server.Server</span><span class="sy0">;</span>
 <span class="kw1">import</span> <span class="co2">org.eclipse.jetty.server.Request</span><span class="sy0">;</span>
 <span class="kw1">import</span> <span class="co2">org.eclipse.jetty.server.handler.AbstractHandler</span><span class="sy0">;</span>
- 
+
 <span class="kw1">public</span> <span class="kw1">class</span> HelloWorld <span class="kw1">extends</span> AbstractHandler
 <span class="br0">{</span>
     <span class="kw1">public</span> <span class="kw4">void</span> handle<span class="br0">(</span><span class="kw3">String</span> target,
@@ -108,12 +108,12 @@ your class path.  If you want to use Maven or standard web applications, see the
         baseRequest.<span class="me1">setHandled</span><span class="br0">(</span><span class="kw2">true</span><span class="br0">)</span><span class="sy0">;</span>
         response.<span class="me1">getWriter</span><span class="br0">(</span><span class="br0">)</span>.<span class="me1">println</span><span class="br0">(</span><span class="st0">"&lt;h1&gt;Hello World&lt;/h1&gt;"</span><span class="br0">)</span><span class="sy0">;</span>
     <span class="br0">}</span>
- 
+
     <span class="kw1">public</span> <span class="kw1">static</span> <span class="kw4">void</span> main<span class="br0">(</span><span class="kw3">String</span><span class="br0">[</span><span class="br0">]</span> args<span class="br0">)</span> <span class="kw1">throws</span> <span class="kw3">Exception</span>
     <span class="br0">{</span>
         Server server <span class="sy0">=</span> <span class="kw1">new</span> Server<span class="br0">(</span><span class="nu0">8080</span><span class="br0">)</span><span class="sy0">;</span>
         server.<span class="me1">setHandler</span><span class="br0">(</span><span class="kw1">new</span> HelloWorld<span class="br0">(</span><span class="br0">)</span><span class="br0">)</span><span class="sy0">;</span>
- 
+
         server.<span class="me1">start</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
         server.<span class="me1">join</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
     <span class="br0">}</span>

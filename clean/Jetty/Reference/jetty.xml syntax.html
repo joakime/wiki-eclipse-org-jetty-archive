@@ -236,7 +236,7 @@ The Jetty XML syntax is a straightforward mapping of XML elements to a Java API 
       <span class="sc3"><span class="re1">&lt;/Call<span class="re2">&gt;</span></span></span>
     <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span>
   <span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
- 
+
   <span class="sc3"><span class="re1">&lt;Ref</span> <span class="re0">id</span>=<span class="st0">"bar"</span><span class="re2">&gt;</span></span>
     <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"wibble"</span><span class="re2">&gt;</span></span>20<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
     <span class="sc3"><span class="re1">&lt;Get</span> <span class="re0">name</span>=<span class="st0">"parent"</span><span class="re2">&gt;</span></span>
@@ -248,15 +248,15 @@ The Jetty XML syntax is a straightforward mapping of XML elements to a Java API 
 </p>
 <div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="java source-java"><pre class="de1">com.<span class="me1">acme</span>.<span class="me1">Foo</span> foo <span class="sy0">=</span> <span class="kw1">new</span> com.<span class="me1">acme</span>.<span class="me1">Foo</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
 foo.<span class="me1">setName</span><span class="br0">(</span><span class="st0">"demo"</span><span class="br0">)</span><span class="sy0">;</span>
- 
+
 com.<span class="me1">acme</span>.<span class="me1">Bar</span> bar <span class="sy0">=</span> <span class="kw1">new</span> com.<span class="me1">acme</span>.<span class="me1">Bar</span><span class="br0">(</span><span class="kw2">true</span><span class="br0">)</span><span class="sy0">;</span>
 bar.<span class="me1">setWibble</span><span class="br0">(</span><span class="nu0">10</span><span class="br0">)</span><span class="sy0">;</span>
 bar.<span class="me1">setWobble</span><span class="br0">(</span><span class="st0">"xyz"</span><span class="br0">)</span><span class="sy0">;</span>
 bar.<span class="me1">setParent</span><span class="br0">(</span>foo<span class="br0">)</span><span class="sy0">;</span>
 bar.<span class="me1">init</span><span class="br0">(</span><span class="kw2">false</span><span class="br0">)</span><span class="sy0">;</span>
- 
+
 foo.<span class="me1">setNested</span><span class="br0">(</span>bar<span class="br0">)</span><span class="sy0">;</span>
- 
+
 bar.<span class="me1">setWibble</span><span class="br0">(</span><span class="nu0">20</span><span class="br0">)</span><span class="sy0">;</span>
 bar.<span class="me1">getParent</span><span class="br0">(</span><span class="br0">)</span>.<span class="me1">setName</span><span class="br0">(</span><span class="st0">"demo2"</span><span class="br0">)</span><span class="sy0">;</span></pre></div></div>
 <p><br/>
@@ -296,9 +296,9 @@ URL, InetAddress, InetAddrPort, void
 <p>This is the root element that specifies the class of object that is to be configured. It is usually either the Server, in <a href="jetty.xml.html" title="Jetty/Reference/jetty.xml">jetty.xml </a>, or a WebAppContext, in <a title="Jetty/Reference/jetty-web.xml" href="jetty-web.xml.html">jetty-web.xml</a>.
 </p>
 <h3><span id="Attributes" class="mw-headline">Attributes</span></h3>
-<dl><dt> id </dt>
+<dl><dt> id </dt>
 <dd> (optional), a reference to the object that was created. If you define multiple <code>&lt;Configure&gt;</code> tags with the same id, they will be treated as one object, even if they're in different files. You can use this to break up configuration of an object (such as the Server) across multiple files. </dd>
-<dt> class </dt>
+<dt> class </dt>
 <dd> (optional), the fully qualified classname of the object to be configured. Could be <code>org.eclipse.jetty.server.Server</code>, <code>org.eclipse.jetty.webapp.WebAppContext</code>, a handler, etc.</dd></dl>
 <h3><span id="Can_Contain" class="mw-headline">Can Contain</span></h3>
 <p><a href="jetty.xml syntax.html#.3CSet.3E">&lt;Set&gt;</a>,<a href="jetty.xml syntax.html#.3CGet.3E">&lt;Get&gt;</a>, <a href="jetty.xml syntax.html#.3CPut.3E">&lt;Put&gt;</a>, <a href="jetty.xml syntax.html#.3CCall.3E">&lt;Call&gt;</a>, <a href="jetty.xml syntax.html#.3CNew.3E">&lt;New&gt;</a>, <a href="jetty.xml syntax.html#.3CRef.3E">&lt;Ref&gt;</a>, <a href="jetty.xml syntax.html#.3CArray.3E">&lt;Array&gt;</a>, <a href="jetty.xml syntax.html#.3CMap.3E">&lt;Map&gt;</a>, <a href="jetty.xml syntax.html#.3CProperty.3E">&lt;Property&gt;</a>
@@ -331,11 +331,11 @@ server.<span class="me1">setPort</span><span class="br0">(</span><span class="nu
 <p>A Set element maps to a call to a setter method or field on the current object. It can contain text and/or elements such as Call, New, SystemProperty, etc., as values. The <tt>name</tt> and optional <tt>type</tt> attributes are used to select the setter method. If you do not specify a value type, white space is trimmed out of the value.  If it contains multiple elements as values, they are added as strings before being converted to any specified type.
 </p>
 <h3><span id="Attributes_2" class="mw-headline">Attributes</span></h3>
-<dl><dt> name </dt>
+<dl><dt> name </dt>
 <dd> (required), the name of the setter method to call, or the field to set. If the name given is <var>xxx</var>, then a set<var>Xxx</var> method is used. If the set<var>Xxx</var> method cannot be found, then the <var>xxx</var> field is used.</dd>
-<dt> type </dt>
+<dt> type </dt>
 <dd> (optional), the declared <a href="jetty.xml syntax.html#Coercing_Arguments_to_a_Type">type</a> of the argument. See also discussion of type for <a href="jetty.xml syntax.html#Attributes_6">Arg</a> for how to define null and empty string values.</dd>
-<dt> class </dt>
+<dt> class </dt>
 <dd>  (optional), if present, then this Set is treated as a static set method invocation</dd></dl>
 <h3><span class="mw-headline" id="Can_Contain_2">Can Contain</span></h3>
 <p>value text, <a href="jetty.xml syntax.html#.3CGet.3E">&lt;Get&gt;</a>, <a href="jetty.xml syntax.html#.3CCall.3E">&lt;Call&gt;</a>, <a href="jetty.xml syntax.html#.3CNew.3E">&lt;New&gt;</a>, <a href="jetty.xml syntax.html#.3CRef.3E">&lt;Ref&gt;</a>, <a href="jetty.xml syntax.html#.3CArray.3E">&lt;Array&gt;</a>, <a href="jetty.xml syntax.html#.3CMap.3E">&lt;Map&gt;</a>, <a href="jetty.xml syntax.html#.3CSystemProperty.3E">&lt;SystemProperty&gt;</a>, <a href="jetty.xml syntax.html#.3CProperty.3E">&lt;Property&gt;</a>
@@ -361,11 +361,11 @@ server.<span class="me1">setPort</span><span class="br0">(</span><span class="nu
 <p>This is equivalent to:
 </p>
 <div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="java source-java"><pre class="de1">org.<span class="me1">eclipse</span>.<span class="me1">jetty</span>.<span class="me1">server</span>.<span class="me1">Server</span> server <span class="sy0">=</span> <span class="kw1">new</span> org.<span class="me1">eclipse</span>.<span class="me1">jetty</span>.<span class="me1">server</span>.<span class="me1">Server</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
- 
+
 org.<span class="me1">eclipse</span>.<span class="me1">jetty</span>.<span class="me1">util</span>.<span class="me1">thread</span>.<span class="me1">QueuedThreadPool</span> threadPool <span class="sy0">=</span> <span class="kw1">new</span> org.<span class="me1">eclipse</span>.<span class="me1">jetty</span>.<span class="me1">util</span>.<span class="me1">thread</span>.<span class="me1">QueuedThreadPool</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
 threadPool.<span class="me1">setMinThreads</span><span class="br0">(</span><span class="nu0">10</span><span class="br0">)</span><span class="sy0">;</span>
 threadPool.<span class="me1">setMaxThreads</span><span class="br0">(</span><span class="nu0">1000</span><span class="br0">)</span><span class="sy0">;</span>
- 
+
 server.<span class="me1">setThreadPool</span><span class="br0">(</span>threadPool<span class="br0">)</span><span class="sy0">;</span></pre></div></div>
 <h4><span class="mw-headline" id="Invoking_a_Static_Setter">Invoking a Static Setter</span></h4>
 <div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="xml source-xml"><pre class="de1"><span class="sc3"><span class="re1">&lt;Configure</span> <span class="re0">id</span>=<span class="st0">"server"</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.server.Server"</span><span class="re2">&gt;</span></span>
@@ -375,11 +375,11 @@ server.<span class="me1">setThreadPool</span><span class="br0">(</span>threadPoo
 <p>A Get element maps to a call to a getter method or field on the current object. It can contain nested elements such as <a href="jetty.xml syntax.html#.3CSet.3E">Set</a>, <a href="jetty.xml syntax.html#.3CPut.3E">Put</a>, <a href="jetty.xml syntax.html#.3CCall.3E">Call</a>, etc.; these act on the object returned by the Get call.
 </p>
 <h3><span class="mw-headline" id="Attributes_3">Attributes</span></h3>
-<dl><dt> name </dt>
+<dl><dt> name </dt>
 <dd> (required), the name of the getter method to call, or the field to get. If the name given is <var>xxx</var>, then a get<var>Xxx</var> method is used. If the get<var>Xxx</var> method cannot be found, then the <var>xxx</var> field is used.</dd>
-<dt> class </dt>
+<dt> class </dt>
 <dd>  (optional), if present, then this Get is treated as a static getter or field.</dd>
-<dt> id </dt>
+<dt> id </dt>
 <dd> (optional), if present, then you can use this id to refer to the returned object later.</dd></dl>
 <h3><span id="Can_Contain_3" class="mw-headline">Can Contain</span></h3>
 <p><a href="jetty.xml syntax.html#.3CSet.3E">&lt;Set&gt;</a>,<a href="jetty.xml syntax.html#.3CGet.3E">&lt;Get&gt;</a>, <a href="jetty.xml syntax.html#.3CPut.3E">&lt;Put&gt;</a>, <a href="jetty.xml syntax.html#.3CCall.3E">&lt;Call&gt;</a>, <a href="jetty.xml syntax.html#.3CNew.3E">&lt;New&gt;</a>, <a href="jetty.xml syntax.html#.3CRef.3E">&lt;Ref&gt;</a>, <a href="jetty.xml syntax.html#.3CArray.3E">&lt;Array&gt;</a>, <a href="jetty.xml syntax.html#.3CMap.3E">&lt;Map&gt;</a>, <a href="jetty.xml syntax.html#.3CProperty.3E">&lt;Property&gt;</a>
@@ -403,9 +403,9 @@ server.<span class="me1">setThreadPool</span><span class="br0">(</span>threadPoo
 <p>A Put element maps to a call to a put method on the current object, which must implement the Map interface. It can contain text and/or elements such as Call, New, SystemProperty, etc. as values. If you do not specify a no value type, white space is trimmed out of the value.  If it contains multiple elements as values, they are added as strings before being converted to any specified type.
 </p>
 <h3><span id="Attributes_4" class="mw-headline">Attributes</span></h3>
-<dl><dt> name </dt>
+<dl><dt> name </dt>
 <dd> (required), used as the put key</dd>
-<dt> type </dt>
+<dt> type </dt>
 <dd> (optional), forces the <a href="jetty.xml syntax.html#Coercing_Arguments_to_a_Type">type</a> of the value. See also discussion of type for <a href="jetty.xml syntax.html#Attributes_6"> Arg</a> for how to define null and empty string values.</dd></dl>
 <h3><span id="Can_Contain_4" class="mw-headline">Can Contain</span></h3>
 <p>value text, <a href="jetty.xml syntax.html#.3CGet.3E">&lt;Get&gt;</a>, <a href="jetty.xml syntax.html#.3CCall.3E">&lt;Call&gt;</a>, <a href="jetty.xml syntax.html#.3CNew.3E">&lt;New&gt;</a>, <a href="jetty.xml syntax.html#.3CRef.3E">&lt;Ref&gt;</a>, <a href="jetty.xml syntax.html#.3CArray.3E">&lt;Array&gt;</a>, <a href="jetty.xml syntax.html#.3CMap.3E">&lt;Map&gt;</a>, <a href="jetty.xml syntax.html#.3CSystemProperty.3E">&lt;SystemProperty&gt;</a>, <a href="jetty.xml syntax.html#.3CProperty.3E">&lt;Property&gt;</a>
@@ -418,11 +418,11 @@ server.<span class="me1">setThreadPool</span><span class="br0">(</span>threadPoo
 <p>A Call element maps to an arbitrary call to a method on the current object. It can contain a sequence of <a href="jetty.xml syntax.html#.3CArg.3E">Arg</a> elements followed by a sequence of configuration elements, such as <a href="jetty.xml syntax.html#.3CSet.3E">Set</a>, <a href="jetty.xml syntax.html#.3CPut.3E">Put</a>, <a href="jetty.xml syntax.html#.3CCall.3E">Call</a>. The <code>&lt;Arg&gt;</code>s are passed as arguments to the method; the sequence of configuration elements act on the object returned by the original call.
 </p>
 <h3><span class="mw-headline" id="Attributes_5">Attributes</span></h3>
-<dl><dt> name </dt>
+<dl><dt> name </dt>
 <dd> (required), the name of the arbitrary method to call. The method called will use the exact name you provide it.</dd>
-<dt> class </dt>
+<dt> class </dt>
 <dd> (optional), if present, then this Call is treated as a static method.</dd>
-<dt> id </dt>
+<dt> id </dt>
 <dd> (optional), if present,  you can use this id to refer to any object returned by the call, for later use.</dd></dl>
 <h3><span id="Can_Contain_5" class="mw-headline">Can Contain</span></h3>
 <p><a href="jetty.xml syntax.html#.3CArg.3E">&lt;Arg&gt;</a>, <a href="jetty.xml syntax.html#.3CSet.3E">&lt;Set&gt;</a>,<a href="jetty.xml syntax.html#.3CGet.3E">&lt;Get&gt;</a>, <a href="jetty.xml syntax.html#.3CPut.3E">&lt;Put&gt;</a>, <a href="jetty.xml syntax.html#.3CCall.3E">&lt;Call&gt;</a>, <a href="jetty.xml syntax.html#.3CNew.3E">&lt;New&gt;</a>, <a href="jetty.xml syntax.html#.3CRef.3E">&lt;Ref&gt;</a>, <a href="jetty.xml syntax.html#.3CArray.3E">&lt;Array&gt;</a>, <a href="jetty.xml syntax.html#.3CMap.3E">&lt;Map&gt;</a>, <a href="jetty.xml syntax.html#.3CProperty.3E">&lt;Property&gt;</a>
@@ -462,7 +462,7 @@ com.<span class="me1">acme</span>.<span class="kw3">Environment</span>.<span cla
 </p><p>It can contain text and/or elements, such as Call, New, SystemProperty, etc., as values. The optional type attribute can force the type of the value. If you don't specify a type, white space is trimmed out of the value. If it contains multiple elements as values, they are added as strings before being converted to any specified type.
 </p>
 <h3><span id="Attributes_6" class="mw-headline">Attributes</span></h3>
-<dl><dt> type </dt>
+<dl><dt> type </dt>
 <dd> (optional), force the <a href="jetty.xml syntax.html#Coercing_Arguments_to_a_Type">type</a> of the argument. If you do not provide a value for the element, if you use type of "String", the value will be the empty string (""), otherwise it is null.</dd></dl>
 <h3><span class="mw-headline" id="Can_Contain_6">Can Contain</span></h3>
 <p>value text, <a href="jetty.xml syntax.html#.3CGet.3E">&lt;Get&gt;</a>, <a href="jetty.xml syntax.html#.3CCall.3E">&lt;Call&gt;</a>, <a href="jetty.xml syntax.html#.3CNew.3E">&lt;New&gt;</a>, <a href="jetty.xml syntax.html#.3CRef.3E">&lt;Ref&gt;</a>, <a href="jetty.xml syntax.html#.3CArray.3E">&lt;Array&gt;</a>, <a href="jetty.xml syntax.html#.3CMap.3E">&lt;Map&gt;</a>, <a href="jetty.xml syntax.html#.3CSystemProperty.3E">&lt;SystemProperty&gt;</a>, <a href="jetty.xml syntax.html#.3CProperty.3E">&lt;Property&gt;</a>
@@ -508,9 +508,9 @@ com.<span class="me1">acme</span>.<span class="kw3">Environment</span>.<span cla
 <p>Instantiates an object. Equivalent to <code>new</code> in Java, and allows the creation of a new object. A New element can contain a sequence of <code>&lt;Arg&gt;</code>s, followed by a sequence of configuration elements (Set, Put, etc). <code>&lt;Arg&gt;</code>s are used to select a constructor for the object to be created. The sequence of configuration elements then acts on the newly-created object.
 </p>
 <h3><span id="Attributes_7" class="mw-headline">Attributes</span></h3>
-<dl><dt> class </dt>
+<dl><dt> class </dt>
 <dd> (required), fully qualified classname, which determines the type of the new object that is instantiated.</dd>
-<dt> id </dt>
+<dt> id </dt>
 <dd> (optional), gives a unique name to the object which can be referenced later by <a href="jetty.xml syntax.html#.3CRef.3E">Ref</a> elements.</dd></dl>
 <h3><span class="mw-headline" id="Can_Contain_7">Can Contain</span></h3>
 <p><a href="jetty.xml syntax.html#.3CArg.3E">&lt;Arg&gt;</a>, <a href="jetty.xml syntax.html#.3CSet.3E">&lt;Set&gt;</a>,<a href="jetty.xml syntax.html#.3CGet.3E">&lt;Get&gt;</a>, <a href="jetty.xml syntax.html#.3CPut.3E">&lt;Put&gt;</a>, <a href="jetty.xml syntax.html#.3CCall.3E">&lt;Call&gt;</a>, <a href="jetty.xml syntax.html#.3CNew.3E">&lt;New&gt;</a>, <a href="jetty.xml syntax.html#.3CRef.3E">&lt;Ref&gt;</a>, <a href="jetty.xml syntax.html#.3CArray.3E">&lt;Array&gt;</a>, <a href="jetty.xml syntax.html#.3CMap.3E">&lt;Map&gt;</a>, <a href="jetty.xml syntax.html#.3CProperty.3E">&lt;Property&gt;</a>
@@ -543,7 +543,7 @@ foo.<span class="me1">setTest</span><span class="br0">(</span><span class="st0">
 </p><p>The Ref element provides convenience and eases readability. You can usually achieve the effect of the Ref by nesting elements (method calls), but this can get complicated very easily. The Ref element makes it possible to refer to the same object if you're using it multiple times, or passing it into multiple methods. It also makes it possible to split up configuration across multiple files.
 </p>
 <h3><span id="Attributes_8" class="mw-headline">Attributes</span></h3>
-<dl><dt> id </dt>
+<dl><dt> id </dt>
 <dd> (required), the unique identifier used to name a previously created object.</dd></dl>
 <h3><span id="Can_Contain_8" class="mw-headline">Can Contain</span></h3>
 <p><a href="jetty.xml syntax.html#.3CSet.3E">&lt;Set&gt;</a>,<a href="jetty.xml syntax.html#.3CGet.3E">&lt;Get&gt;</a>, <a href="jetty.xml syntax.html#.3CPut.3E">&lt;Put&gt;</a>, <a href="jetty.xml syntax.html#.3CCall.3E">&lt;Call&gt;</a>, <a href="jetty.xml syntax.html#.3CNew.3E">&lt;New&gt;</a>, <a href="jetty.xml syntax.html#.3CRef.3E">&lt;Ref&gt;</a>, <a href="jetty.xml syntax.html#.3CArray.3E">&lt;Array&gt;</a>, <a href="jetty.xml syntax.html#.3CMap.3E">&lt;Map&gt;</a>, <a href="jetty.xml syntax.html#.3CProperty.3E">&lt;Property&gt;</a>
@@ -604,7 +604,7 @@ foo.<span class="me1">setTest</span><span class="br0">(</span><span class="st0">
     <span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
   <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span>
 <span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
- 
+
 <span class="sc3"><span class="re1">&lt;Call</span> <span class="re0">name</span>=<span class="st0">"addBean"</span><span class="re2">&gt;</span></span>
   <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>
     <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.deploy.ContextDeployer"</span><span class="re2">&gt;</span></span>
@@ -613,7 +613,7 @@ foo.<span class="me1">setTest</span><span class="br0">(</span><span class="st0">
     <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span>
   <span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
 <span class="sc3"><span class="re1">&lt;/Call<span class="re2">&gt;</span></span></span>
- 
+
 <span class="sc-1">&lt;!-- configure the RequestLogHandler object ("RequestLog") that we created earlier --&gt;</span>
 <span class="sc3"><span class="re1">&lt;Ref</span> <span class="re0">id</span>=<span class="st0">"RequestLog"</span><span class="re2">&gt;</span></span>
   ....
@@ -622,9 +622,9 @@ foo.<span class="me1">setTest</span><span class="br0">(</span><span class="st0">
 <p>An Array element allows the creation of a new array.
 </p>
 <h3><span id="Attributes_9" class="mw-headline">Attributes</span></h3>
-<dl><dt> type </dt>
+<dl><dt> type </dt>
 <dd> (optional), specify what <a href="jetty.xml syntax.html#Coercing_Arguments_to_a_Type">types</a> of items the array can contain.</dd>
-<dt> id </dt>
+<dt> id </dt>
 <dd> (optional), unique identifier you can use to refer to the array later.</dd></dl>
 <h3><span class="mw-headline" id="Can_Contain_9">Can Contain</span></h3>
 <p><a href="jetty.xml syntax.html#.3CItem.3E">&lt;Item&gt;</a>
@@ -641,9 +641,9 @@ foo.<span class="me1">setTest</span><span class="br0">(</span><span class="st0">
 <p>An Item element defines an entry for <a href="jetty.xml syntax.html#.3CArray.3E">Array</a> and <a href="jetty.xml syntax.html#.3CMap.3E">Map</a> elements.
 </p>
 <h3><span id="Attributes_10" class="mw-headline">Attributes</span></h3>
-<dl><dt> type </dt>
+<dl><dt> type </dt>
 <dd> (optional), force the <a href="jetty.xml syntax.html#Coercing_Arguments_to_a_Type">types</a> of value.</dd>
-<dt> id </dt>
+<dt> id </dt>
 <dd> (optional), unique identifier which you can use to refer to the array later.</dd></dl>
 <h3><span id="Can_Contain_10" class="mw-headline">Can Contain</span></h3>
 <p>value text, <a href="jetty.xml syntax.html#.3CGet.3E">&lt;Get&gt;</a>, <a href="jetty.xml syntax.html#.3CCall.3E">&lt;Call&gt;</a>, <a href="jetty.xml syntax.html#.3CNew.3E">&lt;New&gt;</a>, <a href="jetty.xml syntax.html#.3CRef.3E">&lt;Ref&gt;</a>, <a href="jetty.xml syntax.html#.3CArray.3E">&lt;Array&gt;</a>, <a href="jetty.xml syntax.html#.3CMap.3E">&lt;Map&gt;</a>, <a href="jetty.xml syntax.html#.3CSystemProperty.3E">&lt;SystemProperty&gt;</a>, <a href="jetty.xml syntax.html#.3CProperty.3E">&lt;Property&gt;</a>
@@ -652,7 +652,7 @@ foo.<span class="me1">setTest</span><span class="br0">(</span><span class="st0">
 <p>A Map element allows the creation of a new HashMap and to populate it with (key, value) pairs.
 </p>
 <h3><span class="mw-headline" id="Attributes_11">Attributes</span></h3>
-<dl><dt> id </dt>
+<dl><dt> id </dt>
 <dd> (optional), unique identifier you can use to refer to the map later.</dd></dl>
 <h3><span class="mw-headline" id="Can_Contain_11">Can Contain</span></h3>
 <p><a href="jetty.xml syntax.html#.3CEntry.3E">&lt;Entry&gt;</a>
@@ -681,11 +681,11 @@ m.<span class="me1">put</span><span class="br0">(</span><span class="st0">"keyNa
 <p>A SystemProperty element gets the value of a JVM system property. It can be used within elements which accept values, such as Set, Put, Arg, etc.
 </p>
 <h3><span class="mw-headline" id="Attributes_13">Attributes</span></h3>
-<dl><dt> name </dt>
+<dl><dt> name </dt>
 <dd> (required), property name </dd>
-<dt> default </dt>
+<dt> default </dt>
 <dd> (optional), a default value as a fallback</dd>
-<dt> id </dt>
+<dt> id </dt>
 <dd> (optional), unique identifier which you can use to refer to the array later.</dd></dl>
 <h3><span class="mw-headline" id="Can_Contain_13">Can Contain</span></h3>
 <p>Cannot contain anything.
@@ -701,11 +701,11 @@ m.<span class="me1">put</span><span class="br0">(</span><span class="st0">"keyNa
 <p>A Property element allows arbitrary properties to be retrieved by name. It can contain a sequence of elements, such as Set, Put, Call, etc., which act on the retrieved object.
 </p>
 <h3><span class="mw-headline" id="Attributes_14">Attributes</span></h3>
-<dl><dt> name </dt>
+<dl><dt> name </dt>
 <dd> (required), property name </dd>
-<dt> default </dt>
+<dt> default </dt>
 <dd> (optional), a default value as a fallback</dd>
-<dt> id </dt>
+<dt> id </dt>
 <dd> (optional), unique identifier which you can use to refer to the array later.</dd></dl>
 <h3><span class="mw-headline" id="Can_Contain_14">Can Contain</span></h3>
 <p><a href="jetty.xml syntax.html#.3CSet.3E">&lt;Set&gt;</a>,<a href="jetty.xml syntax.html#.3CGet.3E">&lt;Get&gt;</a>, <a href="jetty.xml syntax.html#.3CPut.3E">&lt;Put&gt;</a>, <a href="jetty.xml syntax.html#.3CCall.3E">&lt;Call&gt;</a>, <a href="jetty.xml syntax.html#.3CNew.3E">&lt;New&gt;</a>, <a href="jetty.xml syntax.html#.3CRef.3E">&lt;Ref&gt;</a>, <a href="jetty.xml syntax.html#.3CArray.3E">&lt;Array&gt;</a>, <a href="jetty.xml syntax.html#.3CMap.3E">&lt;Map&gt;</a>, <a href="jetty.xml syntax.html#.3CProperty.3E">&lt;Property&gt;</a>

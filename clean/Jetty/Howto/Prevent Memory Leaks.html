@@ -77,7 +77,7 @@ This <b>wiki is now officially out of date</b> and all content has been moved to
 
 </div>
 <p><br/>
-Well, the most obvious cause of this is memory leaks in your application :) But, if you've thoroughly investigated using tools like jconsole, yourkit, jprofiler, jvisualvm or any of the other profiling and analysis tools out there and you can eliminate your code as the source of the problem, read on.
+Well, the most obvious cause of this is memory leaks in your application :) But, if you've thoroughly investigated using tools like jconsole, yourkit, jprofiler, jvisualvm or any of the other profiling and analysis tools out there and you can eliminate your code as the source of the problem, read on.
 </p><p><br/>
 </p>
 <h2><span id="Steps" class="mw-headline">Steps</span></h2>
@@ -134,13 +134,13 @@ server.<span class="me1">addBean</span><span class="br0">(</span><span class="kw
 <p>The equivalent in code can be added to the $JETTY_HOME/etc/jetty.xml file or any jetty xml file that is configuring a Server instance. Note however, if you have more than one Server instance in your jvm, only configure these preventers on <i>one</i> of them. Here's the example from code put into in xml:
 </p>
 <div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="xml source-xml"><pre class="de1"><span class="sc3"><span class="re1">&lt;Configure</span> <span class="re0">id</span>=<span class="st0">"Server"</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.server.Server"</span><span class="re2">&gt;</span></span>
- 
+
    <span class="sc3"><span class="re1">&lt;Call</span> <span class="re0">name</span>=<span class="st0">"addBean"</span><span class="re2">&gt;</span></span>
     <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>
       <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.util.preventers.AppContextLeakPreventer"</span><span class="re2">/&gt;</span></span>
     <span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
    <span class="sc3"><span class="re1">&lt;/Call<span class="re2">&gt;</span></span></span>
- 
+
 <span class="sc3"><span class="re1">&lt;/Configure<span class="re2">&gt;</span></span></span></pre></div></div>
 <h2><span class="mw-headline" id="JSP_bugs">JSP bugs</span></h2>
 <h3><span id="Permgen_problems" class="mw-headline">Permgen problems</span></h3>
@@ -162,10 +162,19 @@ server.<span class="me1">addBean</span><span class="br0">(</span><span class="kw
 
 </div>
 
-                    <div class="catlinks" id="catlinks"><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="https://wiki.eclipse.org/Special:Categories" title="Special:Categories">Categories</a>: <ul><li><a href="https://wiki.eclipse.org/Category:Jetty" title="Category:Jetty">Jetty</a></li><li><a title="Category:Jetty Howto" href="https://wiki.eclipse.org/Category:Jetty_Howto">Jetty Howto</a></li></ul></div></div>
+                      <div class="catlinks" id="catlinks">
+                          <div id="mw-normal-catlinks" class="mw-normal-catlinks">
+                              <a href="https://wiki.eclipse.org/Special:Categories" title="Special:Categories">Categories</a>:
+                              <ul>
+                                  <li><a href="https://wiki.eclipse.org/Category:Jetty" title="Category:Jetty">Jetty</a></li>
+                                  <li><a title="Category:Jetty Howto" href="https://wiki.eclipse.org/Category:Jetty_Howto">Jetty Howto</a></li>
+                              </ul>
+                          </div>
+                      </div>
                                   </div>
               </div>
             </div>
           </div>
+</div>
 </body>
 </html>

@@ -120,9 +120,9 @@ The <a rel="nofollow" href="http://jcp.org/aboutJava/communityprocess/mrel/jsr15
 </p>
 <div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="xml source-xml"><pre class="de1"><span class="sc3"><span class="re1">&lt;?xml</span> <span class="re0">version</span>=<span class="st0">"1.0"</span>  <span class="re0">encoding</span>=<span class="st0">"ISO-8859-1"</span><span class="re2">?&gt;</span></span>
 <span class="sc0">&lt;!DOCTYPE Configure PUBLIC "-//Jetty//Configure//EN" "http://www.eclipse.org/jetty/configure.dtd"&gt;</span>
- 
+
 <span class="sc3"><span class="re1">&lt;Configure</span> <span class="re0">id</span>=<span class="st0">'wac'</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.webapp.WebAppContext"</span><span class="re2">&gt;</span></span>
- 
+
   <span class="sc3"><span class="re1">&lt;Array</span> <span class="re0">id</span>=<span class="st0">"plusConfig"</span> <span class="re0">type</span>=<span class="st0">"java.lang.String"</span><span class="re2">&gt;</span></span>
     <span class="sc3"><span class="re1">&lt;Item<span class="re2">&gt;</span></span></span>org.eclipse.jetty.webapp.WebInfConfiguration<span class="sc3"><span class="re1">&lt;/Item<span class="re2">&gt;</span></span></span>
     <span class="sc3"><span class="re1">&lt;Item<span class="re2">&gt;</span></span></span>org.eclipse.jetty.webapp.WebXmlConfiguration<span class="sc3"><span class="re1">&lt;/Item<span class="re2">&gt;</span></span></span>
@@ -134,10 +134,10 @@ The <a rel="nofollow" href="http://jcp.org/aboutJava/communityprocess/mrel/jsr15
     <span class="sc3"><span class="re1">&lt;Item<span class="re2">&gt;</span></span></span>org.eclipse.jetty.webapp.JettyWebXmlConfiguration<span class="sc3"><span class="re1">&lt;/Item<span class="re2">&gt;</span></span></span>
     <span class="sc3"><span class="re1">&lt;Item<span class="re2">&gt;</span></span></span>org.eclipse.jetty.webapp.TagLibConfiguration<span class="sc3"><span class="re1">&lt;/Item<span class="re2">&gt;</span></span></span>
   <span class="sc3"><span class="re1">&lt;/Array<span class="re2">&gt;</span></span></span>
- 
+
   <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"war"</span><span class="re2">&gt;</span><span class="re1">&lt;SystemProperty</span> <span class="re0">name</span>=<span class="st0">"jetty.home"</span> <span class="re0">default</span>=<span class="st0">"."</span><span class="re2">/&gt;</span></span>/webapps/my-cool-webapp<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
   <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"configurationClasses"</span><span class="re2">&gt;</span><span class="re1">&lt;Ref</span> <span class="re0">id</span>=<span class="st0">"plusConfig"</span><span class="re2">/&gt;</span><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
- 
+
 <span class="sc3"><span class="re1">&lt;/Configure<span class="re2">&gt;</span></span></span></pre></div></div>
 <p>Now add "annotations" to the OPTIONS definition in <a title="Jetty/Feature/Start.jar" href="Start.jar.html">start.ini</a> to get the annotation-processing related jars onto jetty's runtime classpath and you're ready to run.
 </p>
@@ -145,7 +145,7 @@ The <a rel="nofollow" href="http://jcp.org/aboutJava/communityprocess/mrel/jsr15
 <p>If you'd like to restrict the usage of annotations to only a subset of your webapps, you can copy them into a directory, and then set up a <a href="https://wiki.eclipse.org/Jetty/Feature/WebAppDeployer" class="mw-redirect" title="Jetty/Feature/WebAppDeployer">WebAppDeployer</a> for them which will apply the configurations.  For example, suppose you have moved the webapps into the directory $JETTY_HOME/plus-webapps, you can create a new xml configuration file (remembering to add it to <a href="Start.jar.html" title="Jetty/Feature/Start.jar">start.ini</a>, or edit an existing xml file), and add:
 </p>
 <div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="xml source-xml"><pre class="de1"><span class="sc3"><span class="re1">&lt;Configure</span> <span class="re0">id</span>=<span class="st0">"Server"</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.server.Server"</span><span class="re2">&gt;</span></span>
- 
+
   <span class="sc3"><span class="re1">&lt;Array</span> <span class="re0">id</span>=<span class="st0">"plusConfig"</span> <span class="re0">type</span>=<span class="st0">"java.lang.String"</span><span class="re2">&gt;</span></span>
     <span class="sc3"><span class="re1">&lt;Item<span class="re2">&gt;</span></span></span>org.eclipse.jetty.webapp.WebInfConfiguration<span class="sc3"><span class="re1">&lt;/Item<span class="re2">&gt;</span></span></span>
     <span class="sc3"><span class="re1">&lt;Item<span class="re2">&gt;</span></span></span>org.eclipse.jetty.webapp.WebXmlConfiguration<span class="sc3"><span class="re1">&lt;/Item<span class="re2">&gt;</span></span></span>
@@ -157,7 +157,7 @@ The <a rel="nofollow" href="http://jcp.org/aboutJava/communityprocess/mrel/jsr15
     <span class="sc3"><span class="re1">&lt;Item<span class="re2">&gt;</span></span></span>org.eclipse.jetty.webapp.JettyWebXmlConfiguration<span class="sc3"><span class="re1">&lt;/Item<span class="re2">&gt;</span></span></span>
     <span class="sc3"><span class="re1">&lt;Item<span class="re2">&gt;</span></span></span>org.eclipse.jetty.webapp.TagLibConfiguration<span class="sc3"><span class="re1">&lt;/Item<span class="re2">&gt;</span></span></span>
   <span class="sc3"><span class="re1">&lt;/Array<span class="re2">&gt;</span></span></span>
- 
+
   <span class="sc3"><span class="re1">&lt;Ref</span> <span class="re0">id</span>=<span class="st0">"DeploymentManager"</span><span class="re2">&gt;</span></span>
       <span class="sc3"><span class="re1">&lt;Call</span> <span class="re0">name</span>=<span class="st0">"addAppProvider"</span><span class="re2">&gt;</span></span>
         <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>
@@ -175,7 +175,7 @@ The <a rel="nofollow" href="http://jcp.org/aboutJava/communityprocess/mrel/jsr15
 </p>
 <div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="xml source-xml"><pre class="de1"><span class="sc3"><span class="re1">&lt;?xml</span> <span class="re0">version</span>=<span class="st0">"1.0"</span>  <span class="re0">encoding</span>=<span class="st0">"ISO-8859-1"</span><span class="re2">?&gt;</span></span>
 <span class="sc0">&lt;!DOCTYPE Configure PUBLIC "-//Jetty//Configure//EN" "http://www.eclipse.org/jetty/configure.dtd"&gt;</span>
- 
+
 <span class="sc3"><span class="re1">&lt;Configure</span> <span class="re0">id</span>=<span class="st0">"Server"</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.server.Server"</span><span class="re2">&gt;</span></span>
  <span class="sc3"><span class="re1">&lt;Array</span> <span class="re0">id</span>=<span class="st0">"plusConfig"</span> <span class="re0">type</span>=<span class="st0">"java.lang.String"</span><span class="re2">&gt;</span></span>
     <span class="sc3"><span class="re1">&lt;Item<span class="re2">&gt;</span></span></span>org.eclipse.jetty.webapp.WebInfConfiguration<span class="sc3"><span class="re1">&lt;/Item<span class="re2">&gt;</span></span></span>
@@ -188,7 +188,7 @@ The <a rel="nofollow" href="http://jcp.org/aboutJava/communityprocess/mrel/jsr15
     <span class="sc3"><span class="re1">&lt;Item<span class="re2">&gt;</span></span></span>org.eclipse.jetty.webapp.JettyWebXmlConfiguration<span class="sc3"><span class="re1">&lt;/Item<span class="re2">&gt;</span></span></span>
     <span class="sc3"><span class="re1">&lt;Item<span class="re2">&gt;</span></span></span>org.eclipse.jetty.webapp.TagLibConfiguration<span class="sc3"><span class="re1">&lt;/Item<span class="re2">&gt;</span></span></span>
   <span class="sc3"><span class="re1">&lt;/Array<span class="re2">&gt;</span></span></span>
- 
+
   <span class="sc3"><span class="re1">&lt;Call</span> <span class="re0">name</span>=<span class="st0">"setAttribute"</span><span class="re2">&gt;</span></span>
     <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>org.eclipse.jetty.webapp.configuration<span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
     <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>
@@ -225,29 +225,29 @@ The <a rel="nofollow" href="http://jcp.org/aboutJava/communityprocess/mrel/jsr15
 <div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="java source-java"><pre class="de1"><span class="kw1">import</span> <span class="co2">javax.sql.DataSource</span><span class="sy0">;</span>
 <span class="kw1">import</span> <span class="co2">javax.annotation.Resource</span><span class="sy0">;</span>
 <span class="kw1">import</span> <span class="co2">javax.servlet.http.HttpServlet</span><span class="sy0">;</span>
- 
+
 <span class="kw1">public</span> <span class="kw1">class</span> MyServlet <span class="kw1">extends</span> HttpServlet
 <span class="br0">{</span>
     @Resource <span class="br0">(</span>name<span class="sy0">=</span><span class="st0">"jdbc/mydatasource"</span>, type<span class="sy0">=</span>DataSource.<span class="kw1">class</span><span class="br0">)</span>
     <span class="kw1">private</span> DataSource foo<span class="sy0">;</span>
- 
+
 <span class="br0">}</span></pre></div></div>
 <p>The equivalent as an annotation on the method would be:
 </p>
 <div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="java source-java"><pre class="de1"><span class="kw1">import</span> <span class="co2">javax.sql.DataSource</span><span class="sy0">;</span>
 <span class="kw1">import</span> <span class="co2">javax.annotation.Resource</span><span class="sy0">;</span>
 <span class="kw1">import</span> <span class="co2">javax.servlet.http.HttpServlet</span><span class="sy0">;</span>
- 
+
 <span class="kw1">public</span> <span class="kw1">class</span> MyServlet <span class="kw1">extends</span> HttpServlet
 <span class="br0">{</span>
     <span class="kw1">private</span> DataSource foo<span class="sy0">;</span>
- 
+
     @Resource <span class="br0">(</span>name<span class="sy0">=</span><span class="st0">"jdbc/mydatasource"</span>, type<span class="sy0">=</span>DataSource.<span class="kw1">class</span><span class="br0">)</span>
     <span class="kw1">private</span> <span class="kw4">void</span> setMyDatasource <span class="br0">(</span>DataSource ds<span class="br0">)</span>
     <span class="br0">{</span>
         foo <span class="sy0">=</span> ds<span class="sy0">;</span>
     <span class="br0">}</span>
- 
+
 <span class="br0">}</span></pre></div></div>
 <h3><span id="Lifecycle_callbacks:_PostConstruct_PreDestroy" class="mw-headline">Lifecycle callbacks: PostConstruct PreDestroy</span></h3>
 <p>The Servlet 2.5 Specification (JSR154) also introduces the concept of lifecycle callbacks. These are of two types: a post-construction callback, and a pre-destruction callback. The former will be invoked after all resource injections have been performed on an instance of a managed class (eg servlet, filter or listener) but before it goes into service. The latter is invoked just before the container removes the instance from service. Let's look at how you might declare these callbacks in a web.xml file:
@@ -256,7 +256,7 @@ The <a rel="nofollow" href="http://jcp.org/aboutJava/communityprocess/mrel/jsr15
     <span class="sc3"><span class="re1">&lt;lifecycle-callback-class<span class="re2">&gt;</span></span></span>com.acme.MyServlet<span class="sc3"><span class="re1">&lt;/lifecycle-callback-class<span class="re2">&gt;</span></span></span>
     <span class="sc3"><span class="re1">&lt;lifecycle-callback-method<span class="re2">&gt;</span></span></span>myPostConstructMethod<span class="sc3"><span class="re1">&lt;/lifecycle-callback-method<span class="re2">&gt;</span></span></span>
 <span class="sc3"><span class="re1">&lt;/post-construct<span class="re2">&gt;</span></span></span>
- 
+
 <span class="sc3"><span class="re1">&lt;pre-destroy<span class="re2">&gt;</span></span></span>
     <span class="sc3"><span class="re1">&lt;lifecycle-callback-class<span class="re2">&gt;</span></span></span>com.acme.MyServlet<span class="sc3"><span class="re1">&lt;/lifecycle-callback-class<span class="re2">&gt;</span></span></span>
     <span class="sc3"><span class="re1">&lt;lifecycle-callback-method<span class="re2">&gt;</span></span></span>myPreDestroyMethod<span class="sc3"><span class="re1">&lt;/lifecycle-callback-method<span class="re2">&gt;</span></span></span>
@@ -267,7 +267,7 @@ The <a rel="nofollow" href="http://jcp.org/aboutJava/communityprocess/mrel/jsr15
 <div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="java source-java"><pre class="de1"><span class="kw1">import</span> <span class="co2">javax.annotation.PostConstruct</span><span class="sy0">;</span>
 <span class="kw1">import</span> <span class="co2">javax.annotation.PreDestroy</span><span class="sy0">;</span>
 <span class="kw1">import</span> <span class="co2">javax.servlet.http.HttpServlet</span><span class="sy0">;</span>
- 
+
 <span class="kw1">public</span> <span class="kw1">class</span> MyServlet <span class="kw1">extends</span> HttpServlet
 <span class="br0">{</span>
     @PostConstruct
@@ -275,7 +275,7 @@ The <a rel="nofollow" href="http://jcp.org/aboutJava/communityprocess/mrel/jsr15
     <span class="br0">{</span> 
         <span class="kw3">System</span>.<span class="me1">err</span>.<span class="me1">println</span><span class="br0">(</span><span class="st0">"PostConstruct called"</span><span class="br0">)</span><span class="sy0">;</span>
     <span class="br0">}</span>
- 
+
     @PreDestroy
     <span class="kw1">private</span> <span class="kw4">void</span> myPreDestroyMethod <span class="br0">(</span><span class="br0">)</span>
     <span class="br0">{</span>
@@ -295,7 +295,7 @@ The <a rel="nofollow" href="http://jcp.org/aboutJava/communityprocess/mrel/jsr15
 </p>
 <div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="java source-java"><pre class="de1"><span class="kw1">import</span> <span class="co2">javax.annotation.security.RunAs</span><span class="sy0">;</span>
 <span class="kw1">import</span> <span class="co2">javax.servlet.http.HttpServlet</span><span class="sy0">;</span>
- 
+
 @RunAs<span class="br0">(</span><span class="st0">"special"</span><span class="br0">)</span>
 <span class="kw1">public</span> <span class="kw1">class</span> MyServlet <span class="kw1">extends</span> HttpServlet 
 <span class="br0">{</span>
@@ -314,7 +314,7 @@ The <a rel="nofollow" href="http://jcp.org/aboutJava/communityprocess/mrel/jsr15
 </p>
 <div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="java source-java"><pre class="de1"><span class="kw1">import</span> <span class="co2">javax.annotation.security.DeclareRoles</span><span class="sy0">;</span>
 <span class="kw1">import</span> <span class="co2">javax.servlet.http.HttpServlet</span><span class="sy0">;</span>
- 
+
 @DeclareRoles<span class="br0">(</span><span class="br0">{</span><span class="st0">"server-administrator"</span>, <span class="st0">"user"</span><span class="br0">}</span><span class="br0">)</span>
 <span class="kw1">public</span> <span class="kw1">class</span> MyServlet <span class="kw1">extends</span> HttpServlet 
 <span class="br0">{</span>

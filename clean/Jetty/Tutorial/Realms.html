@@ -44,7 +44,7 @@
 <p>A realm–known as a LoginService–is available to all web applications on a Server instance if you define it in a Jetty configuration file, for example $JETTY_HOME/etc/jetty.xml. Here's an example of defining an in-memory type of LoginService called the <i>HashLoginService</i> (note in Jetty 6 this was called the <i>HashUserRealm</i>):
 </p>
 <div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="xml source-xml"><pre class="de1"><span class="sc3"><span class="re1">&lt;Configure</span> <span class="re0">id</span>=<span class="st0">"Server"</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.server.Server"</span><span class="re2">&gt;</span></span>
- 
+
     <span class="sc3"><span class="re1">&lt;Call</span> <span class="re0">name</span>=<span class="st0">"addBean"</span><span class="re2">&gt;</span></span>
       <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>
         <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.security.HashLoginService"</span><span class="re2">&gt;</span></span>
@@ -54,8 +54,8 @@
         <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span>
       <span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
     <span class="sc3"><span class="re1">&lt;/Call<span class="re2">&gt;</span></span></span>
- 
- 
+
+
 <span class="sc3"><span class="re1">&lt;/Configure<span class="re2">&gt;</span></span></span></pre></div></div>
 <p>Alternatively, you can define a LoginService for just a single web application in a context file. Here's how to define the same HashLoginService, but inside
 a context xml file instead of a configuration file:
@@ -63,7 +63,7 @@ a context xml file instead of a configuration file:
 <div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="xml source-xml"><pre class="de1"><span class="sc3"><span class="re1">&lt;Configure</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.webapp.WebAppContext"</span><span class="re2">&gt;</span></span>
   <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"contextPath"</span><span class="re2">&gt;</span></span>/test<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
   <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"war"</span><span class="re2">&gt;</span><span class="re1">&lt;SystemProperty</span> <span class="re0">name</span>=<span class="st0">"jetty.home"</span> <span class="re0">default</span>=<span class="st0">"."</span><span class="re2">/&gt;</span></span>/webapps/test<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
- 
+
   <span class="sc3"><span class="re1">&lt;Get</span> <span class="re0">name</span>=<span class="st0">"securityHandler"</span><span class="re2">&gt;</span></span>
     <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"loginService"</span><span class="re2">&gt;</span></span>
       <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.security.HashLoginService"</span><span class="re2">&gt;</span></span>
@@ -72,7 +72,7 @@ a context xml file instead of a configuration file:
       <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span>
     <span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
   <span class="sc3"><span class="re1">&lt;/Get<span class="re2">&gt;</span></span></span>
- 
+
 <span class="sc3"><span class="re1">&lt;/Configure<span class="re2">&gt;</span></span></span></pre></div></div>
 <p>Jetty provides a number of different LoginService types from which you can choose.
 </p>
@@ -181,10 +181,10 @@ are detected. The reloadInterval is in seconds:
            <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"name"</span><span class="re2">&gt;</span></span>Test Realm<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
      <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span>
    <span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
- 
-   <span class="sc-1">&lt;!-- or if you defined a LoginService called "Test Realm" in jetty.xml : --&gt;</span>
+
+   <span class="sc-1">&lt;!-- or if you defined a LoginService called "Test Realm" in jetty.xml : --&gt;</span>
    <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"realmName"</span><span class="re2">&gt;</span></span>Test Realm<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
- 
+
  <span class="sc3"><span class="re1">&lt;/Get<span class="re2">&gt;</span></span></span></pre></div></div>
 <h2><span class="mw-headline" id="Additional_Resources">Additional Resources</span></h2>
 <p>See <a href="JAAS.html" title="Jetty/Tutorial/JAAS">Java Authentication and Authorization Service (JAAS)</a> tutorial for additional information about configuring security realms.

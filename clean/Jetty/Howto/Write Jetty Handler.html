@@ -118,13 +118,13 @@ Response base_response <span class="sy0">=</span> response <span class="kw1">ins
 <p>The <a rel="nofollow" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/embedded/OneHandler.html" class="external text">OneHandler</a> embedded example shows how a simple handler can generate a response.
 </p><p>The normal servlet response API can be used and will typically set some status, content headers and then write out the content:
 </p>
-<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="java source-java"><pre class="de1"> 
+<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="java source-java"><pre class="de1">
  response.<span class="me1">setContentType</span><span class="br0">(</span><span class="st0">"text/html"</span><span class="br0">)</span><span class="sy0">;</span>
  response.<span class="me1">setStatus</span><span class="br0">(</span>HttpServletResponse.<span class="me1">SC_OK</span><span class="br0">)</span><span class="sy0">;</span>
  response.<span class="me1">getWriter</span><span class="br0">(</span><span class="br0">)</span>.<span class="me1">println</span><span class="br0">(</span><span class="st0">"&lt;h1&gt;Hello OneHandler&lt;/h1&gt;"</span><span class="br0">)</span><span class="sy0">;</span></pre></div></div>
 <p>It is also very important that a handler indicate that it has completed handling the request and that the request should not be passed to other handlers:
 </p>
-<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="java source-java"><pre class="de1"> 
+<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="java source-java"><pre class="de1">
  <span class="kw3">Request</span> base_request <span class="sy0">=</span> <span class="br0">(</span>request <span class="kw1">instanceof</span> <span class="kw3">Request</span><span class="br0">)</span> <span class="sy0">?</span> <span class="br0">(</span><span class="kw3">Request</span><span class="br0">)</span>request<span class="sy0">:</span>HttpConnection.<span class="me1">getCurrentConnection</span><span class="br0">(</span><span class="br0">)</span>.<span class="me1">getRequest</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
  base_request.<span class="me1">setHandled</span><span class="br0">(</span><span class="kw2">true</span><span class="br0">)</span><span class="sy0">;</span></pre></div></div>
 <h3><span id="Filtering_the_Request_and.2For_Response" class="mw-headline">Filtering the Request and/or Response</span></h3>
@@ -141,7 +141,7 @@ Response base_response <span class="sy0">=</span> response <span class="kw1">ins
 <li> Setting thread locals to identify the current ServletContext.</li></ul>
 <p>Typically a modified request is passed to another handler and then the modifications are undone in a finally block afterwards:
 </p>
-<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="java source-java"><pre class="de1"> 
+<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="java source-java"><pre class="de1">
  <span class="kw1">try</span>
  <span class="br0">{</span>
     base_request.<span class="me1">setSession</span><span class="br0">(</span>a_session<span class="br0">)</span><span class="sy0">;</span>
