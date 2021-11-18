@@ -5,12 +5,7 @@
 </head>
 <body>
 <div id="mainContent" class="col-md-20">
-                      <ul role="tablist" class="nav nav-tabs noprint hidden-print">
-                       <li id="ca-nstab-main" class="active"><a accesskey="c" tabindex="-1" href="Prevent Memory Leaks.html" title="View the content page [c]">Page</a></li>
-                        <li id="ca-talk" class="new"><a title="Discussion about the content page [t]" href="edit" accesskey="t" tabindex="-1">Discussion</a></li>
-                        <li id="ca-viewsource"><a title="This page is protected.&#10;You can view its source [e]" href="edit" accesskey="e" tabindex="-1">View source</a></li>
-                        <li id="ca-history" class="collapsible"><a title="Past revisions of this page [h]" href="edit" accesskey="h" tabindex="-1">History</a></li>
-                      </ul>            <div class="tab-content background-white">
+                                 <div class="tab-content background-white">
               <div class="tab-pane active" id="tab-pane-main-page-content">
 
                 
@@ -18,9 +13,9 @@
                   <span dir="auto">Jetty/Howto/Prevent Memory Leaks</span>
                 </h1>
                 <div id="main-page-content">
-                                                      <!-- subtitle -->
+
                   <div class="alert alert-small alert-warning" id="contentSub"><span class="subpages">&lt; <a title="Jetty" href="../../Jetty.html">Jetty</a>‎ | <a href="../Howto.html" title="Jetty/Howto">Howto</a></span></div>
-                  <!-- /subtitle -->
+
                   
                   
                   <div dir="ltr" class="mw-content-ltr" id="mw-content-text" lang="en"><p><br/>
@@ -79,7 +74,7 @@ This <b>wiki is now officially out of date</b> and all content has been moved to
 <br/>
 <br/>
 </p>
-Direct Link to updated documentation: <a class="external free" href="http://www.eclipse.org/jetty/documentation/current/preventing-memory-leaks.html" rel="nofollow">http://www.eclipse.org/jetty/documentation/current/preventing-memory-leaks.html</a></div>
+
 </div>
 <p><br/>
 Well, the most obvious cause of this is memory leaks in your application :) But, if you've thoroughly investigated using tools like jconsole, yourkit, jprofiler, jvisualvm or any of the other profiling and analysis tools out there and you can eliminate your code as the source of the problem, read on.
@@ -164,36 +159,10 @@ server.<span class="me1">addBean</span><span class="br0">(</span><span class="kw
 <p>Another issue related to jvm bugs is the exhaustion of native memory. The symptoms to look out for are the process size growing, but the heap usage remaining relatively constant. Native memory can be consumed by a number of things, the JIT compiler being one, and nio ByteBuffers being another. Sun bug number <a rel="nofollow" href="http://bugs.sun.com/bugdatabase/view_bug.do?bug_id=6210541" class="external text">#6210541</a> discusses a still-unsolved problem whereby the jvm itself allocates a direct ByteBuffer in some circumstances that is never garbage collected, effectively eating native memory. <a href="http://www.jroller.com/gkorland/entry/java_s_memory_isn_t" rel="nofollow" class="external text">Guy Korland's blog</a> discusses this problem <a class="external text" href="http://www.jroller.com/gkorland/entry/java_s_memory_isn_t" rel="nofollow">here</a> and <a class="external text" rel="nofollow" href="http://www.jroller.com/gkorland/entry/java_s_memory_managment_is">here</a>. As the JIT compiler is one consumer of native memory, the lack of available memory may manifest itself in the JIT as OutOfMemory exceptions such as <tt>"Exception in thread "CompilerThread0" java.lang.OutOfMemoryError: requested xxx bytes for ChunkPool::allocate. Out of swap space?"</tt>
 </p><p>By default, Jetty will allocate and manage its own pool of direct ByteBuffers for io if the nio SelectChannelConnector is configured. It also allocates MappedByteBuffers to memory-map static files via the DefaultServlet settings. However, you could be vulnerable to this jvm ByteBuffer allocation problem if you have disabled either of these options. For example, if you're on Windows, you may have disabled the use of memory-mapped buffers for the static file cache on the DefaultServlet to avoid the file-locking problem.
 </p>
-<!-- 
-NewPP limit report
-Cached time: 20211116162822
-Cache expiry: 86400
-Dynamic content: false
-CPU time usage: 0.168 seconds
-Real time usage: 0.181 seconds
-Preprocessor visited node count: 121/1000000
-Preprocessor generated node count: 622/1000000
-Post‐expand include size: 21677/2097152 bytes
-Template argument size: 19763/2097152 bytes
-Highest expansion depth: 7/40
-Expensive parser function count: 0/100
--->
 
-<!-- 
-Transclusion expansion time report (%,ms,calls,template)
-100.00%  100.949      1 - -total
-100.00%  100.949      1 - Template:Jetty_Howto
- 19.48%   19.662      1 - Template:Jetty_Redirect
- 19.37%   19.552      2 - Template:Message
-  9.37%    9.454      1 - Template:Tip
-  3.68%    3.716      1 - Template:Jetty
--->
-
-<!-- Saved in parser cache with key my_wiki:pcache:idhash:38384-0!*!*!!en!5!* and timestamp 20211116162822 and revision id 334737
- -->
 </div>
-                                      <!-- catlinks -->
-                    <div class="catlinks" id="catlinks"><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="https://wiki.eclipse.org/Special:Categories" title="Special:Categories">Categories</a>: <ul><li><a href="https://wiki.eclipse.org/Category:Jetty" title="Category:Jetty">Jetty</a></li><li><a title="Category:Jetty Howto" href="https://wiki.eclipse.org/Category:Jetty_Howto">Jetty Howto</a></li></ul></div></div>                     <!-- /catlinks -->
+
+                    <div class="catlinks" id="catlinks"><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="https://wiki.eclipse.org/Special:Categories" title="Special:Categories">Categories</a>: <ul><li><a href="https://wiki.eclipse.org/Category:Jetty" title="Category:Jetty">Jetty</a></li><li><a title="Category:Jetty Howto" href="https://wiki.eclipse.org/Category:Jetty_Howto">Jetty Howto</a></li></ul></div></div>
                                   </div>
               </div>
             </div>
