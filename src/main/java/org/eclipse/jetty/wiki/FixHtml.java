@@ -122,6 +122,9 @@ public class FixHtml
             // copy heading
             fixHeading(htmlFile, dom);
 
+            // fix title
+            fixTitle(htmlFile, dom);
+
             // cleanup text nodes
             cleanupTextNodes(dom);
 
@@ -153,6 +156,31 @@ public class FixHtml
             System.out.printf("[html|ERROR] %s%n", htmlFile.toAbsolutePath());
             e.printStackTrace(System.out);
         }
+    }
+
+    private void fixTitle(Path htmlFile, Document dom) throws XPathExpressionException, IOException, SAXException
+    {
+        Path baseHtml = rootDir.resolve("Jetty.html");
+        if (Files.isSameFile(htmlFile, baseHtml))
+            return; // skip
+
+        Path rawDir = rootDir.toAbsolutePath().getParent().resolve("raw");
+        Path oldHtml = rawDir.resolve(rootDir.relativize(htmlFile));
+        String oldTitle = getHtmlTitle(oldHtml);
+
+        oldTitle = oldTitle.replace(" - Eclipsepedia", " - (Archive Wiki)");
+
+        Element titleElem = xpathFirstElement(dom, "//html/head/title");
+        if(titleElem == null)
+            throw new IllegalStateException("No html/head/title found");
+        titleElem.setTextContent(oldTitle);
+    }
+
+    private String getHtmlTitle(Path htmlPath) throws IOException, SAXException, XPathExpressionException
+    {
+        Document htmlDoc = loadHtml(htmlPath);
+        String title = (String)xPath.compile("//html/head/title").evaluate(htmlDoc, XPathConstants.STRING);
+        return title;
     }
 
     private void fixHeading(Path htmlFile, Document dom) throws IOException, SAXException, XPathExpressionException
