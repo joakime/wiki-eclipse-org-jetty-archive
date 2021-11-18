@@ -1,252 +1,1138 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
-<head>
+  <head>
     <title>Jetty WTP Plugin</title>
-    <link rel="stylesheet" media="screen, print" href="wiki-style.css"/>
-</head>
-<body>
-<div id="mainContent" class="col-md-20">
-                      <ul class="nav nav-tabs noprint hidden-print" role="tablist">
-                       <li id="ca-nstab-main" class="active"><a tabindex="-1" href="Configure Virtual Hosts.html" title="View the content page [c]" accesskey="c">Page</a></li>
-                        <li id="ca-talk" class="new"><a accesskey="t" title="Discussion about the content page [t]" tabindex="-1" href="edit">Discussion</a></li>
-                        <li id="ca-viewsource"><a accesskey="e" title="This page is protected.&#10;You can view its source [e]" tabindex="-1" href="edit">View source</a></li>
-                        <li id="ca-history" class="collapsible"><a accesskey="h" href="edit" tabindex="-1" title="Past revisions of this page [h]">History</a></li>
-                      </ul>            <div class="tab-content background-white">
-              <div class="tab-pane active" id="tab-pane-main-page-content">
-
-                
-                <h1 class="firstHeading page-header" id="firstHeading">
-                  <span dir="auto">Jetty/Howto/Configure Virtual Hosts</span>
-                </h1>
-                <div id="main-page-content">
-
-                  <div id="contentSub" class="alert alert-small alert-warning"><span class="subpages">&lt; <a title="Jetty" href="../../Jetty.html">Jetty</a>‎ | <a href="../Howto.html" title="Jetty/Howto">Howto</a></span></div>
-
-                  
-                  
-                  <div class="mw-content-ltr" id="mw-content-text" lang="en" dir="ltr"><p><br/>
-</p><p><br/>
-</p>
-<div class="toc" id="toc"><div id="toctitle"><h2>Contents</h2></div>
-<ul>
-<li class="toclevel-1"><a href="Configure Virtual Hosts.html#Introduction"><span class="tocnumber">1</span> <span class="toctext">Introduction</span></a></li>
-<li class="toclevel-1"><a href="Configure Virtual Hosts.html#Configuring_Virtual_Hosts"><span class="tocnumber">2</span> <span class="toctext">Configuring Virtual Hosts</span></a></li>
-<li class="toclevel-1"><a href="Configure Virtual Hosts.html#Configuring_Different_Webapps_for_Different_Virtual_Hosts"><span class="tocnumber">3</span> <span class="toctext">Configuring Different Webapps for Different Virtual Hosts</span></a></li>
-<li class="toclevel-1"><a href="Configure Virtual Hosts.html#Configuring_Different_Webapps_for_Different_Virtual_Hosts.2C_But_at_the_Same_Context_Path"><span class="tocnumber">4</span> <span class="toctext">Configuring Different Webapps for Different Virtual Hosts, But at the Same Context Path</span></a></li>
-<li class="toclevel-1"><a href="Configure Virtual Hosts.html#Configuring_Virtual_Hosts_with_Non-ascii_Characters"><span class="tocnumber">5</span> <span class="toctext">Configuring Virtual Hosts with Non-ascii Characters</span></a></li>
-</ul>
-</div>
-
-<h2><span class="mw-headline" id="Introduction">Introduction</span></h2>
-<div class="messagebox" style="background-color: #f9f6b7; border: 1px solid #c4c295; color: black; padding: 5px; margin: 1ex 0; min-height: 35px; padding-left: 45px; font-size: 150%; color: white; background-color: #FF8888; padding: 50px">
-<div style="float: left; margin-left: -40px;"><a class="image" href="https://wiki.eclipse.org/File:Warning2.png"><img height="35" alt="Warning2.png" src="../../images/3/37/Warning2.png" width="35"/></a></div>
-<div>Jetty 7 and Jetty 8 are now EOL (End of Life)<br/>
-<p><br/>
-<br/>
-<br/>
-THIS IS NOT THE DOCUMENTATION YOU ARE LOOKING FOR!!!!!<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-All development and stable releases are being performed with Jetty 9 and Jetty 10.<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-This <b>wiki is now officially out of date</b> and all content has been moved to the <a class="external text" rel="nofollow" href="http://www.eclipse.org/jetty/documentation">Jetty Documentation Hub</a><br/> 
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-</p>
-Direct Link to updated documentation: <a href="http://www.eclipse.org/jetty/documentation/current/configuring-virtual-hosts.html" rel="nofollow" class="external free">http://www.eclipse.org/jetty/documentation/current/configuring-virtual-hosts.html</a></div>
-</div>
-<p><br/>
-A virtual host is an alternative name, registered in DNS, for an IP address. Virtual hosting takes one of two forms:
-</p>
-<ul><li> Multiple names can resolve to a single IP address.</li>
-<li> Multi-homed hosts, that is machines with more than one network interface, can have a different name for each IP address. </li></ul>
-<p>Jetty users often want to configure their web applications taking into account these different virtual hosts. Frequently, a machine with a single IP address has different DNS resolvable names associated with it, and a webapp deployed on it must be reachable from all of the alternative names. Another possibility is to serve different web applications from different virtual hosts. 
-</p><p>You can set virtual hosts in several different ways, including:
-</p>
-<ul><li> Using a context XML file in the context directory: <a rel="nofollow" class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/server/handler/ContextHandler.html#setVirtualHosts">setVirtualHosts</a>. This is the preferred method.</li>
-<li> Java calls in an embedded usage: <a title="Jetty/Tutorial/Embedding Jetty" href="../Tutorial/Embedding Jetty.html">Embedding Jetty</a>.</li>
-<li> Within an explicitly deployed webapp (no webapp provider) listed in <a title="Jetty/Reference/jetty.xml" href="../Reference/jetty.xml.html">jetty.xml</a> or similar.</li>
-<li> Using a WEB-INF/jetty-web.xml file (deprecated, but works with the webapp provider if you do not use the context provider). </li></ul>
-<p>For descriptions of the various ways to configure Jetty, including links to documents that provide detailed configuration instructions, see <a title="Jetty/Howto/Configure Jetty" href="Configure Jetty.html">How to Configure Jetty</a>.
-</p><p>The examples that follow set virtual hosts in the preferred way, by calling the method ContextHandler.<a class="external text" rel="nofollow" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/server/handler/ContextHandler.html#setVirtualHosts">setVirtualHosts</a>.
-</p>
-<h2><span class="mw-headline" id="Configuring_Virtual_Hosts">Configuring Virtual Hosts</span></h2>
-<p>When configuring a web application, you can supply a list of IP addresses and names at which the web application is reachable. Suppose you have a machine with these IP addresses and DNS resolvable names:
-</p>
-<ul><li> 333.444.555.666</li>
-<li> 127.0.0.1</li>
-<li> www.blah.com</li>
-<li> www.blah.net</li>
-<li> www.blah.org</li></ul>
-<p>Suppose you have a webapp, <i>xxx.war</i>, that you want all of the above names and addresses to serve. You would configure the webapp as follows:
-</p>
-<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="xml source-xml"><pre class="de1"><span class="sc3"><span class="re1">&lt;Configure</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.webapp.WebAppContext"</span><span class="re2">&gt;</span></span>
-  <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"contextPath"</span><span class="re2">&gt;</span></span>/xxx<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
-  <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"war"</span><span class="re2">&gt;</span><span class="re1">&lt;SystemProperty</span> <span class="re0">name</span>=<span class="st0">"jetty.home"</span><span class="re2">/&gt;</span></span>/webapps/xxx.war<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
-  <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"virtualHosts"</span><span class="re2">&gt;</span></span>
-    <span class="sc3"><span class="re1">&lt;Array</span> <span class="re0">type</span>=<span class="st0">"java.lang.String"</span><span class="re2">&gt;</span></span>
-      <span class="sc3"><span class="re1">&lt;Item<span class="re2">&gt;</span></span></span>333.444.555.666<span class="sc3"><span class="re1">&lt;/Item<span class="re2">&gt;</span></span></span>
-      <span class="sc3"><span class="re1">&lt;Item<span class="re2">&gt;</span></span></span>127.0.0.1<span class="sc3"><span class="re1">&lt;/Item<span class="re2">&gt;</span></span></span>
-      <span class="sc3"><span class="re1">&lt;Item<span class="re2">&gt;</span></span></span>www.blah.com<span class="sc3"><span class="re1">&lt;/Item<span class="re2">&gt;</span></span></span>
-      <span class="sc3"><span class="re1">&lt;Item<span class="re2">&gt;</span></span></span>www.blah.net<span class="sc3"><span class="re1">&lt;/Item<span class="re2">&gt;</span></span></span>
-      <span class="sc3"><span class="re1">&lt;Item<span class="re2">&gt;</span></span></span>www.blah.org<span class="sc3"><span class="re1">&lt;/Item<span class="re2">&gt;</span></span></span>
-    <span class="sc3"><span class="re1">&lt;/Array<span class="re2">&gt;</span></span></span>
-  <span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
-<span class="sc3"><span class="re1">&lt;/Configure<span class="re2">&gt;</span></span></span></pre></div></div>
-<p>Assuming you have configured a connector listening on port 8080, webapp <i>xxx.war</i> is available at all of the following addresses:
-</p>
-<ul><li> http://333.444.555.666:8080/xxx</li>
-<li> http://127.0.0.1:8080/xxx</li>
-<li> http://www.blah.com:8080/xxx</li>
-<li> http://www.blah.net:8080/xxx</li>
-<li> http://www.blah.org:8080/xxx</li></ul>
-<h2><span id="Configuring_Different_Webapps_for_Different_Virtual_Hosts" class="mw-headline">Configuring Different Webapps for Different Virtual Hosts</span></h2>
-<p>You can configure different webapps for different virtual hosts by supplying a different list of virtual hosts for each webapp. For example, suppose your imaginary machine has these DNS names and IP addresses:
-</p>
-<ul><li> 333.444.555.666</li>
-<li> 127.0.0.1</li>
-<li> www.blah.com</li>
-<li> www.blah.net</li>
-<li> www.blah.org</li>
-<li> 777.888.888.111</li>
-<li> www.other.com</li>
-<li> www.other.net</li>
-<li> www.other.org</li></ul>
-<p>Suppose also you have another webapp, <i>zzz.war</i>. We want <i>xxx.war</i> to be deployed as above, and <i>zzz.war</i> to be deployed only from 777.888.888.111, www.other.com, www.other.net and www.other.org:
-</p>
-<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="xml source-xml"><pre class="de1"><span class="sc-1">&lt;!-- webapp xxx.war --&gt;</span>
-<span class="sc3"><span class="re1">&lt;Configure</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.webapp.WebAppContext"</span><span class="re2">&gt;</span></span>
-  <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"contextPath"</span><span class="re2">&gt;</span></span>/xxx<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
-  <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"war"</span><span class="re2">&gt;</span><span class="re1">&lt;SystemProperty</span> <span class="re0">name</span>=<span class="st0">"jetty.home"</span><span class="re2">/&gt;</span></span>/webapps/xxx.war<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
-  <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"virtualHosts"</span><span class="re2">&gt;</span></span>
-    <span class="sc3"><span class="re1">&lt;Array</span> <span class="re0">type</span>=<span class="st0">"java.lang.String"</span><span class="re2">&gt;</span></span>
-      <span class="sc3"><span class="re1">&lt;Item<span class="re2">&gt;</span></span></span>333.444.555.666<span class="sc3"><span class="re1">&lt;/Item<span class="re2">&gt;</span></span></span>
-      <span class="sc3"><span class="re1">&lt;Item<span class="re2">&gt;</span></span></span>127.0.0.1<span class="sc3"><span class="re1">&lt;/Item<span class="re2">&gt;</span></span></span>
-      <span class="sc3"><span class="re1">&lt;Item<span class="re2">&gt;</span></span></span>www.blah.com<span class="sc3"><span class="re1">&lt;/Item<span class="re2">&gt;</span></span></span>
-      <span class="sc3"><span class="re1">&lt;Item<span class="re2">&gt;</span></span></span>www.blah.net<span class="sc3"><span class="re1">&lt;/Item<span class="re2">&gt;</span></span></span>
-      <span class="sc3"><span class="re1">&lt;Item<span class="re2">&gt;</span></span></span>www.blah.org<span class="sc3"><span class="re1">&lt;/Item<span class="re2">&gt;</span></span></span>
-    <span class="sc3"><span class="re1">&lt;/Array<span class="re2">&gt;</span></span></span>
-  <span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
-<span class="sc3"><span class="re1">&lt;/Configure<span class="re2">&gt;</span></span></span></pre></div></div>
-<p><br/>
-</p>
-<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="xml source-xml"><pre class="de1"><span class="sc-1">&lt;!-- webapp zzz.war --&gt;</span>
-<span class="sc3"><span class="re1">&lt;Configure</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.webapp.WebAppContext"</span><span class="re2">&gt;</span></span>
-  <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"contextPath"</span><span class="re2">&gt;</span></span>/zzz<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
-  <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"war"</span><span class="re2">&gt;</span><span class="re1">&lt;SystemProperty</span> <span class="re0">name</span>=<span class="st0">"jetty.home"</span><span class="re2">/&gt;</span></span>/webapps/zzz.war<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
-  <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"virtualHosts"</span><span class="re2">&gt;</span></span>
-    <span class="sc3"><span class="re1">&lt;Array</span> <span class="re0">type</span>=<span class="st0">"java.lang.String"</span><span class="re2">&gt;</span></span>
-      <span class="sc3"><span class="re1">&lt;Item<span class="re2">&gt;</span></span></span>777.888.888.111<span class="sc3"><span class="re1">&lt;/Item<span class="re2">&gt;</span></span></span>
-      <span class="sc3"><span class="re1">&lt;Item<span class="re2">&gt;</span></span></span>www.other.com<span class="sc3"><span class="re1">&lt;/Item<span class="re2">&gt;</span></span></span>
-      <span class="sc3"><span class="re1">&lt;Item<span class="re2">&gt;</span></span></span>www.other.net<span class="sc3"><span class="re1">&lt;/Item<span class="re2">&gt;</span></span></span>
-      <span class="sc3"><span class="re1">&lt;Item<span class="re2">&gt;</span></span></span>www.other.org<span class="sc3"><span class="re1">&lt;/Item<span class="re2">&gt;</span></span></span>
-    <span class="sc3"><span class="re1">&lt;/Array<span class="re2">&gt;</span></span></span>
-  <span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
-<span class="sc3"><span class="re1">&lt;/Configure<span class="re2">&gt;</span></span></span></pre></div></div>
-<p>Webapp <i>xxx.war</i> is still available at:
-</p>
-<ul><li> http://333.444.555.666:8080/xxx</li>
-<li> http://127.0.0.1:8080/xxx</li>
-<li> http://www.blah.com:8080/xxx</li>
-<li> http://www.blah.net:8080/xxx</li>
-<li> http://www.blah.org:8080/xxx</li></ul>
-<p>But now webapp <i>zzz.war</i> is available at:
-</p>
-<ul><li> http://777.888.888.111:8080/zzz</li>
-<li> http://www.other.com:8080/zzz</li>
-<li> http://www.other.net:8080/zzz</li>
-<li> http://www.other.org:8080/zzz</li></ul>
-<h2><span class="mw-headline" id="Configuring_Different_Webapps_for_Different_Virtual_Hosts.2C_But_at_the_Same_Context_Path">Configuring Different Webapps for Different Virtual Hosts, But at the Same Context Path</span></h2>
-<p>In the example above, webapp zzz.war is available not only at a certain set of virtual hosts, but also at the context path /zzz, whilst the other webapp is available at both a different set of virtual hosts, <i>and</i> at a different context path. What happens if you want them at the <i>same</i> context path, but still at different sets of virtual hosts? You just supply the <i>same</i> context path for each webapp, leaving the disjoint set of virtual host definitions as before:
-</p>
-<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="xml source-xml"><pre class="de1"><span class="sc3"><span class="re1">&lt;Configure</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.webapp.WebAppContext"</span><span class="re2">&gt;</span></span>
-  <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"war"</span><span class="re2">&gt;</span><span class="re1">&lt;SystemProperty</span> <span class="re0">name</span>=<span class="st0">"jetty.home"</span><span class="re2">/&gt;</span></span>/webapps/xxx.war<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
-  <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"contextPath"</span><span class="re2">&gt;</span></span>/<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
-  <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"virtualHosts"</span><span class="re2">&gt;</span></span>
-    <span class="sc3"><span class="re1">&lt;Array</span> <span class="re0">type</span>=<span class="st0">"java.lang.String"</span><span class="re2">&gt;</span></span>
-      <span class="sc3"><span class="re1">&lt;Item<span class="re2">&gt;</span></span></span>333.444.555.666<span class="sc3"><span class="re1">&lt;/Item<span class="re2">&gt;</span></span></span>
-      <span class="sc3"><span class="re1">&lt;Item<span class="re2">&gt;</span></span></span>127.0.0.1<span class="sc3"><span class="re1">&lt;/Item<span class="re2">&gt;</span></span></span>
-      <span class="sc3"><span class="re1">&lt;Item<span class="re2">&gt;</span></span></span>www.blah.com<span class="sc3"><span class="re1">&lt;/Item<span class="re2">&gt;</span></span></span>
-      <span class="sc3"><span class="re1">&lt;Item<span class="re2">&gt;</span></span></span>www.blah.net<span class="sc3"><span class="re1">&lt;/Item<span class="re2">&gt;</span></span></span>
-      <span class="sc3"><span class="re1">&lt;Item<span class="re2">&gt;</span></span></span>www.blah.org<span class="sc3"><span class="re1">&lt;/Item<span class="re2">&gt;</span></span></span>
-    <span class="sc3"><span class="re1">&lt;/Array<span class="re2">&gt;</span></span></span>
-  <span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
-<span class="sc3"><span class="re1">&lt;/Configure<span class="re2">&gt;</span></span></span></pre></div></div>
-<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="xml source-xml"><pre class="de1"><span class="sc3"><span class="re1">&lt;Configure</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.webapp.WebAppContext"</span><span class="re2">&gt;</span></span>
-  <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"war"</span><span class="re2">&gt;</span><span class="re1">&lt;SystemProperty</span> <span class="re0">name</span>=<span class="st0">"jetty.home"</span><span class="re2">/&gt;</span></span>/webapps/zzz.war<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
-  <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"contextPath"</span><span class="re2">&gt;</span></span>/<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
-  <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"virtualHosts"</span><span class="re2">&gt;</span></span>
-    <span class="sc3"><span class="re1">&lt;Array</span> <span class="re0">type</span>=<span class="st0">"java.lang.String"</span><span class="re2">&gt;</span></span>
-      <span class="sc3"><span class="re1">&lt;Item<span class="re2">&gt;</span></span></span>777.888.888.111<span class="sc3"><span class="re1">&lt;/Item<span class="re2">&gt;</span></span></span>
-      <span class="sc3"><span class="re1">&lt;Item<span class="re2">&gt;</span></span></span>www.other.com<span class="sc3"><span class="re1">&lt;/Item<span class="re2">&gt;</span></span></span>
-      <span class="sc3"><span class="re1">&lt;Item<span class="re2">&gt;</span></span></span>www.other.net<span class="sc3"><span class="re1">&lt;/Item<span class="re2">&gt;</span></span></span>
-      <span class="sc3"><span class="re1">&lt;Item<span class="re2">&gt;</span></span></span>www.other.org<span class="sc3"><span class="re1">&lt;/Item<span class="re2">&gt;</span></span></span>
-    <span class="sc3"><span class="re1">&lt;/Array<span class="re2">&gt;</span></span></span>
-  <span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
-<span class="sc3"><span class="re1">&lt;/Configure<span class="re2">&gt;</span></span></span></pre></div></div>
-<p>Now, webapp xxx.war is available at:
-</p>
-<ul><li> http://333.444.555.666:8080/</li>
-<li> http://127.0.0.1:8080/</li>
-<li> http://www.blah.com:8080/</li>
-<li> http://www.blah.net:8080/</li>
-<li> http://www.blah.org:8080/</li></ul>
-<p>and webapp zzz.war is available at:
-</p>
-<ul><li> http://777.888.888.111:8080/</li>
-<li> http://www.other.com:8080/</li>
-<li> http://www.other.net:8080/</li>
-<li> http://www.other.org:8080/</li></ul>
-<h2><span id="Configuring_Virtual_Hosts_with_Non-ascii_Characters" class="mw-headline">Configuring Virtual Hosts with Non-ascii Characters</span></h2>
-<p><a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/Internationalized_domain_name">International domain names</a> are names containing non-ascii characters. For example "http://www.bücher.com". The DNS internally remains based on ascii, so these kinds of names are translated via an encoding called <a href="http://tools.ietf.org/html/rfc3492" rel="nofollow" class="external text">punycode</a> into an ascii representation. Modern browsers detect these non-ascii characters in URLs and automatically apply the punycode encoding. For example, typing this URL into a browser:
-</p><p>http://www.åäö.com:8080/test/
-</p><p>is translated to the following url:
-</p><p>http://www.xn--4cab6c.com:8080/test/
-</p><p>To use internationalized domain names with Jetty virtual hosts you need to supply the punycode form of the name in your context xml file (and of course you need to supply it to your DNS setup).
-</p><p>For example, if you are running a webapp on port 8080 at context /test, and you want to configure a virtual host for www.åäö.com, you configure its ascii equivalent in the context xml file for the context:
-</p>
-<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="xml source-xml"><pre class="de1"><span class="sc3"><span class="re1">&lt;Configure</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.webapp.WebAppContext"</span><span class="re2">&gt;</span></span>
-
-  <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"contextPath"</span><span class="re2">&gt;</span></span>/<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
-  <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"war"</span><span class="re2">&gt;</span><span class="re1">&lt;SystemProperty</span> <span class="re0">name</span>=<span class="st0">"jetty.home"</span> <span class="re0">default</span>=<span class="st0">"."</span><span class="re2">/&gt;</span></span>/webapps/test.war<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
-
-  <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"virtualHosts"</span><span class="re2">&gt;</span></span>
-    <span class="sc3"><span class="re1">&lt;Array</span> <span class="re0">type</span>=<span class="st0">"String"</span><span class="re2">&gt;</span></span>
-      <span class="sc3"><span class="re1">&lt;Item<span class="re2">&gt;</span></span></span>www.xn--4cab6c.com<span class="sc3"><span class="re1">&lt;/Item<span class="re2">&gt;</span></span></span>
-    <span class="sc3"><span class="re1">&lt;/Array<span class="re2">&gt;</span></span></span>
-  <span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
-<span class="sc3"><span class="re1">&lt;/Configure<span class="re2">&gt;</span></span></span></pre></div></div>
-<p>After starting Jetty, you can enter the url http://www.åäö.com:8080/test/ in a browser and reach the webapp.
-</p><p>If you don't have any webapps deployed at /, hitting the URL http://www.åäö.com:8080reaches Jetty's default handler, which serves back a 404 page listing the available contexts:
-</p>
-<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="bash source-bash"><pre class="de1">Error <span class="nu0">404</span> - Not Found
+    <link href="wiki-style.css" media="screen, print" rel="stylesheet" />
+  </head>
+  <body>
+    <div class="col-md-20" id="mainContent">
+      <div class="tab-content background-white">
+        <div class="tab-pane active" id="tab-pane-main-page-content">
+          <h1 class="firstHeading page-header" id="firstHeading">
+            <span dir="auto">Jetty/Howto/Configure Virtual Hosts</span>
+          </h1>
+          <div id="main-page-content">
+            <div class="alert alert-small alert-warning" id="contentSub">
+              <span class="subpages">
+                &lt;
+                <a href="../../Jetty.html" title="Jetty">Jetty</a>
+                ‎ |
+                <a href="../Howto.html" title="Jetty/Howto">Howto</a>
+              </span>
+            </div>
+            <div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="en">
+              <p>
+                <br />
+              </p>
+              <p>
+                <br />
+              </p>
+              <div class="toc" id="toc">
+                <div id="toctitle">
+                  <h2>Contents</h2>
+                </div>
+                <ul>
+                  <li class="toclevel-1">
+                    <a href="Configure Virtual Hosts.html#Introduction">
+                      <span class="tocnumber">1</span>
+                      <span class="toctext">Introduction</span>
+                    </a>
+                  </li>
+                  <li class="toclevel-1">
+                    <a href="Configure Virtual Hosts.html#Configuring_Virtual_Hosts">
+                      <span class="tocnumber">2</span>
+                      <span class="toctext">Configuring Virtual Hosts</span>
+                    </a>
+                  </li>
+                  <li class="toclevel-1">
+                    <a href="Configure Virtual Hosts.html#Configuring_Different_Webapps_for_Different_Virtual_Hosts">
+                      <span class="tocnumber">3</span>
+                      <span class="toctext">Configuring Different Webapps for Different Virtual Hosts</span>
+                    </a>
+                  </li>
+                  <li class="toclevel-1">
+                    <a href="Configure Virtual Hosts.html#Configuring_Different_Webapps_for_Different_Virtual_Hosts.2C_But_at_the_Same_Context_Path">
+                      <span class="tocnumber">4</span>
+                      <span class="toctext">Configuring Different Webapps for Different Virtual Hosts, But at the Same Context Path</span>
+                    </a>
+                  </li>
+                  <li class="toclevel-1">
+                    <a href="Configure Virtual Hosts.html#Configuring_Virtual_Hosts_with_Non-ascii_Characters">
+                      <span class="tocnumber">5</span>
+                      <span class="toctext">Configuring Virtual Hosts with Non-ascii Characters</span>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+              <h2>
+                <span class="mw-headline" id="Introduction">Introduction</span>
+              </h2>
+              <div class="messagebox" style="background-color: #f9f6b7; border: 1px solid #c4c295; color: black; padding: 5px; margin: 1ex 0; min-height: 35px; padding-left: 45px; font-size: 150%; color: white; background-color: #FF8888; padding: 50px">
+                <div style="float: left; margin-left: -40px;">
+                  <a class="image" href="https://wiki.eclipse.org/File:Warning2.png">
+                    <img alt="Warning2.png" height="35" src="../../images/3/37/Warning2.png" width="35" />
+                  </a>
+                </div>
+                <div>
+                  Jetty 7 and Jetty 8 are now EOL (End of Life)
+                  <br />
+                  <p>
+                    <br />
+                    <br />
+                    <br />
+                    THIS IS NOT THE DOCUMENTATION YOU ARE LOOKING FOR!!!!!
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    All development and stable releases are being performed with Jetty 9 and Jetty 10.
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    This
+                    <b>wiki is now officially out of date</b>
+                    and all content has been moved to the
+                    <a class="external text" href="http://www.eclipse.org/jetty/documentation" rel="nofollow">Jetty Documentation Hub</a>
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                  </p>
+                  Direct Link to updated documentation:
+                  <a class="external free" href="http://www.eclipse.org/jetty/documentation/current/configuring-virtual-hosts.html" rel="nofollow">http://www.eclipse.org/jetty/documentation/current/configuring-virtual-hosts.html</a>
+                </div>
+              </div>
+              <p>
+                <br />
+                A virtual host is an alternative name, registered in DNS, for an IP address. Virtual hosting takes one of two forms:
+              </p>
+              <ul>
+                <li>Multiple names can resolve to a single IP address.</li>
+                <li>Multi-homed hosts, that is machines with more than one network interface, can have a different name for each IP address.</li>
+              </ul>
+              <p>Jetty users often want to configure their web applications taking into account these different virtual hosts. Frequently, a machine with a single IP address has different DNS resolvable names associated with it, and a webapp deployed on it must be reachable from all of the alternative names. Another possibility is to serve different web applications from different virtual hosts.</p>
+              <p>You can set virtual hosts in several different ways, including:</p>
+              <ul>
+                <li>
+                  Using a context XML file in the context directory:
+                  <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/server/handler/ContextHandler.html#setVirtualHosts" rel="nofollow">setVirtualHosts</a>
+                  . This is the preferred method.
+                </li>
+                <li>
+                  Java calls in an embedded usage:
+                  <a href="../Tutorial/Embedding Jetty.html" title="Jetty/Tutorial/Embedding Jetty">Embedding Jetty</a>
+                  .
+                </li>
+                <li>
+                  Within an explicitly deployed webapp (no webapp provider) listed in
+                  <a href="../Reference/jetty.xml.html" title="Jetty/Reference/jetty.xml">jetty.xml</a>
+                  or similar.
+                </li>
+                <li>Using a WEB-INF/jetty-web.xml file (deprecated, but works with the webapp provider if you do not use the context provider).</li>
+              </ul>
+              <p>
+                For descriptions of the various ways to configure Jetty, including links to documents that provide detailed configuration instructions, see
+                <a href="Configure Jetty.html" title="Jetty/Howto/Configure Jetty">How to Configure Jetty</a>
+                .
+              </p>
+              <p>
+                The examples that follow set virtual hosts in the preferred way, by calling the method ContextHandler.
+                <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/server/handler/ContextHandler.html#setVirtualHosts" rel="nofollow">setVirtualHosts</a>
+                .
+              </p>
+              <h2>
+                <span class="mw-headline" id="Configuring_Virtual_Hosts">Configuring Virtual Hosts</span>
+              </h2>
+              <p>When configuring a web application, you can supply a list of IP addresses and names at which the web application is reachable. Suppose you have a machine with these IP addresses and DNS resolvable names:</p>
+              <ul>
+                <li>333.444.555.666</li>
+                <li>127.0.0.1</li>
+                <li>www.blah.com</li>
+                <li>www.blah.net</li>
+                <li>www.blah.org</li>
+              </ul>
+              <p>
+                Suppose you have a webapp,
+                <i>xxx.war</i>
+                , that you want all of the above names and addresses to serve. You would configure the webapp as follows:
+              </p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="xml source-xml">
+                  <pre class="de1">
+                    <span class="sc3">
+                      <span class="re1">&lt;Configure</span>
+                      <span class="re0">class</span>
+                      =
+                      <span class="st0">"org.eclipse.jetty.webapp.WebAppContext"</span>
+                      <span class="re2">&gt;</span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">&lt;Set</span>
+                      <span class="re0">name</span>
+                      =
+                      <span class="st0">"contextPath"</span>
+                      <span class="re2">&gt;</span>
+                    </span>
+                    /xxx
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Set
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">&lt;Set</span>
+                      <span class="re0">name</span>
+                      =
+                      <span class="st0">"war"</span>
+                      <span class="re2">&gt;</span>
+                      <span class="re1">&lt;SystemProperty</span>
+                      <span class="re0">name</span>
+                      =
+                      <span class="st0">"jetty.home"</span>
+                      <span class="re2">/&gt;</span>
+                    </span>
+                    /webapps/xxx.war
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Set
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">&lt;Set</span>
+                      <span class="re0">name</span>
+                      =
+                      <span class="st0">"virtualHosts"</span>
+                      <span class="re2">&gt;</span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">&lt;Array</span>
+                      <span class="re0">type</span>
+                      =
+                      <span class="st0">"java.lang.String"</span>
+                      <span class="re2">&gt;</span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;Item
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    333.444.555.666
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Item
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;Item
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    127.0.0.1
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Item
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;Item
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    www.blah.com
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Item
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;Item
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    www.blah.net
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Item
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;Item
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    www.blah.org
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Item
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Array
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Set
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Configure
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                  </pre>
+                </div>
+              </div>
+              <p>
+                Assuming you have configured a connector listening on port 8080, webapp
+                <i>xxx.war</i>
+                is available at all of the following addresses:
+              </p>
+              <ul>
+                <li>http://333.444.555.666:8080/xxx</li>
+                <li>http://127.0.0.1:8080/xxx</li>
+                <li>http://www.blah.com:8080/xxx</li>
+                <li>http://www.blah.net:8080/xxx</li>
+                <li>http://www.blah.org:8080/xxx</li>
+              </ul>
+              <h2>
+                <span class="mw-headline" id="Configuring_Different_Webapps_for_Different_Virtual_Hosts">Configuring Different Webapps for Different Virtual Hosts</span>
+              </h2>
+              <p>You can configure different webapps for different virtual hosts by supplying a different list of virtual hosts for each webapp. For example, suppose your imaginary machine has these DNS names and IP addresses:</p>
+              <ul>
+                <li>333.444.555.666</li>
+                <li>127.0.0.1</li>
+                <li>www.blah.com</li>
+                <li>www.blah.net</li>
+                <li>www.blah.org</li>
+                <li>777.888.888.111</li>
+                <li>www.other.com</li>
+                <li>www.other.net</li>
+                <li>www.other.org</li>
+              </ul>
+              <p>
+                Suppose also you have another webapp,
+                <i>zzz.war</i>
+                . We want
+                <i>xxx.war</i>
+                to be deployed as above, and
+                <i>zzz.war</i>
+                to be deployed only from 777.888.888.111, www.other.com, www.other.net and www.other.org:
+              </p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="xml source-xml">
+                  <pre class="de1">
+                    <span class="sc-1">&lt;!-- webapp xxx.war --&gt;</span>
+                    <span class="sc3">
+                      <span class="re1">&lt;Configure</span>
+                      <span class="re0">class</span>
+                      =
+                      <span class="st0">"org.eclipse.jetty.webapp.WebAppContext"</span>
+                      <span class="re2">&gt;</span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">&lt;Set</span>
+                      <span class="re0">name</span>
+                      =
+                      <span class="st0">"contextPath"</span>
+                      <span class="re2">&gt;</span>
+                    </span>
+                    /xxx
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Set
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">&lt;Set</span>
+                      <span class="re0">name</span>
+                      =
+                      <span class="st0">"war"</span>
+                      <span class="re2">&gt;</span>
+                      <span class="re1">&lt;SystemProperty</span>
+                      <span class="re0">name</span>
+                      =
+                      <span class="st0">"jetty.home"</span>
+                      <span class="re2">/&gt;</span>
+                    </span>
+                    /webapps/xxx.war
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Set
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">&lt;Set</span>
+                      <span class="re0">name</span>
+                      =
+                      <span class="st0">"virtualHosts"</span>
+                      <span class="re2">&gt;</span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">&lt;Array</span>
+                      <span class="re0">type</span>
+                      =
+                      <span class="st0">"java.lang.String"</span>
+                      <span class="re2">&gt;</span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;Item
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    333.444.555.666
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Item
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;Item
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    127.0.0.1
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Item
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;Item
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    www.blah.com
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Item
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;Item
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    www.blah.net
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Item
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;Item
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    www.blah.org
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Item
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Array
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Set
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Configure
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                  </pre>
+                </div>
+              </div>
+              <p>
+                <br />
+              </p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="xml source-xml">
+                  <pre class="de1">
+                    <span class="sc-1">&lt;!-- webapp zzz.war --&gt;</span>
+                    <span class="sc3">
+                      <span class="re1">&lt;Configure</span>
+                      <span class="re0">class</span>
+                      =
+                      <span class="st0">"org.eclipse.jetty.webapp.WebAppContext"</span>
+                      <span class="re2">&gt;</span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">&lt;Set</span>
+                      <span class="re0">name</span>
+                      =
+                      <span class="st0">"contextPath"</span>
+                      <span class="re2">&gt;</span>
+                    </span>
+                    /zzz
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Set
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">&lt;Set</span>
+                      <span class="re0">name</span>
+                      =
+                      <span class="st0">"war"</span>
+                      <span class="re2">&gt;</span>
+                      <span class="re1">&lt;SystemProperty</span>
+                      <span class="re0">name</span>
+                      =
+                      <span class="st0">"jetty.home"</span>
+                      <span class="re2">/&gt;</span>
+                    </span>
+                    /webapps/zzz.war
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Set
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">&lt;Set</span>
+                      <span class="re0">name</span>
+                      =
+                      <span class="st0">"virtualHosts"</span>
+                      <span class="re2">&gt;</span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">&lt;Array</span>
+                      <span class="re0">type</span>
+                      =
+                      <span class="st0">"java.lang.String"</span>
+                      <span class="re2">&gt;</span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;Item
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    777.888.888.111
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Item
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;Item
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    www.other.com
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Item
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;Item
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    www.other.net
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Item
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;Item
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    www.other.org
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Item
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Array
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Set
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Configure
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                  </pre>
+                </div>
+              </div>
+              <p>
+                Webapp
+                <i>xxx.war</i>
+                is still available at:
+              </p>
+              <ul>
+                <li>http://333.444.555.666:8080/xxx</li>
+                <li>http://127.0.0.1:8080/xxx</li>
+                <li>http://www.blah.com:8080/xxx</li>
+                <li>http://www.blah.net:8080/xxx</li>
+                <li>http://www.blah.org:8080/xxx</li>
+              </ul>
+              <p>
+                But now webapp
+                <i>zzz.war</i>
+                is available at:
+              </p>
+              <ul>
+                <li>http://777.888.888.111:8080/zzz</li>
+                <li>http://www.other.com:8080/zzz</li>
+                <li>http://www.other.net:8080/zzz</li>
+                <li>http://www.other.org:8080/zzz</li>
+              </ul>
+              <h2>
+                <span class="mw-headline" id="Configuring_Different_Webapps_for_Different_Virtual_Hosts.2C_But_at_the_Same_Context_Path">Configuring Different Webapps for Different Virtual Hosts, But at the Same Context Path</span>
+              </h2>
+              <p>
+                In the example above, webapp zzz.war is available not only at a certain set of virtual hosts, but also at the context path /zzz, whilst the other webapp is available at both a different set of virtual hosts,
+                <i>and</i>
+                at a different context path. What happens if you want them at the
+                <i>same</i>
+                context path, but still at different sets of virtual hosts? You just supply the
+                <i>same</i>
+                context path for each webapp, leaving the disjoint set of virtual host definitions as before:
+              </p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="xml source-xml">
+                  <pre class="de1">
+                    <span class="sc3">
+                      <span class="re1">&lt;Configure</span>
+                      <span class="re0">class</span>
+                      =
+                      <span class="st0">"org.eclipse.jetty.webapp.WebAppContext"</span>
+                      <span class="re2">&gt;</span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">&lt;Set</span>
+                      <span class="re0">name</span>
+                      =
+                      <span class="st0">"war"</span>
+                      <span class="re2">&gt;</span>
+                      <span class="re1">&lt;SystemProperty</span>
+                      <span class="re0">name</span>
+                      =
+                      <span class="st0">"jetty.home"</span>
+                      <span class="re2">/&gt;</span>
+                    </span>
+                    /webapps/xxx.war
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Set
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">&lt;Set</span>
+                      <span class="re0">name</span>
+                      =
+                      <span class="st0">"contextPath"</span>
+                      <span class="re2">&gt;</span>
+                    </span>
+                    /
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Set
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">&lt;Set</span>
+                      <span class="re0">name</span>
+                      =
+                      <span class="st0">"virtualHosts"</span>
+                      <span class="re2">&gt;</span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">&lt;Array</span>
+                      <span class="re0">type</span>
+                      =
+                      <span class="st0">"java.lang.String"</span>
+                      <span class="re2">&gt;</span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;Item
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    333.444.555.666
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Item
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;Item
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    127.0.0.1
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Item
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;Item
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    www.blah.com
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Item
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;Item
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    www.blah.net
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Item
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;Item
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    www.blah.org
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Item
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Array
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Set
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Configure
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                  </pre>
+                </div>
+              </div>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="xml source-xml">
+                  <pre class="de1">
+                    <span class="sc3">
+                      <span class="re1">&lt;Configure</span>
+                      <span class="re0">class</span>
+                      =
+                      <span class="st0">"org.eclipse.jetty.webapp.WebAppContext"</span>
+                      <span class="re2">&gt;</span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">&lt;Set</span>
+                      <span class="re0">name</span>
+                      =
+                      <span class="st0">"war"</span>
+                      <span class="re2">&gt;</span>
+                      <span class="re1">&lt;SystemProperty</span>
+                      <span class="re0">name</span>
+                      =
+                      <span class="st0">"jetty.home"</span>
+                      <span class="re2">/&gt;</span>
+                    </span>
+                    /webapps/zzz.war
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Set
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">&lt;Set</span>
+                      <span class="re0">name</span>
+                      =
+                      <span class="st0">"contextPath"</span>
+                      <span class="re2">&gt;</span>
+                    </span>
+                    /
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Set
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">&lt;Set</span>
+                      <span class="re0">name</span>
+                      =
+                      <span class="st0">"virtualHosts"</span>
+                      <span class="re2">&gt;</span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">&lt;Array</span>
+                      <span class="re0">type</span>
+                      =
+                      <span class="st0">"java.lang.String"</span>
+                      <span class="re2">&gt;</span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;Item
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    777.888.888.111
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Item
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;Item
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    www.other.com
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Item
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;Item
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    www.other.net
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Item
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;Item
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    www.other.org
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Item
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Array
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Set
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Configure
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                  </pre>
+                </div>
+              </div>
+              <p>Now, webapp xxx.war is available at:</p>
+              <ul>
+                <li>http://333.444.555.666:8080/</li>
+                <li>http://127.0.0.1:8080/</li>
+                <li>http://www.blah.com:8080/</li>
+                <li>http://www.blah.net:8080/</li>
+                <li>http://www.blah.org:8080/</li>
+              </ul>
+              <p>and webapp zzz.war is available at:</p>
+              <ul>
+                <li>http://777.888.888.111:8080/</li>
+                <li>http://www.other.com:8080/</li>
+                <li>http://www.other.net:8080/</li>
+                <li>http://www.other.org:8080/</li>
+              </ul>
+              <h2>
+                <span class="mw-headline" id="Configuring_Virtual_Hosts_with_Non-ascii_Characters">Configuring Virtual Hosts with Non-ascii Characters</span>
+              </h2>
+              <p>
+                <a class="external text" href="http://en.wikipedia.org/wiki/Internationalized_domain_name" rel="nofollow">International domain names</a>
+                are names containing non-ascii characters. For example "http://www.bücher.com". The DNS internally remains based on ascii, so these kinds of names are translated via an encoding called
+                <a class="external text" href="http://tools.ietf.org/html/rfc3492" rel="nofollow">punycode</a>
+                into an ascii representation. Modern browsers detect these non-ascii characters in URLs and automatically apply the punycode encoding. For example, typing this URL into a browser:
+              </p>
+              <p>http://www.åäö.com:8080/test/</p>
+              <p>is translated to the following url:</p>
+              <p>http://www.xn--4cab6c.com:8080/test/</p>
+              <p>To use internationalized domain names with Jetty virtual hosts you need to supply the punycode form of the name in your context xml file (and of course you need to supply it to your DNS setup).</p>
+              <p>For example, if you are running a webapp on port 8080 at context /test, and you want to configure a virtual host for www.åäö.com, you configure its ascii equivalent in the context xml file for the context:</p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="xml source-xml">
+                  <pre class="de1">
+                    <span class="sc3">
+                      <span class="re1">&lt;Configure</span>
+                      <span class="re0">class</span>
+                      =
+                      <span class="st0">"org.eclipse.jetty.webapp.WebAppContext"</span>
+                      <span class="re2">&gt;</span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">&lt;Set</span>
+                      <span class="re0">name</span>
+                      =
+                      <span class="st0">"contextPath"</span>
+                      <span class="re2">&gt;</span>
+                    </span>
+                    /
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Set
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">&lt;Set</span>
+                      <span class="re0">name</span>
+                      =
+                      <span class="st0">"war"</span>
+                      <span class="re2">&gt;</span>
+                      <span class="re1">&lt;SystemProperty</span>
+                      <span class="re0">name</span>
+                      =
+                      <span class="st0">"jetty.home"</span>
+                      <span class="re0">default</span>
+                      =
+                      <span class="st0">"."</span>
+                      <span class="re2">/&gt;</span>
+                    </span>
+                    /webapps/test.war
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Set
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">&lt;Set</span>
+                      <span class="re0">name</span>
+                      =
+                      <span class="st0">"virtualHosts"</span>
+                      <span class="re2">&gt;</span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">&lt;Array</span>
+                      <span class="re0">type</span>
+                      =
+                      <span class="st0">"String"</span>
+                      <span class="re2">&gt;</span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;Item
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    www.xn--4cab6c.com
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Item
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Array
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Set
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Configure
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                  </pre>
+                </div>
+              </div>
+              <p>After starting Jetty, you can enter the url http://www.åäö.com:8080/test/ in a browser and reach the webapp.</p>
+              <p>If you don't have any webapps deployed at /, hitting the URL http://www.åäö.com:8080reaches Jetty's default handler, which serves back a 404 page listing the available contexts:</p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="bash source-bash">
+                  <pre class="de1">
+                    Error
+                    <span class="nu0">404</span>
+                    - Not Found
 
 No context on this server matched or handled this request.
 
 Contexts known to this server are:
-
-<span class="sy0">/</span><span class="kw3">test</span> <span class="sy0">@</span> www.xn--4cab6c.com:<span class="nu0">8080</span> ---<span class="sy0">&gt;</span> WebAppContext<span class="sy0">@</span>82d210<span class="sy0">@</span>82d210<span class="sy0">/</span><span class="kw3">test</span>,file:<span class="sy0">/</span>tmp<span class="sy0">/</span>Jetty_0_0_0_0_8080_test.war__test_www.xn..4cab6c.com_1jadjg<span class="sy0">/</span>webapp<span class="sy0">/</span>,<span class="sy0">/</span>home<span class="sy0">/</span>janb<span class="sy0">/</span>src<span class="sy0">/</span>jetty-eclipse<span class="sy0">/</span>jetty<span class="sy0">/</span>trunk<span class="sy0">/</span>jetty-distribution<span class="sy0">/</span>target<span class="sy0">/</span>distribution<span class="sy0">/</span>webapps<span class="sy0">/</span>test.war</pre></div></div>
-<p>Notice that the link already has the punycode transformed domain name in it.
-</p>
-
-</div>
-
-                    <div id="catlinks" class="catlinks"><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a title="Special:Categories" href="https://wiki.eclipse.org/Special:Categories">Categories</a>: <ul><li><a href="https://wiki.eclipse.org/Category:Jetty" title="Category:Jetty">Jetty</a></li><li><a title="Category:Jetty Howto" href="https://wiki.eclipse.org/Category:Jetty_Howto">Jetty Howto</a></li></ul></div></div>
-                                  </div>
+                    <span class="sy0">/</span>
+                    <span class="kw3">test</span>
+                    <span class="sy0">@</span>
+                    www.xn--4cab6c.com:
+                    <span class="nu0">8080</span>
+                    ---
+                    <span class="sy0">&gt;</span>
+                    WebAppContext
+                    <span class="sy0">@</span>
+                    82d210
+                    <span class="sy0">@</span>
+                    82d210
+                    <span class="sy0">/</span>
+                    <span class="kw3">test</span>
+                    ,file:
+                    <span class="sy0">/</span>
+                    tmp
+                    <span class="sy0">/</span>
+                    Jetty_0_0_0_0_8080_test.war__test_www.xn..4cab6c.com_1jadjg
+                    <span class="sy0">/</span>
+                    webapp
+                    <span class="sy0">/</span>
+                    ,
+                    <span class="sy0">/</span>
+                    home
+                    <span class="sy0">/</span>
+                    janb
+                    <span class="sy0">/</span>
+                    src
+                    <span class="sy0">/</span>
+                    jetty-eclipse
+                    <span class="sy0">/</span>
+                    jetty
+                    <span class="sy0">/</span>
+                    trunk
+                    <span class="sy0">/</span>
+                    jetty-distribution
+                    <span class="sy0">/</span>
+                    target
+                    <span class="sy0">/</span>
+                    distribution
+                    <span class="sy0">/</span>
+                    webapps
+                    <span class="sy0">/</span>
+                    test.war
+                  </pre>
+                </div>
+              </div>
+              <p>Notice that the link already has the punycode transformed domain name in it.</p>
+            </div>
+            <div class="catlinks" id="catlinks">
+              <div class="mw-normal-catlinks" id="mw-normal-catlinks">
+                <a href="https://wiki.eclipse.org/Special:Categories" title="Special:Categories">Categories</a>
+                :
+                <ul>
+                  <li>
+                    <a href="https://wiki.eclipse.org/Category:Jetty" title="Category:Jetty">Jetty</a>
+                  </li>
+                  <li>
+                    <a href="https://wiki.eclipse.org/Category:Jetty_Howto" title="Category:Jetty Howto">Jetty Howto</a>
+                  </li>
+                </ul>
               </div>
             </div>
           </div>
-</body>
+        </div>
+      </div>
+    </div>
+  </body>
 </html>

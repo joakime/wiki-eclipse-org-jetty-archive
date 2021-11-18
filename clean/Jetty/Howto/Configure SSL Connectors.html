@@ -1,67 +1,250 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
-<head>
+  <head>
     <title>Jetty WTP Plugin</title>
-    <link rel="stylesheet" media="screen, print" href="wiki-style.css"/>
-</head>
-<body>
-<div class="col-md-20" id="mainContent">
-                               <div class="tab-content background-white">
-              <div class="tab-pane active" id="tab-pane-main-page-content">
-
-                
-                <h1 class="firstHeading page-header" id="firstHeading">
-                  <span dir="auto">Jetty/Howto/Configure SSL Connectors</span>
-                </h1>
-                <div id="main-page-content">
-
-                  <div id="contentSub" class="alert alert-small alert-warning"><span class="subpages">&lt; <a title="Jetty" href="../../Jetty.html">Jetty</a>‎ | <a title="Jetty/Howto" href="../Howto.html">Howto</a></span></div>
-
-                  
-                  
-                  <div id="mw-content-text" class="mw-content-ltr" dir="ltr" lang="en"><p><br/>
-</p><p><br/>
-</p>
-<h2><span class="mw-headline" id="Introduction">Introduction</span></h2>
-<div class="messagebox" style="background-color: #def3fe; border: 1px solid #c5d7e0; color: black; padding: 5px; margin: 1ex 0; min-height: 35px; padding-left: 45px;">
-<div style="float: left; margin-left: -40px;"><a class="image" href="https://wiki.eclipse.org/File:Note.png"><img src="../../images/c/cc/Note.png" alt="Note.png" width="35" height="35"/></a></div>
-<div><b>Note: This method of configuring SSL connectors is deprecated as of Jetty 7.3.1. For current information, refer to <a class="new" href="edit" title="Jetty/Howto/Configure SSL Connectors/Jetty/Reference/SSL Connectors (page does not exist)">Configuring Jetty Connectors</a>.</b><br/></div>
-</div>
-<p><br/>
-An example of an SslSocketConnector configuration follows. You can configure an SslSelectChannelConnector in the same way-- just change the value of class to "org.eclipse.jetty.server.ssl.SslSelectChannelConnector".
-</p>
-<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="xml source-xml"><pre class="de1"><span class="sc3"><span class="re1">&lt;Call</span> <span class="re0">name</span>=<span class="st0">"addConnector"</span><span class="re2">&gt;</span></span>
-  <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>
-    <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.server.ssl.SslSocketConnector"</span><span class="re2">&gt;</span></span>
-      <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"Port"</span><span class="re2">&gt;</span></span>8443<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
-      <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"maxIdleTime"</span><span class="re2">&gt;</span></span>30000<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
-      <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"keystore"</span><span class="re2">&gt;</span><span class="re1">&lt;SystemProperty</span> <span class="re0">name</span>=<span class="st0">"jetty.home"</span> <span class="re0">default</span>=<span class="st0">"."</span> <span class="re2">/&gt;</span></span>/etc/keystore<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
-      <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"password"</span><span class="re2">&gt;</span></span>OBF:1vny1zlo1x8e1vnw1vn61x8g1zlu1vn4<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
-      <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"keyPassword"</span><span class="re2">&gt;</span></span>OBF:1u2u1wml1z7s1z7a1wnl1u2g<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
-      <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"truststore"</span><span class="re2">&gt;</span><span class="re1">&lt;SystemProperty</span> <span class="re0">name</span>=<span class="st0">"jetty.home"</span> <span class="re0">default</span>=<span class="st0">"."</span><span class="re2">/&gt;</span></span>/etc/keystore<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
-      <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"trustPassword"</span><span class="re2">&gt;</span></span>OBF:1vny1zlo1x8e1vnw1vn61x8g1zlu1vn4<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
-    <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span>
-  <span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
-<span class="sc3"><span class="re1">&lt;/Call<span class="re2">&gt;</span></span></span></pre></div></div>
-<p>If there is no value for the "truststore", it will use the "keystore" value. Passwords can be obfuscated by running <a class="external text" rel="nofollow" href="http://docs.codehaus.org/display/JETTY/How+to+configure+SSL#HowtoconfigureSSL-PasswordIssues">org.mortbay.util.Password</a> as a main class.
-</p><p>Other properties which can be set for SslSocketConnector/SslSelectChannelConnector are:
-</p>
-<ul><li> keystoreType - default value: "JKS"</li>
-<li> trustStoreType - default value: "JKS"</li>
-<li> sslKeyManagerFactoryAlgorithm - set to the value of the "ssl.KeyManagerFactory.algorithm" system property. If there is no such property, this defaults to "SunX509"</li>
-<li> sslTrustManagerFactoryAlgorithm - set to the value of the "ssl.TrustManagerFactory.algorithm" system property. If there is no such property, this defaults to "SunX509"</li>
-<li> secureRandomAlgorithm - default value is null</li>
-<li> provider - defaults to the SunJSSE provider</li>
-<li> protocol - default value is "TLS"</li>
-<li> excludeCipherSuites - see [/display/JETTY/SSL+Cipher+Suites SSL Cipher Suites]</li></ul>
-<p>reference <a class="external free" rel="nofollow" href="http://java.sun.com/j2se/1.5.0/docs/guide/security/jsse/JSSERefGuide.html#SunJSSE">http://java.sun.com/j2se/1.5.0/docs/guide/security/jsse/JSSERefGuide.html#SunJSSE</a>
-</p>
-
-</div>
-
-                    <div class="catlinks" id="catlinks"><div class="mw-normal-catlinks" id="mw-normal-catlinks"><a title="Special:Categories" href="https://wiki.eclipse.org/Special:Categories">Categories</a>: <ul><li><a title="Category:Jetty" href="https://wiki.eclipse.org/Category:Jetty">Jetty</a></li><li><a title="Category:Jetty Howto" href="https://wiki.eclipse.org/Category:Jetty_Howto">Jetty Howto</a></li></ul></div></div>
-                                  </div>
+    <link href="wiki-style.css" media="screen, print" rel="stylesheet" />
+  </head>
+  <body>
+    <div class="col-md-20" id="mainContent">
+      <div class="tab-content background-white">
+        <div class="tab-pane active" id="tab-pane-main-page-content">
+          <h1 class="firstHeading page-header" id="firstHeading">
+            <span dir="auto">Jetty/Howto/Configure SSL Connectors</span>
+          </h1>
+          <div id="main-page-content">
+            <div class="alert alert-small alert-warning" id="contentSub">
+              <span class="subpages">
+                &lt;
+                <a href="../../Jetty.html" title="Jetty">Jetty</a>
+                ‎ |
+                <a href="../Howto.html" title="Jetty/Howto">Howto</a>
+              </span>
+            </div>
+            <div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="en">
+              <p>
+                <br />
+              </p>
+              <p>
+                <br />
+              </p>
+              <h2>
+                <span class="mw-headline" id="Introduction">Introduction</span>
+              </h2>
+              <div class="messagebox" style="background-color: #def3fe; border: 1px solid #c5d7e0; color: black; padding: 5px; margin: 1ex 0; min-height: 35px; padding-left: 45px;">
+                <div style="float: left; margin-left: -40px;">
+                  <a class="image" href="https://wiki.eclipse.org/File:Note.png">
+                    <img alt="Note.png" height="35" src="../../images/c/cc/Note.png" width="35" />
+                  </a>
+                </div>
+                <div>
+                  <b>
+                    Note: This method of configuring SSL connectors is deprecated as of Jetty 7.3.1. For current information, refer to
+                    <a class="new" href="edit" title="Jetty/Howto/Configure SSL Connectors/Jetty/Reference/SSL Connectors (page does not exist)">Configuring Jetty Connectors</a>
+                    .
+                  </b>
+                  <br />
+                </div>
+              </div>
+              <p>
+                <br />
+                An example of an SslSocketConnector configuration follows. You can configure an SslSelectChannelConnector in the same way-- just change the value of class to "org.eclipse.jetty.server.ssl.SslSelectChannelConnector".
+              </p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="xml source-xml">
+                  <pre class="de1">
+                    <span class="sc3">
+                      <span class="re1">&lt;Call</span>
+                      <span class="re0">name</span>
+                      =
+                      <span class="st0">"addConnector"</span>
+                      <span class="re2">&gt;</span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;Arg
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">&lt;New</span>
+                      <span class="re0">class</span>
+                      =
+                      <span class="st0">"org.eclipse.jetty.server.ssl.SslSocketConnector"</span>
+                      <span class="re2">&gt;</span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">&lt;Set</span>
+                      <span class="re0">name</span>
+                      =
+                      <span class="st0">"Port"</span>
+                      <span class="re2">&gt;</span>
+                    </span>
+                    8443
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Set
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">&lt;Set</span>
+                      <span class="re0">name</span>
+                      =
+                      <span class="st0">"maxIdleTime"</span>
+                      <span class="re2">&gt;</span>
+                    </span>
+                    30000
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Set
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">&lt;Set</span>
+                      <span class="re0">name</span>
+                      =
+                      <span class="st0">"keystore"</span>
+                      <span class="re2">&gt;</span>
+                      <span class="re1">&lt;SystemProperty</span>
+                      <span class="re0">name</span>
+                      =
+                      <span class="st0">"jetty.home"</span>
+                      <span class="re0">default</span>
+                      =
+                      <span class="st0">"."</span>
+                      <span class="re2">/&gt;</span>
+                    </span>
+                    /etc/keystore
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Set
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">&lt;Set</span>
+                      <span class="re0">name</span>
+                      =
+                      <span class="st0">"password"</span>
+                      <span class="re2">&gt;</span>
+                    </span>
+                    OBF:1vny1zlo1x8e1vnw1vn61x8g1zlu1vn4
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Set
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">&lt;Set</span>
+                      <span class="re0">name</span>
+                      =
+                      <span class="st0">"keyPassword"</span>
+                      <span class="re2">&gt;</span>
+                    </span>
+                    OBF:1u2u1wml1z7s1z7a1wnl1u2g
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Set
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">&lt;Set</span>
+                      <span class="re0">name</span>
+                      =
+                      <span class="st0">"truststore"</span>
+                      <span class="re2">&gt;</span>
+                      <span class="re1">&lt;SystemProperty</span>
+                      <span class="re0">name</span>
+                      =
+                      <span class="st0">"jetty.home"</span>
+                      <span class="re0">default</span>
+                      =
+                      <span class="st0">"."</span>
+                      <span class="re2">/&gt;</span>
+                    </span>
+                    /etc/keystore
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Set
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">&lt;Set</span>
+                      <span class="re0">name</span>
+                      =
+                      <span class="st0">"trustPassword"</span>
+                      <span class="re2">&gt;</span>
+                    </span>
+                    OBF:1vny1zlo1x8e1vnw1vn61x8g1zlu1vn4
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Set
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/New
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Arg
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Call
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                  </pre>
+                </div>
+              </div>
+              <p>
+                If there is no value for the "truststore", it will use the "keystore" value. Passwords can be obfuscated by running
+                <a class="external text" href="http://docs.codehaus.org/display/JETTY/How+to+configure+SSL#HowtoconfigureSSL-PasswordIssues" rel="nofollow">org.mortbay.util.Password</a>
+                as a main class.
+              </p>
+              <p>Other properties which can be set for SslSocketConnector/SslSelectChannelConnector are:</p>
+              <ul>
+                <li>keystoreType - default value: "JKS"</li>
+                <li>trustStoreType - default value: "JKS"</li>
+                <li>sslKeyManagerFactoryAlgorithm - set to the value of the "ssl.KeyManagerFactory.algorithm" system property. If there is no such property, this defaults to "SunX509"</li>
+                <li>sslTrustManagerFactoryAlgorithm - set to the value of the "ssl.TrustManagerFactory.algorithm" system property. If there is no such property, this defaults to "SunX509"</li>
+                <li>secureRandomAlgorithm - default value is null</li>
+                <li>provider - defaults to the SunJSSE provider</li>
+                <li>protocol - default value is "TLS"</li>
+                <li>excludeCipherSuites - see [/display/JETTY/SSL+Cipher+Suites SSL Cipher Suites]</li>
+              </ul>
+              <p>
+                reference
+                <a class="external free" href="http://java.sun.com/j2se/1.5.0/docs/guide/security/jsse/JSSERefGuide.html#SunJSSE" rel="nofollow">http://java.sun.com/j2se/1.5.0/docs/guide/security/jsse/JSSERefGuide.html#SunJSSE</a>
+              </p>
+            </div>
+            <div class="catlinks" id="catlinks">
+              <div class="mw-normal-catlinks" id="mw-normal-catlinks">
+                <a href="https://wiki.eclipse.org/Special:Categories" title="Special:Categories">Categories</a>
+                :
+                <ul>
+                  <li>
+                    <a href="https://wiki.eclipse.org/Category:Jetty" title="Category:Jetty">Jetty</a>
+                  </li>
+                  <li>
+                    <a href="https://wiki.eclipse.org/Category:Jetty_Howto" title="Category:Jetty Howto">Jetty Howto</a>
+                  </li>
+                </ul>
               </div>
             </div>
           </div>
-</body>
+        </div>
+      </div>
+    </div>
+  </body>
 </html>

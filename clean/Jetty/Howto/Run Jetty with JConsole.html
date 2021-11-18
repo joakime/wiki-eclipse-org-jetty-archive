@@ -1,158 +1,349 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
-<head>
+  <head>
     <title>Jetty WTP Plugin</title>
-    <link rel="stylesheet" media="screen, print" href="wiki-style.css"/>
-</head>
-<body>
-<div id="mainContent" class="col-md-20">
-                      <ul class="nav nav-tabs noprint hidden-print" role="tablist">
-                       <li id="ca-nstab-main" class="active"><a accesskey="c" title="View the content page [c]" tabindex="-1" href="Run Jetty with JConsole.html">Page</a></li>
-                        <li class="new" id="ca-talk"><a tabindex="-1" href="edit" accesskey="t" title="Discussion about the content page [t]">Discussion</a></li>
-                        <li id="ca-viewsource"><a title="This page is protected.&#10;You can view its source [e]" accesskey="e" tabindex="-1" href="edit">View source</a></li>
-                        <li id="ca-history" class="collapsible"><a tabindex="-1" href="edit" accesskey="h" title="Past revisions of this page [h]">History</a></li>
-                      </ul>            <div class="tab-content background-white">
-              <div class="tab-pane active" id="tab-pane-main-page-content">
-
-                
-                <h1 class="firstHeading page-header" id="firstHeading">
-                  <span dir="auto">Jetty/Howto/Run Jetty with JConsole</span>
-                </h1>
-                <div id="main-page-content">
-
-                  <div id="contentSub" class="alert alert-small alert-warning"><span class="subpages">&lt; <a href="../../Jetty.html" title="Jetty">Jetty</a>‎ | <a href="../Howto.html" title="Jetty/Howto">Howto</a></span></div>
-
-                  
-                  
-                  <div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="en"><p><br/>
-</p><p><br/>
-</p>
-<div id="toc" class="toc"><div id="toctitle"><h2>Contents</h2></div>
-<ul>
-<li class="toclevel-1"><a href="Run Jetty with JConsole.html#Introduction"><span class="tocnumber">1</span> <span class="toctext">Introduction</span></a></li>
-<li class="toclevel-1"><a href="Run Jetty with JConsole.html#Monitoring_Jetty_with_JConsole"><span class="tocnumber">2</span> <span class="toctext">Monitoring Jetty with JConsole</span></a>
-<ul>
-<li class="toclevel-2"><a href="Run Jetty with JConsole.html#Starting_Jetty_Standalone"><span class="tocnumber">2.1</span> <span class="toctext">Starting Jetty Standalone</span></a></li>
-<li class="toclevel-2"><a href="Run Jetty with JConsole.html#Starting_the_Jetty_Maven_Plugin"><span class="tocnumber">2.2</span> <span class="toctext">Starting the Jetty Maven Plugin</span></a></li>
-<li class="toclevel-2"><a href="Run Jetty with JConsole.html#Connecting_to_your_server_process"><span class="tocnumber">2.3</span> <span class="toctext">Connecting to your server process</span></a></li>
-</ul>
-</li>
-<li class="toclevel-1"><a href="Run Jetty with JConsole.html#Managing_Jetty_Objects_with_JConsole"><span class="tocnumber">3</span> <span class="toctext">Managing Jetty Objects with JConsole</span></a>
-<ul>
-<li class="toclevel-2"><a href="Run Jetty with JConsole.html#Starting_Jetty_Standalone_2"><span class="tocnumber">3.1</span> <span class="toctext">Starting Jetty Standalone</span></a></li>
-<li class="toclevel-2"><a href="Run Jetty with JConsole.html#Starting_the_Jetty_Maven_Plugin_2"><span class="tocnumber">3.2</span> <span class="toctext">Starting the Jetty Maven Plugin</span></a></li>
-</ul>
-</li>
-</ul>
-</div>
-
-<h2><span class="mw-headline" id="Introduction">Introduction</span></h2>
-<div class="messagebox" style="background-color: #f9f6b7; border: 1px solid #c4c295; color: black; padding: 5px; margin: 1ex 0; min-height: 35px; padding-left: 45px; font-size: 150%; color: white; background-color: #FF8888; padding: 50px">
-<div style="float: left; margin-left: -40px;"><a href="https://wiki.eclipse.org/File:Warning2.png" class="image"><img width="35" alt="Warning2.png" src="../../images/3/37/Warning2.png" height="35"/></a></div>
-<div>Jetty 7 and Jetty 8 are now EOL (End of Life)<br/>
-<p><br/>
-<br/>
-<br/>
-THIS IS NOT THE DOCUMENTATION YOU ARE LOOKING FOR!!!!!<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-All development and stable releases are being performed with Jetty 9 and Jetty 10.<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-This <b>wiki is now officially out of date</b> and all content has been moved to the <a rel="nofollow" href="http://www.eclipse.org/jetty/documentation" class="external text">Jetty Documentation Hub</a><br/> 
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-</p>
-Direct Link to updated documentation: <a class="external free" rel="nofollow" href="http://www.eclipse.org/jetty/documentation/current/jetty-jconsole.html">http://www.eclipse.org/jetty/documentation/current/jetty-jconsole.html</a></div>
-</div>
-<p><br/>
-JConsole is a graphical tool; it allows you to remotely manage and monitor your server and web application status using JMX. When following the instructions given below, please also ensure that you make any necessary changes to any anti-virus software you may be using which may prevent jconsole from running.
-</p>
-<h2><span id="Monitoring_Jetty_with_JConsole" class="mw-headline">Monitoring Jetty with JConsole</span></h2>
-<p>To monitor Jetty's server status with JConsole, make sure JConsole is running, and start Jetty with a special system property.
-</p>
-<h3><span class="mw-headline" id="Starting_Jetty_Standalone">Starting Jetty Standalone</span></h3>
-<p>This is straightforward from the command line, when running the standalone Jetty binary.
-</p>
-<pre> java -Dcom.sun.management.jmxremote -jar start.jar  etc/jetty-jmx.xml
- jconsole &amp;        # runs jconsole in the background 
-</pre>
-<p>You might also want to consult the section on configuring the <a title="Jetty/Feature/Start.jar" href="../Feature/Start.jar.html">start.ini</a> file to clean up the command line, and apply these options to all subsequent jetty invocations.
-</p>
-<h3><span class="mw-headline" id="Starting_the_Jetty_Maven_Plugin">Starting the Jetty Maven Plugin</span></h3>
-<p>If you are running the <a title="Jetty/Feature/Jetty Maven Plugin" href="../Feature/Jetty Maven Plugin.html">Jetty Maven Plugin</a>, you must set the system property <tt>com.sun.management.jmxremote</tt> on Maven before running the plugin. The way to do this is to set your MAVEN_OPTS environment variable (if you're not sure how to do this, consult the Maven documentation). 
-</p><p>Here is an example that sets the system property on the fly in a BASH shell, before starting Jetty via the plugin:
-</p>
-<pre> export MAVEN_OPTS=-Dcom.sun.management.jmxremote
+    <link href="wiki-style.css" media="screen, print" rel="stylesheet" />
+  </head>
+  <body>
+    <div class="col-md-20" id="mainContent">
+      <div class="tab-content background-white">
+        <div class="tab-pane active" id="tab-pane-main-page-content">
+          <h1 class="firstHeading page-header" id="firstHeading">
+            <span dir="auto">Jetty/Howto/Run Jetty with JConsole</span>
+          </h1>
+          <div id="main-page-content">
+            <div class="alert alert-small alert-warning" id="contentSub">
+              <span class="subpages">
+                &lt;
+                <a href="../../Jetty.html" title="Jetty">Jetty</a>
+                ‎ |
+                <a href="../Howto.html" title="Jetty/Howto">Howto</a>
+              </span>
+            </div>
+            <div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="en">
+              <p>
+                <br />
+              </p>
+              <p>
+                <br />
+              </p>
+              <div class="toc" id="toc">
+                <div id="toctitle">
+                  <h2>Contents</h2>
+                </div>
+                <ul>
+                  <li class="toclevel-1">
+                    <a href="Run Jetty with JConsole.html#Introduction">
+                      <span class="tocnumber">1</span>
+                      <span class="toctext">Introduction</span>
+                    </a>
+                  </li>
+                  <li class="toclevel-1">
+                    <a href="Run Jetty with JConsole.html#Monitoring_Jetty_with_JConsole">
+                      <span class="tocnumber">2</span>
+                      <span class="toctext">Monitoring Jetty with JConsole</span>
+                    </a>
+                    <ul>
+                      <li class="toclevel-2">
+                        <a href="Run Jetty with JConsole.html#Starting_Jetty_Standalone">
+                          <span class="tocnumber">2.1</span>
+                          <span class="toctext">Starting Jetty Standalone</span>
+                        </a>
+                      </li>
+                      <li class="toclevel-2">
+                        <a href="Run Jetty with JConsole.html#Starting_the_Jetty_Maven_Plugin">
+                          <span class="tocnumber">2.2</span>
+                          <span class="toctext">Starting the Jetty Maven Plugin</span>
+                        </a>
+                      </li>
+                      <li class="toclevel-2">
+                        <a href="Run Jetty with JConsole.html#Connecting_to_your_server_process">
+                          <span class="tocnumber">2.3</span>
+                          <span class="toctext">Connecting to your server process</span>
+                        </a>
+                      </li>
+                    </ul>
+                  </li>
+                  <li class="toclevel-1">
+                    <a href="Run Jetty with JConsole.html#Managing_Jetty_Objects_with_JConsole">
+                      <span class="tocnumber">3</span>
+                      <span class="toctext">Managing Jetty Objects with JConsole</span>
+                    </a>
+                    <ul>
+                      <li class="toclevel-2">
+                        <a href="Run Jetty with JConsole.html#Starting_Jetty_Standalone_2">
+                          <span class="tocnumber">3.1</span>
+                          <span class="toctext">Starting Jetty Standalone</span>
+                        </a>
+                      </li>
+                      <li class="toclevel-2">
+                        <a href="Run Jetty with JConsole.html#Starting_the_Jetty_Maven_Plugin_2">
+                          <span class="tocnumber">3.2</span>
+                          <span class="toctext">Starting the Jetty Maven Plugin</span>
+                        </a>
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </div>
+              <h2>
+                <span class="mw-headline" id="Introduction">Introduction</span>
+              </h2>
+              <div class="messagebox" style="background-color: #f9f6b7; border: 1px solid #c4c295; color: black; padding: 5px; margin: 1ex 0; min-height: 35px; padding-left: 45px; font-size: 150%; color: white; background-color: #FF8888; padding: 50px">
+                <div style="float: left; margin-left: -40px;">
+                  <a class="image" href="https://wiki.eclipse.org/File:Warning2.png">
+                    <img alt="Warning2.png" height="35" src="../../images/3/37/Warning2.png" width="35" />
+                  </a>
+                </div>
+                <div>
+                  Jetty 7 and Jetty 8 are now EOL (End of Life)
+                  <br />
+                  <p>
+                    <br />
+                    <br />
+                    <br />
+                    THIS IS NOT THE DOCUMENTATION YOU ARE LOOKING FOR!!!!!
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    All development and stable releases are being performed with Jetty 9 and Jetty 10.
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    This
+                    <b>wiki is now officially out of date</b>
+                    and all content has been moved to the
+                    <a class="external text" href="http://www.eclipse.org/jetty/documentation" rel="nofollow">Jetty Documentation Hub</a>
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                  </p>
+                  Direct Link to updated documentation:
+                  <a class="external free" href="http://www.eclipse.org/jetty/documentation/current/jetty-jconsole.html" rel="nofollow">http://www.eclipse.org/jetty/documentation/current/jetty-jconsole.html</a>
+                </div>
+              </div>
+              <p>
+                <br />
+                JConsole is a graphical tool; it allows you to remotely manage and monitor your server and web application status using JMX. When following the instructions given below, please also ensure that you make any necessary changes to any anti-virus software you may be using which may prevent jconsole from running.
+              </p>
+              <h2>
+                <span class="mw-headline" id="Monitoring_Jetty_with_JConsole">Monitoring Jetty with JConsole</span>
+              </h2>
+              <p>To monitor Jetty's server status with JConsole, make sure JConsole is running, and start Jetty with a special system property.</p>
+              <h3>
+                <span class="mw-headline" id="Starting_Jetty_Standalone">Starting Jetty Standalone</span>
+              </h3>
+              <p>This is straightforward from the command line, when running the standalone Jetty binary.</p>
+              <pre>java -Dcom.sun.management.jmxremote -jar start.jar  etc/jetty-jmx.xml
+ jconsole &amp;        # runs jconsole in the background</pre>
+              <p>
+                You might also want to consult the section on configuring the
+                <a href="../Feature/Start.jar.html" title="Jetty/Feature/Start.jar">start.ini</a>
+                file to clean up the command line, and apply these options to all subsequent jetty invocations.
+              </p>
+              <h3>
+                <span class="mw-headline" id="Starting_the_Jetty_Maven_Plugin">Starting the Jetty Maven Plugin</span>
+              </h3>
+              <p>
+                If you are running the
+                <a href="../Feature/Jetty Maven Plugin.html" title="Jetty/Feature/Jetty Maven Plugin">Jetty Maven Plugin</a>
+                , you must set the system property
+                <tt>com.sun.management.jmxremote</tt>
+                on Maven before running the plugin. The way to do this is to set your MAVEN_OPTS environment variable (if you're not sure how to do this, consult the Maven documentation).
+              </p>
+              <p>Here is an example that sets the system property on the fly in a BASH shell, before starting Jetty via the plugin:</p>
+              <pre>export MAVEN_OPTS=-Dcom.sun.management.jmxremote
  mvn jetty:run
- jconsole &amp;        # runs jconsole in the background 
-</pre>
-<h3><span id="Connecting_to_your_server_process" class="mw-headline">Connecting to your server process</span></h3>
-<p>When you start Jetty, you see a dialog box from JConsole with a list of running processes to which you can connect. It should look something like so:
-</p><p><a href="https://wiki.eclipse.org/File:Jconsole1.jpg" class="image" title="New connection dialog box in JConsole"><img height="300" width="400" alt="New connection dialog box in JConsole" src="../../images/9/99/Jconsole1.jpg"/></a>
-</p>
-<div class="messagebox" style="background-color: #def3fe; border: 1px solid #c5d7e0; color: black; padding: 5px; margin: 1ex 0; min-height: 35px; padding-left: 45px;">
-<div style="float: left; margin-left: -40px;"><a href="https://wiki.eclipse.org/File:Idea.png" class="image"><img height="35" width="35" src="../../images/a/a4/Idea.png" alt="Idea.png"/></a></div>
-<div><b>Finding your process</b><br/>If you don't see your Jetty process in the list of processes you can connect to, quickly switch tabs, or close and reopen a new "New Connection" dialog window. This forces JConsole to refresh the list, and recognize your newly-started Jetty process.</div>
-</div>
-<p><br/>
-Select the <tt>start.jar</tt> entry and click the "Connect" button. A new JConsole window opens:
-</p><p><a class="image" href="https://wiki.eclipse.org/File:Jconsole2.jpg"><img height="751" width="897" src="../../images/a/a0/Jconsole2.jpg" alt="Jconsole2.jpg"/></a>
-</p><p>From this window you can monitor memory usage, thread usage, classloading and VM statistics. You can also perform operations such as a manual garbage collect. JConsole is an extremely powerful and useful tool.
-</p><p>provided
-</p>
-<h2><span class="mw-headline" id="Managing_Jetty_Objects_with_JConsole">Managing Jetty Objects with JConsole</span></h2>
-<p>The MBean tab of JConsole allows access to managed objects within the Java application, including MBeans the JVM provides. If you also want to interact with the Jetty JMX implementation via JConsole,  you need to start Jetty JMX in a form that JConsole can access.  
-</p>
-<h3><span class="mw-headline" id="Starting_Jetty_Standalone_2">Starting Jetty Standalone</span></h3>
-<p>Starting the Jetty server is straightforward, but requires two additional arguments:
-</p>
-<ul><li> The <tt>OPTIONS=default,jmx</tt> <a title="Jetty/Reference/Start Options" href="../Reference/Start Options.html">start option</a> to load the JMX-related JARs.</li>
-<li> The <tt>etc/jetty-jmx.xml</tt> configuration, to configure the JVM JMX Server.</li></ul>
-<pre>   java -Dcom.sun.management.jmxremote -jar start.jar OPTIONS=default,jmx etc/jetty-jmx.xml etc/jetty.xml [more config files]
-   jconsole &amp;
-</pre>
-<h3><span id="Starting_the_Jetty_Maven_Plugin_2" class="mw-headline">Starting the Jetty Maven Plugin</span></h3>
-<p>The easiest way to start the Jetty Maven Plugin is to supply the <tt>etc/jetty-jmx.xml</tt> file in the <a href="../Feature/Jetty Maven Plugin.html" title="Jetty/Feature/Jetty Maven Plugin">plugin configuration</a>:
-</p>
-<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="xml source-xml"><pre class="de1"><span class="sc3"><span class="re1">&lt;plugin<span class="re2">&gt;</span></span></span>
-  <span class="sc3"><span class="re1">&lt;groupId<span class="re2">&gt;</span></span></span>org.mortbay.jetty<span class="sc3"><span class="re1">&lt;/groupId<span class="re2">&gt;</span></span></span>
-  <span class="sc3"><span class="re1">&lt;artifactId<span class="re2">&gt;</span></span></span>jetty-maven-plugin<span class="sc3"><span class="re1">&lt;/artifactId<span class="re2">&gt;</span></span></span>
-  <span class="sc3"><span class="re1">&lt;configuration<span class="re2">&gt;</span></span></span>
-    ...
-    <span class="sc3"><span class="re1">&lt;jettyConfig<span class="re2">&gt;</span></span></span>/path/to/jetty-jmx.xml<span class="sc3"><span class="re1">&lt;/jettyConfig<span class="re2">&gt;</span></span></span>
-    ...
-  <span class="sc3"><span class="re1">&lt;/configuration<span class="re2">&gt;</span></span></span>
-<span class="sc3"><span class="re1">&lt;/plugin<span class="re2">&gt;</span></span></span></pre></div></div>
-<div style="background-color: #def3fe; border: 1px solid #c5d7e0; color: black; padding: 5px; margin: 1ex 0; min-height: 35px; padding-left: 45px;" class="messagebox">
-<div style="float: left; margin-left: -40px;"><a class="image" href="https://wiki.eclipse.org/File:Note.png"><img height="35" src="../../images/c/cc/Note.png" alt="Note.png" width="35"/></a></div>
-<div><b>Merging with existing configuration files</b><br/>If you already have a Jetty configuration file that you use with the plugin, you can merge the contents of <tt>etc/jetty-jmx.xml</tt> with it.</div>
-</div>
-<p><br/>
-Then, just as above, start JConsole and Jetty:
-</p>
-<pre> export MAVEN_OPTS=-Dcom.sun.management.jmxremote
+ jconsole &amp;        # runs jconsole in the background</pre>
+              <h3>
+                <span class="mw-headline" id="Connecting_to_your_server_process">Connecting to your server process</span>
+              </h3>
+              <p>When you start Jetty, you see a dialog box from JConsole with a list of running processes to which you can connect. It should look something like so:</p>
+              <p>
+                <a class="image" href="https://wiki.eclipse.org/File:Jconsole1.jpg" title="New connection dialog box in JConsole">
+                  <img alt="New connection dialog box in JConsole" height="300" src="../../images/9/99/Jconsole1.jpg" width="400" />
+                </a>
+              </p>
+              <div class="messagebox" style="background-color: #def3fe; border: 1px solid #c5d7e0; color: black; padding: 5px; margin: 1ex 0; min-height: 35px; padding-left: 45px;">
+                <div style="float: left; margin-left: -40px;">
+                  <a class="image" href="https://wiki.eclipse.org/File:Idea.png">
+                    <img alt="Idea.png" height="35" src="../../images/a/a4/Idea.png" width="35" />
+                  </a>
+                </div>
+                <div>
+                  <b>Finding your process</b>
+                  <br />
+                  If you don't see your Jetty process in the list of processes you can connect to, quickly switch tabs, or close and reopen a new "New Connection" dialog window. This forces JConsole to refresh the list, and recognize your newly-started Jetty process.
+                </div>
+              </div>
+              <p>
+                <br />
+                Select the
+                <tt>start.jar</tt>
+                entry and click the "Connect" button. A new JConsole window opens:
+              </p>
+              <p>
+                <a class="image" href="https://wiki.eclipse.org/File:Jconsole2.jpg">
+                  <img alt="Jconsole2.jpg" height="751" src="../../images/a/a0/Jconsole2.jpg" width="897" />
+                </a>
+              </p>
+              <p>From this window you can monitor memory usage, thread usage, classloading and VM statistics. You can also perform operations such as a manual garbage collect. JConsole is an extremely powerful and useful tool.</p>
+              <p>provided</p>
+              <h2>
+                <span class="mw-headline" id="Managing_Jetty_Objects_with_JConsole">Managing Jetty Objects with JConsole</span>
+              </h2>
+              <p>The MBean tab of JConsole allows access to managed objects within the Java application, including MBeans the JVM provides. If you also want to interact with the Jetty JMX implementation via JConsole,  you need to start Jetty JMX in a form that JConsole can access.</p>
+              <h3>
+                <span class="mw-headline" id="Starting_Jetty_Standalone_2">Starting Jetty Standalone</span>
+              </h3>
+              <p>Starting the Jetty server is straightforward, but requires two additional arguments:</p>
+              <ul>
+                <li>
+                  The
+                  <tt>OPTIONS=default,jmx</tt>
+                  <a href="../Reference/Start Options.html" title="Jetty/Reference/Start Options">start option</a>
+                  to load the JMX-related JARs.
+                </li>
+                <li>
+                  The
+                  <tt>etc/jetty-jmx.xml</tt>
+                  configuration, to configure the JVM JMX Server.
+                </li>
+              </ul>
+              <pre>java -Dcom.sun.management.jmxremote -jar start.jar OPTIONS=default,jmx etc/jetty-jmx.xml etc/jetty.xml [more config files]
+   jconsole &amp;</pre>
+              <h3>
+                <span class="mw-headline" id="Starting_the_Jetty_Maven_Plugin_2">Starting the Jetty Maven Plugin</span>
+              </h3>
+              <p>
+                The easiest way to start the Jetty Maven Plugin is to supply the
+                <tt>etc/jetty-jmx.xml</tt>
+                file in the
+                <a href="../Feature/Jetty Maven Plugin.html" title="Jetty/Feature/Jetty Maven Plugin">plugin configuration</a>
+                :
+              </p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="xml source-xml">
+                  <pre class="de1">
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;plugin
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;groupId
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    org.mortbay.jetty
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/groupId
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;artifactId
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    jetty-maven-plugin
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/artifactId
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;configuration
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    ...
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;jettyConfig
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    /path/to/jetty-jmx.xml
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/jettyConfig
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    ...
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/configuration
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/plugin
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                  </pre>
+                </div>
+              </div>
+              <div class="messagebox" style="background-color: #def3fe; border: 1px solid #c5d7e0; color: black; padding: 5px; margin: 1ex 0; min-height: 35px; padding-left: 45px;">
+                <div style="float: left; margin-left: -40px;">
+                  <a class="image" href="https://wiki.eclipse.org/File:Note.png">
+                    <img alt="Note.png" height="35" src="../../images/c/cc/Note.png" width="35" />
+                  </a>
+                </div>
+                <div>
+                  <b>Merging with existing configuration files</b>
+                  <br />
+                  If you already have a Jetty configuration file that you use with the plugin, you can merge the contents of
+                  <tt>etc/jetty-jmx.xml</tt>
+                  with it.
+                </div>
+              </div>
+              <p>
+                <br />
+                Then, just as above, start JConsole and Jetty:
+              </p>
+              <pre>export MAVEN_OPTS=-Dcom.sun.management.jmxremote
  mvn jetty:run
- jconsole &amp;        # runs jconsole in the background
-</pre>
-
-</div>
-
-                    <div id="catlinks" class="catlinks"><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a title="Special:Categories" href="https://wiki.eclipse.org/Special:Categories">Categories</a>: <ul><li><a title="Category:Jetty" href="https://wiki.eclipse.org/Category:Jetty">Jetty</a></li><li><a title="Category:Jetty Howto" href="https://wiki.eclipse.org/Category:Jetty_Howto">Jetty Howto</a></li></ul></div></div>
-                                  </div>
+ jconsole &amp;        # runs jconsole in the background</pre>
+            </div>
+            <div class="catlinks" id="catlinks">
+              <div class="mw-normal-catlinks" id="mw-normal-catlinks">
+                <a href="https://wiki.eclipse.org/Special:Categories" title="Special:Categories">Categories</a>
+                :
+                <ul>
+                  <li>
+                    <a href="https://wiki.eclipse.org/Category:Jetty" title="Category:Jetty">Jetty</a>
+                  </li>
+                  <li>
+                    <a href="https://wiki.eclipse.org/Category:Jetty_Howto" title="Category:Jetty Howto">Jetty Howto</a>
+                  </li>
+                </ul>
               </div>
             </div>
           </div>
-</body>
+        </div>
+      </div>
+    </div>
+  </body>
 </html>

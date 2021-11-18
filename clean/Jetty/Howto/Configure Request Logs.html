@@ -1,120 +1,588 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
-<head>
+  <head>
     <title>Jetty WTP Plugin</title>
-    <link rel="stylesheet" media="screen, print" href="wiki-style.css"/>
-</head>
-<body>
-<div class="col-md-20" id="mainContent">
-                               <div class="tab-content background-white">
-              <div id="tab-pane-main-page-content" class="tab-pane active">
-
-                
-                <h1 class="firstHeading page-header" id="firstHeading">
-                  <span dir="auto">Jetty/Howto/Configure Request Logs</span>
-                </h1>
-                <div id="main-page-content">
-
-                  <div id="contentSub" class="alert alert-small alert-warning"><span class="subpages">&lt; <a href="../../Jetty.html" title="Jetty">Jetty</a>‎ | <a href="../Howto.html" title="Jetty/Howto">Howto</a></span></div>
-
-                  
-                  
-                  <div lang="en" class="mw-content-ltr" id="mw-content-text" dir="ltr"><p><br/>
-</p><p><br/>
-</p>
-<h2><span class="mw-headline" id="Introduction">Introduction</span></h2>
-<p>Request logs are a record of the requests that the server has processed. There is one entry per request received, in the standard <a class="external text" rel="nofollow" href="http://www.w3.org/Daemon/User/Config/Logging.html#common-logfile-format">NCSA format</a>, so you can  conveniently analyze these logs using a tool such as <a rel="nofollow" href="http://www.mrunix.net/webalizer/" class="external text">Webalizer</a>.
-</p><p>A standard request log entry includes the client IP address, date, method, URL, result, size, referrer and user agent. For example:
-</p>
-<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="text source-text"><pre class="de1"> 123.4.5.6 - - [27/Aug/2004:10:16:17 +0000]
+    <link href="wiki-style.css" media="screen, print" rel="stylesheet" />
+  </head>
+  <body>
+    <div class="col-md-20" id="mainContent">
+      <div class="tab-content background-white">
+        <div class="tab-pane active" id="tab-pane-main-page-content">
+          <h1 class="firstHeading page-header" id="firstHeading">
+            <span dir="auto">Jetty/Howto/Configure Request Logs</span>
+          </h1>
+          <div id="main-page-content">
+            <div class="alert alert-small alert-warning" id="contentSub">
+              <span class="subpages">
+                &lt;
+                <a href="../../Jetty.html" title="Jetty">Jetty</a>
+                ‎ |
+                <a href="../Howto.html" title="Jetty/Howto">Howto</a>
+              </span>
+            </div>
+            <div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="en">
+              <p>
+                <br />
+              </p>
+              <p>
+                <br />
+              </p>
+              <h2>
+                <span class="mw-headline" id="Introduction">Introduction</span>
+              </h2>
+              <p>
+                Request logs are a record of the requests that the server has processed. There is one entry per request received, in the standard
+                <a class="external text" href="http://www.w3.org/Daemon/User/Config/Logging.html#common-logfile-format" rel="nofollow">NCSA format</a>
+                , so you can  conveniently analyze these logs using a tool such as
+                <a class="external text" href="http://www.mrunix.net/webalizer/" rel="nofollow">Webalizer</a>
+                .
+              </p>
+              <p>A standard request log entry includes the client IP address, date, method, URL, result, size, referrer and user agent. For example:</p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="text source-text">
+                  <pre class="de1">123.4.5.6 - - [27/Aug/2004:10:16:17 +0000]
   "GET /jetty/tut/XmlConfiguration.html HTTP/1.1"
   200 76793 "http://localhost:8080/jetty/tut/logging.html"
-  "Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.6) Gecko/20040614 Firefox/0.8"</pre></div></div>
-<ul><li> Jetty provides a request log implementation called NCSARequestLog which supports the NCSA format in files that can be rolled over on a daily basis.</li></ul>
-<ul><li> The <a class="external text" href="http://logback.qos.ch" rel="nofollow">Logback project</a> offers <a rel="nofollow" href="http://logback.qos.ch/access.html" class="external text">another implementation</a> of the RequestLog interface, providing very rich and powerful HTTP-access log functionality.</li></ul>
-<ul><li> If neither of these options suits you, you can create a custom request logger by implementing Jetty's <a class="external text" rel="nofollow" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/server/NCSARequestLog.html">RequestLog.java</a> interface and plugging it in similar to the NCSARequestLog, as shown below.</li></ul>
-<h2><span class="mw-headline" id="Configuring_a_Request_Log_for_a_Jetty_Server">Configuring a Request Log for a Jetty Server</span></h2>
-<p>The following example configures a single request log for the entire Jetty Server instance:
-</p>
-<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="xml source-xml"><pre class="de1"><span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"handler"</span><span class="re2">&gt;</span></span>
-  <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">id</span>=<span class="st0">"Handlers"</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.server.handler.HandlerCollection"</span><span class="re2">&gt;</span></span>
-     <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"handlers"</span><span class="re2">&gt;</span></span>
-        <span class="sc3"><span class="re1">&lt;Array</span> <span class="re0">type</span>=<span class="st0">"org.eclipse.jetty.server.Handler"</span><span class="re2">&gt;</span></span>
-           <span class="sc3"><span class="re1">&lt;Item<span class="re2">&gt;</span></span></span>
-             <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">id</span>=<span class="st0">"Contexts"</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.server.handler.ContextHandlerCollection"</span><span class="re2">/&gt;</span></span>
-            <span class="sc3"><span class="re1">&lt;/Item<span class="re2">&gt;</span></span></span>
-            <span class="sc3"><span class="re1">&lt;Item<span class="re2">&gt;</span></span></span>
-              <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">id</span>=<span class="st0">"DefaultHandler"</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.server.handler.DefaultHandler"</span><span class="re2">/&gt;</span></span>
-            <span class="sc3"><span class="re1">&lt;/Item<span class="re2">&gt;</span></span></span>
-            <span class="sc3"><span class="re1">&lt;Item<span class="re2">&gt;</span></span></span>
-              <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">id</span>=<span class="st0">"RequestLog"</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.server.handler.RequestLogHandler"</span><span class="re2">/&gt;</span></span>
-            <span class="sc3"><span class="re1">&lt;/Item<span class="re2">&gt;</span></span></span>
-        <span class="sc3"><span class="re1">&lt;/Array<span class="re2">&gt;</span></span></span>
-    <span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
-  <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span>
-<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
-
-
-<span class="sc3"><span class="re1">&lt;Ref</span> <span class="re0">id</span>=<span class="st0">"RequestLog"</span><span class="re2">&gt;</span></span>
-  <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"requestLog"</span><span class="re2">&gt;</span></span>
-    <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">id</span>=<span class="st0">"RequestLogImpl"</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.NCSARequestLog"</span><span class="re2">&gt;</span></span>
-      <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span><span class="re1">&lt;SystemProperty</span> <span class="re0">name</span>=<span class="st0">"jetty.logs"</span> <span class="re0">default</span>=<span class="st0">"./logs"</span><span class="re2">/&gt;</span></span>/yyyy_mm_dd.request.log<span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
-      <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"retainDays"</span><span class="re2">&gt;</span></span>90<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
-      <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"append"</span><span class="re2">&gt;</span></span>true<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
-      <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"extended"</span><span class="re2">&gt;</span></span>false<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
-      <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"LogTimeZone"</span><span class="re2">&gt;</span></span>GMT<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
-     <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span>
-  <span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
-<span class="sc3"><span class="re1">&lt;/Ref<span class="re2">&gt;</span></span></span></pre></div></div>
-<p>The equivalent code is:
-</p>
-<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="java source-java"><pre class="de1">HandlerCollection handlers <span class="sy0">=</span> <span class="kw1">new</span> HandlerCollection<span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
-ContextHandlerCollection contexts <span class="sy0">=</span> <span class="kw1">new</span> ContextHandlerCollection<span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
-RequestLogHandler requestLogHandler <span class="sy0">=</span> <span class="kw1">new</span> RequestLogHandler<span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
-handlers.<span class="me1">setHandlers</span><span class="br0">(</span><span class="kw1">new</span> Handler<span class="br0">[</span><span class="br0">]</span><span class="br0">{</span>contexts,<span class="kw1">new</span> DefaultHandler<span class="br0">(</span><span class="br0">)</span>,requestLogHandler<span class="br0">}</span><span class="br0">)</span><span class="sy0">;</span>
-server.<span class="me1">setHandler</span><span class="br0">(</span>handlers<span class="br0">)</span><span class="sy0">;</span>
-
-NCSARequestLog requestLog <span class="sy0">=</span> <span class="kw1">new</span> NCSARequestLog<span class="br0">(</span><span class="st0">"./logs/jetty-yyyy_mm_dd.request.log"</span><span class="br0">)</span><span class="sy0">;</span>
-requestLog.<span class="me1">setRetainDays</span><span class="br0">(</span><span class="nu0">90</span><span class="br0">)</span><span class="sy0">;</span>
-requestLog.<span class="me1">setAppend</span><span class="br0">(</span><span class="kw2">true</span><span class="br0">)</span><span class="sy0">;</span>
-requestLog.<span class="me1">setExtended</span><span class="br0">(</span><span class="kw2">false</span><span class="br0">)</span><span class="sy0">;</span>
-requestLog.<span class="me1">setLogTimeZone</span><span class="br0">(</span><span class="st0">"GMT"</span><span class="br0">)</span><span class="sy0">;</span>
-requestLogHandler.<span class="me1">setRequestLog</span><span class="br0">(</span>requestLog<span class="br0">)</span><span class="sy0">;</span></pre></div></div>
-<p>This configures a request log in $JETTY_HOME/logs with filenames including the date. Old log files are kept for 90 days before being deleted. New entries append to existing log files, and the extended NCSA format is used in the GMT timezone.
-</p><p>Many more configuration options are available–see <a href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/server/NCSARequestLog.html" rel="nofollow" class="external text">RequestLog.java</a>.
-</p>
-<h2><span id="Configuring_a_Request_Log_per_Webapp" class="mw-headline">Configuring a Request Log per Webapp</span></h2>
-<p>The next example configures a request log on a per webapp basis:
-</p>
-<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="xml source-xml"><pre class="de1"><span class="sc3"><span class="re1">&lt;Configure</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.webapp.WebAppContext"</span><span class="re2">&gt;</span></span>
-
-   ...
-
-  <span class="sc3"><span class="re1">&lt;Call</span> <span class="re0">name</span>=<span class="st0">"addHandler"</span><span class="re2">&gt;</span></span>
-    <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>
-      <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.server.handler.RequestLogHandler"</span><span class="re2">&gt;</span></span>
-         <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"requestLog"</span><span class="re2">&gt;</span></span>
-            <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">id</span>=<span class="st0">"RequestLogImpl"</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.server.NCSARequestLog"</span><span class="re2">&gt;</span></span>
-            <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span><span class="re1">&lt;SystemProperty</span> <span class="re0">name</span>=<span class="st0">"jetty.logs"</span> <span class="re0">default</span>=<span class="st0">"./logs"</span><span class="re2">/&gt;</span></span>/yyyy_mm_dd.test.request.log<span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
-            <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"retainDays"</span><span class="re2">&gt;</span></span>90<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
-            <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"append"</span><span class="re2">&gt;</span></span>true<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
-            <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"extended"</span><span class="re2">&gt;</span></span>false<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
-            <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"LogTimeZone"</span><span class="re2">&gt;</span></span>GMT<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
-          <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span>
-        <span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
-      <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span>
-    <span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
-  <span class="sc3"><span class="re1">&lt;/Call<span class="re2">&gt;</span></span></span>
-
-   ...
-
- <span class="sc3"><span class="re1">&lt;/Configure<span class="re2">&gt;</span></span></span></pre></div></div>
-
-
-</div>
-
-                    </div>
-                                  </div>
+  "Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.6) Gecko/20040614 Firefox/0.8"</pre>
+                </div>
+              </div>
+              <ul>
+                <li>Jetty provides a request log implementation called NCSARequestLog which supports the NCSA format in files that can be rolled over on a daily basis.</li>
+              </ul>
+              <ul>
+                <li>
+                  The
+                  <a class="external text" href="http://logback.qos.ch" rel="nofollow">Logback project</a>
+                  offers
+                  <a class="external text" href="http://logback.qos.ch/access.html" rel="nofollow">another implementation</a>
+                  of the RequestLog interface, providing very rich and powerful HTTP-access log functionality.
+                </li>
+              </ul>
+              <ul>
+                <li>
+                  If neither of these options suits you, you can create a custom request logger by implementing Jetty's
+                  <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/server/NCSARequestLog.html" rel="nofollow">RequestLog.java</a>
+                  interface and plugging it in similar to the NCSARequestLog, as shown below.
+                </li>
+              </ul>
+              <h2>
+                <span class="mw-headline" id="Configuring_a_Request_Log_for_a_Jetty_Server">Configuring a Request Log for a Jetty Server</span>
+              </h2>
+              <p>The following example configures a single request log for the entire Jetty Server instance:</p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="xml source-xml">
+                  <pre class="de1">
+                    <span class="sc3">
+                      <span class="re1">&lt;Set</span>
+                      <span class="re0">name</span>
+                      =
+                      <span class="st0">"handler"</span>
+                      <span class="re2">&gt;</span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">&lt;New</span>
+                      <span class="re0">id</span>
+                      =
+                      <span class="st0">"Handlers"</span>
+                      <span class="re0">class</span>
+                      =
+                      <span class="st0">"org.eclipse.jetty.server.handler.HandlerCollection"</span>
+                      <span class="re2">&gt;</span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">&lt;Set</span>
+                      <span class="re0">name</span>
+                      =
+                      <span class="st0">"handlers"</span>
+                      <span class="re2">&gt;</span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">&lt;Array</span>
+                      <span class="re0">type</span>
+                      =
+                      <span class="st0">"org.eclipse.jetty.server.Handler"</span>
+                      <span class="re2">&gt;</span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;Item
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">&lt;New</span>
+                      <span class="re0">id</span>
+                      =
+                      <span class="st0">"Contexts"</span>
+                      <span class="re0">class</span>
+                      =
+                      <span class="st0">"org.eclipse.jetty.server.handler.ContextHandlerCollection"</span>
+                      <span class="re2">/&gt;</span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Item
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;Item
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">&lt;New</span>
+                      <span class="re0">id</span>
+                      =
+                      <span class="st0">"DefaultHandler"</span>
+                      <span class="re0">class</span>
+                      =
+                      <span class="st0">"org.eclipse.jetty.server.handler.DefaultHandler"</span>
+                      <span class="re2">/&gt;</span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Item
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;Item
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">&lt;New</span>
+                      <span class="re0">id</span>
+                      =
+                      <span class="st0">"RequestLog"</span>
+                      <span class="re0">class</span>
+                      =
+                      <span class="st0">"org.eclipse.jetty.server.handler.RequestLogHandler"</span>
+                      <span class="re2">/&gt;</span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Item
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Array
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Set
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/New
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Set
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">&lt;Ref</span>
+                      <span class="re0">id</span>
+                      =
+                      <span class="st0">"RequestLog"</span>
+                      <span class="re2">&gt;</span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">&lt;Set</span>
+                      <span class="re0">name</span>
+                      =
+                      <span class="st0">"requestLog"</span>
+                      <span class="re2">&gt;</span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">&lt;New</span>
+                      <span class="re0">id</span>
+                      =
+                      <span class="st0">"RequestLogImpl"</span>
+                      <span class="re0">class</span>
+                      =
+                      <span class="st0">"org.eclipse.jetty.NCSARequestLog"</span>
+                      <span class="re2">&gt;</span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;Arg
+                        <span class="re2">&gt;</span>
+                      </span>
+                      <span class="re1">&lt;SystemProperty</span>
+                      <span class="re0">name</span>
+                      =
+                      <span class="st0">"jetty.logs"</span>
+                      <span class="re0">default</span>
+                      =
+                      <span class="st0">"./logs"</span>
+                      <span class="re2">/&gt;</span>
+                    </span>
+                    /yyyy_mm_dd.request.log
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Arg
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">&lt;Set</span>
+                      <span class="re0">name</span>
+                      =
+                      <span class="st0">"retainDays"</span>
+                      <span class="re2">&gt;</span>
+                    </span>
+                    90
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Set
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">&lt;Set</span>
+                      <span class="re0">name</span>
+                      =
+                      <span class="st0">"append"</span>
+                      <span class="re2">&gt;</span>
+                    </span>
+                    true
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Set
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">&lt;Set</span>
+                      <span class="re0">name</span>
+                      =
+                      <span class="st0">"extended"</span>
+                      <span class="re2">&gt;</span>
+                    </span>
+                    false
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Set
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">&lt;Set</span>
+                      <span class="re0">name</span>
+                      =
+                      <span class="st0">"LogTimeZone"</span>
+                      <span class="re2">&gt;</span>
+                    </span>
+                    GMT
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Set
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/New
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Set
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Ref
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                  </pre>
+                </div>
+              </div>
+              <p>The equivalent code is:</p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="java source-java">
+                  <pre class="de1">
+                    HandlerCollection handlers
+                    <span class="sy0">=</span>
+                    <span class="kw1">new</span>
+                    HandlerCollection
+                    <span class="br0">(</span>
+                    <span class="br0">)</span>
+                    <span class="sy0">;</span>
+                    ContextHandlerCollection contexts
+                    <span class="sy0">=</span>
+                    <span class="kw1">new</span>
+                    ContextHandlerCollection
+                    <span class="br0">(</span>
+                    <span class="br0">)</span>
+                    <span class="sy0">;</span>
+                    RequestLogHandler requestLogHandler
+                    <span class="sy0">=</span>
+                    <span class="kw1">new</span>
+                    RequestLogHandler
+                    <span class="br0">(</span>
+                    <span class="br0">)</span>
+                    <span class="sy0">;</span>
+                    handlers.
+                    <span class="me1">setHandlers</span>
+                    <span class="br0">(</span>
+                    <span class="kw1">new</span>
+                    Handler
+                    <span class="br0">[</span>
+                    <span class="br0">]</span>
+                    <span class="br0">{</span>
+                    contexts,
+                    <span class="kw1">new</span>
+                    DefaultHandler
+                    <span class="br0">(</span>
+                    <span class="br0">)</span>
+                    ,requestLogHandler
+                    <span class="br0">}</span>
+                    <span class="br0">)</span>
+                    <span class="sy0">;</span>
+                    server.
+                    <span class="me1">setHandler</span>
+                    <span class="br0">(</span>
+                    handlers
+                    <span class="br0">)</span>
+                    <span class="sy0">;</span>
+                    NCSARequestLog requestLog
+                    <span class="sy0">=</span>
+                    <span class="kw1">new</span>
+                    NCSARequestLog
+                    <span class="br0">(</span>
+                    <span class="st0">"./logs/jetty-yyyy_mm_dd.request.log"</span>
+                    <span class="br0">)</span>
+                    <span class="sy0">;</span>
+                    requestLog.
+                    <span class="me1">setRetainDays</span>
+                    <span class="br0">(</span>
+                    <span class="nu0">90</span>
+                    <span class="br0">)</span>
+                    <span class="sy0">;</span>
+                    requestLog.
+                    <span class="me1">setAppend</span>
+                    <span class="br0">(</span>
+                    <span class="kw2">true</span>
+                    <span class="br0">)</span>
+                    <span class="sy0">;</span>
+                    requestLog.
+                    <span class="me1">setExtended</span>
+                    <span class="br0">(</span>
+                    <span class="kw2">false</span>
+                    <span class="br0">)</span>
+                    <span class="sy0">;</span>
+                    requestLog.
+                    <span class="me1">setLogTimeZone</span>
+                    <span class="br0">(</span>
+                    <span class="st0">"GMT"</span>
+                    <span class="br0">)</span>
+                    <span class="sy0">;</span>
+                    requestLogHandler.
+                    <span class="me1">setRequestLog</span>
+                    <span class="br0">(</span>
+                    requestLog
+                    <span class="br0">)</span>
+                    <span class="sy0">;</span>
+                  </pre>
+                </div>
+              </div>
+              <p>This configures a request log in $JETTY_HOME/logs with filenames including the date. Old log files are kept for 90 days before being deleted. New entries append to existing log files, and the extended NCSA format is used in the GMT timezone.</p>
+              <p>
+                Many more configuration options are available–see
+                <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/server/NCSARequestLog.html" rel="nofollow">RequestLog.java</a>
+                .
+              </p>
+              <h2>
+                <span class="mw-headline" id="Configuring_a_Request_Log_per_Webapp">Configuring a Request Log per Webapp</span>
+              </h2>
+              <p>The next example configures a request log on a per webapp basis:</p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="xml source-xml">
+                  <pre class="de1">
+                    <span class="sc3">
+                      <span class="re1">&lt;Configure</span>
+                      <span class="re0">class</span>
+                      =
+                      <span class="st0">"org.eclipse.jetty.webapp.WebAppContext"</span>
+                      <span class="re2">&gt;</span>
+                    </span>
+                    ...
+                    <span class="sc3">
+                      <span class="re1">&lt;Call</span>
+                      <span class="re0">name</span>
+                      =
+                      <span class="st0">"addHandler"</span>
+                      <span class="re2">&gt;</span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;Arg
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">&lt;New</span>
+                      <span class="re0">class</span>
+                      =
+                      <span class="st0">"org.eclipse.jetty.server.handler.RequestLogHandler"</span>
+                      <span class="re2">&gt;</span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">&lt;Set</span>
+                      <span class="re0">name</span>
+                      =
+                      <span class="st0">"requestLog"</span>
+                      <span class="re2">&gt;</span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">&lt;New</span>
+                      <span class="re0">id</span>
+                      =
+                      <span class="st0">"RequestLogImpl"</span>
+                      <span class="re0">class</span>
+                      =
+                      <span class="st0">"org.eclipse.jetty.server.NCSARequestLog"</span>
+                      <span class="re2">&gt;</span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;Arg
+                        <span class="re2">&gt;</span>
+                      </span>
+                      <span class="re1">&lt;SystemProperty</span>
+                      <span class="re0">name</span>
+                      =
+                      <span class="st0">"jetty.logs"</span>
+                      <span class="re0">default</span>
+                      =
+                      <span class="st0">"./logs"</span>
+                      <span class="re2">/&gt;</span>
+                    </span>
+                    /yyyy_mm_dd.test.request.log
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Arg
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">&lt;Set</span>
+                      <span class="re0">name</span>
+                      =
+                      <span class="st0">"retainDays"</span>
+                      <span class="re2">&gt;</span>
+                    </span>
+                    90
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Set
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">&lt;Set</span>
+                      <span class="re0">name</span>
+                      =
+                      <span class="st0">"append"</span>
+                      <span class="re2">&gt;</span>
+                    </span>
+                    true
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Set
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">&lt;Set</span>
+                      <span class="re0">name</span>
+                      =
+                      <span class="st0">"extended"</span>
+                      <span class="re2">&gt;</span>
+                    </span>
+                    false
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Set
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">&lt;Set</span>
+                      <span class="re0">name</span>
+                      =
+                      <span class="st0">"LogTimeZone"</span>
+                      <span class="re2">&gt;</span>
+                    </span>
+                    GMT
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Set
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/New
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Set
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/New
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Arg
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Call
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    ...
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Configure
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                  </pre>
+                </div>
               </div>
             </div>
-</body>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
 </html>

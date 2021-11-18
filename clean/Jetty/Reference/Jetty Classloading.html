@@ -1,240 +1,469 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
-<head>
+  <head>
     <title>Jetty WTP Plugin</title>
-    <link rel="stylesheet" media="screen, print" href="wiki-style.css"/>
-</head>
-<body>
-<div id="mainContent" class="col-md-20">
-                               <div class="tab-content background-white">
-              <div class="tab-pane active" id="tab-pane-main-page-content">
-
-                
-                <h1 id="firstHeading" class="firstHeading page-header">
-                  <span dir="auto">Jetty/Reference/Jetty Classloading</span>
-                </h1>
-                <div id="main-page-content">
-
-                  <div class="alert alert-small alert-warning" id="contentSub"><span class="subpages">&lt; <a title="Jetty" href="../../Jetty.html">Jetty</a>‎ | <a title="Jetty/Reference" href="../Reference.html">Reference</a></span></div>
-
-                  
-                  
-                  <div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="en"><p><br/>
-</p><p><br/>
-</p>
-<div class="toc" id="toc"><div id="toctitle"><h2>Contents</h2></div>
-<ul>
-<li class="toclevel-1"><a href="Jetty Classloading.html#Introduction"><span class="tocnumber">1</span> <span class="toctext">Introduction</span></a></li>
-<li class="toclevel-1 tocsection-1"><a href="Jetty Classloading.html#Configuring_Webapp_Classloading"><span class="tocnumber">2</span> <span class="toctext">Configuring Webapp Classloading</span></a>
-<ul>
-<li class="toclevel-2 tocsection-2"><a href="Jetty Classloading.html#Controlling_Webapp_Classloader_Priority"><span class="tocnumber">2.1</span> <span class="toctext">Controlling Webapp Classloader Priority</span></a></li>
-<li class="toclevel-2 tocsection-3"><a href="Jetty Classloading.html#Setting_System_Classes"><span class="tocnumber">2.2</span> <span class="toctext">Setting System Classes</span></a></li>
-<li class="toclevel-2 tocsection-4"><a href="Jetty Classloading.html#Setting_Server_Classes"><span class="tocnumber">2.3</span> <span class="toctext">Setting Server Classes</span></a></li>
-</ul>
-</li>
-<li class="toclevel-1 tocsection-5"><a href="Jetty Classloading.html#Adding_Extra_Classpaths_to_Jetty"><span class="tocnumber">3</span> <span class="toctext">Adding Extra Classpaths to Jetty</span></a>
-<ul>
-<li class="toclevel-2 tocsection-6"><a href="Jetty Classloading.html#Using_start.jar"><span class="tocnumber">3.1</span> <span class="toctext">Using start.jar</span></a></li>
-<li class="toclevel-2 tocsection-7"><a href="Jetty Classloading.html#Using_the_extraClasspath.28.29_method"><span class="tocnumber">3.2</span> <span class="toctext">Using the extraClasspath() method</span></a></li>
-</ul>
-</li>
-<li class="toclevel-1 tocsection-8"><a href="Jetty Classloading.html#Using_a_Custom_WebAppClassLoader"><span class="tocnumber">4</span> <span class="toctext">Using a Custom WebAppClassLoader</span></a></li>
-<li class="toclevel-1 tocsection-9"><a href="Jetty Classloading.html#Starting_Jetty_with_a_Custom_ClassLoader"><span class="tocnumber">5</span> <span class="toctext">Starting Jetty with a Custom ClassLoader</span></a></li>
-</ul>
-</div>
-
-<h2><span class="mw-headline" id="Introduction">Introduction</span></h2>
-<div class="messagebox" style="background-color: #f9f6b7; border: 1px solid #c4c295; color: black; padding: 5px; margin: 1ex 0; min-height: 35px; padding-left: 45px; font-size: 150%; color: white; background-color: #FF8888; padding: 50px">
-<div style="float: left; margin-left: -40px;"><a href="https://wiki.eclipse.org/File:Warning2.png" class="image"><img alt="Warning2.png" src="../../images/3/37/Warning2.png" height="35" width="35"/></a></div>
-<div>Jetty 7 and Jetty 8 are now EOL (End of Life)<br/>
-<p><br/>
-<br/>
-<br/>
-THIS IS NOT THE DOCUMENTATION YOU ARE LOOKING FOR!!!!!<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-All development and stable releases are being performed with Jetty 9 and Jetty 10.<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-This <b>wiki is now officially out of date</b> and all content has been moved to the <a class="external text" href="http://www.eclipse.org/jetty/documentation" rel="nofollow">Jetty Documentation Hub</a><br/> 
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-</p>
-Direct Link to updated documentation: <a class="external free" rel="nofollow" href="http://www.eclipse.org/jetty/documentation/current/jetty-classloading.html">http://www.eclipse.org/jetty/documentation/current/jetty-classloading.html</a></div>
-</div>
-<p><br/>
-Class loading in a web container is slightly more complex than a normal Java application. The normal configuration is that each web context (web application or WAR file) has its own classloader, which has the system classloader as its parent. Such a classloader hierarchy is normal in Java, however the servlet specification complicates the hierarchy because it requires the following:  
-</p>
-<ul><li>Classes contained within WEB-INF/lib or WEB-INF/classes have priority over classes on the parent classloader. This is the opposite of the normal behaviour of a Java 2 classloader.</li></ul>
-<ul><li>System classes such as <tt>java.lang.String</tt> are excluded from the webapp priority, and you may not replace them with classes in <tt>WEB-INF/lib</tt> or <tt>WEB-INF/</tt>classes. Unfortunately the specification does not clearly state what classes are <i>System</i> classes, and it is unclear if all javax classes should be treated as System classes.</li></ul>
-<ul><li>Server implementation classes like <a rel="nofollow" href="http://download.eclipse.org/jetty/stable-7/apidocs/index.html?org/eclipse/jetty/server/Server.html" class="external text">org.eclipse.jetty.server.Server</a> should be hidden from the web application and should not be available in any classloader. Unfortunately the specification does not state what classes are <i>Server</i> classes, and it is unclear if common libraries like the Xerces parser should be treated as Implementation classes.</li></ul>
-<h2><span class="mw-headline" id="Configuring_Webapp_Classloading">Configuring Webapp Classloading</span></h2>
-<p>Jetty provides configuration options to control the three webapp class loading issues identified above. 
-</p><p>You can configure webapp classloading  by several methods on the <a href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/webapp/WebAppContext.html" rel="nofollow" class="external text">org.eclipse.jetty.webapp.WebAppContext</a>. You can call these methods directly if you are working with the Jetty API, or you can inject methods from a context XML file if you are using the <a href="https://wiki.eclipse.org/Jetty/Feature/ContextDeployer" title="Jetty/Feature/ContextDeployer" class="mw-redirect">Context Provider</a>. You CANNOT set these methods from a <tt>jetty-web.xml</tt> file, as it executes after the classloader configuration is set. 
-</p>
-<h3><span class="mw-headline" id="Controlling_Webapp_Classloader_Priority">Controlling Webapp Classloader Priority</span></h3>
-<p>The method <a class="external text" rel="nofollow" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/webapp/WebAppContext.html#isParentLoaderPriority()">org.eclipse.jetty.webapp.WebAppContext.setParentLoaderPriority(boolean)</a> allows control over the priority given to webapp classes over system classes. If you set it to false (the default), Jetty uses standard webapp classloading priority. However, if in this mode some classes that are dependencies of other classes are loaded from the parent classloader (due to settings of system classes below), so ambiguities might arise as both the webapp and system classloader versions can end up being loaded. 
-</p><p>If set to true, then Jetty uses normal JavaSE classloading priority, and gives priority to the parent/system classloader. This avoids the issues of multiple versions of a class within a webapp, but the version the parent/system loader provides must be the right version for all webapps you configure in this way. 
-</p>
-<h3><span class="mw-headline" id="Setting_System_Classes">Setting System Classes</span></h3>
-<p>You can call the methods <a rel="nofollow" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/webapp/WebAppContext.html#setSystemClasses%28java.lang.String%5B%5D%29" class="external text">org.eclipse.jetty.webapp.WebAppContext.setSystemClasses(String Array)</a> or <a rel="nofollow" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/webapp/WebAppContext.html#addSystemClass(java.lang.String)" class="external text">org.eclipse.jetty.webapp.WebAppContext.addSystemClass(String)</a> to allow fine control over which classes are considered System classes. 
-</p>
-<ul><li> A web application can see a System class. </li>
-<li> A WEB-INF class cannot replace a System class.</li></ul>
-<p>The default system classes are:
-</p><p><br/>
-</p>
-<table cellspacing="1" width="600" cellpadding="1" border="1">
-<caption> <b>System Classes</b>
-</caption>
-<tbody><tr>
-<td> java.
-</td>
-<td> Java SE classes (per servlet spec v2.5 / SRV.9.7.2)
-</td></tr>
-<tr>
-<td> javax.
-</td>
-<td> Java SE classes (per servlet spec v2.5 / SRV.9.7.2)
-</td></tr>
-<tr>
-<td> org.xml.
-</td>
-<td> needed by javax.xml
-</td></tr>
-<tr>
-<td> org.w3c.
-</td>
-<td> needed by javax.xml
-</td></tr>
-<tr>
-<td> org.apache.commons.logging.
-</td>
-<td> special case
-</td></tr>
-<tr>
-<td> org.eclipse.jetty.continuation.
-</td>
-<td> webapp can see and not change continuation classes
-</td></tr>
-<tr>
-<td> org.eclipse.jetty.jndi.
-</td>
-<td> webapp can see and not change naming classes
-</td></tr>
-<tr>
-<td> org.eclipse.jetty.plus.jaas.
-</td>
-<td> webapp can see and not change jaas classes
-</td></tr>
-<tr>
-<td> org.eclipse.jetty.websocket.
-</td>
-<td> WebSocket is a jetty extension
-</td></tr>
-<tr>
-<td> org.eclipse.jetty.servlet.DefaultServlet
-</td>
-<td> webapp can see and not change default servlet
-</td></tr></tbody></table>
-<p>Absolute classname can be passed, names ending with . are treated as packages names, and names starting with - are treated as negative matches and must be listed before any enclosing packages. 
-</p>
-<h3><span id="Setting_Server_Classes" class="mw-headline">Setting Server Classes</span></h3>
-<p>You can call the methods <a href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/webapp/WebAppContext.html#setServerClasses%28java.lang.String%5B%5D%29" rel="nofollow" class="external text">org.eclipse.jetty.webapp.WebAppContext.setServerClasses(String Array)</a> or <a class="external text" rel="nofollow" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/webapp/WebAppContext.html#addServerClass(java.lang.String)">org.eclipse.jetty.webapp.WebAppContext.addServerClass(String)</a> to allow fine control over which classes are considered Server classes. 
-</p>
-<ul><li> A web application cannot see a Server class.</li>
-<li> A WEB-INF class can replace a Server class. </li></ul>
-<p>The default server classes are: 
-</p>
-<table cellspacing="1" width="600" border="1" cellpadding="1">
-<caption> <b>Server Classes</b>
-</caption>
-<tbody><tr>
-<td> -org.eclipse.jetty.continuation.
-</td>
-<td> don't hide continuation classes
-</td></tr>
-<tr>
-<td> -org.eclipse.jetty.jndi.
-</td>
-<td> don't hide naming classes
-</td></tr>
-<tr>
-<td> -org.eclipse.jetty.plus.jaas.
-</td>
-<td> don't hide jaas classes
-</td></tr>
-<tr>
-<td> -org.eclipse.jetty.websocket.
-</td>
-<td> don't hide websocket extension
-</td></tr>
-<tr>
-<td> -org.eclipse.jetty.servlet.DefaultServlet
-</td>
-<td> don't hide default servlet
-</td></tr>
-<tr>
-<td> org.eclipse.jetty.
-</td>
-<td> hide all other jetty classes
-</td></tr></tbody></table>
-<h2><span id="Adding_Extra_Classpaths_to_Jetty" class="mw-headline">Adding Extra Classpaths to Jetty</span></h2>
-<p>You can add extra classpaths to Jetty in several ways.
-</p>
-<h3><span id="Using_start.jar" class="mw-headline">Using start.jar</span></h3>
-<p>If you are using <a href="../Feature/Start.jar.html" title="Jetty/Feature/Start.jar">start.jar</a>, at startup the jetty runtime automatically loads option Jars from the top level $jetty.home/lib directory. The default settings include: 
-</p>
-<ul><li>Adding Jars under $jetty.home/lib/ext to the system classpath. You can place additional Jars here. </li>
-<li>Adding the directory $jetty.home/resources to the classpath (may contain classes or other resources). </li>
-<li>Adding a single path defined by the command line parameter <i>path</i>.</li></ul>
-<h3><span class="mw-headline" id="Using_the_extraClasspath.28.29_method">Using the extraClasspath() method</span></h3>
-<p>You can add an additional classpath to a context classloader by calling <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/webapp/WebAppContext.html#setExtraClasspath(java.lang.String)" rel="nofollow">org.eclipse.jetty.webapp.WebAppContext.setExtraClasspath(String)</a> with a comma-separated list of paths. You can do so directly to the API  via a context XML file such as the following:
-</p>
-<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="xml source-xml"><pre class="de1">
-<span class="sc3"><span class="re1">&lt;Configure</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.webapp.WebAppContext"</span><span class="re2">&gt;</span></span>
- ...
- <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"extraClasspath&gt;</span></span>../my/classes,../my/jars/special.jar,../my/jars/other.jar&gt;
- <span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
- ...</pre></div></div>
-<h2><span id="Using_a_Custom_WebAppClassLoader" class="mw-headline">Using a Custom WebAppClassLoader</span></h2>
-<p>If none of the alternatives already described meet your needs, you can always provide a custom classloader for your webapp. We recommend, but do not require, that your custom loader subclasses <a rel="nofollow" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/webapp/WebAppClassLoader.html" class="external text">WebAppClassLoader</a>. You configure the classloader for the webapp like so: 
-</p>
-<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="java source-java"><pre class="de1">MyCleverClassLoader myCleverClassLoader <span class="sy0">=</span> <span class="kw1">new</span> MyCleverClassLoader<span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
- ...
-   <span class="me1">WebAppContext</span> webapp <span class="sy0">=</span> <span class="kw1">new</span> WebAppContext<span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
- ...
-   <span class="me1">webapp</span>.<span class="me1">setClassLoader</span><span class="br0">(</span>myCleverClassLoader<span class="br0">)</span><span class="sy0">;</span></pre></div></div>
-<p>You can also accomplish this in a context xml file.
-</p>
-<h2><span class="mw-headline" id="Starting_Jetty_with_a_Custom_ClassLoader">Starting Jetty with a Custom ClassLoader</span></h2>
-<p>If you start a jetty server using a custom class loader - consider the jetty classes not being available to the system class loader, only your custom class loader - you may run into class loading issues when the WebAppClassLoader kicks in.  By default the WebAppClassLoader uses the system class loader as its parent, hence the problem.  This is easy to fix, like so:
-</p>
-<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="java source-java"><pre class="de1">context.<span class="me1">setClassLoader</span><span class="br0">(</span><span class="kw1">new</span> WebAppClassLoader<span class="br0">(</span><span class="kw1">this</span>.<span class="me1">getClass</span><span class="br0">(</span><span class="br0">)</span>.<span class="me1">getClassLoader</span><span class="br0">(</span><span class="br0">)</span>, context<span class="br0">)</span><span class="br0">)</span><span class="sy0">;</span></pre></div></div>
-<p>or 
-</p>
-<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="java source-java"><pre class="de1">context.<span class="me1">setClassLoader</span><span class="br0">(</span><span class="kw1">new</span> WebAppClassLoader<span class="br0">(</span><span class="kw1">new</span> MyCustomClassLoader<span class="br0">(</span><span class="br0">)</span>, context<span class="br0">)</span><span class="br0">)</span><span class="sy0">;</span></pre></div></div>
-
-
-</div>
-
-                    <div class="catlinks" id="catlinks">
-                        <li><a href="https://wiki.eclipse.org/Category:Jetty_Reference" title="Category:Jetty Reference">Jetty Reference</a></li>
-                    </div>
+    <link href="wiki-style.css" media="screen, print" rel="stylesheet" />
+  </head>
+  <body>
+    <div class="col-md-20" id="mainContent">
+      <div class="tab-content background-white">
+        <div class="tab-pane active" id="tab-pane-main-page-content">
+          <h1 class="firstHeading page-header" id="firstHeading">
+            <span dir="auto">Jetty/Reference/Jetty Classloading</span>
+          </h1>
+          <div id="main-page-content">
+            <div class="alert alert-small alert-warning" id="contentSub">
+              <span class="subpages">
+                &lt;
+                <a href="../../Jetty.html" title="Jetty">Jetty</a>
+                ‎ |
+                <a href="../Reference.html" title="Jetty/Reference">Reference</a>
+              </span>
+            </div>
+            <div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="en">
+              <p>
+                <br />
+              </p>
+              <p>
+                <br />
+              </p>
+              <div class="toc" id="toc">
+                <div id="toctitle">
+                  <h2>Contents</h2>
                 </div>
-                                  </div>
+                <ul>
+                  <li class="toclevel-1">
+                    <a href="Jetty Classloading.html#Introduction">
+                      <span class="tocnumber">1</span>
+                      <span class="toctext">Introduction</span>
+                    </a>
+                  </li>
+                  <li class="toclevel-1 tocsection-1">
+                    <a href="Jetty Classloading.html#Configuring_Webapp_Classloading">
+                      <span class="tocnumber">2</span>
+                      <span class="toctext">Configuring Webapp Classloading</span>
+                    </a>
+                    <ul>
+                      <li class="toclevel-2 tocsection-2">
+                        <a href="Jetty Classloading.html#Controlling_Webapp_Classloader_Priority">
+                          <span class="tocnumber">2.1</span>
+                          <span class="toctext">Controlling Webapp Classloader Priority</span>
+                        </a>
+                      </li>
+                      <li class="toclevel-2 tocsection-3">
+                        <a href="Jetty Classloading.html#Setting_System_Classes">
+                          <span class="tocnumber">2.2</span>
+                          <span class="toctext">Setting System Classes</span>
+                        </a>
+                      </li>
+                      <li class="toclevel-2 tocsection-4">
+                        <a href="Jetty Classloading.html#Setting_Server_Classes">
+                          <span class="tocnumber">2.3</span>
+                          <span class="toctext">Setting Server Classes</span>
+                        </a>
+                      </li>
+                    </ul>
+                  </li>
+                  <li class="toclevel-1 tocsection-5">
+                    <a href="Jetty Classloading.html#Adding_Extra_Classpaths_to_Jetty">
+                      <span class="tocnumber">3</span>
+                      <span class="toctext">Adding Extra Classpaths to Jetty</span>
+                    </a>
+                    <ul>
+                      <li class="toclevel-2 tocsection-6">
+                        <a href="Jetty Classloading.html#Using_start.jar">
+                          <span class="tocnumber">3.1</span>
+                          <span class="toctext">Using start.jar</span>
+                        </a>
+                      </li>
+                      <li class="toclevel-2 tocsection-7">
+                        <a href="Jetty Classloading.html#Using_the_extraClasspath.28.29_method">
+                          <span class="tocnumber">3.2</span>
+                          <span class="toctext">Using the extraClasspath() method</span>
+                        </a>
+                      </li>
+                    </ul>
+                  </li>
+                  <li class="toclevel-1 tocsection-8">
+                    <a href="Jetty Classloading.html#Using_a_Custom_WebAppClassLoader">
+                      <span class="tocnumber">4</span>
+                      <span class="toctext">Using a Custom WebAppClassLoader</span>
+                    </a>
+                  </li>
+                  <li class="toclevel-1 tocsection-9">
+                    <a href="Jetty Classloading.html#Starting_Jetty_with_a_Custom_ClassLoader">
+                      <span class="tocnumber">5</span>
+                      <span class="toctext">Starting Jetty with a Custom ClassLoader</span>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+              <h2>
+                <span class="mw-headline" id="Introduction">Introduction</span>
+              </h2>
+              <div class="messagebox" style="background-color: #f9f6b7; border: 1px solid #c4c295; color: black; padding: 5px; margin: 1ex 0; min-height: 35px; padding-left: 45px; font-size: 150%; color: white; background-color: #FF8888; padding: 50px">
+                <div style="float: left; margin-left: -40px;">
+                  <a class="image" href="https://wiki.eclipse.org/File:Warning2.png">
+                    <img alt="Warning2.png" height="35" src="../../images/3/37/Warning2.png" width="35" />
+                  </a>
+                </div>
+                <div>
+                  Jetty 7 and Jetty 8 are now EOL (End of Life)
+                  <br />
+                  <p>
+                    <br />
+                    <br />
+                    <br />
+                    THIS IS NOT THE DOCUMENTATION YOU ARE LOOKING FOR!!!!!
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    All development and stable releases are being performed with Jetty 9 and Jetty 10.
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    This
+                    <b>wiki is now officially out of date</b>
+                    and all content has been moved to the
+                    <a class="external text" href="http://www.eclipse.org/jetty/documentation" rel="nofollow">Jetty Documentation Hub</a>
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                  </p>
+                  Direct Link to updated documentation:
+                  <a class="external free" href="http://www.eclipse.org/jetty/documentation/current/jetty-classloading.html" rel="nofollow">http://www.eclipse.org/jetty/documentation/current/jetty-classloading.html</a>
+                </div>
+              </div>
+              <p>
+                <br />
+                Class loading in a web container is slightly more complex than a normal Java application. The normal configuration is that each web context (web application or WAR file) has its own classloader, which has the system classloader as its parent. Such a classloader hierarchy is normal in Java, however the servlet specification complicates the hierarchy because it requires the following:
+              </p>
+              <ul>
+                <li>Classes contained within WEB-INF/lib or WEB-INF/classes have priority over classes on the parent classloader. This is the opposite of the normal behaviour of a Java 2 classloader.</li>
+              </ul>
+              <ul>
+                <li>
+                  System classes such as
+                  <tt>java.lang.String</tt>
+                  are excluded from the webapp priority, and you may not replace them with classes in
+                  <tt>WEB-INF/lib</tt>
+                  or
+                  <tt>WEB-INF/</tt>
+                  classes. Unfortunately the specification does not clearly state what classes are
+                  <i>System</i>
+                  classes, and it is unclear if all javax classes should be treated as System classes.
+                </li>
+              </ul>
+              <ul>
+                <li>
+                  Server implementation classes like
+                  <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/index.html?org/eclipse/jetty/server/Server.html" rel="nofollow">org.eclipse.jetty.server.Server</a>
+                  should be hidden from the web application and should not be available in any classloader. Unfortunately the specification does not state what classes are
+                  <i>Server</i>
+                  classes, and it is unclear if common libraries like the Xerces parser should be treated as Implementation classes.
+                </li>
+              </ul>
+              <h2>
+                <span class="mw-headline" id="Configuring_Webapp_Classloading">Configuring Webapp Classloading</span>
+              </h2>
+              <p>Jetty provides configuration options to control the three webapp class loading issues identified above.</p>
+              <p>
+                You can configure webapp classloading  by several methods on the
+                <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/webapp/WebAppContext.html" rel="nofollow">org.eclipse.jetty.webapp.WebAppContext</a>
+                . You can call these methods directly if you are working with the Jetty API, or you can inject methods from a context XML file if you are using the
+                <a class="mw-redirect" href="https://wiki.eclipse.org/Jetty/Feature/ContextDeployer" title="Jetty/Feature/ContextDeployer">Context Provider</a>
+                . You CANNOT set these methods from a
+                <tt>jetty-web.xml</tt>
+                file, as it executes after the classloader configuration is set.
+              </p>
+              <h3>
+                <span class="mw-headline" id="Controlling_Webapp_Classloader_Priority">Controlling Webapp Classloader Priority</span>
+              </h3>
+              <p>
+                The method
+                <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/webapp/WebAppContext.html#isParentLoaderPriority()" rel="nofollow">org.eclipse.jetty.webapp.WebAppContext.setParentLoaderPriority(boolean)</a>
+                allows control over the priority given to webapp classes over system classes. If you set it to false (the default), Jetty uses standard webapp classloading priority. However, if in this mode some classes that are dependencies of other classes are loaded from the parent classloader (due to settings of system classes below), so ambiguities might arise as both the webapp and system classloader versions can end up being loaded.
+              </p>
+              <p>If set to true, then Jetty uses normal JavaSE classloading priority, and gives priority to the parent/system classloader. This avoids the issues of multiple versions of a class within a webapp, but the version the parent/system loader provides must be the right version for all webapps you configure in this way.</p>
+              <h3>
+                <span class="mw-headline" id="Setting_System_Classes">Setting System Classes</span>
+              </h3>
+              <p>
+                You can call the methods
+                <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/webapp/WebAppContext.html#setSystemClasses%28java.lang.String%5B%5D%29" rel="nofollow">org.eclipse.jetty.webapp.WebAppContext.setSystemClasses(String Array)</a>
+                or
+                <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/webapp/WebAppContext.html#addSystemClass(java.lang.String)" rel="nofollow">org.eclipse.jetty.webapp.WebAppContext.addSystemClass(String)</a>
+                to allow fine control over which classes are considered System classes.
+              </p>
+              <ul>
+                <li>A web application can see a System class.</li>
+                <li>A WEB-INF class cannot replace a System class.</li>
+              </ul>
+              <p>The default system classes are:</p>
+              <p>
+                <br />
+              </p>
+              <table border="1" cellpadding="1" cellspacing="1" width="600">
+                <caption>
+                  <b>System Classes</b>
+                </caption>
+                <tbody>
+                  <tr>
+                    <td>java.</td>
+                    <td>Java SE classes (per servlet spec v2.5 / SRV.9.7.2)</td>
+                  </tr>
+                  <tr>
+                    <td>javax.</td>
+                    <td>Java SE classes (per servlet spec v2.5 / SRV.9.7.2)</td>
+                  </tr>
+                  <tr>
+                    <td>org.xml.</td>
+                    <td>needed by javax.xml</td>
+                  </tr>
+                  <tr>
+                    <td>org.w3c.</td>
+                    <td>needed by javax.xml</td>
+                  </tr>
+                  <tr>
+                    <td>org.apache.commons.logging.</td>
+                    <td>special case</td>
+                  </tr>
+                  <tr>
+                    <td>org.eclipse.jetty.continuation.</td>
+                    <td>webapp can see and not change continuation classes</td>
+                  </tr>
+                  <tr>
+                    <td>org.eclipse.jetty.jndi.</td>
+                    <td>webapp can see and not change naming classes</td>
+                  </tr>
+                  <tr>
+                    <td>org.eclipse.jetty.plus.jaas.</td>
+                    <td>webapp can see and not change jaas classes</td>
+                  </tr>
+                  <tr>
+                    <td>org.eclipse.jetty.websocket.</td>
+                    <td>WebSocket is a jetty extension</td>
+                  </tr>
+                  <tr>
+                    <td>org.eclipse.jetty.servlet.DefaultServlet</td>
+                    <td>webapp can see and not change default servlet</td>
+                  </tr>
+                </tbody>
+              </table>
+              <p>Absolute classname can be passed, names ending with . are treated as packages names, and names starting with - are treated as negative matches and must be listed before any enclosing packages.</p>
+              <h3>
+                <span class="mw-headline" id="Setting_Server_Classes">Setting Server Classes</span>
+              </h3>
+              <p>
+                You can call the methods
+                <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/webapp/WebAppContext.html#setServerClasses%28java.lang.String%5B%5D%29" rel="nofollow">org.eclipse.jetty.webapp.WebAppContext.setServerClasses(String Array)</a>
+                or
+                <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/webapp/WebAppContext.html#addServerClass(java.lang.String)" rel="nofollow">org.eclipse.jetty.webapp.WebAppContext.addServerClass(String)</a>
+                to allow fine control over which classes are considered Server classes.
+              </p>
+              <ul>
+                <li>A web application cannot see a Server class.</li>
+                <li>A WEB-INF class can replace a Server class.</li>
+              </ul>
+              <p>The default server classes are:</p>
+              <table border="1" cellpadding="1" cellspacing="1" width="600">
+                <caption>
+                  <b>Server Classes</b>
+                </caption>
+                <tbody>
+                  <tr>
+                    <td>-org.eclipse.jetty.continuation.</td>
+                    <td>don't hide continuation classes</td>
+                  </tr>
+                  <tr>
+                    <td>-org.eclipse.jetty.jndi.</td>
+                    <td>don't hide naming classes</td>
+                  </tr>
+                  <tr>
+                    <td>-org.eclipse.jetty.plus.jaas.</td>
+                    <td>don't hide jaas classes</td>
+                  </tr>
+                  <tr>
+                    <td>-org.eclipse.jetty.websocket.</td>
+                    <td>don't hide websocket extension</td>
+                  </tr>
+                  <tr>
+                    <td>-org.eclipse.jetty.servlet.DefaultServlet</td>
+                    <td>don't hide default servlet</td>
+                  </tr>
+                  <tr>
+                    <td>org.eclipse.jetty.</td>
+                    <td>hide all other jetty classes</td>
+                  </tr>
+                </tbody>
+              </table>
+              <h2>
+                <span class="mw-headline" id="Adding_Extra_Classpaths_to_Jetty">Adding Extra Classpaths to Jetty</span>
+              </h2>
+              <p>You can add extra classpaths to Jetty in several ways.</p>
+              <h3>
+                <span class="mw-headline" id="Using_start.jar">Using start.jar</span>
+              </h3>
+              <p>
+                If you are using
+                <a href="../Feature/Start.jar.html" title="Jetty/Feature/Start.jar">start.jar</a>
+                , at startup the jetty runtime automatically loads option Jars from the top level $jetty.home/lib directory. The default settings include:
+              </p>
+              <ul>
+                <li>Adding Jars under $jetty.home/lib/ext to the system classpath. You can place additional Jars here.</li>
+                <li>Adding the directory $jetty.home/resources to the classpath (may contain classes or other resources).</li>
+                <li>
+                  Adding a single path defined by the command line parameter
+                  <i>path</i>
+                  .
+                </li>
+              </ul>
+              <h3>
+                <span class="mw-headline" id="Using_the_extraClasspath.28.29_method">Using the extraClasspath() method</span>
+              </h3>
+              <p>
+                You can add an additional classpath to a context classloader by calling
+                <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/webapp/WebAppContext.html#setExtraClasspath(java.lang.String)" rel="nofollow">org.eclipse.jetty.webapp.WebAppContext.setExtraClasspath(String)</a>
+                with a comma-separated list of paths. You can do so directly to the API  via a context XML file such as the following:
+              </p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="xml source-xml">
+                  <pre class="de1">
+                    <span class="sc3">
+                      <span class="re1">&lt;Configure</span>
+                      <span class="re0">class</span>
+                      =
+                      <span class="st0">"org.eclipse.jetty.webapp.WebAppContext"</span>
+                      <span class="re2">&gt;</span>
+                    </span>
+                    ...
+                    <span class="sc3">
+                      <span class="re1">&lt;Set</span>
+                      <span class="re0">name</span>
+                      =
+                      <span class="st0">"extraClasspath&gt;</span>
+                    </span>
+                    ../my/classes,../my/jars/special.jar,../my/jars/other.jar&gt;
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Set
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    ...
+                  </pre>
+                </div>
+              </div>
+              <h2>
+                <span class="mw-headline" id="Using_a_Custom_WebAppClassLoader">Using a Custom WebAppClassLoader</span>
+              </h2>
+              <p>
+                If none of the alternatives already described meet your needs, you can always provide a custom classloader for your webapp. We recommend, but do not require, that your custom loader subclasses
+                <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/webapp/WebAppClassLoader.html" rel="nofollow">WebAppClassLoader</a>
+                . You configure the classloader for the webapp like so:
+              </p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="java source-java">
+                  <pre class="de1">
+                    MyCleverClassLoader myCleverClassLoader
+                    <span class="sy0">=</span>
+                    <span class="kw1">new</span>
+                    MyCleverClassLoader
+                    <span class="br0">(</span>
+                    <span class="br0">)</span>
+                    <span class="sy0">;</span>
+                    ...
+                    <span class="me1">WebAppContext</span>
+                    webapp
+                    <span class="sy0">=</span>
+                    <span class="kw1">new</span>
+                    WebAppContext
+                    <span class="br0">(</span>
+                    <span class="br0">)</span>
+                    <span class="sy0">;</span>
+                    ...
+                    <span class="me1">webapp</span>
+                    .
+                    <span class="me1">setClassLoader</span>
+                    <span class="br0">(</span>
+                    myCleverClassLoader
+                    <span class="br0">)</span>
+                    <span class="sy0">;</span>
+                  </pre>
+                </div>
+              </div>
+              <p>You can also accomplish this in a context xml file.</p>
+              <h2>
+                <span class="mw-headline" id="Starting_Jetty_with_a_Custom_ClassLoader">Starting Jetty with a Custom ClassLoader</span>
+              </h2>
+              <p>If you start a jetty server using a custom class loader - consider the jetty classes not being available to the system class loader, only your custom class loader - you may run into class loading issues when the WebAppClassLoader kicks in.  By default the WebAppClassLoader uses the system class loader as its parent, hence the problem.  This is easy to fix, like so:</p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="java source-java">
+                  <pre class="de1">
+                    context.
+                    <span class="me1">setClassLoader</span>
+                    <span class="br0">(</span>
+                    <span class="kw1">new</span>
+                    WebAppClassLoader
+                    <span class="br0">(</span>
+                    <span class="kw1">this</span>
+                    .
+                    <span class="me1">getClass</span>
+                    <span class="br0">(</span>
+                    <span class="br0">)</span>
+                    .
+                    <span class="me1">getClassLoader</span>
+                    <span class="br0">(</span>
+                    <span class="br0">)</span>
+                    , context
+                    <span class="br0">)</span>
+                    <span class="br0">)</span>
+                    <span class="sy0">;</span>
+                  </pre>
+                </div>
+              </div>
+              <p>or</p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="java source-java">
+                  <pre class="de1">
+                    context.
+                    <span class="me1">setClassLoader</span>
+                    <span class="br0">(</span>
+                    <span class="kw1">new</span>
+                    WebAppClassLoader
+                    <span class="br0">(</span>
+                    <span class="kw1">new</span>
+                    MyCustomClassLoader
+                    <span class="br0">(</span>
+                    <span class="br0">)</span>
+                    , context
+                    <span class="br0">)</span>
+                    <span class="br0">)</span>
+                    <span class="sy0">;</span>
+                  </pre>
+                </div>
               </div>
             </div>
-</body>
+            <div class="catlinks" id="catlinks">
+              <li>
+                <a href="https://wiki.eclipse.org/Category:Jetty_Reference" title="Category:Jetty Reference">Jetty Reference</a>
+              </li>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
 </html>

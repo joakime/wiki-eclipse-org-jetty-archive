@@ -1,134 +1,419 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
-<head>
+  <head>
     <title>Jetty WTP Plugin</title>
-    <link rel="stylesheet" media="screen, print" href="wiki-style.css"/>
-</head>
-<body>
-<div class="col-md-20" id="mainContent">
-                                <div class="tab-content background-white">
-              <div class="tab-pane active" id="tab-pane-main-page-content">
-
-                
-                <h1 class="firstHeading page-header" id="firstHeading">
-                  <span dir="auto">Jetty/Tutorial/Statistics</span>
-                </h1>
-                <div id="main-page-content">
-
-                  <div id="contentSub" class="alert alert-small alert-warning"><span class="subpages">&lt; <a title="Jetty" href="../../Jetty.html">Jetty</a>‎ | <a title="Jetty/Tutorial" href="../Tutorial.html">Tutorial</a></span></div>
-
-                  
-                  
-                  <div lang="en" id="mw-content-text" dir="ltr" class="mw-content-ltr"><p><br/>
-</p><p><br/>
-</p>
-<div id="toc" class="toc"><div id="toctitle"><h2>Contents</h2></div>
-<ul>
-<li class="toclevel-1"><a href="Statistics.html#Introduction"><span class="tocnumber">1</span> <span class="toctext">Introduction</span></a></li>
-<li class="toclevel-1"><a href="Statistics.html#Details"><span class="tocnumber">2</span> <span class="toctext">Details</span></a>
-<ul>
-<li class="toclevel-2"><a href="Statistics.html#Connector_statistics"><span class="tocnumber">2.1</span> <span class="toctext">Connector statistics</span></a></li>
-<li class="toclevel-2"><a href="Statistics.html#Request_Statistics"><span class="tocnumber">2.2</span> <span class="toctext">Request Statistics</span></a></li>
-<li class="toclevel-2"><a href="Statistics.html#Session_Statistics"><span class="tocnumber">2.3</span> <span class="toctext">Session Statistics</span></a></li>
-</ul>
-</li>
-<li class="toclevel-1"><a href="Statistics.html#Additional_Resources"><span class="tocnumber">3</span> <span class="toctext">Additional Resources</span></a></li>
-</ul>
-</div>
-
-<h2><span id="Introduction" class="mw-headline">Introduction</span></h2>
-<div style="background-color: #f9f6b7; border: 1px solid #c4c295; color: black; padding: 5px; margin: 1ex 0; min-height: 35px; padding-left: 45px; font-size: 150%; color: white; background-color: #FF8888; padding: 50px" class="messagebox">
-<div style="float: left; margin-left: -40px;"><a href="https://wiki.eclipse.org/File:Warning2.png" class="image"><img alt="Warning2.png" src="../../images/3/37/Warning2.png" width="35" height="35"/></a></div>
-<div>Jetty 7 and Jetty 8 are now EOL (End of Life)<br/>
-<p><br/>
-<br/>
-<br/>
-THIS IS NOT THE DOCUMENTATION YOU ARE LOOKING FOR!!!!!<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-All development and stable releases are being performed with Jetty 9 and Jetty 10.<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-This <b>wiki is now officially out of date</b> and all content has been moved to the <a rel="nofollow" href="http://www.eclipse.org/jetty/documentation" class="external text">Jetty Documentation Hub</a><br/> 
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-</p>
-
-</div>
-<p><br/>
-Jetty allows collecting several types of  statistics. This tutorial shows how to configure Jetty to enable collecting statistics, although it is not recommended and it is best to use a JMX agent to select statistics only when needed.
-</p>
-<h2><span class="mw-headline" id="Details">Details</span></h2>
-<h3><span class="mw-headline" id="Connector_statistics">Connector statistics</span></h3>
-<p>The following example shows how to turn on connector statistics in jetty.xml.
-</p>
-<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="xml source-xml"><pre class="de1"><span class="sc3"><span class="re1">&lt;Item<span class="re2">&gt;</span></span></span>
-  <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">class</span>=<span class="st0">"org.mortbay.jetty.nio.SelectChannelConnector"</span><span class="re2">&gt;</span></span>
-    <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"port"</span><span class="re2">&gt;</span></span>8080<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
-    <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"maxIdleTime"</span><span class="re2">&gt;</span></span>30000<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
-    <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"lowResourceMaxIdleTime"</span><span class="re2">&gt;</span></span>3000<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
-    <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"Acceptors"</span><span class="re2">&gt;</span></span>1<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
-    <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"StatsOn"</span><span class="re2">&gt;</span></span>true<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
-  <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span>
-<span class="sc3"><span class="re1">&lt;/Item<span class="re2">&gt;</span></span></span></pre></div></div>
-<h3><span class="mw-headline" id="Request_Statistics">Request Statistics</span></h3>
-<p>To collect request statistics a StatisticsHandler must be configured as one of the handlers of the server. Typically this can be done as the top level handler, but you may choose to configure a statistics handler for just one context by creating a context configuration file. Jetty distribution contains a configuration file etc/jetty-stats.xml that allows injecting the StatisticsHandler into existing jetty configuration by specifying it on the command line. Please note that jetty-stats.xml has to appear in the command line <b>after</b> the main Jetty configuration file as shown below.
-</p>
-<pre>&gt; java -jar start.jar OPTIONS=default etc/jetty.xml etc/jetty-stats.xml
-</pre>
-<p>Alternately, if you are making multiple changes to the Jetty configuration, you could include statistics handler configuration into your jetty.xml. The following fragment shows how to configure a top level statistics handler:
-</p>
-<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="xml source-xml"><pre class="de1"><span class="sc-1">&lt;!-- =========================================================== --&gt;</span>
-<span class="sc-1">&lt;!-- Set handler Collection Structure                            --&gt;</span>
-<span class="sc-1">&lt;!-- =========================================================== --&gt;</span>
-<span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"handler"</span><span class="re2">&gt;</span></span>
-  <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">class</span>=<span class="st0">"org.mortbay.jetty.handler.StatisticsHandler"</span><span class="re2">&gt;</span></span>
-    <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"handler"</span><span class="re2">&gt;</span></span>
-      <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">id</span>=<span class="st0">"handlers"</span> <span class="re0">class</span>=<span class="st0">"org.mortbay.jetty.handler.HandlerCollection"</span><span class="re2">&gt;</span></span>
-        <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"handlers"</span><span class="re2">&gt;</span></span>
-         <span class="sc3"><span class="re1">&lt;Array</span> <span class="re0">type</span>=<span class="st0">"org.mortbay.jetty.Handler"</span><span class="re2">&gt;</span></span>
-           <span class="sc3"><span class="re1">&lt;Item<span class="re2">&gt;</span></span><span class="re1">&lt;New</span> <span class="re0">id</span>=<span class="st0">"contexts"</span> <span class="re0">class</span>=<span class="st0">"org.mortbay.jetty.handler.ContextHandlerCollection"</span><span class="re2">/&gt;</span><span class="re1">&lt;/Item<span class="re2">&gt;</span></span></span>
-           <span class="sc3"><span class="re1">&lt;Item<span class="re2">&gt;</span></span><span class="re1">&lt;New</span> <span class="re0">id</span>=<span class="st0">"defaultHandler"</span> <span class="re0">class</span>=<span class="st0">"org.mortbay.jetty.handler.DefaultHandler"</span><span class="re2">/&gt;</span><span class="re1">&lt;/Item<span class="re2">&gt;</span></span></span>
-           <span class="sc3"><span class="re1">&lt;Item<span class="re2">&gt;</span></span><span class="re1">&lt;New</span> <span class="re0">id</span>=<span class="st0">"requestLog"</span> <span class="re0">class</span>=<span class="st0">"org.mortbay.jetty.handler.RequestLogHandler"</span><span class="re2">/&gt;</span><span class="re1">&lt;/Item<span class="re2">&gt;</span></span></span>
-         <span class="sc3"><span class="re1">&lt;/Array<span class="re2">&gt;</span></span></span>
-        <span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
-      <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span>
-    <span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
-  <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span>
-<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span></pre></div></div>
-<h3><span id="Session_Statistics" class="mw-headline">Session Statistics</span></h3>
-<p>Session statistics are enabled by default and do not need to be configured.
-</p>
-<h2><span class="mw-headline" id="Additional_Resources">Additional Resources</span></h2>
-<p>See <a class="external text" rel="nofollow" href="http://wiki.eclipse.org/Jetty/Tutorial/JMX">Jetty JMX tutorial</a> for instructions on how to configure Jetty JMX integration.
-</p>
-
-</div>
-
-                      <div id="catlinks" class="catlinks">
-                          <div id="mw-normal-catlinks" class="mw-normal-catlinks">
-                              <a href="https://wiki.eclipse.org/Special:Categories" title="Special:Categories">Categories</a>:
-                              <ul>
-                                  <li><a href="https://wiki.eclipse.org/Category:Jetty" title="Category:Jetty">Jetty</a></li>
-                                  <li><a title="Category:Jetty Tutorial" href="https://wiki.eclipse.org/Category:Jetty_Tutorial">Jetty Tutorial</a></li>
-                              </ul>
-                          </div>
-                      </div>
-                                  </div>
+    <link href="wiki-style.css" media="screen, print" rel="stylesheet" />
+  </head>
+  <body>
+    <div class="col-md-20" id="mainContent">
+      <div class="tab-content background-white">
+        <div class="tab-pane active" id="tab-pane-main-page-content">
+          <h1 class="firstHeading page-header" id="firstHeading">
+            <span dir="auto">Jetty/Tutorial/Statistics</span>
+          </h1>
+          <div id="main-page-content">
+            <div class="alert alert-small alert-warning" id="contentSub">
+              <span class="subpages">
+                &lt;
+                <a href="../../Jetty.html" title="Jetty">Jetty</a>
+                ‎ |
+                <a href="../Tutorial.html" title="Jetty/Tutorial">Tutorial</a>
+              </span>
+            </div>
+            <div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="en">
+              <p>
+                <br />
+              </p>
+              <p>
+                <br />
+              </p>
+              <div class="toc" id="toc">
+                <div id="toctitle">
+                  <h2>Contents</h2>
+                </div>
+                <ul>
+                  <li class="toclevel-1">
+                    <a href="Statistics.html#Introduction">
+                      <span class="tocnumber">1</span>
+                      <span class="toctext">Introduction</span>
+                    </a>
+                  </li>
+                  <li class="toclevel-1">
+                    <a href="Statistics.html#Details">
+                      <span class="tocnumber">2</span>
+                      <span class="toctext">Details</span>
+                    </a>
+                    <ul>
+                      <li class="toclevel-2">
+                        <a href="Statistics.html#Connector_statistics">
+                          <span class="tocnumber">2.1</span>
+                          <span class="toctext">Connector statistics</span>
+                        </a>
+                      </li>
+                      <li class="toclevel-2">
+                        <a href="Statistics.html#Request_Statistics">
+                          <span class="tocnumber">2.2</span>
+                          <span class="toctext">Request Statistics</span>
+                        </a>
+                      </li>
+                      <li class="toclevel-2">
+                        <a href="Statistics.html#Session_Statistics">
+                          <span class="tocnumber">2.3</span>
+                          <span class="toctext">Session Statistics</span>
+                        </a>
+                      </li>
+                    </ul>
+                  </li>
+                  <li class="toclevel-1">
+                    <a href="Statistics.html#Additional_Resources">
+                      <span class="tocnumber">3</span>
+                      <span class="toctext">Additional Resources</span>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+              <h2>
+                <span class="mw-headline" id="Introduction">Introduction</span>
+              </h2>
+              <div class="messagebox" style="background-color: #f9f6b7; border: 1px solid #c4c295; color: black; padding: 5px; margin: 1ex 0; min-height: 35px; padding-left: 45px; font-size: 150%; color: white; background-color: #FF8888; padding: 50px">
+                <div style="float: left; margin-left: -40px;">
+                  <a class="image" href="https://wiki.eclipse.org/File:Warning2.png">
+                    <img alt="Warning2.png" height="35" src="../../images/3/37/Warning2.png" width="35" />
+                  </a>
+                </div>
+                <div>
+                  Jetty 7 and Jetty 8 are now EOL (End of Life)
+                  <br />
+                  <p>
+                    <br />
+                    <br />
+                    <br />
+                    THIS IS NOT THE DOCUMENTATION YOU ARE LOOKING FOR!!!!!
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    All development and stable releases are being performed with Jetty 9 and Jetty 10.
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    This
+                    <b>wiki is now officially out of date</b>
+                    and all content has been moved to the
+                    <a class="external text" href="http://www.eclipse.org/jetty/documentation" rel="nofollow">Jetty Documentation Hub</a>
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                  </p>
+                </div>
+                <p>
+                  <br />
+                  Jetty allows collecting several types of  statistics. This tutorial shows how to configure Jetty to enable collecting statistics, although it is not recommended and it is best to use a JMX agent to select statistics only when needed.
+                </p>
+                <h2>
+                  <span class="mw-headline" id="Details">Details</span>
+                </h2>
+                <h3>
+                  <span class="mw-headline" id="Connector_statistics">Connector statistics</span>
+                </h3>
+                <p>The following example shows how to turn on connector statistics in jetty.xml.</p>
+                <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                  <div class="xml source-xml">
+                    <pre class="de1">
+                      <span class="sc3">
+                        <span class="re1">
+                          &lt;Item
+                          <span class="re2">&gt;</span>
+                        </span>
+                      </span>
+                      <span class="sc3">
+                        <span class="re1">&lt;New</span>
+                        <span class="re0">class</span>
+                        =
+                        <span class="st0">"org.mortbay.jetty.nio.SelectChannelConnector"</span>
+                        <span class="re2">&gt;</span>
+                      </span>
+                      <span class="sc3">
+                        <span class="re1">&lt;Set</span>
+                        <span class="re0">name</span>
+                        =
+                        <span class="st0">"port"</span>
+                        <span class="re2">&gt;</span>
+                      </span>
+                      8080
+                      <span class="sc3">
+                        <span class="re1">
+                          &lt;/Set
+                          <span class="re2">&gt;</span>
+                        </span>
+                      </span>
+                      <span class="sc3">
+                        <span class="re1">&lt;Set</span>
+                        <span class="re0">name</span>
+                        =
+                        <span class="st0">"maxIdleTime"</span>
+                        <span class="re2">&gt;</span>
+                      </span>
+                      30000
+                      <span class="sc3">
+                        <span class="re1">
+                          &lt;/Set
+                          <span class="re2">&gt;</span>
+                        </span>
+                      </span>
+                      <span class="sc3">
+                        <span class="re1">&lt;Set</span>
+                        <span class="re0">name</span>
+                        =
+                        <span class="st0">"lowResourceMaxIdleTime"</span>
+                        <span class="re2">&gt;</span>
+                      </span>
+                      3000
+                      <span class="sc3">
+                        <span class="re1">
+                          &lt;/Set
+                          <span class="re2">&gt;</span>
+                        </span>
+                      </span>
+                      <span class="sc3">
+                        <span class="re1">&lt;Set</span>
+                        <span class="re0">name</span>
+                        =
+                        <span class="st0">"Acceptors"</span>
+                        <span class="re2">&gt;</span>
+                      </span>
+                      1
+                      <span class="sc3">
+                        <span class="re1">
+                          &lt;/Set
+                          <span class="re2">&gt;</span>
+                        </span>
+                      </span>
+                      <span class="sc3">
+                        <span class="re1">&lt;Set</span>
+                        <span class="re0">name</span>
+                        =
+                        <span class="st0">"StatsOn"</span>
+                        <span class="re2">&gt;</span>
+                      </span>
+                      true
+                      <span class="sc3">
+                        <span class="re1">
+                          &lt;/Set
+                          <span class="re2">&gt;</span>
+                        </span>
+                      </span>
+                      <span class="sc3">
+                        <span class="re1">
+                          &lt;/New
+                          <span class="re2">&gt;</span>
+                        </span>
+                      </span>
+                      <span class="sc3">
+                        <span class="re1">
+                          &lt;/Item
+                          <span class="re2">&gt;</span>
+                        </span>
+                      </span>
+                    </pre>
+                  </div>
+                </div>
+                <h3>
+                  <span class="mw-headline" id="Request_Statistics">Request Statistics</span>
+                </h3>
+                <p>
+                  To collect request statistics a StatisticsHandler must be configured as one of the handlers of the server. Typically this can be done as the top level handler, but you may choose to configure a statistics handler for just one context by creating a context configuration file. Jetty distribution contains a configuration file etc/jetty-stats.xml that allows injecting the StatisticsHandler into existing jetty configuration by specifying it on the command line. Please note that jetty-stats.xml has to appear in the command line
+                  <b>after</b>
+                  the main Jetty configuration file as shown below.
+                </p>
+                <pre>&gt; java -jar start.jar OPTIONS=default etc/jetty.xml etc/jetty-stats.xml</pre>
+                <p>Alternately, if you are making multiple changes to the Jetty configuration, you could include statistics handler configuration into your jetty.xml. The following fragment shows how to configure a top level statistics handler:</p>
+                <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                  <div class="xml source-xml">
+                    <pre class="de1">
+                      <span class="sc-1">&lt;!-- =========================================================== --&gt;</span>
+                      <span class="sc-1">&lt;!-- Set handler Collection Structure                            --&gt;</span>
+                      <span class="sc-1">&lt;!-- =========================================================== --&gt;</span>
+                      <span class="sc3">
+                        <span class="re1">&lt;Set</span>
+                        <span class="re0">name</span>
+                        =
+                        <span class="st0">"handler"</span>
+                        <span class="re2">&gt;</span>
+                      </span>
+                      <span class="sc3">
+                        <span class="re1">&lt;New</span>
+                        <span class="re0">class</span>
+                        =
+                        <span class="st0">"org.mortbay.jetty.handler.StatisticsHandler"</span>
+                        <span class="re2">&gt;</span>
+                      </span>
+                      <span class="sc3">
+                        <span class="re1">&lt;Set</span>
+                        <span class="re0">name</span>
+                        =
+                        <span class="st0">"handler"</span>
+                        <span class="re2">&gt;</span>
+                      </span>
+                      <span class="sc3">
+                        <span class="re1">&lt;New</span>
+                        <span class="re0">id</span>
+                        =
+                        <span class="st0">"handlers"</span>
+                        <span class="re0">class</span>
+                        =
+                        <span class="st0">"org.mortbay.jetty.handler.HandlerCollection"</span>
+                        <span class="re2">&gt;</span>
+                      </span>
+                      <span class="sc3">
+                        <span class="re1">&lt;Set</span>
+                        <span class="re0">name</span>
+                        =
+                        <span class="st0">"handlers"</span>
+                        <span class="re2">&gt;</span>
+                      </span>
+                      <span class="sc3">
+                        <span class="re1">&lt;Array</span>
+                        <span class="re0">type</span>
+                        =
+                        <span class="st0">"org.mortbay.jetty.Handler"</span>
+                        <span class="re2">&gt;</span>
+                      </span>
+                      <span class="sc3">
+                        <span class="re1">
+                          &lt;Item
+                          <span class="re2">&gt;</span>
+                        </span>
+                        <span class="re1">&lt;New</span>
+                        <span class="re0">id</span>
+                        =
+                        <span class="st0">"contexts"</span>
+                        <span class="re0">class</span>
+                        =
+                        <span class="st0">"org.mortbay.jetty.handler.ContextHandlerCollection"</span>
+                        <span class="re2">/&gt;</span>
+                        <span class="re1">
+                          &lt;/Item
+                          <span class="re2">&gt;</span>
+                        </span>
+                      </span>
+                      <span class="sc3">
+                        <span class="re1">
+                          &lt;Item
+                          <span class="re2">&gt;</span>
+                        </span>
+                        <span class="re1">&lt;New</span>
+                        <span class="re0">id</span>
+                        =
+                        <span class="st0">"defaultHandler"</span>
+                        <span class="re0">class</span>
+                        =
+                        <span class="st0">"org.mortbay.jetty.handler.DefaultHandler"</span>
+                        <span class="re2">/&gt;</span>
+                        <span class="re1">
+                          &lt;/Item
+                          <span class="re2">&gt;</span>
+                        </span>
+                      </span>
+                      <span class="sc3">
+                        <span class="re1">
+                          &lt;Item
+                          <span class="re2">&gt;</span>
+                        </span>
+                        <span class="re1">&lt;New</span>
+                        <span class="re0">id</span>
+                        =
+                        <span class="st0">"requestLog"</span>
+                        <span class="re0">class</span>
+                        =
+                        <span class="st0">"org.mortbay.jetty.handler.RequestLogHandler"</span>
+                        <span class="re2">/&gt;</span>
+                        <span class="re1">
+                          &lt;/Item
+                          <span class="re2">&gt;</span>
+                        </span>
+                      </span>
+                      <span class="sc3">
+                        <span class="re1">
+                          &lt;/Array
+                          <span class="re2">&gt;</span>
+                        </span>
+                      </span>
+                      <span class="sc3">
+                        <span class="re1">
+                          &lt;/Set
+                          <span class="re2">&gt;</span>
+                        </span>
+                      </span>
+                      <span class="sc3">
+                        <span class="re1">
+                          &lt;/New
+                          <span class="re2">&gt;</span>
+                        </span>
+                      </span>
+                      <span class="sc3">
+                        <span class="re1">
+                          &lt;/Set
+                          <span class="re2">&gt;</span>
+                        </span>
+                      </span>
+                      <span class="sc3">
+                        <span class="re1">
+                          &lt;/New
+                          <span class="re2">&gt;</span>
+                        </span>
+                      </span>
+                      <span class="sc3">
+                        <span class="re1">
+                          &lt;/Set
+                          <span class="re2">&gt;</span>
+                        </span>
+                      </span>
+                    </pre>
+                  </div>
+                </div>
+                <h3>
+                  <span class="mw-headline" id="Session_Statistics">Session Statistics</span>
+                </h3>
+                <p>Session statistics are enabled by default and do not need to be configured.</p>
+                <h2>
+                  <span class="mw-headline" id="Additional_Resources">Additional Resources</span>
+                </h2>
+                <p>
+                  See
+                  <a class="external text" href="http://wiki.eclipse.org/Jetty/Tutorial/JMX" rel="nofollow">Jetty JMX tutorial</a>
+                  for instructions on how to configure Jetty JMX integration.
+                </p>
+              </div>
+              <div class="catlinks" id="catlinks">
+                <div class="mw-normal-catlinks" id="mw-normal-catlinks">
+                  <a href="https://wiki.eclipse.org/Special:Categories" title="Special:Categories">Categories</a>
+                  :
+                  <ul>
+                    <li>
+                      <a href="https://wiki.eclipse.org/Category:Jetty" title="Category:Jetty">Jetty</a>
+                    </li>
+                    <li>
+                      <a href="https://wiki.eclipse.org/Category:Jetty_Tutorial" title="Category:Jetty Tutorial">Jetty Tutorial</a>
+                    </li>
+                  </ul>
+                </div>
               </div>
             </div>
           </div>
-</div>
-</body>
+        </div>
+      </div>
+    </div>
+  </body>
 </html>

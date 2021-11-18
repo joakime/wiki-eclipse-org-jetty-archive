@@ -1,162 +1,759 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
-<head>
+  <head>
     <title>Jetty WTP Plugin</title>
-    <link rel="stylesheet" media="screen, print" href="wiki-style.css"/>
-</head>
-<body>
-<div class="col-md-20" id="mainContent">
-                                  <div class="tab-content background-white">
-              <div class="tab-pane active" id="tab-pane-main-page-content">
-
-                
-                <h1 class="firstHeading page-header" id="firstHeading">
-                  <span dir="auto">Jetty Expanded Webapp Deploy</span>
-                </h1>
-                <div id="main-page-content">
-                                    
-                  
-                  <div class="mw-content-ltr" lang="en" dir="ltr" id="mw-content-text"><p><br/>
-</p><p><br/>
-</p>
-<div class="toc" id="toc"><div id="toctitle"><h2>Contents</h2></div>
-<ul>
-<li class="toclevel-1"><a href="Jetty Expanded Webapp Deploy.html#Introduction"><span class="tocnumber">1</span> <span class="toctext">Introduction</span></a></li>
-<li class="toclevel-1 tocsection-1"><a href="Jetty Expanded Webapp Deploy.html#Location_Based_Deployment"><span class="tocnumber">2</span> <span class="toctext">Location Based Deployment</span></a></li>
-<li class="toclevel-1 tocsection-2"><a href="Jetty Expanded Webapp Deploy.html#Descriptor_Based_Deployment"><span class="tocnumber">3</span> <span class="toctext">Descriptor Based Deployment</span></a>
-<ul>
-<li class="toclevel-2 tocsection-3"><a href="Jetty Expanded Webapp Deploy.html#Descriptor_File_Basics"><span class="tocnumber">3.1</span> <span class="toctext">Descriptor File Basics</span></a></li>
-<li class="toclevel-2 tocsection-4"><a href="Jetty Expanded Webapp Deploy.html#Advanced_Descriptor_Files"><span class="tocnumber">3.2</span> <span class="toctext">Advanced Descriptor Files</span></a></li>
-</ul>
-</li>
-<li class="toclevel-1 tocsection-5"><a href="Jetty Expanded Webapp Deploy.html#Deploying_with_the_Jetty_Maven_Plugin"><span class="tocnumber">4</span> <span class="toctext">Deploying with the Jetty Maven Plugin</span></a></li>
-<li class="toclevel-1 tocsection-6"><a href="Jetty Expanded Webapp Deploy.html#OSGi_web_application_bundle"><span class="tocnumber">5</span> <span class="toctext">OSGi web application bundle</span></a></li>
-<li class="toclevel-1 tocsection-7"><a href="Jetty Expanded Webapp Deploy.html#Embedded_Usage"><span class="tocnumber">6</span> <span class="toctext">Embedded Usage</span></a></li>
-</ul>
-</div>
-
-<h2><span class="mw-headline" id="Introduction">Introduction</span></h2>
-<p><br/>
-You can make Jetty aware of web applications to be deployed in two ways: placing the web application in a specific location or creating a file that describes the deployment properties of your web application.  In either case the web application may be either packed or unpacked WAR files.
-</p><p>Before discussing the mechanisms for deploying Jetty applications it will be helpful to define two terms:
-</p><p><b>Context</b> is the name given to a deployed instance of a web application.  If you're a programmer, a web application is to a context as a class is to an object of that class type.
-</p><p><b>Context Path</b> is the URL path component that identifies the particular context.  This is used by Jetty to route request to the appropriate context.
-</p>
-<h2><span class="mw-headline" id="Location_Based_Deployment">Location Based Deployment</span></h2>
-<p>In a default Jetty installation, the directory $JETTY_HOME/webapps is scanned at startup for web applications to be deployed. So to deploy your web application simply place it in that directory.
-</p><p>Once the web application is detected it will be deployed in the following manner:
-</p>
-<ul><li> If the web application is a file named foo.war it will be deployed as a context with a context path of /foo</li>
-<li> If the web application is a directory named foo/ will be deployed as a context with a context path of /foo. If the directory has a WEB-INF subdirectory, it will be treated as Servlet web application, otherwise it will be treated as a collection of static content.</li>
-<li> If both a foo.war and a foo/ directory exists, then the one with the most recent last-modified date is used.</li></ul>
-<p>Note, if the web application file or directory is named root.war or root, respectively, it will be deployed with the context path /.
-</p>
-<h2><span id="Descriptor_Based_Deployment" class="mw-headline">Descriptor Based Deployment</span></h2>
-<p>Using the location based deployment model is quick and easy but, sometimes, you may need to tune certain deployment properties (e.g., you want to deploy with a context path that is not based on the file name or you want to define a special database connection pool just for this web application).  To do this you can use a context deployment descriptor file.
-</p>
-<h3><span id="Descriptor_File_Basics" class="mw-headline">Descriptor File Basics</span></h3>
-<p>In a default Jetty installation, the $JETTY_HOME/contexts directory is scanned for context deployment descriptor files.  So to deploy a web application using such a file simply place the file in that directory.
-</p><p>The deployment descriptor file itself is a standard Jetty <a href="Jetty/Reference/jetty.xml syntax.html" title="Jetty/Reference/jetty.xml syntax">configuration</a> file that configures a WebAppContext<a class="external autonumber" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/webapp/WebAppContext.html" rel="nofollow">[1]</a> class.  For a basic installation you probably only need to set a couple properties:
-</p>
-<ul><li> <b>war</b> -  the filesystem path to the web application file/directory</li>
-<li> <b>contextPath</b> - the context path to be used for the web application</li></ul>
-<p>As an example, here is a descriptor file that deploys the file /opt/myapp/myapp.war to the context path /wiki.
-</p>
-<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="xml source-xml"><pre class="de1"><span class="sc3"><span class="re1">&lt;?xml</span> <span class="re0">version</span>=<span class="st0">"1.0"</span>  <span class="re0">encoding</span>=<span class="st0">"ISO-8859-1"</span><span class="re2">?&gt;</span></span>
-<span class="sc0">&lt;!DOCTYPE Configure PUBLIC "-//Jetty//Configure//EN" "http://www.eclipse.org/jetty/configure.dtd"&gt;</span>
-
-<span class="sc3"><span class="re1">&lt;Configure</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.webapp.WebAppContext"</span><span class="re2">&gt;</span></span>
-  <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"contextPath"</span><span class="re2">&gt;</span></span>/wiki<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
-  <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"war"</span><span class="re2">&gt;</span></span>/opt/myapp/myapp.war<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
-<span class="sc3"><span class="re1">&lt;/Configure<span class="re2">&gt;</span></span></span></pre></div></div>
-<p>Note, you can use the SystemProperty and Property elements in your descriptor file.  As an example, if I set the system property myapp.home=/opt/myapp, I could rewrite the above example as:
-</p>
-<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="xml source-xml"><pre class="de1"><span class="sc3"><span class="re1">&lt;?xml</span> <span class="re0">version</span>=<span class="st0">"1.0"</span>  <span class="re0">encoding</span>=<span class="st0">"ISO-8859-1"</span><span class="re2">?&gt;</span></span>
-<span class="sc0">&lt;!DOCTYPE Configure PUBLIC "-//Jetty//Configure//EN" "http://www.eclipse.org/jetty/configure.dtd"&gt;</span>
-
-<span class="sc3"><span class="re1">&lt;Configure</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.webapp.WebAppContext"</span><span class="re2">&gt;</span></span>
-  <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"contextPath"</span><span class="re2">&gt;</span></span>/wiki<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
-  <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"war"</span><span class="re2">&gt;</span><span class="re1">&lt;SystemProperty</span> <span class="re0">name</span>=<span class="st0">"myapp.home"</span><span class="re2">/&gt;</span></span>/myapp.war<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
-<span class="sc3"><span class="re1">&lt;/Configure<span class="re2">&gt;</span></span></span></pre></div></div>
-<p>Now, if I need to change the home path for my application I can simply change the system property.  This can be quite useful if you are a developer and frequently switching between multiple version of an app.
-</p>
-<h3><span class="mw-headline" id="Advanced_Descriptor_Files">Advanced Descriptor Files</span></h3>
-<p>If you looked at the documentation for the WebAppContext<a class="external autonumber" rel="nofollow" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/webapp/WebAppContext.html">[2]</a> class, you'll have noticed that there are a lot more properties than just the two mentioned above.  Here are some examples of doing more advanced things with your descriptor file.
-</p>
-<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="xml source-xml"><pre class="de1"><span class="sc3"><span class="re1">&lt;?xml</span> <span class="re0">version</span>=<span class="st0">"1.0"</span>  <span class="re0">encoding</span>=<span class="st0">"ISO-8859-1"</span><span class="re2">?&gt;</span></span>
-<span class="sc0">&lt;!DOCTYPE Configure PUBLIC "-//Jetty//Configure//EN" "http://www.eclipse.org/jetty/configure.dtd"&gt;</span>
-
-<span class="sc3"><span class="re1">&lt;Configure</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.webapp.WebAppContext"</span><span class="re2">&gt;</span></span>
-  <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"contextPath"</span><span class="re2">&gt;</span></span>/wiki<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
-  <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"war"</span><span class="re2">&gt;</span><span class="re1">&lt;SystemProperty</span> <span class="re0">name</span>=<span class="st0">"myapp.home"</span><span class="re2">/&gt;</span></span>/myapp.war<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
-  <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"extractWAR"</span><span class="re2">&gt;</span></span>false<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
-<span class="sc3"><span class="re1">&lt;/Configure<span class="re2">&gt;</span></span></span></pre></div></div>
-<p>In this example we tell Jetty not to expand the WAR file when deploying it.  This can help make it clear that people should not be making changes to the temporary unpacked WAR as those changes will go away the next time the web application is deployed.
-</p>
-<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="xml source-xml"><pre class="de1"><span class="sc3"><span class="re1">&lt;?xml</span> <span class="re0">version</span>=<span class="st0">"1.0"</span>  <span class="re0">encoding</span>=<span class="st0">"ISO-8859-1"</span><span class="re2">?&gt;</span></span>
-<span class="sc0">&lt;!DOCTYPE Configure PUBLIC "-//Jetty//Configure//EN" "http://www.eclipse.org/jetty/configure.dtd"&gt;</span>
-
-<span class="sc3"><span class="re1">&lt;Configure</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.webapp.WebAppContext"</span><span class="re2">&gt;</span></span>
-  <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"contextPath"</span><span class="re2">&gt;</span></span>/wiki<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
-  <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"war"</span><span class="re2">&gt;</span><span class="re1">&lt;SystemProperty</span> <span class="re0">name</span>=<span class="st0">"myapp.home"</span><span class="re2">/&gt;</span></span>/myapp.war<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
-  <span class="sc3"><span class="re1">&lt;Get</span> <span class="re0">name</span>=<span class="st0">"ServletContext"</span><span class="re2">&gt;</span></span>
-     <span class="sc3"><span class="re1">&lt;Call</span> <span class="re0">name</span>=<span class="st0">"setInitParameter"</span><span class="re2">&gt;</span></span>
-       <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>myapp.config<span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
-       <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span><span class="re1">&lt;SystemProperty</span> <span class="re0">name</span>=<span class="st0">"myapp.home"</span><span class="re2">&gt;</span></span>/config/app-config.xml<span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
-    <span class="sc3"><span class="re1">&lt;/Call<span class="re2">&gt;</span></span></span>
-  <span class="sc3"><span class="re1">&lt;/Get<span class="re2">&gt;</span></span></span>
-<span class="sc3"><span class="re1">&lt;/Configure<span class="re2">&gt;</span></span></span></pre></div></div>
-<p>In this example we retrieve the JavaEE Servlet context and set an initialization parameter on it.  We could have also used the setAttribute method to set a Servlet context attribute.  Note though, since the web.xml for the web application is processed after the deployment descriptor the web.xml values will overwrite like-named parameters/attributes from the deployment descriptor.
-</p>
-<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="xml source-xml"><pre class="de1"><span class="sc3"><span class="re1">&lt;?xml</span> <span class="re0">version</span>=<span class="st0">"1.0"</span>  <span class="re0">encoding</span>=<span class="st0">"ISO-8859-1"</span><span class="re2">?&gt;</span></span>
-<span class="sc0">&lt;!DOCTYPE Configure PUBLIC "-//Jetty//Configure//EN" "http://www.eclipse.org/jetty/configure.dtd"&gt;</span>
-
-<span class="sc3"><span class="re1">&lt;Configure</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.webapp.WebAppContext"</span><span class="re2">&gt;</span></span>
-  <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"contextPath"</span><span class="re2">&gt;</span></span>/wiki<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
-  <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"war"</span><span class="re2">&gt;</span><span class="re1">&lt;SystemProperty</span> <span class="re0">name</span>=<span class="st0">"myapp.home"</span><span class="re2">/&gt;</span></span>/myapp.war<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
-  <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"overrideDescriptor"</span><span class="re2">&gt;</span></span>/opt/myapp/overlay-web.xml<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
-<span class="sc3"><span class="re1">&lt;/Configure<span class="re2">&gt;</span></span></span></pre></div></div>
-<p>In this example we set a special web.xml override descriptor.  This descriptor is processed after the web application's web.xml and so may override like-named parameters/attributes.  This can be quite useful if you want to add parameters or additional Servlet mappings without breaking open a packed WAR file.
-</p>
-<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="xml source-xml"><pre class="de1"><span class="sc3"><span class="re1">&lt;?xml</span> <span class="re0">version</span>=<span class="st0">"1.0"</span>  <span class="re0">encoding</span>=<span class="st0">"ISO-8859-1"</span><span class="re2">?&gt;</span></span>
-<span class="sc0">&lt;!DOCTYPE Configure PUBLIC "-//Jetty//Configure//EN" "http://www.eclipse.org/jetty/configure.dtd"&gt;</span>
-
-<span class="sc3"><span class="re1">&lt;Configure</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.webapp.WebAppContext"</span><span class="re2">&gt;</span></span>
-  <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"contextPath"</span><span class="re2">&gt;</span></span>/wiki<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
-  <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"war"</span><span class="re2">&gt;</span><span class="re1">&lt;SystemProperty</span> <span class="re0">name</span>=<span class="st0">"myapp.home"</span><span class="re2">/&gt;</span></span>/myapp.war<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
-<span class="sc3"><span class="re1">&lt;/Configure<span class="re2">&gt;</span></span></span>
-
-<span class="sc3"><span class="re1">&lt;New</span> <span class="re0">id</span>=<span class="st0">"DSTest"</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.plus.jndi.Resource"</span><span class="re2">&gt;</span></span>
-  <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
-  <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>jdbc/DSTest<span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
-  <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>
-    <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">class</span>=<span class="st0">"org.apache.commons.dbcp.BasicDataSource"</span><span class="re2">&gt;</span></span>
-      <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"driverClassName"</span><span class="re2">&gt;</span></span>org.some.Driver<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
-      <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"url"</span><span class="re2">&gt;</span></span>jdbc.url<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
-      <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"username"</span><span class="re2">&gt;</span></span>jdbc.user<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
-      <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"password"</span><span class="re2">&gt;</span></span>jdbc.pass<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
-    <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span>
-  <span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
-<span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span></pre></div></div>
-<p>In this example we configure not only the web application context but also a database connection pool (see <a href="Jetty/Howto/Configure JNDI Datasource.html" title="Jetty/Howto/Configure JNDI Datasource">Configure JNDI Datasource</a>) which our application would use.  If the web.xml did not include a reference to this data source the override descriptor mechanism, shown in the previous example, could be used to include it.
-</p>
-<h2><span class="mw-headline" id="Deploying_with_the_Jetty_Maven_Plugin">Deploying with the Jetty Maven Plugin</span></h2>
-<p>If you develop your web application as a maven project, then it can be deployed in jetty 
-with "mvn jetty:run" using the <a class="new" title="Jetty Expanded Webapp Deploy/Jetty/Feature/Jetty Maven Plugin (page does not exist)" href="edit">Jetty Maven Plugin</a>
-</p><p>Maven lets you build your web applications by overlaying on other template web applications 
-(eg <a class="external text" rel="nofollow" href="http://cometd.org/documentation/howtos/primer">Cometd</a>) and will manage the transitive dependencies needed to populate WEB-INF/lib
-</p>
-<h2><span class="mw-headline" id="OSGi_web_application_bundle">OSGi web application bundle</span></h2>
-<p>TBD
-</p>
-<h2><span id="Embedded_Usage" class="mw-headline">Embedded Usage</span></h2>
-<p>Web applications can also be deployed into embedded jetty, either via direct configuration or via configuration of a deployer.   For an example see the <a href="edit" class="new" title="Jetty Expanded Webapp Deploy/Jetty/Tutorial/Embedding Jetty (page does not exist)">Embedding Jetty Tutorial</a>
-</p>
-
-</div>
-
-                    </div>
-                                  </div>
+    <link href="wiki-style.css" media="screen, print" rel="stylesheet" />
+  </head>
+  <body>
+    <div class="col-md-20" id="mainContent">
+      <div class="tab-content background-white">
+        <div class="tab-pane active" id="tab-pane-main-page-content">
+          <h1 class="firstHeading page-header" id="firstHeading">
+            <span dir="auto">Jetty Expanded Webapp Deploy</span>
+          </h1>
+          <div id="main-page-content">
+            <div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="en">
+              <p>
+                <br />
+              </p>
+              <p>
+                <br />
+              </p>
+              <div class="toc" id="toc">
+                <div id="toctitle">
+                  <h2>Contents</h2>
+                </div>
+                <ul>
+                  <li class="toclevel-1">
+                    <a href="Jetty Expanded Webapp Deploy.html#Introduction">
+                      <span class="tocnumber">1</span>
+                      <span class="toctext">Introduction</span>
+                    </a>
+                  </li>
+                  <li class="toclevel-1 tocsection-1">
+                    <a href="Jetty Expanded Webapp Deploy.html#Location_Based_Deployment">
+                      <span class="tocnumber">2</span>
+                      <span class="toctext">Location Based Deployment</span>
+                    </a>
+                  </li>
+                  <li class="toclevel-1 tocsection-2">
+                    <a href="Jetty Expanded Webapp Deploy.html#Descriptor_Based_Deployment">
+                      <span class="tocnumber">3</span>
+                      <span class="toctext">Descriptor Based Deployment</span>
+                    </a>
+                    <ul>
+                      <li class="toclevel-2 tocsection-3">
+                        <a href="Jetty Expanded Webapp Deploy.html#Descriptor_File_Basics">
+                          <span class="tocnumber">3.1</span>
+                          <span class="toctext">Descriptor File Basics</span>
+                        </a>
+                      </li>
+                      <li class="toclevel-2 tocsection-4">
+                        <a href="Jetty Expanded Webapp Deploy.html#Advanced_Descriptor_Files">
+                          <span class="tocnumber">3.2</span>
+                          <span class="toctext">Advanced Descriptor Files</span>
+                        </a>
+                      </li>
+                    </ul>
+                  </li>
+                  <li class="toclevel-1 tocsection-5">
+                    <a href="Jetty Expanded Webapp Deploy.html#Deploying_with_the_Jetty_Maven_Plugin">
+                      <span class="tocnumber">4</span>
+                      <span class="toctext">Deploying with the Jetty Maven Plugin</span>
+                    </a>
+                  </li>
+                  <li class="toclevel-1 tocsection-6">
+                    <a href="Jetty Expanded Webapp Deploy.html#OSGi_web_application_bundle">
+                      <span class="tocnumber">5</span>
+                      <span class="toctext">OSGi web application bundle</span>
+                    </a>
+                  </li>
+                  <li class="toclevel-1 tocsection-7">
+                    <a href="Jetty Expanded Webapp Deploy.html#Embedded_Usage">
+                      <span class="tocnumber">6</span>
+                      <span class="toctext">Embedded Usage</span>
+                    </a>
+                  </li>
+                </ul>
               </div>
+              <h2>
+                <span class="mw-headline" id="Introduction">Introduction</span>
+              </h2>
+              <p>
+                <br />
+                You can make Jetty aware of web applications to be deployed in two ways: placing the web application in a specific location or creating a file that describes the deployment properties of your web application.  In either case the web application may be either packed or unpacked WAR files.
+              </p>
+              <p>Before discussing the mechanisms for deploying Jetty applications it will be helpful to define two terms:</p>
+              <p>
+                <b>Context</b>
+                is the name given to a deployed instance of a web application.  If you're a programmer, a web application is to a context as a class is to an object of that class type.
+              </p>
+              <p>
+                <b>Context Path</b>
+                is the URL path component that identifies the particular context.  This is used by Jetty to route request to the appropriate context.
+              </p>
+              <h2>
+                <span class="mw-headline" id="Location_Based_Deployment">Location Based Deployment</span>
+              </h2>
+              <p>In a default Jetty installation, the directory $JETTY_HOME/webapps is scanned at startup for web applications to be deployed. So to deploy your web application simply place it in that directory.</p>
+              <p>Once the web application is detected it will be deployed in the following manner:</p>
+              <ul>
+                <li>If the web application is a file named foo.war it will be deployed as a context with a context path of /foo</li>
+                <li>If the web application is a directory named foo/ will be deployed as a context with a context path of /foo. If the directory has a WEB-INF subdirectory, it will be treated as Servlet web application, otherwise it will be treated as a collection of static content.</li>
+                <li>If both a foo.war and a foo/ directory exists, then the one with the most recent last-modified date is used.</li>
+              </ul>
+              <p>Note, if the web application file or directory is named root.war or root, respectively, it will be deployed with the context path /.</p>
+              <h2>
+                <span class="mw-headline" id="Descriptor_Based_Deployment">Descriptor Based Deployment</span>
+              </h2>
+              <p>Using the location based deployment model is quick and easy but, sometimes, you may need to tune certain deployment properties (e.g., you want to deploy with a context path that is not based on the file name or you want to define a special database connection pool just for this web application).  To do this you can use a context deployment descriptor file.</p>
+              <h3>
+                <span class="mw-headline" id="Descriptor_File_Basics">Descriptor File Basics</span>
+              </h3>
+              <p>In a default Jetty installation, the $JETTY_HOME/contexts directory is scanned for context deployment descriptor files.  So to deploy a web application using such a file simply place the file in that directory.</p>
+              <p>
+                The deployment descriptor file itself is a standard Jetty
+                <a href="Jetty/Reference/jetty.xml syntax.html" title="Jetty/Reference/jetty.xml syntax">configuration</a>
+                file that configures a WebAppContext
+                <a class="external autonumber" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/webapp/WebAppContext.html" rel="nofollow">[1]</a>
+                class.  For a basic installation you probably only need to set a couple properties:
+              </p>
+              <ul>
+                <li>
+                  <b>war</b>
+                  -  the filesystem path to the web application file/directory
+                </li>
+                <li>
+                  <b>contextPath</b>
+                  - the context path to be used for the web application
+                </li>
+              </ul>
+              <p>As an example, here is a descriptor file that deploys the file /opt/myapp/myapp.war to the context path /wiki.</p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="xml source-xml">
+                  <pre class="de1">
+                    <span class="sc3">
+                      <span class="re1">&lt;?xml</span>
+                      <span class="re0">version</span>
+                      =
+                      <span class="st0">"1.0"</span>
+                      <span class="re0">encoding</span>
+                      =
+                      <span class="st0">"ISO-8859-1"</span>
+                      <span class="re2">?&gt;</span>
+                    </span>
+                    <span class="sc0">&lt;!DOCTYPE Configure PUBLIC "-//Jetty//Configure//EN" "http://www.eclipse.org/jetty/configure.dtd"&gt;</span>
+                    <span class="sc3">
+                      <span class="re1">&lt;Configure</span>
+                      <span class="re0">class</span>
+                      =
+                      <span class="st0">"org.eclipse.jetty.webapp.WebAppContext"</span>
+                      <span class="re2">&gt;</span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">&lt;Set</span>
+                      <span class="re0">name</span>
+                      =
+                      <span class="st0">"contextPath"</span>
+                      <span class="re2">&gt;</span>
+                    </span>
+                    /wiki
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Set
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">&lt;Set</span>
+                      <span class="re0">name</span>
+                      =
+                      <span class="st0">"war"</span>
+                      <span class="re2">&gt;</span>
+                    </span>
+                    /opt/myapp/myapp.war
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Set
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Configure
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                  </pre>
+                </div>
+              </div>
+              <p>Note, you can use the SystemProperty and Property elements in your descriptor file.  As an example, if I set the system property myapp.home=/opt/myapp, I could rewrite the above example as:</p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="xml source-xml">
+                  <pre class="de1">
+                    <span class="sc3">
+                      <span class="re1">&lt;?xml</span>
+                      <span class="re0">version</span>
+                      =
+                      <span class="st0">"1.0"</span>
+                      <span class="re0">encoding</span>
+                      =
+                      <span class="st0">"ISO-8859-1"</span>
+                      <span class="re2">?&gt;</span>
+                    </span>
+                    <span class="sc0">&lt;!DOCTYPE Configure PUBLIC "-//Jetty//Configure//EN" "http://www.eclipse.org/jetty/configure.dtd"&gt;</span>
+                    <span class="sc3">
+                      <span class="re1">&lt;Configure</span>
+                      <span class="re0">class</span>
+                      =
+                      <span class="st0">"org.eclipse.jetty.webapp.WebAppContext"</span>
+                      <span class="re2">&gt;</span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">&lt;Set</span>
+                      <span class="re0">name</span>
+                      =
+                      <span class="st0">"contextPath"</span>
+                      <span class="re2">&gt;</span>
+                    </span>
+                    /wiki
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Set
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">&lt;Set</span>
+                      <span class="re0">name</span>
+                      =
+                      <span class="st0">"war"</span>
+                      <span class="re2">&gt;</span>
+                      <span class="re1">&lt;SystemProperty</span>
+                      <span class="re0">name</span>
+                      =
+                      <span class="st0">"myapp.home"</span>
+                      <span class="re2">/&gt;</span>
+                    </span>
+                    /myapp.war
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Set
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Configure
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                  </pre>
+                </div>
+              </div>
+              <p>Now, if I need to change the home path for my application I can simply change the system property.  This can be quite useful if you are a developer and frequently switching between multiple version of an app.</p>
+              <h3>
+                <span class="mw-headline" id="Advanced_Descriptor_Files">Advanced Descriptor Files</span>
+              </h3>
+              <p>
+                If you looked at the documentation for the WebAppContext
+                <a class="external autonumber" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/webapp/WebAppContext.html" rel="nofollow">[2]</a>
+                class, you'll have noticed that there are a lot more properties than just the two mentioned above.  Here are some examples of doing more advanced things with your descriptor file.
+              </p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="xml source-xml">
+                  <pre class="de1">
+                    <span class="sc3">
+                      <span class="re1">&lt;?xml</span>
+                      <span class="re0">version</span>
+                      =
+                      <span class="st0">"1.0"</span>
+                      <span class="re0">encoding</span>
+                      =
+                      <span class="st0">"ISO-8859-1"</span>
+                      <span class="re2">?&gt;</span>
+                    </span>
+                    <span class="sc0">&lt;!DOCTYPE Configure PUBLIC "-//Jetty//Configure//EN" "http://www.eclipse.org/jetty/configure.dtd"&gt;</span>
+                    <span class="sc3">
+                      <span class="re1">&lt;Configure</span>
+                      <span class="re0">class</span>
+                      =
+                      <span class="st0">"org.eclipse.jetty.webapp.WebAppContext"</span>
+                      <span class="re2">&gt;</span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">&lt;Set</span>
+                      <span class="re0">name</span>
+                      =
+                      <span class="st0">"contextPath"</span>
+                      <span class="re2">&gt;</span>
+                    </span>
+                    /wiki
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Set
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">&lt;Set</span>
+                      <span class="re0">name</span>
+                      =
+                      <span class="st0">"war"</span>
+                      <span class="re2">&gt;</span>
+                      <span class="re1">&lt;SystemProperty</span>
+                      <span class="re0">name</span>
+                      =
+                      <span class="st0">"myapp.home"</span>
+                      <span class="re2">/&gt;</span>
+                    </span>
+                    /myapp.war
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Set
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">&lt;Set</span>
+                      <span class="re0">name</span>
+                      =
+                      <span class="st0">"extractWAR"</span>
+                      <span class="re2">&gt;</span>
+                    </span>
+                    false
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Set
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Configure
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                  </pre>
+                </div>
+              </div>
+              <p>In this example we tell Jetty not to expand the WAR file when deploying it.  This can help make it clear that people should not be making changes to the temporary unpacked WAR as those changes will go away the next time the web application is deployed.</p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="xml source-xml">
+                  <pre class="de1">
+                    <span class="sc3">
+                      <span class="re1">&lt;?xml</span>
+                      <span class="re0">version</span>
+                      =
+                      <span class="st0">"1.0"</span>
+                      <span class="re0">encoding</span>
+                      =
+                      <span class="st0">"ISO-8859-1"</span>
+                      <span class="re2">?&gt;</span>
+                    </span>
+                    <span class="sc0">&lt;!DOCTYPE Configure PUBLIC "-//Jetty//Configure//EN" "http://www.eclipse.org/jetty/configure.dtd"&gt;</span>
+                    <span class="sc3">
+                      <span class="re1">&lt;Configure</span>
+                      <span class="re0">class</span>
+                      =
+                      <span class="st0">"org.eclipse.jetty.webapp.WebAppContext"</span>
+                      <span class="re2">&gt;</span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">&lt;Set</span>
+                      <span class="re0">name</span>
+                      =
+                      <span class="st0">"contextPath"</span>
+                      <span class="re2">&gt;</span>
+                    </span>
+                    /wiki
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Set
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">&lt;Set</span>
+                      <span class="re0">name</span>
+                      =
+                      <span class="st0">"war"</span>
+                      <span class="re2">&gt;</span>
+                      <span class="re1">&lt;SystemProperty</span>
+                      <span class="re0">name</span>
+                      =
+                      <span class="st0">"myapp.home"</span>
+                      <span class="re2">/&gt;</span>
+                    </span>
+                    /myapp.war
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Set
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">&lt;Get</span>
+                      <span class="re0">name</span>
+                      =
+                      <span class="st0">"ServletContext"</span>
+                      <span class="re2">&gt;</span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">&lt;Call</span>
+                      <span class="re0">name</span>
+                      =
+                      <span class="st0">"setInitParameter"</span>
+                      <span class="re2">&gt;</span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;Arg
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    myapp.config
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Arg
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;Arg
+                        <span class="re2">&gt;</span>
+                      </span>
+                      <span class="re1">&lt;SystemProperty</span>
+                      <span class="re0">name</span>
+                      =
+                      <span class="st0">"myapp.home"</span>
+                      <span class="re2">&gt;</span>
+                    </span>
+                    /config/app-config.xml
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Arg
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Call
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Get
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Configure
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                  </pre>
+                </div>
+              </div>
+              <p>In this example we retrieve the JavaEE Servlet context and set an initialization parameter on it.  We could have also used the setAttribute method to set a Servlet context attribute.  Note though, since the web.xml for the web application is processed after the deployment descriptor the web.xml values will overwrite like-named parameters/attributes from the deployment descriptor.</p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="xml source-xml">
+                  <pre class="de1">
+                    <span class="sc3">
+                      <span class="re1">&lt;?xml</span>
+                      <span class="re0">version</span>
+                      =
+                      <span class="st0">"1.0"</span>
+                      <span class="re0">encoding</span>
+                      =
+                      <span class="st0">"ISO-8859-1"</span>
+                      <span class="re2">?&gt;</span>
+                    </span>
+                    <span class="sc0">&lt;!DOCTYPE Configure PUBLIC "-//Jetty//Configure//EN" "http://www.eclipse.org/jetty/configure.dtd"&gt;</span>
+                    <span class="sc3">
+                      <span class="re1">&lt;Configure</span>
+                      <span class="re0">class</span>
+                      =
+                      <span class="st0">"org.eclipse.jetty.webapp.WebAppContext"</span>
+                      <span class="re2">&gt;</span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">&lt;Set</span>
+                      <span class="re0">name</span>
+                      =
+                      <span class="st0">"contextPath"</span>
+                      <span class="re2">&gt;</span>
+                    </span>
+                    /wiki
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Set
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">&lt;Set</span>
+                      <span class="re0">name</span>
+                      =
+                      <span class="st0">"war"</span>
+                      <span class="re2">&gt;</span>
+                      <span class="re1">&lt;SystemProperty</span>
+                      <span class="re0">name</span>
+                      =
+                      <span class="st0">"myapp.home"</span>
+                      <span class="re2">/&gt;</span>
+                    </span>
+                    /myapp.war
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Set
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">&lt;Set</span>
+                      <span class="re0">name</span>
+                      =
+                      <span class="st0">"overrideDescriptor"</span>
+                      <span class="re2">&gt;</span>
+                    </span>
+                    /opt/myapp/overlay-web.xml
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Set
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Configure
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                  </pre>
+                </div>
+              </div>
+              <p>In this example we set a special web.xml override descriptor.  This descriptor is processed after the web application's web.xml and so may override like-named parameters/attributes.  This can be quite useful if you want to add parameters or additional Servlet mappings without breaking open a packed WAR file.</p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="xml source-xml">
+                  <pre class="de1">
+                    <span class="sc3">
+                      <span class="re1">&lt;?xml</span>
+                      <span class="re0">version</span>
+                      =
+                      <span class="st0">"1.0"</span>
+                      <span class="re0">encoding</span>
+                      =
+                      <span class="st0">"ISO-8859-1"</span>
+                      <span class="re2">?&gt;</span>
+                    </span>
+                    <span class="sc0">&lt;!DOCTYPE Configure PUBLIC "-//Jetty//Configure//EN" "http://www.eclipse.org/jetty/configure.dtd"&gt;</span>
+                    <span class="sc3">
+                      <span class="re1">&lt;Configure</span>
+                      <span class="re0">class</span>
+                      =
+                      <span class="st0">"org.eclipse.jetty.webapp.WebAppContext"</span>
+                      <span class="re2">&gt;</span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">&lt;Set</span>
+                      <span class="re0">name</span>
+                      =
+                      <span class="st0">"contextPath"</span>
+                      <span class="re2">&gt;</span>
+                    </span>
+                    /wiki
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Set
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">&lt;Set</span>
+                      <span class="re0">name</span>
+                      =
+                      <span class="st0">"war"</span>
+                      <span class="re2">&gt;</span>
+                      <span class="re1">&lt;SystemProperty</span>
+                      <span class="re0">name</span>
+                      =
+                      <span class="st0">"myapp.home"</span>
+                      <span class="re2">/&gt;</span>
+                    </span>
+                    /myapp.war
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Set
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Configure
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">&lt;New</span>
+                      <span class="re0">id</span>
+                      =
+                      <span class="st0">"DSTest"</span>
+                      <span class="re0">class</span>
+                      =
+                      <span class="st0">"org.eclipse.jetty.plus.jndi.Resource"</span>
+                      <span class="re2">&gt;</span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;Arg
+                        <span class="re2">&gt;</span>
+                      </span>
+                      <span class="re1">
+                        &lt;/Arg
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;Arg
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    jdbc/DSTest
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Arg
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;Arg
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">&lt;New</span>
+                      <span class="re0">class</span>
+                      =
+                      <span class="st0">"org.apache.commons.dbcp.BasicDataSource"</span>
+                      <span class="re2">&gt;</span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">&lt;Set</span>
+                      <span class="re0">name</span>
+                      =
+                      <span class="st0">"driverClassName"</span>
+                      <span class="re2">&gt;</span>
+                    </span>
+                    org.some.Driver
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Set
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">&lt;Set</span>
+                      <span class="re0">name</span>
+                      =
+                      <span class="st0">"url"</span>
+                      <span class="re2">&gt;</span>
+                    </span>
+                    jdbc.url
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Set
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">&lt;Set</span>
+                      <span class="re0">name</span>
+                      =
+                      <span class="st0">"username"</span>
+                      <span class="re2">&gt;</span>
+                    </span>
+                    jdbc.user
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Set
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">&lt;Set</span>
+                      <span class="re0">name</span>
+                      =
+                      <span class="st0">"password"</span>
+                      <span class="re2">&gt;</span>
+                    </span>
+                    jdbc.pass
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Set
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/New
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Arg
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/New
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                  </pre>
+                </div>
+              </div>
+              <p>
+                In this example we configure not only the web application context but also a database connection pool (see
+                <a href="Jetty/Howto/Configure JNDI Datasource.html" title="Jetty/Howto/Configure JNDI Datasource">Configure JNDI Datasource</a>
+                ) which our application would use.  If the web.xml did not include a reference to this data source the override descriptor mechanism, shown in the previous example, could be used to include it.
+              </p>
+              <h2>
+                <span class="mw-headline" id="Deploying_with_the_Jetty_Maven_Plugin">Deploying with the Jetty Maven Plugin</span>
+              </h2>
+              <p>
+                If you develop your web application as a maven project, then it can be deployed in jetty 
+with "mvn jetty:run" using the
+                <a class="new" href="edit" title="Jetty Expanded Webapp Deploy/Jetty/Feature/Jetty Maven Plugin (page does not exist)">Jetty Maven Plugin</a>
+              </p>
+              <p>
+                Maven lets you build your web applications by overlaying on other template web applications 
+(eg
+                <a class="external text" href="http://cometd.org/documentation/howtos/primer" rel="nofollow">Cometd</a>
+                ) and will manage the transitive dependencies needed to populate WEB-INF/lib
+              </p>
+              <h2>
+                <span class="mw-headline" id="OSGi_web_application_bundle">OSGi web application bundle</span>
+              </h2>
+              <p>TBD</p>
+              <h2>
+                <span class="mw-headline" id="Embedded_Usage">Embedded Usage</span>
+              </h2>
+              <p>
+                Web applications can also be deployed into embedded jetty, either via direct configuration or via configuration of a deployer.   For an example see the
+                <a class="new" href="edit" title="Jetty Expanded Webapp Deploy/Jetty/Tutorial/Embedding Jetty (page does not exist)">Embedding Jetty Tutorial</a>
+              </p>
             </div>
-</body>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
 </html>

@@ -1,214 +1,919 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
-<head>
+  <head>
     <title>Jetty WTP Plugin</title>
-    <link rel="stylesheet" media="screen, print" href="wiki-style.css"/>
-</head>
-<body>
-<div id="mainContent" class="col-md-20">
-                      <ul class="nav nav-tabs noprint hidden-print" role="tablist">
-                       <li class="active" id="ca-nstab-main"><a accesskey="c" tabindex="-1" title="View the content page [c]" href="Terracota Session Clustering.html">Page</a></li>
-                        <li id="ca-talk" class="new"><a href="edit" tabindex="-1" title="Discussion about the content page [t]" accesskey="t">Discussion</a></li>
-                        <li id="ca-viewsource"><a accesskey="e" tabindex="-1" title="This page is protected.&#10;You can view its source [e]" href="edit">View source</a></li>
-                        <li id="ca-history" class="collapsible"><a tabindex="-1" title="Past revisions of this page [h]" accesskey="h" href="edit">History</a></li>
-                      </ul>            <div class="tab-content background-white">
-              <div id="tab-pane-main-page-content" class="tab-pane active">
-
-                
-                <h1 id="firstHeading" class="firstHeading page-header">
-                  <span dir="auto">Jetty/Tutorial/Terracota Session Clustering</span>
-                </h1>
-                <div id="main-page-content">
-
-                  <div class="alert alert-small alert-warning" id="contentSub"><span class="subpages">&lt; <a href="../../Jetty.html" title="Jetty">Jetty</a>‎ | <a href="../Tutorial.html" title="Jetty/Tutorial">Tutorial</a></span></div>
-
-                  
-                  
-                  <div dir="ltr" id="mw-content-text" lang="en" class="mw-content-ltr"><p><br/>
-</p><p><br/>
-</p>
-<div id="toc" class="toc"><div id="toctitle"><h2>Contents</h2></div>
-<ul>
-<li class="toclevel-1"><a href="Terracota Session Clustering.html#Introduction"><span class="tocnumber">1</span> <span class="toctext">Introduction</span></a></li>
-<li class="toclevel-1"><a href="Terracota Session Clustering.html#Details"><span class="tocnumber">2</span> <span class="toctext">Details</span></a>
-<ul>
-<li class="toclevel-2"><a href="Terracota Session Clustering.html#Requirements"><span class="tocnumber">2.1</span> <span class="toctext">Requirements</span></a></li>
-<li class="toclevel-2"><a href="Terracota Session Clustering.html#Build_instructions"><span class="tocnumber">2.2</span> <span class="toctext">Build instructions</span></a></li>
-<li class="toclevel-2"><a href="Terracota Session Clustering.html#Jetty_Configuration_Files"><span class="tocnumber">2.3</span> <span class="toctext">Jetty Configuration Files</span></a>
-<ul>
-<li class="toclevel-3"><a href="Terracota Session Clustering.html#The_TerracottaSessionIdManager"><span class="tocnumber">2.3.1</span> <span class="toctext">The TerracottaSessionIdManager</span></a></li>
-<li class="toclevel-3"><a href="Terracota Session Clustering.html#The_TerracottaSessionManager"><span class="tocnumber">2.3.2</span> <span class="toctext">The TerracottaSessionManager</span></a></li>
-</ul>
-</li>
-<li class="toclevel-2"><a href="Terracota Session Clustering.html#Terracotta_Configuration_File"><span class="tocnumber">2.4</span> <span class="toctext">Terracotta Configuration File</span></a>
-<ul>
-<li class="toclevel-3"><a href="Terracota Session Clustering.html#The_base_Terracotta_Configuration_File"><span class="tocnumber">2.4.1</span> <span class="toctext">The base Terracotta Configuration File</span></a></li>
-<li class="toclevel-3"><a href="Terracota Session Clustering.html#Modifications_to_the_Terracotta_Configuration_File"><span class="tocnumber">2.4.2</span> <span class="toctext">Modifications to the Terracotta Configuration File</span></a></li>
-</ul>
-</li>
-<li class="toclevel-2"><a href="Terracota Session Clustering.html#Starting_Terracotta_and_Jetty"><span class="tocnumber">2.5</span> <span class="toctext">Starting Terracotta and Jetty</span></a></li>
-</ul>
-</li>
-</ul>
-</div>
-
-<h2><span class="mw-headline" id="Introduction">Introduction</span></h2>
-<div style="background-color: #f9f6b7; border: 1px solid #c4c295; color: black; padding: 5px; margin: 1ex 0; min-height: 35px; padding-left: 45px;" class="messagebox">
-<div style="float: left; margin-left: -40px;"><a href="https://wiki.eclipse.org/File:Warning2.png" class="image"><img height="35" width="35" src="../../images/3/37/Warning2.png" alt="Warning2.png"/></a></div>
-<div><b>Attention:</b><br/>This documentation is relevant for Jetty 6. Please see <a rel="nofollow" class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/server/session/JDBCSessionIdManager.html">JDBCSessionIdManager</a> and <a rel="nofollow" class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/server/session/JDBCSessionManager.html">JDBCSessionManager</a> javadoc for the corresponding Jetty 7 feature.</div>
-</div>
-<p><br/>
-Jetty has been integrated with <a rel="nofollow" href="http://www.terracotta.org" class="external text">Terracotta</a>, providing a great clustering solution. Since Jetty 6.1.12, the Jetty-Terracotta integration has been rewritten to provide better performance. The Jetty-Terracotta integration is not bundled by default; it must be built from sources following the instructions below.
-</p>
-<h2><span class="mw-headline" id="Details">Details</span></h2>
-<h3><span id="Requirements" class="mw-headline">Requirements</span></h3>
-<ol><li> You need J2SE 1.5 or greater to build and run the Jetty-Terracotta integration.</li>
-<li> You need Jetty 6.1.12 or greater.</li>
-<li> You need to install Terracotta, we have tested <a rel="nofollow" class="external text" href="http://www.terracotta.org/web/display/orgsite/Download">Terracotta 2.6.4</a> or greater. We will refer to the installation directory as <tt>$TC_HOME</tt>.</li>
-<li> You need to download [/download/attachments/80907/tim-jetty-6.1-1.0.4.jar?version=1&amp;modificationDate=1226592637334 this] Jetty TIM (Terracotta Integration Module).</li></ol>
-<p>We are working on an updated version of the official Jetty TIM and update the instructions when the new version of the official Jetty TIM is compatible with the current Jetty-Terracotta integration. Don't be fooled by the '1.1.1' version on the official TIM, you really need this 1.0.4. The official Jetty TIM will be downloadable from the Terracotta Forge. Copy the downloaded Jetty TIM file <tt>tim-jetty-6.1-1.0.4.jar</tt> to <tt>$TC_HOME/modules/</tt>.
-</p>
-<h3><span id="Build_instructions" class="mw-headline">Build instructions</span></h3>
-<ol><li> Download and unzip a source bundle of Jetty 6.1.12 or greater from the distribution site. We will refer to the installation directory as <tt>$JETTY_HOME</tt>.</li>
-<li> Build it: </li></ol>
-<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="bash source-bash"><pre class="de1">$ <span class="kw3">cd</span> <span class="re1">$JETTY_HOME</span>
-$ mvn clean <span class="kw2">install</span></pre></div></div>
-<ol><li> Copy the target/jetty-terracotta-sessions-6.1.12.jar you just built into <tt>$JETTY_HOME&gt;/lib/ext</tt>: </li></ol>
-<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="bash source-bash"><pre class="de1"><span class="co4">$ </span><span class="kw2">cp</span> contrib<span class="sy0">/</span>terracotta<span class="sy0">/</span>target<span class="sy0">/</span>jetty-terracotta-sessions-6.1.12.jar <span class="re1">$JETTY_HOME</span><span class="sy0">&gt;/</span>lib<span class="sy0">/</span>ext<span class="sy0">/</span></pre></div></div>
-<h3><span id="Jetty_Configuration_Files" class="mw-headline">Jetty Configuration Files</span></h3>
-<p>Configuring Jetty to use Terracotta consists of creating a single TerracottaSessionIdManager per Jetty instance to generate unique session ids, and then setting up a special TerracottaSessionManager per each webapp that you want to be clustered.
-</p>
-<h4><span id="The_TerracottaSessionIdManager" class="mw-headline">The TerracottaSessionIdManager</span></h4>
-<p>One TerracottaSessionIdManager is configured per Jetty instance to generate unique session ids. These are the relevant lines to add to add to a separate <tt>$JETTY_HOME/etc/jetty-terracotta.xml</tt>:
-</p>
-<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="xml source-xml"><pre class="de1"> <span class="sc3"><span class="re1">&lt;Configure</span> <span class="re0">id</span>=<span class="st0">"Server"</span> <span class="re0">class</span>=<span class="st0">"org.mortbay.jetty.Server"</span><span class="re2">&gt;</span></span>
-     <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">id</span>=<span class="st0">"tcIdManager"</span> <span class="re0">class</span>=<span class="st0">"org.mortbay.terracotta.servlet.TerracottaSessionIdManager"</span><span class="re2">&gt;</span></span>
-         <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>
-             <span class="sc3"><span class="re1">&lt;Ref</span> <span class="re0">id</span>=<span class="st0">"Server"</span> <span class="re2">/&gt;</span></span>
-         <span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
-         <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"workerName"</span><span class="re2">&gt;</span></span>
-             <span class="sc3"><span class="re1">&lt;SystemProperty</span> <span class="re0">name</span>=<span class="st0">"jetty.node"</span> <span class="re0">default</span>=<span class="st0">"node1"</span> <span class="re2">/&gt;</span></span>
-         <span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
-     <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span>
-     <span class="sc3"><span class="re1">&lt;Call</span> <span class="re0">name</span>=<span class="st0">"setAttribute"</span><span class="re2">&gt;</span></span>
-         <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>tcIdManager<span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
-         <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>
-             <span class="sc3"><span class="re1">&lt;Ref</span> <span class="re0">id</span>=<span class="st0">"tcIdManager"</span> <span class="re2">/&gt;</span></span>
-         <span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
-     <span class="sc3"><span class="re1">&lt;/Call<span class="re2">&gt;</span></span></span>
- <span class="sc3"><span class="re1">&lt;/Configure<span class="re2">&gt;</span></span></span></pre></div></div>
-<p>The TerracottaSessionIdManager is stored as an attribute on the Server instance for later retrieval under the name <tt>tcIdManager</tt>. The <tt>workerName</tt> is a unique name for the Jetty node. In the example above it is "node1" but you can use any naming scheme you'd like. This is useful when hardware components such as load balancers can "stick" the requests to the same node to improve performances by limiting the session migrations among nodes.
-</p>
-<h4><span id="The_TerracottaSessionManager" class="mw-headline">The TerracottaSessionManager</span></h4>
-<p>Each web application whose sessions you want to cluster must use a TerracottaSessionManager instead of the default HashSessionManager. The easiest way to do this is to create individual [/display/JETTY/ContextDeployer context deployer] config files for each web application, and include these lines:
-</p>
-<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="xml source-xml"><pre class="de1"> <span class="sc3"><span class="re1">&lt;Configure</span> <span class="re0">class</span>=<span class="st0">"org.mortbay.jetty.webapp.WebAppContext"</span><span class="re2">&gt;</span></span>
-     ...
-     <span class="sc3"><span class="re1">&lt;Property</span> <span class="re0">name</span>=<span class="st0">"Server"</span> <span class="re0">id</span>=<span class="st0">"Server"</span><span class="re2">&gt;</span></span>
-         <span class="sc3"><span class="re1">&lt;Call</span> <span class="re0">id</span>=<span class="st0">"tcIdManager"</span> <span class="re0">name</span>=<span class="st0">"getAttribute"</span><span class="re2">&gt;</span></span>
-             <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>tcIdManager<span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
-         <span class="sc3"><span class="re1">&lt;/Call<span class="re2">&gt;</span></span></span>
-     <span class="sc3"><span class="re1">&lt;/Property<span class="re2">&gt;</span></span></span>
-     <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"sessionHandler"</span><span class="re2">&gt;</span></span>
-         <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">class</span>=<span class="st0">"org.mortbay.terracotta.servlet.TerracottaSessionHandler"</span><span class="re2">&gt;</span></span>
-             <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>
-                 <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">class</span>=<span class="st0">"org.mortbay.terracotta.servlet.TerracottaSessionManager"</span><span class="re2">&gt;</span></span>
-                     <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"idManager"</span><span class="re2">&gt;</span></span>
-                         <span class="sc3"><span class="re1">&lt;Ref</span> <span class="re0">id</span>=<span class="st0">"tcIdManager"</span> <span class="re2">/&gt;</span></span>
-                     <span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
-                 <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span>
-             <span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
-         <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span>
-     <span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
-     ...
- <span class="sc3"><span class="re1">&lt;/Configure<span class="re2">&gt;</span></span></span></pre></div></div>
-<p>These lines ensure that a TerracottaSessionManager is established for each web application, and has access to the Jetty instance's unique TerracottaSessionIdManager we configured above.
-</p>
-<h3><span id="Terracotta_Configuration_File" class="mw-headline">Terracotta Configuration File</span></h3>
-<p>You need one Terracotta configuration file for each Jetty instance. In the Terracotta configuration file, part of the configuration is needed to setup correctly the Jetty-Terracotta integration, and the rest of the configuration is needed to setup the Terracotta server and the web applications.
-</p>
-<h4><span class="mw-headline" id="The_base_Terracotta_Configuration_File">The base Terracotta Configuration File</span></h4>
-<p>The base Terracotta configuration file that sets up the Jetty-Terracotta integration is the following:
-</p>
-<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="xml source-xml"><pre class="de1"> <span class="sc3"><span class="re1">&lt;?xml</span> <span class="re0">version</span>=<span class="st0">"1.0"</span> <span class="re0">encoding</span>=<span class="st0">"UTF-8"</span><span class="re2">?&gt;</span></span>
- <span class="sc3"><span class="re1">&lt;tc:tc-config</span> <span class="re0">xmlns:tc</span>=<span class="st0">"http://www.terracotta.org/config"</span></span>
-<span class="sc3">               <span class="re0">xmlns:xsi</span>=<span class="st0">"http://www.w3.org/2001/XMLSchema-instance"</span></span>
-<span class="sc3">               <span class="re0">xsi:schemaLocation</span>=<span class="st0">"http://www.terracotta.org/config http://www.terracotta.org/schema/terracotta-4.xsd"</span><span class="re2">&gt;</span></span>
-     <span class="sc3"><span class="re1">&lt;servers<span class="re2">&gt;</span></span></span>
-         <span class="sc3"><span class="re1">&lt;server</span> <span class="re0">host</span>=<span class="st0">"localhost"</span><span class="re2">&gt;</span></span>
-             <span class="sc3"><span class="re1">&lt;data<span class="re2">&gt;</span></span></span>%(user.dir)/terracotta/server-data<span class="sc3"><span class="re1">&lt;/data<span class="re2">&gt;</span></span></span>
-             <span class="sc3"><span class="re1">&lt;logs<span class="re2">&gt;</span></span></span>%(user.dir)/terracotta/server-logs<span class="sc3"><span class="re1">&lt;/logs<span class="re2">&gt;</span></span></span>
-         <span class="sc3"><span class="re1">&lt;/server<span class="re2">&gt;</span></span></span>
-     <span class="sc3"><span class="re1">&lt;/servers<span class="re2">&gt;</span></span></span>
-
-     <span class="sc3"><span class="re1">&lt;clients<span class="re2">&gt;</span></span></span>
-         <span class="sc3"><span class="re1">&lt;modules<span class="re2">&gt;</span></span></span>
-             <span class="sc3"><span class="re1">&lt;module</span> <span class="re0">name</span>=<span class="st0">"tim-jetty-6.1"</span> <span class="re0">version</span>=<span class="st0">"1.0.1"</span> <span class="re2">/&gt;</span></span>
-         <span class="sc3"><span class="re1">&lt;/modules<span class="re2">&gt;</span></span></span>
-         <span class="sc3"><span class="re1">&lt;logs<span class="re2">&gt;</span></span></span>%(user.dir)/terracotta/client-logs<span class="sc3"><span class="re1">&lt;/logs<span class="re2">&gt;</span></span></span>
-     <span class="sc3"><span class="re1">&lt;/clients<span class="re2">&gt;</span></span></span>
-
-     <span class="sc3"><span class="re1">&lt;application<span class="re2">&gt;</span></span></span>
-         <span class="sc3"><span class="re1">&lt;dso<span class="re2">&gt;</span></span></span>
-             <span class="sc3"><span class="re1">&lt;instrumented-classes<span class="re2">&gt;</span></span></span>
-                 <span class="sc3"><span class="re1">&lt;include<span class="re2">&gt;</span></span></span>
-                     <span class="sc3"><span class="re1">&lt;class-expression<span class="re2">&gt;</span></span></span>...<span class="sc3"><span class="re1">&lt;/class-expression<span class="re2">&gt;</span></span></span>
-                 <span class="sc3"><span class="re1">&lt;/include<span class="re2">&gt;</span></span></span>
-             <span class="sc3"><span class="re1">&lt;/instrumented-classes<span class="re2">&gt;</span></span></span>
-         <span class="sc3"><span class="re1">&lt;/dso<span class="re2">&gt;</span></span></span>
-     <span class="sc3"><span class="re1">&lt;/application<span class="re2">&gt;</span></span></span>
- <span class="sc3"><span class="re1">&lt;/tc:tc-config<span class="re2">&gt;</span></span></span></pre></div></div>
-<p>You can create a Terracotta configuration file wherever you prefer in the file system. The file will be referenced by path in a system property to be passed on the command line (see below). Copy and paste the example file content above into, for example, <tt>$JETTY_HOME/tc-config.xml</tt>.
-</p>
-<h4><span class="mw-headline" id="Modifications_to_the_Terracotta_Configuration_File">Modifications to the Terracotta Configuration File</span></h4>
-<p>There are few places that needs to be modified in order for the Terracotta configuration file to correctly cluster your web application.
-</p>
-<ol><li> Modify the location of the Terracotta server.</li></ol>
-<p>The server element has the <tt>host</tt> attribute that needs to be modified to point to the host name or host address of the Terracotta server. In most simple configurations this can be the local host, but in more advanced configurations the Terracotta server is deployed in a separate host.
-</p>
-<ol><li> Instrumented classes includes</li></ol>
-<p>If you web application puts in the HTTP session only instances of JDK available classes (such as <tt>java.lang.Integer</tt> or <tt>java.lang.String</tt>), then you do not need the instrumented-classes element. In case your web application puts in the HTTP session instances of classes belonging to the web application (such as a domain <tt>com.acme.domain.User</tt> class), then you need to specify also those classes as instrumented, for example:
-</p>
-<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="xml source-xml"><pre class="de1">  <span class="sc3"><span class="re1">&lt;tc:tc-config</span> ...<span class="re2">&gt;</span></span>
-     ...
-     <span class="sc3"><span class="re1">&lt;application<span class="re2">&gt;</span></span></span>
-         <span class="sc3"><span class="re1">&lt;dso<span class="re2">&gt;</span></span></span>
-             <span class="sc3"><span class="re1">&lt;instrumented-classes<span class="re2">&gt;</span></span></span>
-                 <span class="sc3"><span class="re1">&lt;include<span class="re2">&gt;</span></span></span>
-                     <span class="sc3"><span class="re1">&lt;class-expression<span class="re2">&gt;</span></span></span>com.acme.domain.User<span class="sc3"><span class="re1">&lt;/class-expression<span class="re2">&gt;</span></span></span>
-                 <span class="sc3"><span class="re1">&lt;/include<span class="re2">&gt;</span></span></span>
-             <span class="sc3"><span class="re1">&lt;/instrumented-classes<span class="re2">&gt;</span></span></span>
-         <span class="sc3"><span class="re1">&lt;/dso<span class="re2">&gt;</span></span></span>
-     <span class="sc3"><span class="re1">&lt;/application<span class="re2">&gt;</span></span></span>
-     ...
-  <span class="sc3"><span class="re1">&lt;/tc:tc-config<span class="re2">&gt;</span></span></span></pre></div></div>
-<p>You can also specify class expressions to match multiple classes, as specified <a class="external text" href="http://www.terracotta.org/confluence/display/docs1/Configuration+Guide+and+Reference" rel="nofollow">here</a>.
-</p>
-<ol><li> Web application contexts</li></ol>
-<p>You do not need to specify the context path at which the web application is configured, by defining the <tt>web-application</tt> elements in the Terracotta configuration file, since the intention of clustering a context is already specified in the Jetty context configuration file.
-</p>
-<h3><span class="mw-headline" id="Starting_Terracotta_and_Jetty">Starting Terracotta and Jetty</span></h3>
-<p>The final steps require to start the Terracotta server and the Jetty servers.
-</p>
-<ol><li> Start the Terracotta server (in one console)</li></ol>
-<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="bash source-bash"><pre class="de1">$ <span class="kw3">cd</span> <span class="re1">$TC_HOME</span><span class="sy0">/</span>bin<span class="sy0">/</span>
-$ .<span class="sy0">/</span>start-tc-server.sh</pre></div></div>
-<ol><li> Start the Jetty instance (in another console)</li></ol>
-<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="bash source-bash"><pre class="de1">$ <span class="kw3">cd</span> <span class="re1">$JETTY_HOME</span><span class="sy0">/</span>
-$ <span class="re1">$TC_HOME</span><span class="sy0">/</span>bin<span class="sy0">/</span>dso-java.sh -Dtc.config=tc-config.xml <span class="re5">-jar</span> start.jar etc<span class="sy0">/</span>jetty.xml etc<span class="sy0">/</span>jetty-terracotta.xml</pre></div></div>
-<p>The command line above assumes that the Terracotta configuration file has been saved to <tt>$JETTY_HOME/tc-config.xml</tt>, and that the Jetty configuration file <tt>jetty-terracotta.xml</tt> is in its usual location under <tt>$JETTY_HOME/etc/</tt>. Repeat this step for all Jetty nodes and you are done.
-</p><p>Do not forget to change the <tt>workerName</tt> of the TerracottaSessionIdManager in each node you deploy (this is to help other hardware devices such as load balancers).
-</p><p>You can inspect that the clustering is working by starting the Terracotta administration console:
-</p>
-<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="bash source-bash"><pre class="de1">$ <span class="kw3">cd</span> <span class="re1">$TC_HOME</span><span class="sy0">/</span>bin
-$ .<span class="sy0">/</span>admin.sh</pre></div></div>
-
-
-</div>
-
-                    <div id="catlinks" class="catlinks"><div class="mw-normal-catlinks" id="mw-normal-catlinks"><a href="https://wiki.eclipse.org/Special:Categories" title="Special:Categories">Categories</a>: <ul><li><a href="https://wiki.eclipse.org/Category:Jetty" title="Category:Jetty">Jetty</a></li><li><a title="Category:Jetty Tutorial" href="https://wiki.eclipse.org/Category:Jetty_Tutorial">Jetty Tutorial</a></li></ul></div></div>
-                                  </div>
+    <link href="wiki-style.css" media="screen, print" rel="stylesheet" />
+  </head>
+  <body>
+    <div class="col-md-20" id="mainContent">
+      <div class="tab-content background-white">
+        <div class="tab-pane active" id="tab-pane-main-page-content">
+          <h1 class="firstHeading page-header" id="firstHeading">
+            <span dir="auto">Jetty/Tutorial/Terracota Session Clustering</span>
+          </h1>
+          <div id="main-page-content">
+            <div class="alert alert-small alert-warning" id="contentSub">
+              <span class="subpages">
+                &lt;
+                <a href="../../Jetty.html" title="Jetty">Jetty</a>
+                ‎ |
+                <a href="../Tutorial.html" title="Jetty/Tutorial">Tutorial</a>
+              </span>
+            </div>
+            <div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="en">
+              <p>
+                <br />
+              </p>
+              <p>
+                <br />
+              </p>
+              <div class="toc" id="toc">
+                <div id="toctitle">
+                  <h2>Contents</h2>
+                </div>
+                <ul>
+                  <li class="toclevel-1">
+                    <a href="Terracota Session Clustering.html#Introduction">
+                      <span class="tocnumber">1</span>
+                      <span class="toctext">Introduction</span>
+                    </a>
+                  </li>
+                  <li class="toclevel-1">
+                    <a href="Terracota Session Clustering.html#Details">
+                      <span class="tocnumber">2</span>
+                      <span class="toctext">Details</span>
+                    </a>
+                    <ul>
+                      <li class="toclevel-2">
+                        <a href="Terracota Session Clustering.html#Requirements">
+                          <span class="tocnumber">2.1</span>
+                          <span class="toctext">Requirements</span>
+                        </a>
+                      </li>
+                      <li class="toclevel-2">
+                        <a href="Terracota Session Clustering.html#Build_instructions">
+                          <span class="tocnumber">2.2</span>
+                          <span class="toctext">Build instructions</span>
+                        </a>
+                      </li>
+                      <li class="toclevel-2">
+                        <a href="Terracota Session Clustering.html#Jetty_Configuration_Files">
+                          <span class="tocnumber">2.3</span>
+                          <span class="toctext">Jetty Configuration Files</span>
+                        </a>
+                        <ul>
+                          <li class="toclevel-3">
+                            <a href="Terracota Session Clustering.html#The_TerracottaSessionIdManager">
+                              <span class="tocnumber">2.3.1</span>
+                              <span class="toctext">The TerracottaSessionIdManager</span>
+                            </a>
+                          </li>
+                          <li class="toclevel-3">
+                            <a href="Terracota Session Clustering.html#The_TerracottaSessionManager">
+                              <span class="tocnumber">2.3.2</span>
+                              <span class="toctext">The TerracottaSessionManager</span>
+                            </a>
+                          </li>
+                        </ul>
+                      </li>
+                      <li class="toclevel-2">
+                        <a href="Terracota Session Clustering.html#Terracotta_Configuration_File">
+                          <span class="tocnumber">2.4</span>
+                          <span class="toctext">Terracotta Configuration File</span>
+                        </a>
+                        <ul>
+                          <li class="toclevel-3">
+                            <a href="Terracota Session Clustering.html#The_base_Terracotta_Configuration_File">
+                              <span class="tocnumber">2.4.1</span>
+                              <span class="toctext">The base Terracotta Configuration File</span>
+                            </a>
+                          </li>
+                          <li class="toclevel-3">
+                            <a href="Terracota Session Clustering.html#Modifications_to_the_Terracotta_Configuration_File">
+                              <span class="tocnumber">2.4.2</span>
+                              <span class="toctext">Modifications to the Terracotta Configuration File</span>
+                            </a>
+                          </li>
+                        </ul>
+                      </li>
+                      <li class="toclevel-2">
+                        <a href="Terracota Session Clustering.html#Starting_Terracotta_and_Jetty">
+                          <span class="tocnumber">2.5</span>
+                          <span class="toctext">Starting Terracotta and Jetty</span>
+                        </a>
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </div>
+              <h2>
+                <span class="mw-headline" id="Introduction">Introduction</span>
+              </h2>
+              <div class="messagebox" style="background-color: #f9f6b7; border: 1px solid #c4c295; color: black; padding: 5px; margin: 1ex 0; min-height: 35px; padding-left: 45px;">
+                <div style="float: left; margin-left: -40px;">
+                  <a class="image" href="https://wiki.eclipse.org/File:Warning2.png">
+                    <img alt="Warning2.png" height="35" src="../../images/3/37/Warning2.png" width="35" />
+                  </a>
+                </div>
+                <div>
+                  <b>Attention:</b>
+                  <br />
+                  This documentation is relevant for Jetty 6. Please see
+                  <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/server/session/JDBCSessionIdManager.html" rel="nofollow">JDBCSessionIdManager</a>
+                  and
+                  <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/server/session/JDBCSessionManager.html" rel="nofollow">JDBCSessionManager</a>
+                  javadoc for the corresponding Jetty 7 feature.
+                </div>
+              </div>
+              <p>
+                <br />
+                Jetty has been integrated with
+                <a class="external text" href="http://www.terracotta.org" rel="nofollow">Terracotta</a>
+                , providing a great clustering solution. Since Jetty 6.1.12, the Jetty-Terracotta integration has been rewritten to provide better performance. The Jetty-Terracotta integration is not bundled by default; it must be built from sources following the instructions below.
+              </p>
+              <h2>
+                <span class="mw-headline" id="Details">Details</span>
+              </h2>
+              <h3>
+                <span class="mw-headline" id="Requirements">Requirements</span>
+              </h3>
+              <ol>
+                <li>You need J2SE 1.5 or greater to build and run the Jetty-Terracotta integration.</li>
+                <li>You need Jetty 6.1.12 or greater.</li>
+                <li>
+                  You need to install Terracotta, we have tested
+                  <a class="external text" href="http://www.terracotta.org/web/display/orgsite/Download" rel="nofollow">Terracotta 2.6.4</a>
+                  or greater. We will refer to the installation directory as
+                  <tt>$TC_HOME</tt>
+                  .
+                </li>
+                <li>You need to download [/download/attachments/80907/tim-jetty-6.1-1.0.4.jar?version=1&amp;modificationDate=1226592637334 this] Jetty TIM (Terracotta Integration Module).</li>
+              </ol>
+              <p>
+                We are working on an updated version of the official Jetty TIM and update the instructions when the new version of the official Jetty TIM is compatible with the current Jetty-Terracotta integration. Don't be fooled by the '1.1.1' version on the official TIM, you really need this 1.0.4. The official Jetty TIM will be downloadable from the Terracotta Forge. Copy the downloaded Jetty TIM file
+                <tt>tim-jetty-6.1-1.0.4.jar</tt>
+                to
+                <tt>$TC_HOME/modules/</tt>
+                .
+              </p>
+              <h3>
+                <span class="mw-headline" id="Build_instructions">Build instructions</span>
+              </h3>
+              <ol>
+                <li>
+                  Download and unzip a source bundle of Jetty 6.1.12 or greater from the distribution site. We will refer to the installation directory as
+                  <tt>$JETTY_HOME</tt>
+                  .
+                </li>
+                <li>Build it:</li>
+              </ol>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="bash source-bash">
+                  <pre class="de1">
+                    $
+                    <span class="kw3">cd</span>
+                    <span class="re1">$JETTY_HOME</span>
+                    $ mvn clean
+                    <span class="kw2">install</span>
+                  </pre>
+                </div>
+              </div>
+              <ol>
+                <li>
+                  Copy the target/jetty-terracotta-sessions-6.1.12.jar you just built into
+                  <tt>$JETTY_HOME&gt;/lib/ext</tt>
+                  :
+                </li>
+              </ol>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="bash source-bash">
+                  <pre class="de1">
+                    <span class="co4">$</span>
+                    <span class="kw2">cp</span>
+                    contrib
+                    <span class="sy0">/</span>
+                    terracotta
+                    <span class="sy0">/</span>
+                    target
+                    <span class="sy0">/</span>
+                    jetty-terracotta-sessions-6.1.12.jar
+                    <span class="re1">$JETTY_HOME</span>
+                    <span class="sy0">&gt;/</span>
+                    lib
+                    <span class="sy0">/</span>
+                    ext
+                    <span class="sy0">/</span>
+                  </pre>
+                </div>
+              </div>
+              <h3>
+                <span class="mw-headline" id="Jetty_Configuration_Files">Jetty Configuration Files</span>
+              </h3>
+              <p>Configuring Jetty to use Terracotta consists of creating a single TerracottaSessionIdManager per Jetty instance to generate unique session ids, and then setting up a special TerracottaSessionManager per each webapp that you want to be clustered.</p>
+              <h4>
+                <span class="mw-headline" id="The_TerracottaSessionIdManager">The TerracottaSessionIdManager</span>
+              </h4>
+              <p>
+                One TerracottaSessionIdManager is configured per Jetty instance to generate unique session ids. These are the relevant lines to add to add to a separate
+                <tt>$JETTY_HOME/etc/jetty-terracotta.xml</tt>
+                :
+              </p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="xml source-xml">
+                  <pre class="de1">
+                    <span class="sc3">
+                      <span class="re1">&lt;Configure</span>
+                      <span class="re0">id</span>
+                      =
+                      <span class="st0">"Server"</span>
+                      <span class="re0">class</span>
+                      =
+                      <span class="st0">"org.mortbay.jetty.Server"</span>
+                      <span class="re2">&gt;</span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">&lt;New</span>
+                      <span class="re0">id</span>
+                      =
+                      <span class="st0">"tcIdManager"</span>
+                      <span class="re0">class</span>
+                      =
+                      <span class="st0">"org.mortbay.terracotta.servlet.TerracottaSessionIdManager"</span>
+                      <span class="re2">&gt;</span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;Arg
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">&lt;Ref</span>
+                      <span class="re0">id</span>
+                      =
+                      <span class="st0">"Server"</span>
+                      <span class="re2">/&gt;</span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Arg
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">&lt;Set</span>
+                      <span class="re0">name</span>
+                      =
+                      <span class="st0">"workerName"</span>
+                      <span class="re2">&gt;</span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">&lt;SystemProperty</span>
+                      <span class="re0">name</span>
+                      =
+                      <span class="st0">"jetty.node"</span>
+                      <span class="re0">default</span>
+                      =
+                      <span class="st0">"node1"</span>
+                      <span class="re2">/&gt;</span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Set
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/New
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">&lt;Call</span>
+                      <span class="re0">name</span>
+                      =
+                      <span class="st0">"setAttribute"</span>
+                      <span class="re2">&gt;</span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;Arg
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    tcIdManager
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Arg
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;Arg
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">&lt;Ref</span>
+                      <span class="re0">id</span>
+                      =
+                      <span class="st0">"tcIdManager"</span>
+                      <span class="re2">/&gt;</span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Arg
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Call
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Configure
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                  </pre>
+                </div>
+              </div>
+              <p>
+                The TerracottaSessionIdManager is stored as an attribute on the Server instance for later retrieval under the name
+                <tt>tcIdManager</tt>
+                . The
+                <tt>workerName</tt>
+                is a unique name for the Jetty node. In the example above it is "node1" but you can use any naming scheme you'd like. This is useful when hardware components such as load balancers can "stick" the requests to the same node to improve performances by limiting the session migrations among nodes.
+              </p>
+              <h4>
+                <span class="mw-headline" id="The_TerracottaSessionManager">The TerracottaSessionManager</span>
+              </h4>
+              <p>Each web application whose sessions you want to cluster must use a TerracottaSessionManager instead of the default HashSessionManager. The easiest way to do this is to create individual [/display/JETTY/ContextDeployer context deployer] config files for each web application, and include these lines:</p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="xml source-xml">
+                  <pre class="de1">
+                    <span class="sc3">
+                      <span class="re1">&lt;Configure</span>
+                      <span class="re0">class</span>
+                      =
+                      <span class="st0">"org.mortbay.jetty.webapp.WebAppContext"</span>
+                      <span class="re2">&gt;</span>
+                    </span>
+                    ...
+                    <span class="sc3">
+                      <span class="re1">&lt;Property</span>
+                      <span class="re0">name</span>
+                      =
+                      <span class="st0">"Server"</span>
+                      <span class="re0">id</span>
+                      =
+                      <span class="st0">"Server"</span>
+                      <span class="re2">&gt;</span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">&lt;Call</span>
+                      <span class="re0">id</span>
+                      =
+                      <span class="st0">"tcIdManager"</span>
+                      <span class="re0">name</span>
+                      =
+                      <span class="st0">"getAttribute"</span>
+                      <span class="re2">&gt;</span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;Arg
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    tcIdManager
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Arg
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Call
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Property
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">&lt;Set</span>
+                      <span class="re0">name</span>
+                      =
+                      <span class="st0">"sessionHandler"</span>
+                      <span class="re2">&gt;</span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">&lt;New</span>
+                      <span class="re0">class</span>
+                      =
+                      <span class="st0">"org.mortbay.terracotta.servlet.TerracottaSessionHandler"</span>
+                      <span class="re2">&gt;</span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;Arg
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">&lt;New</span>
+                      <span class="re0">class</span>
+                      =
+                      <span class="st0">"org.mortbay.terracotta.servlet.TerracottaSessionManager"</span>
+                      <span class="re2">&gt;</span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">&lt;Set</span>
+                      <span class="re0">name</span>
+                      =
+                      <span class="st0">"idManager"</span>
+                      <span class="re2">&gt;</span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">&lt;Ref</span>
+                      <span class="re0">id</span>
+                      =
+                      <span class="st0">"tcIdManager"</span>
+                      <span class="re2">/&gt;</span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Set
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/New
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Arg
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/New
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Set
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    ...
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Configure
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                  </pre>
+                </div>
+              </div>
+              <p>These lines ensure that a TerracottaSessionManager is established for each web application, and has access to the Jetty instance's unique TerracottaSessionIdManager we configured above.</p>
+              <h3>
+                <span class="mw-headline" id="Terracotta_Configuration_File">Terracotta Configuration File</span>
+              </h3>
+              <p>You need one Terracotta configuration file for each Jetty instance. In the Terracotta configuration file, part of the configuration is needed to setup correctly the Jetty-Terracotta integration, and the rest of the configuration is needed to setup the Terracotta server and the web applications.</p>
+              <h4>
+                <span class="mw-headline" id="The_base_Terracotta_Configuration_File">The base Terracotta Configuration File</span>
+              </h4>
+              <p>The base Terracotta configuration file that sets up the Jetty-Terracotta integration is the following:</p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="xml source-xml">
+                  <pre class="de1">
+                    <span class="sc3">
+                      <span class="re1">&lt;?xml</span>
+                      <span class="re0">version</span>
+                      =
+                      <span class="st0">"1.0"</span>
+                      <span class="re0">encoding</span>
+                      =
+                      <span class="st0">"UTF-8"</span>
+                      <span class="re2">?&gt;</span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">&lt;tc:tc-config</span>
+                      <span class="re0">xmlns:tc</span>
+                      =
+                      <span class="st0">"http://www.terracotta.org/config"</span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re0">xmlns:xsi</span>
+                      =
+                      <span class="st0">"http://www.w3.org/2001/XMLSchema-instance"</span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re0">xsi:schemaLocation</span>
+                      =
+                      <span class="st0">"http://www.terracotta.org/config http://www.terracotta.org/schema/terracotta-4.xsd"</span>
+                      <span class="re2">&gt;</span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;servers
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">&lt;server</span>
+                      <span class="re0">host</span>
+                      =
+                      <span class="st0">"localhost"</span>
+                      <span class="re2">&gt;</span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;data
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    %(user.dir)/terracotta/server-data
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/data
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;logs
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    %(user.dir)/terracotta/server-logs
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/logs
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/server
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/servers
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;clients
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;modules
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">&lt;module</span>
+                      <span class="re0">name</span>
+                      =
+                      <span class="st0">"tim-jetty-6.1"</span>
+                      <span class="re0">version</span>
+                      =
+                      <span class="st0">"1.0.1"</span>
+                      <span class="re2">/&gt;</span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/modules
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;logs
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    %(user.dir)/terracotta/client-logs
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/logs
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/clients
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;application
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;dso
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;instrumented-classes
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;include
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;class-expression
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    ...
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/class-expression
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/include
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/instrumented-classes
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/dso
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/application
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/tc:tc-config
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                  </pre>
+                </div>
+              </div>
+              <p>
+                You can create a Terracotta configuration file wherever you prefer in the file system. The file will be referenced by path in a system property to be passed on the command line (see below). Copy and paste the example file content above into, for example,
+                <tt>$JETTY_HOME/tc-config.xml</tt>
+                .
+              </p>
+              <h4>
+                <span class="mw-headline" id="Modifications_to_the_Terracotta_Configuration_File">Modifications to the Terracotta Configuration File</span>
+              </h4>
+              <p>There are few places that needs to be modified in order for the Terracotta configuration file to correctly cluster your web application.</p>
+              <ol>
+                <li>Modify the location of the Terracotta server.</li>
+              </ol>
+              <p>
+                The server element has the
+                <tt>host</tt>
+                attribute that needs to be modified to point to the host name or host address of the Terracotta server. In most simple configurations this can be the local host, but in more advanced configurations the Terracotta server is deployed in a separate host.
+              </p>
+              <ol>
+                <li>Instrumented classes includes</li>
+              </ol>
+              <p>
+                If you web application puts in the HTTP session only instances of JDK available classes (such as
+                <tt>java.lang.Integer</tt>
+                or
+                <tt>java.lang.String</tt>
+                ), then you do not need the instrumented-classes element. In case your web application puts in the HTTP session instances of classes belonging to the web application (such as a domain
+                <tt>com.acme.domain.User</tt>
+                class), then you need to specify also those classes as instrumented, for example:
+              </p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="xml source-xml">
+                  <pre class="de1">
+                    <span class="sc3">
+                      <span class="re1">&lt;tc:tc-config</span>
+                      ...
+                      <span class="re2">&gt;</span>
+                    </span>
+                    ...
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;application
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;dso
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;instrumented-classes
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;include
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;class-expression
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    com.acme.domain.User
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/class-expression
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/include
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/instrumented-classes
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/dso
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/application
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    ...
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/tc:tc-config
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                  </pre>
+                </div>
+              </div>
+              <p>
+                You can also specify class expressions to match multiple classes, as specified
+                <a class="external text" href="http://www.terracotta.org/confluence/display/docs1/Configuration+Guide+and+Reference" rel="nofollow">here</a>
+                .
+              </p>
+              <ol>
+                <li>Web application contexts</li>
+              </ol>
+              <p>
+                You do not need to specify the context path at which the web application is configured, by defining the
+                <tt>web-application</tt>
+                elements in the Terracotta configuration file, since the intention of clustering a context is already specified in the Jetty context configuration file.
+              </p>
+              <h3>
+                <span class="mw-headline" id="Starting_Terracotta_and_Jetty">Starting Terracotta and Jetty</span>
+              </h3>
+              <p>The final steps require to start the Terracotta server and the Jetty servers.</p>
+              <ol>
+                <li>Start the Terracotta server (in one console)</li>
+              </ol>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="bash source-bash">
+                  <pre class="de1">
+                    $
+                    <span class="kw3">cd</span>
+                    <span class="re1">$TC_HOME</span>
+                    <span class="sy0">/</span>
+                    bin
+                    <span class="sy0">/</span>
+                    $ .
+                    <span class="sy0">/</span>
+                    start-tc-server.sh
+                  </pre>
+                </div>
+              </div>
+              <ol>
+                <li>Start the Jetty instance (in another console)</li>
+              </ol>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="bash source-bash">
+                  <pre class="de1">
+                    $
+                    <span class="kw3">cd</span>
+                    <span class="re1">$JETTY_HOME</span>
+                    <span class="sy0">/</span>
+                    $
+                    <span class="re1">$TC_HOME</span>
+                    <span class="sy0">/</span>
+                    bin
+                    <span class="sy0">/</span>
+                    dso-java.sh -Dtc.config=tc-config.xml
+                    <span class="re5">-jar</span>
+                    start.jar etc
+                    <span class="sy0">/</span>
+                    jetty.xml etc
+                    <span class="sy0">/</span>
+                    jetty-terracotta.xml
+                  </pre>
+                </div>
+              </div>
+              <p>
+                The command line above assumes that the Terracotta configuration file has been saved to
+                <tt>$JETTY_HOME/tc-config.xml</tt>
+                , and that the Jetty configuration file
+                <tt>jetty-terracotta.xml</tt>
+                is in its usual location under
+                <tt>$JETTY_HOME/etc/</tt>
+                . Repeat this step for all Jetty nodes and you are done.
+              </p>
+              <p>
+                Do not forget to change the
+                <tt>workerName</tt>
+                of the TerracottaSessionIdManager in each node you deploy (this is to help other hardware devices such as load balancers).
+              </p>
+              <p>You can inspect that the clustering is working by starting the Terracotta administration console:</p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="bash source-bash">
+                  <pre class="de1">
+                    $
+                    <span class="kw3">cd</span>
+                    <span class="re1">$TC_HOME</span>
+                    <span class="sy0">/</span>
+                    bin
+$ .
+                    <span class="sy0">/</span>
+                    admin.sh
+                  </pre>
+                </div>
+              </div>
+            </div>
+            <div class="catlinks" id="catlinks">
+              <div class="mw-normal-catlinks" id="mw-normal-catlinks">
+                <a href="https://wiki.eclipse.org/Special:Categories" title="Special:Categories">Categories</a>
+                :
+                <ul>
+                  <li>
+                    <a href="https://wiki.eclipse.org/Category:Jetty" title="Category:Jetty">Jetty</a>
+                  </li>
+                  <li>
+                    <a href="https://wiki.eclipse.org/Category:Jetty_Tutorial" title="Category:Jetty Tutorial">Jetty Tutorial</a>
+                  </li>
+                </ul>
               </div>
             </div>
           </div>
-</body>
+        </div>
+      </div>
+    </div>
+  </body>
 </html>

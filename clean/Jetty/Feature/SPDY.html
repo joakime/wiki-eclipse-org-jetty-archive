@@ -1,374 +1,1846 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
-<head>
+  <head>
     <title>Jetty WTP Plugin</title>
-    <link rel="stylesheet" media="screen, print" href="wiki-style.css"/>
-</head>
-<body>
-<div class="col-md-20" id="mainContent">
-                                <div class="tab-content background-white">
-              <div class="tab-pane active" id="tab-pane-main-page-content">
-
-                
-                <h1 id="firstHeading" class="firstHeading page-header">
-                  <span dir="auto">Jetty/Feature/SPDY</span>
-                </h1>
-                <div id="main-page-content">
-
-                  <div id="contentSub" class="alert alert-small alert-warning"><span class="subpages">&lt; <a href="../../Jetty.html" title="Jetty">Jetty</a>‎ | <a title="Jetty/Feature" href="../Feature.html">Feature</a></span></div>
-
-                  
-                  
-                  <div class="mw-content-ltr" id="mw-content-text" lang="en" dir="ltr"><p><br/>
-</p><p><br/>
-</p>
-<div class="toc" id="toc"><div id="toctitle"><h2>Contents</h2></div>
-<ul>
-<li class="toclevel-1"><a href="SPDY.html#Introduction"><span class="tocnumber">1</span> <span class="toctext">Introduction</span></a></li>
-<li class="toclevel-1"><a href="SPDY.html#Feature"><span class="tocnumber">2</span> <span class="toctext">Feature</span></a>
-<ul>
-<li class="toclevel-2"><a href="SPDY.html#Introducing_SPDY_Modules"><span class="tocnumber">2.1</span> <span class="toctext">Introducing SPDY Modules</span></a></li>
-<li class="toclevel-2"><a href="SPDY.html#Transparently_Enabling_HTTP_over_SPDY_in_Jetty"><span class="tocnumber">2.2</span> <span class="toctext">Transparently Enabling HTTP over SPDY in Jetty</span></a></li>
-<li class="toclevel-2"><a href="SPDY.html#SPDY_Proxy"><span class="tocnumber">2.3</span> <span class="toctext">SPDY Proxy</span></a></li>
-<li class="toclevel-2"><a href="SPDY.html#Using_SPDY_Client_Applications"><span class="tocnumber">2.4</span> <span class="toctext">Using SPDY Client Applications</span></a></li>
-<li class="toclevel-2"><a href="SPDY.html#Using_SPDY_Server_Applications"><span class="tocnumber">2.5</span> <span class="toctext">Using SPDY Server Applications</span></a></li>
-</ul>
-</li>
-</ul>
-</div>
-
-<h2><span id="Introduction" class="mw-headline">Introduction</span></h2>
-<div style="background-color: #f9f6b7; border: 1px solid #c4c295; color: black; padding: 5px; margin: 1ex 0; min-height: 35px; padding-left: 45px; font-size: 150%; color: white; background-color: #FF8888; padding: 50px" class="messagebox">
-<div style="float: left; margin-left: -40px;"><a href="https://wiki.eclipse.org/File:Warning2.png" class="image"><img width="35" height="35" alt="Warning2.png" src="../../images/3/37/Warning2.png"/></a></div>
-<div>Jetty 7 and Jetty 8 are now EOL (End of Life)<br/>
-<p><br/>
-<br/>
-<br/>
-THIS IS NOT THE DOCUMENTATION YOU ARE LOOKING FOR!!!!!<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-All development and stable releases are being performed with Jetty 9 and Jetty 10.<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-This <b>wiki is now officially out of date</b> and all content has been moved to the <a rel="nofollow" class="external text" href="http://www.eclipse.org/jetty/documentation">Jetty Documentation Hub</a><br/> 
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-</p>
-Direct Link to updated documentation: <a rel="nofollow" class="external free" href="http://www.eclipse.org/jetty/documentation/current/spdy.html">http://www.eclipse.org/jetty/documentation/current/spdy.html</a></div>
-</div>
-<p><br/>
-Jetty supports both a client and a server implementation for the <a rel="nofollow" class="external text" href="http://www.chromium.org/spdy">SPDY</a> protocol, beginning with versions 7.6.2 and 8.1.2. To provide the best support possible for SPDY, the Jetty project also provides an <a title="Jetty/Feature/NPN" href="NPN.html">implementation for NPN</a>. Both the SPDY and the NPN implementation require OpenJDK 1.7 or greater.
-</p><p>A server deployed over TLS normally advertises the SPDY protocol, via the Next Protocol Negotiation TLS Extension (NPN).
-</p><p>See a <a rel="nofollow" href="http://webtide.intalio.com/2012/10/spdy-push-demo-from-javaone-2012/" class="external text">SPDY Push Demonstration</a> video from Java One 2012.
-</p>
-<h2><span class="mw-headline" id="Feature">Feature</span></h2>
-<h3><span class="mw-headline" id="Introducing_SPDY_Modules">Introducing SPDY Modules</span></h3>
-<p>Jetty's SPDY implementation consists of four modules:
-</p>
-<ul><li> <code>spdy-core</code> – contains the SPDY API and a partial implementation. This module is independent of Jetty (the servlet container), and you can reuse it with other Java SPDY implementations. One of the goals of this module is to standardize the SPDY Java API.</li>
-<li> <code>spdy-jetty</code> module – binds the <code>spdy-core</code> module to Jetty's NIO framework to provide asynchronous socket I/O. This module uses Jetty internals, but Java SPDY client applications can also use it to communicate with a SPDY server.</li>
-<li> <code>spdy-jetty-http</code> module – provides a server-side layering of HTTP over SPDY. This module allows any SPDY compliant browser, such as Chromium/Chrome, to talk SPDY to a Jetty server that deploys a standard web application made of servlets, filters and JSPs. This module performs the conversion SPDY to HTTP and vice versa so that for the web application it is as if a normal HTTP request has arrived, and a normal HTTP response is returned.</li>
-<li> <code>spdy-jetty-http-webapp</code> module – provides a demo application for the a <code>spdy-jetty-http</code> module.</li></ul>
-<h3><span id="Transparently_Enabling_HTTP_over_SPDY_in_Jetty" class="mw-headline">Transparently Enabling HTTP over SPDY in Jetty</span></h3>
-<p>The <code>spdy-jetty-http</code> module provides an out-of-the-box <a href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/spdy/http/HTTPSPDYServerConnector.html" class="external text" rel="nofollow">server connector</a> that performs the SPDY to HTTP conversion and vice versa (HTTP over SPDY).
-You can use this connector instead of Jetty's <code>SslSelectChannelConnector</code> (that only speaks HTTP), and it falls back to HTTPS if SPDY is not negotiated.
-</p><p>An example <code>jetty-spdy.xml</code> file that you can use instead of <code>jetty-ssl.xml</code> follows:
-</p>
-<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="xml source-xml"><pre class="de1"><span class="sc3"><span class="re1">&lt;?xml</span> <span class="re0">version</span>=<span class="st0">"1.0"</span> <span class="re0">encoding</span>=<span class="st0">"UTF-8"</span><span class="re2">?&gt;</span></span>
-<span class="sc0">&lt;!DOCTYPE Configure PUBLIC "-//Jetty//Configure//EN" "http://www.eclipse.org/jetty/configure.dtd"&gt;</span>
-
-<span class="sc3"><span class="re1">&lt;Configure</span> <span class="re0">id</span>=<span class="st0">"Server"</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.server.Server"</span><span class="re2">&gt;</span></span>
-
-    <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">id</span>=<span class="st0">"sslContextFactory"</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.util.ssl.SslContextFactory"</span><span class="re2">&gt;</span></span>
-        <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"keyStorePath"</span><span class="re2">&gt;</span></span>your_keystore.jks<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
-        <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"keyStorePassword"</span><span class="re2">&gt;</span></span>storepwd<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
-        <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"includeProtocols"</span><span class="re2">&gt;</span></span>TLSv1<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
-    <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span>
-
-    <span class="sc3"><span class="re1">&lt;Call</span> <span class="re0">name</span>=<span class="st0">"addConnector"</span><span class="re2">&gt;</span></span>
-        <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>
-            <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.spdy.http.HTTPSPDYServerConnector"</span><span class="re2">&gt;</span></span>
-                <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>
-                    <span class="sc3"><span class="re1">&lt;Ref</span> <span class="re0">id</span>=<span class="st0">"sslContextFactory"</span> <span class="re2">/&gt;</span></span>
-                <span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
-                <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"Port"</span><span class="re2">&gt;</span></span>8443<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
-            <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span>
-        <span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
-    <span class="sc3"><span class="re1">&lt;/Call<span class="re2">&gt;</span></span></span>
-
-<span class="sc3"><span class="re1">&lt;/Configure<span class="re2">&gt;</span></span></span></pre></div></div>
-<p>This is sufficient to enable your Jetty server to speak SPDY to browsers that support it.
-</p><p>Remember, however, that SPDY over SSL (as set up like the configuration above) requires that you set up NPN correctly; in particular, you need to start the JVM with the NPN boot jar in the boot classpath (follow the instructions at the <a title="Jetty/Feature/NPN" href="NPN.html">NPN</a> documentation page).
-</p><p>Additionally, NPN is only supported for the TLS protocol, version 1 or greater; this means that it cannot be used with SSLv2, which implies that you have to configure the <code>SslContextFactory</code> to use TLSv1 or above, since the JDK usually sends a SSLv2 <i>ClientHello</i> message to secure servers. This is done by specifying the "includeProtocols" property to contain at least the value "TLSv1" (see above).
-</p>
-<h3><span id="SPDY_Proxy" class="mw-headline">SPDY Proxy</span></h3>
-<p><code>spdy-jetty-http</code> also provides a fully functional SPDY proxy server out of the box. Jetty's SPDY proxy is capable to receive SPDY (currently v2/v3) and HTTP requests and proxy those requests to other SPDY servers. It will if necessary translate the incoming protocol to a protocol the target host understands. The translation to the target server protocol is done by an implementation of the <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/spdy/http/proxy/ProxyEngine.html" rel="nofollow">ProxyEngine</a> class. Right now we only provide a <a href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/spdy/http/proxy/SPDYProxyEngine.html" class="external text" rel="nofollow">SPDYProxyEngine</a> implementation which can talk spdy/2 and spdy/3. We're planning to support other protocols soon out of the box. As always contributions are welcome.
-</p><p>Configuration is pretty straight forward as the following example will show. The example server will have a plain SPDY connector listening on port 9090 and a spdy proxy connector listening on port 8080. Incoming requests to port 8080 will be proxied and translated to the connector listening on port 9090. In real world scenarios you will more likely proxy to a different host.
-</p>
-<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="xml source-xml"><pre class="de1"><span class="sc3"><span class="re1">&lt;?xml</span> <span class="re0">version</span>=<span class="st0">"1.0"</span> <span class="re0">encoding</span>=<span class="st0">"UTF-8"</span><span class="re2">?&gt;</span></span>
-<span class="sc0">&lt;!DOCTYPE Configure PUBLIC "-//Jetty//Configure//EN" "http://www.eclipse.org/jetty/configure.dtd"&gt;</span>
-
-<span class="sc3"><span class="re1">&lt;Configure</span> <span class="re0">id</span>=<span class="st0">"Server"</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.server.Server"</span><span class="re2">&gt;</span></span>
-
-    <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">id</span>=<span class="st0">"sslContextFactory"</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.util.ssl.SslContextFactory"</span><span class="re2">&gt;</span></span>
-        <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"keyStorePath"</span><span class="re2">&gt;</span></span>src/main/resources/keystore.jks<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
-        <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"keyStorePassword"</span><span class="re2">&gt;</span></span>storepwd<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
-        <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"trustStore"</span><span class="re2">&gt;</span></span>src/main/resources/truststore.jks<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
-        <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"trustStorePassword"</span><span class="re2">&gt;</span></span>storepwd<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
-        <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"protocol"</span><span class="re2">&gt;</span></span>TLSv1<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
-    <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span>
-
-    <span class="sc-1">&lt;!--</span>
-<span class="sc-1">    &lt;Set class="org.eclipse.jetty.npn.NextProtoNego" name="debug" type="boolean"&gt;true&lt;/Set&gt;</span>
-<span class="sc-1">    --&gt;</span>
-
-    <span class="sc-1">&lt;!--</span>
-<span class="sc-1">    This is the upstream server connector. It speaks non-SSL SPDY/2(HTTP) on port 9090.</span>
-<span class="sc-1">    --&gt;</span>
-    <span class="sc3"><span class="re1">&lt;Call</span> <span class="re0">name</span>=<span class="st0">"addConnector"</span><span class="re2">&gt;</span></span>
-        <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>
-            <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.spdy.http.HTTPSPDYServerConnector"</span><span class="re2">&gt;</span></span>
-                <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"Port"</span><span class="re2">&gt;</span></span>9090<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
-                <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"defaultAsyncConnectionFactory"</span><span class="re2">&gt;</span></span>
-                    <span class="sc3"><span class="re1">&lt;Call</span> <span class="re0">name</span>=<span class="st0">"getAsyncConnectionFactory"</span><span class="re2">&gt;</span></span>
-                        <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>spdy/2<span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
-                    <span class="sc3"><span class="re1">&lt;/Call<span class="re2">&gt;</span></span></span>
-                <span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
-            <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span>
-        <span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
-    <span class="sc3"><span class="re1">&lt;/Call<span class="re2">&gt;</span></span></span>
-
-    <span class="sc-1">&lt;!--</span>
-<span class="sc-1">    This ProxyEngine translates the incoming SPDY/x(HTTP) request to SPDY/2(HTTP)</span>
-<span class="sc-1">    --&gt;</span>
-    <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">id</span>=<span class="st0">"spdyProxyEngine"</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.spdy.proxy.SPDYProxyEngine"</span><span class="re2">&gt;</span></span>
-        <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>spdy/2<span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
-        <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>
-            <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.spdy.SPDYClient$Factory"</span><span class="re2">&gt;</span></span>
-                <span class="sc3"><span class="re1">&lt;Call</span> <span class="re0">name</span>=<span class="st0">"start"</span><span class="re2">/&gt;</span></span>
-            <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span>
-        <span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
-    <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span>
-
-    <span class="sc-1">&lt;!--</span>
-<span class="sc-1">    The ProxyEngineSelector receives SPDY/x(HTTP) requests from proxy connectors below</span>
-<span class="sc-1">    and is configured to process requests for host "localhost".</span>
-<span class="sc-1">    Such requests are converted from SPDY/x(HTTP) to SPDY/2(HTTP) by the configured ProxyEngine</span>
-<span class="sc-1">    and forwarded to 127.0.0.1:9090, where they are served by the upstream server above.</span>
-<span class="sc-1">    --&gt;</span>
-    <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">id</span>=<span class="st0">"proxyEngineSelector"</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.spdy.proxy.ProxyEngineSelector"</span><span class="re2">&gt;</span></span>
-        <span class="sc3"><span class="re1">&lt;Call</span> <span class="re0">name</span>=<span class="st0">"putProxyEngine"</span><span class="re2">&gt;</span></span>
-            <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span><span class="re1">&lt;Ref</span> <span class="re0">id</span>=<span class="st0">"spdyProxyEngine"</span> <span class="re2">/&gt;</span><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
-        <span class="sc3"><span class="re1">&lt;/Call<span class="re2">&gt;</span></span></span>
-        <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"proxyServerInfos"</span><span class="re2">&gt;</span></span>
-            <span class="sc3"><span class="re1">&lt;Map<span class="re2">&gt;</span></span></span>
-                <span class="sc3"><span class="re1">&lt;Entry<span class="re2">&gt;</span></span></span>
-                    <span class="sc3"><span class="re1">&lt;Item<span class="re2">&gt;</span></span></span>localhost<span class="sc3"><span class="re1">&lt;/Item<span class="re2">&gt;</span></span></span>
-                    <span class="sc3"><span class="re1">&lt;Item<span class="re2">&gt;</span></span></span>
-                        <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.spdy.proxy.ProxyEngineSelector$ProxyServerInfo"</span><span class="re2">&gt;</span></span>
-                            <span class="sc3"><span class="re1">&lt;Arg</span> <span class="re0">type</span>=<span class="st0">"String"</span><span class="re2">&gt;</span></span>spdy/2<span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
-                            <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>127.0.0.1<span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
-                            <span class="sc3"><span class="re1">&lt;Arg</span> <span class="re0">type</span>=<span class="st0">"int"</span><span class="re2">&gt;</span></span>9090<span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
-                        <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span>
-                    <span class="sc3"><span class="re1">&lt;/Item<span class="re2">&gt;</span></span></span>
-                <span class="sc3"><span class="re1">&lt;/Entry<span class="re2">&gt;</span></span></span>
-            <span class="sc3"><span class="re1">&lt;/Map<span class="re2">&gt;</span></span></span>
-        <span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
-    <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span>
-
-    <span class="sc-1">&lt;!--</span>
-<span class="sc-1">    These are the reverse proxy connectors accepting requests from clients.</span>
-<span class="sc-1">    They accept non-SSL (on port 8080) and SSL (on port 8443) HTTP,</span>
-<span class="sc-1">    SPDY/2(HTTP) and SPDY/3(HTTP).</span>
-<span class="sc-1">    Non-SPDY HTTP requests are converted to SPDY internally and passed to the</span>
-<span class="sc-1">    ProxyEngine above.</span>
-<span class="sc-1">    --&gt;</span>
-    <span class="sc3"><span class="re1">&lt;Call</span> <span class="re0">name</span>=<span class="st0">"addConnector"</span><span class="re2">&gt;</span></span>
-        <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>
-            <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.spdy.proxy.HTTPSPDYProxyConnector"</span><span class="re2">&gt;</span></span>
-                <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span><span class="re1">&lt;Ref</span> <span class="re0">id</span>=<span class="st0">"proxyEngineSelector"</span> <span class="re2">/&gt;</span><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
-                <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"Port"</span><span class="re2">&gt;</span></span>8080<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
-            <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span>
-        <span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
-    <span class="sc3"><span class="re1">&lt;/Call<span class="re2">&gt;</span></span></span>
-    <span class="sc3"><span class="re1">&lt;Call</span> <span class="re0">name</span>=<span class="st0">"addConnector"</span><span class="re2">&gt;</span></span>
-        <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>
-            <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.spdy.proxy.HTTPSPDYProxyConnector"</span><span class="re2">&gt;</span></span>
-                <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span><span class="re1">&lt;Ref</span> <span class="re0">id</span>=<span class="st0">"proxyEngineSelector"</span> <span class="re2">/&gt;</span><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
-                <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span><span class="re1">&lt;Ref</span> <span class="re0">id</span>=<span class="st0">"sslContextFactory"</span> <span class="re2">/&gt;</span><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
-                <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"Port"</span><span class="re2">&gt;</span></span>8443<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
-            <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span>
-        <span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
-    <span class="sc3"><span class="re1">&lt;/Call<span class="re2">&gt;</span></span></span>
-
-<span class="sc3"><span class="re1">&lt;/Configure<span class="re2">&gt;</span></span></span></pre></div></div>
-<p>Let's take this apart:
-</p>
-<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="xml source-xml"><pre class="de1"><span class="sc-1">&lt;!--</span>
-<span class="sc-1">This ProxyEngine translates the incoming SPDY/x(HTTP) request to SPDY/2(HTTP)</span>
-<span class="sc-1">--&gt;</span>
-<span class="sc3"><span class="re1">&lt;New</span> <span class="re0">id</span>=<span class="st0">"spdyProxyEngine"</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.spdy.proxy.SPDYProxyEngine"</span><span class="re2">&gt;</span></span>
-    <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>spdy/2<span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
-    <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>
-        <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.spdy.SPDYClient$Factory"</span><span class="re2">&gt;</span></span>
-            <span class="sc3"><span class="re1">&lt;Call</span> <span class="re0">name</span>=<span class="st0">"start"</span><span class="re2">/&gt;</span></span>
-        <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span>
-    <span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
-<span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span></pre></div></div>
-<p>This is the configuration of the <a rel="nofollow" class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/spdy/http/proxy/ProxyEngine.html">ProxyEngine</a>. It's a <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/spdy/http/proxy/SPDYProxyEngine.html" rel="nofollow">SPDYProxyEngine</a> and will be able to translate to spdy/2 as configured above. If your target host is capable of speaking spdy/3, you just change the first constructor argument to be spdy/3. 
-If you've different target hosts speaking different protocols you simply configure multiple proxy engines and feed them to the <a href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/spdy/http/proxy/ProxyEngineSelector.html" class="external text" rel="nofollow">ProxyEngineSelector</a> as you'll see below.
-</p>
-<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="xml source-xml"><pre class="de1"><span class="sc-1">&lt;!--</span>
-<span class="sc-1">The ProxyEngineSelector receives SPDY/x(HTTP) requests from proxy connectors below</span>
-<span class="sc-1">and is configured to process requests for host "localhost".</span>
-<span class="sc-1">Such requests are converted from SPDY/x(HTTP) to SPDY/2(HTTP) by the configured ProxyEngine</span>
-<span class="sc-1">and forwarded to 127.0.0.1:9090, where they are served by the upstream server above.</span>
-<span class="sc-1">--&gt;</span>
-<span class="sc3"><span class="re1">&lt;New</span> <span class="re0">id</span>=<span class="st0">"proxyEngineSelector"</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.spdy.proxy.ProxyEngineSelector"</span><span class="re2">&gt;</span></span>
-    <span class="sc3"><span class="re1">&lt;Call</span> <span class="re0">name</span>=<span class="st0">"putProxyEngine"</span><span class="re2">&gt;</span></span>
-        <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span><span class="re1">&lt;Ref</span> <span class="re0">id</span>=<span class="st0">"spdyProxyEngine"</span> <span class="re2">/&gt;</span><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
-    <span class="sc3"><span class="re1">&lt;/Call<span class="re2">&gt;</span></span></span>
-    <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"proxyServerInfos"</span><span class="re2">&gt;</span></span>
-        <span class="sc3"><span class="re1">&lt;Map<span class="re2">&gt;</span></span></span>
-            <span class="sc3"><span class="re1">&lt;Entry<span class="re2">&gt;</span></span></span>
-                <span class="sc3"><span class="re1">&lt;Item<span class="re2">&gt;</span></span></span>localhost<span class="sc3"><span class="re1">&lt;/Item<span class="re2">&gt;</span></span></span>
-                <span class="sc3"><span class="re1">&lt;Item<span class="re2">&gt;</span></span></span>
-                    <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.spdy.proxy.ProxyEngineSelector$ProxyServerInfo"</span><span class="re2">&gt;</span></span>
-                        <span class="sc3"><span class="re1">&lt;Arg</span> <span class="re0">type</span>=<span class="st0">"String"</span><span class="re2">&gt;</span></span>spdy/2<span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
-                        <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>127.0.0.1<span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
-                        <span class="sc3"><span class="re1">&lt;Arg</span> <span class="re0">type</span>=<span class="st0">"int"</span><span class="re2">&gt;</span></span>9090<span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
-                    <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span>
-                <span class="sc3"><span class="re1">&lt;/Item<span class="re2">&gt;</span></span></span>
-            <span class="sc3"><span class="re1">&lt;/Entry<span class="re2">&gt;</span></span></span>
-        <span class="sc3"><span class="re1">&lt;/Map<span class="re2">&gt;</span></span></span>
-    <span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
-<span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span></pre></div></div>
-<p>This is the <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/spdy/http/proxy/ProxyEngineSelector.html" rel="nofollow">ProxyEngineSelector</a>. The <a rel="nofollow" class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/spdy/http/proxy/ProxyEngineSelector.html">ProxyEngineSelector</a> is responsible to keep the configurations for the known target hosts as well as he has to choose the right <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/spdy/http/proxy/ProxyEngine.html" rel="nofollow">ProxyEngine</a> for the protocol the target host speaks.
-</p><p>Lets take even smaller parts of the snipplet above to explain them in detail:
-</p>
-<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="xml source-xml"><pre class="de1"><span class="sc3"><span class="re1">&lt;Call</span> <span class="re0">name</span>=<span class="st0">"putProxyEngine"</span><span class="re2">&gt;</span></span>
-    <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span><span class="re1">&lt;Ref</span> <span class="re0">id</span>=<span class="st0">"spdyProxyEngine"</span> <span class="re2">/&gt;</span><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
-<span class="sc3"><span class="re1">&lt;/Call<span class="re2">&gt;</span></span></span></pre></div></div>
-<p>This adds the <a rel="nofollow" class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/spdy/http/proxy/SPDYProxyEngine.html">SPDYProxyEngine</a> we've configured above to the <a href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/spdy/http/proxy/ProxyEngineSelector.html" class="external text" rel="nofollow">ProxyEngineSelector</a>. The <a rel="nofollow" class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/spdy/http/proxy/SPDYProxyEngine.html">SPDYProxyEngine</a> was configured to translate to spdy/2. By adding it to the Selector, it now knows how to translate to spdy/2. 
-</p>
-<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="xml source-xml"><pre class="de1"><span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"proxyServerInfos"</span><span class="re2">&gt;</span></span>
-   <span class="sc3"><span class="re1">&lt;Map<span class="re2">&gt;</span></span></span>
-       <span class="sc3"><span class="re1">&lt;Entry<span class="re2">&gt;</span></span></span>
-            <span class="sc3"><span class="re1">&lt;Item<span class="re2">&gt;</span></span></span>localhost<span class="sc3"><span class="re1">&lt;/Item<span class="re2">&gt;</span></span></span>
-            <span class="sc3"><span class="re1">&lt;Item<span class="re2">&gt;</span></span></span>
-                 <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.spdy.proxy.ProxyEngineSelector$ProxyServerInfo"</span><span class="re2">&gt;</span></span>
-                     <span class="sc3"><span class="re1">&lt;Arg</span> <span class="re0">type</span>=<span class="st0">"String"</span><span class="re2">&gt;</span></span>spdy/2<span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
-                     <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>127.0.0.1<span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
-                     <span class="sc3"><span class="re1">&lt;Arg</span> <span class="re0">type</span>=<span class="st0">"int"</span><span class="re2">&gt;</span></span>9090<span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
-                 <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span>
-            <span class="sc3"><span class="re1">&lt;/Item<span class="re2">&gt;</span></span></span>
-       <span class="sc3"><span class="re1">&lt;/Entry<span class="re2">&gt;</span></span></span>
-   <span class="sc3"><span class="re1">&lt;/Map<span class="re2">&gt;</span></span></span>
-<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span></pre></div></div>
-<p>You configure target hosts and the protocol you want to communicate with them by adding so called <a rel="nofollow" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/spdy/http/proxy/ProxyEngineSelector$ProxyServerInfo.html" class="external text">ProxyServerInfo</a>s. Configuration is pretty straight forward. Key for the map is the hostname. Protocol, host and port are the configurations for the <a rel="nofollow" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/spdy/http/proxy/ProxyEngineSelector$ProxyServerInfo.html" class="external text">ProxyServerInfo</a>.
-</p><p>That's pretty much all that is needed to setup a SPDY proxy in jetty.
-</p><p>Request flow with the proxy given above:
-</p>
-<ul><li> Incoming SPDY Request to <a href="https://localhost:8443/" class="external free" rel="nofollow">https://localhost:8443/</a> will reach the <a rel="nofollow" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/spdy/http/proxy/HTTPSPDYProxyConnector.html" class="external text">HTTPSPDYProxyConnector</a> listening on port 8443</li>
-<li> <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/spdy/http/proxy/HTTPSPDYProxyConnector.html" rel="nofollow">HTTPSPDYProxyConnector</a> will forward the request to the <a rel="nofollow" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/spdy/http/proxy/ProxyEngineSelector.html" class="external text">ProxyEngineSelector</a></li>
-<li> <a rel="nofollow" class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/spdy/http/proxy/ProxyEngineSelector.html">ProxyEngineSelector</a> will read the Host header's host portion: "localhost"</li>
-<li> <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/spdy/http/proxy/ProxyEngineSelector.html" rel="nofollow">ProxyEngineSelector</a> will lookup the host in it's ProxyServerInfo mappings. It'll find the entry matching "localhost". (If there's no matching entry it'll rst the stream)</li>
-<li> <a href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/spdy/http/proxy/ProxyEngineSelector.html" class="external text" rel="nofollow">ProxyEngineSelector</a> will lookup a <a rel="nofollow" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/spdy/http/proxy/ProxyEngine.html" class="external text">ProxyEngine</a> that matches the protocol configured in the <a rel="nofollow" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/spdy/http/proxy/ProxyEngineSelector$ProxyServerInfo.html" class="external text">ProxyServerInfo</a> it found in the last step and forward the request to that <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/spdy/http/proxy/ProxyEngine.html" rel="nofollow">ProxyEngine</a></li>
-<li> The <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/spdy/http/proxy/ProxyEngine.html" rel="nofollow">ProxyEngine</a> will translate the request to the given target protocol and proxy it to the target host</li>
-<li> All responses will be forwarded back to the client.</li></ul>
-<h3><span class="mw-headline" id="Using_SPDY_Client_Applications">Using SPDY Client Applications</span></h3>
-<p>The <code>spdy-jetty</code> module provides a SPDY client (that speaks pure SPDY, and not HTTP over SPDY), which you can use in this way:
-</p>
-<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="java source-java"><pre class="de1"><span class="co1">// Start a SPDYClient factory shared among all SPDYClient instances</span>
-SPDYClient.<span class="me1">Factory</span> clientFactory <span class="sy0">=</span> <span class="kw1">new</span> SPDYClient.<span class="me1">Factory</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
-clientFactory.<span class="me1">start</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
-
-<span class="co1">// Create one SPDYClient instance</span>
-SPDYClient client <span class="sy0">=</span> clientFactory.<span class="me1">newSPDYClient</span><span class="br0">(</span>SPDY.<span class="me1">V2</span><span class="br0">)</span><span class="sy0">;</span>
-
-<span class="co1">// Obtain a Session instance to send data to the server that listens on port 8181</span>
-Session session <span class="sy0">=</span> client.<span class="me1">connect</span><span class="br0">(</span><span class="kw1">new</span> InetSocketAddress<span class="br0">(</span><span class="st0">"localhost"</span>, <span class="nu0">8181</span><span class="br0">)</span>, <span class="kw2">null</span><span class="br0">)</span>.<span class="me1">get</span><span class="br0">(</span><span class="nu0">5</span>, TimeUnit.<span class="me1">SECONDS</span><span class="br0">)</span><span class="sy0">;</span>
-
-<span class="co1">// Sends SYN_STREAM and DATA to the server</span>
-Stream stream <span class="sy0">=</span> session.<span class="me1">syn</span><span class="br0">(</span><span class="kw1">new</span> SynInfo<span class="br0">(</span><span class="kw2">false</span><span class="br0">)</span>, <span class="kw2">null</span><span class="br0">)</span>.<span class="me1">get</span><span class="br0">(</span><span class="nu0">5</span>, TimeUnit.<span class="me1">SECONDS</span><span class="br0">)</span><span class="sy0">;</span>
-stream.<span class="me1">data</span><span class="br0">(</span><span class="kw1">new</span> StringDataInfo<span class="br0">(</span><span class="st0">"Hello, World"</span>, <span class="kw2">true</span><span class="br0">)</span><span class="br0">)</span><span class="sy0">;</span></pre></div></div>
-<p>To listen to SPDY frames the server sends, you need to pass a <code>StreamFrameListener</code> upon stream creation:
-</p>
-<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="java source-java"><pre class="de1">StreamFrameListener streamListener <span class="sy0">=</span> <span class="kw1">new</span> StreamFrameListener.<span class="me1">Adapter</span><span class="br0">(</span><span class="br0">)</span>
-<span class="br0">{</span>
-    <span class="kw1">public</span> <span class="kw4">void</span> onReply<span class="br0">(</span>Stream stream, ReplyInfo replyInfo<span class="br0">)</span>
-    <span class="br0">{</span>
-        <span class="co1">// Reply received from server, send DATA to the server</span>
-        stream.<span class="me1">data</span><span class="br0">(</span><span class="kw1">new</span> StringDataInfo<span class="br0">(</span><span class="st0">"Hello, World"</span>, <span class="kw2">true</span><span class="br0">)</span><span class="br0">)</span><span class="sy0">;</span>
-    <span class="br0">}</span>
-
-    <span class="kw1">public</span> <span class="kw4">void</span> onData<span class="br0">(</span>Stream stream, DataInfo dataInfo<span class="br0">)</span>
-    <span class="br0">{</span>
-        <span class="co1">// Data received from server</span>
-        <span class="kw3">String</span> content <span class="sy0">=</span> dataInfo.<span class="me1">asString</span><span class="br0">(</span><span class="st0">"UTF-8"</span>, <span class="kw2">true</span><span class="br0">)</span><span class="sy0">;</span>
-        <span class="kw3">System</span>.<span class="me1">err</span>.<span class="me1">printf</span><span class="br0">(</span><span class="st0">"SPDY content: %s%n"</span>, content<span class="br0">)</span><span class="sy0">;</span>
-    <span class="br0">}</span>
-<span class="br0">}</span><span class="sy0">;</span>
-
-<span class="co1">// Sends SYN_STREAM to the server, adding headers</span>
-Headers headers <span class="sy0">=</span> <span class="kw1">new</span> Headers<span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
-headers.<span class="me1">put</span><span class="br0">(</span><span class="st0">"url"</span>, <span class="st0">"/echo"</span><span class="br0">)</span><span class="sy0">;</span>
-Stream stream <span class="sy0">=</span> session.<span class="me1">syn</span><span class="br0">(</span><span class="kw1">new</span> SynInfo<span class="br0">(</span>headers, <span class="kw2">false</span><span class="br0">)</span>, <span class="kw2">null</span><span class="br0">)</span>.<span class="me1">get</span><span class="br0">(</span><span class="nu0">5</span>, TimeUnit.<span class="me1">SECONDS</span><span class="br0">)</span><span class="sy0">;</span></pre></div></div>
-<h3><span id="Using_SPDY_Server_Applications" class="mw-headline">Using SPDY Server Applications</span></h3>
-<p>The <code>spdy-jetty</code> module provides a server connector that speaks pure SPDY, and that you can use in conjunction with the SPDY client (see above).
-</p><p>You can start the <code>SPDYServerConnector</code> in this way:
-</p>
-<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="java source-java"><pre class="de1"><span class="co1">// The application code that handles incoming SYN_STREAMS</span>
-ServerSessionFrameListener application <span class="sy0">=</span> <span class="kw1">new</span> ServerSessionFrameListener.<span class="me1">Adapter</span><span class="br0">(</span><span class="br0">)</span>
-<span class="br0">{</span>
-    <span class="kw1">public</span> StreamFrameListener onSyn<span class="br0">(</span>Stream stream, SynInfo synInfo<span class="br0">)</span>
-    <span class="br0">{</span>
-        <span class="co1">// Reply upon receiving a SYN_STREAM</span>
-        stream.<span class="me1">reply</span><span class="br0">(</span><span class="kw1">new</span> ReplyInfo<span class="br0">(</span><span class="kw2">false</span><span class="br0">)</span><span class="br0">)</span><span class="sy0">;</span>
-
-        <span class="co1">// Inspect the headers</span>
-        Headers headers <span class="sy0">=</span> synInfo.<span class="me1">getHeaders</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
-        <span class="kw1">if</span> <span class="br0">(</span><span class="st0">"/echo"</span>.<span class="me1">equals</span><span class="br0">(</span>headers.<span class="me1">get</span><span class="br0">(</span><span class="st0">"url"</span><span class="br0">)</span>.<span class="me1">value</span><span class="br0">(</span><span class="br0">)</span><span class="br0">)</span><span class="br0">)</span>
-        <span class="br0">{</span>
-            <span class="kw1">return</span> <span class="kw1">new</span> StreamFrameListener.<span class="me1">Adapter</span><span class="br0">(</span><span class="br0">)</span>
-            <span class="br0">{</span>
-                <span class="kw1">public</span> <span class="kw4">void</span> onData<span class="br0">(</span>Stream stream, DataInfo dataInfo<span class="br0">)</span>
-                <span class="br0">{</span>
+    <link href="wiki-style.css" media="screen, print" rel="stylesheet" />
+  </head>
+  <body>
+    <div class="col-md-20" id="mainContent">
+      <div class="tab-content background-white">
+        <div class="tab-pane active" id="tab-pane-main-page-content">
+          <h1 class="firstHeading page-header" id="firstHeading">
+            <span dir="auto">Jetty/Feature/SPDY</span>
+          </h1>
+          <div id="main-page-content">
+            <div class="alert alert-small alert-warning" id="contentSub">
+              <span class="subpages">
+                &lt;
+                <a href="../../Jetty.html" title="Jetty">Jetty</a>
+                ‎ |
+                <a href="../Feature.html" title="Jetty/Feature">Feature</a>
+              </span>
+            </div>
+            <div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="en">
+              <p>
+                <br />
+              </p>
+              <p>
+                <br />
+              </p>
+              <div class="toc" id="toc">
+                <div id="toctitle">
+                  <h2>Contents</h2>
+                </div>
+                <ul>
+                  <li class="toclevel-1">
+                    <a href="SPDY.html#Introduction">
+                      <span class="tocnumber">1</span>
+                      <span class="toctext">Introduction</span>
+                    </a>
+                  </li>
+                  <li class="toclevel-1">
+                    <a href="SPDY.html#Feature">
+                      <span class="tocnumber">2</span>
+                      <span class="toctext">Feature</span>
+                    </a>
+                    <ul>
+                      <li class="toclevel-2">
+                        <a href="SPDY.html#Introducing_SPDY_Modules">
+                          <span class="tocnumber">2.1</span>
+                          <span class="toctext">Introducing SPDY Modules</span>
+                        </a>
+                      </li>
+                      <li class="toclevel-2">
+                        <a href="SPDY.html#Transparently_Enabling_HTTP_over_SPDY_in_Jetty">
+                          <span class="tocnumber">2.2</span>
+                          <span class="toctext">Transparently Enabling HTTP over SPDY in Jetty</span>
+                        </a>
+                      </li>
+                      <li class="toclevel-2">
+                        <a href="SPDY.html#SPDY_Proxy">
+                          <span class="tocnumber">2.3</span>
+                          <span class="toctext">SPDY Proxy</span>
+                        </a>
+                      </li>
+                      <li class="toclevel-2">
+                        <a href="SPDY.html#Using_SPDY_Client_Applications">
+                          <span class="tocnumber">2.4</span>
+                          <span class="toctext">Using SPDY Client Applications</span>
+                        </a>
+                      </li>
+                      <li class="toclevel-2">
+                        <a href="SPDY.html#Using_SPDY_Server_Applications">
+                          <span class="tocnumber">2.5</span>
+                          <span class="toctext">Using SPDY Server Applications</span>
+                        </a>
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </div>
+              <h2>
+                <span class="mw-headline" id="Introduction">Introduction</span>
+              </h2>
+              <div class="messagebox" style="background-color: #f9f6b7; border: 1px solid #c4c295; color: black; padding: 5px; margin: 1ex 0; min-height: 35px; padding-left: 45px; font-size: 150%; color: white; background-color: #FF8888; padding: 50px">
+                <div style="float: left; margin-left: -40px;">
+                  <a class="image" href="https://wiki.eclipse.org/File:Warning2.png">
+                    <img alt="Warning2.png" height="35" src="../../images/3/37/Warning2.png" width="35" />
+                  </a>
+                </div>
+                <div>
+                  Jetty 7 and Jetty 8 are now EOL (End of Life)
+                  <br />
+                  <p>
+                    <br />
+                    <br />
+                    <br />
+                    THIS IS NOT THE DOCUMENTATION YOU ARE LOOKING FOR!!!!!
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    All development and stable releases are being performed with Jetty 9 and Jetty 10.
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    This
+                    <b>wiki is now officially out of date</b>
+                    and all content has been moved to the
+                    <a class="external text" href="http://www.eclipse.org/jetty/documentation" rel="nofollow">Jetty Documentation Hub</a>
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                  </p>
+                  Direct Link to updated documentation:
+                  <a class="external free" href="http://www.eclipse.org/jetty/documentation/current/spdy.html" rel="nofollow">http://www.eclipse.org/jetty/documentation/current/spdy.html</a>
+                </div>
+              </div>
+              <p>
+                <br />
+                Jetty supports both a client and a server implementation for the
+                <a class="external text" href="http://www.chromium.org/spdy" rel="nofollow">SPDY</a>
+                protocol, beginning with versions 7.6.2 and 8.1.2. To provide the best support possible for SPDY, the Jetty project also provides an
+                <a href="NPN.html" title="Jetty/Feature/NPN">implementation for NPN</a>
+                . Both the SPDY and the NPN implementation require OpenJDK 1.7 or greater.
+              </p>
+              <p>A server deployed over TLS normally advertises the SPDY protocol, via the Next Protocol Negotiation TLS Extension (NPN).</p>
+              <p>
+                See a
+                <a class="external text" href="http://webtide.intalio.com/2012/10/spdy-push-demo-from-javaone-2012/" rel="nofollow">SPDY Push Demonstration</a>
+                video from Java One 2012.
+              </p>
+              <h2>
+                <span class="mw-headline" id="Feature">Feature</span>
+              </h2>
+              <h3>
+                <span class="mw-headline" id="Introducing_SPDY_Modules">Introducing SPDY Modules</span>
+              </h3>
+              <p>Jetty's SPDY implementation consists of four modules:</p>
+              <ul>
+                <li>
+                  <code>spdy-core</code>
+                  – contains the SPDY API and a partial implementation. This module is independent of Jetty (the servlet container), and you can reuse it with other Java SPDY implementations. One of the goals of this module is to standardize the SPDY Java API.
+                </li>
+                <li>
+                  <code>spdy-jetty</code>
+                  module – binds the
+                  <code>spdy-core</code>
+                  module to Jetty's NIO framework to provide asynchronous socket I/O. This module uses Jetty internals, but Java SPDY client applications can also use it to communicate with a SPDY server.
+                </li>
+                <li>
+                  <code>spdy-jetty-http</code>
+                  module – provides a server-side layering of HTTP over SPDY. This module allows any SPDY compliant browser, such as Chromium/Chrome, to talk SPDY to a Jetty server that deploys a standard web application made of servlets, filters and JSPs. This module performs the conversion SPDY to HTTP and vice versa so that for the web application it is as if a normal HTTP request has arrived, and a normal HTTP response is returned.
+                </li>
+                <li>
+                  <code>spdy-jetty-http-webapp</code>
+                  module – provides a demo application for the a
+                  <code>spdy-jetty-http</code>
+                  module.
+                </li>
+              </ul>
+              <h3>
+                <span class="mw-headline" id="Transparently_Enabling_HTTP_over_SPDY_in_Jetty">Transparently Enabling HTTP over SPDY in Jetty</span>
+              </h3>
+              <p>
+                The
+                <code>spdy-jetty-http</code>
+                module provides an out-of-the-box
+                <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/spdy/http/HTTPSPDYServerConnector.html" rel="nofollow">server connector</a>
+                that performs the SPDY to HTTP conversion and vice versa (HTTP over SPDY).
+You can use this connector instead of Jetty's
+                <code>SslSelectChannelConnector</code>
+                (that only speaks HTTP), and it falls back to HTTPS if SPDY is not negotiated.
+              </p>
+              <p>
+                An example
+                <code>jetty-spdy.xml</code>
+                file that you can use instead of
+                <code>jetty-ssl.xml</code>
+                follows:
+              </p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="xml source-xml">
+                  <pre class="de1">
+                    <span class="sc3">
+                      <span class="re1">&lt;?xml</span>
+                      <span class="re0">version</span>
+                      =
+                      <span class="st0">"1.0"</span>
+                      <span class="re0">encoding</span>
+                      =
+                      <span class="st0">"UTF-8"</span>
+                      <span class="re2">?&gt;</span>
+                    </span>
+                    <span class="sc0">&lt;!DOCTYPE Configure PUBLIC "-//Jetty//Configure//EN" "http://www.eclipse.org/jetty/configure.dtd"&gt;</span>
+                    <span class="sc3">
+                      <span class="re1">&lt;Configure</span>
+                      <span class="re0">id</span>
+                      =
+                      <span class="st0">"Server"</span>
+                      <span class="re0">class</span>
+                      =
+                      <span class="st0">"org.eclipse.jetty.server.Server"</span>
+                      <span class="re2">&gt;</span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">&lt;New</span>
+                      <span class="re0">id</span>
+                      =
+                      <span class="st0">"sslContextFactory"</span>
+                      <span class="re0">class</span>
+                      =
+                      <span class="st0">"org.eclipse.jetty.util.ssl.SslContextFactory"</span>
+                      <span class="re2">&gt;</span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">&lt;Set</span>
+                      <span class="re0">name</span>
+                      =
+                      <span class="st0">"keyStorePath"</span>
+                      <span class="re2">&gt;</span>
+                    </span>
+                    your_keystore.jks
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Set
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">&lt;Set</span>
+                      <span class="re0">name</span>
+                      =
+                      <span class="st0">"keyStorePassword"</span>
+                      <span class="re2">&gt;</span>
+                    </span>
+                    storepwd
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Set
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">&lt;Set</span>
+                      <span class="re0">name</span>
+                      =
+                      <span class="st0">"includeProtocols"</span>
+                      <span class="re2">&gt;</span>
+                    </span>
+                    TLSv1
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Set
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/New
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">&lt;Call</span>
+                      <span class="re0">name</span>
+                      =
+                      <span class="st0">"addConnector"</span>
+                      <span class="re2">&gt;</span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;Arg
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">&lt;New</span>
+                      <span class="re0">class</span>
+                      =
+                      <span class="st0">"org.eclipse.jetty.spdy.http.HTTPSPDYServerConnector"</span>
+                      <span class="re2">&gt;</span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;Arg
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">&lt;Ref</span>
+                      <span class="re0">id</span>
+                      =
+                      <span class="st0">"sslContextFactory"</span>
+                      <span class="re2">/&gt;</span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Arg
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">&lt;Set</span>
+                      <span class="re0">name</span>
+                      =
+                      <span class="st0">"Port"</span>
+                      <span class="re2">&gt;</span>
+                    </span>
+                    8443
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Set
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/New
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Arg
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Call
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Configure
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                  </pre>
+                </div>
+              </div>
+              <p>This is sufficient to enable your Jetty server to speak SPDY to browsers that support it.</p>
+              <p>
+                Remember, however, that SPDY over SSL (as set up like the configuration above) requires that you set up NPN correctly; in particular, you need to start the JVM with the NPN boot jar in the boot classpath (follow the instructions at the
+                <a href="NPN.html" title="Jetty/Feature/NPN">NPN</a>
+                documentation page).
+              </p>
+              <p>
+                Additionally, NPN is only supported for the TLS protocol, version 1 or greater; this means that it cannot be used with SSLv2, which implies that you have to configure the
+                <code>SslContextFactory</code>
+                to use TLSv1 or above, since the JDK usually sends a SSLv2
+                <i>ClientHello</i>
+                message to secure servers. This is done by specifying the "includeProtocols" property to contain at least the value "TLSv1" (see above).
+              </p>
+              <h3>
+                <span class="mw-headline" id="SPDY_Proxy">SPDY Proxy</span>
+              </h3>
+              <p>
+                <code>spdy-jetty-http</code>
+                also provides a fully functional SPDY proxy server out of the box. Jetty's SPDY proxy is capable to receive SPDY (currently v2/v3) and HTTP requests and proxy those requests to other SPDY servers. It will if necessary translate the incoming protocol to a protocol the target host understands. The translation to the target server protocol is done by an implementation of the
+                <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/spdy/http/proxy/ProxyEngine.html" rel="nofollow">ProxyEngine</a>
+                class. Right now we only provide a
+                <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/spdy/http/proxy/SPDYProxyEngine.html" rel="nofollow">SPDYProxyEngine</a>
+                implementation which can talk spdy/2 and spdy/3. We're planning to support other protocols soon out of the box. As always contributions are welcome.
+              </p>
+              <p>Configuration is pretty straight forward as the following example will show. The example server will have a plain SPDY connector listening on port 9090 and a spdy proxy connector listening on port 8080. Incoming requests to port 8080 will be proxied and translated to the connector listening on port 9090. In real world scenarios you will more likely proxy to a different host.</p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="xml source-xml">
+                  <pre class="de1">
+                    <span class="sc3">
+                      <span class="re1">&lt;?xml</span>
+                      <span class="re0">version</span>
+                      =
+                      <span class="st0">"1.0"</span>
+                      <span class="re0">encoding</span>
+                      =
+                      <span class="st0">"UTF-8"</span>
+                      <span class="re2">?&gt;</span>
+                    </span>
+                    <span class="sc0">&lt;!DOCTYPE Configure PUBLIC "-//Jetty//Configure//EN" "http://www.eclipse.org/jetty/configure.dtd"&gt;</span>
+                    <span class="sc3">
+                      <span class="re1">&lt;Configure</span>
+                      <span class="re0">id</span>
+                      =
+                      <span class="st0">"Server"</span>
+                      <span class="re0">class</span>
+                      =
+                      <span class="st0">"org.eclipse.jetty.server.Server"</span>
+                      <span class="re2">&gt;</span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">&lt;New</span>
+                      <span class="re0">id</span>
+                      =
+                      <span class="st0">"sslContextFactory"</span>
+                      <span class="re0">class</span>
+                      =
+                      <span class="st0">"org.eclipse.jetty.util.ssl.SslContextFactory"</span>
+                      <span class="re2">&gt;</span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">&lt;Set</span>
+                      <span class="re0">name</span>
+                      =
+                      <span class="st0">"keyStorePath"</span>
+                      <span class="re2">&gt;</span>
+                    </span>
+                    src/main/resources/keystore.jks
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Set
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">&lt;Set</span>
+                      <span class="re0">name</span>
+                      =
+                      <span class="st0">"keyStorePassword"</span>
+                      <span class="re2">&gt;</span>
+                    </span>
+                    storepwd
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Set
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">&lt;Set</span>
+                      <span class="re0">name</span>
+                      =
+                      <span class="st0">"trustStore"</span>
+                      <span class="re2">&gt;</span>
+                    </span>
+                    src/main/resources/truststore.jks
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Set
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">&lt;Set</span>
+                      <span class="re0">name</span>
+                      =
+                      <span class="st0">"trustStorePassword"</span>
+                      <span class="re2">&gt;</span>
+                    </span>
+                    storepwd
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Set
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">&lt;Set</span>
+                      <span class="re0">name</span>
+                      =
+                      <span class="st0">"protocol"</span>
+                      <span class="re2">&gt;</span>
+                    </span>
+                    TLSv1
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Set
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/New
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc-1">&lt;!--</span>
+                    <span class="sc-1">&lt;Set class="org.eclipse.jetty.npn.NextProtoNego" name="debug" type="boolean"&gt;true&lt;/Set&gt;</span>
+                    <span class="sc-1">--&gt;</span>
+                    <span class="sc-1">&lt;!--</span>
+                    <span class="sc-1">This is the upstream server connector. It speaks non-SSL SPDY/2(HTTP) on port 9090.</span>
+                    <span class="sc-1">--&gt;</span>
+                    <span class="sc3">
+                      <span class="re1">&lt;Call</span>
+                      <span class="re0">name</span>
+                      =
+                      <span class="st0">"addConnector"</span>
+                      <span class="re2">&gt;</span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;Arg
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">&lt;New</span>
+                      <span class="re0">class</span>
+                      =
+                      <span class="st0">"org.eclipse.jetty.spdy.http.HTTPSPDYServerConnector"</span>
+                      <span class="re2">&gt;</span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">&lt;Set</span>
+                      <span class="re0">name</span>
+                      =
+                      <span class="st0">"Port"</span>
+                      <span class="re2">&gt;</span>
+                    </span>
+                    9090
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Set
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">&lt;Set</span>
+                      <span class="re0">name</span>
+                      =
+                      <span class="st0">"defaultAsyncConnectionFactory"</span>
+                      <span class="re2">&gt;</span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">&lt;Call</span>
+                      <span class="re0">name</span>
+                      =
+                      <span class="st0">"getAsyncConnectionFactory"</span>
+                      <span class="re2">&gt;</span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;Arg
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    spdy/2
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Arg
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Call
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Set
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/New
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Arg
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Call
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc-1">&lt;!--</span>
+                    <span class="sc-1">This ProxyEngine translates the incoming SPDY/x(HTTP) request to SPDY/2(HTTP)</span>
+                    <span class="sc-1">--&gt;</span>
+                    <span class="sc3">
+                      <span class="re1">&lt;New</span>
+                      <span class="re0">id</span>
+                      =
+                      <span class="st0">"spdyProxyEngine"</span>
+                      <span class="re0">class</span>
+                      =
+                      <span class="st0">"org.eclipse.jetty.spdy.proxy.SPDYProxyEngine"</span>
+                      <span class="re2">&gt;</span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;Arg
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    spdy/2
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Arg
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;Arg
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">&lt;New</span>
+                      <span class="re0">class</span>
+                      =
+                      <span class="st0">"org.eclipse.jetty.spdy.SPDYClient$Factory"</span>
+                      <span class="re2">&gt;</span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">&lt;Call</span>
+                      <span class="re0">name</span>
+                      =
+                      <span class="st0">"start"</span>
+                      <span class="re2">/&gt;</span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/New
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Arg
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/New
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc-1">&lt;!--</span>
+                    <span class="sc-1">The ProxyEngineSelector receives SPDY/x(HTTP) requests from proxy connectors below</span>
+                    <span class="sc-1">and is configured to process requests for host "localhost".</span>
+                    <span class="sc-1">Such requests are converted from SPDY/x(HTTP) to SPDY/2(HTTP) by the configured ProxyEngine</span>
+                    <span class="sc-1">and forwarded to 127.0.0.1:9090, where they are served by the upstream server above.</span>
+                    <span class="sc-1">--&gt;</span>
+                    <span class="sc3">
+                      <span class="re1">&lt;New</span>
+                      <span class="re0">id</span>
+                      =
+                      <span class="st0">"proxyEngineSelector"</span>
+                      <span class="re0">class</span>
+                      =
+                      <span class="st0">"org.eclipse.jetty.spdy.proxy.ProxyEngineSelector"</span>
+                      <span class="re2">&gt;</span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">&lt;Call</span>
+                      <span class="re0">name</span>
+                      =
+                      <span class="st0">"putProxyEngine"</span>
+                      <span class="re2">&gt;</span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;Arg
+                        <span class="re2">&gt;</span>
+                      </span>
+                      <span class="re1">&lt;Ref</span>
+                      <span class="re0">id</span>
+                      =
+                      <span class="st0">"spdyProxyEngine"</span>
+                      <span class="re2">/&gt;</span>
+                      <span class="re1">
+                        &lt;/Arg
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Call
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">&lt;Set</span>
+                      <span class="re0">name</span>
+                      =
+                      <span class="st0">"proxyServerInfos"</span>
+                      <span class="re2">&gt;</span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;Map
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;Entry
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;Item
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    localhost
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Item
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;Item
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">&lt;New</span>
+                      <span class="re0">class</span>
+                      =
+                      <span class="st0">"org.eclipse.jetty.spdy.proxy.ProxyEngineSelector$ProxyServerInfo"</span>
+                      <span class="re2">&gt;</span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">&lt;Arg</span>
+                      <span class="re0">type</span>
+                      =
+                      <span class="st0">"String"</span>
+                      <span class="re2">&gt;</span>
+                    </span>
+                    spdy/2
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Arg
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;Arg
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    127.0.0.1
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Arg
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">&lt;Arg</span>
+                      <span class="re0">type</span>
+                      =
+                      <span class="st0">"int"</span>
+                      <span class="re2">&gt;</span>
+                    </span>
+                    9090
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Arg
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/New
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Item
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Entry
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Map
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Set
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/New
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc-1">&lt;!--</span>
+                    <span class="sc-1">These are the reverse proxy connectors accepting requests from clients.</span>
+                    <span class="sc-1">They accept non-SSL (on port 8080) and SSL (on port 8443) HTTP,</span>
+                    <span class="sc-1">SPDY/2(HTTP) and SPDY/3(HTTP).</span>
+                    <span class="sc-1">Non-SPDY HTTP requests are converted to SPDY internally and passed to the</span>
+                    <span class="sc-1">ProxyEngine above.</span>
+                    <span class="sc-1">--&gt;</span>
+                    <span class="sc3">
+                      <span class="re1">&lt;Call</span>
+                      <span class="re0">name</span>
+                      =
+                      <span class="st0">"addConnector"</span>
+                      <span class="re2">&gt;</span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;Arg
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">&lt;New</span>
+                      <span class="re0">class</span>
+                      =
+                      <span class="st0">"org.eclipse.jetty.spdy.proxy.HTTPSPDYProxyConnector"</span>
+                      <span class="re2">&gt;</span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;Arg
+                        <span class="re2">&gt;</span>
+                      </span>
+                      <span class="re1">&lt;Ref</span>
+                      <span class="re0">id</span>
+                      =
+                      <span class="st0">"proxyEngineSelector"</span>
+                      <span class="re2">/&gt;</span>
+                      <span class="re1">
+                        &lt;/Arg
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">&lt;Set</span>
+                      <span class="re0">name</span>
+                      =
+                      <span class="st0">"Port"</span>
+                      <span class="re2">&gt;</span>
+                    </span>
+                    8080
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Set
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/New
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Arg
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Call
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">&lt;Call</span>
+                      <span class="re0">name</span>
+                      =
+                      <span class="st0">"addConnector"</span>
+                      <span class="re2">&gt;</span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;Arg
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">&lt;New</span>
+                      <span class="re0">class</span>
+                      =
+                      <span class="st0">"org.eclipse.jetty.spdy.proxy.HTTPSPDYProxyConnector"</span>
+                      <span class="re2">&gt;</span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;Arg
+                        <span class="re2">&gt;</span>
+                      </span>
+                      <span class="re1">&lt;Ref</span>
+                      <span class="re0">id</span>
+                      =
+                      <span class="st0">"proxyEngineSelector"</span>
+                      <span class="re2">/&gt;</span>
+                      <span class="re1">
+                        &lt;/Arg
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;Arg
+                        <span class="re2">&gt;</span>
+                      </span>
+                      <span class="re1">&lt;Ref</span>
+                      <span class="re0">id</span>
+                      =
+                      <span class="st0">"sslContextFactory"</span>
+                      <span class="re2">/&gt;</span>
+                      <span class="re1">
+                        &lt;/Arg
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">&lt;Set</span>
+                      <span class="re0">name</span>
+                      =
+                      <span class="st0">"Port"</span>
+                      <span class="re2">&gt;</span>
+                    </span>
+                    8443
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Set
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/New
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Arg
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Call
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Configure
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                  </pre>
+                </div>
+              </div>
+              <p>Let's take this apart:</p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="xml source-xml">
+                  <pre class="de1">
+                    <span class="sc-1">&lt;!--</span>
+                    <span class="sc-1">This ProxyEngine translates the incoming SPDY/x(HTTP) request to SPDY/2(HTTP)</span>
+                    <span class="sc-1">--&gt;</span>
+                    <span class="sc3">
+                      <span class="re1">&lt;New</span>
+                      <span class="re0">id</span>
+                      =
+                      <span class="st0">"spdyProxyEngine"</span>
+                      <span class="re0">class</span>
+                      =
+                      <span class="st0">"org.eclipse.jetty.spdy.proxy.SPDYProxyEngine"</span>
+                      <span class="re2">&gt;</span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;Arg
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    spdy/2
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Arg
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;Arg
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">&lt;New</span>
+                      <span class="re0">class</span>
+                      =
+                      <span class="st0">"org.eclipse.jetty.spdy.SPDYClient$Factory"</span>
+                      <span class="re2">&gt;</span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">&lt;Call</span>
+                      <span class="re0">name</span>
+                      =
+                      <span class="st0">"start"</span>
+                      <span class="re2">/&gt;</span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/New
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Arg
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/New
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                  </pre>
+                </div>
+              </div>
+              <p>
+                This is the configuration of the
+                <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/spdy/http/proxy/ProxyEngine.html" rel="nofollow">ProxyEngine</a>
+                . It's a
+                <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/spdy/http/proxy/SPDYProxyEngine.html" rel="nofollow">SPDYProxyEngine</a>
+                and will be able to translate to spdy/2 as configured above. If your target host is capable of speaking spdy/3, you just change the first constructor argument to be spdy/3. 
+If you've different target hosts speaking different protocols you simply configure multiple proxy engines and feed them to the
+                <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/spdy/http/proxy/ProxyEngineSelector.html" rel="nofollow">ProxyEngineSelector</a>
+                as you'll see below.
+              </p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="xml source-xml">
+                  <pre class="de1">
+                    <span class="sc-1">&lt;!--</span>
+                    <span class="sc-1">The ProxyEngineSelector receives SPDY/x(HTTP) requests from proxy connectors below</span>
+                    <span class="sc-1">and is configured to process requests for host "localhost".</span>
+                    <span class="sc-1">Such requests are converted from SPDY/x(HTTP) to SPDY/2(HTTP) by the configured ProxyEngine</span>
+                    <span class="sc-1">and forwarded to 127.0.0.1:9090, where they are served by the upstream server above.</span>
+                    <span class="sc-1">--&gt;</span>
+                    <span class="sc3">
+                      <span class="re1">&lt;New</span>
+                      <span class="re0">id</span>
+                      =
+                      <span class="st0">"proxyEngineSelector"</span>
+                      <span class="re0">class</span>
+                      =
+                      <span class="st0">"org.eclipse.jetty.spdy.proxy.ProxyEngineSelector"</span>
+                      <span class="re2">&gt;</span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">&lt;Call</span>
+                      <span class="re0">name</span>
+                      =
+                      <span class="st0">"putProxyEngine"</span>
+                      <span class="re2">&gt;</span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;Arg
+                        <span class="re2">&gt;</span>
+                      </span>
+                      <span class="re1">&lt;Ref</span>
+                      <span class="re0">id</span>
+                      =
+                      <span class="st0">"spdyProxyEngine"</span>
+                      <span class="re2">/&gt;</span>
+                      <span class="re1">
+                        &lt;/Arg
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Call
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">&lt;Set</span>
+                      <span class="re0">name</span>
+                      =
+                      <span class="st0">"proxyServerInfos"</span>
+                      <span class="re2">&gt;</span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;Map
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;Entry
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;Item
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    localhost
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Item
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;Item
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">&lt;New</span>
+                      <span class="re0">class</span>
+                      =
+                      <span class="st0">"org.eclipse.jetty.spdy.proxy.ProxyEngineSelector$ProxyServerInfo"</span>
+                      <span class="re2">&gt;</span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">&lt;Arg</span>
+                      <span class="re0">type</span>
+                      =
+                      <span class="st0">"String"</span>
+                      <span class="re2">&gt;</span>
+                    </span>
+                    spdy/2
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Arg
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;Arg
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    127.0.0.1
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Arg
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">&lt;Arg</span>
+                      <span class="re0">type</span>
+                      =
+                      <span class="st0">"int"</span>
+                      <span class="re2">&gt;</span>
+                    </span>
+                    9090
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Arg
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/New
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Item
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Entry
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Map
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Set
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/New
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                  </pre>
+                </div>
+              </div>
+              <p>
+                This is the
+                <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/spdy/http/proxy/ProxyEngineSelector.html" rel="nofollow">ProxyEngineSelector</a>
+                . The
+                <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/spdy/http/proxy/ProxyEngineSelector.html" rel="nofollow">ProxyEngineSelector</a>
+                is responsible to keep the configurations for the known target hosts as well as he has to choose the right
+                <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/spdy/http/proxy/ProxyEngine.html" rel="nofollow">ProxyEngine</a>
+                for the protocol the target host speaks.
+              </p>
+              <p>Lets take even smaller parts of the snipplet above to explain them in detail:</p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="xml source-xml">
+                  <pre class="de1">
+                    <span class="sc3">
+                      <span class="re1">&lt;Call</span>
+                      <span class="re0">name</span>
+                      =
+                      <span class="st0">"putProxyEngine"</span>
+                      <span class="re2">&gt;</span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;Arg
+                        <span class="re2">&gt;</span>
+                      </span>
+                      <span class="re1">&lt;Ref</span>
+                      <span class="re0">id</span>
+                      =
+                      <span class="st0">"spdyProxyEngine"</span>
+                      <span class="re2">/&gt;</span>
+                      <span class="re1">
+                        &lt;/Arg
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Call
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                  </pre>
+                </div>
+              </div>
+              <p>
+                This adds the
+                <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/spdy/http/proxy/SPDYProxyEngine.html" rel="nofollow">SPDYProxyEngine</a>
+                we've configured above to the
+                <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/spdy/http/proxy/ProxyEngineSelector.html" rel="nofollow">ProxyEngineSelector</a>
+                . The
+                <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/spdy/http/proxy/SPDYProxyEngine.html" rel="nofollow">SPDYProxyEngine</a>
+                was configured to translate to spdy/2. By adding it to the Selector, it now knows how to translate to spdy/2.
+              </p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="xml source-xml">
+                  <pre class="de1">
+                    <span class="sc3">
+                      <span class="re1">&lt;Set</span>
+                      <span class="re0">name</span>
+                      =
+                      <span class="st0">"proxyServerInfos"</span>
+                      <span class="re2">&gt;</span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;Map
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;Entry
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;Item
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    localhost
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Item
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;Item
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">&lt;New</span>
+                      <span class="re0">class</span>
+                      =
+                      <span class="st0">"org.eclipse.jetty.spdy.proxy.ProxyEngineSelector$ProxyServerInfo"</span>
+                      <span class="re2">&gt;</span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">&lt;Arg</span>
+                      <span class="re0">type</span>
+                      =
+                      <span class="st0">"String"</span>
+                      <span class="re2">&gt;</span>
+                    </span>
+                    spdy/2
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Arg
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;Arg
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    127.0.0.1
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Arg
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">&lt;Arg</span>
+                      <span class="re0">type</span>
+                      =
+                      <span class="st0">"int"</span>
+                      <span class="re2">&gt;</span>
+                    </span>
+                    9090
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Arg
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/New
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Item
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Entry
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Map
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Set
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                  </pre>
+                </div>
+              </div>
+              <p>
+                You configure target hosts and the protocol you want to communicate with them by adding so called
+                <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/spdy/http/proxy/ProxyEngineSelector$ProxyServerInfo.html" rel="nofollow">ProxyServerInfo</a>
+                s. Configuration is pretty straight forward. Key for the map is the hostname. Protocol, host and port are the configurations for the
+                <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/spdy/http/proxy/ProxyEngineSelector$ProxyServerInfo.html" rel="nofollow">ProxyServerInfo</a>
+                .
+              </p>
+              <p>That's pretty much all that is needed to setup a SPDY proxy in jetty.</p>
+              <p>Request flow with the proxy given above:</p>
+              <ul>
+                <li>
+                  Incoming SPDY Request to
+                  <a class="external free" href="https://localhost:8443/" rel="nofollow">https://localhost:8443/</a>
+                  will reach the
+                  <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/spdy/http/proxy/HTTPSPDYProxyConnector.html" rel="nofollow">HTTPSPDYProxyConnector</a>
+                  listening on port 8443
+                </li>
+                <li>
+                  <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/spdy/http/proxy/HTTPSPDYProxyConnector.html" rel="nofollow">HTTPSPDYProxyConnector</a>
+                  will forward the request to the
+                  <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/spdy/http/proxy/ProxyEngineSelector.html" rel="nofollow">ProxyEngineSelector</a>
+                </li>
+                <li>
+                  <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/spdy/http/proxy/ProxyEngineSelector.html" rel="nofollow">ProxyEngineSelector</a>
+                  will read the Host header's host portion: "localhost"
+                </li>
+                <li>
+                  <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/spdy/http/proxy/ProxyEngineSelector.html" rel="nofollow">ProxyEngineSelector</a>
+                  will lookup the host in it's ProxyServerInfo mappings. It'll find the entry matching "localhost". (If there's no matching entry it'll rst the stream)
+                </li>
+                <li>
+                  <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/spdy/http/proxy/ProxyEngineSelector.html" rel="nofollow">ProxyEngineSelector</a>
+                  will lookup a
+                  <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/spdy/http/proxy/ProxyEngine.html" rel="nofollow">ProxyEngine</a>
+                  that matches the protocol configured in the
+                  <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/spdy/http/proxy/ProxyEngineSelector$ProxyServerInfo.html" rel="nofollow">ProxyServerInfo</a>
+                  it found in the last step and forward the request to that
+                  <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/spdy/http/proxy/ProxyEngine.html" rel="nofollow">ProxyEngine</a>
+                </li>
+                <li>
+                  The
+                  <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/spdy/http/proxy/ProxyEngine.html" rel="nofollow">ProxyEngine</a>
+                  will translate the request to the given target protocol and proxy it to the target host
+                </li>
+                <li>All responses will be forwarded back to the client.</li>
+              </ul>
+              <h3>
+                <span class="mw-headline" id="Using_SPDY_Client_Applications">Using SPDY Client Applications</span>
+              </h3>
+              <p>
+                The
+                <code>spdy-jetty</code>
+                module provides a SPDY client (that speaks pure SPDY, and not HTTP over SPDY), which you can use in this way:
+              </p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="java source-java">
+                  <pre class="de1">
+                    <span class="co1">// Start a SPDYClient factory shared among all SPDYClient instances</span>
+                    SPDYClient.
+                    <span class="me1">Factory</span>
+                    clientFactory
+                    <span class="sy0">=</span>
+                    <span class="kw1">new</span>
+                    SPDYClient.
+                    <span class="me1">Factory</span>
+                    <span class="br0">(</span>
+                    <span class="br0">)</span>
+                    <span class="sy0">;</span>
+                    clientFactory.
+                    <span class="me1">start</span>
+                    <span class="br0">(</span>
+                    <span class="br0">)</span>
+                    <span class="sy0">;</span>
+                    <span class="co1">// Create one SPDYClient instance</span>
+                    SPDYClient client
+                    <span class="sy0">=</span>
+                    clientFactory.
+                    <span class="me1">newSPDYClient</span>
+                    <span class="br0">(</span>
+                    SPDY.
+                    <span class="me1">V2</span>
+                    <span class="br0">)</span>
+                    <span class="sy0">;</span>
+                    <span class="co1">// Obtain a Session instance to send data to the server that listens on port 8181</span>
+                    Session session
+                    <span class="sy0">=</span>
+                    client.
+                    <span class="me1">connect</span>
+                    <span class="br0">(</span>
+                    <span class="kw1">new</span>
+                    InetSocketAddress
+                    <span class="br0">(</span>
+                    <span class="st0">"localhost"</span>
+                    ,
+                    <span class="nu0">8181</span>
+                    <span class="br0">)</span>
+                    ,
+                    <span class="kw2">null</span>
+                    <span class="br0">)</span>
+                    .
+                    <span class="me1">get</span>
+                    <span class="br0">(</span>
+                    <span class="nu0">5</span>
+                    , TimeUnit.
+                    <span class="me1">SECONDS</span>
+                    <span class="br0">)</span>
+                    <span class="sy0">;</span>
+                    <span class="co1">// Sends SYN_STREAM and DATA to the server</span>
+                    Stream stream
+                    <span class="sy0">=</span>
+                    session.
+                    <span class="me1">syn</span>
+                    <span class="br0">(</span>
+                    <span class="kw1">new</span>
+                    SynInfo
+                    <span class="br0">(</span>
+                    <span class="kw2">false</span>
+                    <span class="br0">)</span>
+                    ,
+                    <span class="kw2">null</span>
+                    <span class="br0">)</span>
+                    .
+                    <span class="me1">get</span>
+                    <span class="br0">(</span>
+                    <span class="nu0">5</span>
+                    , TimeUnit.
+                    <span class="me1">SECONDS</span>
+                    <span class="br0">)</span>
+                    <span class="sy0">;</span>
+                    stream.
+                    <span class="me1">data</span>
+                    <span class="br0">(</span>
+                    <span class="kw1">new</span>
+                    StringDataInfo
+                    <span class="br0">(</span>
+                    <span class="st0">"Hello, World"</span>
+                    ,
+                    <span class="kw2">true</span>
+                    <span class="br0">)</span>
+                    <span class="br0">)</span>
+                    <span class="sy0">;</span>
+                  </pre>
+                </div>
+              </div>
+              <p>
+                To listen to SPDY frames the server sends, you need to pass a
+                <code>StreamFrameListener</code>
+                upon stream creation:
+              </p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="java source-java">
+                  <pre class="de1">
+                    StreamFrameListener streamListener
+                    <span class="sy0">=</span>
+                    <span class="kw1">new</span>
+                    StreamFrameListener.
+                    <span class="me1">Adapter</span>
+                    <span class="br0">(</span>
+                    <span class="br0">)</span>
+                    <span class="br0">{</span>
+                    <span class="kw1">public</span>
+                    <span class="kw4">void</span>
+                    onReply
+                    <span class="br0">(</span>
+                    Stream stream, ReplyInfo replyInfo
+                    <span class="br0">)</span>
+                    <span class="br0">{</span>
+                    <span class="co1">// Reply received from server, send DATA to the server</span>
+                    stream.
+                    <span class="me1">data</span>
+                    <span class="br0">(</span>
+                    <span class="kw1">new</span>
+                    StringDataInfo
+                    <span class="br0">(</span>
+                    <span class="st0">"Hello, World"</span>
+                    ,
+                    <span class="kw2">true</span>
+                    <span class="br0">)</span>
+                    <span class="br0">)</span>
+                    <span class="sy0">;</span>
+                    <span class="br0">}</span>
+                    <span class="kw1">public</span>
+                    <span class="kw4">void</span>
+                    onData
+                    <span class="br0">(</span>
+                    Stream stream, DataInfo dataInfo
+                    <span class="br0">)</span>
+                    <span class="br0">{</span>
+                    <span class="co1">// Data received from server</span>
+                    <span class="kw3">String</span>
+                    content
+                    <span class="sy0">=</span>
+                    dataInfo.
+                    <span class="me1">asString</span>
+                    <span class="br0">(</span>
+                    <span class="st0">"UTF-8"</span>
+                    ,
+                    <span class="kw2">true</span>
+                    <span class="br0">)</span>
+                    <span class="sy0">;</span>
+                    <span class="kw3">System</span>
+                    .
+                    <span class="me1">err</span>
+                    .
+                    <span class="me1">printf</span>
+                    <span class="br0">(</span>
+                    <span class="st0">"SPDY content: %s%n"</span>
+                    , content
+                    <span class="br0">)</span>
+                    <span class="sy0">;</span>
+                    <span class="br0">}</span>
+                    <span class="br0">}</span>
+                    <span class="sy0">;</span>
+                    <span class="co1">// Sends SYN_STREAM to the server, adding headers</span>
+                    Headers headers
+                    <span class="sy0">=</span>
+                    <span class="kw1">new</span>
+                    Headers
+                    <span class="br0">(</span>
+                    <span class="br0">)</span>
+                    <span class="sy0">;</span>
+                    headers.
+                    <span class="me1">put</span>
+                    <span class="br0">(</span>
+                    <span class="st0">"url"</span>
+                    ,
+                    <span class="st0">"/echo"</span>
+                    <span class="br0">)</span>
+                    <span class="sy0">;</span>
+                    Stream stream
+                    <span class="sy0">=</span>
+                    session.
+                    <span class="me1">syn</span>
+                    <span class="br0">(</span>
+                    <span class="kw1">new</span>
+                    SynInfo
+                    <span class="br0">(</span>
+                    headers,
+                    <span class="kw2">false</span>
+                    <span class="br0">)</span>
+                    ,
+                    <span class="kw2">null</span>
+                    <span class="br0">)</span>
+                    .
+                    <span class="me1">get</span>
+                    <span class="br0">(</span>
+                    <span class="nu0">5</span>
+                    , TimeUnit.
+                    <span class="me1">SECONDS</span>
+                    <span class="br0">)</span>
+                    <span class="sy0">;</span>
+                  </pre>
+                </div>
+              </div>
+              <h3>
+                <span class="mw-headline" id="Using_SPDY_Server_Applications">Using SPDY Server Applications</span>
+              </h3>
+              <p>
+                The
+                <code>spdy-jetty</code>
+                module provides a server connector that speaks pure SPDY, and that you can use in conjunction with the SPDY client (see above).
+              </p>
+              <p>
+                You can start the
+                <code>SPDYServerConnector</code>
+                in this way:
+              </p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="java source-java">
+                  <pre class="de1">
+                    <span class="co1">// The application code that handles incoming SYN_STREAMS</span>
+                    ServerSessionFrameListener application
+                    <span class="sy0">=</span>
+                    <span class="kw1">new</span>
+                    ServerSessionFrameListener.
+                    <span class="me1">Adapter</span>
+                    <span class="br0">(</span>
+                    <span class="br0">)</span>
+                    <span class="br0">{</span>
+                    <span class="kw1">public</span>
+                    StreamFrameListener onSyn
+                    <span class="br0">(</span>
+                    Stream stream, SynInfo synInfo
+                    <span class="br0">)</span>
+                    <span class="br0">{</span>
+                    <span class="co1">// Reply upon receiving a SYN_STREAM</span>
+                    stream.
+                    <span class="me1">reply</span>
+                    <span class="br0">(</span>
+                    <span class="kw1">new</span>
+                    ReplyInfo
+                    <span class="br0">(</span>
+                    <span class="kw2">false</span>
+                    <span class="br0">)</span>
+                    <span class="br0">)</span>
+                    <span class="sy0">;</span>
+                    <span class="co1">// Inspect the headers</span>
+                    Headers headers
+                    <span class="sy0">=</span>
+                    synInfo.
+                    <span class="me1">getHeaders</span>
+                    <span class="br0">(</span>
+                    <span class="br0">)</span>
+                    <span class="sy0">;</span>
+                    <span class="kw1">if</span>
+                    <span class="br0">(</span>
+                    <span class="st0">"/echo"</span>
+                    .
+                    <span class="me1">equals</span>
+                    <span class="br0">(</span>
+                    headers.
+                    <span class="me1">get</span>
+                    <span class="br0">(</span>
+                    <span class="st0">"url"</span>
+                    <span class="br0">)</span>
+                    .
+                    <span class="me1">value</span>
+                    <span class="br0">(</span>
+                    <span class="br0">)</span>
+                    <span class="br0">)</span>
+                    <span class="br0">)</span>
+                    <span class="br0">{</span>
+                    <span class="kw1">return</span>
+                    <span class="kw1">new</span>
+                    StreamFrameListener.
+                    <span class="me1">Adapter</span>
+                    <span class="br0">(</span>
+                    <span class="br0">)</span>
+                    <span class="br0">{</span>
+                    <span class="kw1">public</span>
+                    <span class="kw4">void</span>
+                    onData
+                    <span class="br0">(</span>
+                    Stream stream, DataInfo dataInfo
+                    <span class="br0">)</span>
+                    <span class="br0">{</span>
                     <span class="co1">// Upon receiving hello data from the client, echo it back</span>
-                    <span class="kw3">String</span> clientData <span class="sy0">=</span> dataInfo.<span class="me1">asString</span><span class="br0">(</span><span class="st0">"UTF-8"</span>, <span class="kw2">true</span><span class="br0">)</span><span class="sy0">;</span>
-                    stream.<span class="me1">data</span><span class="br0">(</span><span class="kw1">new</span> StringDataInfo<span class="br0">(</span><span class="st0">"Echo for "</span> <span class="sy0">+</span> clientData, <span class="kw2">true</span><span class="br0">)</span><span class="br0">)</span><span class="sy0">;</span>
-                <span class="br0">}</span>
-            <span class="br0">}</span><span class="sy0">;</span>
-        <span class="br0">}</span>
-        <span class="kw1">return</span> <span class="kw2">null</span><span class="sy0">;</span>
-    <span class="br0">}</span>
-<span class="br0">}</span><span class="sy0">;</span>
-
-<span class="co1">// Wire up and start the connector</span>
-org.<span class="me1">eclipse</span>.<span class="me1">jetty</span>.<span class="me1">server</span>.<span class="me1">Server</span> server <span class="sy0">=</span> <span class="kw1">new</span> Server<span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
-server.<span class="me1">addConnector</span><span class="br0">(</span><span class="kw1">new</span> SPDYServerConnector<span class="br0">(</span>application<span class="br0">)</span><span class="br0">)</span><span class="sy0">;</span>
-server.<span class="me1">start</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span></pre></div></div>
-<p>The <code>ServerSessionFrameListener</code> can inspect the incoming <code>SynInfo</code> and provide different execution paths depending on headers and/or data content.
-</p><p>Become familiar with the <a href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/spdy/api/package-summary.html" class="external text" rel="nofollow">SPDY API</a> to understand how to use it.
-</p>
-
-</div>
-
-                    <div id="catlinks" class="catlinks"><div class="mw-normal-catlinks" id="mw-normal-catlinks"><a href="https://wiki.eclipse.org/Special:Categories" title="Special:Categories">Categories</a>: <ul><li><a href="https://wiki.eclipse.org/Category:Jetty" title="Category:Jetty">Jetty</a></li><li><a href="https://wiki.eclipse.org/Category:Jetty_Feature" title="Category:Jetty Feature">Jetty Feature</a></li></ul></div></div>
-                                  </div>
+                    <span class="kw3">String</span>
+                    clientData
+                    <span class="sy0">=</span>
+                    dataInfo.
+                    <span class="me1">asString</span>
+                    <span class="br0">(</span>
+                    <span class="st0">"UTF-8"</span>
+                    ,
+                    <span class="kw2">true</span>
+                    <span class="br0">)</span>
+                    <span class="sy0">;</span>
+                    stream.
+                    <span class="me1">data</span>
+                    <span class="br0">(</span>
+                    <span class="kw1">new</span>
+                    StringDataInfo
+                    <span class="br0">(</span>
+                    <span class="st0">"Echo for "</span>
+                    <span class="sy0">+</span>
+                    clientData,
+                    <span class="kw2">true</span>
+                    <span class="br0">)</span>
+                    <span class="br0">)</span>
+                    <span class="sy0">;</span>
+                    <span class="br0">}</span>
+                    <span class="br0">}</span>
+                    <span class="sy0">;</span>
+                    <span class="br0">}</span>
+                    <span class="kw1">return</span>
+                    <span class="kw2">null</span>
+                    <span class="sy0">;</span>
+                    <span class="br0">}</span>
+                    <span class="br0">}</span>
+                    <span class="sy0">;</span>
+                    <span class="co1">// Wire up and start the connector</span>
+                    org.
+                    <span class="me1">eclipse</span>
+                    .
+                    <span class="me1">jetty</span>
+                    .
+                    <span class="me1">server</span>
+                    .
+                    <span class="me1">Server</span>
+                    server
+                    <span class="sy0">=</span>
+                    <span class="kw1">new</span>
+                    Server
+                    <span class="br0">(</span>
+                    <span class="br0">)</span>
+                    <span class="sy0">;</span>
+                    server.
+                    <span class="me1">addConnector</span>
+                    <span class="br0">(</span>
+                    <span class="kw1">new</span>
+                    SPDYServerConnector
+                    <span class="br0">(</span>
+                    application
+                    <span class="br0">)</span>
+                    <span class="br0">)</span>
+                    <span class="sy0">;</span>
+                    server.
+                    <span class="me1">start</span>
+                    <span class="br0">(</span>
+                    <span class="br0">)</span>
+                    <span class="sy0">;</span>
+                  </pre>
+                </div>
+              </div>
+              <p>
+                The
+                <code>ServerSessionFrameListener</code>
+                can inspect the incoming
+                <code>SynInfo</code>
+                and provide different execution paths depending on headers and/or data content.
+              </p>
+              <p>
+                Become familiar with the
+                <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/spdy/api/package-summary.html" rel="nofollow">SPDY API</a>
+                to understand how to use it.
+              </p>
+            </div>
+            <div class="catlinks" id="catlinks">
+              <div class="mw-normal-catlinks" id="mw-normal-catlinks">
+                <a href="https://wiki.eclipse.org/Special:Categories" title="Special:Categories">Categories</a>
+                :
+                <ul>
+                  <li>
+                    <a href="https://wiki.eclipse.org/Category:Jetty" title="Category:Jetty">Jetty</a>
+                  </li>
+                  <li>
+                    <a href="https://wiki.eclipse.org/Category:Jetty_Feature" title="Category:Jetty Feature">Jetty Feature</a>
+                  </li>
+                </ul>
               </div>
             </div>
           </div>
-</body>
+        </div>
+      </div>
+    </div>
+  </body>
 </html>

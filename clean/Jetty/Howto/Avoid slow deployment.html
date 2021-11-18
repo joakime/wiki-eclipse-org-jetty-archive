@@ -1,70 +1,202 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
-<head>
+  <head>
     <title>Jetty WTP Plugin</title>
-    <link rel="stylesheet" media="screen, print" href="wiki-style.css"/>
-</head>
-<body>
-<div class="col-md-20" id="mainContent">
-                               <div class="tab-content background-white">
-              <div class="tab-pane active" id="tab-pane-main-page-content">
-
-                
-                <h1 id="firstHeading" class="firstHeading page-header">
-                  <span dir="auto">Jetty/Howto/Avoid slow deployment</span>
-                </h1>
-                <div id="main-page-content">
-
-                  <div class="alert alert-small alert-warning" id="contentSub"><span class="subpages">&lt; <a href="../../Jetty.html" title="Jetty">Jetty</a>‎ | <a href="../Howto.html" title="Jetty/Howto">Howto</a></span></div>
-
-                  
-                  
-                  <div lang="en" dir="ltr" id="mw-content-text" class="mw-content-ltr"><p><br/>
-</p><p><br/>
-</p>
-<h2><span class="mw-headline" id="Introduction">Introduction</span></h2>
-<p>Annotations and annotation scanning was added to servlet specification 2.5. Since that time, there has been the possibility that your webapp will need to have all of its classes scanned at deployment to find annotations. The attribute <tt>metadata-complete</tt> was added in order to prevent unnecessary scanning. If you do not set <tt>metadata-complete=true</tt>, you risk slow deployment due to annotation scanning. If you have a large number of jars in your webapp, this can be very time consuming.
-</p><p>Since servlet 3.0 (supported by jetty-8.x), there has been the added requirement that both container and webapp jars can be scanned. In fact, even if you do set <tt>metadata-complete=true</tt> in your web.xml, scanning will probably still occur, due to the requirement to support the new ServletContainerInitializers. See 
-<a class="external free" rel="nofollow" href="http://java.net/jira/browse/SERVLET_SPEC-36">http://java.net/jira/browse/SERVLET_SPEC-36</a>.
-</p><p>This being the case, it is important that you control which jars are scanned in order to cut down deployment time.
-</p>
-<h2><span id="Remedy" class="mw-headline">Remedy</span></h2>
-<p>Jetty allows for the configuration of 2 different context attributes that control which jars are scanned. One controls which container jars are scanned, and the other controls which webapp jars are scanned:
-</p>
-<ul><li> <tt>org.eclipse.jetty.server.webapp.ContainerIncludeJarPattern</tt>. The primary use for this attribute is to control which jars are scanned for tlds in jetty-7. You can find information on which jars to include here: <a href="Configure JSP.html#Jetty_7.x" title="Jetty/Howto/Configure JSP">Configuring JSP</a>. In jetty-8, tlds are found via other means and thus this attribute has less importance. Note that if this attribute is *not* set, *no* container jars are scanned. You must set it if you want particular jars scanned.</li></ul>
-<ul><li> <tt>org.eclipse.jetty.server.webapp.WebInfIncludeJarPattern</tt>. By default, if this attribute is not set, all jars in WEB-INF/lib will be scanned. You can selectively include jars to be scanned by defining a series of patterns. For example, given this listing of files in WEB-INF/lib:</li></ul>
-<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="bash source-bash"><pre class="de1">WEB-INF<span class="sy0">/</span>lib<span class="sy0">/</span>
-           foo-api-1.2.3.jar
+    <link href="wiki-style.css" media="screen, print" rel="stylesheet" />
+  </head>
+  <body>
+    <div class="col-md-20" id="mainContent">
+      <div class="tab-content background-white">
+        <div class="tab-pane active" id="tab-pane-main-page-content">
+          <h1 class="firstHeading page-header" id="firstHeading">
+            <span dir="auto">Jetty/Howto/Avoid slow deployment</span>
+          </h1>
+          <div id="main-page-content">
+            <div class="alert alert-small alert-warning" id="contentSub">
+              <span class="subpages">
+                &lt;
+                <a href="../../Jetty.html" title="Jetty">Jetty</a>
+                ‎ |
+                <a href="../Howto.html" title="Jetty/Howto">Howto</a>
+              </span>
+            </div>
+            <div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="en">
+              <p>
+                <br />
+              </p>
+              <p>
+                <br />
+              </p>
+              <h2>
+                <span class="mw-headline" id="Introduction">Introduction</span>
+              </h2>
+              <p>
+                Annotations and annotation scanning was added to servlet specification 2.5. Since that time, there has been the possibility that your webapp will need to have all of its classes scanned at deployment to find annotations. The attribute
+                <tt>metadata-complete</tt>
+                was added in order to prevent unnecessary scanning. If you do not set
+                <tt>metadata-complete=true</tt>
+                , you risk slow deployment due to annotation scanning. If you have a large number of jars in your webapp, this can be very time consuming.
+              </p>
+              <p>
+                Since servlet 3.0 (supported by jetty-8.x), there has been the added requirement that both container and webapp jars can be scanned. In fact, even if you do set
+                <tt>metadata-complete=true</tt>
+                in your web.xml, scanning will probably still occur, due to the requirement to support the new ServletContainerInitializers. See
+                <a class="external free" href="http://java.net/jira/browse/SERVLET_SPEC-36" rel="nofollow">http://java.net/jira/browse/SERVLET_SPEC-36</a>
+                .
+              </p>
+              <p>This being the case, it is important that you control which jars are scanned in order to cut down deployment time.</p>
+              <h2>
+                <span class="mw-headline" id="Remedy">Remedy</span>
+              </h2>
+              <p>Jetty allows for the configuration of 2 different context attributes that control which jars are scanned. One controls which container jars are scanned, and the other controls which webapp jars are scanned:</p>
+              <ul>
+                <li>
+                  <tt>org.eclipse.jetty.server.webapp.ContainerIncludeJarPattern</tt>
+                  . The primary use for this attribute is to control which jars are scanned for tlds in jetty-7. You can find information on which jars to include here:
+                  <a href="Configure JSP.html#Jetty_7.x" title="Jetty/Howto/Configure JSP">Configuring JSP</a>
+                  . In jetty-8, tlds are found via other means and thus this attribute has less importance. Note that if this attribute is *not* set, *no* container jars are scanned. You must set it if you want particular jars scanned.
+                </li>
+              </ul>
+              <ul>
+                <li>
+                  <tt>org.eclipse.jetty.server.webapp.WebInfIncludeJarPattern</tt>
+                  . By default, if this attribute is not set, all jars in WEB-INF/lib will be scanned. You can selectively include jars to be scanned by defining a series of patterns. For example, given this listing of files in WEB-INF/lib:
+                </li>
+              </ul>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="bash source-bash">
+                  <pre class="de1">
+                    WEB-INF
+                    <span class="sy0">/</span>
+                    lib
+                    <span class="sy0">/</span>
+                    foo-api-1.2.3.jar
            foo-1.2.3.jar
-           bar-<span class="nu0">0.9</span>.jar
-           boo-<span class="nu0">1.0</span>.jar</pre></div></div>
-<p><br/>
-</p>
-<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="xml source-xml"><pre class="de1"><span class="sc3"><span class="re1">&lt;Configure</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.webapp.WebAppContext"</span><span class="re2">&gt;</span></span>
-
-    <span class="sc3"><span class="re1">&lt;Call</span> <span class="re0">name</span>=<span class="st0">"setAttribute"</span><span class="re2">&gt;</span></span>
-      <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>org.eclipse.jetty.server.webapp.WebInfIncludeJarPattern<span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
-      <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>.*/.*foo-api-[^/]\.jar$|./.*bar-[^/]\.jar$|./.*wibble[^/]*\.jar$<span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
-    <span class="sc3"><span class="re1">&lt;/Call<span class="re2">&gt;</span></span></span>
-<span class="sc3"><span class="re1">&lt;/Configure<span class="re2">&gt;</span></span></span></pre></div></div>
-<p>Then the following files would match and be scanned:
-</p>
-<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="bash source-bash"><pre class="de1">WEB-INF<span class="sy0">/</span>lib<span class="sy0">/</span>
-           foo-api-1.2.3.jar
-           bar-<span class="nu0">0.9</span>.jar</pre></div></div>
-<p>Patterns are specified using <a rel="nofollow" class="external text" href="http://docs.oracle.com/javase/6/docs/api/java/util/regex/Pattern.html">java regex expressions</a>.
-</p><p>Context attributes can be set for a single webapp:
-</p>
-<ul><li> in a <a title="Jetty/Feature/ContextDeployer" class="mw-redirect" href="https://wiki.eclipse.org/Jetty/Feature/ContextDeployer">context xml</a> file</li>
-<li> in code by calling <a href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/webapp/WebAppContext.html" class="external free" rel="nofollow">http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/webapp/WebAppContext.html</a></li></ul>
-<p>Context attributes can be set for multiple webapps by configuring the <a title="Jetty/Feature/Deployment Manager" href="../Feature/Deployment Manager.html">Deployment Manager</a>.
-</p>
-
-</div>
-
-                    <div class="catlinks" id="catlinks"><div class="mw-normal-catlinks" id="mw-normal-catlinks"><a title="Special:Categories" href="https://wiki.eclipse.org/Special:Categories">Categories</a>: <ul><li><a title="Category:Jetty" href="https://wiki.eclipse.org/Category:Jetty">Jetty</a></li><li><a title="Category:Jetty Howto" href="https://wiki.eclipse.org/Category:Jetty_Howto">Jetty Howto</a></li></ul></div></div>
-                                  </div>
+           bar-
+                    <span class="nu0">0.9</span>
+                    .jar
+           boo-
+                    <span class="nu0">1.0</span>
+                    .jar
+                  </pre>
+                </div>
+              </div>
+              <p>
+                <br />
+              </p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="xml source-xml">
+                  <pre class="de1">
+                    <span class="sc3">
+                      <span class="re1">&lt;Configure</span>
+                      <span class="re0">class</span>
+                      =
+                      <span class="st0">"org.eclipse.jetty.webapp.WebAppContext"</span>
+                      <span class="re2">&gt;</span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">&lt;Call</span>
+                      <span class="re0">name</span>
+                      =
+                      <span class="st0">"setAttribute"</span>
+                      <span class="re2">&gt;</span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;Arg
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    org.eclipse.jetty.server.webapp.WebInfIncludeJarPattern
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Arg
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;Arg
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    .*/.*foo-api-[^/]\.jar$|./.*bar-[^/]\.jar$|./.*wibble[^/]*\.jar$
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Arg
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Call
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Configure
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                  </pre>
+                </div>
+              </div>
+              <p>Then the following files would match and be scanned:</p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="bash source-bash">
+                  <pre class="de1">
+                    WEB-INF
+                    <span class="sy0">/</span>
+                    lib
+                    <span class="sy0">/</span>
+                    foo-api-1.2.3.jar
+           bar-
+                    <span class="nu0">0.9</span>
+                    .jar
+                  </pre>
+                </div>
+              </div>
+              <p>
+                Patterns are specified using
+                <a class="external text" href="http://docs.oracle.com/javase/6/docs/api/java/util/regex/Pattern.html" rel="nofollow">java regex expressions</a>
+                .
+              </p>
+              <p>Context attributes can be set for a single webapp:</p>
+              <ul>
+                <li>
+                  in a
+                  <a class="mw-redirect" href="https://wiki.eclipse.org/Jetty/Feature/ContextDeployer" title="Jetty/Feature/ContextDeployer">context xml</a>
+                  file
+                </li>
+                <li>
+                  in code by calling
+                  <a class="external free" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/webapp/WebAppContext.html" rel="nofollow">http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/webapp/WebAppContext.html</a>
+                </li>
+              </ul>
+              <p>
+                Context attributes can be set for multiple webapps by configuring the
+                <a href="../Feature/Deployment Manager.html" title="Jetty/Feature/Deployment Manager">Deployment Manager</a>
+                .
+              </p>
+            </div>
+            <div class="catlinks" id="catlinks">
+              <div class="mw-normal-catlinks" id="mw-normal-catlinks">
+                <a href="https://wiki.eclipse.org/Special:Categories" title="Special:Categories">Categories</a>
+                :
+                <ul>
+                  <li>
+                    <a href="https://wiki.eclipse.org/Category:Jetty" title="Category:Jetty">Jetty</a>
+                  </li>
+                  <li>
+                    <a href="https://wiki.eclipse.org/Category:Jetty_Howto" title="Category:Jetty Howto">Jetty Howto</a>
+                  </li>
+                </ul>
               </div>
             </div>
           </div>
-</body>
+        </div>
+      </div>
+    </div>
+  </body>
 </html>

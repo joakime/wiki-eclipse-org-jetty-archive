@@ -1,143 +1,469 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
-<head>
+  <head>
     <title>Jetty WTP Plugin</title>
-    <link rel="stylesheet" media="screen, print" href="wiki-style.css"/>
-</head>
-<body>
-<div class="col-md-20" id="mainContent">
-                               <div class="tab-content background-white">
-              <div id="tab-pane-main-page-content" class="tab-pane active">
-
-                
-                <h1 id="firstHeading" class="firstHeading page-header">
-                  <span dir="auto">Jetty/Reference/webdefault.xml</span>
-                </h1>
-                <div id="main-page-content">
-
-                  <div class="alert alert-small alert-warning" id="contentSub"><span class="subpages">&lt; <a href="../../Jetty.html" title="Jetty">Jetty</a>‎ | <a title="Jetty/Reference" href="../Reference.html">Reference</a></span></div>
-
-                  
-                  
-                  <div class="mw-content-ltr" lang="en" dir="ltr" id="mw-content-text"><p><br/>
-</p><p><br/>
-</p>
-<div class="toc" id="toc"><div id="toctitle"><h2>Contents</h2></div>
-<ul>
-<li class="toclevel-1"><a href="webdefault.xml.html#Introduction"><span class="tocnumber">1</span> <span class="toctext">Introduction</span></a></li>
-<li class="toclevel-1"><a href="webdefault.xml.html#Using_webdefault.xml"><span class="tocnumber">2</span> <span class="toctext">Using webdefault.xml</span></a>
-<ul>
-<li class="toclevel-2"><a href="webdefault.xml.html#Creating_a_Custom_webdefault.xml_for_One_WebApp"><span class="tocnumber">2.1</span> <span class="toctext">Creating a Custom webdefault.xml for One WebApp</span></a></li>
-<li class="toclevel-2"><a href="webdefault.xml.html#Creating_a_Custom_webdefault.xml_for_Multiple_WebApps"><span class="tocnumber">2.2</span> <span class="toctext">Creating a Custom webdefault.xml for Multiple WebApps</span></a></li>
-<li class="toclevel-2"><a href="webdefault.xml.html#Using_the_Jetty_Maven_Plugin"><span class="tocnumber">2.3</span> <span class="toctext">Using the Jetty Maven Plugin</span></a></li>
-</ul>
-</li>
-<li class="toclevel-1"><a href="webdefault.xml.html#Additional_Resources"><span class="tocnumber">3</span> <span class="toctext">Additional Resources</span></a></li>
-</ul>
-</div>
-
-<h2><span class="mw-headline" id="Introduction">Introduction</span></h2>
-<div style="background-color: #f9f6b7; border: 1px solid #c4c295; color: black; padding: 5px; margin: 1ex 0; min-height: 35px; padding-left: 45px; font-size: 150%; color: white; background-color: #FF8888; padding: 50px" class="messagebox">
-<div style="float: left; margin-left: -40px;"><a class="image" href="https://wiki.eclipse.org/File:Warning2.png"><img width="35" height="35" alt="Warning2.png" src="../../images/3/37/Warning2.png"/></a></div>
-<div>Jetty 7 and Jetty 8 are now EOL (End of Life)<br/>
-<p><br/>
-<br/>
-<br/>
-THIS IS NOT THE DOCUMENTATION YOU ARE LOOKING FOR!!!!!<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-All development and stable releases are being performed with Jetty 9 and Jetty 10.<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-This <b>wiki is now officially out of date</b> and all content has been moved to the <a rel="nofollow" class="external text" href="http://www.eclipse.org/jetty/documentation">Jetty Documentation Hub</a><br/> 
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-</p>
-Direct Link to updated documentation: <a rel="nofollow" class="external free" href="http://www.eclipse.org/jetty/documentation/current/webdefault-xml.html">http://www.eclipse.org/jetty/documentation/current/webdefault-xml.html</a></div>
-</div>
-<p><br/>
-The <tt>webdefault.xml</tt> file saves web applications from having to define a lot of house-keeping and container-specific elements in their own <tt>web.xml</tt> files. For example, you can use it to set up mime-type mappings and JSP servlet-mappings. Jetty applies <tt>webdefault.xml</tt> to a web application <i>before</i> the application's own <tt>WEB-INF/web.xml</tt>, which means that it cannot override values inside the webapp's <tt>web.xml</tt>. It uses the <a href="jetty.xml syntax.html" title="Jetty/Reference/jetty.xml syntax"><tt>jetty.xml</tt> syntax</a>.  Generally, it is convenient for all webapps in a Jetty instance to share the same <tt>webdefault.xml</tt> file. However, it is certainly possible to provide differentiated <tt>webdefault.xml</tt> files for individual web applications.
-</p><p>The <tt>webdefault.xml</tt> file is located in <tt>$(jetty.home)/etc/webdefault.xml</tt>.
-</p>
-<h2><span id="Using_webdefault.xml" class="mw-headline">Using <tt>webdefault.xml</tt></span></h2>
-<p>You can specify a custom configuration file to use for specific webapps, or for all webapps. If you do not specify an alternate defaults descriptor,  Jetty automatically uses <tt>webdefault.xml</tt>.
-</p>
-<h3><span class="mw-headline" id="Creating_a_Custom_webdefault.xml_for_One_WebApp">Creating a Custom <tt>webdefault.xml</tt> for One WebApp</span></h3>
-<p>You can specify a custom <tt>webdefault.xml</tt> for an individual web application in that webapp's <a title="Jetty/Reference/jetty-web.xml" href="jetty-web.xml.html">jetty-web.xml</a> as follows:
-</p>
-<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="xml source-xml"><pre class="de1"><span class="sc3"><span class="re1">&lt;Configure</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.webapp.WebAppContext"</span><span class="re2">&gt;</span></span>
-  ...
-  <span class="sc-1">&lt;!-- Set up the absolute path to the custom webdefault.xml --&gt;</span>
-  <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"defaultsDescriptor"</span><span class="re2">&gt;</span></span>/my/path/to/webdefault.xml<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
-  ...
-<span class="sc3"><span class="re1">&lt;/Configure<span class="re2">&gt;</span></span></span></pre></div></div>
-<p>The equivalent in code is:
-</p>
-<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="java source-java"><pre class="de1"><span class="kw1">import</span> <span class="co2">org.eclipse.jetty.webapp.WebAppContext</span><span class="sy0">;</span>
-
-    ...
-
-    <span class="me1">WebAppContext</span> wac <span class="sy0">=</span> <span class="kw1">new</span> WebAppContext<span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
-    ...
-    <span class="co1">//Set up the absolute path to the custom webdefault.xml.</span>
-    wac.<span class="me1">setDefaultsDescriptor</span><span class="br0">(</span><span class="st0">"/my/path/to/webdefault.xml"</span><span class="br0">)</span><span class="sy0">;</span>
-    ...</pre></div></div>
-<p>Alternatively, you can use a <a title="Jetty/Reference/Jetty Classloading" href="Jetty Classloading.html">classloader</a> to find the resource representing your custom <tt>webdefault.xml</tt>.
-</p>
-<h3><span id="Creating_a_Custom_webdefault.xml_for_Multiple_WebApps" class="mw-headline">Creating a Custom <tt>webdefault.xml</tt> for Multiple WebApps</span></h3>
-<p>If you want to apply the same custom <tt>webdefault.xml</tt> to a number of webapps, provide the path to the file in <tt><a title="Jetty/Reference/jetty.xml" href="jetty.xml.html">jetty.xml</a></tt> either to the hot deployer (<a href="https://wiki.eclipse.org/Jetty/Feature/ContextDeployer" title="Jetty/Feature/ContextDeployer" class="mw-redirect">Context Provider</a>) or the static deployer (<a class="mw-redirect" href="https://wiki.eclipse.org/Jetty/Feature/WebAppDeployer" title="Jetty/Feature/WebAppDeployer">WebAppProvider</a>). For example:
-</p>
-<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="xml source-xml"><pre class="de1"><span class="sc3"><span class="re1">&lt;Configure</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.webapp.WebAppContext"</span><span class="re2">&gt;</span></span>
-    ...
-    <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.deploy.WebAppDeployer"</span><span class="re2">&gt;</span></span>
-        ...
-        <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"defaultsDescriptor"</span><span class="re2">&gt;</span></span>/my/path/to/webdefault.xml<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
-    <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span>
-    ...
-<span class="sc3"><span class="re1">&lt;/Configure<span class="re2">&gt;</span></span></span></pre></div></div>
-<h3><span class="mw-headline" id="Using_the_Jetty_Maven_Plugin">Using the Jetty Maven Plugin</span></h3>
-<p>Similarly, for the <a title="Jetty/Feature/Jetty Maven Plugin" href="../Feature/Jetty Maven Plugin.html">Jetty Maven Plugin</a>, you provide a customized <tt>webdefault.xml</tt> file for your webapp as follows:
-</p>
-<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="xml source-xml"><pre class="de1"><span class="sc3"><span class="re1">&lt;project<span class="re2">&gt;</span></span></span>
-    ...
-    <span class="sc3"><span class="re1">&lt;plugins<span class="re2">&gt;</span></span></span>
-        <span class="sc3"><span class="re1">&lt;plugin<span class="re2">&gt;</span></span></span>
-            ...
-            <span class="sc3"><span class="re1">&lt;artifactId<span class="re2">&gt;</span></span></span>jetty-maven-plugin<span class="sc3"><span class="re1">&lt;/artifactId<span class="re2">&gt;</span></span></span>
-            <span class="sc3"><span class="re1">&lt;configuration<span class="re2">&gt;</span></span></span>
-                <span class="sc3"><span class="re1">&lt;webAppConfig<span class="re2">&gt;</span></span></span>
-                  ...
-                  <span class="sc3"><span class="re1">&lt;defaultsDescriptor<span class="re2">&gt;</span></span></span>/my/path/to/webdefault.xml<span class="sc3"><span class="re1">&lt;/defaultsDescriptor<span class="re2">&gt;</span></span></span>
-                <span class="sc3"><span class="re1">&lt;/webAppConfig<span class="re2">&gt;</span></span></span>
-            <span class="sc3"><span class="re1">&lt;/configuration<span class="re2">&gt;</span></span></span>
-        <span class="sc3"><span class="re1">&lt;/plugin<span class="re2">&gt;</span></span></span>
-        ...
-    <span class="sc3"><span class="re1">&lt;/plugins<span class="re2">&gt;</span></span></span>
-    ...
-<span class="sc3"><span class="re1">&lt;/project<span class="re2">&gt;</span></span></span></pre></div></div>
-<h2><span class="mw-headline" id="Additional_Resources">Additional Resources</span></h2>
-<ul><li> <a href="jetty-web.xml.html" title="Jetty/Reference/jetty-web.xml">web.xml Reference</a>–reference information for <tt>web.xml</tt> files</li>
-<li> <a href="override-web.xml.html" title="Jetty/Reference/override-web.xml"><tt>override-web.xml</tt></a>–a web.xml-formatted file, applied after the webapp's web.xml</li>
-<li> <a href="jetty.xml.html" title="Jetty/Reference/jetty.xml">jetty.xml Reference</a>–more information about <tt>jetty.xml</tt></li></ul>
-
-
-</div>
-
-                    <div id="catlinks" class="catlinks"><div class="mw-normal-catlinks" id="mw-normal-catlinks"><a href="https://wiki.eclipse.org/Special:Categories" title="Special:Categories">Categories</a>: <ul><li><a href="https://wiki.eclipse.org/Category:Jetty" title="Category:Jetty">Jetty</a></li><li><a title="Category:Jetty Reference" href="https://wiki.eclipse.org/Category:Jetty_Reference">Jetty Reference</a></li></ul></div></div>
-                                  </div>
+    <link href="wiki-style.css" media="screen, print" rel="stylesheet" />
+  </head>
+  <body>
+    <div class="col-md-20" id="mainContent">
+      <div class="tab-content background-white">
+        <div class="tab-pane active" id="tab-pane-main-page-content">
+          <h1 class="firstHeading page-header" id="firstHeading">
+            <span dir="auto">Jetty/Reference/webdefault.xml</span>
+          </h1>
+          <div id="main-page-content">
+            <div class="alert alert-small alert-warning" id="contentSub">
+              <span class="subpages">
+                &lt;
+                <a href="../../Jetty.html" title="Jetty">Jetty</a>
+                ‎ |
+                <a href="../Reference.html" title="Jetty/Reference">Reference</a>
+              </span>
+            </div>
+            <div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="en">
+              <p>
+                <br />
+              </p>
+              <p>
+                <br />
+              </p>
+              <div class="toc" id="toc">
+                <div id="toctitle">
+                  <h2>Contents</h2>
+                </div>
+                <ul>
+                  <li class="toclevel-1">
+                    <a href="webdefault.xml.html#Introduction">
+                      <span class="tocnumber">1</span>
+                      <span class="toctext">Introduction</span>
+                    </a>
+                  </li>
+                  <li class="toclevel-1">
+                    <a href="webdefault.xml.html#Using_webdefault.xml">
+                      <span class="tocnumber">2</span>
+                      <span class="toctext">Using webdefault.xml</span>
+                    </a>
+                    <ul>
+                      <li class="toclevel-2">
+                        <a href="webdefault.xml.html#Creating_a_Custom_webdefault.xml_for_One_WebApp">
+                          <span class="tocnumber">2.1</span>
+                          <span class="toctext">Creating a Custom webdefault.xml for One WebApp</span>
+                        </a>
+                      </li>
+                      <li class="toclevel-2">
+                        <a href="webdefault.xml.html#Creating_a_Custom_webdefault.xml_for_Multiple_WebApps">
+                          <span class="tocnumber">2.2</span>
+                          <span class="toctext">Creating a Custom webdefault.xml for Multiple WebApps</span>
+                        </a>
+                      </li>
+                      <li class="toclevel-2">
+                        <a href="webdefault.xml.html#Using_the_Jetty_Maven_Plugin">
+                          <span class="tocnumber">2.3</span>
+                          <span class="toctext">Using the Jetty Maven Plugin</span>
+                        </a>
+                      </li>
+                    </ul>
+                  </li>
+                  <li class="toclevel-1">
+                    <a href="webdefault.xml.html#Additional_Resources">
+                      <span class="tocnumber">3</span>
+                      <span class="toctext">Additional Resources</span>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+              <h2>
+                <span class="mw-headline" id="Introduction">Introduction</span>
+              </h2>
+              <div class="messagebox" style="background-color: #f9f6b7; border: 1px solid #c4c295; color: black; padding: 5px; margin: 1ex 0; min-height: 35px; padding-left: 45px; font-size: 150%; color: white; background-color: #FF8888; padding: 50px">
+                <div style="float: left; margin-left: -40px;">
+                  <a class="image" href="https://wiki.eclipse.org/File:Warning2.png">
+                    <img alt="Warning2.png" height="35" src="../../images/3/37/Warning2.png" width="35" />
+                  </a>
+                </div>
+                <div>
+                  Jetty 7 and Jetty 8 are now EOL (End of Life)
+                  <br />
+                  <p>
+                    <br />
+                    <br />
+                    <br />
+                    THIS IS NOT THE DOCUMENTATION YOU ARE LOOKING FOR!!!!!
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    All development and stable releases are being performed with Jetty 9 and Jetty 10.
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    This
+                    <b>wiki is now officially out of date</b>
+                    and all content has been moved to the
+                    <a class="external text" href="http://www.eclipse.org/jetty/documentation" rel="nofollow">Jetty Documentation Hub</a>
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                  </p>
+                  Direct Link to updated documentation:
+                  <a class="external free" href="http://www.eclipse.org/jetty/documentation/current/webdefault-xml.html" rel="nofollow">http://www.eclipse.org/jetty/documentation/current/webdefault-xml.html</a>
+                </div>
+              </div>
+              <p>
+                <br />
+                The
+                <tt>webdefault.xml</tt>
+                file saves web applications from having to define a lot of house-keeping and container-specific elements in their own
+                <tt>web.xml</tt>
+                files. For example, you can use it to set up mime-type mappings and JSP servlet-mappings. Jetty applies
+                <tt>webdefault.xml</tt>
+                to a web application
+                <i>before</i>
+                the application's own
+                <tt>WEB-INF/web.xml</tt>
+                , which means that it cannot override values inside the webapp's
+                <tt>web.xml</tt>
+                . It uses the
+                <a href="jetty.xml syntax.html" title="Jetty/Reference/jetty.xml syntax">
+                  <tt>jetty.xml</tt>
+                  syntax
+                </a>
+                .  Generally, it is convenient for all webapps in a Jetty instance to share the same
+                <tt>webdefault.xml</tt>
+                file. However, it is certainly possible to provide differentiated
+                <tt>webdefault.xml</tt>
+                files for individual web applications.
+              </p>
+              <p>
+                The
+                <tt>webdefault.xml</tt>
+                file is located in
+                <tt>$(jetty.home)/etc/webdefault.xml</tt>
+                .
+              </p>
+              <h2>
+                <span class="mw-headline" id="Using_webdefault.xml">
+                  Using
+                  <tt>webdefault.xml</tt>
+                </span>
+              </h2>
+              <p>
+                You can specify a custom configuration file to use for specific webapps, or for all webapps. If you do not specify an alternate defaults descriptor,  Jetty automatically uses
+                <tt>webdefault.xml</tt>
+                .
+              </p>
+              <h3>
+                <span class="mw-headline" id="Creating_a_Custom_webdefault.xml_for_One_WebApp">
+                  Creating a Custom
+                  <tt>webdefault.xml</tt>
+                  for One WebApp
+                </span>
+              </h3>
+              <p>
+                You can specify a custom
+                <tt>webdefault.xml</tt>
+                for an individual web application in that webapp's
+                <a href="jetty-web.xml.html" title="Jetty/Reference/jetty-web.xml">jetty-web.xml</a>
+                as follows:
+              </p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="xml source-xml">
+                  <pre class="de1">
+                    <span class="sc3">
+                      <span class="re1">&lt;Configure</span>
+                      <span class="re0">class</span>
+                      =
+                      <span class="st0">"org.eclipse.jetty.webapp.WebAppContext"</span>
+                      <span class="re2">&gt;</span>
+                    </span>
+                    ...
+                    <span class="sc-1">&lt;!-- Set up the absolute path to the custom webdefault.xml --&gt;</span>
+                    <span class="sc3">
+                      <span class="re1">&lt;Set</span>
+                      <span class="re0">name</span>
+                      =
+                      <span class="st0">"defaultsDescriptor"</span>
+                      <span class="re2">&gt;</span>
+                    </span>
+                    /my/path/to/webdefault.xml
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Set
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    ...
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Configure
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                  </pre>
+                </div>
+              </div>
+              <p>The equivalent in code is:</p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="java source-java">
+                  <pre class="de1">
+                    <span class="kw1">import</span>
+                    <span class="co2">org.eclipse.jetty.webapp.WebAppContext</span>
+                    <span class="sy0">;</span>
+                    ...
+                    <span class="me1">WebAppContext</span>
+                    wac
+                    <span class="sy0">=</span>
+                    <span class="kw1">new</span>
+                    WebAppContext
+                    <span class="br0">(</span>
+                    <span class="br0">)</span>
+                    <span class="sy0">;</span>
+                    ...
+                    <span class="co1">//Set up the absolute path to the custom webdefault.xml.</span>
+                    wac.
+                    <span class="me1">setDefaultsDescriptor</span>
+                    <span class="br0">(</span>
+                    <span class="st0">"/my/path/to/webdefault.xml"</span>
+                    <span class="br0">)</span>
+                    <span class="sy0">;</span>
+                    ...
+                  </pre>
+                </div>
+              </div>
+              <p>
+                Alternatively, you can use a
+                <a href="Jetty Classloading.html" title="Jetty/Reference/Jetty Classloading">classloader</a>
+                to find the resource representing your custom
+                <tt>webdefault.xml</tt>
+                .
+              </p>
+              <h3>
+                <span class="mw-headline" id="Creating_a_Custom_webdefault.xml_for_Multiple_WebApps">
+                  Creating a Custom
+                  <tt>webdefault.xml</tt>
+                  for Multiple WebApps
+                </span>
+              </h3>
+              <p>
+                If you want to apply the same custom
+                <tt>webdefault.xml</tt>
+                to a number of webapps, provide the path to the file in
+                <tt>
+                  <a href="jetty.xml.html" title="Jetty/Reference/jetty.xml">jetty.xml</a>
+                </tt>
+                either to the hot deployer (
+                <a class="mw-redirect" href="https://wiki.eclipse.org/Jetty/Feature/ContextDeployer" title="Jetty/Feature/ContextDeployer">Context Provider</a>
+                ) or the static deployer (
+                <a class="mw-redirect" href="https://wiki.eclipse.org/Jetty/Feature/WebAppDeployer" title="Jetty/Feature/WebAppDeployer">WebAppProvider</a>
+                ). For example:
+              </p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="xml source-xml">
+                  <pre class="de1">
+                    <span class="sc3">
+                      <span class="re1">&lt;Configure</span>
+                      <span class="re0">class</span>
+                      =
+                      <span class="st0">"org.eclipse.jetty.webapp.WebAppContext"</span>
+                      <span class="re2">&gt;</span>
+                    </span>
+                    ...
+                    <span class="sc3">
+                      <span class="re1">&lt;New</span>
+                      <span class="re0">class</span>
+                      =
+                      <span class="st0">"org.eclipse.jetty.deploy.WebAppDeployer"</span>
+                      <span class="re2">&gt;</span>
+                    </span>
+                    ...
+                    <span class="sc3">
+                      <span class="re1">&lt;Set</span>
+                      <span class="re0">name</span>
+                      =
+                      <span class="st0">"defaultsDescriptor"</span>
+                      <span class="re2">&gt;</span>
+                    </span>
+                    /my/path/to/webdefault.xml
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Set
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/New
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    ...
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Configure
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                  </pre>
+                </div>
+              </div>
+              <h3>
+                <span class="mw-headline" id="Using_the_Jetty_Maven_Plugin">Using the Jetty Maven Plugin</span>
+              </h3>
+              <p>
+                Similarly, for the
+                <a href="../Feature/Jetty Maven Plugin.html" title="Jetty/Feature/Jetty Maven Plugin">Jetty Maven Plugin</a>
+                , you provide a customized
+                <tt>webdefault.xml</tt>
+                file for your webapp as follows:
+              </p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="xml source-xml">
+                  <pre class="de1">
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;project
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    ...
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;plugins
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;plugin
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    ...
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;artifactId
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    jetty-maven-plugin
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/artifactId
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;configuration
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;webAppConfig
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    ...
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;defaultsDescriptor
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    /my/path/to/webdefault.xml
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/defaultsDescriptor
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/webAppConfig
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/configuration
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/plugin
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    ...
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/plugins
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    ...
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/project
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                  </pre>
+                </div>
+              </div>
+              <h2>
+                <span class="mw-headline" id="Additional_Resources">Additional Resources</span>
+              </h2>
+              <ul>
+                <li>
+                  <a href="jetty-web.xml.html" title="Jetty/Reference/jetty-web.xml">web.xml Reference</a>
+                  –reference information for
+                  <tt>web.xml</tt>
+                  files
+                </li>
+                <li>
+                  <a href="override-web.xml.html" title="Jetty/Reference/override-web.xml">
+                    <tt>override-web.xml</tt>
+                  </a>
+                  –a web.xml-formatted file, applied after the webapp's web.xml
+                </li>
+                <li>
+                  <a href="jetty.xml.html" title="Jetty/Reference/jetty.xml">jetty.xml Reference</a>
+                  –more information about
+                  <tt>jetty.xml</tt>
+                </li>
+              </ul>
+            </div>
+            <div class="catlinks" id="catlinks">
+              <div class="mw-normal-catlinks" id="mw-normal-catlinks">
+                <a href="https://wiki.eclipse.org/Special:Categories" title="Special:Categories">Categories</a>
+                :
+                <ul>
+                  <li>
+                    <a href="https://wiki.eclipse.org/Category:Jetty" title="Category:Jetty">Jetty</a>
+                  </li>
+                  <li>
+                    <a href="https://wiki.eclipse.org/Category:Jetty_Reference" title="Category:Jetty Reference">Jetty Reference</a>
+                  </li>
+                </ul>
               </div>
             </div>
           </div>
-</body>
+        </div>
+      </div>
+    </div>
+  </body>
 </html>

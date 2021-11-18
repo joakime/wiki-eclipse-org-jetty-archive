@@ -1,106 +1,287 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
-<head>
+  <head>
     <title>Jetty WTP Plugin</title>
-    <link rel="stylesheet" media="screen, print" href="wiki-style.css"/>
-</head>
-<body>
-<div class="col-md-20" id="mainContent">
-                      <ul class="nav nav-tabs noprint hidden-print" role="tablist">
-                       <li class="active" id="ca-nstab-main"><a href="Use the Dump Feature.html" accesskey="c" title="View the content page [c]" tabindex="-1">Page</a></li>
-                        <li id="ca-talk"><a href="https://wiki.eclipse.org/Talk:Jetty/Howto/Use_the_Dump_Feature" accesskey="t" title="Discussion about the content page [t]" tabindex="-1">Discussion</a></li>
-                        <li id="ca-viewsource"><a accesskey="e" title="This page is protected.&#10;You can view its source [e]" tabindex="-1" href="edit">View source</a></li>
-                        <li id="ca-history" class="collapsible"><a href="edit" tabindex="-1" title="Past revisions of this page [h]" accesskey="h">History</a></li>
-                      </ul>            <div class="tab-content background-white">
-              <div id="tab-pane-main-page-content" class="tab-pane active">
-
-                
-                <h1 class="firstHeading page-header" id="firstHeading">
-                  <span dir="auto">Jetty/Howto/Use the Dump Feature</span>
-                </h1>
-                <div id="main-page-content">
-
-                  <div id="contentSub" class="alert alert-small alert-warning"><span class="subpages">&lt; <a href="../../Jetty.html" title="Jetty">Jetty</a>‎ | <a href="../Howto.html" title="Jetty/Howto">Howto</a></span></div>
-
-                  
-                  
-                  <div dir="ltr" lang="en" id="mw-content-text" class="mw-content-ltr"><p><br/>
-</p><p><br/>
-</p>
-<div class="toc" id="toc"><div id="toctitle"><h2>Contents</h2></div>
-<ul>
-<li class="toclevel-1"><a href="Use the Dump Feature.html#Introduction"><span class="tocnumber">1</span> <span class="toctext">Introduction</span></a></li>
-<li class="toclevel-1"><a href="Use the Dump Feature.html#Configuring_the_Dump_Feature_in_jetty.xml"><span class="tocnumber">2</span> <span class="toctext">Configuring the Dump Feature in jetty.xml</span></a>
-<ul>
-<li class="toclevel-2"><a href="Use the Dump Feature.html#Extra_ThreadPool_Information"><span class="tocnumber">2.1</span> <span class="toctext">Extra ThreadPool Information</span></a></li>
-</ul>
-</li>
-<li class="toclevel-1"><a href="Use the Dump Feature.html#Using_the_Dump_Feature_via_JMX"><span class="tocnumber">3</span> <span class="toctext">Using the Dump Feature via JMX</span></a></li>
-<li class="toclevel-1"><a href="Use the Dump Feature.html#Examining_a_Jetty_Hightide_Dump"><span class="tocnumber">4</span> <span class="toctext">Examining a Jetty Hightide Dump</span></a></li>
-</ul>
-</div>
-
-<h2><span id="Introduction" class="mw-headline">Introduction</span></h2>
-<div class="messagebox" style="background-color: #f9f6b7; border: 1px solid #c4c295; color: black; padding: 5px; margin: 1ex 0; min-height: 35px; padding-left: 45px; font-size: 150%; color: white; background-color: #FF8888; padding: 50px">
-<div style="float: left; margin-left: -40px;"><a class="image" href="https://wiki.eclipse.org/File:Warning2.png"><img width="35" alt="Warning2.png" src="../../images/3/37/Warning2.png" height="35"/></a></div>
-<div>Jetty 7 and Jetty 8 are now EOL (End of Life)<br/>
-<p><br/>
-<br/>
-<br/>
-THIS IS NOT THE DOCUMENTATION YOU ARE LOOKING FOR!!!!!<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-All development and stable releases are being performed with Jetty 9 and Jetty 10.<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-This <b>wiki is now officially out of date</b> and all content has been moved to the <a class="external text" href="http://www.eclipse.org/jetty/documentation" rel="nofollow">Jetty Documentation Hub</a><br/> 
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-</p>
-Direct Link to updated documentation: <a class="external free" rel="nofollow" href="http://www.eclipse.org/jetty/documentation/current/jetty-dump-tool.html">http://www.eclipse.org/jetty/documentation/current/jetty-dump-tool.html</a></div>
-</div>
-<p><br/>
-The dump feature in Jetty provides a good snapshot of the status of the threadpool, select sets, classloaders, and so forth. To get maximum detail from the dump, you need to <code>setDetailDump(true)</code> on any QueuedThreadPools you are using. You can do this by a direct call if you are embedding Jetty, or in <code>jetty.xml</code>.
-</p>
-<h2><span id="Configuring_the_Dump_Feature_in_jetty.xml" class="mw-headline">Configuring the Dump Feature in jetty.xml</span></h2>
-<p>You can request that Jetty does a dump immediately after staring and just before stopping by calling the appropriate setters on the Server instance.  This can be done in <code>jetty.xml</code> with:
-</p>
-<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="xml source-xml"><pre class="de1"><span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"dumpAfterStart"</span><span class="re2">&gt;</span></span>true<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
-<span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"dumpBeforeStop"</span><span class="re2">&gt;</span></span>true<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span></pre></div></div>
-<h3><span id="Extra_ThreadPool_Information" class="mw-headline">Extra ThreadPool Information</span></h3>
-<p>Additional detail can be dumped from the QueueudThreadPool if setDetailedDump(true) is called on the thread pool instance.    This can be done in <code>jetty.xml</code> as follows: 
-</p>
-<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="xml source-xml"><pre class="de1"><span class="sc3"><span class="re1">&lt;Configure</span> <span class="re0">id</span>=<span class="st0">"Server"</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.server.Server"</span><span class="re2">&gt;</span></span>
-  <span class="sc-1">&lt;!-- ==================================== --&gt;</span>
-  <span class="sc-1">&lt;!-- Server Thread Pool                                                                         --&gt;</span> 
-  <span class="sc-1">&lt;!-- ==================================== --&gt;</span>
-  <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"ThreadPool"</span><span class="re2">&gt;</span></span>
-     <span class="sc-1">&lt;!-- Default queued blocking threadpool --&gt;</span>
-     <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.util.thread.QueuedThreadPool"</span><span class="re2">&gt;</span></span>
-       <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"minThreads"</span><span class="re2">&gt;</span></span>10<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
-       <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"maxThreads"</span><span class="re2">&gt;</span></span>200<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
-       <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"detailedDump"</span><span class="re2">&gt;</span></span>true<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
-     <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span>
-  <span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span></pre></div></div>
-<h2><span class="mw-headline" id="Using_the_Dump_Feature_via_JMX">Using the Dump Feature via JMX</span></h2>
-<p>The dump method is on the Server instance and many of it's nested components (Handlers, Connectors etc.).  Dumps maybe obtained by calling these methods either in code or via JMX (see <a title="Jetty/Tutorial/JMX" href="../Tutorial/JMX.html">Configuring Jetty JMX</a>).
-</p><p>The Server MBean has a <code>dump()</code> method, which dumps everything, plus a <code>dumpStdErr()</code> operation that dumps to stderr rather than replying to jconsole. 
-</p>
-<h2><span id="Examining_a_Jetty_Hightide_Dump" class="mw-headline">Examining a Jetty Hightide Dump</span></h2>
-<p>This is a dump of jetty-hightide with two cometd clients running: 
-</p>
-<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="text source-text"><pre class="de1">^Corg.eclipse.jetty.server.Server@4178460d STOPPING 
+    <link href="wiki-style.css" media="screen, print" rel="stylesheet" />
+  </head>
+  <body>
+    <div class="col-md-20" id="mainContent">
+      <div class="tab-content background-white">
+        <div class="tab-pane active" id="tab-pane-main-page-content">
+          <h1 class="firstHeading page-header" id="firstHeading">
+            <span dir="auto">Jetty/Howto/Use the Dump Feature</span>
+          </h1>
+          <div id="main-page-content">
+            <div class="alert alert-small alert-warning" id="contentSub">
+              <span class="subpages">
+                &lt;
+                <a href="../../Jetty.html" title="Jetty">Jetty</a>
+                ‎ |
+                <a href="../Howto.html" title="Jetty/Howto">Howto</a>
+              </span>
+            </div>
+            <div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="en">
+              <p>
+                <br />
+              </p>
+              <p>
+                <br />
+              </p>
+              <div class="toc" id="toc">
+                <div id="toctitle">
+                  <h2>Contents</h2>
+                </div>
+                <ul>
+                  <li class="toclevel-1">
+                    <a href="Use the Dump Feature.html#Introduction">
+                      <span class="tocnumber">1</span>
+                      <span class="toctext">Introduction</span>
+                    </a>
+                  </li>
+                  <li class="toclevel-1">
+                    <a href="Use the Dump Feature.html#Configuring_the_Dump_Feature_in_jetty.xml">
+                      <span class="tocnumber">2</span>
+                      <span class="toctext">Configuring the Dump Feature in jetty.xml</span>
+                    </a>
+                    <ul>
+                      <li class="toclevel-2">
+                        <a href="Use the Dump Feature.html#Extra_ThreadPool_Information">
+                          <span class="tocnumber">2.1</span>
+                          <span class="toctext">Extra ThreadPool Information</span>
+                        </a>
+                      </li>
+                    </ul>
+                  </li>
+                  <li class="toclevel-1">
+                    <a href="Use the Dump Feature.html#Using_the_Dump_Feature_via_JMX">
+                      <span class="tocnumber">3</span>
+                      <span class="toctext">Using the Dump Feature via JMX</span>
+                    </a>
+                  </li>
+                  <li class="toclevel-1">
+                    <a href="Use the Dump Feature.html#Examining_a_Jetty_Hightide_Dump">
+                      <span class="tocnumber">4</span>
+                      <span class="toctext">Examining a Jetty Hightide Dump</span>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+              <h2>
+                <span class="mw-headline" id="Introduction">Introduction</span>
+              </h2>
+              <div class="messagebox" style="background-color: #f9f6b7; border: 1px solid #c4c295; color: black; padding: 5px; margin: 1ex 0; min-height: 35px; padding-left: 45px; font-size: 150%; color: white; background-color: #FF8888; padding: 50px">
+                <div style="float: left; margin-left: -40px;">
+                  <a class="image" href="https://wiki.eclipse.org/File:Warning2.png">
+                    <img alt="Warning2.png" height="35" src="../../images/3/37/Warning2.png" width="35" />
+                  </a>
+                </div>
+                <div>
+                  Jetty 7 and Jetty 8 are now EOL (End of Life)
+                  <br />
+                  <p>
+                    <br />
+                    <br />
+                    <br />
+                    THIS IS NOT THE DOCUMENTATION YOU ARE LOOKING FOR!!!!!
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    All development and stable releases are being performed with Jetty 9 and Jetty 10.
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    This
+                    <b>wiki is now officially out of date</b>
+                    and all content has been moved to the
+                    <a class="external text" href="http://www.eclipse.org/jetty/documentation" rel="nofollow">Jetty Documentation Hub</a>
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                  </p>
+                  Direct Link to updated documentation:
+                  <a class="external free" href="http://www.eclipse.org/jetty/documentation/current/jetty-dump-tool.html" rel="nofollow">http://www.eclipse.org/jetty/documentation/current/jetty-dump-tool.html</a>
+                </div>
+              </div>
+              <p>
+                <br />
+                The dump feature in Jetty provides a good snapshot of the status of the threadpool, select sets, classloaders, and so forth. To get maximum detail from the dump, you need to
+                <code>setDetailDump(true)</code>
+                on any QueuedThreadPools you are using. You can do this by a direct call if you are embedding Jetty, or in
+                <code>jetty.xml</code>
+                .
+              </p>
+              <h2>
+                <span class="mw-headline" id="Configuring_the_Dump_Feature_in_jetty.xml">Configuring the Dump Feature in jetty.xml</span>
+              </h2>
+              <p>
+                You can request that Jetty does a dump immediately after staring and just before stopping by calling the appropriate setters on the Server instance.  This can be done in
+                <code>jetty.xml</code>
+                with:
+              </p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="xml source-xml">
+                  <pre class="de1">
+                    <span class="sc3">
+                      <span class="re1">&lt;Set</span>
+                      <span class="re0">name</span>
+                      =
+                      <span class="st0">"dumpAfterStart"</span>
+                      <span class="re2">&gt;</span>
+                    </span>
+                    true
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Set
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">&lt;Set</span>
+                      <span class="re0">name</span>
+                      =
+                      <span class="st0">"dumpBeforeStop"</span>
+                      <span class="re2">&gt;</span>
+                    </span>
+                    true
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Set
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                  </pre>
+                </div>
+              </div>
+              <h3>
+                <span class="mw-headline" id="Extra_ThreadPool_Information">Extra ThreadPool Information</span>
+              </h3>
+              <p>
+                Additional detail can be dumped from the QueueudThreadPool if setDetailedDump(true) is called on the thread pool instance.    This can be done in
+                <code>jetty.xml</code>
+                as follows:
+              </p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="xml source-xml">
+                  <pre class="de1">
+                    <span class="sc3">
+                      <span class="re1">&lt;Configure</span>
+                      <span class="re0">id</span>
+                      =
+                      <span class="st0">"Server"</span>
+                      <span class="re0">class</span>
+                      =
+                      <span class="st0">"org.eclipse.jetty.server.Server"</span>
+                      <span class="re2">&gt;</span>
+                    </span>
+                    <span class="sc-1">&lt;!-- ==================================== --&gt;</span>
+                    <span class="sc-1">&lt;!-- Server Thread Pool                                                                         --&gt;</span>
+                    <span class="sc-1">&lt;!-- ==================================== --&gt;</span>
+                    <span class="sc3">
+                      <span class="re1">&lt;Set</span>
+                      <span class="re0">name</span>
+                      =
+                      <span class="st0">"ThreadPool"</span>
+                      <span class="re2">&gt;</span>
+                    </span>
+                    <span class="sc-1">&lt;!-- Default queued blocking threadpool --&gt;</span>
+                    <span class="sc3">
+                      <span class="re1">&lt;New</span>
+                      <span class="re0">class</span>
+                      =
+                      <span class="st0">"org.eclipse.jetty.util.thread.QueuedThreadPool"</span>
+                      <span class="re2">&gt;</span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">&lt;Set</span>
+                      <span class="re0">name</span>
+                      =
+                      <span class="st0">"minThreads"</span>
+                      <span class="re2">&gt;</span>
+                    </span>
+                    10
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Set
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">&lt;Set</span>
+                      <span class="re0">name</span>
+                      =
+                      <span class="st0">"maxThreads"</span>
+                      <span class="re2">&gt;</span>
+                    </span>
+                    200
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Set
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">&lt;Set</span>
+                      <span class="re0">name</span>
+                      =
+                      <span class="st0">"detailedDump"</span>
+                      <span class="re2">&gt;</span>
+                    </span>
+                    true
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Set
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/New
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Set
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                  </pre>
+                </div>
+              </div>
+              <h2>
+                <span class="mw-headline" id="Using_the_Dump_Feature_via_JMX">Using the Dump Feature via JMX</span>
+              </h2>
+              <p>
+                The dump method is on the Server instance and many of it's nested components (Handlers, Connectors etc.).  Dumps maybe obtained by calling these methods either in code or via JMX (see
+                <a href="../Tutorial/JMX.html" title="Jetty/Tutorial/JMX">Configuring Jetty JMX</a>
+                ).
+              </p>
+              <p>
+                The Server MBean has a
+                <code>dump()</code>
+                method, which dumps everything, plus a
+                <code>dumpStdErr()</code>
+                operation that dumps to stderr rather than replying to jconsole.
+              </p>
+              <h2>
+                <span class="mw-headline" id="Examining_a_Jetty_Hightide_Dump">Examining a Jetty Hightide Dump</span>
+              </h2>
+              <p>This is a dump of jetty-hightide with two cometd clients running:</p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="text source-text">
+                  <pre class="de1">^Corg.eclipse.jetty.server.Server@4178460d STOPPING 
 
  +- org.eclipse.jetty.server.handler.HandlerCollection@16aeea66 STARTED
  |   +- org.eclipse.jetty.server.handler.ContextHandlerCollection@ffdadcd STARTED 
@@ -563,17 +744,18 @@ SelectChannelConnector@0.0.0.0:8080 RUNNABLE
         +- org.eclipse.jetty.io.nio.SelectorManager$SelectSet@27db0da1 id=1
            +- org.eclipse.jetty.io.nio.SelectorManager$SelectSet.doSelect(SelectorManager.java:473) 
                                      +- sun.nio.ch.EPollSelectorImpl@320b34b1 keys=1
-           +- SCEP@259984788java.nio.channels.SocketChannel[connected local=/127.0.0.1:8080 remote=/127.0.0.1:50598][d=true,io=1,w=true,rb=false,wb=false] 1 1</pre></div></div>
-
-
-</div>
-
-                    <div class="catlinks" id="catlinks">
-                        <li><a title="Category:Jetty Howto" href="https://wiki.eclipse.org/Category:Jetty_Howto">Jetty Howto</a></li>
-                    </div>
+           +- SCEP@259984788java.nio.channels.SocketChannel[connected local=/127.0.0.1:8080 remote=/127.0.0.1:50598][d=true,io=1,w=true,rb=false,wb=false] 1 1</pre>
                 </div>
-                                  </div>
               </div>
             </div>
-</body>
+            <div class="catlinks" id="catlinks">
+              <li>
+                <a href="https://wiki.eclipse.org/Category:Jetty_Howto" title="Category:Jetty Howto">Jetty Howto</a>
+              </li>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
 </html>

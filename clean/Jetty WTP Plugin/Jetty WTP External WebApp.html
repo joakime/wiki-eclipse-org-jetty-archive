@@ -1,92 +1,187 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
-<head>
+  <head>
     <title>Jetty WTP Plugin</title>
-    <link rel="stylesheet" media="screen, print" href="wiki-style.css"/>
-</head>
-<body>
-<div id="mainContent" class="col-md-20">
-                                <div class="tab-content background-white">
-              <div class="tab-pane active" id="tab-pane-main-page-content">
-
-                
-                <h1 id="firstHeading" class="firstHeading page-header">
-                  <span dir="auto">Jetty WTP Plugin/Jetty WTP External WebApp</span>
-                </h1>
-                <div id="main-page-content">
-
-                  <div id="contentSub" class="alert alert-small alert-warning"><span class="subpages">&lt; <a href="../Jetty WTP Plugin.html" title="Jetty WTP Plugin">Jetty WTP Plugin</a></span></div>
-
-                  
-                  
-                  <div id="mw-content-text" class="mw-content-ltr" dir="ltr" lang="en"><p><br/>
-</p>
-<h2><span class="mw-headline" id="Using_an_External_Web_Application">Using an External Web Application</span></h2>
-<div class="messagebox" style="background-color: #f9f6b7; border: 1px solid #c4c295; color: black; padding: 5px; margin: 1ex 0; min-height: 35px; padding-left: 45px;">
-<div style="float: left; margin-left: -40px;"><a class="image" href="https://wiki.eclipse.org/File:Warning2.png"><img src="../images/3/37/Warning2.png" height="35" alt="Warning2.png" width="35"/></a></div>
-<div><b>This functionality is currently unmaintained, though it would be nice to find something that used it and wanted to improve it.</b><br/></div>
-</div>
-<p>Sometimes you want to use a web application that you created by other means than generating a Dynamic WEB Project (for example, by using Ant). 
-</p><p>For instance, the Jetty7 distribution provides a <tt>test.war</tt> which shows you the features of Jetty 7 (WebSocket..). Here we use this WAR without creating a Dynamlc Web Project to start it. 
-</p>
-<div class="messagebox" style="background-color: #def3fe; border: 1px solid #c5d7e0; color: black; padding: 5px; margin: 1ex 0; min-height: 35px; padding-left: 45px;">
-<div style="float: left; margin-left: -40px;"><a class="image" href="https://wiki.eclipse.org/File:Note.png"><img height="35" alt="Note.png" src="../images/c/cc/Note.png" width="35"/></a></div>
-<div><b>The example that follows works only if the port for your web application is 8080.</b><br/></div>
-</div>
-<p><br/>
-</p>
-<ol>
-<li>Copy <tt>test.war</tt> from D:\Servers\jetty-distribution-7.1.6.v20100715\webapps.
-</li>
-<p><br/>
-<a href="https://wiki.eclipse.org/File:Jetty-wtp-external1.jpg" class="image"><img alt="Jetty-wtp-external1.jpg" height="285" src="../images/a/a0/Jetty-wtp-external1.jpg" width="481"/></a>
-</p><p><br/>
-</p>
-<li>unzip <tt>test.war</tt> in  D:\tmp :
-</li>
-<p><br/>
-</p><p><a href="https://wiki.eclipse.org/File:Jetty-wtp-external2.jpg" class="image"><img src="../images/3/31/Jetty-wtp-external2.jpg" height="600" alt="Jetty-wtp-external2.jpg" width="801"/></a>
-</p><p><br/>
-</p>
-<li>Navigate to the Modules tab of your Jetty server, in this case <i>Jetty v7.0 Server at localhost</i>. 
-</li>
-<p><br/>
-</p><p><a class="image" href="https://wiki.eclipse.org/File:Jetty-wtp-external3.jpg"><img src="../images/a/a2/Jetty-wtp-external3.jpg" alt="Jetty-wtp-external3.jpg" height="462" width="647"/></a>
-</p><p><br/>
-</p>
-<li>Click <b>Add External Web Module</b>.
-</li>The Add Module dialog box opens.
-<p><br/>
-<a href="https://wiki.eclipse.org/File:Jetty-wtp-external4.jpg" class="image"><img width="333" src="../images/c/cf/Jetty-wtp-external4.jpg" height="141" alt="Jetty-wtp-external4.jpg"/></a>
-</p><p><br/>
-</p>
-<li> In the Document base field, enter  <b>D:\tmp\test</b>.
-</li><li>For the Path, enter <b>/test</b> (this is the context path).
-
-</li><li>Click <b>OK</b>. 
-</li> The test module is now in the Web Modules list. 
-<p><br/>
-</p><p><a class="image" href="https://wiki.eclipse.org/File:Jetty-wtp-external5.jpg"><img height="768" alt="Jetty-wtp-external5.jpg" src="../images/4/4a/Jetty-wtp-external5.jpg" width="1024"/></a>
-</p><p><br/>
-</p><p>The page http://localhost:8080/test/  now shows you Jetty home test WAR:
-</p><p><br/>
-<a href="https://wiki.eclipse.org/File:Jetty-wtp-external6.jpg" class="image"><img height="965" alt="Jetty-wtp-external6.jpg" src="../images/3/38/Jetty-wtp-external6.jpg" width="1053"/></a>
-</p><p><br/>
-</p>
-<div class="messagebox" style="background-color: #def3fe; border: 1px solid #c5d7e0; color: black; padding: 5px; margin: 1ex 0; min-height: 35px; padding-left: 45px;">
-<div style="float: left; margin-left: -40px;"><a href="https://wiki.eclipse.org/File:Note.png" class="image"><img width="35" alt="Note.png" height="35" src="../images/c/cc/Note.png"/></a></div>
-<div><b>The list of web applications also includes http://localhost:8080/mywebapp/. You can add or remove any dynamic Web project or external Web application.</b><br/></div>
-</div>
-
-
-</ol>
-
-
-</div>
-
-                    <div id="catlinks" class="catlinks"><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a title="Special:Categories" href="https://wiki.eclipse.org/Special:Categories">Category</a>: <ul><li><a href="https://wiki.eclipse.org/Category:Jetty" title="Category:Jetty">Jetty</a></li></ul></div></div>
-                                  </div>
+    <link href="wiki-style.css" media="screen, print" rel="stylesheet" />
+  </head>
+  <body>
+    <div class="col-md-20" id="mainContent">
+      <div class="tab-content background-white">
+        <div class="tab-pane active" id="tab-pane-main-page-content">
+          <h1 class="firstHeading page-header" id="firstHeading">
+            <span dir="auto">Jetty WTP Plugin/Jetty WTP External WebApp</span>
+          </h1>
+          <div id="main-page-content">
+            <div class="alert alert-small alert-warning" id="contentSub">
+              <span class="subpages">
+                &lt;
+                <a href="../Jetty WTP Plugin.html" title="Jetty WTP Plugin">Jetty WTP Plugin</a>
+              </span>
+            </div>
+            <div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="en">
+              <p>
+                <br />
+              </p>
+              <h2>
+                <span class="mw-headline" id="Using_an_External_Web_Application">Using an External Web Application</span>
+              </h2>
+              <div class="messagebox" style="background-color: #f9f6b7; border: 1px solid #c4c295; color: black; padding: 5px; margin: 1ex 0; min-height: 35px; padding-left: 45px;">
+                <div style="float: left; margin-left: -40px;">
+                  <a class="image" href="https://wiki.eclipse.org/File:Warning2.png">
+                    <img alt="Warning2.png" height="35" src="../images/3/37/Warning2.png" width="35" />
+                  </a>
+                </div>
+                <div>
+                  <b>This functionality is currently unmaintained, though it would be nice to find something that used it and wanted to improve it.</b>
+                  <br />
+                </div>
+              </div>
+              <p>Sometimes you want to use a web application that you created by other means than generating a Dynamic WEB Project (for example, by using Ant).</p>
+              <p>
+                For instance, the Jetty7 distribution provides a
+                <tt>test.war</tt>
+                which shows you the features of Jetty 7 (WebSocket..). Here we use this WAR without creating a Dynamlc Web Project to start it.
+              </p>
+              <div class="messagebox" style="background-color: #def3fe; border: 1px solid #c5d7e0; color: black; padding: 5px; margin: 1ex 0; min-height: 35px; padding-left: 45px;">
+                <div style="float: left; margin-left: -40px;">
+                  <a class="image" href="https://wiki.eclipse.org/File:Note.png">
+                    <img alt="Note.png" height="35" src="../images/c/cc/Note.png" width="35" />
+                  </a>
+                </div>
+                <div>
+                  <b>The example that follows works only if the port for your web application is 8080.</b>
+                  <br />
+                </div>
+              </div>
+              <p>
+                <br />
+              </p>
+              <ol>
+                <li>
+                  Copy
+                  <tt>test.war</tt>
+                  from D:\Servers\jetty-distribution-7.1.6.v20100715\webapps.
+                </li>
+                <p>
+                  <br />
+                  <a class="image" href="https://wiki.eclipse.org/File:Jetty-wtp-external1.jpg">
+                    <img alt="Jetty-wtp-external1.jpg" height="285" src="../images/a/a0/Jetty-wtp-external1.jpg" width="481" />
+                  </a>
+                </p>
+                <p>
+                  <br />
+                </p>
+                <li>
+                  unzip
+                  <tt>test.war</tt>
+                  in  D:\tmp :
+                </li>
+                <p>
+                  <br />
+                </p>
+                <p>
+                  <a class="image" href="https://wiki.eclipse.org/File:Jetty-wtp-external2.jpg">
+                    <img alt="Jetty-wtp-external2.jpg" height="600" src="../images/3/31/Jetty-wtp-external2.jpg" width="801" />
+                  </a>
+                </p>
+                <p>
+                  <br />
+                </p>
+                <li>
+                  Navigate to the Modules tab of your Jetty server, in this case
+                  <i>Jetty v7.0 Server at localhost</i>
+                  .
+                </li>
+                <p>
+                  <br />
+                </p>
+                <p>
+                  <a class="image" href="https://wiki.eclipse.org/File:Jetty-wtp-external3.jpg">
+                    <img alt="Jetty-wtp-external3.jpg" height="462" src="../images/a/a2/Jetty-wtp-external3.jpg" width="647" />
+                  </a>
+                </p>
+                <p>
+                  <br />
+                </p>
+                <li>
+                  Click
+                  <b>Add External Web Module</b>
+                  .
+                </li>
+                The Add Module dialog box opens.
+                <p>
+                  <br />
+                  <a class="image" href="https://wiki.eclipse.org/File:Jetty-wtp-external4.jpg">
+                    <img alt="Jetty-wtp-external4.jpg" height="141" src="../images/c/cf/Jetty-wtp-external4.jpg" width="333" />
+                  </a>
+                </p>
+                <p>
+                  <br />
+                </p>
+                <li>
+                  In the Document base field, enter
+                  <b>D:\tmp\test</b>
+                  .
+                </li>
+                <li>
+                  For the Path, enter
+                  <b>/test</b>
+                  (this is the context path).
+                </li>
+                <li>
+                  Click
+                  <b>OK</b>
+                  .
+                </li>
+                The test module is now in the Web Modules list.
+                <p>
+                  <br />
+                </p>
+                <p>
+                  <a class="image" href="https://wiki.eclipse.org/File:Jetty-wtp-external5.jpg">
+                    <img alt="Jetty-wtp-external5.jpg" height="768" src="../images/4/4a/Jetty-wtp-external5.jpg" width="1024" />
+                  </a>
+                </p>
+                <p>
+                  <br />
+                </p>
+                <p>The page http://localhost:8080/test/  now shows you Jetty home test WAR:</p>
+                <p>
+                  <br />
+                  <a class="image" href="https://wiki.eclipse.org/File:Jetty-wtp-external6.jpg">
+                    <img alt="Jetty-wtp-external6.jpg" height="965" src="../images/3/38/Jetty-wtp-external6.jpg" width="1053" />
+                  </a>
+                </p>
+                <p>
+                  <br />
+                </p>
+                <div class="messagebox" style="background-color: #def3fe; border: 1px solid #c5d7e0; color: black; padding: 5px; margin: 1ex 0; min-height: 35px; padding-left: 45px;">
+                  <div style="float: left; margin-left: -40px;">
+                    <a class="image" href="https://wiki.eclipse.org/File:Note.png">
+                      <img alt="Note.png" height="35" src="../images/c/cc/Note.png" width="35" />
+                    </a>
+                  </div>
+                  <div>
+                    <b>The list of web applications also includes http://localhost:8080/mywebapp/. You can add or remove any dynamic Web project or external Web application.</b>
+                    <br />
+                  </div>
+                </div>
+              </ol>
+            </div>
+            <div class="catlinks" id="catlinks">
+              <div class="mw-normal-catlinks" id="mw-normal-catlinks">
+                <a href="https://wiki.eclipse.org/Special:Categories" title="Special:Categories">Category</a>
+                :
+                <ul>
+                  <li>
+                    <a href="https://wiki.eclipse.org/Category:Jetty" title="Category:Jetty">Jetty</a>
+                  </li>
+                </ul>
               </div>
             </div>
           </div>
-</body>
+        </div>
+      </div>
+    </div>
+  </body>
 </html>

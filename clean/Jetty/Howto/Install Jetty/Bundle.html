@@ -1,112 +1,229 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
-<head>
+  <head>
     <title>Jetty WTP Plugin</title>
-    <link rel="stylesheet" media="screen, print" href="wiki-style.css"/>
-</head>
-<body>
-<div class="col-md-20" id="mainContent">
-                              <div class="tab-content background-white">
-              <div class="tab-pane active" id="tab-pane-main-page-content">
-
-                
-                <h1 class="firstHeading page-header" id="firstHeading">
-                  <span dir="auto">Jetty/Howto/Install Jetty/Bundle</span>
-                </h1>
-                <div id="main-page-content">
-
-                  <div class="alert alert-small alert-warning" id="contentSub"><span class="subpages">&lt; <a href="../../../Jetty.html" title="Jetty">Jetty</a>‎ | <a href="../../Howto.html" title="Jetty/Howto">Howto</a>‎ | <a title="Jetty/Howto/Install Jetty" href="https://wiki.eclipse.org/Jetty/Howto/Install_Jetty">Install Jetty</a></span></div>
-
-                  
-                  
-                  <div lang="en" id="mw-content-text" dir="ltr" class="mw-content-ltr"><p><br/>
-</p><p><br/>
-</p>
-<div class="toc" id="toc"><div id="toctitle"><h2>Contents</h2></div>
-<ul>
-<li class="toclevel-1"><a href="Bundle.html#Introduction"><span class="tocnumber">1</span> <span class="toctext">Introduction</span></a></li>
-<li class="toclevel-1"><a href="Bundle.html#Prerequisites"><span class="tocnumber">2</span> <span class="toctext">Prerequisites</span></a>
-<ul>
-<li class="toclevel-2"><a href="Bundle.html#Hardware"><span class="tocnumber">2.1</span> <span class="toctext">Hardware</span></a></li>
-<li class="toclevel-2"><a href="Bundle.html#Operating_System"><span class="tocnumber">2.2</span> <span class="toctext">Operating System</span></a></li>
-<li class="toclevel-2"><a href="Bundle.html#Environment"><span class="tocnumber">2.3</span> <span class="toctext">Environment</span></a></li>
-</ul>
-</li>
-<li class="toclevel-1"><a href="Bundle.html#Steps"><span class="tocnumber">3</span> <span class="toctext">Steps</span></a>
-<ul>
-<li class="toclevel-2"><a href="Bundle.html#Download_the_Binary"><span class="tocnumber">3.1</span> <span class="toctext">Download the Binary</span></a></li>
-<li class="toclevel-2"><a href="Bundle.html#Unpack_the_Binary"><span class="tocnumber">3.2</span> <span class="toctext">Unpack the Binary</span></a></li>
-</ul>
-</li>
-<li class="toclevel-1"><a href="Bundle.html#Distribution_Contents"><span class="tocnumber">4</span> <span class="toctext">Distribution Contents</span></a></li>
-</ul>
-</div>
-
-<h2><span id="Introduction" class="mw-headline">Introduction</span></h2>
-<p>This howto provides detailed instructions for downloading and installing the latest version of Jetty 7. If you just want to get up and running, see the <a class="mw-redirect" href="https://wiki.eclipse.org/Jetty/Starting/Quick_Start_Guide" title="Jetty/Starting/Quick Start Guide">Quick Start Guide</a>.
-</p>
-<h2><span class="mw-headline" id="Prerequisites">Prerequisites</span></h2>
-<h3><span id="Hardware" class="mw-headline">Hardware</span></h3>
-<ul><li> ~7 MB of disk space for Jetty source</li>
-<li> ~7 MB for Jetty 7 binaries</li></ul>
-<h3><span id="Operating_System" class="mw-headline">Operating System</span></h3>
-<ul><li> Any operating system that supports J2SE 1.5 or greater.</li></ul>
-<h3><span class="mw-headline" id="Environment">Environment</span></h3>
-<ul><li> J2SE 1.5 or <a href="http://java.sun.com/javase/downloads/index.jsp" class="external text" rel="nofollow">greater</a></li></ul>
-<h2><span id="Steps" class="mw-headline">Steps</span></h2>
-<h3><span id="Download_the_Binary" class="mw-headline">Download the Binary</span></h3>
-<p>Download the latest Jetty core component binary from the <a rel="nofollow" class="external text" href="http://www.eclipse.org/jetty/downloads.php">Jetty downloads page</a>. 
-</p>
-<h3><span id="Unpack_the_Binary" class="mw-headline">Unpack the Binary</span></h3>
-<p>Unzip the binary; it will be extracted into a directory called jetty-distribution-<var>VERSION</var>. Put this directory into a convenient location. The rest of the instructions in this wiki will refer to this location as either <tt>JETTY_HOME</tt> or as <tt>$(jetty.home)</tt>.
-</p><p>That's it! The Jetty binary is now available for you to use. You may now choose to either <a title="Jetty/Howto/Run Jetty" href="../Run Jetty.html">run Jetty</a> or <a href="../Configure Jetty.html" title="Jetty/Howto/Configure Jetty">configure Jetty</a>.
-</p>
-<h2><span id="Distribution_Contents" class="mw-headline">Distribution Contents</span></h2>
-<p>Here's a quick rundown of the distribution's contents, to help you familiarize yourself with it. The top-level directory contains:
-</p>
-<div class="unbounded-list">
-<dl><dt> LICENSE-APACHE-2.0.TXT </dt>
-<dd> license file for Jetty (Jetty 7 is dual-licensed)</dd>
-<dt> LICENSE-ECLIPSE-1.0.HTML </dt>
-<dd> license file for Jetty (Jetty 7 is dual-licensed)</dd>
-<dt> META-INF </dt>
-<dd> for packaging</dd>
-<dt> README.txt </dt>
-<dd> contains useful getting started information</dd>
-<dt> VERSION.txt </dt>
-<dd> Release information  </dd>
-<dt> about.html </dt>
-<dd> "About This Content" page from Eclipse</dd>
-<dt> bin </dt>
-<dd> utility shell scripts to help run Jetty on unix systems</dd>
-<dt> contexts </dt>
-<dd> hot deploy contexts directory</dd>
-<dt> etc </dt>
-<dd> directory for Jetty configuration files </dd>
-<dt> javadoc </dt>
-<dd> contains the javadoc</dd>
-<dt> lib </dt>
-<dd> contains all the JAR files necessary to run jetty</dd>
-<dt> logs </dt>
-<dd> directory for request logs</dd>
-<dt> notice.html </dt>
-<dd> licenses information and exceptions. </dd>
-<dt> resources </dt>
-<dd> directory containing additional resources for classpath</dd>
-<dt> start.ini </dt>
-<dd> Default start arguments</dd>
-<dt> start.jar </dt>
-<dd> JAR which invokes jetty-7 (see also <a title="Jetty/Howto/Run Jetty" href="../Run Jetty.html">How to Run Jetty</a>)</dd>
-<dt> webapps </dt>
-<dd> directory containing webapps which will be run under the default configuration of Jetty; contains demo webapps</dd></dl>
-</div>
-
-
-</div>
-
-                    <div class="catlinks" id="catlinks"><div class="mw-normal-catlinks" id="mw-normal-catlinks"><a title="Special:Categories" href="https://wiki.eclipse.org/Special:Categories">Categories</a>: <ul><li><a href="https://wiki.eclipse.org/Category:Jetty" title="Category:Jetty">Jetty</a></li><li><a href="https://wiki.eclipse.org/Category:Jetty_Howto" title="Category:Jetty Howto">Jetty Howto</a></li><li><a href="https://wiki.eclipse.org/Category:Jetty_Starting" title="Category:Jetty Starting">Jetty Starting</a></li></ul></div></div>
-                                  </div>
+    <link href="wiki-style.css" media="screen, print" rel="stylesheet" />
+  </head>
+  <body>
+    <div class="col-md-20" id="mainContent">
+      <div class="tab-content background-white">
+        <div class="tab-pane active" id="tab-pane-main-page-content">
+          <h1 class="firstHeading page-header" id="firstHeading">
+            <span dir="auto">Jetty/Howto/Install Jetty/Bundle</span>
+          </h1>
+          <div id="main-page-content">
+            <div class="alert alert-small alert-warning" id="contentSub">
+              <span class="subpages">
+                &lt;
+                <a href="../../../Jetty.html" title="Jetty">Jetty</a>
+                ‎ |
+                <a href="../../Howto.html" title="Jetty/Howto">Howto</a>
+                ‎ |
+                <a href="https://wiki.eclipse.org/Jetty/Howto/Install_Jetty" title="Jetty/Howto/Install Jetty">Install Jetty</a>
+              </span>
+            </div>
+            <div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="en">
+              <p>
+                <br />
+              </p>
+              <p>
+                <br />
+              </p>
+              <div class="toc" id="toc">
+                <div id="toctitle">
+                  <h2>Contents</h2>
+                </div>
+                <ul>
+                  <li class="toclevel-1">
+                    <a href="Bundle.html#Introduction">
+                      <span class="tocnumber">1</span>
+                      <span class="toctext">Introduction</span>
+                    </a>
+                  </li>
+                  <li class="toclevel-1">
+                    <a href="Bundle.html#Prerequisites">
+                      <span class="tocnumber">2</span>
+                      <span class="toctext">Prerequisites</span>
+                    </a>
+                    <ul>
+                      <li class="toclevel-2">
+                        <a href="Bundle.html#Hardware">
+                          <span class="tocnumber">2.1</span>
+                          <span class="toctext">Hardware</span>
+                        </a>
+                      </li>
+                      <li class="toclevel-2">
+                        <a href="Bundle.html#Operating_System">
+                          <span class="tocnumber">2.2</span>
+                          <span class="toctext">Operating System</span>
+                        </a>
+                      </li>
+                      <li class="toclevel-2">
+                        <a href="Bundle.html#Environment">
+                          <span class="tocnumber">2.3</span>
+                          <span class="toctext">Environment</span>
+                        </a>
+                      </li>
+                    </ul>
+                  </li>
+                  <li class="toclevel-1">
+                    <a href="Bundle.html#Steps">
+                      <span class="tocnumber">3</span>
+                      <span class="toctext">Steps</span>
+                    </a>
+                    <ul>
+                      <li class="toclevel-2">
+                        <a href="Bundle.html#Download_the_Binary">
+                          <span class="tocnumber">3.1</span>
+                          <span class="toctext">Download the Binary</span>
+                        </a>
+                      </li>
+                      <li class="toclevel-2">
+                        <a href="Bundle.html#Unpack_the_Binary">
+                          <span class="tocnumber">3.2</span>
+                          <span class="toctext">Unpack the Binary</span>
+                        </a>
+                      </li>
+                    </ul>
+                  </li>
+                  <li class="toclevel-1">
+                    <a href="Bundle.html#Distribution_Contents">
+                      <span class="tocnumber">4</span>
+                      <span class="toctext">Distribution Contents</span>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+              <h2>
+                <span class="mw-headline" id="Introduction">Introduction</span>
+              </h2>
+              <p>
+                This howto provides detailed instructions for downloading and installing the latest version of Jetty 7. If you just want to get up and running, see the
+                <a class="mw-redirect" href="https://wiki.eclipse.org/Jetty/Starting/Quick_Start_Guide" title="Jetty/Starting/Quick Start Guide">Quick Start Guide</a>
+                .
+              </p>
+              <h2>
+                <span class="mw-headline" id="Prerequisites">Prerequisites</span>
+              </h2>
+              <h3>
+                <span class="mw-headline" id="Hardware">Hardware</span>
+              </h3>
+              <ul>
+                <li>~7 MB of disk space for Jetty source</li>
+                <li>~7 MB for Jetty 7 binaries</li>
+              </ul>
+              <h3>
+                <span class="mw-headline" id="Operating_System">Operating System</span>
+              </h3>
+              <ul>
+                <li>Any operating system that supports J2SE 1.5 or greater.</li>
+              </ul>
+              <h3>
+                <span class="mw-headline" id="Environment">Environment</span>
+              </h3>
+              <ul>
+                <li>
+                  J2SE 1.5 or
+                  <a class="external text" href="http://java.sun.com/javase/downloads/index.jsp" rel="nofollow">greater</a>
+                </li>
+              </ul>
+              <h2>
+                <span class="mw-headline" id="Steps">Steps</span>
+              </h2>
+              <h3>
+                <span class="mw-headline" id="Download_the_Binary">Download the Binary</span>
+              </h3>
+              <p>
+                Download the latest Jetty core component binary from the
+                <a class="external text" href="http://www.eclipse.org/jetty/downloads.php" rel="nofollow">Jetty downloads page</a>
+                .
+              </p>
+              <h3>
+                <span class="mw-headline" id="Unpack_the_Binary">Unpack the Binary</span>
+              </h3>
+              <p>
+                Unzip the binary; it will be extracted into a directory called jetty-distribution-
+                <var>VERSION</var>
+                . Put this directory into a convenient location. The rest of the instructions in this wiki will refer to this location as either
+                <tt>JETTY_HOME</tt>
+                or as
+                <tt>$(jetty.home)</tt>
+                .
+              </p>
+              <p>
+                That's it! The Jetty binary is now available for you to use. You may now choose to either
+                <a href="../Run Jetty.html" title="Jetty/Howto/Run Jetty">run Jetty</a>
+                or
+                <a href="../Configure Jetty.html" title="Jetty/Howto/Configure Jetty">configure Jetty</a>
+                .
+              </p>
+              <h2>
+                <span class="mw-headline" id="Distribution_Contents">Distribution Contents</span>
+              </h2>
+              <p>Here's a quick rundown of the distribution's contents, to help you familiarize yourself with it. The top-level directory contains:</p>
+              <div class="unbounded-list">
+                <dl>
+                  <dt>LICENSE-APACHE-2.0.TXT</dt>
+                  <dd>license file for Jetty (Jetty 7 is dual-licensed)</dd>
+                  <dt>LICENSE-ECLIPSE-1.0.HTML</dt>
+                  <dd>license file for Jetty (Jetty 7 is dual-licensed)</dd>
+                  <dt>META-INF</dt>
+                  <dd>for packaging</dd>
+                  <dt>README.txt</dt>
+                  <dd>contains useful getting started information</dd>
+                  <dt>VERSION.txt</dt>
+                  <dd>Release information</dd>
+                  <dt>about.html</dt>
+                  <dd>"About This Content" page from Eclipse</dd>
+                  <dt>bin</dt>
+                  <dd>utility shell scripts to help run Jetty on unix systems</dd>
+                  <dt>contexts</dt>
+                  <dd>hot deploy contexts directory</dd>
+                  <dt>etc</dt>
+                  <dd>directory for Jetty configuration files</dd>
+                  <dt>javadoc</dt>
+                  <dd>contains the javadoc</dd>
+                  <dt>lib</dt>
+                  <dd>contains all the JAR files necessary to run jetty</dd>
+                  <dt>logs</dt>
+                  <dd>directory for request logs</dd>
+                  <dt>notice.html</dt>
+                  <dd>licenses information and exceptions.</dd>
+                  <dt>resources</dt>
+                  <dd>directory containing additional resources for classpath</dd>
+                  <dt>start.ini</dt>
+                  <dd>Default start arguments</dd>
+                  <dt>start.jar</dt>
+                  <dd>
+                    JAR which invokes jetty-7 (see also
+                    <a href="../Run Jetty.html" title="Jetty/Howto/Run Jetty">How to Run Jetty</a>
+                    )
+                  </dd>
+                  <dt>webapps</dt>
+                  <dd>directory containing webapps which will be run under the default configuration of Jetty; contains demo webapps</dd>
+                </dl>
+              </div>
+            </div>
+            <div class="catlinks" id="catlinks">
+              <div class="mw-normal-catlinks" id="mw-normal-catlinks">
+                <a href="https://wiki.eclipse.org/Special:Categories" title="Special:Categories">Categories</a>
+                :
+                <ul>
+                  <li>
+                    <a href="https://wiki.eclipse.org/Category:Jetty" title="Category:Jetty">Jetty</a>
+                  </li>
+                  <li>
+                    <a href="https://wiki.eclipse.org/Category:Jetty_Howto" title="Category:Jetty Howto">Jetty Howto</a>
+                  </li>
+                  <li>
+                    <a href="https://wiki.eclipse.org/Category:Jetty_Starting" title="Category:Jetty Starting">Jetty Starting</a>
+                  </li>
+                </ul>
               </div>
             </div>
           </div>
-</body>
+        </div>
+      </div>
+    </div>
+  </body>
 </html>

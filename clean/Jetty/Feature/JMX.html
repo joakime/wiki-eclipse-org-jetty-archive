@@ -1,93 +1,150 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
-<head>
+  <head>
     <title>Jetty WTP Plugin</title>
-    <link rel="stylesheet" media="screen, print" href="wiki-style.css"/>
-</head>
-<body>
-<div id="mainContent" class="col-md-20">
-                      <ul class="nav nav-tabs noprint hidden-print" role="tablist">
-                       <li id="ca-nstab-main" class="active"><a title="View the content page [c]" accesskey="c" tabindex="-1" href="JMX.html">Page</a></li>
-                        <li class="new" id="ca-talk"><a accesskey="t" title="Discussion about the content page [t]" tabindex="-1" href="edit">Discussion</a></li>
-                        <li id="ca-viewsource"><a title="This page is protected.&#10;You can view its source [e]" accesskey="e" tabindex="-1" href="edit">View source</a></li>
-                        <li class="collapsible" id="ca-history"><a accesskey="h" title="Past revisions of this page [h]" href="edit" tabindex="-1">History</a></li>
-                      </ul>            <div class="tab-content background-white">
-              <div class="tab-pane active" id="tab-pane-main-page-content">
-
-                
-                <h1 id="firstHeading" class="firstHeading page-header">
-                  <span dir="auto">Jetty/Feature/JMX</span>
-                </h1>
-                <div id="main-page-content">
-
-                  <div class="alert alert-small alert-warning" id="contentSub"><span class="subpages">&lt; <a title="Jetty" href="../../Jetty.html">Jetty</a>‎ | <a href="../Feature.html" title="Jetty/Feature">Feature</a></span></div>
-
-                  
-                  
-                  <div lang="en" id="mw-content-text" dir="ltr" class="mw-content-ltr"><p><br/>
-</p><p><br/>
-</p>
-<h2><span id="Introduction" class="mw-headline">Introduction</span></h2>
-<div style="background-color: #f9f6b7; border: 1px solid #c4c295; color: black; padding: 5px; margin: 1ex 0; min-height: 35px; padding-left: 45px; font-size: 150%; color: white; background-color: #FF8888; padding: 50px" class="messagebox">
-<div style="float: left; margin-left: -40px;"><a href="https://wiki.eclipse.org/File:Warning2.png" class="image"><img alt="Warning2.png" src="../../images/3/37/Warning2.png" height="35" width="35"/></a></div>
-<div>Jetty 7 and Jetty 8 are now EOL (End of Life)<br/>
-<p><br/>
-<br/>
-<br/>
-THIS IS NOT THE DOCUMENTATION YOU ARE LOOKING FOR!!!!!<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-All development and stable releases are being performed with Jetty 9 and Jetty 10.<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-This <b>wiki is now officially out of date</b> and all content has been moved to the <a class="external text" href="http://www.eclipse.org/jetty/documentation" rel="nofollow">Jetty Documentation Hub</a><br/> 
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-</p>
-Direct Link to updated documentation: <a rel="nofollow" href="http://www.eclipse.org/jetty/documentation/current/jmx-chapter.html" class="external free">http://www.eclipse.org/jetty/documentation/current/jmx-chapter.html</a></div>
-</div>
-<p><br/>
-<a rel="nofollow" class="external text" href="http://java.sun.com/products/JavaManagement/">Java Management Extensions</a> (JMX) API is a standard API for management and monitoring of resources such as applications, devices, services, and the Java virtual machine. The JMX technology was developed through the Java Community Process.
-</p><p>Typical uses of the JMX technology include: 
-</p>
-<ul><li> Consulting and changing application configuration.</li>
-<li> Accumulating statistics about application behavior and making them available.</li>
-<li> Notifying of state changes and erroneous conditions.</li></ul>
-<p>The JMX API includes remote access, so a remote management program can interact with a running application for these purposes.
-</p>
-<h2><span class="mw-headline" id="Feature">Feature</span></h2>
-<p>Jetty JMX integration can be configured using etc/jetty-jmx.xml configuration file. See <a title="Jetty/Tutorial/JMX" href="../Tutorial/JMX.html">Jetty JMX tutorial</a> for instructions on how to configure Jetty JMX integration.
-</p><p>In order to monitor an application using JMX, the following steps have to be performed:
-</p>
-<ol><li> Application should instantiate an MBean container.</li>
-<li> Objects have to be instrumented to be MBeans.</li>
-<li> MBeans need to be accessed by JMX agents.</li></ol>
-<p>Jetty JMX integration uses platform MBean server implementation provided by Java VM. The integration is based on the ObjectMBean implementation of DynamicMBean. This implementation allows an arbitrary POJO to be wrapped in an MBean and for meta data to be provided by <a rel="nofollow" href="http://dev.eclipse.org/viewcvs/index.cgi/jetty/trunk/jetty-jmx/src/main/resources/org/eclipse/jetty/?root=RT_Jetty" class="external text">properties files</a>. 
-</p><p>The creation of MBeans is coordinated by the MBeanContainer implementation of the Container.Listener interface. The Jetty Server and it's components use a <a rel="nofollow" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/util/component/Container.html" class="external text">Container</a> to maintain a containment tree of components and to support notification of changes to that tree. The MBeanContainer class listens for Container events and creates and destroys MBeans as required to wrap all Jetty components.
-</p><p>MBeans published by Jetty can be accessed both through built-in Java VM connector via JConsole, or by registering a remote JMX connector and using a remote JMX agent to monitor Jetty.
-</p>
-<h2><span id="Additional_Resources" class="mw-headline">Additional Resources</span></h2>
-<ul><li> See <a href="../Tutorial/JMX.html" title="Jetty/Tutorial/JMX">Jetty JMX tutorial</a> for instructions on how to configure Jetty JMX integration.</li>
-<li> The <a rel="nofollow" class="external text" href="http://code.google.com/p/jminix/">JMiniX</a> web consoles for JMX beans.</li></ul>
-
-
-</div>
-
-                    <div id="catlinks" class="catlinks"><div class="mw-normal-catlinks" id="mw-normal-catlinks"><a href="https://wiki.eclipse.org/Special:Categories" title="Special:Categories">Categories</a>: <ul><li><a title="Category:Jetty" href="https://wiki.eclipse.org/Category:Jetty">Jetty</a></li><li><a href="https://wiki.eclipse.org/Category:Jetty_Feature" title="Category:Jetty Feature">Jetty Feature</a></li></ul></div></div>
-                                  </div>
+    <link href="wiki-style.css" media="screen, print" rel="stylesheet" />
+  </head>
+  <body>
+    <div class="col-md-20" id="mainContent">
+      <div class="tab-content background-white">
+        <div class="tab-pane active" id="tab-pane-main-page-content">
+          <h1 class="firstHeading page-header" id="firstHeading">
+            <span dir="auto">Jetty/Feature/JMX</span>
+          </h1>
+          <div id="main-page-content">
+            <div class="alert alert-small alert-warning" id="contentSub">
+              <span class="subpages">
+                &lt;
+                <a href="../../Jetty.html" title="Jetty">Jetty</a>
+                ‎ |
+                <a href="../Feature.html" title="Jetty/Feature">Feature</a>
+              </span>
+            </div>
+            <div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="en">
+              <p>
+                <br />
+              </p>
+              <p>
+                <br />
+              </p>
+              <h2>
+                <span class="mw-headline" id="Introduction">Introduction</span>
+              </h2>
+              <div class="messagebox" style="background-color: #f9f6b7; border: 1px solid #c4c295; color: black; padding: 5px; margin: 1ex 0; min-height: 35px; padding-left: 45px; font-size: 150%; color: white; background-color: #FF8888; padding: 50px">
+                <div style="float: left; margin-left: -40px;">
+                  <a class="image" href="https://wiki.eclipse.org/File:Warning2.png">
+                    <img alt="Warning2.png" height="35" src="../../images/3/37/Warning2.png" width="35" />
+                  </a>
+                </div>
+                <div>
+                  Jetty 7 and Jetty 8 are now EOL (End of Life)
+                  <br />
+                  <p>
+                    <br />
+                    <br />
+                    <br />
+                    THIS IS NOT THE DOCUMENTATION YOU ARE LOOKING FOR!!!!!
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    All development and stable releases are being performed with Jetty 9 and Jetty 10.
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    This
+                    <b>wiki is now officially out of date</b>
+                    and all content has been moved to the
+                    <a class="external text" href="http://www.eclipse.org/jetty/documentation" rel="nofollow">Jetty Documentation Hub</a>
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                  </p>
+                  Direct Link to updated documentation:
+                  <a class="external free" href="http://www.eclipse.org/jetty/documentation/current/jmx-chapter.html" rel="nofollow">http://www.eclipse.org/jetty/documentation/current/jmx-chapter.html</a>
+                </div>
+              </div>
+              <p>
+                <br />
+                <a class="external text" href="http://java.sun.com/products/JavaManagement/" rel="nofollow">Java Management Extensions</a>
+                (JMX) API is a standard API for management and monitoring of resources such as applications, devices, services, and the Java virtual machine. The JMX technology was developed through the Java Community Process.
+              </p>
+              <p>Typical uses of the JMX technology include:</p>
+              <ul>
+                <li>Consulting and changing application configuration.</li>
+                <li>Accumulating statistics about application behavior and making them available.</li>
+                <li>Notifying of state changes and erroneous conditions.</li>
+              </ul>
+              <p>The JMX API includes remote access, so a remote management program can interact with a running application for these purposes.</p>
+              <h2>
+                <span class="mw-headline" id="Feature">Feature</span>
+              </h2>
+              <p>
+                Jetty JMX integration can be configured using etc/jetty-jmx.xml configuration file. See
+                <a href="../Tutorial/JMX.html" title="Jetty/Tutorial/JMX">Jetty JMX tutorial</a>
+                for instructions on how to configure Jetty JMX integration.
+              </p>
+              <p>In order to monitor an application using JMX, the following steps have to be performed:</p>
+              <ol>
+                <li>Application should instantiate an MBean container.</li>
+                <li>Objects have to be instrumented to be MBeans.</li>
+                <li>MBeans need to be accessed by JMX agents.</li>
+              </ol>
+              <p>
+                Jetty JMX integration uses platform MBean server implementation provided by Java VM. The integration is based on the ObjectMBean implementation of DynamicMBean. This implementation allows an arbitrary POJO to be wrapped in an MBean and for meta data to be provided by
+                <a class="external text" href="http://dev.eclipse.org/viewcvs/index.cgi/jetty/trunk/jetty-jmx/src/main/resources/org/eclipse/jetty/?root=RT_Jetty" rel="nofollow">properties files</a>
+                .
+              </p>
+              <p>
+                The creation of MBeans is coordinated by the MBeanContainer implementation of the Container.Listener interface. The Jetty Server and it's components use a
+                <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/util/component/Container.html" rel="nofollow">Container</a>
+                to maintain a containment tree of components and to support notification of changes to that tree. The MBeanContainer class listens for Container events and creates and destroys MBeans as required to wrap all Jetty components.
+              </p>
+              <p>MBeans published by Jetty can be accessed both through built-in Java VM connector via JConsole, or by registering a remote JMX connector and using a remote JMX agent to monitor Jetty.</p>
+              <h2>
+                <span class="mw-headline" id="Additional_Resources">Additional Resources</span>
+              </h2>
+              <ul>
+                <li>
+                  See
+                  <a href="../Tutorial/JMX.html" title="Jetty/Tutorial/JMX">Jetty JMX tutorial</a>
+                  for instructions on how to configure Jetty JMX integration.
+                </li>
+                <li>
+                  The
+                  <a class="external text" href="http://code.google.com/p/jminix/" rel="nofollow">JMiniX</a>
+                  web consoles for JMX beans.
+                </li>
+              </ul>
+            </div>
+            <div class="catlinks" id="catlinks">
+              <div class="mw-normal-catlinks" id="mw-normal-catlinks">
+                <a href="https://wiki.eclipse.org/Special:Categories" title="Special:Categories">Categories</a>
+                :
+                <ul>
+                  <li>
+                    <a href="https://wiki.eclipse.org/Category:Jetty" title="Category:Jetty">Jetty</a>
+                  </li>
+                  <li>
+                    <a href="https://wiki.eclipse.org/Category:Jetty_Feature" title="Category:Jetty Feature">Jetty Feature</a>
+                  </li>
+                </ul>
               </div>
             </div>
           </div>
-</body>
+        </div>
+      </div>
+    </div>
+  </body>
 </html>

@@ -1,115 +1,253 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
-<head>
+  <head>
     <title>Jetty WTP Plugin</title>
-    <link rel="stylesheet" media="screen, print" href="wiki-style.css"/>
-</head>
-<body>
-<div id="mainContent" class="col-md-20">
-                               <div class="tab-content background-white">
-              <div id="tab-pane-main-page-content" class="tab-pane active">
-
-                
-                <h1 id="firstHeading" class="firstHeading page-header">
-                  <span dir="auto">Jetty/Feature/Deployment Manager</span>
-                </h1>
-                <div id="main-page-content">
-
-                  <div id="contentSub" class="alert alert-small alert-warning"><span class="subpages">&lt; <a href="../../Jetty.html" title="Jetty">Jetty</a>‎ | <a title="Jetty/Feature" href="../Feature.html">Feature</a></span></div>
-
-                  
-                  
-                  <div class="mw-content-ltr" dir="ltr" lang="en" id="mw-content-text"><p><br/>
-</p><p><br/>
-</p>
-<div class="toc" id="toc"><div id="toctitle"><h2>Contents</h2></div>
-<ul>
-<li class="toclevel-1"><a href="Deployment Manager.html#Introduction"><span class="tocnumber">1</span> <span class="toctext">Introduction</span></a></li>
-<li class="toclevel-1"><a href="Deployment Manager.html#Feature"><span class="tocnumber">2</span> <span class="toctext">Feature</span></a>
-<ul>
-<li class="toclevel-2"><a href="Deployment Manager.html#Application_Providers"><span class="tocnumber">2.1</span> <span class="toctext">Application Providers</span></a></li>
-<li class="toclevel-2"><a href="Deployment Manager.html#Application_LifeCycle_Graph"><span class="tocnumber">2.2</span> <span class="toctext">Application LifeCycle Graph</span></a></li>
-<li class="toclevel-2"><a href="Deployment Manager.html#LifeCycle_Bindings"><span class="tocnumber">2.3</span> <span class="toctext">LifeCycle Bindings</span></a></li>
-</ul>
-</li>
-</ul>
-</div>
-
-<h2><span class="mw-headline" id="Introduction">Introduction</span></h2>
-<div class="messagebox" style="background-color: #f9f6b7; border: 1px solid #c4c295; color: black; padding: 5px; margin: 1ex 0; min-height: 35px; padding-left: 45px; font-size: 150%; color: white; background-color: #FF8888; padding: 50px">
-<div style="float: left; margin-left: -40px;"><a href="https://wiki.eclipse.org/File:Warning2.png" class="image"><img src="../../images/3/37/Warning2.png" height="35" alt="Warning2.png" width="35"/></a></div>
-<div>Jetty 7 and Jetty 8 are now EOL (End of Life)<br/>
-<p><br/>
-<br/>
-<br/>
-THIS IS NOT THE DOCUMENTATION YOU ARE LOOKING FOR!!!!!<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-All development and stable releases are being performed with Jetty 9 and Jetty 10.<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-This <b>wiki is now officially out of date</b> and all content has been moved to the <a rel="nofollow" href="http://www.eclipse.org/jetty/documentation" class="external text">Jetty Documentation Hub</a><br/> 
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-</p>
-Direct Link to updated documentation: <a href="http://www.eclipse.org/jetty/documentation/current/configuring-deployment.html" rel="nofollow" class="external free">http://www.eclipse.org/jetty/documentation/current/configuring-deployment.html</a></div>
-</div>
-<p><br/>
-In order for Jetty to serve content (static or dynamic), you need to create a <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/server/handler/ContextHandler.html" rel="nofollow">ContextHandler</a> and add it to Jetty in the appropriate place.  A pluggable DeploymentManager exists in Jetty 7 to make this process easier.  The Jetty distribution contains example DeploymentManager configurations to deploy WAR files found in a directory to Jetty, and to deploy Jetty context.xml files into Jetty as well.
-</p>
-<h2><span id="Feature" class="mw-headline">Feature</span></h2>
-<p>The Deployment Manager is the heart of the typical webapp deployment mechanism; it operates as a combination of an Application LifeCycle Graph, Application Providers that find and provide Applications into the Application LifeCycle Graph, and a set of bindings in the graph that control the deployment process.
-</p><p><a href="https://wiki.eclipse.org/File:Jetty_DeployManager_DeploymentManager_Roles.png" class="image"><img src="../../images/b/b1/Jetty_DeployManager_DeploymentManager_Roles.png" height="324" alt="Jetty DeployManager DeploymentManager Roles.png" width="195"/></a>
-</p>
-<h3><span class="mw-headline" id="Application_Providers">Application Providers</span></h3>
-<p>Before Jetty deploys an application, an <a class="external text" rel="nofollow" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/deploy/AppProvider.html">AppProvider</a> identifies the App and then provides it to the Deployment Manager. Two AppProviders come with the Jetty distribution:
-</p>
-<ul><li><b><a href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/deploy/providers/WebAppProvider.html" rel="nofollow" class="external text">WebAppProvider</a></b>–monitors a directory for <tt>*.war</tt> files and submits them to the Application LifeCycle Graph for deployment into a context with the same name as the <tt>*.war</tt> file itself. Also see <a title="Jetty/Feature/WebAppProvider" href="WebAppProvider.html">Jetty/Feature/WebAppProvider</a></li></ul>
-<ul><li><b><a rel="nofollow" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/deploy/providers/ContextProvider.html" class="external text">ContextProvider</a></b>–monitors a directory for <tt>*.xml</tt> files, and using the Jetty Xml configurator creates a ContextHandler (usually a WebAppContext) for the Application LifeCycle Graph. Also see <a title="Jetty/Feature/ContextProvider" href="ContextProvider.html">Jetty/Feature/ContextProvider</a></li></ul>
-<p>Activating both at the same time is possible, but can be confusing because you must take care to either keep both systems deploying mutually exclusive webapps, or align naming conventions of <tt>context.xml</tt> style files with WAR and webapp directories.
-</p>
-<h3><span id="Application_LifeCycle_Graph" class="mw-headline">Application LifeCycle Graph</span></h3>
-<p>The core feature of the DeploymentManager is the <a rel="nofollow" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/deploy/AppLifeCycle.html" class="external text">Application LifeCycle Graph</a>.
-</p><p><a href="https://wiki.eclipse.org/File:Jetty_DeployManager_AppLifeCycle.png" class="image"><img height="321" src="../../images/4/42/Jetty_DeployManager_AppLifeCycle.png" width="340" alt="Jetty DeployManager AppLifeCycle.png"/></a>
-</p><p>The nodes and edges of this graph are pre-defined in Jetty along the most common actions and states found. These nodes and edges are not hardcoded; you can adjust  and add to them depending on your needs (for example, any complex requirements for added workflow, approvals, staging, distribution, coordinated deploys for a cluster or cloud, etc.).
-</p><p>New Applications enter this graph at the Undeployed node, and the <a class="external text" rel="nofollow" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/deploy/DeploymentManager.html#requestAppGoal(org.eclipse.jetty.deploy.App,">java.lang.String) DeploymentManager.requestAppGoal(App,String)</a> method pushes them through the graph.
-</p>
-<h3><span class="mw-headline" id="LifeCycle_Bindings">LifeCycle Bindings</span></h3>
-<p>A set of default <a class="external text" rel="nofollow" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/deploy/AppLifeCycle.Binding.html">AppLifeCycle.Bindings</a> defines standard behavior, and handles deploying, starting, stopping, and undeploying applications. If you choose, you can write your own AppLifeCycle.Binding's and assign them to anywhere on the Application LifeCycle graph.
-</p><p>Examples of new AppLifeCycle.Binding implementations that you can write include:
-</p>
-<ul><li> Validating the incoming application.</li>
-<li> Preventing the deployment of known forbidden applications.</li>
-<li> Submitting the installation to an application auditing service in a corporate environment.</li>
-<li> Distributing the application to other nodes in the cluster or cloud.</li>
-<li> Emailing owner/admin of change of state of the application. </li></ul>
-<p>There are four default bindings:
-</p>
-<ul><li> <a rel="nofollow" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/deploy/bindings/StandardDeployer.html" class="external text">StandardDeployer</a>–Deploys the ContextHandler into Jetty in the appropriate place.</li>
-<li> <a rel="nofollow" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/deploy/bindings/StandardStarter.html" class="external text">StandardStarter</a>–Sets the ContextHandler to started and start accepting incoming requests. </li>
-<li> <a rel="nofollow" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/deploy/bindings/StandardStopper.html" class="external text">StandardStopper</a>–Stops the ContextHandler and stop accepting incoming requests. </li>
-<li> <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/deploy/bindings/StandardUndeployer.html" rel="nofollow">StandardUndeployer</a>–Removes the ContextHandler from Jetty.</li></ul>
-<p><a class="image" href="https://wiki.eclipse.org/File:Jetty_DeployManager_DefaultAppLifeCycleBindings.png"><img src="../../images/b/b5/Jetty_DeployManager_DefaultAppLifeCycleBindings.png" height="402" width="851" alt="Jetty DeployManager DefaultAppLifeCycleBindings.png"/></a>
-</p><p>A fifth, non-standard binding, called <i>DebugBinding</i>, is also available for debugging reasons; It logs the various transitions through the Application LifeCycle.
-</p>
-
-</div>
-
-                    <div class="catlinks" id="catlinks"><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a title="Special:Categories" href="https://wiki.eclipse.org/Special:Categories">Categories</a>: <ul><li><a href="https://wiki.eclipse.org/Category:Jetty" title="Category:Jetty">Jetty</a></li><li><a href="https://wiki.eclipse.org/Category:Jetty_Feature" title="Category:Jetty Feature">Jetty Feature</a></li></ul></div></div>
-                                  </div>
+    <link href="wiki-style.css" media="screen, print" rel="stylesheet" />
+  </head>
+  <body>
+    <div class="col-md-20" id="mainContent">
+      <div class="tab-content background-white">
+        <div class="tab-pane active" id="tab-pane-main-page-content">
+          <h1 class="firstHeading page-header" id="firstHeading">
+            <span dir="auto">Jetty/Feature/Deployment Manager</span>
+          </h1>
+          <div id="main-page-content">
+            <div class="alert alert-small alert-warning" id="contentSub">
+              <span class="subpages">
+                &lt;
+                <a href="../../Jetty.html" title="Jetty">Jetty</a>
+                ‎ |
+                <a href="../Feature.html" title="Jetty/Feature">Feature</a>
+              </span>
+            </div>
+            <div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="en">
+              <p>
+                <br />
+              </p>
+              <p>
+                <br />
+              </p>
+              <div class="toc" id="toc">
+                <div id="toctitle">
+                  <h2>Contents</h2>
+                </div>
+                <ul>
+                  <li class="toclevel-1">
+                    <a href="Deployment Manager.html#Introduction">
+                      <span class="tocnumber">1</span>
+                      <span class="toctext">Introduction</span>
+                    </a>
+                  </li>
+                  <li class="toclevel-1">
+                    <a href="Deployment Manager.html#Feature">
+                      <span class="tocnumber">2</span>
+                      <span class="toctext">Feature</span>
+                    </a>
+                    <ul>
+                      <li class="toclevel-2">
+                        <a href="Deployment Manager.html#Application_Providers">
+                          <span class="tocnumber">2.1</span>
+                          <span class="toctext">Application Providers</span>
+                        </a>
+                      </li>
+                      <li class="toclevel-2">
+                        <a href="Deployment Manager.html#Application_LifeCycle_Graph">
+                          <span class="tocnumber">2.2</span>
+                          <span class="toctext">Application LifeCycle Graph</span>
+                        </a>
+                      </li>
+                      <li class="toclevel-2">
+                        <a href="Deployment Manager.html#LifeCycle_Bindings">
+                          <span class="tocnumber">2.3</span>
+                          <span class="toctext">LifeCycle Bindings</span>
+                        </a>
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </div>
+              <h2>
+                <span class="mw-headline" id="Introduction">Introduction</span>
+              </h2>
+              <div class="messagebox" style="background-color: #f9f6b7; border: 1px solid #c4c295; color: black; padding: 5px; margin: 1ex 0; min-height: 35px; padding-left: 45px; font-size: 150%; color: white; background-color: #FF8888; padding: 50px">
+                <div style="float: left; margin-left: -40px;">
+                  <a class="image" href="https://wiki.eclipse.org/File:Warning2.png">
+                    <img alt="Warning2.png" height="35" src="../../images/3/37/Warning2.png" width="35" />
+                  </a>
+                </div>
+                <div>
+                  Jetty 7 and Jetty 8 are now EOL (End of Life)
+                  <br />
+                  <p>
+                    <br />
+                    <br />
+                    <br />
+                    THIS IS NOT THE DOCUMENTATION YOU ARE LOOKING FOR!!!!!
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    All development and stable releases are being performed with Jetty 9 and Jetty 10.
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    This
+                    <b>wiki is now officially out of date</b>
+                    and all content has been moved to the
+                    <a class="external text" href="http://www.eclipse.org/jetty/documentation" rel="nofollow">Jetty Documentation Hub</a>
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                  </p>
+                  Direct Link to updated documentation:
+                  <a class="external free" href="http://www.eclipse.org/jetty/documentation/current/configuring-deployment.html" rel="nofollow">http://www.eclipse.org/jetty/documentation/current/configuring-deployment.html</a>
+                </div>
+              </div>
+              <p>
+                <br />
+                In order for Jetty to serve content (static or dynamic), you need to create a
+                <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/server/handler/ContextHandler.html" rel="nofollow">ContextHandler</a>
+                and add it to Jetty in the appropriate place.  A pluggable DeploymentManager exists in Jetty 7 to make this process easier.  The Jetty distribution contains example DeploymentManager configurations to deploy WAR files found in a directory to Jetty, and to deploy Jetty context.xml files into Jetty as well.
+              </p>
+              <h2>
+                <span class="mw-headline" id="Feature">Feature</span>
+              </h2>
+              <p>The Deployment Manager is the heart of the typical webapp deployment mechanism; it operates as a combination of an Application LifeCycle Graph, Application Providers that find and provide Applications into the Application LifeCycle Graph, and a set of bindings in the graph that control the deployment process.</p>
+              <p>
+                <a class="image" href="https://wiki.eclipse.org/File:Jetty_DeployManager_DeploymentManager_Roles.png">
+                  <img alt="Jetty DeployManager DeploymentManager Roles.png" height="324" src="../../images/b/b1/Jetty_DeployManager_DeploymentManager_Roles.png" width="195" />
+                </a>
+              </p>
+              <h3>
+                <span class="mw-headline" id="Application_Providers">Application Providers</span>
+              </h3>
+              <p>
+                Before Jetty deploys an application, an
+                <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/deploy/AppProvider.html" rel="nofollow">AppProvider</a>
+                identifies the App and then provides it to the Deployment Manager. Two AppProviders come with the Jetty distribution:
+              </p>
+              <ul>
+                <li>
+                  <b>
+                    <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/deploy/providers/WebAppProvider.html" rel="nofollow">WebAppProvider</a>
+                  </b>
+                  –monitors a directory for
+                  <tt>*.war</tt>
+                  files and submits them to the Application LifeCycle Graph for deployment into a context with the same name as the
+                  <tt>*.war</tt>
+                  file itself. Also see
+                  <a href="WebAppProvider.html" title="Jetty/Feature/WebAppProvider">Jetty/Feature/WebAppProvider</a>
+                </li>
+              </ul>
+              <ul>
+                <li>
+                  <b>
+                    <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/deploy/providers/ContextProvider.html" rel="nofollow">ContextProvider</a>
+                  </b>
+                  –monitors a directory for
+                  <tt>*.xml</tt>
+                  files, and using the Jetty Xml configurator creates a ContextHandler (usually a WebAppContext) for the Application LifeCycle Graph. Also see
+                  <a href="ContextProvider.html" title="Jetty/Feature/ContextProvider">Jetty/Feature/ContextProvider</a>
+                </li>
+              </ul>
+              <p>
+                Activating both at the same time is possible, but can be confusing because you must take care to either keep both systems deploying mutually exclusive webapps, or align naming conventions of
+                <tt>context.xml</tt>
+                style files with WAR and webapp directories.
+              </p>
+              <h3>
+                <span class="mw-headline" id="Application_LifeCycle_Graph">Application LifeCycle Graph</span>
+              </h3>
+              <p>
+                The core feature of the DeploymentManager is the
+                <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/deploy/AppLifeCycle.html" rel="nofollow">Application LifeCycle Graph</a>
+                .
+              </p>
+              <p>
+                <a class="image" href="https://wiki.eclipse.org/File:Jetty_DeployManager_AppLifeCycle.png">
+                  <img alt="Jetty DeployManager AppLifeCycle.png" height="321" src="../../images/4/42/Jetty_DeployManager_AppLifeCycle.png" width="340" />
+                </a>
+              </p>
+              <p>The nodes and edges of this graph are pre-defined in Jetty along the most common actions and states found. These nodes and edges are not hardcoded; you can adjust  and add to them depending on your needs (for example, any complex requirements for added workflow, approvals, staging, distribution, coordinated deploys for a cluster or cloud, etc.).</p>
+              <p>
+                New Applications enter this graph at the Undeployed node, and the
+                <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/deploy/DeploymentManager.html#requestAppGoal(org.eclipse.jetty.deploy.App," rel="nofollow">java.lang.String) DeploymentManager.requestAppGoal(App,String)</a>
+                method pushes them through the graph.
+              </p>
+              <h3>
+                <span class="mw-headline" id="LifeCycle_Bindings">LifeCycle Bindings</span>
+              </h3>
+              <p>
+                A set of default
+                <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/deploy/AppLifeCycle.Binding.html" rel="nofollow">AppLifeCycle.Bindings</a>
+                defines standard behavior, and handles deploying, starting, stopping, and undeploying applications. If you choose, you can write your own AppLifeCycle.Binding's and assign them to anywhere on the Application LifeCycle graph.
+              </p>
+              <p>Examples of new AppLifeCycle.Binding implementations that you can write include:</p>
+              <ul>
+                <li>Validating the incoming application.</li>
+                <li>Preventing the deployment of known forbidden applications.</li>
+                <li>Submitting the installation to an application auditing service in a corporate environment.</li>
+                <li>Distributing the application to other nodes in the cluster or cloud.</li>
+                <li>Emailing owner/admin of change of state of the application.</li>
+              </ul>
+              <p>There are four default bindings:</p>
+              <ul>
+                <li>
+                  <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/deploy/bindings/StandardDeployer.html" rel="nofollow">StandardDeployer</a>
+                  –Deploys the ContextHandler into Jetty in the appropriate place.
+                </li>
+                <li>
+                  <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/deploy/bindings/StandardStarter.html" rel="nofollow">StandardStarter</a>
+                  –Sets the ContextHandler to started and start accepting incoming requests.
+                </li>
+                <li>
+                  <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/deploy/bindings/StandardStopper.html" rel="nofollow">StandardStopper</a>
+                  –Stops the ContextHandler and stop accepting incoming requests.
+                </li>
+                <li>
+                  <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/deploy/bindings/StandardUndeployer.html" rel="nofollow">StandardUndeployer</a>
+                  –Removes the ContextHandler from Jetty.
+                </li>
+              </ul>
+              <p>
+                <a class="image" href="https://wiki.eclipse.org/File:Jetty_DeployManager_DefaultAppLifeCycleBindings.png">
+                  <img alt="Jetty DeployManager DefaultAppLifeCycleBindings.png" height="402" src="../../images/b/b5/Jetty_DeployManager_DefaultAppLifeCycleBindings.png" width="851" />
+                </a>
+              </p>
+              <p>
+                A fifth, non-standard binding, called
+                <i>DebugBinding</i>
+                , is also available for debugging reasons; It logs the various transitions through the Application LifeCycle.
+              </p>
+            </div>
+            <div class="catlinks" id="catlinks">
+              <div class="mw-normal-catlinks" id="mw-normal-catlinks">
+                <a href="https://wiki.eclipse.org/Special:Categories" title="Special:Categories">Categories</a>
+                :
+                <ul>
+                  <li>
+                    <a href="https://wiki.eclipse.org/Category:Jetty" title="Category:Jetty">Jetty</a>
+                  </li>
+                  <li>
+                    <a href="https://wiki.eclipse.org/Category:Jetty_Feature" title="Category:Jetty Feature">Jetty Feature</a>
+                  </li>
+                </ul>
               </div>
             </div>
           </div>
-</body>
+        </div>
+      </div>
+    </div>
+  </body>
 </html>

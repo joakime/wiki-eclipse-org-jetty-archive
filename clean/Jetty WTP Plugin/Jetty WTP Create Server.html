@@ -1,104 +1,252 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
-<head>
+  <head>
     <title>Jetty WTP Plugin</title>
-    <link rel="stylesheet" media="screen, print" href="wiki-style.css"/>
-</head>
-<body>
-<div id="mainContent" class="col-md-20">
-                      <ul class="nav nav-tabs noprint hidden-print" role="tablist">
-                       <li class="active" id="ca-nstab-main"><a title="View the content page [c]" accesskey="c" href="Jetty WTP Create Server.html" tabindex="-1">Page</a></li>
-                        <li class="new" id="ca-talk"><a title="Discussion about the content page [t]" accesskey="t" href="edit" tabindex="-1">Discussion</a></li>
-                        <li id="ca-viewsource"><a href="edit" tabindex="-1" title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></li>
-                        <li id="ca-history" class="collapsible"><a title="Past revisions of this page [h]" accesskey="h" href="edit" tabindex="-1">History</a></li>
-                      </ul>            <div class="tab-content background-white">
-              <div id="tab-pane-main-page-content" class="tab-pane active">
-
-                
-                <h1 class="firstHeading page-header" id="firstHeading">
-                  <span dir="auto">Jetty WTP Plugin/Jetty WTP Create Server</span>
-                </h1>
-                <div id="main-page-content">
-
-                  <div class="alert alert-small alert-warning" id="contentSub"><span class="subpages">&lt; <a title="Jetty WTP Plugin" href="../Jetty WTP Plugin.html">Jetty WTP Plugin</a></span></div>
-
-                  
-                  
-                  <div id="mw-content-text" lang="en" class="mw-content-ltr" dir="ltr"><p><br/>
-</p><p><br/>
-</p>
-<h2><span class="mw-headline" id="Creating_a_Jetty_Server">Creating a Jetty Server</span></h2>
-<p>To create a Jetty Server entry, complete the following steps.
-</p>
-<ol>
-<li>From the main Eclipse window, select <b>File -&gt; New -&gt; Other</b>. The <i>Select a Wizard</i> dialog box opens.
-</li>
-<p><br/>
-</p>
-<a class="image" href="https://wiki.eclipse.org/File:Jetty-wtp-create1.jpg"><img width="500" height="500" alt="Jetty-wtp-create1.jpg" src="../images/d/d7/Jetty-wtp-create1.jpg"/></a>
-<p><br/>
-</p>
-<li>In the <i>Wizards</i> list box, scroll down to select <b>Server -&gt; Server</b>.
-</li><li>Click <b>Next</b>. The <i>Define a New Server</i> dialog box opens.
-</li>
-<p><br/>
-</p>
-<a href="https://wiki.eclipse.org/File:Jetty-wtp-create2.jpg" class="image"><img width="500" height="591" alt="Jetty-wtp-create2.jpg" src="../images/6/66/Jetty-wtp-create2.jpg"/></a>
-<p><br/>
-</p>
-<li>In the <i>Select the server type</i> field, scroll down to select <b>Jetty -&gt; Jetty 7.x</b> or <b>Jetty 8.x Server</b>. This document uses the Jetty 7.x Server.
-</li><li>Click <b>Next</b>. The <i>Jetty Server</i> dialog box opens.
- </li>
-<p><br/>
-</p>
-<a href="https://wiki.eclipse.org/File:Jetty-wtp-create3.jpg" class="image"><img width="500" alt="Jetty-wtp-create3.jpg" src="../images/1/10/Jetty-wtp-create3.jpg" height="591"/></a>
-<p><br/>
-</p>
-<li>To specify the installation directory for Jetty, use the <b>Browse</b> button. Navigate to a local installation of jetty7 or jetty8 and click select.
-</li>
-<p><br/>
-</p>
-<li>Click <b>Next</b>. The <i>Add and Remove</i> dialog boxopens. 
-</li>
-<p><br/>
-</p>
-<a href="https://wiki.eclipse.org/File:Jetty-wtp-create7.jpg" class="image"><img height="534" src="../images/0/03/Jetty-wtp-create7.jpg" alt="Jetty-wtp-create7.jpg" width="500"/></a>
-<p><br/>
-Here you can select an existing Dynamic Web project from your workspace. In this example, there are no WTP Dynamic WebProjects. 
-</p><p><br/>
-</p>
-<li>Click <b>Finish</b>. 
-</li></ol>
-<p><br/>
-</p>
-<ul><li> A Server Project is created in the workspace. </li>
-<li> if you go to WTP Server View , you see the option to launch Jetty v7.0 Server at localhost, which you can use to start/stop/debug the installed Jetty server.</li></ul>
-<p><br/>
-</p><p><a class="image" href="https://wiki.eclipse.org/File:Jetty-wtp-create8.jpg"><img alt="Jetty-wtp-create8.jpg" src="../images/0/0a/Jetty-wtp-create8.jpg" height="341" width="530"/></a>
-</p><p><br/>
-</p><p>The Servers folder includes the Jetty v7.0 Server at localhost-config folder, which contains: 
-</p>
-<ul><li> <tt>start.ini</tt> from the Jetty install (D:\Servers\jetty-distribution-7.2.x).</li>
-<li> <tt>start.config</tt> from the JAR <tt>start.jar</tt>  from the Jetty install. Notice that <tt>Server/start.config</tt> is not the same as Jetty <tt>install/start.jar</tt>. Jetty Home is not the Jetty Install server but a WTP folder (created in the .metadata of your workspace). </li>
-<li> the <tt>jetty*.xml</tt> files, which are declared in the original <tt>start.ini. Jetty*.xml</tt> files are preprocessed too to transform &lt;Property to &lt;SystemProperty.</li>
-<li> <tt>webdefault.xml</tt> is modified to avoid locking HTML files under Windows when Jetty is started and HTML files are modified (published) with the following option: 	</li></ul>
-<p><br/>
-</p>
-<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="xml source-xml"><pre class="de1">  <span class="sc3"><span class="re1">&lt;init-param<span class="re2">&gt;</span></span></span>
-    <span class="sc3"><span class="re1">&lt;param-name<span class="re2">&gt;</span></span></span>useFileMappedBuffer<span class="sc3"><span class="re1">&lt;/param-name<span class="re2">&gt;</span></span></span>
-    <span class="sc3"><span class="re1">&lt;param-value<span class="re2">&gt;</span></span></span>false<span class="sc3"><span class="re1">&lt;/param-value<span class="re2">&gt;</span></span></span>
-  <span class="sc3"><span class="re1">&lt;/init-param<span class="re2">&gt;</span></span></span></pre></div></div>
-<p>When the Jetty server is called it uses: 
-</p>
-<ul><li> <tt>-Djetty.home</tt>, which is the WTP folder.</li>
-<li> <tt>-Dinstall.jetty.home</tt>, which is the Jetty install folder.</li></ul>
-
-
-</div>
-
-                    <div class="catlinks" id="catlinks"><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="https://wiki.eclipse.org/Special:Categories" title="Special:Categories">Category</a>: <ul><li><a href="https://wiki.eclipse.org/Category:Jetty" title="Category:Jetty">Jetty</a></li></ul></div></div>
-                                  </div>
+    <link href="wiki-style.css" media="screen, print" rel="stylesheet" />
+  </head>
+  <body>
+    <div class="col-md-20" id="mainContent">
+      <div class="tab-content background-white">
+        <div class="tab-pane active" id="tab-pane-main-page-content">
+          <h1 class="firstHeading page-header" id="firstHeading">
+            <span dir="auto">Jetty WTP Plugin/Jetty WTP Create Server</span>
+          </h1>
+          <div id="main-page-content">
+            <div class="alert alert-small alert-warning" id="contentSub">
+              <span class="subpages">
+                &lt;
+                <a href="../Jetty WTP Plugin.html" title="Jetty WTP Plugin">Jetty WTP Plugin</a>
+              </span>
+            </div>
+            <div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="en">
+              <p>
+                <br />
+              </p>
+              <p>
+                <br />
+              </p>
+              <h2>
+                <span class="mw-headline" id="Creating_a_Jetty_Server">Creating a Jetty Server</span>
+              </h2>
+              <p>To create a Jetty Server entry, complete the following steps.</p>
+              <ol>
+                <li>
+                  From the main Eclipse window, select
+                  <b>File -&gt; New -&gt; Other</b>
+                  . The
+                  <i>Select a Wizard</i>
+                  dialog box opens.
+                </li>
+                <p>
+                  <br />
+                </p>
+                <a class="image" href="https://wiki.eclipse.org/File:Jetty-wtp-create1.jpg">
+                  <img alt="Jetty-wtp-create1.jpg" height="500" src="../images/d/d7/Jetty-wtp-create1.jpg" width="500" />
+                </a>
+                <p>
+                  <br />
+                </p>
+                <li>
+                  In the
+                  <i>Wizards</i>
+                  list box, scroll down to select
+                  <b>Server -&gt; Server</b>
+                  .
+                </li>
+                <li>
+                  Click
+                  <b>Next</b>
+                  . The
+                  <i>Define a New Server</i>
+                  dialog box opens.
+                </li>
+                <p>
+                  <br />
+                </p>
+                <a class="image" href="https://wiki.eclipse.org/File:Jetty-wtp-create2.jpg">
+                  <img alt="Jetty-wtp-create2.jpg" height="591" src="../images/6/66/Jetty-wtp-create2.jpg" width="500" />
+                </a>
+                <p>
+                  <br />
+                </p>
+                <li>
+                  In the
+                  <i>Select the server type</i>
+                  field, scroll down to select
+                  <b>Jetty -&gt; Jetty 7.x</b>
+                  or
+                  <b>Jetty 8.x Server</b>
+                  . This document uses the Jetty 7.x Server.
+                </li>
+                <li>
+                  Click
+                  <b>Next</b>
+                  . The
+                  <i>Jetty Server</i>
+                  dialog box opens.
+                </li>
+                <p>
+                  <br />
+                </p>
+                <a class="image" href="https://wiki.eclipse.org/File:Jetty-wtp-create3.jpg">
+                  <img alt="Jetty-wtp-create3.jpg" height="591" src="../images/1/10/Jetty-wtp-create3.jpg" width="500" />
+                </a>
+                <p>
+                  <br />
+                </p>
+                <li>
+                  To specify the installation directory for Jetty, use the
+                  <b>Browse</b>
+                  button. Navigate to a local installation of jetty7 or jetty8 and click select.
+                </li>
+                <p>
+                  <br />
+                </p>
+                <li>
+                  Click
+                  <b>Next</b>
+                  . The
+                  <i>Add and Remove</i>
+                  dialog boxopens.
+                </li>
+                <p>
+                  <br />
+                </p>
+                <a class="image" href="https://wiki.eclipse.org/File:Jetty-wtp-create7.jpg">
+                  <img alt="Jetty-wtp-create7.jpg" height="534" src="../images/0/03/Jetty-wtp-create7.jpg" width="500" />
+                </a>
+                <p>
+                  <br />
+                  Here you can select an existing Dynamic Web project from your workspace. In this example, there are no WTP Dynamic WebProjects.
+                </p>
+                <p>
+                  <br />
+                </p>
+                <li>
+                  Click
+                  <b>Finish</b>
+                  .
+                </li>
+              </ol>
+              <p>
+                <br />
+              </p>
+              <ul>
+                <li>A Server Project is created in the workspace.</li>
+                <li>if you go to WTP Server View , you see the option to launch Jetty v7.0 Server at localhost, which you can use to start/stop/debug the installed Jetty server.</li>
+              </ul>
+              <p>
+                <br />
+              </p>
+              <p>
+                <a class="image" href="https://wiki.eclipse.org/File:Jetty-wtp-create8.jpg">
+                  <img alt="Jetty-wtp-create8.jpg" height="341" src="../images/0/0a/Jetty-wtp-create8.jpg" width="530" />
+                </a>
+              </p>
+              <p>
+                <br />
+              </p>
+              <p>The Servers folder includes the Jetty v7.0 Server at localhost-config folder, which contains:</p>
+              <ul>
+                <li>
+                  <tt>start.ini</tt>
+                  from the Jetty install (D:\Servers\jetty-distribution-7.2.x).
+                </li>
+                <li>
+                  <tt>start.config</tt>
+                  from the JAR
+                  <tt>start.jar</tt>
+                  from the Jetty install. Notice that
+                  <tt>Server/start.config</tt>
+                  is not the same as Jetty
+                  <tt>install/start.jar</tt>
+                  . Jetty Home is not the Jetty Install server but a WTP folder (created in the .metadata of your workspace).
+                </li>
+                <li>
+                  the
+                  <tt>jetty*.xml</tt>
+                  files, which are declared in the original
+                  <tt>start.ini. Jetty*.xml</tt>
+                  files are preprocessed too to transform &lt;Property to &lt;SystemProperty.
+                </li>
+                <li>
+                  <tt>webdefault.xml</tt>
+                  is modified to avoid locking HTML files under Windows when Jetty is started and HTML files are modified (published) with the following option:
+                </li>
+              </ul>
+              <p>
+                <br />
+              </p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="xml source-xml">
+                  <pre class="de1">
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;init-param
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;param-name
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    useFileMappedBuffer
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/param-name
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;param-value
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    false
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/param-value
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/init-param
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                  </pre>
+                </div>
+              </div>
+              <p>When the Jetty server is called it uses:</p>
+              <ul>
+                <li>
+                  <tt>-Djetty.home</tt>
+                  , which is the WTP folder.
+                </li>
+                <li>
+                  <tt>-Dinstall.jetty.home</tt>
+                  , which is the Jetty install folder.
+                </li>
+              </ul>
+            </div>
+            <div class="catlinks" id="catlinks">
+              <div class="mw-normal-catlinks" id="mw-normal-catlinks">
+                <a href="https://wiki.eclipse.org/Special:Categories" title="Special:Categories">Category</a>
+                :
+                <ul>
+                  <li>
+                    <a href="https://wiki.eclipse.org/Category:Jetty" title="Category:Jetty">Jetty</a>
+                  </li>
+                </ul>
               </div>
             </div>
           </div>
-</body>
+        </div>
+      </div>
+    </div>
+  </body>
 </html>

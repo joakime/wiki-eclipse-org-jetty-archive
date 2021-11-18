@@ -1,141 +1,290 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
-<head>
+  <head>
     <title>Jetty WTP Plugin</title>
-    <link rel="stylesheet" media="screen, print" href="wiki-style.css"/>
-</head>
-<body>
-<div class="col-md-20" id="mainContent">
-                               <div class="tab-content background-white">
-              <div id="tab-pane-main-page-content" class="tab-pane active">
-
-                
-                <h1 id="firstHeading" class="firstHeading page-header">
-                  <span dir="auto">Jetty/Contributor/Eclipse Release</span>
-                </h1>
-                <div id="main-page-content">
-
-                  <div class="alert alert-small alert-warning" id="contentSub"><span class="subpages">&lt; <a href="../../Jetty.html" title="Jetty">Jetty</a>‎ | <a title="Jetty/Contributor" href="../Contributor.html">Contributor</a></span></div>
-
-                  
-                  
-                  <div dir="ltr" lang="en" id="mw-content-text" class="mw-content-ltr"><p><br/>
-</p>
-<div class="toc" id="toc"><div id="toctitle"><h2>Contents</h2></div>
-<ul>
-<li class="toclevel-1 tocsection-1"><a href="Eclipse Release.html#Eclipse_Release_Checklist"><span class="tocnumber">1</span> <span class="toctext">Eclipse Release Checklist</span></a></li>
-<li class="toclevel-1 tocsection-2"><a href="Eclipse Release.html#Jetty-rt-bundles_Release_build:_Hudson_Job"><span class="tocnumber">2</span> <span class="toctext">Jetty-rt-bundles Release build: Hudson Job</span></a>
-<ul>
-<li class="toclevel-2 tocsection-3"><a href="Eclipse Release.html#Run_the_Hudson_job_.27jetty-rt-bundles.27"><span class="tocnumber">2.1</span> <span class="toctext">Run the Hudson job 'jetty-rt-bundles'</span></a></li>
-<li class="toclevel-2 tocsection-4"><a href="Eclipse Release.html#Add_the_new_repository_to_the_composite_repository"><span class="tocnumber">2.2</span> <span class="toctext">Add the new repository to the composite repository</span></a></li>
-</ul>
-</li>
-<li class="toclevel-1 tocsection-5"><a href="Eclipse Release.html#EclipseRT_WebStarterKit"><span class="tocnumber">3</span> <span class="toctext">EclipseRT WebStarterKit</span></a>
-<ul>
-<li class="toclevel-2 tocsection-6"><a href="Eclipse Release.html#Run_the_Hudson_job_.27jetty-rt-bundles.27_2"><span class="tocnumber">3.1</span> <span class="toctext">Run the Hudson job 'jetty-rt-bundles'</span></a></li>
-<li class="toclevel-2 tocsection-7"><a href="Eclipse Release.html#Add_the_new_repository_to_the_composite_repository_2"><span class="tocnumber">3.2</span> <span class="toctext">Add the new repository to the composite repository</span></a></li>
-</ul>
-</li>
-<li class="toclevel-1 tocsection-8"><a href="Eclipse Release.html#Jetty-rt_local_builds"><span class="tocnumber">4</span> <span class="toctext">Jetty-rt local builds</span></a>
-<ul>
-<li class="toclevel-2 tocsection-9"><a href="Eclipse Release.html#Jetty-rt-bundles"><span class="tocnumber">4.1</span> <span class="toctext">Jetty-rt-bundles</span></a></li>
-<li class="toclevel-2 tocsection-10"><a href="Eclipse Release.html#Jetty-rt-products"><span class="tocnumber">4.2</span> <span class="toctext">Jetty-rt-products</span></a></li>
-<li class="toclevel-2 tocsection-11"><a href="Eclipse Release.html#Consuming_the_jetty-rt-bundles_built_locally_in_the_local_jetty-rt-products_build"><span class="tocnumber">4.3</span> <span class="toctext">Consuming the jetty-rt-bundles built locally in the local jetty-rt-products build</span></a></li>
-</ul>
-</li>
-</ul>
-</div>
-
-<h2><span class="mw-headline" id="Eclipse_Release_Checklist">Eclipse Release Checklist</span></h2>
-<p>If its a bugfix release then you are fine to release.
-</p><p>If its a minor version bump then you must follow the process below.
-</p>
-<ul><li> At least 3 weeks ahead of time, make sure we have a frozen IP Log in place, otherwise submit one to Eclipse Legal for review 
-<ul><li> <a rel="nofollow" class="external free" href="http://www.eclipse.org/projects/ip_log.php?projectid=rt.jetty">http://www.eclipse.org/projects/ip_log.php?projectid=rt.jetty</a></li>
-<li> at bottom the this url click the 'Submit IPLog' button, it gets mailed to Wayne who goes through it with a fine toothed comb</li>
-<li> this step may be skipped if reusing an existing IPLog, which is commonly the case for our minor releases and speeds the process greatly</li></ul></li></ul>
-<ul><li> Create release directory under admin in svn: svn+<a class="external free" rel="nofollow" href="ssh://dev.eclipse.org/svnroot/rt/org.eclipse.jetty/admin/">ssh://dev.eclipse.org/svnroot/rt/org.eclipse.jetty/admin/</a>&lt;release version&gt;</li></ul>
-<ul><li> Create Release Review Document 
-<ul><li> template in svn @ admin/template/JettyReleaseReviewTemplate.odp</li>
-<li> alternately grab the last release review and update it into a new name, the edit the slides accordingly</li>
-<li> copy into new release directory and commit accordingly</li>
-<li> release review document should have hard link to the IPLog being used for the release, this document can not be submitted until finalize IPLog is in place</li></ul></li></ul>
-<ul><li> Email Release Docuware to emo@eclipse.org requesting a release review
-<ul><li> explain briefly what has changed and why this can't be a bugfix release, updates to protocol like websocket, etc</li>
-<li> release reviews are generally on a Wednesday and out about 2 weeks from when you ask for them, ask for as soon of a date as possible</li>
-<li> prepare to hear back that there are no RC# releases for the release review being scheduled and then respond that we don't typically require a full on RC# release in our process.</li>
-<li> wait until required time has passed and release review was successful</li>
-<li> release!</li></ul></li></ul>
-<h2><span class="mw-headline" id="Jetty-rt-bundles_Release_build:_Hudson_Job">Jetty-rt-bundles Release build: Hudson Job</span></h2>
-<p>How-to build <a href="Update Site.html" title="Jetty/Contributor/Update Site">Jetty/Contributor/Update Site</a>
-</p>
-<h3><span id="Run_the_Hudson_job_.27jetty-rt-bundles.27" class="mw-headline">Run the Hudson job 'jetty-rt-bundles'</span></h3>
-<p>The parameterized hudson job <a href="https://hudson.eclipse.org/hudson/view/Jetty-RT/job/jetty-rt-bundles/" class="external free" rel="nofollow">https://hudson.eclipse.org/hudson/view/Jetty-RT/job/jetty-rt-bundles/</a> is in charge of building the jetty-rt-bundles repositories.
-</p><p>Parameters:
-</p>
-<ul><li> jetty-version: choose jetty-7 or jetty-8 (default: jetty-7)</li>
-<li> pack-and-sign: enable signing and packing the artifacts (default: yes)</li>
-<li> jetty_release_version: enter which built version of jetty to use. (default: will choose the latest snapshot)</li></ul>
-<p>The last 2 parameters are unlikely to be changed.
-</p>
-<ul><li> force_context_qualifier: to force the produced feature to use a specific number. (default timestamp)</li>
-<li> set_pom_version: force the pom.xml to use a new version. (default use the one committed in svn).</li></ul>
-<h3><span class="mw-headline" id="Add_the_new_repository_to_the_composite_repository">Add the new repository to the composite repository</span></h3>
-<p>For jetty-8; edit: <a href="sftp://youruser@build.eclipse.org/home/data/httpd/download.eclipse.org/jetty/updates/jetty-bundles-8.x/compositeArtifacts.xml" rel="nofollow" class="external free">sftp://youruser@build.eclipse.org/home/data/httpd/download.eclipse.org/jetty/updates/jetty-bundles-8.x/compositeArtifacts.xml</a>
+    <link href="wiki-style.css" media="screen, print" rel="stylesheet" />
+  </head>
+  <body>
+    <div class="col-md-20" id="mainContent">
+      <div class="tab-content background-white">
+        <div class="tab-pane active" id="tab-pane-main-page-content">
+          <h1 class="firstHeading page-header" id="firstHeading">
+            <span dir="auto">Jetty/Contributor/Eclipse Release</span>
+          </h1>
+          <div id="main-page-content">
+            <div class="alert alert-small alert-warning" id="contentSub">
+              <span class="subpages">
+                &lt;
+                <a href="../../Jetty.html" title="Jetty">Jetty</a>
+                ‎ |
+                <a href="../Contributor.html" title="Jetty/Contributor">Contributor</a>
+              </span>
+            </div>
+            <div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="en">
+              <p>
+                <br />
+              </p>
+              <div class="toc" id="toc">
+                <div id="toctitle">
+                  <h2>Contents</h2>
+                </div>
+                <ul>
+                  <li class="toclevel-1 tocsection-1">
+                    <a href="Eclipse Release.html#Eclipse_Release_Checklist">
+                      <span class="tocnumber">1</span>
+                      <span class="toctext">Eclipse Release Checklist</span>
+                    </a>
+                  </li>
+                  <li class="toclevel-1 tocsection-2">
+                    <a href="Eclipse Release.html#Jetty-rt-bundles_Release_build:_Hudson_Job">
+                      <span class="tocnumber">2</span>
+                      <span class="toctext">Jetty-rt-bundles Release build: Hudson Job</span>
+                    </a>
+                    <ul>
+                      <li class="toclevel-2 tocsection-3">
+                        <a href="Eclipse Release.html#Run_the_Hudson_job_.27jetty-rt-bundles.27">
+                          <span class="tocnumber">2.1</span>
+                          <span class="toctext">Run the Hudson job 'jetty-rt-bundles'</span>
+                        </a>
+                      </li>
+                      <li class="toclevel-2 tocsection-4">
+                        <a href="Eclipse Release.html#Add_the_new_repository_to_the_composite_repository">
+                          <span class="tocnumber">2.2</span>
+                          <span class="toctext">Add the new repository to the composite repository</span>
+                        </a>
+                      </li>
+                    </ul>
+                  </li>
+                  <li class="toclevel-1 tocsection-5">
+                    <a href="Eclipse Release.html#EclipseRT_WebStarterKit">
+                      <span class="tocnumber">3</span>
+                      <span class="toctext">EclipseRT WebStarterKit</span>
+                    </a>
+                    <ul>
+                      <li class="toclevel-2 tocsection-6">
+                        <a href="Eclipse Release.html#Run_the_Hudson_job_.27jetty-rt-bundles.27_2">
+                          <span class="tocnumber">3.1</span>
+                          <span class="toctext">Run the Hudson job 'jetty-rt-bundles'</span>
+                        </a>
+                      </li>
+                      <li class="toclevel-2 tocsection-7">
+                        <a href="Eclipse Release.html#Add_the_new_repository_to_the_composite_repository_2">
+                          <span class="tocnumber">3.2</span>
+                          <span class="toctext">Add the new repository to the composite repository</span>
+                        </a>
+                      </li>
+                    </ul>
+                  </li>
+                  <li class="toclevel-1 tocsection-8">
+                    <a href="Eclipse Release.html#Jetty-rt_local_builds">
+                      <span class="tocnumber">4</span>
+                      <span class="toctext">Jetty-rt local builds</span>
+                    </a>
+                    <ul>
+                      <li class="toclevel-2 tocsection-9">
+                        <a href="Eclipse Release.html#Jetty-rt-bundles">
+                          <span class="tocnumber">4.1</span>
+                          <span class="toctext">Jetty-rt-bundles</span>
+                        </a>
+                      </li>
+                      <li class="toclevel-2 tocsection-10">
+                        <a href="Eclipse Release.html#Jetty-rt-products">
+                          <span class="tocnumber">4.2</span>
+                          <span class="toctext">Jetty-rt-products</span>
+                        </a>
+                      </li>
+                      <li class="toclevel-2 tocsection-11">
+                        <a href="Eclipse Release.html#Consuming_the_jetty-rt-bundles_built_locally_in_the_local_jetty-rt-products_build">
+                          <span class="tocnumber">4.3</span>
+                          <span class="toctext">Consuming the jetty-rt-bundles built locally in the local jetty-rt-products build</span>
+                        </a>
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </div>
+              <h2>
+                <span class="mw-headline" id="Eclipse_Release_Checklist">Eclipse Release Checklist</span>
+              </h2>
+              <p>If its a bugfix release then you are fine to release.</p>
+              <p>If its a minor version bump then you must follow the process below.</p>
+              <ul>
+                <li>
+                  At least 3 weeks ahead of time, make sure we have a frozen IP Log in place, otherwise submit one to Eclipse Legal for review
+                  <ul>
+                    <li>
+                      <a class="external free" href="http://www.eclipse.org/projects/ip_log.php?projectid=rt.jetty" rel="nofollow">http://www.eclipse.org/projects/ip_log.php?projectid=rt.jetty</a>
+                    </li>
+                    <li>at bottom the this url click the 'Submit IPLog' button, it gets mailed to Wayne who goes through it with a fine toothed comb</li>
+                    <li>this step may be skipped if reusing an existing IPLog, which is commonly the case for our minor releases and speeds the process greatly</li>
+                  </ul>
+                </li>
+              </ul>
+              <ul>
+                <li>
+                  Create release directory under admin in svn: svn+
+                  <a class="external free" href="ssh://dev.eclipse.org/svnroot/rt/org.eclipse.jetty/admin/" rel="nofollow">ssh://dev.eclipse.org/svnroot/rt/org.eclipse.jetty/admin/</a>
+                  &lt;release version&gt;
+                </li>
+              </ul>
+              <ul>
+                <li>
+                  Create Release Review Document
+                  <ul>
+                    <li>template in svn @ admin/template/JettyReleaseReviewTemplate.odp</li>
+                    <li>alternately grab the last release review and update it into a new name, the edit the slides accordingly</li>
+                    <li>copy into new release directory and commit accordingly</li>
+                    <li>release review document should have hard link to the IPLog being used for the release, this document can not be submitted until finalize IPLog is in place</li>
+                  </ul>
+                </li>
+              </ul>
+              <ul>
+                <li>
+                  Email Release Docuware to emo@eclipse.org requesting a release review
+                  <ul>
+                    <li>explain briefly what has changed and why this can't be a bugfix release, updates to protocol like websocket, etc</li>
+                    <li>release reviews are generally on a Wednesday and out about 2 weeks from when you ask for them, ask for as soon of a date as possible</li>
+                    <li>prepare to hear back that there are no RC# releases for the release review being scheduled and then respond that we don't typically require a full on RC# release in our process.</li>
+                    <li>wait until required time has passed and release review was successful</li>
+                    <li>release!</li>
+                  </ul>
+                </li>
+              </ul>
+              <h2>
+                <span class="mw-headline" id="Jetty-rt-bundles_Release_build:_Hudson_Job">Jetty-rt-bundles Release build: Hudson Job</span>
+              </h2>
+              <p>
+                How-to build
+                <a href="Update Site.html" title="Jetty/Contributor/Update Site">Jetty/Contributor/Update Site</a>
+              </p>
+              <h3>
+                <span class="mw-headline" id="Run_the_Hudson_job_.27jetty-rt-bundles.27">Run the Hudson job 'jetty-rt-bundles'</span>
+              </h3>
+              <p>
+                The parameterized hudson job
+                <a class="external free" href="https://hudson.eclipse.org/hudson/view/Jetty-RT/job/jetty-rt-bundles/" rel="nofollow">https://hudson.eclipse.org/hudson/view/Jetty-RT/job/jetty-rt-bundles/</a>
+                is in charge of building the jetty-rt-bundles repositories.
+              </p>
+              <p>Parameters:</p>
+              <ul>
+                <li>jetty-version: choose jetty-7 or jetty-8 (default: jetty-7)</li>
+                <li>pack-and-sign: enable signing and packing the artifacts (default: yes)</li>
+                <li>jetty_release_version: enter which built version of jetty to use. (default: will choose the latest snapshot)</li>
+              </ul>
+              <p>The last 2 parameters are unlikely to be changed.</p>
+              <ul>
+                <li>force_context_qualifier: to force the produced feature to use a specific number. (default timestamp)</li>
+                <li>set_pom_version: force the pom.xml to use a new version. (default use the one committed in svn).</li>
+              </ul>
+              <h3>
+                <span class="mw-headline" id="Add_the_new_repository_to_the_composite_repository">Add the new repository to the composite repository</span>
+              </h3>
+              <p>
+                For jetty-8; edit:
+                <a class="external free" href="sftp://youruser@build.eclipse.org/home/data/httpd/download.eclipse.org/jetty/updates/jetty-bundles-8.x/compositeArtifacts.xml" rel="nofollow">sftp://youruser@build.eclipse.org/home/data/httpd/download.eclipse.org/jetty/updates/jetty-bundles-8.x/compositeArtifacts.xml</a>
+                and
+                <a class="external free" href="sftp://youruser@build.eclipse.org/home/data/httpd/download.eclipse.org/jetty/updates/jetty-bundles-8.x/compositeContent.xml" rel="nofollow">sftp://youruser@build.eclipse.org/home/data/httpd/download.eclipse.org/jetty/updates/jetty-bundles-8.x/compositeContent.xml</a>
+                Make it a +1 for the number of children.
+Add a &lt;location&gt; line.
+              </p>
+              <p>The process for jetty-7 is identical.</p>
+              <h2>
+                <span class="mw-headline" id="EclipseRT_WebStarterKit">EclipseRT WebStarterKit</span>
+              </h2>
+              <p>
+                How-to build
+                <a href="Update Site.html" title="Jetty/Contributor/Update Site">Jetty/Contributor/Update Site</a>
+              </p>
+              <h3>
+                <span class="mw-headline" id="Run_the_Hudson_job_.27jetty-rt-bundles.27_2">Run the Hudson job 'jetty-rt-bundles'</span>
+              </h3>
+              <p>
+                The parameterized hudson job
+                <a class="external free" href="https://hudson.eclipse.org/hudson/view/Jetty-RT/job/jetty-rt-products/" rel="nofollow">https://hudson.eclipse.org/hudson/view/Jetty-RT/job/jetty-rt-products/</a>
+                is in charge of building the jetty-rt-products repositories.
+              </p>
+              <p>Parameters:</p>
+              <ul>
+                <li>jetty_rt_branch: indigo / juno (default indigo)</li>
+                <li>platform: choose which version of equinox (default indigo-nightly)</li>
+                <li>pack-and-sign: enable signing and packing the artifacts (default: yes)</li>
+                <li>rt_release_version: Name of the release that will be suffixed by a timestamp: for example 'S-3.7RC4'.</li>
+                <li>jetty_release_version: enter which built version of jetty to use. (default: if equinox-nightly then use jetty-snapshot; otherwise use the composite repository to point to the latest released version of jetty)</li>
+                <li>set_pom_version: force the pom.xml to use a different version then the one committed in svn.</li>
+              </ul>
+              <h3>
+                <span class="mw-headline" id="Add_the_new_repository_to_the_composite_repository_2">Add the new repository to the composite repository</span>
+              </h3>
+              <p>
+                For jetty-8; edit:
+                <a class="external free" href="sftp://youruser@build.eclipse.org/home/data/httpd/download.eclipse.org/jetty/updates/" rel="nofollow">sftp://youruser@build.eclipse.org/home/data/httpd/download.eclipse.org/jetty/updates/</a>
+                -replace-by-actual-folder- /compositeArtifacts.xml
 and
-<a href="sftp://youruser@build.eclipse.org/home/data/httpd/download.eclipse.org/jetty/updates/jetty-bundles-8.x/compositeContent.xml" class="external free" rel="nofollow">sftp://youruser@build.eclipse.org/home/data/httpd/download.eclipse.org/jetty/updates/jetty-bundles-8.x/compositeContent.xml</a>
+                <a class="external free" href="sftp://youruser@build.eclipse.org/home/data/httpd/download.eclipse.org/jetty/updates/" rel="nofollow">sftp://youruser@build.eclipse.org/home/data/httpd/download.eclipse.org/jetty/updates/</a>
+                -replace-by-actual-folder- /compositeContent.xml
 Make it a +1 for the number of children.
 Add a &lt;location&gt; line.
-</p><p>The process for jetty-7 is identical.
-</p>
-<h2><span id="EclipseRT_WebStarterKit" class="mw-headline">EclipseRT WebStarterKit</span></h2>
-<p>How-to build <a title="Jetty/Contributor/Update Site" href="Update Site.html">Jetty/Contributor/Update Site</a>
-</p>
-<h3><span class="mw-headline" id="Run_the_Hudson_job_.27jetty-rt-bundles.27_2">Run the Hudson job 'jetty-rt-bundles'</span></h3>
-<p>The parameterized hudson job <a class="external free" rel="nofollow" href="https://hudson.eclipse.org/hudson/view/Jetty-RT/job/jetty-rt-products/">https://hudson.eclipse.org/hudson/view/Jetty-RT/job/jetty-rt-products/</a> is in charge of building the jetty-rt-products repositories.
-</p><p>Parameters:
-</p>
-<ul><li> jetty_rt_branch: indigo / juno (default indigo)</li>
-<li> platform: choose which version of equinox (default indigo-nightly)</li>
-<li> pack-and-sign: enable signing and packing the artifacts (default: yes)</li>
-<li> rt_release_version: Name of the release that will be suffixed by a timestamp: for example 'S-3.7RC4'.</li>
-<li> jetty_release_version: enter which built version of jetty to use. (default: if equinox-nightly then use jetty-snapshot; otherwise use the composite repository to point to the latest released version of jetty)</li>
-<li> set_pom_version: force the pom.xml to use a different version then the one committed in svn.</li></ul>
-<h3><span id="Add_the_new_repository_to_the_composite_repository_2" class="mw-headline">Add the new repository to the composite repository</span></h3>
-<p>For jetty-8; edit: <a rel="nofollow" class="external free" href="sftp://youruser@build.eclipse.org/home/data/httpd/download.eclipse.org/jetty/updates/">sftp://youruser@build.eclipse.org/home/data/httpd/download.eclipse.org/jetty/updates/</a> -replace-by-actual-folder- /compositeArtifacts.xml
-and
-<a href="sftp://youruser@build.eclipse.org/home/data/httpd/download.eclipse.org/jetty/updates/" class="external free" rel="nofollow">sftp://youruser@build.eclipse.org/home/data/httpd/download.eclipse.org/jetty/updates/</a> -replace-by-actual-folder- /compositeContent.xml
-Make it a +1 for the number of children.
-Add a &lt;location&gt; line.
-</p><p><br/>
-</p>
-<h2><span id="Jetty-rt_local_builds" class="mw-headline">Jetty-rt local builds</span></h2>
-<p>Local builds are run with maven3.
-</p>
-<h3><span class="mw-headline" id="Jetty-rt-bundles">Jetty-rt-bundles</span></h3>
-<ul><li> jetty-rt-bundles for jetty-7: svn co <a class="external free" rel="nofollow" href="http://dev.eclipse.org/svnroot/rt/org.eclipse.jetty/eclipse/jetty-bundles/jetty-7/">http://dev.eclipse.org/svnroot/rt/org.eclipse.jetty/eclipse/jetty-bundles/jetty-7/</a></li>
-<li> jetty-rt-bundles for jetty-8: svn co <a href="http://dev.eclipse.org/svnroot/rt/org.eclipse.jetty/eclipse/jetty-bundles/jetty-8/" rel="nofollow" class="external free">http://dev.eclipse.org/svnroot/rt/org.eclipse.jetty/eclipse/jetty-bundles/jetty-8/</a></li></ul>
-<pre> mvn clean verify
-</pre>
-<p>The repository produced is here: ./jetty.bundles.repo/target/site
-</p>
-<h3><span id="Jetty-rt-products" class="mw-headline">Jetty-rt-products</span></h3>
-<ul><li> jetty-rt-products for Indigo (jetty-7): svn co <a class="external free" rel="nofollow" href="http://dev.eclipse.org/svnroot/rt/org.eclipse.jetty/eclipse/jetty-rt-indigo/">http://dev.eclipse.org/svnroot/rt/org.eclipse.jetty/eclipse/jetty-rt-indigo/</a></li>
-<li> jetty-rt-products for Juno (jetty-8): svn co <a class="external free" rel="nofollow" href="http://dev.eclipse.org/svnroot/rt/org.eclipse.jetty/eclipse/jetty-rt-juno/">http://dev.eclipse.org/svnroot/rt/org.eclipse.jetty/eclipse/jetty-rt-juno/</a></li></ul>
-<pre> mvn clean verify
-</pre>
-<p>The repository produced is here: ./jetty-features/org.eclipse.jetty.product/target/repository
-</p>
-<h3><span id="Consuming_the_jetty-rt-bundles_built_locally_in_the_local_jetty-rt-products_build" class="mw-headline">Consuming the jetty-rt-bundles built locally in the local jetty-rt-products build</span></h3>
-<p>There is currently no process/convention to 'install' a repository produced by a local build into a location where it can easily be consumed by another tycho build such as the jetty-rt-products build.
-</p><p>So at the moment, it is required to edit the pom, look for the property that URL points to the jetty-rt-bundles and replace it by the absolute path to where the $your-jetty-rt-bundles/jetty.bundles.repo/target/site is.
-</p>
-
-</div>
-
-                    <div class="catlinks" id="catlinks"><div class="mw-normal-catlinks" id="mw-normal-catlinks"><a href="https://wiki.eclipse.org/Special:Categories" title="Special:Categories">Categories</a>: <ul><li><a href="https://wiki.eclipse.org/Category:Jetty" title="Category:Jetty">Jetty</a></li><li><a href="https://wiki.eclipse.org/Category:Jetty_Contributor" title="Category:Jetty Contributor">Jetty Contributor</a></li></ul></div></div>
-                                  </div>
+              </p>
+              <p>
+                <br />
+              </p>
+              <h2>
+                <span class="mw-headline" id="Jetty-rt_local_builds">Jetty-rt local builds</span>
+              </h2>
+              <p>Local builds are run with maven3.</p>
+              <h3>
+                <span class="mw-headline" id="Jetty-rt-bundles">Jetty-rt-bundles</span>
+              </h3>
+              <ul>
+                <li>
+                  jetty-rt-bundles for jetty-7: svn co
+                  <a class="external free" href="http://dev.eclipse.org/svnroot/rt/org.eclipse.jetty/eclipse/jetty-bundles/jetty-7/" rel="nofollow">http://dev.eclipse.org/svnroot/rt/org.eclipse.jetty/eclipse/jetty-bundles/jetty-7/</a>
+                </li>
+                <li>
+                  jetty-rt-bundles for jetty-8: svn co
+                  <a class="external free" href="http://dev.eclipse.org/svnroot/rt/org.eclipse.jetty/eclipse/jetty-bundles/jetty-8/" rel="nofollow">http://dev.eclipse.org/svnroot/rt/org.eclipse.jetty/eclipse/jetty-bundles/jetty-8/</a>
+                </li>
+              </ul>
+              <pre>mvn clean verify</pre>
+              <p>The repository produced is here: ./jetty.bundles.repo/target/site</p>
+              <h3>
+                <span class="mw-headline" id="Jetty-rt-products">Jetty-rt-products</span>
+              </h3>
+              <ul>
+                <li>
+                  jetty-rt-products for Indigo (jetty-7): svn co
+                  <a class="external free" href="http://dev.eclipse.org/svnroot/rt/org.eclipse.jetty/eclipse/jetty-rt-indigo/" rel="nofollow">http://dev.eclipse.org/svnroot/rt/org.eclipse.jetty/eclipse/jetty-rt-indigo/</a>
+                </li>
+                <li>
+                  jetty-rt-products for Juno (jetty-8): svn co
+                  <a class="external free" href="http://dev.eclipse.org/svnroot/rt/org.eclipse.jetty/eclipse/jetty-rt-juno/" rel="nofollow">http://dev.eclipse.org/svnroot/rt/org.eclipse.jetty/eclipse/jetty-rt-juno/</a>
+                </li>
+              </ul>
+              <pre>mvn clean verify</pre>
+              <p>The repository produced is here: ./jetty-features/org.eclipse.jetty.product/target/repository</p>
+              <h3>
+                <span class="mw-headline" id="Consuming_the_jetty-rt-bundles_built_locally_in_the_local_jetty-rt-products_build">Consuming the jetty-rt-bundles built locally in the local jetty-rt-products build</span>
+              </h3>
+              <p>There is currently no process/convention to 'install' a repository produced by a local build into a location where it can easily be consumed by another tycho build such as the jetty-rt-products build.</p>
+              <p>So at the moment, it is required to edit the pom, look for the property that URL points to the jetty-rt-bundles and replace it by the absolute path to where the $your-jetty-rt-bundles/jetty.bundles.repo/target/site is.</p>
+            </div>
+            <div class="catlinks" id="catlinks">
+              <div class="mw-normal-catlinks" id="mw-normal-catlinks">
+                <a href="https://wiki.eclipse.org/Special:Categories" title="Special:Categories">Categories</a>
+                :
+                <ul>
+                  <li>
+                    <a href="https://wiki.eclipse.org/Category:Jetty" title="Category:Jetty">Jetty</a>
+                  </li>
+                  <li>
+                    <a href="https://wiki.eclipse.org/Category:Jetty_Contributor" title="Category:Jetty Contributor">Jetty Contributor</a>
+                  </li>
+                </ul>
               </div>
             </div>
           </div>
-</body>
+        </div>
+      </div>
+    </div>
+  </body>
 </html>

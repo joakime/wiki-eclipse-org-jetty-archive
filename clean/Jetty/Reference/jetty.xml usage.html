@@ -1,102 +1,217 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
-<head>
+  <head>
     <title>Jetty WTP Plugin</title>
-    <link rel="stylesheet" media="screen, print" href="wiki-style.css"/>
-</head>
-<body>
-<div id="mainContent" class="col-md-20">
-                               <div class="tab-content background-white">
-              <div class="tab-pane active" id="tab-pane-main-page-content">
-
-                
-                <h1 id="firstHeading" class="firstHeading page-header">
-                  <span dir="auto">Jetty/Reference/jetty.xml usage</span>
-                </h1>
-                <div id="main-page-content">
-
-                  <div id="contentSub" class="alert alert-small alert-warning"><span class="subpages">&lt; <a title="Jetty" href="../../Jetty.html">Jetty</a>‎ | <a href="../Reference.html" title="Jetty/Reference">Reference</a></span></div>
-
-                  
-                  
-                  <div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><p><br/>
-</p><p><br/>
-</p>
-<div class="toc" id="toc"><div id="toctitle"><h2>Contents</h2></div>
-<ul>
-<li class="toclevel-1"><a href="jetty.xml usage.html#Introduction"><span class="tocnumber">1</span> <span class="toctext">Introduction</span></a></li>
-<li class="toclevel-1 tocsection-1"><a href="jetty.xml usage.html#Using_jetty.xml"><span class="tocnumber">2</span> <span class="toctext">Using jetty.xml</span></a></li>
-<li class="toclevel-1 tocsection-2"><a href="jetty.xml usage.html#Multiple_Configuration_Files"><span class="tocnumber">3</span> <span class="toctext">Multiple Configuration Files</span></a></li>
-<li class="toclevel-1 tocsection-3"><a href="jetty.xml usage.html#Setting_Parameters_in_Configuration_Files"><span class="tocnumber">4</span> <span class="toctext">Setting Parameters in Configuration Files</span></a></li>
-</ul>
-</div>
-
-<h2><span class="mw-headline" id="Introduction">Introduction</span></h2>
-<div style="background-color: #f9f6b7; border: 1px solid #c4c295; color: black; padding: 5px; margin: 1ex 0; min-height: 35px; padding-left: 45px; font-size: 150%; color: white; background-color: #FF8888; padding: 50px" class="messagebox">
-<div style="float: left; margin-left: -40px;"><a class="image" href="https://wiki.eclipse.org/File:Warning2.png"><img width="35" alt="Warning2.png" height="35" src="../../images/3/37/Warning2.png"/></a></div>
-<div>Jetty 7 and Jetty 8 are now EOL (End of Life)<br/>
-<p><br/>
-<br/>
-<br/>
-THIS IS NOT THE DOCUMENTATION YOU ARE LOOKING FOR!!!!!<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-All development and stable releases are being performed with Jetty 9 and Jetty 10.<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-This <b>wiki is now officially out of date</b> and all content has been moved to the <a class="external text" href="http://www.eclipse.org/jetty/documentation" rel="nofollow">Jetty Documentation Hub</a><br/> 
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-</p>
-Direct Link to updated documentation: <a href="http://www.eclipse.org/jetty/documentation/current/jetty-xml-usage.html" rel="nofollow" class="external free">http://www.eclipse.org/jetty/documentation/current/jetty-xml-usage.html</a></div>
-</div>
-<p><br/>
-Jetty provides an XML-based configuration. It is based on Java's Reflection API. Classes in the java.lang.reflect represent Java methods and classes, such that you can instantiate objects and invoke their methods based on their names and argument types. Behind the scenes, Jetty's XML config parser translates the XML elements and attributes into Reflection calls.
-</p>
-<h2><span id="Using_jetty.xml" class="mw-headline">Using <tt>jetty.xml</tt></span></h2>
-<p>To use <tt>jetty.xml</tt>, specify it as a configuration file when running Jetty.
-</p>
-<pre>java -jar start.jar etc/jetty.xml
-</pre>
-<div style="background-color: #def3fe; border: 1px solid #c5d7e0; color: black; padding: 5px; margin: 1ex 0; min-height: 35px; padding-left: 45px;" class="messagebox">
-<div style="float: left; margin-left: -40px;"><a href="https://wiki.eclipse.org/File:Note.png" class="image"><img width="35" alt="Note.png" height="35" src="../../images/c/cc/Note.png"/></a></div>
-<div><b>Configuration files</b><br/>If you start Jetty without specifying a configuration file, Jetty automatically locates and uses the default installation <tt>jetty.xml</tt> file. Therefore <tt>java -jar start.jar</tt> is equivalent to <tt>java -jar start.jar etc/jetty.xml</tt>.</div>
-</div>
-<p><br/>
-</p>
-<h2><span id="Multiple_Configuration_Files" class="mw-headline">Multiple Configuration Files</span></h2>
-<p>You are not limited to one configuration file; you can use multiple configuration files when running Jetty, and Jetty will configure the appropriate server instance. The ID of the server in the <code>&lt;Configure&gt;</code> tag specifies the instance you want to configure. Each server ID in a configuration file creates a new server instance within the same JVM. If you use the same ID across multiple configuration files, those configurations are all applied to the same server.
-</p>
-<h2><span id="Setting_Parameters_in_Configuration_Files" class="mw-headline">Setting Parameters in Configuration Files</span></h2>
-<p>You can set parameters in configuration files either with system properties (using <code>&lt;SystemProperty&gt;</code>) or properties files (using <code>&lt;Property&gt;</code>) passed via the command line. For example, this code in <tt>jetty.xml</tt> allows the port to be defined on the command line, falling back onto <var>8080</var> if the port is not specified:
-</p>
-<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="xml source-xml"><pre class="de1">  <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"port"</span><span class="re2">&gt;</span><span class="re1">&lt;SystemProperty</span> <span class="re0">name</span>=<span class="st0">"jetty.port"</span> <span class="re0">default</span>=<span class="st0">"8080"</span><span class="re2">/&gt;</span><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span></pre></div></div>
-<p>Then you modify the port while running Jetty by using this command:
-</p>
-<pre>java -Djetty.port=8888 -jar start.jar etc/jetty.xml
-</pre>
-<p>An example of defining both system properties and properties files from the command line:
-</p>
-<pre>java -Djetty.port=8888 -jar start.jar myjetty.properties etc/jetty.xml etc/other.xml
-</pre>
-
-</div>
-
-                    <div id="catlinks" class="catlinks"><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a title="Special:Categories" href="https://wiki.eclipse.org/Special:Categories">Categories</a>: <ul><li><a title="Category:Jetty" href="https://wiki.eclipse.org/Category:Jetty">Jetty</a></li><li><a title="Category:Jetty Reference" href="https://wiki.eclipse.org/Category:Jetty_Reference">Jetty Reference</a></li></ul></div></div>
-                                  </div>
+    <link href="wiki-style.css" media="screen, print" rel="stylesheet" />
+  </head>
+  <body>
+    <div class="col-md-20" id="mainContent">
+      <div class="tab-content background-white">
+        <div class="tab-pane active" id="tab-pane-main-page-content">
+          <h1 class="firstHeading page-header" id="firstHeading">
+            <span dir="auto">Jetty/Reference/jetty.xml usage</span>
+          </h1>
+          <div id="main-page-content">
+            <div class="alert alert-small alert-warning" id="contentSub">
+              <span class="subpages">
+                &lt;
+                <a href="../../Jetty.html" title="Jetty">Jetty</a>
+                ‎ |
+                <a href="../Reference.html" title="Jetty/Reference">Reference</a>
+              </span>
+            </div>
+            <div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="en">
+              <p>
+                <br />
+              </p>
+              <p>
+                <br />
+              </p>
+              <div class="toc" id="toc">
+                <div id="toctitle">
+                  <h2>Contents</h2>
+                </div>
+                <ul>
+                  <li class="toclevel-1">
+                    <a href="jetty.xml usage.html#Introduction">
+                      <span class="tocnumber">1</span>
+                      <span class="toctext">Introduction</span>
+                    </a>
+                  </li>
+                  <li class="toclevel-1 tocsection-1">
+                    <a href="jetty.xml usage.html#Using_jetty.xml">
+                      <span class="tocnumber">2</span>
+                      <span class="toctext">Using jetty.xml</span>
+                    </a>
+                  </li>
+                  <li class="toclevel-1 tocsection-2">
+                    <a href="jetty.xml usage.html#Multiple_Configuration_Files">
+                      <span class="tocnumber">3</span>
+                      <span class="toctext">Multiple Configuration Files</span>
+                    </a>
+                  </li>
+                  <li class="toclevel-1 tocsection-3">
+                    <a href="jetty.xml usage.html#Setting_Parameters_in_Configuration_Files">
+                      <span class="tocnumber">4</span>
+                      <span class="toctext">Setting Parameters in Configuration Files</span>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+              <h2>
+                <span class="mw-headline" id="Introduction">Introduction</span>
+              </h2>
+              <div class="messagebox" style="background-color: #f9f6b7; border: 1px solid #c4c295; color: black; padding: 5px; margin: 1ex 0; min-height: 35px; padding-left: 45px; font-size: 150%; color: white; background-color: #FF8888; padding: 50px">
+                <div style="float: left; margin-left: -40px;">
+                  <a class="image" href="https://wiki.eclipse.org/File:Warning2.png">
+                    <img alt="Warning2.png" height="35" src="../../images/3/37/Warning2.png" width="35" />
+                  </a>
+                </div>
+                <div>
+                  Jetty 7 and Jetty 8 are now EOL (End of Life)
+                  <br />
+                  <p>
+                    <br />
+                    <br />
+                    <br />
+                    THIS IS NOT THE DOCUMENTATION YOU ARE LOOKING FOR!!!!!
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    All development and stable releases are being performed with Jetty 9 and Jetty 10.
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    This
+                    <b>wiki is now officially out of date</b>
+                    and all content has been moved to the
+                    <a class="external text" href="http://www.eclipse.org/jetty/documentation" rel="nofollow">Jetty Documentation Hub</a>
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                  </p>
+                  Direct Link to updated documentation:
+                  <a class="external free" href="http://www.eclipse.org/jetty/documentation/current/jetty-xml-usage.html" rel="nofollow">http://www.eclipse.org/jetty/documentation/current/jetty-xml-usage.html</a>
+                </div>
+              </div>
+              <p>
+                <br />
+                Jetty provides an XML-based configuration. It is based on Java's Reflection API. Classes in the java.lang.reflect represent Java methods and classes, such that you can instantiate objects and invoke their methods based on their names and argument types. Behind the scenes, Jetty's XML config parser translates the XML elements and attributes into Reflection calls.
+              </p>
+              <h2>
+                <span class="mw-headline" id="Using_jetty.xml">
+                  Using
+                  <tt>jetty.xml</tt>
+                </span>
+              </h2>
+              <p>
+                To use
+                <tt>jetty.xml</tt>
+                , specify it as a configuration file when running Jetty.
+              </p>
+              <pre>java -jar start.jar etc/jetty.xml</pre>
+              <div class="messagebox" style="background-color: #def3fe; border: 1px solid #c5d7e0; color: black; padding: 5px; margin: 1ex 0; min-height: 35px; padding-left: 45px;">
+                <div style="float: left; margin-left: -40px;">
+                  <a class="image" href="https://wiki.eclipse.org/File:Note.png">
+                    <img alt="Note.png" height="35" src="../../images/c/cc/Note.png" width="35" />
+                  </a>
+                </div>
+                <div>
+                  <b>Configuration files</b>
+                  <br />
+                  If you start Jetty without specifying a configuration file, Jetty automatically locates and uses the default installation
+                  <tt>jetty.xml</tt>
+                  file. Therefore
+                  <tt>java -jar start.jar</tt>
+                  is equivalent to
+                  <tt>java -jar start.jar etc/jetty.xml</tt>
+                  .
+                </div>
+              </div>
+              <p>
+                <br />
+              </p>
+              <h2>
+                <span class="mw-headline" id="Multiple_Configuration_Files">Multiple Configuration Files</span>
+              </h2>
+              <p>
+                You are not limited to one configuration file; you can use multiple configuration files when running Jetty, and Jetty will configure the appropriate server instance. The ID of the server in the
+                <code>&lt;Configure&gt;</code>
+                tag specifies the instance you want to configure. Each server ID in a configuration file creates a new server instance within the same JVM. If you use the same ID across multiple configuration files, those configurations are all applied to the same server.
+              </p>
+              <h2>
+                <span class="mw-headline" id="Setting_Parameters_in_Configuration_Files">Setting Parameters in Configuration Files</span>
+              </h2>
+              <p>
+                You can set parameters in configuration files either with system properties (using
+                <code>&lt;SystemProperty&gt;</code>
+                ) or properties files (using
+                <code>&lt;Property&gt;</code>
+                ) passed via the command line. For example, this code in
+                <tt>jetty.xml</tt>
+                allows the port to be defined on the command line, falling back onto
+                <var>8080</var>
+                if the port is not specified:
+              </p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="xml source-xml">
+                  <pre class="de1">
+                    <span class="sc3">
+                      <span class="re1">&lt;Set</span>
+                      <span class="re0">name</span>
+                      =
+                      <span class="st0">"port"</span>
+                      <span class="re2">&gt;</span>
+                      <span class="re1">&lt;SystemProperty</span>
+                      <span class="re0">name</span>
+                      =
+                      <span class="st0">"jetty.port"</span>
+                      <span class="re0">default</span>
+                      =
+                      <span class="st0">"8080"</span>
+                      <span class="re2">/&gt;</span>
+                      <span class="re1">
+                        &lt;/Set
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                  </pre>
+                </div>
+              </div>
+              <p>Then you modify the port while running Jetty by using this command:</p>
+              <pre>java -Djetty.port=8888 -jar start.jar etc/jetty.xml</pre>
+              <p>An example of defining both system properties and properties files from the command line:</p>
+              <pre>java -Djetty.port=8888 -jar start.jar myjetty.properties etc/jetty.xml etc/other.xml</pre>
+            </div>
+            <div class="catlinks" id="catlinks">
+              <div class="mw-normal-catlinks" id="mw-normal-catlinks">
+                <a href="https://wiki.eclipse.org/Special:Categories" title="Special:Categories">Categories</a>
+                :
+                <ul>
+                  <li>
+                    <a href="https://wiki.eclipse.org/Category:Jetty" title="Category:Jetty">Jetty</a>
+                  </li>
+                  <li>
+                    <a href="https://wiki.eclipse.org/Category:Jetty_Reference" title="Category:Jetty Reference">Jetty Reference</a>
+                  </li>
+                </ul>
               </div>
             </div>
           </div>
-</body>
+        </div>
+      </div>
+    </div>
+  </body>
 </html>

@@ -1,225 +1,812 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
-<head>
+  <head>
     <title>Jetty WTP Plugin</title>
-    <link rel="stylesheet" media="screen, print" href="wiki-style.css"/>
-</head>
-<body>
-<div class="col-md-20" id="mainContent">
-                                 <div class="tab-content background-white">
-              <div class="tab-pane active" id="tab-pane-main-page-content">
-
-                
-                <h1 class="firstHeading page-header" id="firstHeading">
-                  <span dir="auto">Jetty/Feature/Rewrite Handler</span>
-                </h1>
-                <div id="main-page-content">
-
-                  <div id="contentSub" class="alert alert-small alert-warning"><span class="subpages">&lt; <a title="Jetty" href="../../Jetty.html">Jetty</a>‎ | <a title="Jetty/Feature" href="../Feature.html">Feature</a></span></div>
-
-                  
-                  
-                  <div class="mw-content-ltr" lang="en" id="mw-content-text" dir="ltr"><p><br/>
-</p><p><br/>
-</p>
-<div class="toc" id="toc"><div id="toctitle"><h2>Contents</h2></div>
-<ul>
-<li class="toclevel-1"><a href="Rewrite Handler.html#Introduction"><span class="tocnumber">1</span> <span class="toctext">Introduction</span></a></li>
-<li class="toclevel-1"><a href="Rewrite Handler.html#Feature"><span class="tocnumber">2</span> <span class="toctext">Feature</span></a></li>
-<li class="toclevel-1"><a href="Rewrite Handler.html#Quick_Start"><span class="tocnumber">3</span> <span class="toctext">Quick Start</span></a></li>
-<li class="toclevel-1"><a href="Rewrite Handler.html#Configuring_Rules"><span class="tocnumber">4</span> <span class="toctext">Configuring Rules</span></a>
-<ul>
-<li class="toclevel-2"><a href="Rewrite Handler.html#Configuration_File_Example"><span class="tocnumber">4.1</span> <span class="toctext">Configuration File Example</span></a></li>
-<li class="toclevel-2"><a href="Rewrite Handler.html#Embedded_Example"><span class="tocnumber">4.2</span> <span class="toctext">Embedded Example</span></a></li>
-</ul>
-</li>
-<li class="toclevel-1"><a href="Rewrite Handler.html#Rules"><span class="tocnumber">5</span> <span class="toctext">Rules</span></a>
-<ul>
-<li class="toclevel-2"><a href="Rewrite Handler.html#PatternRule"><span class="tocnumber">5.1</span> <span class="toctext">PatternRule</span></a></li>
-<li class="toclevel-2"><a href="Rewrite Handler.html#RegexRule"><span class="tocnumber">5.2</span> <span class="toctext">RegexRule</span></a></li>
-<li class="toclevel-2"><a href="Rewrite Handler.html#HeaderRule"><span class="tocnumber">5.3</span> <span class="toctext">HeaderRule</span></a></li>
-<li class="toclevel-2"><a href="Rewrite Handler.html#Others"><span class="tocnumber">5.4</span> <span class="toctext">Others</span></a></li>
-</ul>
-</li>
-<li class="toclevel-1"><a href="Rewrite Handler.html#RuleContainer"><span class="tocnumber">6</span> <span class="toctext">RuleContainer</span></a></li>
-</ul>
-</div>
-
-<h2><span class="mw-headline" id="Introduction">Introduction</span></h2>
-<div class="messagebox" style="background-color: #f9f6b7; border: 1px solid #c4c295; color: black; padding: 5px; margin: 1ex 0; min-height: 35px; padding-left: 45px; font-size: 150%; color: white; background-color: #FF8888; padding: 50px">
-<div style="float: left; margin-left: -40px;"><a class="image" href="https://wiki.eclipse.org/File:Warning2.png"><img width="35" alt="Warning2.png" src="../../images/3/37/Warning2.png" height="35"/></a></div>
-<div>Jetty 7 and Jetty 8 are now EOL (End of Life)<br/>
-<p><br/>
-<br/>
-<br/>
-THIS IS NOT THE DOCUMENTATION YOU ARE LOOKING FOR!!!!!<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-All development and stable releases are being performed with Jetty 9 and Jetty 10.<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-This <b>wiki is now officially out of date</b> and all content has been moved to the <a href="http://www.eclipse.org/jetty/documentation" class="external text" rel="nofollow">Jetty Documentation Hub</a><br/> 
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-</p>
-Direct Link to updated documentation: <a rel="nofollow" class="external free" href="http://www.eclipse.org/jetty/documentation/current/rewrite-handler.html">http://www.eclipse.org/jetty/documentation/current/rewrite-handler.html</a></div>
-</div>
-<p><br/>
-The <a href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/rewrite/handler/RewriteHandler.html" class="external text" rel="nofollow">RewriteHandler</a> matches a request against a set of rules, and modifies the request accordingly for any rules that match. The most common use is to rewrite request URIs, but it is capable of much more: rules can also be configured to redirect the response, set a cookie or response code on the response, modify the header, etc.
-</p>
-<h2><span class="mw-headline" id="Feature">Feature</span></h2>
-<h2><span id="Quick_Start" class="mw-headline">Quick Start</span></h2>
-<p>The standard Jetty distribution bundle contains the jetty-rewrite module JAR, at lib/jetty-rewrite-*.jar, and a sample configuration file, at etc/jetty-rewrite.xml. To enable the rewrite module, using the sample configuration file, start up Jetty with this command:
-</p>
-<pre> java -jar start.jar OPTIONS=default,rewrite etc/jetty.xml etc/jetty-rewrite.xml 
-</pre>
-<div style="background-color: #def3fe; border: 1px solid #c5d7e0; color: black; padding: 5px; margin: 1ex 0; min-height: 35px; padding-left: 45px;" class="messagebox">
-<div style="float: left; margin-left: -40px;"><a class="image" href="https://wiki.eclipse.org/File:Idea.png"><img height="35" src="../../images/a/a4/Idea.png" alt="Idea.png" width="35"/></a></div>
-<div><b>Rewrite Module Demo</b><br/>If you are running the standard Jetty distribution with the sample test webapp, there will be a demo of the rewrite module at <a href="http://localhost:8080/rewrite/" class="external free" rel="nofollow">http://localhost:8080/rewrite/</a></div>
-</div>
-<p><br/>
-</p>
-<h2><span id="Configuring_Rules" class="mw-headline">Configuring Rules</span></h2>
-<h3><span class="mw-headline" id="Configuration_File_Example">Configuration File Example</span></h3>
-<p>The rules are configured using <a href="../Reference/jetty.xml syntax.html" title="Jetty/Reference/jetty.xml syntax">jetty.xml syntax</a>. This example file shows how to add the rewrite handler for the entire server:
-</p>
-<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="xml source-xml"><pre class="de1">  <span class="sc3"><span class="re1">&lt;Configure</span> <span class="re0">id</span>=<span class="st0">"Server"</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.server.Server"</span><span class="re2">&gt;</span></span>
-    <span class="sc-1">&lt;!-- create and configure the rewrite handler --&gt;</span>
-    <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">id</span>=<span class="st0">"Rewrite"</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.rewrite.handler.RewriteHandler"</span><span class="re2">&gt;</span></span>
-      <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"rewriteRequestURI"</span><span class="re2">&gt;</span></span>true<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
-      <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"rewritePathInfo"</span><span class="re2">&gt;</span></span>false<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
-      <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"originalPathAttribute"</span><span class="re2">&gt;</span></span>requestedPath<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
-
-      <span class="sc-1">&lt;!-- redirect the response. This is a redirect which is visible to the browser.</span>
-<span class="sc-1">           After the redirect, the browser address bar will show /redirected --&gt;</span>
-      <span class="sc3"><span class="re1">&lt;Call</span> <span class="re0">name</span>=<span class="st0">"addRule"</span><span class="re2">&gt;</span></span>
-        <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>
-          <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.rewrite.handler.RedirectPatternRule"</span><span class="re2">&gt;</span></span>
-            <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"pattern"</span><span class="re2">&gt;</span></span>/redirect/*<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
-            <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"location"</span><span class="re2">&gt;</span></span>/redirected<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
-          <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span>
-        <span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
-      <span class="sc3"><span class="re1">&lt;/Call<span class="re2">&gt;</span></span></span>
-
-      <span class="sc-1">&lt;!-- This rewrites the base URL; supports Regex. This is visible to the browser. --&gt;</span>
-      <span class="sc3"><span class="re1">&lt;Call</span> <span class="re0">name</span>=<span class="st0">"addRule"</span><span class="re2">&gt;</span></span>
-        <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>
-          <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.rewrite.handler.RedirectRegexRule"</span><span class="re2">&gt;</span></span>
-            <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"regex"</span><span class="re2">&gt;</span></span>(^(?!/base/path/).*)<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
-            <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"replacement"</span><span class="re2">&gt;</span></span>/base/path/<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
-          <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span>
-        <span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
-      <span class="sc3"><span class="re1">&lt;/Call<span class="re2">&gt;</span></span></span>
-    <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span>
-
-      <span class="sc-1">&lt;!-- rewrite the request URI. This is an internal rewrite, visible to server,</span>
-<span class="sc-1">           but the browser will still show /some/old/context --&gt;</span>
-      <span class="sc3"><span class="re1">&lt;Call</span> <span class="re0">name</span>=<span class="st0">"addRule"</span><span class="re2">&gt;</span></span>
-        <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>
-          <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.rewrite.handler.RewritePatternRule"</span><span class="re2">&gt;</span></span>
-            <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"pattern"</span><span class="re2">&gt;</span></span>/some/old/context<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
-            <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"replacement"</span><span class="re2">&gt;</span></span>/some/new/context<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
-          <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span>
-        <span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
-      <span class="sc3"><span class="re1">&lt;/Call<span class="re2">&gt;</span></span></span>
-
-      <span class="sc-1">&lt;!-- reverse the order of the path sections. Internal rewrite --&gt;</span>
-      <span class="sc3"><span class="re1">&lt;Call</span> <span class="re0">name</span>=<span class="st0">"addRule"</span><span class="re2">&gt;</span></span>
-        <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>
-          <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.rewrite.handler.RewriteRegexRule"</span><span class="re2">&gt;</span></span>
-            <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"regex"</span><span class="re2">&gt;</span></span>/reverse/([^/]*)/(.*)<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
-            <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"replacement"</span><span class="re2">&gt;</span></span>/reverse/$2/$1<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
-          <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span>
-        <span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
-      <span class="sc3"><span class="re1">&lt;/Call<span class="re2">&gt;</span></span></span>
-    <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span>
-
-     <span class="sc-1">&lt;!-- add the rewrite handler to the server --&gt;</span>
-    <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"handler"</span><span class="re2">&gt;</span><span class="re1">&lt;Ref</span> <span class="re0">id</span>=<span class="st0">"Rewrite"</span> <span class="re2">/&gt;</span><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
-  <span class="sc3"><span class="re1">&lt;/Configure<span class="re2">&gt;</span></span></span></pre></div></div>
-<p>See <a href="http://dev.eclipse.org/svnroot/rt/org.eclipse.jetty/jetty/trunk/jetty-rewrite/src/main/config/etc/jetty-rewrite.xml" class="external text" rel="nofollow">jetty-rewrite.xml</a> for more configuration examples.
-</p>
-<h3><span class="mw-headline" id="Embedded_Example">Embedded Example</span></h3>
-<p>This is an example for embedded Jetty, which does the same thing as the configuration file example above:
-</p>
-<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="java source-java"><pre class="de1">  Server server <span class="sy0">=</span> <span class="kw1">new</span> Server<span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
-
-  RewriteHandler rewrite <span class="sy0">=</span> <span class="kw1">new</span> RewriteHandler<span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
-  rewrite.<span class="me1">setRewriteRequestURI</span><span class="br0">(</span><span class="kw2">true</span><span class="br0">)</span><span class="sy0">;</span>
-  rewrite.<span class="me1">setRewritePathInfo</span><span class="br0">(</span><span class="kw2">false</span><span class="br0">)</span><span class="sy0">;</span>
-  rewrite.<span class="me1">originalPathAttribute</span><span class="br0">(</span><span class="st0">"requestedPath"</span><span class="br0">)</span><span class="sy0">;</span>
-
-  RedirectPatternRule redirect <span class="sy0">=</span> <span class="kw1">new</span> RedirectPatternRule<span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
-  redirect.<span class="me1">setPattern</span><span class="br0">(</span><span class="st0">"/redirect/*"</span><span class="br0">)</span><span class="sy0">;</span>
-  redirect.<span class="me1">setReplacement</span><span class="br0">(</span><span class="st0">"/redirected"</span><span class="br0">)</span><span class="sy0">;</span>  
-  rewrite.<span class="me1">addRule</span><span class="br0">(</span>redirect<span class="br0">)</span><span class="sy0">;</span>
-
-  RewritePatternRule oldToNew <span class="sy0">=</span> <span class="kw1">new</span> RewritePatternRule<span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
-  oldToNew.<span class="me1">setPattern</span><span class="br0">(</span><span class="st0">"/some/old/context"</span><span class="br0">)</span><span class="sy0">;</span>
-  oldToNew.<span class="me1">setReplacement</span><span class="br0">(</span><span class="st0">"/some/new/context"</span><span class="br0">)</span><span class="sy0">;</span>
-  rewrite.<span class="me1">addRule</span><span class="br0">(</span>oldToNew<span class="br0">)</span><span class="sy0">;</span>
-
-  RewriteRegexRule reverse <span class="sy0">=</span> <span class="kw1">new</span> RewriteRegexRule<span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
-  reverse.<span class="me1">setRegex</span><span class="br0">(</span><span class="st0">"/reverse/([^/]*)/(.*)"</span><span class="br0">)</span><span class="sy0">;</span>
-  reverse.<span class="me1">setReplacement</span><span class="br0">(</span><span class="st0">"/reverse/$2/$1"</span><span class="br0">)</span><span class="sy0">;</span>
-  rewrite.<span class="me1">addRule</span><span class="br0">(</span>reverse<span class="br0">)</span><span class="sy0">;</span>
-
-  server.<span class="me1">setHandler</span><span class="br0">(</span>rewrite<span class="br0">)</span><span class="sy0">;</span></pre></div></div>
-<h2><span id="Rules" class="mw-headline">Rules</span></h2>
-<h3><span id="PatternRule" class="mw-headline"><a rel="nofollow" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/rewrite/handler/PatternRule.html" class="external text">PatternRule</a></span></h3>
-<p>Matches against the request URI using the servlet pattern syntax.
-</p>
-<dl><dt> <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/rewrite/handler/CookiePatternRule.html" rel="nofollow">CookiePatternRule</a> </dt>
-<dd> Adds a cookie to the response.</dd>
-<dt> <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/rewrite/handler/HeaderPatternRule.html" rel="nofollow">HeaderPatternRule</a> </dt>
-<dd> Adds/modifies a header in the response.</dd>
-<dt> <a rel="nofollow" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/rewrite/handler/RedirectPatternRule.html" class="external text">RedirectPatternRule</a> </dt>
-<dd> Redirects the response.</dd>
-<dt> <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/rewrite/handler/ResponsePatternRule.html" rel="nofollow">ResponsePatternRule</a> </dt>
-<dd> Sends the response code (status or error).</dd>
-<dt> <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/rewrite/handler/RewritePatternRule.html" rel="nofollow">RewritePatternRule</a> </dt>
-<dd> Rewrite the URI by replacing the matched request path with a fixed string.</dd></dl>
-<h3><span class="mw-headline" id="RegexRule"><a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/rewrite/handler/RegexRule.html" rel="nofollow">RegexRule</a></span></h3>
-<p>Matches against the request URI using regular expressions.
-</p>
-<dl><dt> <a rel="nofollow" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/rewrite/handler/RedirectRegexRule.html" class="external text">RedirectRegexRule</a> </dt>
-<dd> Redirect the response.</dd>
-<dt> <a href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/rewrite/handler/RewriteRegexRule.html" class="external text" rel="nofollow">RewriteRegexRule</a> </dt>
-<dd> Rewrite the URI by matching with a regular expression. (The replacement string may use <a class="new" title="Template:$n (page does not exist)" href="edit">Template:$n</a> to replace the nth capture group.)</dd></dl>
-<h3><span class="mw-headline" id="HeaderRule"><a rel="nofollow" class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/rewrite/handler/HeaderRule.html">HeaderRule</a></span></h3>
-<p>Match against request headers. Match either on a header name + specific value, or on the presence of a header (with any value).
-</p>
-<dl><dt> <a rel="nofollow" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/rewrite/handler/ForwardedSchemeHeaderRule.html" class="external text">ForwardedSchemeHeaderRule</a> </dt>
-<dd> Set the scheme on the request (defaulting to https).</dd></dl>
-<h3><span id="Others" class="mw-headline">Others</span></h3>
-<dl><dt> <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/rewrite/handler/MsieSslRule.html" rel="nofollow">MsieSslRule</a> </dt>
-<dd> Disables the keep alive for SSL from IE5 or IE6.</dd>
-<dt> <a rel="nofollow" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/rewrite/handler/LegacyRule.html" class="external text">LegacyRule</a> </dt>
-<dd>  Implements the legacy API of RewriteHandler</dd></dl>
-<h2><span class="mw-headline" id="RuleContainer"><a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/rewrite/handler/RuleContainer.html" rel="nofollow">RuleContainer</a></span></h2>
-<p>Groups rules together. The contained rules will only be processed if the conditions for the RuleContainer evaluate to true.
-</p>
-<dl><dt> <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/rewrite/handler/VirtualHostRuleContainer.html" rel="nofollow">VirtualHostRuleContainer</a> </dt>
-<dd> Groups rules that apply only to a specific virtual host or a set of virtual hosts</dd></dl>
-
-
-</div>
-
-                    <div id="catlinks" class="catlinks"><div class="mw-normal-catlinks" id="mw-normal-catlinks"><a title="Special:Categories" href="https://wiki.eclipse.org/Special:Categories">Categories</a>: <ul><li><a title="Category:Jetty" href="https://wiki.eclipse.org/Category:Jetty">Jetty</a></li><li><a title="Category:Jetty Feature" href="https://wiki.eclipse.org/Category:Jetty_Feature">Jetty Feature</a></li></ul></div></div>
-                                  </div>
+    <link href="wiki-style.css" media="screen, print" rel="stylesheet" />
+  </head>
+  <body>
+    <div class="col-md-20" id="mainContent">
+      <div class="tab-content background-white">
+        <div class="tab-pane active" id="tab-pane-main-page-content">
+          <h1 class="firstHeading page-header" id="firstHeading">
+            <span dir="auto">Jetty/Feature/Rewrite Handler</span>
+          </h1>
+          <div id="main-page-content">
+            <div class="alert alert-small alert-warning" id="contentSub">
+              <span class="subpages">
+                &lt;
+                <a href="../../Jetty.html" title="Jetty">Jetty</a>
+                ‎ |
+                <a href="../Feature.html" title="Jetty/Feature">Feature</a>
+              </span>
+            </div>
+            <div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="en">
+              <p>
+                <br />
+              </p>
+              <p>
+                <br />
+              </p>
+              <div class="toc" id="toc">
+                <div id="toctitle">
+                  <h2>Contents</h2>
+                </div>
+                <ul>
+                  <li class="toclevel-1">
+                    <a href="Rewrite Handler.html#Introduction">
+                      <span class="tocnumber">1</span>
+                      <span class="toctext">Introduction</span>
+                    </a>
+                  </li>
+                  <li class="toclevel-1">
+                    <a href="Rewrite Handler.html#Feature">
+                      <span class="tocnumber">2</span>
+                      <span class="toctext">Feature</span>
+                    </a>
+                  </li>
+                  <li class="toclevel-1">
+                    <a href="Rewrite Handler.html#Quick_Start">
+                      <span class="tocnumber">3</span>
+                      <span class="toctext">Quick Start</span>
+                    </a>
+                  </li>
+                  <li class="toclevel-1">
+                    <a href="Rewrite Handler.html#Configuring_Rules">
+                      <span class="tocnumber">4</span>
+                      <span class="toctext">Configuring Rules</span>
+                    </a>
+                    <ul>
+                      <li class="toclevel-2">
+                        <a href="Rewrite Handler.html#Configuration_File_Example">
+                          <span class="tocnumber">4.1</span>
+                          <span class="toctext">Configuration File Example</span>
+                        </a>
+                      </li>
+                      <li class="toclevel-2">
+                        <a href="Rewrite Handler.html#Embedded_Example">
+                          <span class="tocnumber">4.2</span>
+                          <span class="toctext">Embedded Example</span>
+                        </a>
+                      </li>
+                    </ul>
+                  </li>
+                  <li class="toclevel-1">
+                    <a href="Rewrite Handler.html#Rules">
+                      <span class="tocnumber">5</span>
+                      <span class="toctext">Rules</span>
+                    </a>
+                    <ul>
+                      <li class="toclevel-2">
+                        <a href="Rewrite Handler.html#PatternRule">
+                          <span class="tocnumber">5.1</span>
+                          <span class="toctext">PatternRule</span>
+                        </a>
+                      </li>
+                      <li class="toclevel-2">
+                        <a href="Rewrite Handler.html#RegexRule">
+                          <span class="tocnumber">5.2</span>
+                          <span class="toctext">RegexRule</span>
+                        </a>
+                      </li>
+                      <li class="toclevel-2">
+                        <a href="Rewrite Handler.html#HeaderRule">
+                          <span class="tocnumber">5.3</span>
+                          <span class="toctext">HeaderRule</span>
+                        </a>
+                      </li>
+                      <li class="toclevel-2">
+                        <a href="Rewrite Handler.html#Others">
+                          <span class="tocnumber">5.4</span>
+                          <span class="toctext">Others</span>
+                        </a>
+                      </li>
+                    </ul>
+                  </li>
+                  <li class="toclevel-1">
+                    <a href="Rewrite Handler.html#RuleContainer">
+                      <span class="tocnumber">6</span>
+                      <span class="toctext">RuleContainer</span>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+              <h2>
+                <span class="mw-headline" id="Introduction">Introduction</span>
+              </h2>
+              <div class="messagebox" style="background-color: #f9f6b7; border: 1px solid #c4c295; color: black; padding: 5px; margin: 1ex 0; min-height: 35px; padding-left: 45px; font-size: 150%; color: white; background-color: #FF8888; padding: 50px">
+                <div style="float: left; margin-left: -40px;">
+                  <a class="image" href="https://wiki.eclipse.org/File:Warning2.png">
+                    <img alt="Warning2.png" height="35" src="../../images/3/37/Warning2.png" width="35" />
+                  </a>
+                </div>
+                <div>
+                  Jetty 7 and Jetty 8 are now EOL (End of Life)
+                  <br />
+                  <p>
+                    <br />
+                    <br />
+                    <br />
+                    THIS IS NOT THE DOCUMENTATION YOU ARE LOOKING FOR!!!!!
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    All development and stable releases are being performed with Jetty 9 and Jetty 10.
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    This
+                    <b>wiki is now officially out of date</b>
+                    and all content has been moved to the
+                    <a class="external text" href="http://www.eclipse.org/jetty/documentation" rel="nofollow">Jetty Documentation Hub</a>
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                  </p>
+                  Direct Link to updated documentation:
+                  <a class="external free" href="http://www.eclipse.org/jetty/documentation/current/rewrite-handler.html" rel="nofollow">http://www.eclipse.org/jetty/documentation/current/rewrite-handler.html</a>
+                </div>
+              </div>
+              <p>
+                <br />
+                The
+                <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/rewrite/handler/RewriteHandler.html" rel="nofollow">RewriteHandler</a>
+                matches a request against a set of rules, and modifies the request accordingly for any rules that match. The most common use is to rewrite request URIs, but it is capable of much more: rules can also be configured to redirect the response, set a cookie or response code on the response, modify the header, etc.
+              </p>
+              <h2>
+                <span class="mw-headline" id="Feature">Feature</span>
+              </h2>
+              <h2>
+                <span class="mw-headline" id="Quick_Start">Quick Start</span>
+              </h2>
+              <p>The standard Jetty distribution bundle contains the jetty-rewrite module JAR, at lib/jetty-rewrite-*.jar, and a sample configuration file, at etc/jetty-rewrite.xml. To enable the rewrite module, using the sample configuration file, start up Jetty with this command:</p>
+              <pre>java -jar start.jar OPTIONS=default,rewrite etc/jetty.xml etc/jetty-rewrite.xml</pre>
+              <div class="messagebox" style="background-color: #def3fe; border: 1px solid #c5d7e0; color: black; padding: 5px; margin: 1ex 0; min-height: 35px; padding-left: 45px;">
+                <div style="float: left; margin-left: -40px;">
+                  <a class="image" href="https://wiki.eclipse.org/File:Idea.png">
+                    <img alt="Idea.png" height="35" src="../../images/a/a4/Idea.png" width="35" />
+                  </a>
+                </div>
+                <div>
+                  <b>Rewrite Module Demo</b>
+                  <br />
+                  If you are running the standard Jetty distribution with the sample test webapp, there will be a demo of the rewrite module at
+                  <a class="external free" href="http://localhost:8080/rewrite/" rel="nofollow">http://localhost:8080/rewrite/</a>
+                </div>
+              </div>
+              <p>
+                <br />
+              </p>
+              <h2>
+                <span class="mw-headline" id="Configuring_Rules">Configuring Rules</span>
+              </h2>
+              <h3>
+                <span class="mw-headline" id="Configuration_File_Example">Configuration File Example</span>
+              </h3>
+              <p>
+                The rules are configured using
+                <a href="../Reference/jetty.xml syntax.html" title="Jetty/Reference/jetty.xml syntax">jetty.xml syntax</a>
+                . This example file shows how to add the rewrite handler for the entire server:
+              </p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="xml source-xml">
+                  <pre class="de1">
+                    <span class="sc3">
+                      <span class="re1">&lt;Configure</span>
+                      <span class="re0">id</span>
+                      =
+                      <span class="st0">"Server"</span>
+                      <span class="re0">class</span>
+                      =
+                      <span class="st0">"org.eclipse.jetty.server.Server"</span>
+                      <span class="re2">&gt;</span>
+                    </span>
+                    <span class="sc-1">&lt;!-- create and configure the rewrite handler --&gt;</span>
+                    <span class="sc3">
+                      <span class="re1">&lt;New</span>
+                      <span class="re0">id</span>
+                      =
+                      <span class="st0">"Rewrite"</span>
+                      <span class="re0">class</span>
+                      =
+                      <span class="st0">"org.eclipse.jetty.rewrite.handler.RewriteHandler"</span>
+                      <span class="re2">&gt;</span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">&lt;Set</span>
+                      <span class="re0">name</span>
+                      =
+                      <span class="st0">"rewriteRequestURI"</span>
+                      <span class="re2">&gt;</span>
+                    </span>
+                    true
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Set
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">&lt;Set</span>
+                      <span class="re0">name</span>
+                      =
+                      <span class="st0">"rewritePathInfo"</span>
+                      <span class="re2">&gt;</span>
+                    </span>
+                    false
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Set
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">&lt;Set</span>
+                      <span class="re0">name</span>
+                      =
+                      <span class="st0">"originalPathAttribute"</span>
+                      <span class="re2">&gt;</span>
+                    </span>
+                    requestedPath
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Set
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc-1">&lt;!-- redirect the response. This is a redirect which is visible to the browser.</span>
+                    <span class="sc-1">After the redirect, the browser address bar will show /redirected --&gt;</span>
+                    <span class="sc3">
+                      <span class="re1">&lt;Call</span>
+                      <span class="re0">name</span>
+                      =
+                      <span class="st0">"addRule"</span>
+                      <span class="re2">&gt;</span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;Arg
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">&lt;New</span>
+                      <span class="re0">class</span>
+                      =
+                      <span class="st0">"org.eclipse.jetty.rewrite.handler.RedirectPatternRule"</span>
+                      <span class="re2">&gt;</span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">&lt;Set</span>
+                      <span class="re0">name</span>
+                      =
+                      <span class="st0">"pattern"</span>
+                      <span class="re2">&gt;</span>
+                    </span>
+                    /redirect/*
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Set
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">&lt;Set</span>
+                      <span class="re0">name</span>
+                      =
+                      <span class="st0">"location"</span>
+                      <span class="re2">&gt;</span>
+                    </span>
+                    /redirected
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Set
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/New
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Arg
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Call
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc-1">&lt;!-- This rewrites the base URL; supports Regex. This is visible to the browser. --&gt;</span>
+                    <span class="sc3">
+                      <span class="re1">&lt;Call</span>
+                      <span class="re0">name</span>
+                      =
+                      <span class="st0">"addRule"</span>
+                      <span class="re2">&gt;</span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;Arg
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">&lt;New</span>
+                      <span class="re0">class</span>
+                      =
+                      <span class="st0">"org.eclipse.jetty.rewrite.handler.RedirectRegexRule"</span>
+                      <span class="re2">&gt;</span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">&lt;Set</span>
+                      <span class="re0">name</span>
+                      =
+                      <span class="st0">"regex"</span>
+                      <span class="re2">&gt;</span>
+                    </span>
+                    (^(?!/base/path/).*)
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Set
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">&lt;Set</span>
+                      <span class="re0">name</span>
+                      =
+                      <span class="st0">"replacement"</span>
+                      <span class="re2">&gt;</span>
+                    </span>
+                    /base/path/
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Set
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/New
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Arg
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Call
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/New
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc-1">&lt;!-- rewrite the request URI. This is an internal rewrite, visible to server,</span>
+                    <span class="sc-1">but the browser will still show /some/old/context --&gt;</span>
+                    <span class="sc3">
+                      <span class="re1">&lt;Call</span>
+                      <span class="re0">name</span>
+                      =
+                      <span class="st0">"addRule"</span>
+                      <span class="re2">&gt;</span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;Arg
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">&lt;New</span>
+                      <span class="re0">class</span>
+                      =
+                      <span class="st0">"org.eclipse.jetty.rewrite.handler.RewritePatternRule"</span>
+                      <span class="re2">&gt;</span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">&lt;Set</span>
+                      <span class="re0">name</span>
+                      =
+                      <span class="st0">"pattern"</span>
+                      <span class="re2">&gt;</span>
+                    </span>
+                    /some/old/context
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Set
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">&lt;Set</span>
+                      <span class="re0">name</span>
+                      =
+                      <span class="st0">"replacement"</span>
+                      <span class="re2">&gt;</span>
+                    </span>
+                    /some/new/context
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Set
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/New
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Arg
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Call
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc-1">&lt;!-- reverse the order of the path sections. Internal rewrite --&gt;</span>
+                    <span class="sc3">
+                      <span class="re1">&lt;Call</span>
+                      <span class="re0">name</span>
+                      =
+                      <span class="st0">"addRule"</span>
+                      <span class="re2">&gt;</span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;Arg
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">&lt;New</span>
+                      <span class="re0">class</span>
+                      =
+                      <span class="st0">"org.eclipse.jetty.rewrite.handler.RewriteRegexRule"</span>
+                      <span class="re2">&gt;</span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">&lt;Set</span>
+                      <span class="re0">name</span>
+                      =
+                      <span class="st0">"regex"</span>
+                      <span class="re2">&gt;</span>
+                    </span>
+                    /reverse/([^/]*)/(.*)
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Set
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">&lt;Set</span>
+                      <span class="re0">name</span>
+                      =
+                      <span class="st0">"replacement"</span>
+                      <span class="re2">&gt;</span>
+                    </span>
+                    /reverse/$2/$1
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Set
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/New
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Arg
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Call
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/New
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc-1">&lt;!-- add the rewrite handler to the server --&gt;</span>
+                    <span class="sc3">
+                      <span class="re1">&lt;Set</span>
+                      <span class="re0">name</span>
+                      =
+                      <span class="st0">"handler"</span>
+                      <span class="re2">&gt;</span>
+                      <span class="re1">&lt;Ref</span>
+                      <span class="re0">id</span>
+                      =
+                      <span class="st0">"Rewrite"</span>
+                      <span class="re2">/&gt;</span>
+                      <span class="re1">
+                        &lt;/Set
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                    <span class="sc3">
+                      <span class="re1">
+                        &lt;/Configure
+                        <span class="re2">&gt;</span>
+                      </span>
+                    </span>
+                  </pre>
+                </div>
+              </div>
+              <p>
+                See
+                <a class="external text" href="http://dev.eclipse.org/svnroot/rt/org.eclipse.jetty/jetty/trunk/jetty-rewrite/src/main/config/etc/jetty-rewrite.xml" rel="nofollow">jetty-rewrite.xml</a>
+                for more configuration examples.
+              </p>
+              <h3>
+                <span class="mw-headline" id="Embedded_Example">Embedded Example</span>
+              </h3>
+              <p>This is an example for embedded Jetty, which does the same thing as the configuration file example above:</p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="java source-java">
+                  <pre class="de1">
+                    Server server
+                    <span class="sy0">=</span>
+                    <span class="kw1">new</span>
+                    Server
+                    <span class="br0">(</span>
+                    <span class="br0">)</span>
+                    <span class="sy0">;</span>
+                    RewriteHandler rewrite
+                    <span class="sy0">=</span>
+                    <span class="kw1">new</span>
+                    RewriteHandler
+                    <span class="br0">(</span>
+                    <span class="br0">)</span>
+                    <span class="sy0">;</span>
+                    rewrite.
+                    <span class="me1">setRewriteRequestURI</span>
+                    <span class="br0">(</span>
+                    <span class="kw2">true</span>
+                    <span class="br0">)</span>
+                    <span class="sy0">;</span>
+                    rewrite.
+                    <span class="me1">setRewritePathInfo</span>
+                    <span class="br0">(</span>
+                    <span class="kw2">false</span>
+                    <span class="br0">)</span>
+                    <span class="sy0">;</span>
+                    rewrite.
+                    <span class="me1">originalPathAttribute</span>
+                    <span class="br0">(</span>
+                    <span class="st0">"requestedPath"</span>
+                    <span class="br0">)</span>
+                    <span class="sy0">;</span>
+                    RedirectPatternRule redirect
+                    <span class="sy0">=</span>
+                    <span class="kw1">new</span>
+                    RedirectPatternRule
+                    <span class="br0">(</span>
+                    <span class="br0">)</span>
+                    <span class="sy0">;</span>
+                    redirect.
+                    <span class="me1">setPattern</span>
+                    <span class="br0">(</span>
+                    <span class="st0">"/redirect/*"</span>
+                    <span class="br0">)</span>
+                    <span class="sy0">;</span>
+                    redirect.
+                    <span class="me1">setReplacement</span>
+                    <span class="br0">(</span>
+                    <span class="st0">"/redirected"</span>
+                    <span class="br0">)</span>
+                    <span class="sy0">;</span>
+                    rewrite.
+                    <span class="me1">addRule</span>
+                    <span class="br0">(</span>
+                    redirect
+                    <span class="br0">)</span>
+                    <span class="sy0">;</span>
+                    RewritePatternRule oldToNew
+                    <span class="sy0">=</span>
+                    <span class="kw1">new</span>
+                    RewritePatternRule
+                    <span class="br0">(</span>
+                    <span class="br0">)</span>
+                    <span class="sy0">;</span>
+                    oldToNew.
+                    <span class="me1">setPattern</span>
+                    <span class="br0">(</span>
+                    <span class="st0">"/some/old/context"</span>
+                    <span class="br0">)</span>
+                    <span class="sy0">;</span>
+                    oldToNew.
+                    <span class="me1">setReplacement</span>
+                    <span class="br0">(</span>
+                    <span class="st0">"/some/new/context"</span>
+                    <span class="br0">)</span>
+                    <span class="sy0">;</span>
+                    rewrite.
+                    <span class="me1">addRule</span>
+                    <span class="br0">(</span>
+                    oldToNew
+                    <span class="br0">)</span>
+                    <span class="sy0">;</span>
+                    RewriteRegexRule reverse
+                    <span class="sy0">=</span>
+                    <span class="kw1">new</span>
+                    RewriteRegexRule
+                    <span class="br0">(</span>
+                    <span class="br0">)</span>
+                    <span class="sy0">;</span>
+                    reverse.
+                    <span class="me1">setRegex</span>
+                    <span class="br0">(</span>
+                    <span class="st0">"/reverse/([^/]*)/(.*)"</span>
+                    <span class="br0">)</span>
+                    <span class="sy0">;</span>
+                    reverse.
+                    <span class="me1">setReplacement</span>
+                    <span class="br0">(</span>
+                    <span class="st0">"/reverse/$2/$1"</span>
+                    <span class="br0">)</span>
+                    <span class="sy0">;</span>
+                    rewrite.
+                    <span class="me1">addRule</span>
+                    <span class="br0">(</span>
+                    reverse
+                    <span class="br0">)</span>
+                    <span class="sy0">;</span>
+                    server.
+                    <span class="me1">setHandler</span>
+                    <span class="br0">(</span>
+                    rewrite
+                    <span class="br0">)</span>
+                    <span class="sy0">;</span>
+                  </pre>
+                </div>
+              </div>
+              <h2>
+                <span class="mw-headline" id="Rules">Rules</span>
+              </h2>
+              <h3>
+                <span class="mw-headline" id="PatternRule">
+                  <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/rewrite/handler/PatternRule.html" rel="nofollow">PatternRule</a>
+                </span>
+              </h3>
+              <p>Matches against the request URI using the servlet pattern syntax.</p>
+              <dl>
+                <dt>
+                  <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/rewrite/handler/CookiePatternRule.html" rel="nofollow">CookiePatternRule</a>
+                </dt>
+                <dd>Adds a cookie to the response.</dd>
+                <dt>
+                  <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/rewrite/handler/HeaderPatternRule.html" rel="nofollow">HeaderPatternRule</a>
+                </dt>
+                <dd>Adds/modifies a header in the response.</dd>
+                <dt>
+                  <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/rewrite/handler/RedirectPatternRule.html" rel="nofollow">RedirectPatternRule</a>
+                </dt>
+                <dd>Redirects the response.</dd>
+                <dt>
+                  <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/rewrite/handler/ResponsePatternRule.html" rel="nofollow">ResponsePatternRule</a>
+                </dt>
+                <dd>Sends the response code (status or error).</dd>
+                <dt>
+                  <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/rewrite/handler/RewritePatternRule.html" rel="nofollow">RewritePatternRule</a>
+                </dt>
+                <dd>Rewrite the URI by replacing the matched request path with a fixed string.</dd>
+              </dl>
+              <h3>
+                <span class="mw-headline" id="RegexRule">
+                  <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/rewrite/handler/RegexRule.html" rel="nofollow">RegexRule</a>
+                </span>
+              </h3>
+              <p>Matches against the request URI using regular expressions.</p>
+              <dl>
+                <dt>
+                  <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/rewrite/handler/RedirectRegexRule.html" rel="nofollow">RedirectRegexRule</a>
+                </dt>
+                <dd>Redirect the response.</dd>
+                <dt>
+                  <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/rewrite/handler/RewriteRegexRule.html" rel="nofollow">RewriteRegexRule</a>
+                </dt>
+                <dd>
+                  Rewrite the URI by matching with a regular expression. (The replacement string may use
+                  <a class="new" href="edit" title="Template:$n (page does not exist)">Template:$n</a>
+                  to replace the nth capture group.)
+                </dd>
+              </dl>
+              <h3>
+                <span class="mw-headline" id="HeaderRule">
+                  <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/rewrite/handler/HeaderRule.html" rel="nofollow">HeaderRule</a>
+                </span>
+              </h3>
+              <p>Match against request headers. Match either on a header name + specific value, or on the presence of a header (with any value).</p>
+              <dl>
+                <dt>
+                  <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/rewrite/handler/ForwardedSchemeHeaderRule.html" rel="nofollow">ForwardedSchemeHeaderRule</a>
+                </dt>
+                <dd>Set the scheme on the request (defaulting to https).</dd>
+              </dl>
+              <h3>
+                <span class="mw-headline" id="Others">Others</span>
+              </h3>
+              <dl>
+                <dt>
+                  <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/rewrite/handler/MsieSslRule.html" rel="nofollow">MsieSslRule</a>
+                </dt>
+                <dd>Disables the keep alive for SSL from IE5 or IE6.</dd>
+                <dt>
+                  <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/rewrite/handler/LegacyRule.html" rel="nofollow">LegacyRule</a>
+                </dt>
+                <dd>Implements the legacy API of RewriteHandler</dd>
+              </dl>
+              <h2>
+                <span class="mw-headline" id="RuleContainer">
+                  <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/rewrite/handler/RuleContainer.html" rel="nofollow">RuleContainer</a>
+                </span>
+              </h2>
+              <p>Groups rules together. The contained rules will only be processed if the conditions for the RuleContainer evaluate to true.</p>
+              <dl>
+                <dt>
+                  <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/rewrite/handler/VirtualHostRuleContainer.html" rel="nofollow">VirtualHostRuleContainer</a>
+                </dt>
+                <dd>Groups rules that apply only to a specific virtual host or a set of virtual hosts</dd>
+              </dl>
+            </div>
+            <div class="catlinks" id="catlinks">
+              <div class="mw-normal-catlinks" id="mw-normal-catlinks">
+                <a href="https://wiki.eclipse.org/Special:Categories" title="Special:Categories">Categories</a>
+                :
+                <ul>
+                  <li>
+                    <a href="https://wiki.eclipse.org/Category:Jetty" title="Category:Jetty">Jetty</a>
+                  </li>
+                  <li>
+                    <a href="https://wiki.eclipse.org/Category:Jetty_Feature" title="Category:Jetty Feature">Jetty Feature</a>
+                  </li>
+                </ul>
               </div>
             </div>
           </div>
-</body>
+        </div>
+      </div>
+    </div>
+  </body>
 </html>

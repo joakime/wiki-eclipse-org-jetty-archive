@@ -1,56 +1,117 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
-<head>
+  <head>
     <title>Jetty WTP Plugin</title>
-    <link rel="stylesheet" media="screen, print" href="wiki-style.css"/>
-</head>
-<body>
-<div class="col-md-20" id="mainContent">
-                                  <div class="tab-content background-white">
-              <div class="tab-pane active" id="tab-pane-main-page-content">
-
-                
-                <h1 id="firstHeading" class="firstHeading page-header">
-                  <span dir="auto">Jetty/Feature/1xx Responses</span>
-                </h1>
-                <div id="main-page-content">
-
-                  <div class="alert alert-small alert-warning" id="contentSub"><span class="subpages">&lt; <a title="Jetty" href="../../Jetty.html">Jetty</a>‎ | <a href="../Feature.html" title="Jetty/Feature">Feature</a></span></div>
-
-                  
-                  
-                  <div id="mw-content-text" class="mw-content-ltr" lang="en" dir="ltr"><p><br/>
-</p><p><br/>
-</p>
-<div class="toc" id="toc"><div id="toctitle"><h2>Contents</h2></div>
-<ul>
-<li class="toclevel-1"><a href="1xx Responses.html#Introduction"><span class="tocnumber">1</span> <span class="toctext">Introduction</span></a></li>
-<li class="toclevel-1"><a href="1xx Responses.html#Feature"><span class="tocnumber">2</span> <span class="toctext">Feature</span></a></li>
-<li class="toclevel-1"><a href="1xx Responses.html#100_Continue"><span class="tocnumber">3</span> <span class="toctext">100 Continue</span></a></li>
-<li class="toclevel-1"><a href="1xx Responses.html#102_Processing"><span class="tocnumber">4</span> <span class="toctext">102 Processing</span></a></li>
-</ul>
-</div>
-
-<h2><span id="Introduction" class="mw-headline">Introduction</span></h2>
-<p><br/>
-The <a class="external text" href="http://www.ietf.org/rfc/rfc2616.txt" rel="nofollow">HTTP RFC</a>] allows for 1xx informational responses to be sent before a real content response.  Unfortunately the servlet specification does not provide a way for these to be sent, so Jetty has had to provide non-standard handling of these headers.
-</p>
-<h2><span id="Feature" class="mw-headline">Feature</span></h2>
-<h2><span class="mw-headline" id="100_Continue">100 Continue</span></h2>
-<p>The 100 Continue response should be sent by the server when a client sends a request with a <tt>Expect: 100-continue</tt> header, as the client will not send the body of the request until the 100 continue response has been sent.
-</p><p>The intent of this feature is to allow a server to inspect the headers and to tell the client to not send a request body that might be too large or insufficiently private or otherwise unable to be handled.
-</p><p>Jetty achieves this by waiting until the input stream or reader is obtained by the filter/servlet, before sending the 100 continues response.  Thus a filter/servlet may inspect the headers of a request before getting the input stream and send an error response (or redirect etc.) rather than the 100 continues.
-</p>
-<h2><span class="mw-headline" id="102_Processing">102 Processing</span></h2>
-<p><a rel="nofollow" class="external text" href="http://www.ietf.org/rfc/rfc2518.txt">RFC 2518</a> defines the 102 processing response that can be sent "when the server has a reasonable expectation that the request will take significant time to complete. As guidance, if a method is taking longer than 20 seconds (a reasonable, but arbitrary value) to process the server SHOULD return a 102 (Processing) response".
-</p><p>So if a request is received with the <tt>Expect: 102-processing</tt> header, then a filter/servlet may send a 102 response (without terminating further processing) by calling <tt>servletResponse.sendError(102);</tt>.
-</p>
-
-</div>
-
-                    <div class="catlinks" id="catlinks"><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a title="Special:Categories" href="https://wiki.eclipse.org/Special:Categories">Categories</a>: <ul><li><a title="Category:Jetty" href="https://wiki.eclipse.org/Category:Jetty">Jetty</a></li><li><a href="https://wiki.eclipse.org/Category:Jetty_Feature" title="Category:Jetty Feature">Jetty Feature</a></li></ul></div></div>
-                                  </div>
+    <link href="wiki-style.css" media="screen, print" rel="stylesheet" />
+  </head>
+  <body>
+    <div class="col-md-20" id="mainContent">
+      <div class="tab-content background-white">
+        <div class="tab-pane active" id="tab-pane-main-page-content">
+          <h1 class="firstHeading page-header" id="firstHeading">
+            <span dir="auto">Jetty/Feature/1xx Responses</span>
+          </h1>
+          <div id="main-page-content">
+            <div class="alert alert-small alert-warning" id="contentSub">
+              <span class="subpages">
+                &lt;
+                <a href="../../Jetty.html" title="Jetty">Jetty</a>
+                ‎ |
+                <a href="../Feature.html" title="Jetty/Feature">Feature</a>
+              </span>
+            </div>
+            <div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="en">
+              <p>
+                <br />
+              </p>
+              <p>
+                <br />
+              </p>
+              <div class="toc" id="toc">
+                <div id="toctitle">
+                  <h2>Contents</h2>
+                </div>
+                <ul>
+                  <li class="toclevel-1">
+                    <a href="1xx Responses.html#Introduction">
+                      <span class="tocnumber">1</span>
+                      <span class="toctext">Introduction</span>
+                    </a>
+                  </li>
+                  <li class="toclevel-1">
+                    <a href="1xx Responses.html#Feature">
+                      <span class="tocnumber">2</span>
+                      <span class="toctext">Feature</span>
+                    </a>
+                  </li>
+                  <li class="toclevel-1">
+                    <a href="1xx Responses.html#100_Continue">
+                      <span class="tocnumber">3</span>
+                      <span class="toctext">100 Continue</span>
+                    </a>
+                  </li>
+                  <li class="toclevel-1">
+                    <a href="1xx Responses.html#102_Processing">
+                      <span class="tocnumber">4</span>
+                      <span class="toctext">102 Processing</span>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+              <h2>
+                <span class="mw-headline" id="Introduction">Introduction</span>
+              </h2>
+              <p>
+                <br />
+                The
+                <a class="external text" href="http://www.ietf.org/rfc/rfc2616.txt" rel="nofollow">HTTP RFC</a>
+                ] allows for 1xx informational responses to be sent before a real content response.  Unfortunately the servlet specification does not provide a way for these to be sent, so Jetty has had to provide non-standard handling of these headers.
+              </p>
+              <h2>
+                <span class="mw-headline" id="Feature">Feature</span>
+              </h2>
+              <h2>
+                <span class="mw-headline" id="100_Continue">100 Continue</span>
+              </h2>
+              <p>
+                The 100 Continue response should be sent by the server when a client sends a request with a
+                <tt>Expect: 100-continue</tt>
+                header, as the client will not send the body of the request until the 100 continue response has been sent.
+              </p>
+              <p>The intent of this feature is to allow a server to inspect the headers and to tell the client to not send a request body that might be too large or insufficiently private or otherwise unable to be handled.</p>
+              <p>Jetty achieves this by waiting until the input stream or reader is obtained by the filter/servlet, before sending the 100 continues response.  Thus a filter/servlet may inspect the headers of a request before getting the input stream and send an error response (or redirect etc.) rather than the 100 continues.</p>
+              <h2>
+                <span class="mw-headline" id="102_Processing">102 Processing</span>
+              </h2>
+              <p>
+                <a class="external text" href="http://www.ietf.org/rfc/rfc2518.txt" rel="nofollow">RFC 2518</a>
+                defines the 102 processing response that can be sent "when the server has a reasonable expectation that the request will take significant time to complete. As guidance, if a method is taking longer than 20 seconds (a reasonable, but arbitrary value) to process the server SHOULD return a 102 (Processing) response".
+              </p>
+              <p>
+                So if a request is received with the
+                <tt>Expect: 102-processing</tt>
+                header, then a filter/servlet may send a 102 response (without terminating further processing) by calling
+                <tt>servletResponse.sendError(102);</tt>
+                .
+              </p>
+            </div>
+            <div class="catlinks" id="catlinks">
+              <div class="mw-normal-catlinks" id="mw-normal-catlinks">
+                <a href="https://wiki.eclipse.org/Special:Categories" title="Special:Categories">Categories</a>
+                :
+                <ul>
+                  <li>
+                    <a href="https://wiki.eclipse.org/Category:Jetty" title="Category:Jetty">Jetty</a>
+                  </li>
+                  <li>
+                    <a href="https://wiki.eclipse.org/Category:Jetty_Feature" title="Category:Jetty Feature">Jetty Feature</a>
+                  </li>
+                </ul>
               </div>
             </div>
           </div>
-</body>
+        </div>
+      </div>
+    </div>
+  </body>
 </html>
