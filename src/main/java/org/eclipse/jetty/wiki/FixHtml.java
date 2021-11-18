@@ -141,7 +141,7 @@ public class FixHtml
             fixStyleSheet(htmlFile, dom);
 
             // fix href encoding
-            fixHrefEncoding(htmlFile, dom);
+            fixLinks(htmlFile, dom);
 
             // fix images
             fixImages(htmlFile, dom);
@@ -258,7 +258,7 @@ public class FixHtml
         }
     }
 
-    private void fixHrefEncoding(Path htmlFile, Document dom) throws XPathExpressionException
+    private void fixLinks(Path htmlFile, Document dom) throws XPathExpressionException
     {
         for (Node node : xpathNodes(dom, "//a"))
         {
@@ -272,6 +272,28 @@ public class FixHtml
                 {
                     rawHref = rawHref.replaceAll(" ", "%20");
                     elem.setAttribute("href", rawHref);
+                }
+
+                if (rawHref.startsWith("https://wiki.eclipse.org/Jetty/"))
+                {
+                    String relativeRef = rawHref.substring("https://wiki.eclipse.org/Jetty/".length());
+                    Path hrefPath = rootDir.resolve(relativeRef + ".html");
+                    if(Files.exists(hrefPath))
+                    {
+                        String href = htmlFile.getParent().toUri().relativize(hrefPath.toUri()).toASCIIString();
+                        elem.setAttribute("href", href);
+                    }
+                    else
+                    {
+                        elem.removeAttribute("href");
+                        String attrClass = elem.getAttribute("class");
+                        if(attrClass == null || attrClass.isBlank())
+                            attrClass = "removed";
+                        else
+                            attrClass += " removed";
+                        elem.setAttribute("class", attrClass);
+                        System.out.printf("[html] Removing unknown href : %s%n", rawHref);
+                    }
                 }
                 else
                 {
