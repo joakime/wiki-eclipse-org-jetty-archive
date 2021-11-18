@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -171,7 +172,7 @@ public class FixHtml
         oldTitle = oldTitle.replace(" - Eclipsepedia", " - (Archive Wiki)");
 
         Element titleElem = xpathFirstElement(dom, "//html/head/title");
-        if(titleElem == null)
+        if (titleElem == null)
             throw new IllegalStateException("No html/head/title found");
         titleElem.setTextContent(oldTitle);
     }
@@ -302,37 +303,65 @@ public class FixHtml
                     elem.setAttribute("href", rawHref);
                 }
 
-                if (rawHref.startsWith("https://wiki.eclipse.org/Jetty/"))
+                fixWikiLink(htmlFile, elem, rawHref, "https://wiki.eclipse.org/");
+                fixWikiLink(htmlFile, elem, rawHref, "http://wiki.eclipse.org/");
+
+                for (Map.Entry<String, String> entry : urlRewrites.entrySet())
                 {
-                    String relativeRef = rawHref.substring("https://wiki.eclipse.org/Jetty/".length());
-                    Path hrefPath = rootDir.resolve(relativeRef + ".html");
-                    if(Files.exists(hrefPath))
-                    {
-                        String href = htmlFile.getParent().toUri().relativize(hrefPath.toUri()).toASCIIString();
-                        elem.setAttribute("href", href);
-                    }
-                    else
-                    {
-                        elem.removeAttribute("href");
-                        String attrClass = elem.getAttribute("class");
-                        if(attrClass == null || attrClass.isBlank())
-                            attrClass = "removed";
-                        else
-                            attrClass += " removed";
-                        elem.setAttribute("class", attrClass);
-                        System.out.printf("[html] Removing unknown href : %s%n", rawHref);
-                    }
+                    rawHref = rawHref.replaceAll(entry.getKey(), entry.getValue());
                 }
-                else
-                {
-                    for (Map.Entry<String, String> entry : urlRewrites.entrySet())
-                    {
-                        rawHref = rawHref.replaceAll(entry.getKey(), entry.getValue());
-                    }
-                    elem.setAttribute("href", rawHref);
-                }
+                elem.setAttribute("href", rawHref);
             }
         }
+    }
+
+    private void fixWikiLink(Path htmlFile, Element elem, String rawHref, String uriPrefix)
+    {
+        if (rawHref.startsWith(uriPrefix))
+        {
+            String relativeRef = URLDecoder.decode(rawHref.substring(uriPrefix.length()), StandardCharsets.UTF_8);
+            int hashIdx = relativeRef.indexOf('#');
+            if (hashIdx > 0)
+                relativeRef = relativeRef.substring(0, hashIdx);
+
+            Path hrefPath = getHtmlFile(relativeRef);
+            if (Files.exists(hrefPath))
+            {
+                String href = htmlFile.getParent().toUri().relativize(hrefPath.toUri()).toASCIIString();
+                elem.setAttribute("href", href);
+            }
+            else
+            {
+                elem.removeAttribute("href");
+                String attrClass = elem.getAttribute("class");
+                if (attrClass == null || attrClass.isBlank())
+                    attrClass = "removed";
+                else
+                    attrClass += " removed";
+                elem.setAttribute("class", attrClass);
+                System.out.printf("[html] Removing unknown href : %s%n", rawHref);
+            }
+        }
+    }
+
+    private Path getHtmlFile(String subpath)
+    {
+        Path html;
+
+        html = rootDir.resolve(subpath);
+        if (Files.exists(html))
+            return html;
+
+        html = rootDir.resolve(subpath + ".html");
+        if (Files.exists(html))
+            return html;
+
+        String spaced = subpath.replace('_', ' ');
+        html = rootDir.resolve(spaced);
+        if (Files.exists(html))
+            return html;
+
+        return rootDir.resolve(spaced + ".html");
     }
 
     private Document loadHtml(Path htmlFile) throws IOException, SAXException
