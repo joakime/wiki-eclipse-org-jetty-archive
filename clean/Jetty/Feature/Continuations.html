@@ -16,7 +16,7 @@
               <span class="subpages">
                 &lt;
                 <a href="../../Jetty.html" title="Jetty">Jetty</a>
-                |
+                 |
                 <a href="../Feature.html" title="Jetty/Feature">Feature</a>
               </span>
             </div>
@@ -362,16 +362,7 @@
               </p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="java source-java">
-                  <pre class="de1">
-                    Continuation continuation
-                    <span class="sy0">=</span>
-                    ContinuationSupport.
-                    <span class="me1">getContinuation</span>
-                    <span class="br0">(</span>
-                    request
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                  </pre>
+                  <pre class="de1" xml:space="preserve">    Continuation continuation <span class="sy0">=</span> ContinuationSupport.<span class="me1">getContinuation</span><span class="br0">(</span>request<span class="br0">)</span><span class="sy0">;</span></pre>
                 </div>
               </div>
               <h4>
@@ -380,24 +371,15 @@
               <p>To suspend a request, the suspend method is called on the continuation:</p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="java source-java">
-                  <pre class="de1">
-                    <span class="kw4">void</span>
-                    doGet
-                    <span class="br0">(</span>
-                    HttpServletRequest request, HttpServletResponse response
-                    <span class="br0">)</span>
-                    <span class="br0">{</span>
-                    ...
-                    <span class="co1">// optionally:</span>
-                    <span class="co1">// continuation.setTimeout(long);</span>
-                    continuation.
-                    <span class="me1">suspend</span>
-                    <span class="br0">(</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    ...
-                    <span class="br0">}</span>
-                  </pre>
+                  <pre class="de1" xml:space="preserve"> 
+<span class="kw4">void</span> doGet<span class="br0">(</span>HttpServletRequest request, HttpServletResponse response<span class="br0">)</span>
+<span class="br0">{</span>
+    ...
+    <span class="co1">// optionally:</span>
+    <span class="co1">// continuation.setTimeout(long);</span>
+    continuation.<span class="me1">suspend</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
+    ...
+<span class="br0">}</span></pre>
                 </div>
               </div>
               <p>
@@ -422,14 +404,7 @@
               <p>There is a variation of suspend for use with request wrappers and the complete lifecycle (see below):</p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="java source-java">
-                  <pre class="de1">
-                    continuation.
-                    <span class="me1">suspend</span>
-                    <span class="br0">(</span>
-                    response
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                  </pre>
+                  <pre class="de1" xml:space="preserve">    continuation.<span class="me1">suspend</span><span class="br0">(</span>response<span class="br0">)</span><span class="sy0">;</span></pre>
                 </div>
               </div>
               <p>
@@ -450,28 +425,11 @@
               <p>Once an asynchronous event has occurred, the continuation can be resumed:</p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="java source-java">
-                  <pre class="de1">
-                    <span class="kw4">void</span>
-                    myAsyncCallback
-                    <span class="br0">(</span>
-                    <span class="kw3">Object</span>
-                    results
-                    <span class="br0">)</span>
-                    <span class="br0">{</span>
-                    continuation.
-                    <span class="me1">setAttribute</span>
-                    <span class="br0">(</span>
-                    <span class="st0">"results"</span>
-                    ,results
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    continuation.
-                    <span class="me1">resume</span>
-                    <span class="br0">(</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    <span class="br0">}</span>
-                  </pre>
+                  <pre class="de1" xml:space="preserve"><span class="kw4">void</span> myAsyncCallback<span class="br0">(</span><span class="kw3">Object</span> results<span class="br0">)</span>
+<span class="br0">{</span>
+    continuation.<span class="me1">setAttribute</span><span class="br0">(</span><span class="st0">"results"</span>,results<span class="br0">)</span><span class="sy0">;</span>
+    continuation.<span class="me1">resume</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
+<span class="br0">}</span></pre>
                 </div>
               </div>
               <p>
@@ -490,30 +448,11 @@
               <p>As an alternative to resuming a request, an asynchronous handler may write the response itself. After writing the response, the handler must indicate the request handling is complete by calling the complete method:</p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="java source-java">
-                  <pre class="de1">
-                    <span class="kw4">void</span>
-                    myAsyncCallback
-                    <span class="br0">(</span>
-                    <span class="kw3">Object</span>
-                    results
-                    <span class="br0">)</span>
-                    <span class="br0">{</span>
-                    writeResults
-                    <span class="br0">(</span>
-                    continuation.
-                    <span class="me1">getServletResponse</span>
-                    <span class="br0">(</span>
-                    <span class="br0">)</span>
-                    ,results
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    continuation.
-                    <span class="me1">complete</span>
-                    <span class="br0">(</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    <span class="br0">}</span>
-                  </pre>
+                  <pre class="de1" xml:space="preserve"><span class="kw4">void</span> myAsyncCallback<span class="br0">(</span><span class="kw3">Object</span> results<span class="br0">)</span>
+<span class="br0">{</span>
+    writeResults<span class="br0">(</span>continuation.<span class="me1">getServletResponse</span><span class="br0">(</span><span class="br0">)</span>,results<span class="br0">)</span><span class="sy0">;</span>
+    continuation.<span class="me1">complete</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
+<span class="br0">}</span></pre>
                 </div>
               </div>
               <p>After complete is called, the container schedules the response to be committed and flushed.</p>
@@ -532,60 +471,20 @@
               </p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="java source-java">
-                  <pre class="de1">
-                    <span class="kw4">void</span>
-                    doGet
-                    <span class="br0">(</span>
-                    HttpServletRequest request, HttpServletResponse response
-                    <span class="br0">)</span>
-                    <span class="br0">{</span>
-                    ...
-                    <span class="me1">Continuation</span>
-                    continuation
-                    <span class="sy0">=</span>
-                    ContinuationSupport.
-                    <span class="me1">getContinuation</span>
-                    <span class="br0">(</span>
-                    request
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    continuation.
-                    <span class="me1">addContinuationListener</span>
-                    <span class="br0">(</span>
-                    <span class="kw1">new</span>
-                    ContinuationListener
-                    <span class="br0">(</span>
-                    <span class="br0">)</span>
-                    <span class="br0">{</span>
-                    <span class="kw1">public</span>
-                    <span class="kw4">void</span>
-                    onTimeout
-                    <span class="br0">(</span>
-                    Continuation continuation
-                    <span class="br0">)</span>
-                    <span class="br0">{</span>
-                    ...
-                    <span class="br0">}</span>
-                    <span class="kw1">public</span>
-                    <span class="kw4">void</span>
-                    onComplete
-                    <span class="br0">(</span>
-                    Continuation continuation
-                    <span class="br0">)</span>
-                    <span class="br0">{</span>
-                    ...
-                    <span class="br0">}</span>
-                    <span class="br0">}</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    continuation.
-                    <span class="me1">suspend</span>
-                    <span class="br0">(</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    ...
-                    <span class="br0">}</span>
-                  </pre>
+                  <pre class="de1" xml:space="preserve"><span class="kw4">void</span> doGet<span class="br0">(</span>HttpServletRequest request, HttpServletResponse response<span class="br0">)</span>
+<span class="br0">{</span>
+    ...
+ 
+    <span class="me1">Continuation</span> continuation <span class="sy0">=</span> ContinuationSupport.<span class="me1">getContinuation</span><span class="br0">(</span>request<span class="br0">)</span><span class="sy0">;</span>
+    continuation.<span class="me1">addContinuationListener</span><span class="br0">(</span><span class="kw1">new</span> ContinuationListener<span class="br0">(</span><span class="br0">)</span>
+    <span class="br0">{</span>
+      <span class="kw1">public</span> <span class="kw4">void</span> onTimeout<span class="br0">(</span>Continuation continuation<span class="br0">)</span> <span class="br0">{</span> ... <span class="br0">}</span>
+      <span class="kw1">public</span> <span class="kw4">void</span> onComplete<span class="br0">(</span>Continuation continuation<span class="br0">)</span> <span class="br0">{</span> ... <span class="br0">}</span>
+    <span class="br0">}</span><span class="br0">)</span><span class="sy0">;</span>
+ 
+    continuation.<span class="me1">suspend</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
+    ...
+<span class="br0">}</span></pre>
                 </div>
               </div>
               <p>
@@ -602,109 +501,40 @@
               <p>The suspend/resume style is used when a servlet and/or filter is used to generate the response after an asynchronous wait that is terminated by an asynchronous handler. Typically a request attribute is used to pass results and to indicate if the request has already been suspended.</p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="java source-java">
-                  <pre class="de1">
-                    <span class="kw4">void</span>
-                    doGet
-                    <span class="br0">(</span>
-                    HttpServletRequest request, HttpServletResponse response
-                    <span class="br0">)</span>
-                    <span class="br0">{</span>
-                    <span class="co1">// if we need to get asynchronous results</span>
-                    <span class="kw3">Object</span>
-                    results
-                    <span class="sy0">=</span>
-                    request.
-                    <span class="me1">getAttribute</span>
-                    <span class="br0">(</span>
-                    <span class="st0">"results"</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    <span class="kw1">if</span>
-                    <span class="br0">(</span>
-                    results
-                    <span class="sy0">==</span>
-                    <span class="kw2">null</span>
-                    <span class="br0">)</span>
-                    <span class="br0">{</span>
-                    <span class="kw1">final</span>
-                    Continuation continuation
-                    <span class="sy0">=</span>
-                    ContinuationSupport.
-                    <span class="me1">getContinuation</span>
-                    <span class="br0">(</span>
-                    request
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    <span class="co1">// if this is not a timeout</span>
-                    <span class="kw1">if</span>
-                    <span class="br0">(</span>
-                    continuation.
-                    <span class="me1">isExpired</span>
-                    <span class="br0">(</span>
-                    <span class="br0">)</span>
-                    <span class="br0">)</span>
-                    <span class="br0">{</span>
-                    sendMyTimeoutResponse
-                    <span class="br0">(</span>
-                    response
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    <span class="kw1">return</span>
-                    <span class="sy0">;</span>
-                    <span class="br0">}</span>
-                    <span class="co1">// suspend the request</span>
-                    continuation.
-                    <span class="me1">suspend</span>
-                    <span class="br0">(</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    <span class="co1">// always suspend before registration</span>
-                    <span class="co1">// register with async service.  The code here will depend on the</span>
-                    <span class="co1">// the service used (see Jetty HttpClient for example)</span>
-                    myAsyncHandler.
-                    <span class="me1">register</span>
-                    <span class="br0">(</span>
-                    <span class="kw1">new</span>
-                    MyHandler
-                    <span class="br0">(</span>
-                    <span class="br0">)</span>
-                    <span class="br0">{</span>
-                    <span class="kw1">public</span>
-                    <span class="kw4">void</span>
-                    onMyEvent
-                    <span class="br0">(</span>
-                    <span class="kw3">Object</span>
-                    result
-                    <span class="br0">)</span>
-                    <span class="br0">{</span>
-                    continuation.
-                    <span class="me1">setAttribute</span>
-                    <span class="br0">(</span>
-                    <span class="st0">"results"</span>
-                    ,results
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    continuation.
-                    <span class="me1">resume</span>
-                    <span class="br0">(</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    <span class="br0">}</span>
-                    <span class="br0">}</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    <span class="kw1">return</span>
-                    <span class="sy0">;</span>
-                    <span class="co1">// or continuation.undispatch();</span>
-                    <span class="br0">}</span>
-                    <span class="co1">// Send the results</span>
-                    sendMyResultResponse
-                    <span class="br0">(</span>
-                    response,results
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    <span class="br0">}</span>
-                  </pre>
+                  <pre class="de1" xml:space="preserve"><span class="kw4">void</span> doGet<span class="br0">(</span>HttpServletRequest request, HttpServletResponse response<span class="br0">)</span>
+<span class="br0">{</span>
+     <span class="co1">// if we need to get asynchronous results</span>
+     <span class="kw3">Object</span> results <span class="sy0">=</span> request.<span class="me1">getAttribute</span><span class="br0">(</span><span class="st0">"results"</span><span class="br0">)</span><span class="sy0">;</span>
+     <span class="kw1">if</span> <span class="br0">(</span>results<span class="sy0">==</span><span class="kw2">null</span><span class="br0">)</span>
+     <span class="br0">{</span>
+       <span class="kw1">final</span> Continuation continuation <span class="sy0">=</span> ContinuationSupport.<span class="me1">getContinuation</span><span class="br0">(</span>request<span class="br0">)</span><span class="sy0">;</span>
+ 
+       <span class="co1">// if this is not a timeout</span>
+       <span class="kw1">if</span> <span class="br0">(</span>continuation.<span class="me1">isExpired</span><span class="br0">(</span><span class="br0">)</span><span class="br0">)</span>
+       <span class="br0">{</span>
+         sendMyTimeoutResponse<span class="br0">(</span>response<span class="br0">)</span><span class="sy0">;</span>
+         <span class="kw1">return</span><span class="sy0">;</span>
+       <span class="br0">}</span>
+ 
+       <span class="co1">// suspend the request</span>
+       continuation.<span class="me1">suspend</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span> <span class="co1">// always suspend before registration</span>
+ 
+       <span class="co1">// register with async service.  The code here will depend on the</span>
+       <span class="co1">// the service used (see Jetty HttpClient for example)</span>
+       myAsyncHandler.<span class="me1">register</span><span class="br0">(</span><span class="kw1">new</span> MyHandler<span class="br0">(</span><span class="br0">)</span>
+       <span class="br0">{</span>
+          <span class="kw1">public</span> <span class="kw4">void</span> onMyEvent<span class="br0">(</span><span class="kw3">Object</span> result<span class="br0">)</span>
+          <span class="br0">{</span>
+            continuation.<span class="me1">setAttribute</span><span class="br0">(</span><span class="st0">"results"</span>,results<span class="br0">)</span><span class="sy0">;</span>
+            continuation.<span class="me1">resume</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
+          <span class="br0">}</span>
+       <span class="br0">}</span><span class="br0">)</span><span class="sy0">;</span>
+       <span class="kw1">return</span><span class="sy0">;</span> <span class="co1">// or continuation.undispatch();</span>
+     <span class="br0">}</span>
+ 
+     <span class="co1">// Send the results</span>
+     sendMyResultResponse<span class="br0">(</span>response,results<span class="br0">)</span><span class="sy0">;</span>
+<span class="br0">}</span></pre>
                 </div>
               </div>
               <p>This style is very good when the response needs the facilities of the servlet container (e.g., it uses a web framework) or if one event may resume many requests so the container's thread pool can be used to handle each of them.</p>
@@ -717,85 +547,31 @@
               <p>The suspend/complete style is used when an asynchronous handler is used to generate the response:</p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="java source-java">
-                  <pre class="de1">
-                    <span class="kw4">void</span>
-                    doGet
-                    <span class="br0">(</span>
-                    HttpServletRequest request, HttpServletResponse response
-                    <span class="br0">)</span>
-                    <span class="br0">{</span>
-                    <span class="kw1">final</span>
-                    Continuation continuation
-                    <span class="sy0">=</span>
-                    ContinuationSupport.
-                    <span class="me1">getContinuation</span>
-                    <span class="br0">(</span>
-                    request
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    <span class="co1">// if this is not a timeout</span>
-                    <span class="kw1">if</span>
-                    <span class="br0">(</span>
-                    continuation.
-                    <span class="me1">isExpired</span>
-                    <span class="br0">(</span>
-                    <span class="br0">)</span>
-                    <span class="br0">)</span>
-                    <span class="br0">{</span>
-                    sendMyTimeoutResponse
-                    <span class="br0">(</span>
-                    request,response
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    <span class="kw1">return</span>
-                    <span class="sy0">;</span>
-                    <span class="br0">}</span>
-                    <span class="co1">// suspend the request</span>
-                    continuation.
-                    <span class="me1">suspend</span>
-                    <span class="br0">(</span>
-                    response
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    <span class="co1">// response may be wrapped.</span>
-                    <span class="co1">// register with async service.  The code here will depend on the</span>
-                    <span class="co1">// the service used (see Jetty HttpClient for example)</span>
-                    myAsyncHandler.
-                    <span class="me1">register</span>
-                    <span class="br0">(</span>
-                    <span class="kw1">new</span>
-                    MyHandler
-                    <span class="br0">(</span>
-                    <span class="br0">)</span>
-                    <span class="br0">{</span>
-                    <span class="kw1">public</span>
-                    <span class="kw4">void</span>
-                    onMyEvent
-                    <span class="br0">(</span>
-                    <span class="kw3">Object</span>
-                    result
-                    <span class="br0">)</span>
-                    <span class="br0">{</span>
-                    sendMyResultResponse
-                    <span class="br0">(</span>
-                    continuation.
-                    <span class="me1">getServletResponse</span>
-                    <span class="br0">(</span>
-                    <span class="br0">)</span>
-                    ,results
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    continuation.
-                    <span class="me1">complete</span>
-                    <span class="br0">(</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    <span class="br0">}</span>
-                    <span class="br0">}</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    <span class="br0">}</span>
-                  </pre>
+                  <pre class="de1" xml:space="preserve"><span class="kw4">void</span> doGet<span class="br0">(</span>HttpServletRequest request, HttpServletResponse response<span class="br0">)</span>
+<span class="br0">{</span>
+     <span class="kw1">final</span> Continuation continuation <span class="sy0">=</span> ContinuationSupport.<span class="me1">getContinuation</span><span class="br0">(</span>request<span class="br0">)</span><span class="sy0">;</span>
+ 
+     <span class="co1">// if this is not a timeout</span>
+     <span class="kw1">if</span> <span class="br0">(</span>continuation.<span class="me1">isExpired</span><span class="br0">(</span><span class="br0">)</span><span class="br0">)</span>
+     <span class="br0">{</span>
+       sendMyTimeoutResponse<span class="br0">(</span>request,response<span class="br0">)</span><span class="sy0">;</span>
+       <span class="kw1">return</span><span class="sy0">;</span>
+     <span class="br0">}</span>
+ 
+     <span class="co1">// suspend the request</span>
+     continuation.<span class="me1">suspend</span><span class="br0">(</span>response<span class="br0">)</span><span class="sy0">;</span> <span class="co1">// response may be wrapped.</span>
+ 
+     <span class="co1">// register with async service.  The code here will depend on the</span>
+     <span class="co1">// the service used (see Jetty HttpClient for example)</span>
+     myAsyncHandler.<span class="me1">register</span><span class="br0">(</span><span class="kw1">new</span> MyHandler<span class="br0">(</span><span class="br0">)</span>
+     <span class="br0">{</span>
+       <span class="kw1">public</span> <span class="kw4">void</span> onMyEvent<span class="br0">(</span><span class="kw3">Object</span> result<span class="br0">)</span>
+       <span class="br0">{</span>
+         sendMyResultResponse<span class="br0">(</span>continuation.<span class="me1">getServletResponse</span><span class="br0">(</span><span class="br0">)</span>,results<span class="br0">)</span><span class="sy0">;</span>
+         continuation.<span class="me1">complete</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
+       <span class="br0">}</span>
+     <span class="br0">}</span><span class="br0">)</span><span class="sy0">;</span>
+<span class="br0">}</span></pre>
                 </div>
               </div>
               <p>This style is very good when the response does not need the facilities of the servlet container (e.g., it does not use a web framework) and if an event will resume only one continuation.  If many responses are to be sent (e.g., a chat room), then writing one response may block and cause a DOS on the other responses.</p>

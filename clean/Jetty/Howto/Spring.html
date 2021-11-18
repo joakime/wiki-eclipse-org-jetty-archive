@@ -16,7 +16,7 @@
               <span class="subpages">
                 &lt;
                 <a href="../../Jetty.html" title="Jetty">Jetty</a>
-                |
+                 |
                 <a href="../Howto.html" title="Jetty/Howto">Howto</a>
               </span>
             </div>
@@ -77,34 +77,9 @@
               <p>The jetty-spring module is included in jetty-hightide,  available at Codehaus, and also as a Maven artifact. This example illustrates a Maven download:</p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="java source-java">
-                  <pre class="de1">
-                    wget
-                    <span class="sy0">--</span>
-                    user
-                    <span class="sy0">-</span>
-                    agent
-                    <span class="sy0">=</span>
-                    other http
-                    <span class="sy0">:</span>
-                    <span class="co1">//repo2.maven.org/maven2/org/mortbay/jetty/jetty-hightide/7.4.0.v20110414/jetty-hightide-7.4.0.v20110414.tar.gz</span>
-                    tar xfz jetty
-                    <span class="sy0">-</span>
-                    hightide
-                    <span class="sy0">-</span>
-                    7.4.0.
-                    <span class="me1">v20110414</span>
-                    .
-                    <span class="me1">tar</span>
-                    .
-                    <span class="me1">gz</span>
-                    jetty
-                    <span class="sy0">-</span>
-                    hightide
-                    <span class="sy0">-</span>
-                    7.4.0.
-                    <span class="me1">v20110414</span>
-                    <span class="sy0">/</span>
-                  </pre>
+                  <pre class="de1" xml:space="preserve">wget <span class="sy0">--</span>user<span class="sy0">-</span>agent<span class="sy0">=</span>other http<span class="sy0">:</span><span class="co1">//repo2.maven.org/maven2/org/mortbay/jetty/jetty-hightide/7.4.0.v20110414/jetty-hightide-7.4.0.v20110414.tar.gz</span>
+tar xfz jetty<span class="sy0">-</span>hightide<span class="sy0">-</span>7.4.0.<span class="me1">v20110414</span>.<span class="me1">tar</span>.<span class="me1">gz</span>
+jetty<span class="sy0">-</span>hightide<span class="sy0">-</span>7.4.0.<span class="me1">v20110414</span><span class="sy0">/</span></pre>
                 </div>
               </div>
               <p>
@@ -121,32 +96,10 @@
               <p>You should download and install these dependencies in $JETTY_HOME/lib/spring</p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="java source-java">
-                  <pre class="de1">
-                    cd lib
-                    <span class="sy0">/</span>
-                    spring
-wget
-                    <span class="sy0">--</span>
-                    user
-                    <span class="sy0">-</span>
-                    agent
-                    <span class="sy0">=</span>
-                    other http
-                    <span class="sy0">:</span>
-                    <span class="co1">//repo2.maven.org/maven2/org/springframework/spring/2.5.6/spring-2.5.6.jar</span>
-                    wget
-                    <span class="sy0">--</span>
-                    user
-                    <span class="sy0">-</span>
-                    agent
-                    <span class="sy0">=</span>
-                    other http
-                    <span class="sy0">:</span>
-                    <span class="co1">//repo2.maven.org/maven2/commons-logging/commons-logging/1.1.1/commons-logging-1.1.1.jar</span>
-                    cd ..
-                    <span class="sy0">/</span>
-                    ..
-                  </pre>
+                  <pre class="de1" xml:space="preserve">cd lib<span class="sy0">/</span>spring
+wget <span class="sy0">--</span>user<span class="sy0">-</span>agent<span class="sy0">=</span>other http<span class="sy0">:</span><span class="co1">//repo2.maven.org/maven2/org/springframework/spring/2.5.6/spring-2.5.6.jar</span>
+wget <span class="sy0">--</span>user<span class="sy0">-</span>agent<span class="sy0">=</span>other http<span class="sy0">:</span><span class="co1">//repo2.maven.org/maven2/commons-logging/commons-logging/1.1.1/commons-logging-1.1.1.jar</span>
+cd ..<span class="sy0">/</span>..</pre>
                 </div>
               </div>
               <h2>
@@ -155,393 +108,65 @@ wget
               <p>Configuring Jetty via Spring is simply a matter of calling the API as Spring beans.  The following is the default jetty-spring.xml file:</p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="xml source-xml">
-                  <pre class="de1">
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;beans
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;bean</span>
-                      <span class="re0">id</span>
-                      =
-                      <span class="st0">"contexts"</span>
-                      <span class="re0">class</span>
-                      =
-                      <span class="st0">"org.eclipse.jetty.server.handler.ContextHandlerCollection"</span>
-                      <span class="re2">/&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;bean</span>
-                      <span class="re0">id</span>
-                      =
-                      <span class="st0">"Server"</span>
-                      <span class="re0">class</span>
-                      =
-                      <span class="st0">"org.mortbay.jetty.spring.Server"</span>
-                      <span class="re0">init-method</span>
-                      =
-                      <span class="st0">"start"</span>
-                      <span class="re0">destroy-method</span>
-                      =
-                      <span class="st0">"stop"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;property</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"threadPool"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;bean</span>
-                      <span class="re0">id</span>
-                      =
-                      <span class="st0">"ThreadPool"</span>
-                      <span class="re0">class</span>
-                      =
-                      <span class="st0">"org.eclipse.jetty.util.thread.QueuedThreadPool"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;property</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"minThreads"</span>
-                      <span class="re0">value</span>
-                      =
-                      <span class="st0">"10"</span>
-                      <span class="re2">/&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;property</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"maxThreads"</span>
-                      <span class="re0">value</span>
-                      =
-                      <span class="st0">"50"</span>
-                      <span class="re2">/&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/bean
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/property
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;property</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"connectors"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;list
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;bean</span>
-                      <span class="re0">id</span>
-                      =
-                      <span class="st0">"Connector"</span>
-                      <span class="re0">class</span>
-                      =
-                      <span class="st0">"org.eclipse.jetty.server.nio.SelectChannelConnector"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;property</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"port"</span>
-                      <span class="re0">value</span>
-                      =
-                      <span class="st0">"8080"</span>
-                      <span class="re2">/&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/bean
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/list
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/property
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;property</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"handler"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;bean</span>
-                      <span class="re0">id</span>
-                      =
-                      <span class="st0">"handlers"</span>
-                      <span class="re0">class</span>
-                      =
-                      <span class="st0">"org.eclipse.jetty.server.handler.HandlerCollection"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;property</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"handlers"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;list
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;ref</span>
-                      <span class="re0">bean</span>
-                      =
-                      <span class="st0">"contexts"</span>
-                      <span class="re2">/&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;bean</span>
-                      <span class="re0">id</span>
-                      =
-                      <span class="st0">"defaultHandler"</span>
-                      <span class="re0">class</span>
-                      =
-                      <span class="st0">"org.eclipse.jetty.server.handler.DefaultHandler"</span>
-                      <span class="re2">/&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/list
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/property
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/bean
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/property
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;property</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"beans"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;list
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;bean</span>
-                      <span class="re0">id</span>
-                      =
-                      <span class="st0">"ContextDeployer"</span>
-                      <span class="re0">class</span>
-                      =
-                      <span class="st0">"org.mortbay.jetty.spring.ContextDeployer"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;property</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"contexts"</span>
-                      <span class="re0">ref</span>
-                      =
-                      <span class="st0">"contexts"</span>
-                      <span class="re2">/&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;property</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"contextsDir"</span>
-                      <span class="re0">value</span>
-                      =
-                      <span class="st0">"contexts"</span>
-                      <span class="re2">/&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;property</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"scanInterval"</span>
-                      <span class="re0">value</span>
-                      =
-                      <span class="st0">"5"</span>
-                      <span class="re2">/&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/bean
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;bean</span>
-                      <span class="re0">id</span>
-                      =
-                      <span class="st0">"WebAppDeployer"</span>
-                      <span class="re0">class</span>
-                      =
-                      <span class="st0">"org.eclipse.jetty.deploy.WebAppDeployer"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;property</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"contexts"</span>
-                      <span class="re0">ref</span>
-                      =
-                      <span class="st0">"contexts"</span>
-                      <span class="re2">/&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;property</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"webAppDir"</span>
-                      <span class="re0">value</span>
-                      =
-                      <span class="st0">"webapps"</span>
-                      <span class="re2">/&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;property</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"extract"</span>
-                      <span class="re0">value</span>
-                      =
-                      <span class="st0">"true"</span>
-                      <span class="re2">/&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;property</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"defaultsDescriptor"</span>
-                      <span class="re0">value</span>
-                      =
-                      <span class="st0">"etc/webdefault.xml"</span>
-                      <span class="re2">/&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/bean
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;bean</span>
-                      <span class="re0">class</span>
-                      =
-                      <span class="st0">"org.eclipse.jetty.security.HashLoginService"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;property</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"name"</span>
-                      <span class="re0">value</span>
-                      =
-                      <span class="st0">"Test Realm"</span>
-                      <span class="re2">/&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;property</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"config"</span>
-                      <span class="re0">value</span>
-                      =
-                      <span class="st0">"etc/realm.properties"</span>
-                      <span class="re2">/&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;property</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"refreshInterval"</span>
-                      <span class="re0">value</span>
-                      =
-                      <span class="st0">"0"</span>
-                      <span class="re2">/&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/bean
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/list
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/property
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/bean
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/beans
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                  </pre>
+                  <pre class="de1" xml:space="preserve"><span class="sc3"><span class="re1">&lt;beans<span class="re2">&gt;</span></span></span>
+ 
+  <span class="sc3"><span class="re1">&lt;bean</span> <span class="re0">id</span>=<span class="st0">"contexts"</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.server.handler.ContextHandlerCollection"</span><span class="re2">/&gt;</span></span>
+ 
+  <span class="sc3"><span class="re1">&lt;bean</span> <span class="re0">id</span>=<span class="st0">"Server"</span> <span class="re0">class</span>=<span class="st0">"org.mortbay.jetty.spring.Server"</span> <span class="re0">init-method</span>=<span class="st0">"start"</span> <span class="re0">destroy-method</span>=<span class="st0">"stop"</span><span class="re2">&gt;</span></span>
+ 
+    <span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span class="st0">"threadPool"</span><span class="re2">&gt;</span></span>  
+      <span class="sc3"><span class="re1">&lt;bean</span> <span class="re0">id</span>=<span class="st0">"ThreadPool"</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.util.thread.QueuedThreadPool"</span><span class="re2">&gt;</span></span>
+        <span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span class="st0">"minThreads"</span> <span class="re0">value</span>=<span class="st0">"10"</span><span class="re2">/&gt;</span></span>
+        <span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span class="st0">"maxThreads"</span> <span class="re0">value</span>=<span class="st0">"50"</span><span class="re2">/&gt;</span></span>
+      <span class="sc3"><span class="re1">&lt;/bean<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;/property<span class="re2">&gt;</span></span></span>
+ 
+    <span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span class="st0">"connectors"</span><span class="re2">&gt;</span></span>
+      <span class="sc3"><span class="re1">&lt;list<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;bean</span> <span class="re0">id</span>=<span class="st0">"Connector"</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.server.nio.SelectChannelConnector"</span><span class="re2">&gt;</span></span>
+          <span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span class="st0">"port"</span> <span class="re0">value</span>=<span class="st0">"8080"</span><span class="re2">/&gt;</span></span>
+        <span class="sc3"><span class="re1">&lt;/bean<span class="re2">&gt;</span></span></span>
+      <span class="sc3"><span class="re1">&lt;/list<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;/property<span class="re2">&gt;</span></span></span>
+ 
+    <span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span class="st0">"handler"</span><span class="re2">&gt;</span></span>
+      <span class="sc3"><span class="re1">&lt;bean</span> <span class="re0">id</span>=<span class="st0">"handlers"</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.server.handler.HandlerCollection"</span><span class="re2">&gt;</span></span>
+        <span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span class="st0">"handlers"</span><span class="re2">&gt;</span></span>
+          <span class="sc3"><span class="re1">&lt;list<span class="re2">&gt;</span></span></span>
+	     <span class="sc3"><span class="re1">&lt;ref</span> <span class="re0">bean</span>=<span class="st0">"contexts"</span><span class="re2">/&gt;</span></span>
+             <span class="sc3"><span class="re1">&lt;bean</span> <span class="re0">id</span>=<span class="st0">"defaultHandler"</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.server.handler.DefaultHandler"</span><span class="re2">/&gt;</span></span>
+          <span class="sc3"><span class="re1">&lt;/list<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;/property<span class="re2">&gt;</span></span></span>
+      <span class="sc3"><span class="re1">&lt;/bean<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;/property<span class="re2">&gt;</span></span></span>
+ 
+    <span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span class="st0">"beans"</span><span class="re2">&gt;</span></span>
+      <span class="sc3"><span class="re1">&lt;list<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;bean</span> <span class="re0">id</span>=<span class="st0">"ContextDeployer"</span> <span class="re0">class</span>=<span class="st0">"org.mortbay.jetty.spring.ContextDeployer"</span><span class="re2">&gt;</span></span>
+          <span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span class="st0">"contexts"</span> <span class="re0">ref</span>=<span class="st0">"contexts"</span><span class="re2">/&gt;</span></span>
+          <span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span class="st0">"contextsDir"</span> <span class="re0">value</span>=<span class="st0">"contexts"</span><span class="re2">/&gt;</span></span>
+          <span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span class="st0">"scanInterval"</span> <span class="re0">value</span>=<span class="st0">"5"</span><span class="re2">/&gt;</span></span>
+        <span class="sc3"><span class="re1">&lt;/bean<span class="re2">&gt;</span></span></span>
+ 
+        <span class="sc3"><span class="re1">&lt;bean</span> <span class="re0">id</span>=<span class="st0">"WebAppDeployer"</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.deploy.WebAppDeployer"</span><span class="re2">&gt;</span></span>
+          <span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span class="st0">"contexts"</span> <span class="re0">ref</span>=<span class="st0">"contexts"</span><span class="re2">/&gt;</span></span>
+          <span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span class="st0">"webAppDir"</span> <span class="re0">value</span>=<span class="st0">"webapps"</span><span class="re2">/&gt;</span></span>
+          <span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span class="st0">"extract"</span> <span class="re0">value</span>=<span class="st0">"true"</span><span class="re2">/&gt;</span></span>
+          <span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span class="st0">"defaultsDescriptor"</span> <span class="re0">value</span>=<span class="st0">"etc/webdefault.xml"</span><span class="re2">/&gt;</span></span>
+        <span class="sc3"><span class="re1">&lt;/bean<span class="re2">&gt;</span></span></span>
+ 
+        <span class="sc3"><span class="re1">&lt;bean</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.security.HashLoginService"</span><span class="re2">&gt;</span></span>
+          <span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span class="st0">"name"</span> <span class="re0">value</span>=<span class="st0">"Test Realm"</span><span class="re2">/&gt;</span></span>
+          <span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span class="st0">"config"</span> <span class="re0">value</span>=<span class="st0">"etc/realm.properties"</span><span class="re2">/&gt;</span></span>
+          <span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span class="st0">"refreshInterval"</span> <span class="re0">value</span>=<span class="st0">"0"</span><span class="re2">/&gt;</span></span>
+        <span class="sc3"><span class="re1">&lt;/bean<span class="re2">&gt;</span></span></span>
+ 
+      <span class="sc3"><span class="re1">&lt;/list<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;/property<span class="re2">&gt;</span></span></span>
+ 
+  <span class="sc3"><span class="re1">&lt;/bean<span class="re2">&gt;</span></span></span>
+ 
+<span class="sc3"><span class="re1">&lt;/beans<span class="re2">&gt;</span></span></span></pre>
                 </div>
               </div>
               <h2>
@@ -554,17 +179,9 @@ wget
               </p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="bash source-bash">
-                  <pre class="de1">
-                    java
-                    <span class="re5">-jar</span>
-                    start.jar
-                    <span class="re2">OPTIONS</span>
-                    =Server,All,spring \
+                  <pre class="de1" xml:space="preserve">  java <span class="re5">-jar</span> start.jar <span class="re2">OPTIONS</span>=Server,All,spring \
     start.class=org.mortbay.jetty.spring.Main \
-    etc
-                    <span class="sy0">/</span>
-                    jetty-spring.xml
-                  </pre>
+    etc<span class="sy0">/</span>jetty-spring.xml</pre>
                 </div>
               </div>
               <p>

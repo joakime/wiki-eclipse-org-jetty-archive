@@ -16,7 +16,7 @@
               <span class="subpages">
                 &lt;
                 <a href="../../Jetty.html" title="Jetty">Jetty</a>
-                |
+                 |
                 <a href="../Howto.html" title="Jetty/Howto">Howto</a>
               </span>
             </div>
@@ -82,179 +82,25 @@
               <p>Here's an example of how to configure the SslSocketConnector with included cipher suites:</p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="xml source-xml">
-                  <pre class="de1">
-                    <span class="sc3">
-                      <span class="re1">&lt;Call</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"addConnector"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;New</span>
-                      <span class="re0">class</span>
-                      =
-                      <span class="st0">"org.mortbay.jetty.security.SslSocketConnector"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;Set</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"Port"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    8443
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Set
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;Set</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"maxIdleTime"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    30000
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Set
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    ...
-                    <span class="sc3">
-                      <span class="re1">&lt;Set</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"IncludeCipherSuites"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;Array</span>
-                      <span class="re0">type</span>
-                      =
-                      <span class="st0">"java.lang.String"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;Item
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    TLS_DHE_DSS_WITH_AES_128_CBC_SHA
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Item
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;Item
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    TLS_DHE_RSA_WITH_AES_128_CBC_SHA
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Item
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;Item
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    TLS_RSA_WITH_AES_128_CBC_SHA
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Item
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;Item
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    TLS_DHE_DSS_WITH_AES_256_CBC_SHA
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Item
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;Item
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    TLS_DHE_RSA_WITH_AES_256_CBC_SHA
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Item
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;Item
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    TLS_RSA_WITH_AES_256_CBC_SHA
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Item
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Array
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Set
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/New
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Call
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                  </pre>
+                  <pre class="de1" xml:space="preserve"><span class="sc3"><span class="re1">&lt;Call</span> <span class="re0">name</span>=<span class="st0">"addConnector"</span><span class="re2">&gt;</span></span>
+  <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">class</span>=<span class="st0">"org.mortbay.jetty.security.SslSocketConnector"</span><span class="re2">&gt;</span></span>
+      <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"Port"</span><span class="re2">&gt;</span></span>8443<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
+      <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"maxIdleTime"</span><span class="re2">&gt;</span></span>30000<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
+      ...
+      <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"IncludeCipherSuites"</span><span class="re2">&gt;</span></span>
+        <span class="sc3"><span class="re1">&lt;Array</span> <span class="re0">type</span>=<span class="st0">"java.lang.String"</span><span class="re2">&gt;</span></span>
+          <span class="sc3"><span class="re1">&lt;Item<span class="re2">&gt;</span></span></span>TLS_DHE_DSS_WITH_AES_128_CBC_SHA<span class="sc3"><span class="re1">&lt;/Item<span class="re2">&gt;</span></span></span>
+          <span class="sc3"><span class="re1">&lt;Item<span class="re2">&gt;</span></span></span>TLS_DHE_RSA_WITH_AES_128_CBC_SHA<span class="sc3"><span class="re1">&lt;/Item<span class="re2">&gt;</span></span></span>
+          <span class="sc3"><span class="re1">&lt;Item<span class="re2">&gt;</span></span></span>TLS_RSA_WITH_AES_128_CBC_SHA<span class="sc3"><span class="re1">&lt;/Item<span class="re2">&gt;</span></span></span>
+          <span class="sc3"><span class="re1">&lt;Item<span class="re2">&gt;</span></span></span>TLS_DHE_DSS_WITH_AES_256_CBC_SHA<span class="sc3"><span class="re1">&lt;/Item<span class="re2">&gt;</span></span></span>
+          <span class="sc3"><span class="re1">&lt;Item<span class="re2">&gt;</span></span></span>TLS_DHE_RSA_WITH_AES_256_CBC_SHA<span class="sc3"><span class="re1">&lt;/Item<span class="re2">&gt;</span></span></span>
+          <span class="sc3"><span class="re1">&lt;Item<span class="re2">&gt;</span></span></span>TLS_RSA_WITH_AES_256_CBC_SHA<span class="sc3"><span class="re1">&lt;/Item<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;/Array<span class="re2">&gt;</span></span></span>
+      <span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
+<span class="sc3"><span class="re1">&lt;/Call<span class="re2">&gt;</span></span></span></pre>
                 </div>
               </div>
               <p>
@@ -281,140 +127,22 @@
               </p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="xml source-xml">
-                  <pre class="de1">
-                    <span class="sc3">
-                      <span class="re1">&lt;Call</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"addConnector"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;New</span>
-                      <span class="re0">class</span>
-                      =
-                      <span class="st0">"org.mortbay.jetty.security.SslSocketConnector"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;Set</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"Port"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    8443
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Set
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;Set</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"maxIdleTime"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    30000
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Set
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    ...
-                    <span class="sc3">
-                      <span class="re1">&lt;Set</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"ExcludeCipherSuites"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;Array</span>
-                      <span class="re0">type</span>
-                      =
-                      <span class="st0">"java.lang.String"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;Item
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    SSL_RSA_WITH_3DES_EDE_CBC_SHA
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Item
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;Item
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    SSL_DHE_RSA_WITH_DES_CBC_SHA
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Item
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;Item
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    SSL_DHE_DSS_WITH_DES_CBC_SHA
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Item
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Array
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Set
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/New
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Call
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                  </pre>
+                  <pre class="de1" xml:space="preserve"><span class="sc3"><span class="re1">&lt;Call</span> <span class="re0">name</span>=<span class="st0">"addConnector"</span><span class="re2">&gt;</span></span>
+  <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">class</span>=<span class="st0">"org.mortbay.jetty.security.SslSocketConnector"</span><span class="re2">&gt;</span></span>
+      <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"Port"</span><span class="re2">&gt;</span></span>8443<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
+      <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"maxIdleTime"</span><span class="re2">&gt;</span></span>30000<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
+      ...
+      <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"ExcludeCipherSuites"</span><span class="re2">&gt;</span></span>
+        <span class="sc3"><span class="re1">&lt;Array</span> <span class="re0">type</span>=<span class="st0">"java.lang.String"</span><span class="re2">&gt;</span></span>
+          <span class="sc3"><span class="re1">&lt;Item<span class="re2">&gt;</span></span></span>SSL_RSA_WITH_3DES_EDE_CBC_SHA<span class="sc3"><span class="re1">&lt;/Item<span class="re2">&gt;</span></span></span>
+          <span class="sc3"><span class="re1">&lt;Item<span class="re2">&gt;</span></span></span>SSL_DHE_RSA_WITH_DES_CBC_SHA<span class="sc3"><span class="re1">&lt;/Item<span class="re2">&gt;</span></span></span>
+          <span class="sc3"><span class="re1">&lt;Item<span class="re2">&gt;</span></span></span>SSL_DHE_DSS_WITH_DES_CBC_SHA<span class="sc3"><span class="re1">&lt;/Item<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;/Array<span class="re2">&gt;</span></span></span>
+      <span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
+<span class="sc3"><span class="re1">&lt;/Call<span class="re2">&gt;</span></span></span></pre>
                 </div>
               </div>
             </div>

@@ -16,7 +16,7 @@
               <span class="subpages">
                 &lt;
                 <a href="../../Jetty.html" title="Jetty">Jetty</a>
-                |
+                 |
                 <a href="../Feature.html" title="Jetty/Feature">Feature</a>
               </span>
             </div>
@@ -95,12 +95,7 @@
               </p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="bash source-bash">
-                  <pre class="de1">
-                    java
-                    <span class="re5">-cp</span>
-                    <span class="re1">$JETTY_CLASSPATH</span>
-                    org.eclipse.jetty.embedded.SimplestServer
-                  </pre>
+                  <pre class="de1" xml:space="preserve">java <span class="re5">-cp</span> <span class="re1">$JETTY_CLASSPATH</span> org.eclipse.jetty.embedded.SimplestServer</pre>
                 </div>
               </div>
               <p>
@@ -112,14 +107,7 @@
               </p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="bash source-bash">
-                  <pre class="de1">
-                    java
-                    <span class="re5">-cp</span>
-                    <span class="re1">$JETTY_CLASSPATH</span>
-                    org.eclipse.jetty.xml.XmlConfiguration etc
-                    <span class="sy0">/</span>
-                    jetty.xml
-                  </pre>
+                  <pre class="de1" xml:space="preserve">java <span class="re5">-cp</span> <span class="re1">$JETTY_CLASSPATH</span> org.eclipse.jetty.xml.XmlConfiguration etc<span class="sy0">/</span>jetty.xml</pre>
                 </div>
               </div>
               <p>The difficult part of both these examples is knowing what must be on the JETTY_CLASSPATH.  The Jetty server comes in over 46 Jars, so working out exactly which Jars you need can be difficult. If you develop with Maven, these Jar dependencies can be managed for you, but you still need to set up a classpath when running from the command line.</p>
@@ -138,11 +126,7 @@
               </p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="bash source-bash">
-                  <pre class="de1">
-                    java
-                    <span class="re5">-jar</span>
-                    start.jar
-                  </pre>
+                  <pre class="de1" xml:space="preserve">java <span class="re5">-jar</span> start.jar</pre>
                 </div>
               </div>
               <p>
@@ -152,18 +136,13 @@
               </p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="bash source-bash">
-                  <pre class="de1">
-                    java
-                    <span class="re5">-jar</span>
-                    start.jar
-                    <span class="re5">--dry-run</span>
-                  </pre>
+                  <pre class="de1" xml:space="preserve">java <span class="re5">-jar</span> start.jar <span class="re5">--dry-run</span></pre>
                 </div>
               </div>
               <p>which for the default case generates:</p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="text source-text">
-                  <pre class="de1">/usr/lib/jvm/java-1.5.0-sun-1.5.0.19/jre/bin/java \
+                  <pre class="de1" xml:space="preserve">/usr/lib/jvm/java-1.5.0-sun-1.5.0.19/jre/bin/java \
 -Djetty.home=/home/gregw/src/jetty-7.0.0/jetty-distribution/target/distribution \
 -cp /home/gregw/src/jetty-7.0.0/jetty-distribution/target/distribution/resources:\
 /home/gregw/src/jetty-7.0.0/jetty-distribution/target/distribution/lib/jetty-xml-7.0.0.RC6-SNAPSHOT.jar:\
@@ -235,14 +214,16 @@ org.eclipse.jetty.xml.XmlConfiguration \
               </p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="text source-text">
-                  <pre class="de1">$(jetty.home)/lib/jetty-util-$(version).jar
+                  <pre class="de1" xml:space="preserve"> 
+$(jetty.home)/lib/jetty-util-$(version).jar
 $(jetty.home)/lib/jetty-io-$(version).jar</pre>
                 </div>
               </div>
               <p>If you don't specify any OPTIONS, the following entries are also added by default:</p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="text source-text">
-                  <pre class="de1">$(jetty.home)/resources/
+                  <pre class="de1" xml:space="preserve"> 
+$(jetty.home)/resources/
 $(jetty.home)/lib/jetty-xml-$(version).jar  
 $(jetty.home)/lib/servlet-api-2.5.jar    
 $(jetty.home)/lib/jetty-http-$(version).jar  
@@ -274,24 +255,13 @@ $(jetty.home)/lib/ext/*.jar</pre>
               </p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="bash source-bash">
-                  <pre class="de1">
-                    java
-                    <span class="re5">-jar</span>
-                    start.jar
-                    <span class="re2">OPTIONS</span>
-                    =Server,jmx,ajp,setuid
-                  </pre>
+                  <pre class="de1" xml:space="preserve">java <span class="re5">-jar</span> start.jar <span class="re2">OPTIONS</span>=Server,jmx,ajp,setuid</pre>
                 </div>
               </div>
               <p>To list the options available, use:</p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="bash source-bash">
-                  <pre class="de1">
-                    java
-                    <span class="re5">-jar</span>
-                    start.jar
-                    <span class="re5">--help</span>
-                  </pre>
+                  <pre class="de1" xml:space="preserve">java <span class="re5">-jar</span> start.jar <span class="re5">--help</span></pre>
                 </div>
               </div>
               <p>If you specify an option, the default Jars listed above are not added to the classpath.</p>
@@ -329,19 +299,7 @@ $(jetty.home)/lib/ext/*.jar</pre>
               </p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="bash source-bash">
-                  <pre class="de1">
-                    java
-                    <span class="re5">-jar</span>
-                    start.jar
-                    <span class="re2">OPTIONS</span>
-                    =Server,jmx,ajp etc
-                    <span class="sy0">/</span>
-                    jetty-jmx.xml etc
-                    <span class="sy0">/</span>
-                    jetty.xml etc
-                    <span class="sy0">/</span>
-                    jetty-ajp.xml
-                  </pre>
+                  <pre class="de1" xml:space="preserve">java <span class="re5">-jar</span> start.jar <span class="re2">OPTIONS</span>=Server,jmx,ajp etc<span class="sy0">/</span>jetty-jmx.xml etc<span class="sy0">/</span>jetty.xml etc<span class="sy0">/</span>jetty-ajp.xml</pre>
                 </div>
               </div>
               <p>
@@ -378,22 +336,13 @@ $(jetty.home)/lib/ext/*.jar</pre>
               </p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="bash source-bash">
-                  <pre class="de1">
-                    <span class="co0">#===========================================================</span>
-                    <span class="co0"># Jetty start.jar arguments</span>
-                    <span class="co0">#-----------------------------------------------------------</span>
-                    <span class="re2">OPTIONS</span>
-                    =Server,jmx,resources
-etc
-                    <span class="sy0">/</span>
-                    jetty-jmx.xml
-etc
-                    <span class="sy0">/</span>
-                    jetty.xml
-etc
-                    <span class="sy0">/</span>
-                    jetty-ssl.xml
-                  </pre>
+                  <pre class="de1" xml:space="preserve"><span class="co0">#===========================================================</span>
+<span class="co0"># Jetty start.jar arguments</span>
+<span class="co0">#-----------------------------------------------------------</span>
+<span class="re2">OPTIONS</span>=Server,jmx,resources
+etc<span class="sy0">/</span>jetty-jmx.xml
+etc<span class="sy0">/</span>jetty.xml
+etc<span class="sy0">/</span>jetty-ssl.xml</pre>
                 </div>
               </div>
               <p>
@@ -411,25 +360,16 @@ etc
               </p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="bash source-bash">
-                  <pre class="de1">
-                    <span class="co0">#===========================================================</span>
-                    <span class="co0"># Jetty start.jar arguments</span>
-                    <span class="co0">#-----------------------------------------------------------</span>
-                    <span class="re5">--exec</span>
-                    <span class="re5">-Xmx512m</span>
-                    -Dcom.sun.management.jmxremote
-                    <span class="re2">OPTIONS</span>
-                    =Server,jmx,resources
-etc
-                    <span class="sy0">/</span>
-                    jetty-jmx.xml
-etc
-                    <span class="sy0">/</span>
-                    jetty.xml
-etc
-                    <span class="sy0">/</span>
-                    jetty-ssl.xml
-                  </pre>
+                  <pre class="de1" xml:space="preserve"><span class="co0">#===========================================================</span>
+<span class="co0"># Jetty start.jar arguments</span>
+<span class="co0">#-----------------------------------------------------------</span>
+<span class="re5">--exec</span>
+<span class="re5">-Xmx512m</span>
+-Dcom.sun.management.jmxremote
+<span class="re2">OPTIONS</span>=Server,jmx,resources
+etc<span class="sy0">/</span>jetty-jmx.xml
+etc<span class="sy0">/</span>jetty.xml
+etc<span class="sy0">/</span>jetty-ssl.xml</pre>
                 </div>
               </div>
             </div>

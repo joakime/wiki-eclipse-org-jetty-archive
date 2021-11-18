@@ -16,7 +16,7 @@
               <span class="subpages">
                 &lt;
                 <a href="../../Jetty.html" title="Jetty">Jetty</a>
-                |
+                 |
                 <a href="../Reference.html" title="Jetty/Reference">Reference</a>
               </span>
             </div>
@@ -121,7 +121,7 @@
                 <span class="mw-headline" id="Maven_Dependency">Maven Dependency</span>
               </h3>
               <p>When working out dependencies, the Maven dependency:tree plugin is your friend.  For example, to find out the dependencies of the jetty-servlet module:</p>
-              <pre># mvn -f jetty-servlet/pom.xml dependency:tree
+              <pre xml:space="preserve"># mvn -f jetty-servlet/pom.xml dependency:tree
 [INFO] Scanning for projects...
 [INFO] Searching repository for plugin with prefix: 'dependency'.
 [INFO] ------------------------------------------------------------------------
@@ -137,7 +137,8 @@
 [INFO]       +- org.eclipse.jetty:jetty-continuation:jar:7.0.0.RC2-SNAPSHOT:compile
 [INFO]       \- org.eclipse.jetty:jetty-http:jar:7.0.0.RC2-SNAPSHOT:compile
 [INFO]          \- org.eclipse.jetty:jetty-io:jar:7.0.0.RC2-SNAPSHOT:compile
-[INFO]             \- org.eclipse.jetty:jetty-util:jar:7.0.0.RC2-SNAPSHOT:compile</pre>
+[INFO]             \- org.eclipse.jetty:jetty-util:jar:7.0.0.RC2-SNAPSHOT:compile
+</pre>
               <h3>
                 <span class="mw-headline" id="Types_of_Dependencies">Types of Dependencies</span>
               </h3>
@@ -163,7 +164,7 @@
                     </a>
                     so that it can be compiled against the API, but the servlet container is expected to provide the servlet API, so the servlet-api JAR is not included in the WEB-INF/lib of the assembled WAR file.
                   </dd>
-                  <dt>test</dt>
+                  <dt>test </dt>
                   <dd>Used for unit tests (note that some integration tests are in modules with test-foo names, and use normal compile dependencies to access common test resources).</dd>
                 </dl>
               </div>
@@ -253,23 +254,28 @@
                 file baked into the start.jar is for Jetty, but it could be modified for any application.
               </p>
               <p>The start.jar mechanism uses the options defined in the config file to define the JARs required to run. The default configuration, which supports the core Jetty server with web applications, but no JSPs, is run with:</p>
-              <pre>java -jar start.jar etc/myjetty.xml</pre>
+              <pre xml:space="preserve">   java -jar start.jar etc/myjetty.xml
+</pre>
               <p>If the core server jars are needed plus JSP and JMX, then specify these options, for example:</p>
-              <pre>java -jar start.jar OPTIONS=Server,jsp,jmx</pre>
+              <pre xml:space="preserve">   java -jar start.jar OPTIONS=Server,jsp,jmx
+</pre>
               <p>By convention, options starting with a capital letter refer to a set of Jetty modules, while those starting with lowercase refer to a specific module (e.g., "jsp" for jetty-jsp and its dependencies, "jmx" for jetty-jmx).</p>
               <p>You can view the available start parameters and options with:</p>
-              <pre>java -jar start.jar --help</pre>
+              <pre xml:space="preserve">   java -jar start.jar --help
+</pre>
               <p>
                 You can see details of the jars each OPTION provides
                 <a href="Start Options.html" title="Jetty/Reference/Start Options">here</a>
                 or listed with:
               </p>
-              <pre>java -jar start.jar --list-options</pre>
+              <pre xml:space="preserve">   java -jar start.jar --list-options
+</pre>
               <p>
                 <br />
                 In addition to OPTIONS, the default configuration start.jar allows the classpath to be expanded by setting options for "lib" (to a directory containing jars) or "path" to a specific classpath.  For example:
               </p>
-              <pre>java -jar start.jar lib=/usr/share/java path=$HOME/src/myproject/classes</pre>
+              <pre xml:space="preserve">   java -jar start.jar lib=/usr/share/java path=$HOME/src/myproject/classes
+</pre>
               <p>
                 <br />
               </p>
@@ -277,10 +283,11 @@
                 <span class="mw-headline" id="Classpath_Execution">Classpath Execution</span>
               </h2>
               <p>There is no requirement to start Jetty with the start.jar mechanism.   A normal shell or bat script can be used to assemble a classpath to run a Jetty server from a direct invocation of the java command.  Note that the start.jar mechanism has the --exec-print options to assist with creation of java command lines.  For example, executing:</p>
-              <pre>cd /usr/local/jetty-7
-   java -jar start.jar OPTIONS=server path=/usr/share/java/junit4.jar --dry-run</pre>
+              <pre xml:space="preserve">   cd /usr/local/jetty-7
+   java -jar start.jar OPTIONS=server path=/usr/share/java/junit4.jar --dry-run
+</pre>
               <p>produces the following command line on the stdout:</p>
-              <pre>/usr/lib/jvm/java-1.5.0-sun-1.5.0.19/jre/bin/java \
+              <pre xml:space="preserve">/usr/lib/jvm/java-1.5.0-sun-1.5.0.19/jre/bin/java \
 -cp /usr/share/java/junit4-4.3.1.jar:\
 /usr/local/jetty-7/lib/servlet-api-2.5.jar:\
 /usr/local/jetty-7/lib/jetty-http-7.0.0.RC2-SNAPSHOT.jar:\
@@ -290,7 +297,8 @@
 /usr/local/jetty-7/lib/jetty-io-7.0.0.RC2-SNAPSHOT.jar \
 -Djetty.home=/usr/local/jetty-7 \
 org.eclipse.jetty.xml.XmlConfiguration \
-/usr/local/jetty-7/etc/jetty.xml</pre>
+/usr/local/jetty-7/etc/jetty.xml
+</pre>
               <h2>
                 <span class="mw-headline" id="Aggregate_JARs">Aggregate JARs</span>
               </h2>

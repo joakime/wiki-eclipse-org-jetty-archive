@@ -16,7 +16,7 @@
               <span class="subpages">
                 &lt;
                 <a href="../../Jetty.html" title="Jetty">Jetty</a>
-                |
+                 |
                 <a href="../Tutorial.html" title="Jetty/Tutorial">Tutorial</a>
               </span>
             </div>
@@ -153,13 +153,8 @@
               </ol>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="bash source-bash">
-                  <pre class="de1">
-                    $
-                    <span class="kw3">cd</span>
-                    <span class="re1">$JETTY_HOME</span>
-                    $ mvn clean
-                    <span class="kw2">install</span>
-                  </pre>
+                  <pre class="de1" xml:space="preserve">$ <span class="kw3">cd</span> <span class="re1">$JETTY_HOME</span>
+$ mvn clean <span class="kw2">install</span></pre>
                 </div>
               </div>
               <ol>
@@ -171,23 +166,7 @@
               </ol>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="bash source-bash">
-                  <pre class="de1">
-                    <span class="co4">$</span>
-                    <span class="kw2">cp</span>
-                    contrib
-                    <span class="sy0">/</span>
-                    terracotta
-                    <span class="sy0">/</span>
-                    target
-                    <span class="sy0">/</span>
-                    jetty-terracotta-sessions-6.1.12.jar
-                    <span class="re1">$JETTY_HOME</span>
-                    <span class="sy0">&gt;/</span>
-                    lib
-                    <span class="sy0">/</span>
-                    ext
-                    <span class="sy0">/</span>
-                  </pre>
+                  <pre class="de1" xml:space="preserve"><span class="co4">$ </span><span class="kw2">cp</span> contrib<span class="sy0">/</span>terracotta<span class="sy0">/</span>target<span class="sy0">/</span>jetty-terracotta-sessions-6.1.12.jar <span class="re1">$JETTY_HOME</span><span class="sy0">&gt;/</span>lib<span class="sy0">/</span>ext<span class="sy0">/</span></pre>
                 </div>
               </div>
               <h3>
@@ -204,127 +183,22 @@
               </p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="xml source-xml">
-                  <pre class="de1">
-                    <span class="sc3">
-                      <span class="re1">&lt;Configure</span>
-                      <span class="re0">id</span>
-                      =
-                      <span class="st0">"Server"</span>
-                      <span class="re0">class</span>
-                      =
-                      <span class="st0">"org.mortbay.jetty.Server"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;New</span>
-                      <span class="re0">id</span>
-                      =
-                      <span class="st0">"tcIdManager"</span>
-                      <span class="re0">class</span>
-                      =
-                      <span class="st0">"org.mortbay.terracotta.servlet.TerracottaSessionIdManager"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;Ref</span>
-                      <span class="re0">id</span>
-                      =
-                      <span class="st0">"Server"</span>
-                      <span class="re2">/&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;Set</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"workerName"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;SystemProperty</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"jetty.node"</span>
-                      <span class="re0">default</span>
-                      =
-                      <span class="st0">"node1"</span>
-                      <span class="re2">/&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Set
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/New
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;Call</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"setAttribute"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    tcIdManager
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;Ref</span>
-                      <span class="re0">id</span>
-                      =
-                      <span class="st0">"tcIdManager"</span>
-                      <span class="re2">/&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Call
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Configure
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                  </pre>
+                  <pre class="de1" xml:space="preserve"> <span class="sc3"><span class="re1">&lt;Configure</span> <span class="re0">id</span>=<span class="st0">"Server"</span> <span class="re0">class</span>=<span class="st0">"org.mortbay.jetty.Server"</span><span class="re2">&gt;</span></span>
+     <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">id</span>=<span class="st0">"tcIdManager"</span> <span class="re0">class</span>=<span class="st0">"org.mortbay.terracotta.servlet.TerracottaSessionIdManager"</span><span class="re2">&gt;</span></span>
+         <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>
+             <span class="sc3"><span class="re1">&lt;Ref</span> <span class="re0">id</span>=<span class="st0">"Server"</span> <span class="re2">/&gt;</span></span>
+         <span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
+         <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"workerName"</span><span class="re2">&gt;</span></span>
+             <span class="sc3"><span class="re1">&lt;SystemProperty</span> <span class="re0">name</span>=<span class="st0">"jetty.node"</span> <span class="re0">default</span>=<span class="st0">"node1"</span> <span class="re2">/&gt;</span></span>
+         <span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
+     <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span>
+     <span class="sc3"><span class="re1">&lt;Call</span> <span class="re0">name</span>=<span class="st0">"setAttribute"</span><span class="re2">&gt;</span></span>
+         <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>tcIdManager<span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
+         <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>
+             <span class="sc3"><span class="re1">&lt;Ref</span> <span class="re0">id</span>=<span class="st0">"tcIdManager"</span> <span class="re2">/&gt;</span></span>
+         <span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
+     <span class="sc3"><span class="re1">&lt;/Call<span class="re2">&gt;</span></span></span>
+ <span class="sc3"><span class="re1">&lt;/Configure<span class="re2">&gt;</span></span></span></pre>
                 </div>
               </div>
               <p>
@@ -340,139 +214,26 @@
               <p>Each web application whose sessions you want to cluster must use a TerracottaSessionManager instead of the default HashSessionManager. The easiest way to do this is to create individual [/display/JETTY/ContextDeployer context deployer] config files for each web application, and include these lines:</p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="xml source-xml">
-                  <pre class="de1">
-                    <span class="sc3">
-                      <span class="re1">&lt;Configure</span>
-                      <span class="re0">class</span>
-                      =
-                      <span class="st0">"org.mortbay.jetty.webapp.WebAppContext"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    ...
-                    <span class="sc3">
-                      <span class="re1">&lt;Property</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"Server"</span>
-                      <span class="re0">id</span>
-                      =
-                      <span class="st0">"Server"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;Call</span>
-                      <span class="re0">id</span>
-                      =
-                      <span class="st0">"tcIdManager"</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"getAttribute"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    tcIdManager
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Call
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Property
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;Set</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"sessionHandler"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;New</span>
-                      <span class="re0">class</span>
-                      =
-                      <span class="st0">"org.mortbay.terracotta.servlet.TerracottaSessionHandler"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;New</span>
-                      <span class="re0">class</span>
-                      =
-                      <span class="st0">"org.mortbay.terracotta.servlet.TerracottaSessionManager"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;Set</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"idManager"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;Ref</span>
-                      <span class="re0">id</span>
-                      =
-                      <span class="st0">"tcIdManager"</span>
-                      <span class="re2">/&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Set
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/New
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/New
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Set
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    ...
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Configure
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                  </pre>
+                  <pre class="de1" xml:space="preserve"> <span class="sc3"><span class="re1">&lt;Configure</span> <span class="re0">class</span>=<span class="st0">"org.mortbay.jetty.webapp.WebAppContext"</span><span class="re2">&gt;</span></span>
+     ...
+     <span class="sc3"><span class="re1">&lt;Property</span> <span class="re0">name</span>=<span class="st0">"Server"</span> <span class="re0">id</span>=<span class="st0">"Server"</span><span class="re2">&gt;</span></span>
+         <span class="sc3"><span class="re1">&lt;Call</span> <span class="re0">id</span>=<span class="st0">"tcIdManager"</span> <span class="re0">name</span>=<span class="st0">"getAttribute"</span><span class="re2">&gt;</span></span>
+             <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>tcIdManager<span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
+         <span class="sc3"><span class="re1">&lt;/Call<span class="re2">&gt;</span></span></span>
+     <span class="sc3"><span class="re1">&lt;/Property<span class="re2">&gt;</span></span></span>
+     <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"sessionHandler"</span><span class="re2">&gt;</span></span>
+         <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">class</span>=<span class="st0">"org.mortbay.terracotta.servlet.TerracottaSessionHandler"</span><span class="re2">&gt;</span></span>
+             <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>
+                 <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">class</span>=<span class="st0">"org.mortbay.terracotta.servlet.TerracottaSessionManager"</span><span class="re2">&gt;</span></span>
+                     <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"idManager"</span><span class="re2">&gt;</span></span>
+                         <span class="sc3"><span class="re1">&lt;Ref</span> <span class="re0">id</span>=<span class="st0">"tcIdManager"</span> <span class="re2">/&gt;</span></span>
+                     <span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
+                 <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span>
+             <span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
+         <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span>
+     <span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
+     ...
+ <span class="sc3"><span class="re1">&lt;/Configure<span class="re2">&gt;</span></span></span></pre>
                 </div>
               </div>
               <p>These lines ensure that a TerracottaSessionManager is established for each web application, and has access to the Jetty instance's unique TerracottaSessionIdManager we configured above.</p>
@@ -486,200 +247,34 @@
               <p>The base Terracotta configuration file that sets up the Jetty-Terracotta integration is the following:</p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="xml source-xml">
-                  <pre class="de1">
-                    <span class="sc3">
-                      <span class="re1">&lt;?xml</span>
-                      <span class="re0">version</span>
-                      =
-                      <span class="st0">"1.0"</span>
-                      <span class="re0">encoding</span>
-                      =
-                      <span class="st0">"UTF-8"</span>
-                      <span class="re2">?&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;tc:tc-config</span>
-                      <span class="re0">xmlns:tc</span>
-                      =
-                      <span class="st0">"http://www.terracotta.org/config"</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re0">xmlns:xsi</span>
-                      =
-                      <span class="st0">"http://www.w3.org/2001/XMLSchema-instance"</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re0">xsi:schemaLocation</span>
-                      =
-                      <span class="st0">"http://www.terracotta.org/config http://www.terracotta.org/schema/terracotta-4.xsd"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;servers
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;server</span>
-                      <span class="re0">host</span>
-                      =
-                      <span class="st0">"localhost"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;data
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    %(user.dir)/terracotta/server-data
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/data
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;logs
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    %(user.dir)/terracotta/server-logs
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/logs
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/server
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/servers
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;clients
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;modules
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;module</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"tim-jetty-6.1"</span>
-                      <span class="re0">version</span>
-                      =
-                      <span class="st0">"1.0.1"</span>
-                      <span class="re2">/&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/modules
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;logs
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    %(user.dir)/terracotta/client-logs
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/logs
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/clients
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;application
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;dso
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;instrumented-classes
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;include
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;class-expression
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    ...
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/class-expression
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/include
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/instrumented-classes
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/dso
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/application
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/tc:tc-config
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                  </pre>
+                  <pre class="de1" xml:space="preserve"> <span class="sc3"><span class="re1">&lt;?xml</span> <span class="re0">version</span>=<span class="st0">"1.0"</span> <span class="re0">encoding</span>=<span class="st0">"UTF-8"</span><span class="re2">?&gt;</span></span>
+ <span class="sc3"><span class="re1">&lt;tc:tc-config</span> <span class="re0">xmlns:tc</span>=<span class="st0">"http://www.terracotta.org/config"</span></span>
+<span class="sc3">               <span class="re0">xmlns:xsi</span>=<span class="st0">"http://www.w3.org/2001/XMLSchema-instance"</span></span>
+<span class="sc3">               <span class="re0">xsi:schemaLocation</span>=<span class="st0">"http://www.terracotta.org/config http://www.terracotta.org/schema/terracotta-4.xsd"</span><span class="re2">&gt;</span></span>
+     <span class="sc3"><span class="re1">&lt;servers<span class="re2">&gt;</span></span></span>
+         <span class="sc3"><span class="re1">&lt;server</span> <span class="re0">host</span>=<span class="st0">"localhost"</span><span class="re2">&gt;</span></span>
+             <span class="sc3"><span class="re1">&lt;data<span class="re2">&gt;</span></span></span>%(user.dir)/terracotta/server-data<span class="sc3"><span class="re1">&lt;/data<span class="re2">&gt;</span></span></span>
+             <span class="sc3"><span class="re1">&lt;logs<span class="re2">&gt;</span></span></span>%(user.dir)/terracotta/server-logs<span class="sc3"><span class="re1">&lt;/logs<span class="re2">&gt;</span></span></span>
+         <span class="sc3"><span class="re1">&lt;/server<span class="re2">&gt;</span></span></span>
+     <span class="sc3"><span class="re1">&lt;/servers<span class="re2">&gt;</span></span></span>
+ 
+     <span class="sc3"><span class="re1">&lt;clients<span class="re2">&gt;</span></span></span>
+         <span class="sc3"><span class="re1">&lt;modules<span class="re2">&gt;</span></span></span>
+             <span class="sc3"><span class="re1">&lt;module</span> <span class="re0">name</span>=<span class="st0">"tim-jetty-6.1"</span> <span class="re0">version</span>=<span class="st0">"1.0.1"</span> <span class="re2">/&gt;</span></span>
+         <span class="sc3"><span class="re1">&lt;/modules<span class="re2">&gt;</span></span></span>
+         <span class="sc3"><span class="re1">&lt;logs<span class="re2">&gt;</span></span></span>%(user.dir)/terracotta/client-logs<span class="sc3"><span class="re1">&lt;/logs<span class="re2">&gt;</span></span></span>
+     <span class="sc3"><span class="re1">&lt;/clients<span class="re2">&gt;</span></span></span>
+ 
+     <span class="sc3"><span class="re1">&lt;application<span class="re2">&gt;</span></span></span>
+         <span class="sc3"><span class="re1">&lt;dso<span class="re2">&gt;</span></span></span>
+             <span class="sc3"><span class="re1">&lt;instrumented-classes<span class="re2">&gt;</span></span></span>
+                 <span class="sc3"><span class="re1">&lt;include<span class="re2">&gt;</span></span></span>
+                     <span class="sc3"><span class="re1">&lt;class-expression<span class="re2">&gt;</span></span></span>...<span class="sc3"><span class="re1">&lt;/class-expression<span class="re2">&gt;</span></span></span>
+                 <span class="sc3"><span class="re1">&lt;/include<span class="re2">&gt;</span></span></span>
+             <span class="sc3"><span class="re1">&lt;/instrumented-classes<span class="re2">&gt;</span></span></span>
+         <span class="sc3"><span class="re1">&lt;/dso<span class="re2">&gt;</span></span></span>
+     <span class="sc3"><span class="re1">&lt;/application<span class="re2">&gt;</span></span></span>
+ <span class="sc3"><span class="re1">&lt;/tc:tc-config<span class="re2">&gt;</span></span></span></pre>
                 </div>
               </div>
               <p>
@@ -713,82 +308,19 @@
               </p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="xml source-xml">
-                  <pre class="de1">
-                    <span class="sc3">
-                      <span class="re1">&lt;tc:tc-config</span>
-                      ...
-                      <span class="re2">&gt;</span>
-                    </span>
-                    ...
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;application
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;dso
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;instrumented-classes
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;include
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;class-expression
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    com.acme.domain.User
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/class-expression
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/include
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/instrumented-classes
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/dso
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/application
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    ...
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/tc:tc-config
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                  </pre>
+                  <pre class="de1" xml:space="preserve">  <span class="sc3"><span class="re1">&lt;tc:tc-config</span> ...<span class="re2">&gt;</span></span>
+     ...
+     <span class="sc3"><span class="re1">&lt;application<span class="re2">&gt;</span></span></span>
+         <span class="sc3"><span class="re1">&lt;dso<span class="re2">&gt;</span></span></span>
+             <span class="sc3"><span class="re1">&lt;instrumented-classes<span class="re2">&gt;</span></span></span>
+                 <span class="sc3"><span class="re1">&lt;include<span class="re2">&gt;</span></span></span>
+                     <span class="sc3"><span class="re1">&lt;class-expression<span class="re2">&gt;</span></span></span>com.acme.domain.User<span class="sc3"><span class="re1">&lt;/class-expression<span class="re2">&gt;</span></span></span>
+                 <span class="sc3"><span class="re1">&lt;/include<span class="re2">&gt;</span></span></span>
+             <span class="sc3"><span class="re1">&lt;/instrumented-classes<span class="re2">&gt;</span></span></span>
+         <span class="sc3"><span class="re1">&lt;/dso<span class="re2">&gt;</span></span></span>
+     <span class="sc3"><span class="re1">&lt;/application<span class="re2">&gt;</span></span></span>
+     ...
+  <span class="sc3"><span class="re1">&lt;/tc:tc-config<span class="re2">&gt;</span></span></span></pre>
                 </div>
               </div>
               <p>
@@ -813,17 +345,8 @@
               </ol>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="bash source-bash">
-                  <pre class="de1">
-                    $
-                    <span class="kw3">cd</span>
-                    <span class="re1">$TC_HOME</span>
-                    <span class="sy0">/</span>
-                    bin
-                    <span class="sy0">/</span>
-                    $ .
-                    <span class="sy0">/</span>
-                    start-tc-server.sh
-                  </pre>
+                  <pre class="de1" xml:space="preserve">$ <span class="kw3">cd</span> <span class="re1">$TC_HOME</span><span class="sy0">/</span>bin<span class="sy0">/</span>
+$ .<span class="sy0">/</span>start-tc-server.sh</pre>
                 </div>
               </div>
               <ol>
@@ -831,24 +354,8 @@
               </ol>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="bash source-bash">
-                  <pre class="de1">
-                    $
-                    <span class="kw3">cd</span>
-                    <span class="re1">$JETTY_HOME</span>
-                    <span class="sy0">/</span>
-                    $
-                    <span class="re1">$TC_HOME</span>
-                    <span class="sy0">/</span>
-                    bin
-                    <span class="sy0">/</span>
-                    dso-java.sh -Dtc.config=tc-config.xml
-                    <span class="re5">-jar</span>
-                    start.jar etc
-                    <span class="sy0">/</span>
-                    jetty.xml etc
-                    <span class="sy0">/</span>
-                    jetty-terracotta.xml
-                  </pre>
+                  <pre class="de1" xml:space="preserve">$ <span class="kw3">cd</span> <span class="re1">$JETTY_HOME</span><span class="sy0">/</span>
+$ <span class="re1">$TC_HOME</span><span class="sy0">/</span>bin<span class="sy0">/</span>dso-java.sh -Dtc.config=tc-config.xml <span class="re5">-jar</span> start.jar etc<span class="sy0">/</span>jetty.xml etc<span class="sy0">/</span>jetty-terracotta.xml</pre>
                 </div>
               </div>
               <p>
@@ -868,16 +375,8 @@
               <p>You can inspect that the clustering is working by starting the Terracotta administration console:</p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="bash source-bash">
-                  <pre class="de1">
-                    $
-                    <span class="kw3">cd</span>
-                    <span class="re1">$TC_HOME</span>
-                    <span class="sy0">/</span>
-                    bin
-$ .
-                    <span class="sy0">/</span>
-                    admin.sh
-                  </pre>
+                  <pre class="de1" xml:space="preserve">$ <span class="kw3">cd</span> <span class="re1">$TC_HOME</span><span class="sy0">/</span>bin
+$ .<span class="sy0">/</span>admin.sh</pre>
                 </div>
               </div>
             </div>

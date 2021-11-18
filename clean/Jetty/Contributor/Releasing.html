@@ -16,7 +16,7 @@
               <span class="subpages">
                 &lt;
                 <a href="../../Jetty.html" title="Jetty">Jetty</a>
-                |
+                 |
                 <a href="../Contributor.html" title="Jetty/Contributor">Contributor</a>
               </span>
             </div>
@@ -113,9 +113,8 @@
               <h2>
                 <span class="mw-headline" id="Releasing_Artifacts">Releasing Artifacts</span>
               </h2>
-              <pre>
-                <a class="mw-redirect" href="https://wiki.eclipse.org/Jetty/Release_Process" title="Jetty/Release Process">Step by Step Release Process</a>
-              </pre>
+              <pre xml:space="preserve"><a class="mw-redirect" href="https://wiki.eclipse.org/Jetty/Release_Process" title="Jetty/Release Process">Step by Step Release Process</a> 
+</pre>
               <p>
                 <br />
                 The released artifacts will be staged to oss.sonatype.org where they await promotion when they will be released to the maven central repository.  More on this later.
@@ -131,9 +130,10 @@
                 file.  You'll need to have access to the dev.eclipse.org machine to perform these actions.  If you don't know if you have access to this then you probably don't and will need to ask a project leader for help.
               </p>
               <p>To build and deploy the aggregate javadoc and jxr bits:</p>
-              <pre>cd target/checkout
+              <pre xml:space="preserve">cd target/checkout
 mvn -Paggregate-site javadoc:aggregate jxr:jxr
-mvn -N site:deploy</pre>
+mvn -N site:deploy
+</pre>
               <p>
                 This will generate the aggregate docs and deploy them to the
                 <i>/home/www/jetty/&lt;project version&gt;/jetty-project</i>
@@ -141,11 +141,12 @@ mvn -N site:deploy</pre>
                 <i>download.eclipse.org</i>
                 .  The last step is to ssh to that machine and adjust the placement of the apidocs and xref directories to remove the jetty-project folder from the url so that we maintain a clean and consistent api url scheme.
               </p>
-              <pre>ssh $COMMITTER_ID@dev.eclipse.org
+              <pre xml:space="preserve">ssh $COMMITTER_ID@dev.eclipse.org
 cd /home/data/httpd/download.eclipse.org/jetty/&lt;VERSION&gt;
 mv jetty-project/apidocs .
 mv jetty-project/xref .
-rmdir jetty-project</pre>
+rmdir jetty-project
+</pre>
               <p>
                 End result should be api documents accessible from
                 <i>http://download.eclipse.org/jetty/&lt;project version&gt;/api-docs</i>
@@ -162,16 +163,13 @@ rmdir jetty-project</pre>
                   into a directory called 'dist':
                 </li>
               </ul>
-              <pre>
-                mkdir /tmp/dist
+              <pre xml:space="preserve">   mkdir /tmp/dist
    cd /tmp/dist
-   wget -nd -nH -r -l1
-                <a class="external free" href="https://oss.sonatype.org/content/groups/jetty-with-staging/org/eclipse/jetty/jetty-distribution/" rel="nofollow">https://oss.sonatype.org/content/groups/jetty-with-staging/org/eclipse/jetty/jetty-distribution/</a>
-                &lt;VERSION&gt;
+   wget -nd -nH -r -l1 <a class="external free" href="https://oss.sonatype.org/content/groups/jetty-with-staging/org/eclipse/jetty/jetty-distribution/" rel="nofollow">https://oss.sonatype.org/content/groups/jetty-with-staging/org/eclipse/jetty/jetty-distribution/</a>&lt;VERSION&gt;
    rm Sonatype-content.css* index.html
    cd ..
    scp -r dist &lt;user&gt;@dev.eclipse.org:/home/data/httpd/download.eclipse.org/jetty&lt;VERSION&gt;
-              </pre>
+</pre>
               <ul>
                 <li />
                 <li>update website links</li>
@@ -184,7 +182,7 @@ rmdir jetty-project</pre>
                 <span class="mw-headline" id="DO_SOME_MANUAL_TESTING">DO SOME MANUAL TESTING</span>
               </h2>
               <p>Test jetty, hightide and the plugin.  A good test line to run is:</p>
-              <pre>java -Dcom.sun.management.jmxremote -jar start.jar \
+              <pre xml:space="preserve"> java -Dcom.sun.management.jmxremote -jar start.jar \
  OPTIONS=ajp,rewrite \
  --pre=etc/jetty-jmx.xml \
  --pre=etc/jetty-logging.xml \
@@ -195,16 +193,18 @@ rmdir jetty-project</pre>
  etc/jetty-ipaccess.xml \
  etc/jetty-rewrite.xml \
  etc/jetty-ssl.xml \
- etc/jetty-stats.xml</pre>
+ etc/jetty-stats.xml
+</pre>
               <h2>
                 <span class="mw-headline" id="Updating_the_stable_links">Updating the stable links</span>
               </h2>
               <p>Since we are not allowed to have symbolic links on the download site we have to log into the machine manually and remove the previous stable directory and 'cp -r &lt;full_version&gt; stable-&lt;major_version&gt;' to get it updated.  Maintaining the conventions we use on the site will allow all 'stable' links to be stable and not needed to update to the latest major Jetty build version. For example, to update 9.0.0.M5 as the stable version for the 9 series do:</p>
-              <pre>ssh &lt;user&gt;@build.eclipse.org
+              <pre xml:space="preserve">ssh &lt;user&gt;@build.eclipse.org
 cd downloads
 rm -fr stable-9
 cp -r 9.0.0.M5 stable-9
-./index.sh</pre>
+./index.sh
+</pre>
               <p>
                 <br />
               </p>
@@ -218,17 +218,17 @@ cp -r 9.0.0.M5 stable-9
               </p>
               <div class="narrow-list">
                 <dl>
-                  <dt>Host</dt>
+                  <dt>Host </dt>
                   <dd>dev.eclipse.org</dd>
-                  <dt>Repository Path</dt>
+                  <dt>Repository Path </dt>
                   <dd>/cvsroot/org.eclipse</dd>
-                  <dt>User</dt>
+                  <dt>User </dt>
                   <dd>(committer username)</dd>
-                  <dt>Password</dt>
+                  <dt>Password </dt>
                   <dd>(committer password)</dd>
-                  <dt>Connection Type</dt>
+                  <dt>Connection Type </dt>
                   <dd>extssh</dd>
-                  <dt>Module</dt>
+                  <dt>Module </dt>
                   <dd>www/jetty</dd>
                 </dl>
               </div>
@@ -248,17 +248,17 @@ cp -r 9.0.0.M5 stable-9
               <p>If you want to be able to preview your changes locally, you need to have Apache running, and check out an additional module, eclipse.org-common:</p>
               <div class="narrow-list">
                 <dl>
-                  <dt>Host</dt>
+                  <dt>Host </dt>
                   <dd>dev.eclipse.org</dd>
-                  <dt>Repository Path</dt>
+                  <dt>Repository Path </dt>
                   <dd>/cvsroot/technology</dd>
-                  <dt>User</dt>
+                  <dt>User </dt>
                   <dd>anonymous</dd>
-                  <dt>Password</dt>
+                  <dt>Password </dt>
                   <dd>(leave blank)</dd>
-                  <dt>Connection Type</dt>
+                  <dt>Connection Type </dt>
                   <dd>pserver</dd>
-                  <dt>Module</dt>
+                  <dt>Module </dt>
                   <dd>org.eclipse.phoenix/eclipse.org-common</dd>
                 </dl>
               </div>

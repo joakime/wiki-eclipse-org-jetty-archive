@@ -16,7 +16,7 @@
               <span class="subpages">
                 &lt;
                 <a href="../../Jetty.html" title="Jetty">Jetty</a>
-                |
+                 |
                 <a href="../Tutorial.html" title="Jetty/Tutorial">Tutorial</a>
               </span>
             </div>
@@ -137,23 +137,9 @@
               <p>Maven uses convention over configuration, so it is best to use the project structure as Maven recommends. You can use Archetypes to quickly setup Maven projects, but for this tutorial, we will set up the structure manually:</p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="bash source-bash">
-                  <pre class="de1">
-                    <span class="kw2">mkdir</span>
-                    JettyMavenHelloWorld
-                    <span class="kw3">cd</span>
-                    JettyMavenHelloWorld
-                    <span class="kw2">mkdir</span>
-                    <span class="re5">-p</span>
-                    src
-                    <span class="sy0">/</span>
-                    main
-                    <span class="sy0">/</span>
-                    java
-                    <span class="sy0">/</span>
-                    org
-                    <span class="sy0">/</span>
-                    example
-                  </pre>
+                  <pre class="de1" xml:space="preserve"><span class="kw2">mkdir</span> JettyMavenHelloWorld
+<span class="kw3">cd</span> JettyMavenHelloWorld
+<span class="kw2">mkdir</span> <span class="re5">-p</span> src<span class="sy0">/</span>main<span class="sy0">/</span>java<span class="sy0">/</span>org<span class="sy0">/</span>example</pre>
                 </div>
               </div>
               <h3>
@@ -166,125 +152,38 @@
               </p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="java source-java">
-                  <pre class="de1">
-                    <span class="kw1">package</span>
-                    <span class="co2">org.example</span>
-                    <span class="sy0">;</span>
-                    <span class="kw1">import</span>
-                    <span class="co2">javax.servlet.http.HttpServletRequest</span>
-                    <span class="sy0">;</span>
-                    <span class="kw1">import</span>
-                    <span class="co2">javax.servlet.http.HttpServletResponse</span>
-                    <span class="sy0">;</span>
-                    <span class="kw1">import</span>
-                    <span class="co2">javax.servlet.ServletException</span>
-                    <span class="sy0">;</span>
-                    <span class="kw1">import</span>
-                    <span class="co2">java.io.IOException</span>
-                    <span class="sy0">;</span>
-                    <span class="kw1">import</span>
-                    <span class="co2">org.eclipse.jetty.server.Server</span>
-                    <span class="sy0">;</span>
-                    <span class="kw1">import</span>
-                    <span class="co2">org.eclipse.jetty.server.Request</span>
-                    <span class="sy0">;</span>
-                    <span class="kw1">import</span>
-                    <span class="co2">org.eclipse.jetty.server.handler.AbstractHandler</span>
-                    <span class="sy0">;</span>
-                    <span class="kw1">public</span>
-                    <span class="kw1">class</span>
-                    HelloWorld
-                    <span class="kw1">extends</span>
-                    AbstractHandler
-                    <span class="br0">{</span>
-                    <span class="kw1">public</span>
-                    <span class="kw4">void</span>
-                    handle
-                    <span class="br0">(</span>
-                    <span class="kw3">String</span>
-                    target,
-                    <span class="kw3">Request</span>
-                    baseRequest,
+                  <pre class="de1" xml:space="preserve"><span class="kw1">package</span> <span class="co2">org.example</span><span class="sy0">;</span>
+<span class="kw1">import</span> <span class="co2">javax.servlet.http.HttpServletRequest</span><span class="sy0">;</span>
+<span class="kw1">import</span> <span class="co2">javax.servlet.http.HttpServletResponse</span><span class="sy0">;</span>
+<span class="kw1">import</span> <span class="co2">javax.servlet.ServletException</span><span class="sy0">;</span>
+<span class="kw1">import</span> <span class="co2">java.io.IOException</span><span class="sy0">;</span>
+<span class="kw1">import</span> <span class="co2">org.eclipse.jetty.server.Server</span><span class="sy0">;</span>
+<span class="kw1">import</span> <span class="co2">org.eclipse.jetty.server.Request</span><span class="sy0">;</span>
+<span class="kw1">import</span> <span class="co2">org.eclipse.jetty.server.handler.AbstractHandler</span><span class="sy0">;</span>
+ 
+<span class="kw1">public</span> <span class="kw1">class</span> HelloWorld <span class="kw1">extends</span> AbstractHandler
+<span class="br0">{</span>
+    <span class="kw1">public</span> <span class="kw4">void</span> handle<span class="br0">(</span><span class="kw3">String</span> target,
+                       <span class="kw3">Request</span> baseRequest,
                        HttpServletRequest request,
-                       HttpServletResponse response
-                    <span class="br0">)</span>
-                    <span class="kw1">throws</span>
-                    <span class="kw3">IOException</span>
-                    , ServletException
-                    <span class="br0">{</span>
-                    response.
-                    <span class="me1">setContentType</span>
-                    <span class="br0">(</span>
-                    <span class="st0">"text/html;charset=utf-8"</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    response.
-                    <span class="me1">setStatus</span>
-                    <span class="br0">(</span>
-                    HttpServletResponse.
-                    <span class="me1">SC_OK</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    baseRequest.
-                    <span class="me1">setHandled</span>
-                    <span class="br0">(</span>
-                    <span class="kw2">true</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    response.
-                    <span class="me1">getWriter</span>
-                    <span class="br0">(</span>
-                    <span class="br0">)</span>
-                    .
-                    <span class="me1">println</span>
-                    <span class="br0">(</span>
-                    <span class="st0">"&lt;h1&gt;Hello World&lt;/h1&gt;"</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    <span class="br0">}</span>
-                    <span class="kw1">public</span>
-                    <span class="kw1">static</span>
-                    <span class="kw4">void</span>
-                    main
-                    <span class="br0">(</span>
-                    <span class="kw3">String</span>
-                    <span class="br0">[</span>
-                    <span class="br0">]</span>
-                    args
-                    <span class="br0">)</span>
-                    <span class="kw1">throws</span>
-                    <span class="kw3">Exception</span>
-                    <span class="br0">{</span>
-                    Server server
-                    <span class="sy0">=</span>
-                    <span class="kw1">new</span>
-                    Server
-                    <span class="br0">(</span>
-                    <span class="nu0">8080</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    server.
-                    <span class="me1">setHandler</span>
-                    <span class="br0">(</span>
-                    <span class="kw1">new</span>
-                    HelloWorld
-                    <span class="br0">(</span>
-                    <span class="br0">)</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    server.
-                    <span class="me1">start</span>
-                    <span class="br0">(</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    server.
-                    <span class="me1">join</span>
-                    <span class="br0">(</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    <span class="br0">}</span>
-                    <span class="br0">}</span>
-                  </pre>
+                       HttpServletResponse response<span class="br0">)</span> 
+        <span class="kw1">throws</span> <span class="kw3">IOException</span>, ServletException
+    <span class="br0">{</span>
+        response.<span class="me1">setContentType</span><span class="br0">(</span><span class="st0">"text/html;charset=utf-8"</span><span class="br0">)</span><span class="sy0">;</span>
+        response.<span class="me1">setStatus</span><span class="br0">(</span>HttpServletResponse.<span class="me1">SC_OK</span><span class="br0">)</span><span class="sy0">;</span>
+        baseRequest.<span class="me1">setHandled</span><span class="br0">(</span><span class="kw2">true</span><span class="br0">)</span><span class="sy0">;</span>
+        response.<span class="me1">getWriter</span><span class="br0">(</span><span class="br0">)</span>.<span class="me1">println</span><span class="br0">(</span><span class="st0">"&lt;h1&gt;Hello World&lt;/h1&gt;"</span><span class="br0">)</span><span class="sy0">;</span>
+    <span class="br0">}</span>
+ 
+    <span class="kw1">public</span> <span class="kw1">static</span> <span class="kw4">void</span> main<span class="br0">(</span><span class="kw3">String</span><span class="br0">[</span><span class="br0">]</span> args<span class="br0">)</span> <span class="kw1">throws</span> <span class="kw3">Exception</span>
+    <span class="br0">{</span>
+        Server server <span class="sy0">=</span> <span class="kw1">new</span> Server<span class="br0">(</span><span class="nu0">8080</span><span class="br0">)</span><span class="sy0">;</span>
+        server.<span class="me1">setHandler</span><span class="br0">(</span><span class="kw1">new</span> HelloWorld<span class="br0">(</span><span class="br0">)</span><span class="br0">)</span><span class="sy0">;</span>
+ 
+        server.<span class="me1">start</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
+        server.<span class="me1">join</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
+    <span class="br0">}</span>
+<span class="br0">}</span></pre>
                 </div>
               </div>
               <h3>
@@ -299,390 +198,51 @@
               </p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="xml source-xml">
-                  <pre class="de1">
-                    <span class="sc3">
-                      <span class="re1">&lt;project</span>
-                      <span class="re0">xmlns</span>
-                      =
-                      <span class="st0">"http://maven.apache.org/POM/4.0.0"</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re0">xmlns:xsi</span>
-                      =
-                      <span class="st0">"http://www.w3.org/2001/XMLSchema-instance"</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re0">xsi:schemaLocation</span>
-                      =
-                      <span class="st0">"http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;modelVersion
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    4.0.0
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/modelVersion
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;groupId
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    org.example
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/groupId
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;artifactId
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    hello-world
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/artifactId
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;version
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    0.1-SNAPSHOT
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/version
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;packaging
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    jar
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/packaging
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;name
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    Jetty HelloWorld
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/name
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;properties
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;jettyVersion
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    7.2.0.v20101020
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/jettyVersion
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/properties
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;dependencies
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;dependency
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;groupId
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    org.eclipse.jetty
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/groupId
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;artifactId
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    jetty-server
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/artifactId
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;version
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    ${jettyVersion}
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/version
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/dependency
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/dependencies
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;build
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;plugins
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;plugin
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc-1">&lt;!-- This plugin is needed for the servlet example --&gt;</span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;groupId
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    org.mortbay.jetty
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/groupId
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;artifactId
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    jetty-maven-plugin
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/artifactId
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;version
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    ${jettyVersion}
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/version
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/plugin
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;plugin
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;groupId
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    org.codehaus.mojo
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/groupId
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;artifactId
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    exec-maven-plugin
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/artifactId
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;version
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    1.1
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/version
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;executions
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;execution
-                        <span class="re2">&gt;</span>
-                      </span>
-                      <span class="re1">
-                        &lt;goals
-                        <span class="re2">&gt;</span>
-                      </span>
-                      <span class="re1">
-                        &lt;goal
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    java
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/goal
-                        <span class="re2">&gt;</span>
-                      </span>
-                      <span class="re1">
-                        &lt;/goals
-                        <span class="re2">&gt;</span>
-                      </span>
-                      <span class="re1">
-                        &lt;/execution
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/executions
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;configuration
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;mainClass
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    org.example.HelloWorld
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/mainClass
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/configuration
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/plugin
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/plugins
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/build
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/project
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                  </pre>
+                  <pre class="de1" xml:space="preserve"><span class="sc3"><span class="re1">&lt;project</span> <span class="re0">xmlns</span>=<span class="st0">"http://maven.apache.org/POM/4.0.0"</span> </span>
+<span class="sc3">         <span class="re0">xmlns:xsi</span>=<span class="st0">"http://www.w3.org/2001/XMLSchema-instance"</span> </span>
+<span class="sc3">	 <span class="re0">xsi:schemaLocation</span>=<span class="st0">"http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd"</span><span class="re2">&gt;</span></span>
+ 
+  <span class="sc3"><span class="re1">&lt;modelVersion<span class="re2">&gt;</span></span></span>4.0.0<span class="sc3"><span class="re1">&lt;/modelVersion<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;groupId<span class="re2">&gt;</span></span></span>org.example<span class="sc3"><span class="re1">&lt;/groupId<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;artifactId<span class="re2">&gt;</span></span></span>hello-world<span class="sc3"><span class="re1">&lt;/artifactId<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;version<span class="re2">&gt;</span></span></span>0.1-SNAPSHOT<span class="sc3"><span class="re1">&lt;/version<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;packaging<span class="re2">&gt;</span></span></span>jar<span class="sc3"><span class="re1">&lt;/packaging<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;name<span class="re2">&gt;</span></span></span>Jetty HelloWorld<span class="sc3"><span class="re1">&lt;/name<span class="re2">&gt;</span></span></span>
+ 
+  <span class="sc3"><span class="re1">&lt;properties<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;jettyVersion<span class="re2">&gt;</span></span></span>7.2.0.v20101020<span class="sc3"><span class="re1">&lt;/jettyVersion<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;/properties<span class="re2">&gt;</span></span></span>
+ 
+  <span class="sc3"><span class="re1">&lt;dependencies<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;dependency<span class="re2">&gt;</span></span></span>
+      <span class="sc3"><span class="re1">&lt;groupId<span class="re2">&gt;</span></span></span>org.eclipse.jetty<span class="sc3"><span class="re1">&lt;/groupId<span class="re2">&gt;</span></span></span>
+      <span class="sc3"><span class="re1">&lt;artifactId<span class="re2">&gt;</span></span></span>jetty-server<span class="sc3"><span class="re1">&lt;/artifactId<span class="re2">&gt;</span></span></span>
+      <span class="sc3"><span class="re1">&lt;version<span class="re2">&gt;</span></span></span>${jettyVersion}<span class="sc3"><span class="re1">&lt;/version<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;/dependency<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;/dependencies<span class="re2">&gt;</span></span></span>
+ 
+  <span class="sc3"><span class="re1">&lt;build<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;plugins<span class="re2">&gt;</span></span></span>
+      <span class="sc3"><span class="re1">&lt;plugin<span class="re2">&gt;</span></span></span>
+        <span class="sc-1">&lt;!-- This plugin is needed for the servlet example --&gt;</span>
+        <span class="sc3"><span class="re1">&lt;groupId<span class="re2">&gt;</span></span></span>org.mortbay.jetty<span class="sc3"><span class="re1">&lt;/groupId<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;artifactId<span class="re2">&gt;</span></span></span>jetty-maven-plugin<span class="sc3"><span class="re1">&lt;/artifactId<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;version<span class="re2">&gt;</span></span></span>${jettyVersion}<span class="sc3"><span class="re1">&lt;/version<span class="re2">&gt;</span></span></span>
+      <span class="sc3"><span class="re1">&lt;/plugin<span class="re2">&gt;</span></span></span>
+      <span class="sc3"><span class="re1">&lt;plugin<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;groupId<span class="re2">&gt;</span></span></span>org.codehaus.mojo<span class="sc3"><span class="re1">&lt;/groupId<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;artifactId<span class="re2">&gt;</span></span></span>exec-maven-plugin<span class="sc3"><span class="re1">&lt;/artifactId<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;version<span class="re2">&gt;</span></span></span>1.1<span class="sc3"><span class="re1">&lt;/version<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;executions<span class="re2">&gt;</span></span></span>
+          <span class="sc3"><span class="re1">&lt;execution<span class="re2">&gt;</span></span><span class="re1">&lt;goals<span class="re2">&gt;</span></span><span class="re1">&lt;goal<span class="re2">&gt;</span></span></span>java<span class="sc3"><span class="re1">&lt;/goal<span class="re2">&gt;</span></span><span class="re1">&lt;/goals<span class="re2">&gt;</span></span><span class="re1">&lt;/execution<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;/executions<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;configuration<span class="re2">&gt;</span></span></span>
+          <span class="sc3"><span class="re1">&lt;mainClass<span class="re2">&gt;</span></span></span>org.example.HelloWorld<span class="sc3"><span class="re1">&lt;/mainClass<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;/configuration<span class="re2">&gt;</span></span></span>
+      <span class="sc3"><span class="re1">&lt;/plugin<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;/plugins<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;/build<span class="re2">&gt;</span></span></span>
+<span class="sc3"><span class="re1">&lt;/project<span class="re2">&gt;</span></span></span></pre>
                 </div>
               </div>
               <h3>
@@ -691,7 +251,7 @@
               <p>You can now compile and execute the HelloWorld class by using these commands:</p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="bash source-bash">
-                  <pre class="de1">mvn clean compile exec:java</pre>
+                  <pre class="de1" xml:space="preserve">mvn clean compile exec:java</pre>
                 </div>
               </div>
               <p>
@@ -701,7 +261,7 @@
               </p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="text source-text">
-                  <pre class="de1">&gt; mvn dependency:tree
+                  <pre class="de1" xml:space="preserve">&gt; mvn dependency:tree
 [INFO] Scanning for projects...
 [INFO] Searching repository for plugin with prefix: 'dependency'.
 [INFO] ------------------------------------------------------------------------
@@ -734,32 +294,10 @@
               <p>The example above shows how to run a hello world example as an embedded Jetty handler. The following example shows how to develop a standard webapp with Maven and Jetty.  First create the Maven structure:</p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="bash source-bash">
-                  <pre class="de1">
-                    <span class="kw2">mkdir</span>
-                    JettyMavenHelloWarApp
-                    <span class="kw3">cd</span>
-                    JettyMavenHelloWarApp
-                    <span class="kw2">mkdir</span>
-                    <span class="re5">-p</span>
-                    src
-                    <span class="sy0">/</span>
-                    main
-                    <span class="sy0">/</span>
-                    java
-                    <span class="sy0">/</span>
-                    org
-                    <span class="sy0">/</span>
-                    example
-                    <span class="kw2">mkdir</span>
-                    <span class="re5">-p</span>
-                    src
-                    <span class="sy0">/</span>
-                    main
-                    <span class="sy0">/</span>
-                    webapp
-                    <span class="sy0">/</span>
-                    WEB-INF
-                  </pre>
+                  <pre class="de1" xml:space="preserve"><span class="kw2">mkdir</span> JettyMavenHelloWarApp
+<span class="kw3">cd</span> JettyMavenHelloWarApp
+<span class="kw2">mkdir</span> <span class="re5">-p</span> src<span class="sy0">/</span>main<span class="sy0">/</span>java<span class="sy0">/</span>org<span class="sy0">/</span>example
+<span class="kw2">mkdir</span> <span class="re5">-p</span> src<span class="sy0">/</span>main<span class="sy0">/</span>webapp<span class="sy0">/</span>WEB-INF</pre>
                 </div>
               </div>
               <h3>
@@ -772,35 +310,8 @@
               </p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="html4strict source-html4strict">
-                  <pre class="de1">
-                    <span class="sc2">
-                      &lt;
-                      <span class="kw2">h1</span>
-                      &gt;
-                    </span>
-                    Hello World Webapp
-                    <span class="sc2">
-                      &lt;
-                      <span class="sy0">/</span>
-                      <span class="kw2">h1</span>
-                      &gt;
-                    </span>
-                    <span class="sc2">
-                      &lt;
-                      <span class="kw2">a</span>
-                      <span class="kw3">href</span>
-                      <span class="sy0">=</span>
-                      <span class="st0">"/hello"</span>
-                      &gt;
-                    </span>
-                    Hello Servlet
-                    <span class="sc2">
-                      &lt;
-                      <span class="sy0">/</span>
-                      <span class="kw2">a</span>
-                      &gt;
-                    </span>
-                  </pre>
+                  <pre class="de1" xml:space="preserve"><span class="sc2">&lt;<span class="kw2">h1</span>&gt;</span>Hello World Webapp<span class="sc2">&lt;<span class="sy0">/</span><span class="kw2">h1</span>&gt;</span>
+<span class="sc2">&lt;<span class="kw2">a</span> <span class="kw3">href</span><span class="sy0">=</span><span class="st0">"/hello"</span>&gt;</span>Hello Servlet<span class="sc2">&lt;<span class="sy0">/</span><span class="kw2">a</span>&gt;</span></pre>
                 </div>
               </div>
               <h3>
@@ -813,87 +324,24 @@
               </p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="java source-java">
-                  <pre class="de1">
-                    <span class="kw1">package</span>
-                    <span class="co2">org.example</span>
-                    <span class="sy0">;</span>
-                    <span class="kw1">import</span>
-                    <span class="co2">java.io.IOException</span>
-                    <span class="sy0">;</span>
-                    <span class="kw1">import</span>
-                    <span class="co2">javax.servlet.ServletException</span>
-                    <span class="sy0">;</span>
-                    <span class="kw1">import</span>
-                    <span class="co2">javax.servlet.http.HttpServlet</span>
-                    <span class="sy0">;</span>
-                    <span class="kw1">import</span>
-                    <span class="co2">javax.servlet.http.HttpServletRequest</span>
-                    <span class="sy0">;</span>
-                    <span class="kw1">import</span>
-                    <span class="co2">javax.servlet.http.HttpServletResponse</span>
-                    <span class="sy0">;</span>
-                    <span class="kw1">public</span>
-                    <span class="kw1">class</span>
-                    HelloServlet
-                    <span class="kw1">extends</span>
-                    HttpServlet
-                    <span class="br0">{</span>
-                    <span class="kw1">protected</span>
-                    <span class="kw4">void</span>
-                    doGet
-                    <span class="br0">(</span>
-                    HttpServletRequest request, HttpServletResponse response
-                    <span class="br0">)</span>
-                    <span class="kw1">throws</span>
-                    ServletException,
-                    <span class="kw3">IOException</span>
-                    <span class="br0">{</span>
-                    response.
-                    <span class="me1">setContentType</span>
-                    <span class="br0">(</span>
-                    <span class="st0">"text/html"</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    response.
-                    <span class="me1">setStatus</span>
-                    <span class="br0">(</span>
-                    HttpServletResponse.
-                    <span class="me1">SC_OK</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    response.
-                    <span class="me1">getWriter</span>
-                    <span class="br0">(</span>
-                    <span class="br0">)</span>
-                    .
-                    <span class="me1">println</span>
-                    <span class="br0">(</span>
-                    <span class="st0">"&lt;h1&gt;Hello Servlet&lt;/h1&gt;"</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    response.
-                    <span class="me1">getWriter</span>
-                    <span class="br0">(</span>
-                    <span class="br0">)</span>
-                    .
-                    <span class="me1">println</span>
-                    <span class="br0">(</span>
-                    <span class="st0">"session="</span>
-                    <span class="sy0">+</span>
-                    request.
-                    <span class="me1">getSession</span>
-                    <span class="br0">(</span>
-                    <span class="kw2">true</span>
-                    <span class="br0">)</span>
-                    .
-                    <span class="me1">getId</span>
-                    <span class="br0">(</span>
-                    <span class="br0">)</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    <span class="br0">}</span>
-                    <span class="br0">}</span>
-                  </pre>
+                  <pre class="de1" xml:space="preserve"><span class="kw1">package</span> <span class="co2">org.example</span><span class="sy0">;</span>
+ 
+<span class="kw1">import</span> <span class="co2">java.io.IOException</span><span class="sy0">;</span>
+<span class="kw1">import</span> <span class="co2">javax.servlet.ServletException</span><span class="sy0">;</span>
+<span class="kw1">import</span> <span class="co2">javax.servlet.http.HttpServlet</span><span class="sy0">;</span>
+<span class="kw1">import</span> <span class="co2">javax.servlet.http.HttpServletRequest</span><span class="sy0">;</span>
+<span class="kw1">import</span> <span class="co2">javax.servlet.http.HttpServletResponse</span><span class="sy0">;</span>
+ 
+<span class="kw1">public</span> <span class="kw1">class</span> HelloServlet <span class="kw1">extends</span> HttpServlet
+<span class="br0">{</span>
+    <span class="kw1">protected</span> <span class="kw4">void</span> doGet<span class="br0">(</span>HttpServletRequest request, HttpServletResponse response<span class="br0">)</span> <span class="kw1">throws</span> ServletException, <span class="kw3">IOException</span>
+    <span class="br0">{</span>
+        response.<span class="me1">setContentType</span><span class="br0">(</span><span class="st0">"text/html"</span><span class="br0">)</span><span class="sy0">;</span>
+        response.<span class="me1">setStatus</span><span class="br0">(</span>HttpServletResponse.<span class="me1">SC_OK</span><span class="br0">)</span><span class="sy0">;</span>
+        response.<span class="me1">getWriter</span><span class="br0">(</span><span class="br0">)</span>.<span class="me1">println</span><span class="br0">(</span><span class="st0">"&lt;h1&gt;Hello Servlet&lt;/h1&gt;"</span><span class="br0">)</span><span class="sy0">;</span>
+        response.<span class="me1">getWriter</span><span class="br0">(</span><span class="br0">)</span>.<span class="me1">println</span><span class="br0">(</span><span class="st0">"session="</span> <span class="sy0">+</span> request.<span class="me1">getSession</span><span class="br0">(</span><span class="kw2">true</span><span class="br0">)</span>.<span class="me1">getId</span><span class="br0">(</span><span class="br0">)</span><span class="br0">)</span><span class="sy0">;</span>
+    <span class="br0">}</span>
+<span class="br0">}</span></pre>
                 </div>
               </div>
               <p>
@@ -903,124 +351,21 @@
               </p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="xml source-xml">
-                  <pre class="de1">
-                    <span class="sc3">
-                      <span class="re1">&lt;?xml</span>
-                      <span class="re0">version</span>
-                      =
-                      <span class="st0">"1.0"</span>
-                      <span class="re0">encoding</span>
-                      =
-                      <span class="st0">"ISO-8859-1"</span>
-                      <span class="re2">?&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;web-app</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re0">xmlns</span>
-                      =
-                      <span class="st0">"http://java.sun.com/xml/ns/javaee"</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re0">xmlns:xsi</span>
-                      =
-                      <span class="st0">"http://www.w3.org/2001/XMLSchema-instance"</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re0">xsi:schemaLocation</span>
-                      =
-                      <span class="st0">"http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re0">version</span>
-                      =
-                      <span class="st0">"2.5"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;servlet
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;servlet-name
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    Hello
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/servlet-name
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;servlet-class
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    org.example.HelloServlet
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/servlet-class
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/servlet
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;servlet-mapping
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;servlet-name
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    Hello
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/servlet-name
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;url-pattern
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    /hello/*
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/url-pattern
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/servlet-mapping
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/web-app
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                  </pre>
+                  <pre class="de1" xml:space="preserve"><span class="sc3"><span class="re1">&lt;?xml</span> <span class="re0">version</span>=<span class="st0">"1.0"</span> <span class="re0">encoding</span>=<span class="st0">"ISO-8859-1"</span><span class="re2">?&gt;</span></span>
+<span class="sc3"><span class="re1">&lt;web-app</span> </span>
+<span class="sc3">   <span class="re0">xmlns</span>=<span class="st0">"http://java.sun.com/xml/ns/javaee"</span> </span>
+<span class="sc3">   <span class="re0">xmlns:xsi</span>=<span class="st0">"http://www.w3.org/2001/XMLSchema-instance"</span></span>
+<span class="sc3">   <span class="re0">xsi:schemaLocation</span>=<span class="st0">"http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"</span> </span>
+<span class="sc3">   <span class="re0">version</span>=<span class="st0">"2.5"</span><span class="re2">&gt;</span></span>
+  <span class="sc3"><span class="re1">&lt;servlet<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;servlet-name<span class="re2">&gt;</span></span></span>Hello<span class="sc3"><span class="re1">&lt;/servlet-name<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;servlet-class<span class="re2">&gt;</span></span></span>org.example.HelloServlet<span class="sc3"><span class="re1">&lt;/servlet-class<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;/servlet<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;servlet-mapping<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;servlet-name<span class="re2">&gt;</span></span></span>Hello<span class="sc3"><span class="re1">&lt;/servlet-name<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;url-pattern<span class="re2">&gt;</span></span></span>/hello/*<span class="sc3"><span class="re1">&lt;/url-pattern<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;/servlet-mapping<span class="re2">&gt;</span></span></span>
+<span class="sc3"><span class="re1">&lt;/web-app<span class="re2">&gt;</span></span></span></pre>
                 </div>
               </div>
               <h3>
@@ -1033,7 +378,7 @@
               </p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="bash source-bash">
-                  <pre class="de1">mvn jetty:run</pre>
+                  <pre class="de1" xml:space="preserve">mvn jetty:run</pre>
                 </div>
               </div>
               <p>You can see the static and dynamic content at http://localhost:8080/hello-world/hello.  The context path portion of the url ("hello-world") comes from the artifact ID in the pom.xml file.</p>
@@ -1043,7 +388,7 @@
               <p>You can create a Web Application Archive (WAR) file from the project with the command:</p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="bash source-bash">
-                  <pre class="de1">mvn package</pre>
+                  <pre class="de1" xml:space="preserve">mvn package</pre>
                 </div>
               </div>
               <p>

@@ -16,7 +16,7 @@
               <span class="subpages">
                 &lt;
                 <a href="../../Jetty.html" title="Jetty">Jetty</a>
-                |
+                 |
                 <a href="../Howto.html" title="Jetty/Howto">Howto</a>
               </span>
             </div>
@@ -71,15 +71,7 @@
               <p>The method to invoke is:</p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="java source-java">
-                  <pre class="de1">
-                    ContextHandler.
-                    <span class="me1">setMaxFormContentSize</span>
-                    <span class="br0">(</span>
-                    <span class="kw4">int</span>
-                    maxSize
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                  </pre>
+                  <pre class="de1" xml:space="preserve">ContextHandler.<span class="me1">setMaxFormContentSize</span><span class="br0">(</span><span class="kw4">int</span> maxSize<span class="br0">)</span><span class="sy0">;</span></pre>
                 </div>
               </div>
               <p>
@@ -97,38 +89,12 @@
               <p>In either case the syntax of the XML file is the same:</p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="xml source-xml">
-                  <pre class="de1">
-                    <span class="sc3">
-                      <span class="re1">&lt;Configure</span>
-                      <span class="re0">class</span>
-                      =
-                      <span class="st0">"org.eclipse.jetty.webapp.WebAppContext"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    <span class="sc-1">&lt;!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - --&gt;</span>
-                    <span class="sc-1">&lt;!-- Max Form Size                                                   --&gt;</span>
-                    <span class="sc-1">&lt;!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - --&gt;</span>
-                    <span class="sc3">
-                      <span class="re1">&lt;Set</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"maxFormContentSize"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    200000
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Set
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Configure
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                  </pre>
+                  <pre class="de1" xml:space="preserve"><span class="sc3"><span class="re1">&lt;Configure</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.webapp.WebAppContext"</span><span class="re2">&gt;</span></span>
+  <span class="sc-1">&lt;!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - --&gt;</span>
+  <span class="sc-1">&lt;!-- Max Form Size                                                   --&gt;</span>
+  <span class="sc-1">&lt;!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - --&gt;</span>
+  <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"maxFormContentSize"</span><span class="re2">&gt;</span></span>200000<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
+<span class="sc3"><span class="re1">&lt;/Configure<span class="re2">&gt;</span></span></span></pre>
                 </div>
               </div>
               <h2>
@@ -137,60 +103,12 @@
               <p>Set an attribute on the Server instance for which you want to modify the maximum form content size:</p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="xml source-xml">
-                  <pre class="de1">
-                    <span class="sc3">
-                      <span class="re1">&lt;configure</span>
-                      <span class="re0">class</span>
-                      =
-                      <span class="st0">"org.eclipse.jetty.server.Server"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;Call</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"setAttribute"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    org.eclipse.jetty.server.Request.maxFormContentSize
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    200000
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Call
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/configure
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                  </pre>
+                  <pre class="de1" xml:space="preserve"><span class="sc3"><span class="re1">&lt;configure</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.server.Server"</span><span class="re2">&gt;</span></span>
+      <span class="sc3"><span class="re1">&lt;Call</span> <span class="re0">name</span>=<span class="st0">"setAttribute"</span><span class="re2">&gt;</span></span>
+      <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>org.eclipse.jetty.server.Request.maxFormContentSize<span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
+      <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>200000<span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;/Call<span class="re2">&gt;</span></span></span>
+<span class="sc3"><span class="re1">&lt;/configure<span class="re2">&gt;</span></span></span></pre>
                 </div>
               </div>
               <h2>

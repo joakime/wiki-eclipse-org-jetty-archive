@@ -16,7 +16,7 @@
               <span class="subpages">
                 &lt;
                 <a href="../../Jetty.html" title="Jetty">Jetty</a>
-                |
+                 |
                 <a href="../Tutorial.html" title="Jetty/Tutorial">Tutorial</a>
               </span>
             </div>
@@ -87,135 +87,19 @@
               <p>We need to configure an org.mortbay.jetty.servlet.JDBCSessionIdManager instance, either in embedded code or in a jetty.xml file. Here is an example of a jetty.xml setup:</p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="xml source-xml">
-                  <pre class="de1">
-                    <span class="sc3">
-                      <span class="re1">&lt;Set</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"sessionIdManager"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;New</span>
-                      <span class="re0">id</span>
-                      =
-                      <span class="st0">"jdbcidmgr"</span>
-                      <span class="re0">class</span>
-                      =
-                      <span class="st0">"org.mortbay.jetty.servlet.JDBCSessionIdManager"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                      <span class="re1">&lt;Ref</span>
-                      <span class="re0">id</span>
-                      =
-                      <span class="st0">"Server"</span>
-                      <span class="re2">/&gt;</span>
-                      <span class="re1">
-                        &lt;/Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;Set</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"workerName"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    fred
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Set
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;Set</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"DatasourceName"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    javax.sql.DataSource/default
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Set
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;Set</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"scavengeInterval"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    60
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Set
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/New
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Set
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;Call</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"setAttribute"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    jdbcIdMgr
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                      <span class="re1">&lt;Ref</span>
-                      <span class="re0">id</span>
-                      =
-                      <span class="st0">"jdbcidmgr"</span>
-                      <span class="re2">/&gt;</span>
-                      <span class="re1">
-                        &lt;/Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Call
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                  </pre>
+                  <pre class="de1" xml:space="preserve"> 
+ <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"sessionIdManager"</span><span class="re2">&gt;</span></span>
+     <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">id</span>=<span class="st0">"jdbcidmgr"</span> <span class="re0">class</span>=<span class="st0">"org.mortbay.jetty.servlet.JDBCSessionIdManager"</span><span class="re2">&gt;</span></span>
+         <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span><span class="re1">&lt;Ref</span> <span class="re0">id</span>=<span class="st0">"Server"</span><span class="re2">/&gt;</span><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
+         <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"workerName"</span><span class="re2">&gt;</span></span>fred<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
+         <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"DatasourceName"</span><span class="re2">&gt;</span></span>javax.sql.DataSource/default<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
+         <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"scavengeInterval"</span><span class="re2">&gt;</span></span>60<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
+     <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span>
+ <span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
+ <span class="sc3"><span class="re1">&lt;Call</span> <span class="re0">name</span>=<span class="st0">"setAttribute"</span><span class="re2">&gt;</span></span>
+       <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>jdbcIdMgr<span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
+       <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span><span class="re1">&lt;Ref</span> <span class="re0">id</span>=<span class="st0">"jdbcidmgr"</span><span class="re2">/&gt;</span><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
+ <span class="sc3"><span class="re1">&lt;/Call<span class="re2">&gt;</span></span></span></pre>
                 </div>
               </div>
               <p>
@@ -225,210 +109,35 @@
               </p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="xml source-xml">
-                  <pre class="de1">
-                    <span class="sc3">
-                      <span class="re1">&lt;Set</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"sessionIdManager"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;New</span>
-                      <span class="re0">id</span>
-                      =
-                      <span class="st0">"jdbcidmgr"</span>
-                      <span class="re0">class</span>
-                      =
-                      <span class="st0">"org.mortbay.jetty.servlet.JDBCSessionIdManager"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                      <span class="re1">&lt;Ref</span>
-                      <span class="re0">id</span>
-                      =
-                      <span class="st0">"Server"</span>
-                      <span class="re2">/&gt;</span>
-                      <span class="re1">
-                        &lt;/Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;Set</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"workerName"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    fred
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Set
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;Call</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"setDriverInfo"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    com.mysql.jdbc.Driver
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    jdbc:mysql://127.0.0.1:3306/sessions?user=janb
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Call
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;Set</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"scavengeInterval"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    60
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Set
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/New
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Set
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;Call</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"setAttribute"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    jdbcIdMgr
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                      <span class="re1">&lt;Ref</span>
-                      <span class="re0">id</span>
-                      =
-                      <span class="st0">"jdbcidmgr"</span>
-                      <span class="re2">/&gt;</span>
-                      <span class="re1">
-                        &lt;/Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Call
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                  </pre>
+                  <pre class="de1" xml:space="preserve"> 
+ <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"sessionIdManager"</span><span class="re2">&gt;</span></span>
+     <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">id</span>=<span class="st0">"jdbcidmgr"</span> <span class="re0">class</span>=<span class="st0">"org.mortbay.jetty.servlet.JDBCSessionIdManager"</span><span class="re2">&gt;</span></span>
+         <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span><span class="re1">&lt;Ref</span> <span class="re0">id</span>=<span class="st0">"Server"</span><span class="re2">/&gt;</span><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
+         <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"workerName"</span><span class="re2">&gt;</span></span>fred<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
+         <span class="sc3"><span class="re1">&lt;Call</span> <span class="re0">name</span>=<span class="st0">"setDriverInfo"</span><span class="re2">&gt;</span></span>
+           <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>com.mysql.jdbc.Driver<span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
+           <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>jdbc:mysql://127.0.0.1:3306/sessions?user=janb<span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
+         <span class="sc3"><span class="re1">&lt;/Call<span class="re2">&gt;</span></span></span>
+         <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"scavengeInterval"</span><span class="re2">&gt;</span></span>60<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
+       <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span>
+ <span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
+ <span class="sc3"><span class="re1">&lt;Call</span> <span class="re0">name</span>=<span class="st0">"setAttribute"</span><span class="re2">&gt;</span></span>
+       <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>jdbcIdMgr<span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
+       <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span><span class="re1">&lt;Ref</span> <span class="re0">id</span>=<span class="st0">"jdbcidmgr"</span><span class="re2">/&gt;</span><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
+ <span class="sc3"><span class="re1">&lt;/Call<span class="re2">&gt;</span></span></span></pre>
                 </div>
               </div>
               <p>As jetty config files are direct mappings of xml to java, it is quite straightforward to see how this would be done in code, but here's an example anyway:</p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="java source-java">
-                  <pre class="de1">
-                    Server server
-                    <span class="sy0">=</span>
-                    <span class="kw1">new</span>
-                    Server
-                    <span class="br0">(</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    ...
-                    <span class="me1">JDBCSessionIdManager</span>
-                    idMgr
-                    <span class="sy0">=</span>
-                    <span class="kw1">new</span>
-                    JDBCSessionIdManager
-                    <span class="br0">(</span>
-                    server
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    idMgr.
-                    <span class="me1">setWorkerName</span>
-                    <span class="br0">(</span>
-                    <span class="st0">"fred"</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    idMgr.
-                    <span class="me1">setDriverInfo</span>
-                    <span class="br0">(</span>
-                    <span class="st0">"com.mysql.jdbc.Driver"</span>
-                    ,
-                    <span class="st0">"jdbc:mysql://127.0.0.1:3306/sessions?user=janb"</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    idMgr.
-                    <span class="me1">setScavengeInterval</span>
-                    <span class="br0">(</span>
-                    <span class="nu0">60</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    server.
-                    <span class="me1">setSessionIdManager</span>
-                    <span class="br0">(</span>
-                    idMgr
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                  </pre>
+                  <pre class="de1" xml:space="preserve"> 
+ Server server <span class="sy0">=</span> <span class="kw1">new</span> Server<span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
+     ...
+ <span class="me1">JDBCSessionIdManager</span> idMgr <span class="sy0">=</span> <span class="kw1">new</span> JDBCSessionIdManager<span class="br0">(</span>server<span class="br0">)</span><span class="sy0">;</span>
+ idMgr.<span class="me1">setWorkerName</span><span class="br0">(</span><span class="st0">"fred"</span><span class="br0">)</span><span class="sy0">;</span>
+ idMgr.<span class="me1">setDriverInfo</span><span class="br0">(</span><span class="st0">"com.mysql.jdbc.Driver"</span>, <span class="st0">"jdbc:mysql://127.0.0.1:3306/sessions?user=janb"</span><span class="br0">)</span><span class="sy0">;</span>
+ idMgr.<span class="me1">setScavengeInterval</span><span class="br0">(</span><span class="nu0">60</span><span class="br0">)</span><span class="sy0">;</span>
+ server.<span class="me1">setSessionIdManager</span><span class="br0">(</span>idMgr<span class="br0">)</span><span class="sy0">;</span></pre>
                 </div>
               </div>
               <p>
@@ -450,268 +159,58 @@
               <p>From a context xml file, you reference the Server instance as a Property:</p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="xml source-xml">
-                  <pre class="de1">
-                    <span class="sc3">
-                      <span class="re1">&lt;Property</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"Server"</span>
-                      <span class="re0">id</span>
-                      =
-                      <span class="st0">"Server"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;Call</span>
-                      <span class="re0">id</span>
-                      =
-                      <span class="st0">"jdbcIdMgr"</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"getAttribute"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    jdbcIdMgr
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Call
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Property
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;Set</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"sessionHandler"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;New</span>
-                      <span class="re0">class</span>
-                      =
-                      <span class="st0">"org.mortbay.jetty.servlet.SessionHandler"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;New</span>
-                      <span class="re0">id</span>
-                      =
-                      <span class="st0">"jdbcmgr"</span>
-                      <span class="re0">class</span>
-                      =
-                      <span class="st0">"org.mortbay.jetty.servlet.JDBCSessionManager"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;Set</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"idManager"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;Ref</span>
-                      <span class="re0">id</span>
-                      =
-                      <span class="st0">"jdbcIdMgr"</span>
-                      <span class="re2">/&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Set
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/New
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/New
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Set
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                  </pre>
+                  <pre class="de1" xml:space="preserve"> 
+ <span class="sc3"><span class="re1">&lt;Property</span> <span class="re0">name</span>=<span class="st0">"Server"</span> <span class="re0">id</span>=<span class="st0">"Server"</span><span class="re2">&gt;</span></span>
+   <span class="sc3"><span class="re1">&lt;Call</span> <span class="re0">id</span>=<span class="st0">"jdbcIdMgr"</span> <span class="re0">name</span>=<span class="st0">"getAttribute"</span><span class="re2">&gt;</span></span>
+     <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>jdbcIdMgr<span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
+   <span class="sc3"><span class="re1">&lt;/Call<span class="re2">&gt;</span></span></span>
+ <span class="sc3"><span class="re1">&lt;/Property<span class="re2">&gt;</span></span></span>
+ 
+ <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"sessionHandler"</span><span class="re2">&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">class</span>=<span class="st0">"org.mortbay.jetty.servlet.SessionHandler"</span><span class="re2">&gt;</span></span>
+      <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">id</span>=<span class="st0">"jdbcmgr"</span> <span class="re0">class</span>=<span class="st0">"org.mortbay.jetty.servlet.JDBCSessionManager"</span><span class="re2">&gt;</span></span>
+          <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"idManager"</span><span class="re2">&gt;</span></span>
+            <span class="sc3"><span class="re1">&lt;Ref</span> <span class="re0">id</span>=<span class="st0">"jdbcIdMgr"</span><span class="re2">/&gt;</span></span>
+          <span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span>
+      <span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span>
+ <span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span></pre>
                 </div>
               </div>
               <p>From a WEB-INF/jetty-web.xml file, you can reference the Server instance directly:</p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="xml source-xml">
-                  <pre class="de1">
-                    <span class="sc3">
-                      <span class="re1">&lt;Get</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"server"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;Get</span>
-                      <span class="re0">id</span>
-                      =
-                      <span class="st0">"jdbcIdMgr"</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"sessionIdManager"</span>
-                      <span class="re2">/&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Get
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;Set</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"sessionHandler"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;New</span>
-                      <span class="re0">class</span>
-                      =
-                      <span class="st0">"org.mortbay.jetty.servlet.SessionHandler"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;New</span>
-                      <span class="re0">class</span>
-                      =
-                      <span class="st0">"org.mortbay.jetty.servlet.JDBCSessionManager"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;Set</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"idManager"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;Ref</span>
-                      <span class="re0">id</span>
-                      =
-                      <span class="st0">"jdbcIdMgr"</span>
-                      <span class="re2">/&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Set
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/New
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/New
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Set
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                  </pre>
+                  <pre class="de1" xml:space="preserve"> 
+ <span class="sc3"><span class="re1">&lt;Get</span> <span class="re0">name</span>=<span class="st0">"server"</span><span class="re2">&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;Get</span> <span class="re0">id</span>=<span class="st0">"jdbcIdMgr"</span> <span class="re0">name</span>=<span class="st0">"sessionIdManager"</span><span class="re2">/&gt;</span></span>
+ <span class="sc3"><span class="re1">&lt;/Get<span class="re2">&gt;</span></span></span>
+ <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"sessionHandler"</span><span class="re2">&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">class</span>=<span class="st0">"org.mortbay.jetty.servlet.SessionHandler"</span><span class="re2">&gt;</span></span>
+      <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">class</span>=<span class="st0">"org.mortbay.jetty.servlet.JDBCSessionManager"</span><span class="re2">&gt;</span></span>
+          <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"idManager"</span><span class="re2">&gt;</span></span>
+            <span class="sc3"><span class="re1">&lt;Ref</span> <span class="re0">id</span>=<span class="st0">"jdbcIdMgr"</span><span class="re2">/&gt;</span></span>
+          <span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span>
+      <span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span>
+ <span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span></pre>
                 </div>
               </div>
               <p>If you're embedding this in code:</p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="java source-java">
-                  <pre class="de1">
-                    <span class="co1">//assuming you have already set up the JDBCSessionIdManager as shown earlier</span>
-                    <span class="co1">//and have a reference to the Server instance:</span>
-                    WebAppContext wac
-                    <span class="sy0">=</span>
-                    <span class="kw1">new</span>
-                    WebAppContext
-                    <span class="br0">(</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    ...
-                    <span class="co1">//configure your webapp context</span>
-                    JDBCSessionManager jdbcMgr
-                    <span class="sy0">=</span>
-                    <span class="kw1">new</span>
-                    JDBCSessionManager
-                    <span class="br0">(</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    jdbcMgr.
-                    <span class="me1">setIdManager</span>
-                    <span class="br0">(</span>
-                    server.
-                    <span class="me1">getSessionIdManager</span>
-                    <span class="br0">(</span>
-                    <span class="br0">)</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    wac.
-                    <span class="me1">setSessionHandler</span>
-                    <span class="br0">(</span>
-                    jdbcMgr
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                  </pre>
+                  <pre class="de1" xml:space="preserve"> 
+ <span class="co1">//assuming you have already set up the JDBCSessionIdManager as shown earlier</span>
+ <span class="co1">//and have a reference to the Server instance:</span>
+ 
+ WebAppContext wac <span class="sy0">=</span> <span class="kw1">new</span> WebAppContext<span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
+  ... <span class="co1">//configure your webapp context</span>
+ JDBCSessionManager jdbcMgr <span class="sy0">=</span> <span class="kw1">new</span> JDBCSessionManager<span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
+ jdbcMgr.<span class="me1">setIdManager</span><span class="br0">(</span>server.<span class="me1">getSessionIdManager</span><span class="br0">(</span><span class="br0">)</span><span class="br0">)</span><span class="sy0">;</span>
+ wac.<span class="me1">setSessionHandler</span><span class="br0">(</span>jdbcMgr<span class="br0">)</span><span class="sy0">;</span></pre>
                 </div>
               </div>
             </div>

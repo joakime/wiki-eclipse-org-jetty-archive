@@ -16,7 +16,7 @@
               <span class="subpages">
                 &lt;
                 <a href="../../Jetty.html" title="Jetty">Jetty</a>
-                |
+                 |
                 <a href="../Howto.html" title="Jetty/Howto">Howto</a>
               </span>
             </div>
@@ -48,7 +48,8 @@
                 The idea of the Jetty Runner is extremely simple–run a webapp from the command line using a single Jar and as much default configuration as possible:
                 <br />
               </p>
-              <pre>java -jar jetty-runner.jar my.war</pre>
+              <pre xml:space="preserve">  java -jar jetty-runner.jar my.war
+</pre>
               <p>
                 Jetty starts on port 8080 and deploys the
                 <i>my.war</i>
@@ -62,61 +63,50 @@
                 webapp is available at http://host:8080/two:
                 <br />
               </p>
-              <pre>
-                java -jar jetty-runner.jar --path /one my1.war --path /two my2
-                <br />
-              </pre>
+              <pre xml:space="preserve">  java -jar jetty-runner.jar --path /one my1.war --path /two my2 <br />
+</pre>
               <p>
                 Or, for those webapps that need a little more configuration, you can run them via jetty context config files:
                 <br />
               </p>
-              <pre>java -jar jetty-runner.jar contexts/my.xml</pre>
+              <pre xml:space="preserve">  java -jar jetty-runner.jar contexts/my.xml
+</pre>
               <p>
                 You can configure the most common elements from the command line, such as the port to start on, and whether to generate a request log or not:
                 <br />
               </p>
-              <pre>java --jar jetty-runner.jar --port 9090 --log my/request/log/goes/here my.war</pre>
+              <pre xml:space="preserve"> java --jar jetty-runner.jar --port 9090 --log my/request/log/goes/here my.war
+</pre>
               <p>
                 You can even configure a JDBC JNDI Resource entry right on the command line. Here's an example to define a Postgres DB available in JNDI at java:comp/env/jdbc/mydatasource:
                 <br />
               </p>
-              <pre>
-                java -jar jetty-runner.jar \
-                <br />
-                --lib ~/src/tools/derby/ --lib ~/src/tools/atomikos  \
-                <br />
-                --jdbc org.apache.derby.jdbc.EmbeddedXADataSource "databaseName=testdb;createDatabase=create" "jdbc/mydatasource" \
-                <br />
-                my.war
-              </pre>
+              <pre xml:space="preserve"> java -jar jetty-runner.jar \<br />   --lib ~/src/tools/derby/ --lib ~/src/tools/atomikos  \<br />   --jdbc org.apache.derby.jdbc.EmbeddedXADataSource "databaseName=testdb;createDatabase=create" "jdbc/mydatasource" \<br />   my.war
+</pre>
               <p>
                 The syntax of the --jdbc argument is:
                 <br />
               </p>
-              <pre>--jdbc &lt;classname of Driver or XADataSource&gt; &lt;db properties&gt; &lt;jndiname&gt;</pre>
+              <pre xml:space="preserve"> --jdbc &lt;classname of Driver or XADataSource&gt; &lt;db properties&gt; &lt;jndiname&gt;
+</pre>
               <p>
                 You must also tell Jetty where to find your database driver and Atomikos, which we use to provide a transaction manager and wrap XA and non-XA Resources into a DataSource you can access from your webapp. Notice the
                 <tt>--lib</tt>
                 argument, which is one way to tell Jetty about extra jars you want to put onto the container's classpath. You can also use:
                 <br />
               </p>
-              <pre>
-                --jar &lt;filename&gt;
-                <br />
-                --classes &lt;dir&gt;
-                <br />
-              </pre>
+              <pre xml:space="preserve"> --jar &lt;filename&gt;<br /> --classes &lt;dir&gt;<br />
+</pre>
               <p>
                 In addition, you can get full configuration control using a
                 <tt>jetty.xml</tt>
                 configuration file:
               </p>
-              <pre>
-                java -jar jetty-runner.jar --config my/jetty.xml my.war
-                <br />
-              </pre>
+              <pre xml:space="preserve"> java -jar jetty-runner.jar --config my/jetty.xml my.war<br />
+</pre>
               <p>To see all your options, enter:</p>
-              <pre>java -jar jetty-runner.jar --help</pre>
+              <pre xml:space="preserve"> java -jar jetty-runner.jar --help
+</pre>
             </div>
           </div>
         </div>

@@ -16,7 +16,7 @@
               <span class="subpages">
                 &lt;
                 <a href="../../Jetty.html" title="Jetty">Jetty</a>
-                |
+                 |
                 <a href="../Tutorial.html" title="Jetty/Tutorial">Tutorial</a>
               </span>
             </div>
@@ -125,7 +125,7 @@
                 A new line that defines the context path for the web-application:
                 <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                   <div class="text source-text">
-                    <pre class="de1">Web-ContextPath: /test</pre>
+                    <pre class="de1" xml:space="preserve">Web-ContextPath: /test</pre>
                   </div>
                 </div>
               </li>
@@ -133,7 +133,7 @@
             <p>It should look like this:</p>
             <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
               <div class="text source-text">
-                <pre class="de1">Manifest-Version: 1.0
+                <pre class="de1" xml:space="preserve">Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Webapp
 Bundle-SymbolicName: org.eclipse.jetty.example.webapp
@@ -152,150 +152,25 @@ Web-ContextPath: /test</pre>
             <p>And define a simple servlet-mapping:</p>
             <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
               <div class="xml source-xml">
-                <pre class="de1">
-                  <span class="sc3">
-                    <span class="re1">&lt;?xml</span>
-                    <span class="re0">version</span>
-                    =
-                    <span class="st0">"1.0"</span>
-                    <span class="re0">encoding</span>
-                    =
-                    <span class="st0">"ISO-8859-1"</span>
-                    <span class="re2">?&gt;</span>
-                  </span>
-                  <span class="sc3">
-                    <span class="re1">&lt;web-app</span>
-                  </span>
-                  <span class="sc3">
-                    <span class="re0">xmlns</span>
-                    =
-                    <span class="st0">"http://java.sun.com/xml/ns/javaee"</span>
-                  </span>
-                  <span class="sc3">
-                    <span class="re0">xmlns:xsi</span>
-                    =
-                    <span class="st0">"http://www.w3.org/2001/XMLSchema-instance"</span>
-                  </span>
-                  <span class="sc3">
-                    <span class="re0">xsi:schemaLocation</span>
-                    =
-                    <span class="st0">"http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"</span>
-                  </span>
-                  <span class="sc3">
-                    <span class="re0">version</span>
-                    =
-                    <span class="st0">"2.5"</span>
-                    <span class="re2">&gt;</span>
-                  </span>
-                  <span class="sc3">
-                    <span class="re1">
-                      &lt;display-name
-                      <span class="re2">&gt;</span>
-                    </span>
-                  </span>
-                  Hello Webapp
-                  <span class="sc3">
-                    <span class="re1">
-                      &lt;/display-name
-                      <span class="re2">&gt;</span>
-                    </span>
-                  </span>
-                  <span class="sc3">
-                    <span class="re1">
-                      &lt;servlet
-                      <span class="re2">&gt;</span>
-                    </span>
-                  </span>
-                  <span class="sc3">
-                    <span class="re1">
-                      &lt;servlet-name
-                      <span class="re2">&gt;</span>
-                    </span>
-                  </span>
-                  theservlet
-                  <span class="sc3">
-                    <span class="re1">
-                      &lt;/servlet-name
-                      <span class="re2">&gt;</span>
-                    </span>
-                  </span>
-                  <span class="sc3">
-                    <span class="re1">
-                      &lt;servlet-class
-                      <span class="re2">&gt;</span>
-                    </span>
-                  </span>
-                  org.eclipse.jetty.example.webapp.Servlet
-                  <span class="sc3">
-                    <span class="re1">
-                      &lt;/servlet-class
-                      <span class="re2">&gt;</span>
-                    </span>
-                  </span>
-                  <span class="sc3">
-                    <span class="re1">
-                      &lt;load-on-startup
-                      <span class="re2">&gt;</span>
-                    </span>
-                  </span>
-                  1
-                  <span class="sc3">
-                    <span class="re1">
-                      &lt;/load-on-startup
-                      <span class="re2">&gt;</span>
-                    </span>
-                  </span>
-                  <span class="sc3">
-                    <span class="re1">
-                      &lt;/servlet
-                      <span class="re2">&gt;</span>
-                    </span>
-                  </span>
-                  <span class="sc3">
-                    <span class="re1">
-                      &lt;servlet-mapping
-                      <span class="re2">&gt;</span>
-                    </span>
-                  </span>
-                  <span class="sc3">
-                    <span class="re1">
-                      &lt;servlet-name
-                      <span class="re2">&gt;</span>
-                    </span>
-                  </span>
-                  theservlet
-                  <span class="sc3">
-                    <span class="re1">
-                      &lt;/servlet-name
-                      <span class="re2">&gt;</span>
-                    </span>
-                  </span>
-                  <span class="sc3">
-                    <span class="re1">
-                      &lt;url-pattern
-                      <span class="re2">&gt;</span>
-                    </span>
-                  </span>
-                  /*
-                  <span class="sc3">
-                    <span class="re1">
-                      &lt;/url-pattern
-                      <span class="re2">&gt;</span>
-                    </span>
-                  </span>
-                  <span class="sc3">
-                    <span class="re1">
-                      &lt;/servlet-mapping
-                      <span class="re2">&gt;</span>
-                    </span>
-                  </span>
-                  <span class="sc3">
-                    <span class="re1">
-                      &lt;/web-app
-                      <span class="re2">&gt;</span>
-                    </span>
-                  </span>
-                </pre>
+                <pre class="de1" xml:space="preserve"><span class="sc3"><span class="re1">&lt;?xml</span> <span class="re0">version</span>=<span class="st0">"1.0"</span> <span class="re0">encoding</span>=<span class="st0">"ISO-8859-1"</span><span class="re2">?&gt;</span></span>
+<span class="sc3"><span class="re1">&lt;web-app</span></span>
+<span class="sc3">   <span class="re0">xmlns</span>=<span class="st0">"http://java.sun.com/xml/ns/javaee"</span></span>
+<span class="sc3">   <span class="re0">xmlns:xsi</span>=<span class="st0">"http://www.w3.org/2001/XMLSchema-instance"</span></span>
+<span class="sc3">   <span class="re0">xsi:schemaLocation</span>=<span class="st0">"http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"</span></span>
+<span class="sc3">   <span class="re0">version</span>=<span class="st0">"2.5"</span><span class="re2">&gt;</span></span>
+ 
+   <span class="sc3"><span class="re1">&lt;display-name<span class="re2">&gt;</span></span></span>Hello Webapp<span class="sc3"><span class="re1">&lt;/display-name<span class="re2">&gt;</span></span></span>
+   <span class="sc3"><span class="re1">&lt;servlet<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;servlet-name<span class="re2">&gt;</span></span></span>theservlet<span class="sc3"><span class="re1">&lt;/servlet-name<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;servlet-class<span class="re2">&gt;</span></span></span>org.eclipse.jetty.example.webapp.Servlet<span class="sc3"><span class="re1">&lt;/servlet-class<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;load-on-startup<span class="re2">&gt;</span></span></span>1<span class="sc3"><span class="re1">&lt;/load-on-startup<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;/servlet<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;servlet-mapping<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;servlet-name<span class="re2">&gt;</span></span></span>theservlet<span class="sc3"><span class="re1">&lt;/servlet-name<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;url-pattern<span class="re2">&gt;</span></span></span>/*<span class="sc3"><span class="re1">&lt;/url-pattern<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;/servlet-mapping<span class="re2">&gt;</span></span></span>
+ 
+<span class="sc3"><span class="re1">&lt;/web-app<span class="re2">&gt;</span></span></span></pre>
               </div>
             </div>
             <ul>
@@ -303,94 +178,29 @@ Web-ContextPath: /test</pre>
             </ul>
             <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
               <div class="java source-java">
-                <pre class="de1">
-                  <span class="kw1">package</span>
-                  <span class="co2">org.eclipse.jetty.example.webapp</span>
-                  <span class="sy0">;</span>
-                  <span class="kw1">import</span>
-                  <span class="co2">java.io.IOException</span>
-                  <span class="sy0">;</span>
-                  <span class="kw1">import</span>
-                  <span class="co2">javax.servlet.ServletConfig</span>
-                  <span class="sy0">;</span>
-                  <span class="kw1">import</span>
-                  <span class="co2">javax.servlet.ServletException</span>
-                  <span class="sy0">;</span>
-                  <span class="kw1">import</span>
-                  <span class="co2">javax.servlet.http.HttpServlet</span>
-                  <span class="sy0">;</span>
-                  <span class="kw1">import</span>
-                  <span class="co2">javax.servlet.http.HttpServletRequest</span>
-                  <span class="sy0">;</span>
-                  <span class="kw1">import</span>
-                  <span class="co2">javax.servlet.http.HttpServletResponse</span>
-                  <span class="sy0">;</span>
-                  <span class="co3">/** A simple servlet */</span>
-                  <span class="kw1">public</span>
-                  <span class="kw1">class</span>
-                  Servlet
-                  <span class="kw1">extends</span>
-                  HttpServlet
-                  <span class="br0">{</span>
-                  <span class="kw1">private</span>
-                  <span class="kw1">static</span>
-                  <span class="kw1">final</span>
-                  <span class="kw4">long</span>
-                  serialVersionUID
-                  <span class="sy0">=</span>
-                  1L
-                  <span class="sy0">;</span>
-                  <span class="kw1">public</span>
-                  <span class="kw4">void</span>
-                  init
-                  <span class="br0">(</span>
-                  ServletConfig config
-                  <span class="br0">)</span>
-                  <span class="kw1">throws</span>
-                  ServletException
-                  <span class="br0">{</span>
-                  <span class="kw3">System</span>
-                  .
-                  <span class="me1">err</span>
-                  .
-                  <span class="me1">println</span>
-                  <span class="br0">(</span>
-                  <span class="st0">"Initializing the servlet"</span>
-                  <span class="br0">)</span>
-                  <span class="sy0">;;</span>
-                  <span class="br0">}</span>
-                  <span class="kw1">protected</span>
-                  <span class="kw4">void</span>
-                  doGet
-                  <span class="br0">(</span>
-                  HttpServletRequest req, HttpServletResponse resp
-                  <span class="br0">)</span>
-                  <span class="kw1">throws</span>
-                  ServletException,
-                  <span class="kw3">IOException</span>
-                  <span class="br0">{</span>
-                  <span class="kw3">System</span>
-                  .
-                  <span class="me1">err</span>
-                  .
-                  <span class="me1">println</span>
-                  <span class="br0">(</span>
-                  <span class="st0">"DO GET!"</span>
-                  <span class="br0">)</span>
-                  <span class="sy0">;</span>
-                  resp.
-                  <span class="me1">getWriter</span>
-                  <span class="br0">(</span>
-                  <span class="br0">)</span>
-                  .
-                  <span class="me1">write</span>
-                  <span class="br0">(</span>
-                  <span class="st0">"Howdy!"</span>
-                  <span class="br0">)</span>
-                  <span class="sy0">;</span>
-                  <span class="br0">}</span>
-                  <span class="br0">}</span>
-                </pre>
+                <pre class="de1" xml:space="preserve"><span class="kw1">package</span> <span class="co2">org.eclipse.jetty.example.webapp</span><span class="sy0">;</span>
+ 
+<span class="kw1">import</span> <span class="co2">java.io.IOException</span><span class="sy0">;</span>
+ 
+<span class="kw1">import</span> <span class="co2">javax.servlet.ServletConfig</span><span class="sy0">;</span>
+<span class="kw1">import</span> <span class="co2">javax.servlet.ServletException</span><span class="sy0">;</span>
+<span class="kw1">import</span> <span class="co2">javax.servlet.http.HttpServlet</span><span class="sy0">;</span>
+<span class="kw1">import</span> <span class="co2">javax.servlet.http.HttpServletRequest</span><span class="sy0">;</span>
+<span class="kw1">import</span> <span class="co2">javax.servlet.http.HttpServletResponse</span><span class="sy0">;</span>
+ 
+<span class="co3">/** A simple servlet */</span>
+<span class="kw1">public</span> <span class="kw1">class</span> Servlet <span class="kw1">extends</span> HttpServlet <span class="br0">{</span>
+	<span class="kw1">private</span> <span class="kw1">static</span> <span class="kw1">final</span> <span class="kw4">long</span> serialVersionUID <span class="sy0">=</span> 1L<span class="sy0">;</span>
+ 
+	<span class="kw1">public</span> <span class="kw4">void</span> init<span class="br0">(</span>ServletConfig config<span class="br0">)</span> <span class="kw1">throws</span> ServletException <span class="br0">{</span>
+		<span class="kw3">System</span>.<span class="me1">err</span>.<span class="me1">println</span><span class="br0">(</span><span class="st0">"Initializing the servlet"</span><span class="br0">)</span><span class="sy0">;;</span>
+	<span class="br0">}</span>
+	<span class="kw1">protected</span> <span class="kw4">void</span> doGet<span class="br0">(</span>HttpServletRequest req, HttpServletResponse resp<span class="br0">)</span>
+			<span class="kw1">throws</span> ServletException, <span class="kw3">IOException</span> <span class="br0">{</span>
+		<span class="kw3">System</span>.<span class="me1">err</span>.<span class="me1">println</span><span class="br0">(</span><span class="st0">"DO GET!"</span><span class="br0">)</span><span class="sy0">;</span>
+		resp.<span class="me1">getWriter</span><span class="br0">(</span><span class="br0">)</span>.<span class="me1">write</span><span class="br0">(</span><span class="st0">"Howdy!"</span><span class="br0">)</span><span class="sy0">;</span>
+	<span class="br0">}</span>
+<span class="br0">}</span></pre>
               </div>
             </div>
             <h3>
@@ -401,97 +211,18 @@ Some extra steps are necessary to prevent all logs from appearing on the console
             <p>Create a new file logback.xml at the root of the web-bundle project and paste this configuration:</p>
             <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
               <div class="xml source-xml">
-                <pre class="de1">
-                  <span class="sc3">
-                    <span class="re1">&lt;?xml</span>
-                    <span class="re0">version</span>
-                    =
-                    <span class="st0">"1.0"</span>
-                    <span class="re0">encoding</span>
-                    =
-                    <span class="st0">"UTF-8"</span>
-                    <span class="re2">?&gt;</span>
-                  </span>
-                  <span class="sc3">
-                    <span class="re1">
-                      &lt;configuration
-                      <span class="re2">&gt;</span>
-                    </span>
-                  </span>
-                  <span class="sc3">
-                    <span class="re1">&lt;appender</span>
-                    <span class="re0">name</span>
-                    =
-                    <span class="st0">"STDOUT"</span>
-                    <span class="re0">class</span>
-                    =
-                    <span class="st0">"ch.qos.logback.core.ConsoleAppender"</span>
-                    <span class="re2">&gt;</span>
-                  </span>
-                  <span class="sc3">
-                    <span class="re1">
-                      &lt;encoder
-                      <span class="re2">&gt;</span>
-                    </span>
-                  </span>
-                  <span class="sc3">
-                    <span class="re1">
-                      &lt;pattern
-                      <span class="re2">&gt;</span>
-                    </span>
-                  </span>
-                  %-4relative [%thread] %-5level %class - %msg%n
-                  <span class="sc3">
-                    <span class="re1">
-                      &lt;/pattern
-                      <span class="re2">&gt;</span>
-                    </span>
-                  </span>
-                  <span class="sc3">
-                    <span class="re1">
-                      &lt;/encoder
-                      <span class="re2">&gt;</span>
-                    </span>
-                  </span>
-                  <span class="sc3">
-                    <span class="re1">
-                      &lt;/appender
-                      <span class="re2">&gt;</span>
-                    </span>
-                  </span>
-                  <span class="sc3">
-                    <span class="re1">
-                      &lt;root
-                      <span class="re2">&gt;</span>
-                    </span>
-                  </span>
-                  <span class="sc3">
-                    <span class="re1">&lt;level</span>
-                    <span class="re0">value</span>
-                    =
-                    <span class="st0">"error"</span>
-                    <span class="re2">/&gt;</span>
-                  </span>
-                  <span class="sc3">
-                    <span class="re1">&lt;appender-ref</span>
-                    <span class="re0">ref</span>
-                    =
-                    <span class="st0">"STDOUT"</span>
-                    <span class="re2">/&gt;</span>
-                  </span>
-                  <span class="sc3">
-                    <span class="re1">
-                      &lt;/root
-                      <span class="re2">&gt;</span>
-                    </span>
-                  </span>
-                  <span class="sc3">
-                    <span class="re1">
-                      &lt;/configuration
-                      <span class="re2">&gt;</span>
-                    </span>
-                  </span>
-                </pre>
+                <pre class="de1" xml:space="preserve"><span class="sc3"><span class="re1">&lt;?xml</span> <span class="re0">version</span>=<span class="st0">"1.0"</span> <span class="re0">encoding</span>=<span class="st0">"UTF-8"</span> <span class="re2">?&gt;</span></span>
+<span class="sc3"><span class="re1">&lt;configuration<span class="re2">&gt;</span></span></span>
+	<span class="sc3"><span class="re1">&lt;appender</span> <span class="re0">name</span>=<span class="st0">"STDOUT"</span> <span class="re0">class</span>=<span class="st0">"ch.qos.logback.core.ConsoleAppender"</span><span class="re2">&gt;</span></span>
+		<span class="sc3"><span class="re1">&lt;encoder<span class="re2">&gt;</span></span></span>
+			<span class="sc3"><span class="re1">&lt;pattern<span class="re2">&gt;</span></span></span>%-4relative [%thread] %-5level %class - %msg%n<span class="sc3"><span class="re1">&lt;/pattern<span class="re2">&gt;</span></span></span>
+		<span class="sc3"><span class="re1">&lt;/encoder<span class="re2">&gt;</span></span></span>
+	<span class="sc3"><span class="re1">&lt;/appender<span class="re2">&gt;</span></span></span>
+	<span class="sc3"><span class="re1">&lt;root<span class="re2">&gt;</span></span></span>
+		<span class="sc3"><span class="re1">&lt;level</span> <span class="re0">value</span>=<span class="st0">"error"</span> <span class="re2">/&gt;</span></span>
+		<span class="sc3"><span class="re1">&lt;appender-ref</span> <span class="re0">ref</span>=<span class="st0">"STDOUT"</span> <span class="re2">/&gt;</span></span>
+	<span class="sc3"><span class="re1">&lt;/root<span class="re2">&gt;</span></span></span>
+<span class="sc3"><span class="re1">&lt;/configuration<span class="re2">&gt;</span></span></span></pre>
               </div>
             </div>
             <p>Now Create a new OSGi launch configuration:
@@ -499,7 +230,7 @@ Select the menu "Run/Run Configuration..." and choose the node "OSGi".
 Create a new configuration; choose the "Arguments" tab and add to the VM arguments area:</p>
             <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
               <div class="text source-text">
-                <pre class="de1">-Dlogback.configurationFile=${workspace_loc:org.eclipse.jetty.example.webapp}/logback.xml</pre>
+                <pre class="de1" xml:space="preserve"> -Dlogback.configurationFile=${workspace_loc:org.eclipse.jetty.example.webapp}/logback.xml</pre>
               </div>
             </div>
             <div class="center">
@@ -531,7 +262,7 @@ For example: /rt-tutorial-workspace/.metadata/.plugins/org.eclipse.pde.core/.bun
             <p>Add to the test bundle the following imports:</p>
             <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
               <div class="text source-text">
-                <pre class="de1">Manifest-Version: 1.0
+                <pre class="de1" xml:space="preserve">Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Test
 Bundle-SymbolicName: org.eclipse.jetty.rt.example.test
@@ -554,47 +285,22 @@ Bundle-ActivationPolicy: lazy</pre>
             </p>
             <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
               <div class="java source-java">
-                <pre class="de1">
-                  <span class="kw1">package</span>
-                  <span class="co2">org.eclipse.jetty.rt.example.test</span>
-                  <span class="sy0">;</span>
-                  <span class="kw1">import</span>
-                  <span class="co2">org.eclipse.jetty.client.*</span>
-                  <span class="sy0">;</span>
-                  <span class="kw1">import</span>
-                  <span class="co2">org.eclipse.jetty.util.Attributes</span>
-                  <span class="sy0">;</span>
-                  <span class="kw1">import</span>
-                  <span class="co2">org.eclipse.jetty.http.HttpBuffers</span>
-                  <span class="sy0">;</span>
-                  <span class="kw1">import</span>
-                  <span class="co2">org.eclipse.jetty.util.component.AbstractLifeCycle</span>
-                  <span class="sy0">;</span>
-                  <span class="kw1">import</span>
-                  <span class="co2">org.eclipse.jetty.http.HttpMethods</span>
-                  <span class="sy0">;</span>
-                  <span class="kw1">import</span>
-                  <span class="co2">org.eclipse.jetty.http.HttpStatus</span>
-                  <span class="sy0">;</span>
-                  <span class="kw1">import</span>
-                  <span class="co2">org.junit.Assert</span>
-                  <span class="sy0">;</span>
-                  <span class="kw1">import</span>
-                  <span class="co2">org.junit.Before</span>
-                  <span class="sy0">;</span>
-                  <span class="kw1">import</span>
-                  <span class="co2">org.junit.Test</span>
-                  <span class="sy0">;</span>
-                  <span class="kw1">import</span>
-                  <span class="co2">org.osgi.framework.Bundle</span>
-                  <span class="sy0">;</span>
-                  <span class="kw1">import</span>
-                  <span class="co2">org.osgi.framework.BundleException</span>
-                  <span class="sy0">;</span>
-                  <span class="kw1">import</span>
-                  <span class="co2">org.osgi.framework.FrameworkUtil</span>
-                  <span class="sy0">;</span>
-                  <span class="co3">/**
+                <pre class="de1" xml:space="preserve"><span class="kw1">package</span> <span class="co2">org.eclipse.jetty.rt.example.test</span><span class="sy0">;</span>
+ 
+<span class="kw1">import</span> <span class="co2">org.eclipse.jetty.client.*</span><span class="sy0">;</span>
+<span class="kw1">import</span> <span class="co2">org.eclipse.jetty.util.Attributes</span><span class="sy0">;</span>
+<span class="kw1">import</span> <span class="co2">org.eclipse.jetty.http.HttpBuffers</span><span class="sy0">;</span>
+<span class="kw1">import</span> <span class="co2">org.eclipse.jetty.util.component.AbstractLifeCycle</span><span class="sy0">;</span>
+<span class="kw1">import</span> <span class="co2">org.eclipse.jetty.http.HttpMethods</span><span class="sy0">;</span>
+<span class="kw1">import</span> <span class="co2">org.eclipse.jetty.http.HttpStatus</span><span class="sy0">;</span>
+<span class="kw1">import</span> <span class="co2">org.junit.Assert</span><span class="sy0">;</span>
+<span class="kw1">import</span> <span class="co2">org.junit.Before</span><span class="sy0">;</span>
+<span class="kw1">import</span> <span class="co2">org.junit.Test</span><span class="sy0">;</span>
+<span class="kw1">import</span> <span class="co2">org.osgi.framework.Bundle</span><span class="sy0">;</span>
+<span class="kw1">import</span> <span class="co2">org.osgi.framework.BundleException</span><span class="sy0">;</span>
+<span class="kw1">import</span> <span class="co2">org.osgi.framework.FrameworkUtil</span><span class="sy0">;</span>
+ 
+<span class="co3">/**
  * 
  */</span>
                   <span class="kw1">public</span>
@@ -662,245 +368,52 @@ Bundle-ActivationPolicy: lazy</pre>
 	 * Make sure the webapp is started before this test is run.
 	 * Could be done via the Launch Configuration
 	 */</span>
-                  @Before
-                  <span class="kw1">public</span>
-                  <span class="kw4">void</span>
-                  setup
-                  <span class="br0">(</span>
-                  <span class="br0">)</span>
-                  <span class="br0">{</span>
-                  Bundle testBundle
-                  <span class="sy0">=</span>
-                  FrameworkUtil.
-                  <span class="me1">getBundle</span>
-                  <span class="br0">(</span>
-                  ServletTest.
-                  <span class="kw1">class</span>
-                  <span class="br0">)</span>
-                  <span class="sy0">;</span>
-                  <span class="kw1">for</span>
-                  <span class="br0">(</span>
-                  Bundle b
-                  <span class="sy0">:</span>
-                  testBundle.
-                  <span class="me1">getBundleContext</span>
-                  <span class="br0">(</span>
-                  <span class="br0">)</span>
-                  .
-                  <span class="me1">getBundles</span>
-                  <span class="br0">(</span>
-                  <span class="br0">)</span>
-                  <span class="br0">)</span>
-                  <span class="br0">{</span>
-                  <span class="kw1">if</span>
-                  <span class="br0">(</span>
-                  b.
-                  <span class="me1">getSymbolicName</span>
-                  <span class="br0">(</span>
-                  <span class="br0">)</span>
-                  .
-                  <span class="me1">equals</span>
-                  <span class="br0">(</span>
-                  <span class="st0">"org.eclipse.jetty.osgi.boot"</span>
-                  <span class="br0">)</span>
-                  <span class="sy0">||</span>
-                  b.
-                  <span class="me1">getSymbolicName</span>
-                  <span class="br0">(</span>
-                  <span class="br0">)</span>
-                  .
-                  <span class="me1">equals</span>
-                  <span class="br0">(</span>
-                  <span class="st0">"org.eclipse.jetty.example.webapp"</span>
-                  <span class="br0">)</span>
-                  <span class="br0">)</span>
-                  <span class="br0">{</span>
-                  <span class="kw1">try</span>
-                  <span class="br0">{</span>
-                  <span class="kw3">System</span>
-                  .
-                  <span class="me1">err</span>
-                  .
-                  <span class="me1">println</span>
-                  <span class="br0">(</span>
-                  <span class="st0">"Found "</span>
-                  <span class="sy0">+</span>
-                  b.
-                  <span class="me1">getSymbolicName</span>
-                  <span class="br0">(</span>
-                  <span class="br0">)</span>
-                  <span class="br0">)</span>
-                  <span class="sy0">;</span>
-                  b.
-                  <span class="me1">start</span>
-                  <span class="br0">(</span>
-                  <span class="br0">)</span>
-                  <span class="sy0">;</span>
-                  <span class="br0">}</span>
-                  <span class="kw1">catch</span>
-                  <span class="br0">(</span>
-                  BundleException e
-                  <span class="br0">)</span>
-                  <span class="br0">{</span>
-                  <span class="kw1">Assert</span>
-                  .
-                  <span class="me1">fail</span>
-                  <span class="br0">(</span>
-                  <span class="st0">"Unable to start the necessary bundles"</span>
-                  <span class="br0">)</span>
-                  <span class="sy0">;</span>
-                  <span class="br0">}</span>
-                  <span class="br0">}</span>
-                  <span class="br0">}</span>
-                  <span class="co1">//TODO: put in a lifecycle listener</span>
-                  <span class="kw1">synchronized</span>
-                  <span class="br0">(</span>
-                  <span class="kw3">Thread</span>
-                  .
-                  <span class="me1">currentThread</span>
-                  <span class="br0">(</span>
-                  <span class="br0">)</span>
-                  <span class="br0">)</span>
-                  <span class="br0">{</span>
-                  <span class="kw1">try</span>
-                  <span class="br0">{</span>
-                  <span class="kw3">Thread</span>
-                  .
-                  <span class="me1">currentThread</span>
-                  <span class="br0">(</span>
-                  <span class="br0">)</span>
-                  .
-                  <span class="me1">wait</span>
-                  <span class="br0">(</span>
-                  <span class="nu0">1000</span>
-                  <span class="br0">)</span>
-                  <span class="sy0">;</span>
-                  <span class="br0">}</span>
-                  <span class="kw1">catch</span>
-                  <span class="br0">(</span>
-                  <span class="kw3">Throwable</span>
-                  e
-                  <span class="br0">)</span>
-                  <span class="br0">{</span>
-                  e.
-                  <span class="me1">printStackTrace</span>
-                  <span class="br0">(</span>
-                  <span class="br0">)</span>
-                  <span class="sy0">;</span>
-                  <span class="br0">}</span>
-                  <span class="br0">}</span>
-                  <span class="br0">}</span>
-                  @Test
-                  <span class="kw1">public</span>
-                  <span class="kw4">void</span>
-                  testGet
-                  <span class="br0">(</span>
-                  <span class="br0">)</span>
-                  <span class="kw1">throws</span>
-                  <span class="kw3">Exception</span>
-                  <span class="br0">{</span>
-                  startClient
-                  <span class="br0">(</span>
-                  <span class="br0">)</span>
-                  <span class="sy0">;</span>
-                  ContentExchange getExchange
-                  <span class="sy0">=</span>
-                  <span class="kw1">new</span>
-                  ContentExchange
-                  <span class="br0">(</span>
-                  <span class="br0">)</span>
-                  <span class="sy0">;</span>
-                  getExchange.
-                  <span class="me1">setURL</span>
-                  <span class="br0">(</span>
-                  <span class="st0">"http://localhost:8080/test/"</span>
-                  <span class="br0">)</span>
-                  <span class="sy0">;</span>
-                  getExchange.
-                  <span class="me1">setMethod</span>
-                  <span class="br0">(</span>
-                  HttpMethods.
-                  <span class="me1">GET</span>
-                  <span class="br0">)</span>
-                  <span class="sy0">;</span>
-                  _client.
-                  <span class="me1">send</span>
-                  <span class="br0">(</span>
-                  getExchange
-                  <span class="br0">)</span>
-                  <span class="sy0">;</span>
-                  <span class="kw4">int</span>
-                  state
-                  <span class="sy0">=</span>
-                  getExchange.
-                  <span class="me1">waitForDone</span>
-                  <span class="br0">(</span>
-                  <span class="br0">)</span>
-                  <span class="sy0">;</span>
-                  <span class="kw3">String</span>
-                  content
-                  <span class="sy0">=</span>
-                  <span class="st0">""</span>
-                  <span class="sy0">;</span>
-                  <span class="kw4">int</span>
-                  responseStatus
-                  <span class="sy0">=</span>
-                  getExchange.
-                  <span class="me1">getResponseStatus</span>
-                  <span class="br0">(</span>
-                  <span class="br0">)</span>
-                  <span class="sy0">;</span>
-                  <span class="kw1">if</span>
-                  <span class="br0">(</span>
-                  responseStatus
-                  <span class="sy0">==</span>
-                  HttpStatus.
-                  <span class="me1">OK_200</span>
-                  <span class="br0">)</span>
-                  <span class="br0">{</span>
-                  content
-                  <span class="sy0">=</span>
-                  getExchange.
-                  <span class="me1">getResponseContent</span>
-                  <span class="br0">(</span>
-                  <span class="br0">)</span>
-                  <span class="sy0">;</span>
-                  <span class="br0">}</span>
-                  <span class="kw3">System</span>
-                  .
-                  <span class="me1">err</span>
-                  .
-                  <span class="me1">println</span>
-                  <span class="br0">(</span>
-                  <span class="st0">"Got the content: "</span>
-                  <span class="sy0">+</span>
-                  content
-                  <span class="br0">)</span>
-                  <span class="sy0">;</span>
-                  stopClient
-                  <span class="br0">(</span>
-                  <span class="br0">)</span>
-                  <span class="sy0">;</span>
-                  <span class="kw1">Assert</span>
-                  .
-                  <span class="me1">assertEquals</span>
-                  <span class="br0">(</span>
-                  HttpStatus.
-                  <span class="me1">OK_200</span>
-                  , responseStatus
-                  <span class="br0">)</span>
-                  <span class="sy0">;</span>
-                  <span class="kw1">Assert</span>
-                  .
-                  <span class="me1">assertEquals</span>
-                  <span class="br0">(</span>
-                  <span class="st0">"Howdy!"</span>
-                  , content
-                  <span class="br0">)</span>
-                  <span class="sy0">;</span>
-                  <span class="br0">}</span>
-                  <span class="br0">}</span>
-                </pre>
+	@Before <span class="kw1">public</span> <span class="kw4">void</span> setup<span class="br0">(</span><span class="br0">)</span> <span class="br0">{</span>
+		Bundle testBundle <span class="sy0">=</span> FrameworkUtil.<span class="me1">getBundle</span><span class="br0">(</span>ServletTest.<span class="kw1">class</span><span class="br0">)</span><span class="sy0">;</span>
+		<span class="kw1">for</span> <span class="br0">(</span>Bundle b <span class="sy0">:</span> testBundle.<span class="me1">getBundleContext</span><span class="br0">(</span><span class="br0">)</span>.<span class="me1">getBundles</span><span class="br0">(</span><span class="br0">)</span><span class="br0">)</span> <span class="br0">{</span>
+			<span class="kw1">if</span> <span class="br0">(</span>b.<span class="me1">getSymbolicName</span><span class="br0">(</span><span class="br0">)</span>.<span class="me1">equals</span><span class="br0">(</span><span class="st0">"org.eclipse.jetty.osgi.boot"</span><span class="br0">)</span>
+					<span class="sy0">||</span> b.<span class="me1">getSymbolicName</span><span class="br0">(</span><span class="br0">)</span>.<span class="me1">equals</span><span class="br0">(</span><span class="st0">"org.eclipse.jetty.example.webapp"</span><span class="br0">)</span><span class="br0">)</span> <span class="br0">{</span>
+				<span class="kw1">try</span> <span class="br0">{</span>
+					<span class="kw3">System</span>.<span class="me1">err</span>.<span class="me1">println</span><span class="br0">(</span><span class="st0">"Found "</span> <span class="sy0">+</span> b.<span class="me1">getSymbolicName</span><span class="br0">(</span><span class="br0">)</span><span class="br0">)</span><span class="sy0">;</span>
+					b.<span class="me1">start</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
+				<span class="br0">}</span> <span class="kw1">catch</span> <span class="br0">(</span>BundleException e<span class="br0">)</span> <span class="br0">{</span>
+					<span class="kw1">Assert</span>.<span class="me1">fail</span><span class="br0">(</span><span class="st0">"Unable to start the necessary bundles"</span><span class="br0">)</span><span class="sy0">;</span>
+				<span class="br0">}</span>
+			<span class="br0">}</span>
+		<span class="br0">}</span>
+		<span class="co1">//TODO: put in a lifecycle listener</span>
+		<span class="kw1">synchronized</span> <span class="br0">(</span><span class="kw3">Thread</span>.<span class="me1">currentThread</span><span class="br0">(</span><span class="br0">)</span><span class="br0">)</span> <span class="br0">{</span>
+			<span class="kw1">try</span> <span class="br0">{</span>
+				<span class="kw3">Thread</span>.<span class="me1">currentThread</span><span class="br0">(</span><span class="br0">)</span>.<span class="me1">wait</span><span class="br0">(</span><span class="nu0">1000</span><span class="br0">)</span><span class="sy0">;</span>
+			<span class="br0">}</span> <span class="kw1">catch</span> <span class="br0">(</span><span class="kw3">Throwable</span> e<span class="br0">)</span> <span class="br0">{</span>
+				e.<span class="me1">printStackTrace</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
+			<span class="br0">}</span>
+		<span class="br0">}</span>
+	<span class="br0">}</span>
+ 
+	@Test <span class="kw1">public</span> <span class="kw4">void</span> testGet<span class="br0">(</span><span class="br0">)</span> <span class="kw1">throws</span> <span class="kw3">Exception</span> <span class="br0">{</span>
+		startClient<span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
+ 
+		ContentExchange getExchange <span class="sy0">=</span> <span class="kw1">new</span> ContentExchange<span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
+		getExchange.<span class="me1">setURL</span><span class="br0">(</span><span class="st0">"http://localhost:8080/test/"</span><span class="br0">)</span><span class="sy0">;</span>
+		getExchange.<span class="me1">setMethod</span><span class="br0">(</span>HttpMethods.<span class="me1">GET</span><span class="br0">)</span><span class="sy0">;</span>
+ 
+		_client.<span class="me1">send</span><span class="br0">(</span>getExchange<span class="br0">)</span><span class="sy0">;</span>
+		<span class="kw4">int</span> state <span class="sy0">=</span> getExchange.<span class="me1">waitForDone</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
+ 
+		<span class="kw3">String</span> content <span class="sy0">=</span> <span class="st0">""</span><span class="sy0">;</span>
+		<span class="kw4">int</span> responseStatus <span class="sy0">=</span> getExchange.<span class="me1">getResponseStatus</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
+		<span class="kw1">if</span> <span class="br0">(</span>responseStatus <span class="sy0">==</span> HttpStatus.<span class="me1">OK_200</span><span class="br0">)</span> <span class="br0">{</span>
+			content <span class="sy0">=</span> getExchange.<span class="me1">getResponseContent</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
+		<span class="br0">}</span>
+		<span class="kw3">System</span>.<span class="me1">err</span>.<span class="me1">println</span><span class="br0">(</span><span class="st0">"Got the content: "</span> <span class="sy0">+</span> content<span class="br0">)</span><span class="sy0">;</span>
+		stopClient<span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
+ 
+		<span class="kw1">Assert</span>.<span class="me1">assertEquals</span><span class="br0">(</span>HttpStatus.<span class="me1">OK_200</span>, responseStatus<span class="br0">)</span><span class="sy0">;</span>
+		<span class="kw1">Assert</span>.<span class="me1">assertEquals</span><span class="br0">(</span><span class="st0">"Howdy!"</span>, content<span class="br0">)</span><span class="sy0">;</span>
+	<span class="br0">}</span>
+ 
+<span class="br0">}</span></pre>
               </div>
             </div>
             <p>

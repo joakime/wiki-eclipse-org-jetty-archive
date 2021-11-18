@@ -16,7 +16,7 @@
               <span class="subpages">
                 &lt;
                 <a href="../../Jetty.html" title="Jetty">Jetty</a>
-                |
+                 |
                 <a href="../Howto.html" title="Jetty/Howto">Howto</a>
               </span>
             </div>
@@ -100,15 +100,17 @@
                 </li>
               </ul>
               <p>Error code example:</p>
-              <pre>&lt;error-page&gt;
+              <pre xml:space="preserve">&lt;error-page&gt;
   &lt;error-code&gt;404&lt;/error-code&gt;
   &lt;location&gt;/jspsnoop/ERROR/404&lt;/location&gt;
-&lt;/error-page&gt;</pre>
+&lt;/error-page&gt;
+</pre>
               <p>Exception example:</p>
-              <pre>&lt;error-page&gt;
+              <pre xml:space="preserve">&lt;error-page&gt;
   &lt;exception-type&gt;java.io.IOException&lt;/exception-type&gt;
   &lt;location&gt;/jspsnoop/IOException&lt;/location&gt;
-&lt;/error-page&gt;</pre>
+&lt;/error-page&gt;
+</pre>
               <h2>
                 <span class="mw-headline" id="Context_file_configuration">Context file configuration</span>
               </h2>
@@ -119,277 +121,44 @@
               </p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="xml source-xml">
-                  <pre class="de1">
-                    <span class="sc3">
-                      <span class="re1">&lt;?xml</span>
-                      <span class="re0">version</span>
-                      =
-                      <span class="st0">"1.0"</span>
-                      <span class="re0">encoding</span>
-                      =
-                      <span class="st0">"ISO-8859-1"</span>
-                      <span class="re2">?&gt;</span>
-                    </span>
-                    <span class="sc0">&lt;!DOCTYPE Configure PUBLIC "-//Mort Bay Consulting//DTD Configure//EN" "http://jetty.mortbay.org/configure.dtd"&gt;</span>
-                    <span class="sc3">
-                      <span class="re1">&lt;Configure</span>
-                      <span class="re0">class</span>
-                      =
-                      <span class="st0">"org.eclipse.jetty.webapp.WebAppContext"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;Set</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"contextPath"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    /test
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Set
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;Set</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"war"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;SystemProperty</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"jetty.home"</span>
-                      <span class="re0">default</span>
-                      =
-                      <span class="st0">"."</span>
-                      <span class="re2">/&gt;</span>
-                    </span>
-                    /webapps/test
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Set
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc-1">&lt;!-- by Code --&gt;</span>
-                    <span class="sc3">
-                      <span class="re1">&lt;Get</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"errorHandler"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;Call</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"addErrorPage"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;Arg</span>
-                      <span class="re0">type</span>
-                      =
-                      <span class="st0">"int"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    404
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;Arg</span>
-                      <span class="re0">type</span>
-                      =
-                      <span class="st0">"String"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    /jspsnoop/ERROR/404
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Call
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Get
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc-1">&lt;!-- by Exception --&gt;</span>
-                    <span class="sc3">
-                      <span class="re1">&lt;Get</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"errorHandler"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;Call</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"addErrorPage"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;Call</span>
-                      <span class="re0">class</span>
-                      =
-                      <span class="st0">"java.lang.Class"</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"forName"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;Arg</span>
-                      <span class="re0">type</span>
-                      =
-                      <span class="st0">"String"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    java.io.IOException
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Call
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;Arg</span>
-                      <span class="re0">type</span>
-                      =
-                      <span class="st0">"String"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    /jspsnoop/IOException
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Call
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Get
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc-1">&lt;!-- by Code Range --&gt;</span>
-                    <span class="sc3">
-                      <span class="re1">&lt;Get</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"errorHandler"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;Call</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"addErrorPage"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;Arg</span>
-                      <span class="re0">type</span>
-                      =
-                      <span class="st0">"int"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    500
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;Arg</span>
-                      <span class="re0">type</span>
-                      =
-                      <span class="st0">"int"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    599
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;Arg</span>
-                      <span class="re0">type</span>
-                      =
-                      <span class="st0">"String"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    /dump/errorCodeRangeMapping
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Call
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Get
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Configure
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                  </pre>
+                  <pre class="de1" xml:space="preserve"><span class="sc3"><span class="re1">&lt;?xml</span> <span class="re0">version</span>=<span class="st0">"1.0"</span>  <span class="re0">encoding</span>=<span class="st0">"ISO-8859-1"</span><span class="re2">?&gt;</span></span>
+<span class="sc0">&lt;!DOCTYPE Configure PUBLIC "-//Mort Bay Consulting//DTD Configure//EN" "http://jetty.mortbay.org/configure.dtd"&gt;</span>
+ 
+<span class="sc3"><span class="re1">&lt;Configure</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.webapp.WebAppContext"</span><span class="re2">&gt;</span></span>
+  <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"contextPath"</span><span class="re2">&gt;</span></span>/test<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"war"</span><span class="re2">&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;SystemProperty</span> <span class="re0">name</span>=<span class="st0">"jetty.home"</span> <span class="re0">default</span>=<span class="st0">"."</span><span class="re2">/&gt;</span></span>/webapps/test
+  <span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
+ 
+  <span class="sc-1">&lt;!-- by Code --&gt;</span>
+  <span class="sc3"><span class="re1">&lt;Get</span> <span class="re0">name</span>=<span class="st0">"errorHandler"</span><span class="re2">&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;Call</span> <span class="re0">name</span>=<span class="st0">"addErrorPage"</span><span class="re2">&gt;</span></span>
+      <span class="sc3"><span class="re1">&lt;Arg</span> <span class="re0">type</span>=<span class="st0">"int"</span><span class="re2">&gt;</span></span>404<span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
+      <span class="sc3"><span class="re1">&lt;Arg</span> <span class="re0">type</span>=<span class="st0">"String"</span><span class="re2">&gt;</span></span>/jspsnoop/ERROR/404<span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;/Call<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;/Get<span class="re2">&gt;</span></span></span>
+ 
+  <span class="sc-1">&lt;!-- by Exception --&gt;</span>
+  <span class="sc3"><span class="re1">&lt;Get</span> <span class="re0">name</span>=<span class="st0">"errorHandler"</span><span class="re2">&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;Call</span> <span class="re0">name</span>=<span class="st0">"addErrorPage"</span><span class="re2">&gt;</span></span>
+      <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;Call</span> <span class="re0">class</span>=<span class="st0">"java.lang.Class"</span> <span class="re0">name</span>=<span class="st0">"forName"</span><span class="re2">&gt;</span></span>
+          <span class="sc3"><span class="re1">&lt;Arg</span> <span class="re0">type</span>=<span class="st0">"String"</span><span class="re2">&gt;</span></span>java.io.IOException<span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;/Call<span class="re2">&gt;</span></span></span>
+      <span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
+      <span class="sc3"><span class="re1">&lt;Arg</span> <span class="re0">type</span>=<span class="st0">"String"</span><span class="re2">&gt;</span></span>/jspsnoop/IOException<span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;/Call<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;/Get<span class="re2">&gt;</span></span></span>
+ 
+  <span class="sc-1">&lt;!-- by Code Range --&gt;</span>
+  <span class="sc3"><span class="re1">&lt;Get</span> <span class="re0">name</span>=<span class="st0">"errorHandler"</span><span class="re2">&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;Call</span> <span class="re0">name</span>=<span class="st0">"addErrorPage"</span><span class="re2">&gt;</span></span>
+      <span class="sc3"><span class="re1">&lt;Arg</span> <span class="re0">type</span>=<span class="st0">"int"</span><span class="re2">&gt;</span></span>500<span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
+      <span class="sc3"><span class="re1">&lt;Arg</span> <span class="re0">type</span>=<span class="st0">"int"</span><span class="re2">&gt;</span></span>599<span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
+      <span class="sc3"><span class="re1">&lt;Arg</span> <span class="re0">type</span>=<span class="st0">"String"</span><span class="re2">&gt;</span></span>/dump/errorCodeRangeMapping<span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;/Call<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;/Get<span class="re2">&gt;</span></span></span>
+<span class="sc3"><span class="re1">&lt;/Configure<span class="re2">&gt;</span></span></span></pre>
                 </div>
               </div>
               <h2>
@@ -405,98 +174,13 @@
               <p>The following methods may be implemented to control the appearance of the error pages:</p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="java source-java">
-                  <pre class="de1">
-                    <span class="kw4">void</span>
-                    handle
-                    <span class="br0">(</span>
-                    <span class="kw3">String</span>
-                    target, HttpServletRequest request, HttpServletResponse response,
-                    <span class="kw4">int</span>
-                    dispatch
-                    <span class="br0">)</span>
-                    <span class="kw1">throws</span>
-                    <span class="kw3">IOException</span>
-                    <span class="kw4">void</span>
-                    handleErrorPage
-                    <span class="br0">(</span>
-                    HttpServletRequest request,
-                    <span class="kw3">Writer</span>
-                    writer,
-                    <span class="kw4">int</span>
-                    code,
-                    <span class="kw3">String</span>
-                    message
-                    <span class="br0">)</span>
-                    <span class="kw1">throws</span>
-                    <span class="kw3">IOException</span>
-                    <span class="kw4">void</span>
-                    writeErrorPage
-                    <span class="br0">(</span>
-                    HttpServletRequest request,
-                    <span class="kw3">Writer</span>
-                    writer,
-                    <span class="kw4">int</span>
-                    code,
-                    <span class="kw3">String</span>
-                    message,
-                    <span class="kw4">boolean</span>
-                    showStacks
-                    <span class="br0">)</span>
-                    <span class="kw1">throws</span>
-                    <span class="kw3">IOException</span>
-                    <span class="kw4">void</span>
-                    writeErrorPageHead
-                    <span class="br0">(</span>
-                    HttpServletRequest request,
-                    <span class="kw3">Writer</span>
-                    writer,
-                    <span class="kw4">int</span>
-                    code,
-                    <span class="kw3">String</span>
-                    message
-                    <span class="br0">)</span>
-                    <span class="kw1">throws</span>
-                    <span class="kw3">IOException</span>
-                    <span class="kw4">void</span>
-                    writeErrorPageBody
-                    <span class="br0">(</span>
-                    HttpServletRequest request,
-                    <span class="kw3">Writer</span>
-                    writer,
-                    <span class="kw4">int</span>
-                    code,
-                    <span class="kw3">String</span>
-                    message,
-                    <span class="kw4">boolean</span>
-                    showStacks
-                    <span class="br0">)</span>
-                    <span class="kw1">throws</span>
-                    <span class="kw3">IOException</span>
-                    <span class="kw4">void</span>
-                    writeErrorPageMessage
-                    <span class="br0">(</span>
-                    HttpServletRequest request,
-                    <span class="kw3">Writer</span>
-                    writer,
-                    <span class="kw4">int</span>
-                    code,
-                    <span class="kw3">String</span>
-                    message,
-                    <span class="kw3">String</span>
-                    uri
-                    <span class="br0">)</span>
-                    <span class="kw1">throws</span>
-                    <span class="kw3">IOException</span>
-                    <span class="kw4">void</span>
-                    writeErrorPageStacks
-                    <span class="br0">(</span>
-                    HttpServletRequest request,
-                    <span class="kw3">Writer</span>
-                    writer
-                    <span class="br0">)</span>
-                    <span class="kw1">throws</span>
-                    <span class="kw3">IOException</span>
-                  </pre>
+                  <pre class="de1" xml:space="preserve"><span class="kw4">void</span> handle<span class="br0">(</span><span class="kw3">String</span> target, HttpServletRequest request, HttpServletResponse response, <span class="kw4">int</span> dispatch<span class="br0">)</span> <span class="kw1">throws</span> <span class="kw3">IOException</span>
+<span class="kw4">void</span> handleErrorPage<span class="br0">(</span>HttpServletRequest request, <span class="kw3">Writer</span> writer, <span class="kw4">int</span> code, <span class="kw3">String</span> message<span class="br0">)</span> <span class="kw1">throws</span> <span class="kw3">IOException</span>
+<span class="kw4">void</span> writeErrorPage<span class="br0">(</span>HttpServletRequest request, <span class="kw3">Writer</span> writer, <span class="kw4">int</span> code, <span class="kw3">String</span> message, <span class="kw4">boolean</span> showStacks<span class="br0">)</span> <span class="kw1">throws</span> <span class="kw3">IOException</span>
+<span class="kw4">void</span> writeErrorPageHead<span class="br0">(</span>HttpServletRequest request, <span class="kw3">Writer</span> writer, <span class="kw4">int</span> code, <span class="kw3">String</span> message<span class="br0">)</span> <span class="kw1">throws</span> <span class="kw3">IOException</span>
+<span class="kw4">void</span> writeErrorPageBody<span class="br0">(</span>HttpServletRequest request, <span class="kw3">Writer</span> writer, <span class="kw4">int</span> code, <span class="kw3">String</span> message, <span class="kw4">boolean</span> showStacks<span class="br0">)</span> <span class="kw1">throws</span> <span class="kw3">IOException</span>
+<span class="kw4">void</span> writeErrorPageMessage<span class="br0">(</span>HttpServletRequest request, <span class="kw3">Writer</span> writer, <span class="kw4">int</span> code, <span class="kw3">String</span> message, <span class="kw3">String</span> uri<span class="br0">)</span> <span class="kw1">throws</span> <span class="kw3">IOException</span>
+<span class="kw4">void</span> writeErrorPageStacks<span class="br0">(</span>HttpServletRequest request, <span class="kw3">Writer</span> writer<span class="br0">)</span> <span class="kw1">throws</span> <span class="kw3">IOException</span></pre>
                 </div>
               </div>
               <p>
@@ -512,114 +196,20 @@
               </p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="xml source-xml">
-                  <pre class="de1">
-                    <span class="sc3">
-                      <span class="re1">&lt;?xml</span>
-                      <span class="re0">version</span>
-                      =
-                      <span class="st0">"1.0"</span>
-                      <span class="re0">encoding</span>
-                      =
-                      <span class="st0">"ISO-8859-1"</span>
-                      <span class="re2">?&gt;</span>
-                    </span>
-                    <span class="sc0">&lt;!DOCTYPE Configure PUBLIC "-//Mort Bay Consulting//DTD Configure//EN" "http://jetty.mortbay.org/configure.dtd"&gt;</span>
-                    <span class="sc3">
-                      <span class="re1">&lt;Configure</span>
-                      <span class="re0">class</span>
-                      =
-                      <span class="st0">"org.eclipse.jetty.server.handler.ContextHandler"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;Call</span>
-                      <span class="re0">class</span>
-                      =
-                      <span class="st0">"org.eclipse.util.log.Log"</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"debug"</span>
-                      <span class="re2">&gt;</span>
-                      <span class="re1">
-                        &lt;Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    Configure javadoc.xml
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                      <span class="re1">
-                        &lt;/Call
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;Set</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"contextPath"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    /javadoc
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Set
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;Set</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"resourceBase"</span>
-                      <span class="re2">&gt;</span>
-                      <span class="re1">&lt;SystemProperty</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"jetty.home"</span>
-                      <span class="re0">default</span>
-                      =
-                      <span class="st0">"."</span>
-                      <span class="re2">/&gt;</span>
-                    </span>
-                    /javadoc/
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Set
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc-1">&lt;!-- Instantiate your own error handler --&gt;</span>
-                    <span class="sc3">
-                      <span class="re1">&lt;Set</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"errorHandler"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;New</span>
-                      <span class="re0">class</span>
-                      =
-                      <span class="st0">"com.acme.handler.MyErrorHandler"</span>
-                      <span class="re2">/&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Set
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Configure
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                  </pre>
+                  <pre class="de1" xml:space="preserve"><span class="sc3"><span class="re1">&lt;?xml</span> <span class="re0">version</span>=<span class="st0">"1.0"</span>  <span class="re0">encoding</span>=<span class="st0">"ISO-8859-1"</span><span class="re2">?&gt;</span></span>
+<span class="sc0">&lt;!DOCTYPE Configure PUBLIC "-//Mort Bay Consulting//DTD Configure//EN" "http://jetty.mortbay.org/configure.dtd"&gt;</span>
+ 
+<span class="sc3"><span class="re1">&lt;Configure</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.server.handler.ContextHandler"</span><span class="re2">&gt;</span></span>
+  <span class="sc3"><span class="re1">&lt;Call</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.util.log.Log"</span> <span class="re0">name</span>=<span class="st0">"debug"</span><span class="re2">&gt;</span><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>Configure javadoc.xml<span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span><span class="re1">&lt;/Call<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"contextPath"</span><span class="re2">&gt;</span></span>/javadoc<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"resourceBase"</span><span class="re2">&gt;</span><span class="re1">&lt;SystemProperty</span> <span class="re0">name</span>=<span class="st0">"jetty.home"</span> <span class="re0">default</span>=<span class="st0">"."</span><span class="re2">/&gt;</span></span>/javadoc/<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
+ 
+  <span class="sc-1">&lt;!-- Instantiate your own error handler --&gt;</span>
+  <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"errorHandler"</span><span class="re2">&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">class</span>=<span class="st0">"com.acme.handler.MyErrorHandler"</span><span class="re2">/&gt;</span></span>
+  <span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
+ 
+<span class="sc3"><span class="re1">&lt;/Configure<span class="re2">&gt;</span></span></span></pre>
                 </div>
               </div>
               <h2>

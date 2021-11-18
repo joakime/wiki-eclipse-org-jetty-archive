@@ -16,7 +16,7 @@
               <span class="subpages">
                 &lt;
                 <a href="../../Jetty.html" title="Jetty">Jetty</a>
-                |
+                 |
                 <a href="../Reference.html" title="Jetty/Reference">Reference</a>
               </span>
             </div>
@@ -108,21 +108,13 @@
               </p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="bash source-bash">
-                  <pre class="de1">
-                    java
-                    <span class="re5">-jar</span>
-                    start.jar
-                    <span class="re2">OPTIONS</span>
-                    =monitor etc
-                    <span class="sy0">/</span>
-                    jetty-monitor.xml
-                  </pre>
+                  <pre class="de1" xml:space="preserve">java <span class="re5">-jar</span> start.jar <span class="re2">OPTIONS</span>=monitor etc<span class="sy0">/</span>jetty-monitor.xml</pre>
                 </div>
               </div>
               <p>or in start.ini:</p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="text source-text">
-                  <pre class="de1">OPTIONS=Server,jsp,jmx,resources,websocket,ext,monitor
+                  <pre class="de1" xml:space="preserve">OPTIONS=Server,jsp,jmx,resources,websocket,ext,monitor
 etc/jetty-monitor.xml</pre>
                 </div>
               </div>
@@ -143,334 +135,53 @@ etc/jetty-monitor.xml</pre>
               </p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="xml source-xml">
-                  <pre class="de1">
-                    <span class="sc3">
-                      <span class="re1">&lt;?xml</span>
-                      <span class="re0">version</span>
-                      =
-                      <span class="st0">"1.0"</span>
-                      <span class="re0">encoding</span>
-                      =
-                      <span class="st0">"UTF-8"</span>
-                      <span class="re2">?&gt;</span>
-                    </span>
-                    <span class="sc0">&lt;!DOCTYPE Configure PUBLIC "-//Jetty//Configure//EN" "http://www.eclipse.org/jetty/configure.dtd"&gt;</span>
-                    <span class="sc3">
-                      <span class="re1">&lt;Configure</span>
-                      <span class="re0">id</span>
-                      =
-                      <span class="st0">"Monitor"</span>
-                      <span class="re0">class</span>
-                      =
-                      <span class="st0">"org.mortbay.jetty.monitor.JMXMonitor"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;Call</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"addActions"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;Array</span>
-                      <span class="re0">type</span>
-                      =
-                      <span class="st0">"org.mortbay.jetty.monitor.MonitorAction"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;Item
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;New</span>
-                      <span class="re0">class</span>
-                      =
-                      <span class="st0">"org.mortbay.jetty.monitor.SimpleAction"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;New</span>
-                      <span class="re0">class</span>
-                      =
-                      <span class="st0">"org.mortbay.jetty.monitor.triggers.OrEventTrigger"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;Array</span>
-                      <span class="re0">type</span>
-                      =
-                      <span class="st0">"org.mortbay.jetty.monitor.EventTrigger"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;Item
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;New</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re0">class</span>
-                      =
-                      <span class="st0">"org.mortbay.jetty.monitor.triggers.LessThanOrEqualToAttrEventTrigger"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    org.eclipse.jetty.util.thread:type=queuedthreadpool,id=0
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    idleThreads
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;Arg</span>
-                      <span class="re0">type</span>
-                      =
-                      <span class="st0">"java.lang.Integer"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    4
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/New
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Item
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;Item
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;New</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re0">class</span>
-                      =
-                      <span class="st0">"org.mortbay.jetty.monitor.triggers.GreaterThanAttrEventTrigger"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    org.eclipse.jetty.util.thread:type=queuedthreadpool,id=0
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    idleThreads
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;Arg</span>
-                      <span class="re0">type</span>
-                      =
-                      <span class="st0">"java.lang.Integer"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    7
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/New
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Item
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Array
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/New
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;New</span>
-                      <span class="re0">class</span>
-                      =
-                      <span class="st0">"org.mortbay.jetty.monitor.ConsoleNotifier"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    %s
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/New
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;Arg</span>
-                      <span class="re0">type</span>
-                      =
-                      <span class="st0">"java.lang.Long"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    500
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/New
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Item
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Array
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Call
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Configure
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                  </pre>
+                  <pre class="de1" xml:space="preserve"><span class="sc3"><span class="re1">&lt;?xml</span> <span class="re0">version</span>=<span class="st0">"1.0"</span> <span class="re0">encoding</span>=<span class="st0">"UTF-8"</span><span class="re2">?&gt;</span></span>
+<span class="sc0">&lt;!DOCTYPE Configure PUBLIC "-//Jetty//Configure//EN" "http://www.eclipse.org/jetty/configure.dtd"&gt;</span>
+ 
+<span class="sc3"><span class="re1">&lt;Configure</span> <span class="re0">id</span>=<span class="st0">"Monitor"</span> <span class="re0">class</span>=<span class="st0">"org.mortbay.jetty.monitor.JMXMonitor"</span><span class="re2">&gt;</span></span>
+  <span class="sc3"><span class="re1">&lt;Call</span> <span class="re0">name</span>=<span class="st0">"addActions"</span><span class="re2">&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>
+      <span class="sc3"><span class="re1">&lt;Array</span> <span class="re0">type</span>=<span class="st0">"org.mortbay.jetty.monitor.MonitorAction"</span><span class="re2">&gt;</span></span>
+        <span class="sc3"><span class="re1">&lt;Item<span class="re2">&gt;</span></span></span>
+          <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">class</span>=<span class="st0">"org.mortbay.jetty.monitor.SimpleAction"</span><span class="re2">&gt;</span></span>
+            <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>
+              <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">class</span>=<span class="st0">"org.mortbay.jetty.monitor.triggers.OrEventTrigger"</span><span class="re2">&gt;</span></span>
+                <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>
+                  <span class="sc3"><span class="re1">&lt;Array</span> <span class="re0">type</span>=<span class="st0">"org.mortbay.jetty.monitor.EventTrigger"</span><span class="re2">&gt;</span></span>
+                    <span class="sc3"><span class="re1">&lt;Item<span class="re2">&gt;</span></span></span>
+                      <span class="sc3"><span class="re1">&lt;New</span></span>
+<span class="sc3">                        <span class="re0">class</span>=<span class="st0">"org.mortbay.jetty.monitor.triggers.LessThanOrEqualToAttrEventTrigger"</span><span class="re2">&gt;</span></span>
+                        <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>org.eclipse.jetty.util.thread:type=queuedthreadpool,id=0
+                        <span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
+                        <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>idleThreads<span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
+                        <span class="sc3"><span class="re1">&lt;Arg</span> <span class="re0">type</span>=<span class="st0">"java.lang.Integer"</span><span class="re2">&gt;</span></span>4<span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
+                      <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span>
+                    <span class="sc3"><span class="re1">&lt;/Item<span class="re2">&gt;</span></span></span>
+                    <span class="sc3"><span class="re1">&lt;Item<span class="re2">&gt;</span></span></span>
+                      <span class="sc3"><span class="re1">&lt;New</span></span>
+<span class="sc3">                        <span class="re0">class</span>=<span class="st0">"org.mortbay.jetty.monitor.triggers.GreaterThanAttrEventTrigger"</span><span class="re2">&gt;</span></span>
+                        <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>org.eclipse.jetty.util.thread:type=queuedthreadpool,id=0
+                        <span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
+                        <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>idleThreads<span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
+                        <span class="sc3"><span class="re1">&lt;Arg</span> <span class="re0">type</span>=<span class="st0">"java.lang.Integer"</span><span class="re2">&gt;</span></span>7<span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
+                      <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span>
+                    <span class="sc3"><span class="re1">&lt;/Item<span class="re2">&gt;</span></span></span>
+                  <span class="sc3"><span class="re1">&lt;/Array<span class="re2">&gt;</span></span></span>
+                <span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
+              <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>
+              <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">class</span>=<span class="st0">"org.mortbay.jetty.monitor.ConsoleNotifier"</span><span class="re2">&gt;</span></span>
+                <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>%s<span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
+              <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;Arg</span> <span class="re0">type</span>=<span class="st0">"java.lang.Long"</span><span class="re2">&gt;</span></span>500<span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
+          <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;/Item<span class="re2">&gt;</span></span></span>
+      <span class="sc3"><span class="re1">&lt;/Array<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;/Call<span class="re2">&gt;</span></span></span>
+<span class="sc3"><span class="re1">&lt;/Configure<span class="re2">&gt;</span></span></span></pre>
                 </div>
               </div>
               <h3>
@@ -483,14 +194,7 @@ etc/jetty-monitor.xml</pre>
               </p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="bash source-bash">
-                  <pre class="de1">
-                    java
-                    <span class="re5">-jar</span>
-                    start.jar
-                    <span class="sy0">&lt;</span>
-                    mymonitor.xml
-                    <span class="sy0">&gt;</span>
-                  </pre>
+                  <pre class="de1" xml:space="preserve">java <span class="re5">-jar</span> start.jar <span class="sy0">&lt;</span>mymonitor.xml<span class="sy0">&gt;</span></pre>
                 </div>
               </div>
               <h3>
@@ -499,62 +203,15 @@ etc/jetty-monitor.xml</pre>
               <p>The configuration file for the standalone jetty-monitor uses the same format as the in-process monitor does. For jetty-monitor to be able to connect to the Jetty server you want it to monitor, the configuration file must specify the URL for the remote JMX connector as follows:</p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="xml source-xml">
-                  <pre class="de1">
-                    <span class="sc3">
-                      <span class="re1">&lt;?xml</span>
-                      <span class="re0">version</span>
-                      =
-                      <span class="st0">"1.0"</span>
-                      <span class="re0">encoding</span>
-                      =
-                      <span class="st0">"UTF-8"</span>
-                      <span class="re2">?&gt;</span>
-                    </span>
-                    <span class="sc0">&lt;!DOCTYPE Configure PUBLIC "-//Jetty//Configure//EN" "http://www.eclipse.org/jetty/configure.dtd"&gt;</span>
-                    <span class="sc3">
-                      <span class="re1">&lt;Configure</span>
-                      <span class="re0">id</span>
-                      =
-                      <span class="st0">"Monitor"</span>
-                      <span class="re0">class</span>
-                      =
-                      <span class="st0">"org.mortbay.jetty.monitor.JMXMonitor"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;Call</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"setUrl"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    service:jmx:rmi://localhost/jndi/rmi://localhost:1099/jettyjmx
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Call
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    ...
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Configure
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                  </pre>
+                  <pre class="de1" xml:space="preserve"><span class="sc3"><span class="re1">&lt;?xml</span> <span class="re0">version</span>=<span class="st0">"1.0"</span> <span class="re0">encoding</span>=<span class="st0">"UTF-8"</span><span class="re2">?&gt;</span></span>
+<span class="sc0">&lt;!DOCTYPE Configure PUBLIC "-//Jetty//Configure//EN" "http://www.eclipse.org/jetty/configure.dtd"&gt;</span>
+ 
+<span class="sc3"><span class="re1">&lt;Configure</span> <span class="re0">id</span>=<span class="st0">"Monitor"</span> <span class="re0">class</span>=<span class="st0">"org.mortbay.jetty.monitor.JMXMonitor"</span><span class="re2">&gt;</span></span>
+  <span class="sc3"><span class="re1">&lt;Call</span> <span class="re0">name</span>=<span class="st0">"setUrl"</span><span class="re2">&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>service:jmx:rmi://localhost/jndi/rmi://localhost:1099/jettyjmx<span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;/Call<span class="re2">&gt;</span></span></span>
+  ...
+<span class="sc3"><span class="re1">&lt;/Configure<span class="re2">&gt;</span></span></span></pre>
                 </div>
               </div>
               <h3>
@@ -567,24 +224,7 @@ etc/jetty-monitor.xml</pre>
               </ul>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="bash source-bash">
-                  <pre class="de1">
-                    java
-                    <span class="re5">-cp</span>
-                    jetty-all-server-
-                    <span class="br0">[</span>
-                    version
-                    <span class="br0">]</span>
-                    .jar
-                    <span class="re5">-jar</span>
-                    jetty-monitor-
-                    <span class="br0">[</span>
-                    version
-                    <span class="br0">]</span>
-                    .jar org.eclipse.jetty.monitor.JMXMonitor
-                    <span class="sy0">&lt;</span>
-                    monitor.xml
-                    <span class="sy0">&gt;</span>
-                  </pre>
+                  <pre class="de1" xml:space="preserve">java <span class="re5">-cp</span> jetty-all-server-<span class="br0">[</span>version<span class="br0">]</span>.jar <span class="re5">-jar</span> jetty-monitor-<span class="br0">[</span>version<span class="br0">]</span>.jar org.eclipse.jetty.monitor.JMXMonitor <span class="sy0">&lt;</span>monitor.xml<span class="sy0">&gt;</span></pre>
                 </div>
               </div>
               <h2>
@@ -593,178 +233,30 @@ etc/jetty-monitor.xml</pre>
               <p>The jetty-monitor package also provides the org.eclipse.jetty.monitor.ThreadMonitor class, which can monitor threads for excessive CPU usage and spinning in situ.   The default jetty-monitor.xml file is normally setup to contain a ThreadMonitor like:</p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="xml source-xml">
-                  <pre class="de1">
-                    <span class="sc3">
-                      <span class="re1">&lt;?xml</span>
-                      <span class="re0">version</span>
-                      =
-                      <span class="st0">"1.0"</span>
-                      <span class="re2">?&gt;</span>
-                    </span>
-                    <span class="sc0">&lt;!DOCTYPE Configure PUBLIC "-//Jetty//Configure//EN" "http://www.eclipse.org/jetty/configure.dtd"&gt;</span>
-                    <span class="sc3">
-                      <span class="re1">&lt;Configure</span>
-                      <span class="re0">id</span>
-                      =
-                      <span class="st0">"Server"</span>
-                      <span class="re0">class</span>
-                      =
-                      <span class="st0">"org.eclipse.jetty.server.Server"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    <span class="sc-1">&lt;!-- Create Thread Monitor, and add to the Server as a lifecycle --&gt;</span>
-                    <span class="sc3">
-                      <span class="re1">&lt;Call</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"addBean"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;New</span>
-                      <span class="re0">class</span>
-                      =
-                      <span class="st0">"org.eclipse.jetty.monitor.ThreadMonitor"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;Set</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"scanInterval"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    2000
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Set
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;Set</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"busyThreshold"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    90
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Set
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;Set</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"stackDepth"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    5
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Set
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc-1">&lt;!-- how much of the stack trace is compared for spinning check --&gt;</span>
-                    <span class="sc3">
-                      <span class="re1">&lt;Set</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"trailLength"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    4
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Set
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc-1">&lt;!-- how many stack traces to log --&gt;</span>
-                    <span class="sc-1">&lt;!-- To enable logging CPU utilization for threads above specified threshold, --&gt;</span>
-                    <span class="sc-1">&lt;!-- uncomment the following lines, changing log interval (in milliseconds)  --&gt;</span>
-                    <span class="sc-1">&lt;!-- and log threshold (in percent) as desired.                              --&gt;</span>
-                    <span class="sc3">
-                      <span class="re1">&lt;Set</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"logInterval"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    10000
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Set
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;Set</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"logThreshold"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    65
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Set
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc-1">&lt;!-- To enable detail dump of the server whenever a thread is detected as spinning, --&gt;</span>
-                    <span class="sc-1">&lt;!-- uncomment the following lines. --&gt;</span>
-                    <span class="sc3">
-                      <span class="re1">&lt;Set</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"dumpable"</span>
-                      <span class="re2">&gt;</span>
-                      <span class="re1">&lt;Ref</span>
-                      <span class="re0">id</span>
-                      =
-                      <span class="st0">"Server"</span>
-                      <span class="re2">/&gt;</span>
-                      <span class="re1">
-                        &lt;/Set
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/New
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Call
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Configure
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                  </pre>
+                  <pre class="de1" xml:space="preserve"><span class="sc3"><span class="re1">&lt;?xml</span> <span class="re0">version</span>=<span class="st0">"1.0"</span><span class="re2">?&gt;</span></span>
+<span class="sc0">&lt;!DOCTYPE Configure PUBLIC "-//Jetty//Configure//EN" "http://www.eclipse.org/jetty/configure.dtd"&gt;</span>
+<span class="sc3"><span class="re1">&lt;Configure</span> <span class="re0">id</span>=<span class="st0">"Server"</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.server.Server"</span><span class="re2">&gt;</span></span>
+  <span class="sc-1">&lt;!-- Create Thread Monitor, and add to the Server as a lifecycle --&gt;</span>
+  <span class="sc3"><span class="re1">&lt;Call</span> <span class="re0">name</span>=<span class="st0">"addBean"</span><span class="re2">&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>
+      <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.monitor.ThreadMonitor"</span><span class="re2">&gt;</span></span>
+        <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"scanInterval"</span><span class="re2">&gt;</span></span>2000<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"busyThreshold"</span><span class="re2">&gt;</span></span>90<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"stackDepth"</span><span class="re2">&gt;</span></span>5<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span> <span class="sc-1">&lt;!-- how much of the stack trace is compared for spinning check --&gt;</span>
+        <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"trailLength"</span><span class="re2">&gt;</span></span>4<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span><span class="sc-1">&lt;!-- how many stack traces to log --&gt;</span>
+        <span class="sc-1">&lt;!-- To enable logging CPU utilization for threads above specified threshold, --&gt;</span>
+        <span class="sc-1">&lt;!-- uncomment the following lines, changing log interval (in milliseconds)  --&gt;</span>
+        <span class="sc-1">&lt;!-- and log threshold (in percent) as desired.                              --&gt;</span>
+        <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"logInterval"</span><span class="re2">&gt;</span></span>10000<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"logThreshold"</span><span class="re2">&gt;</span></span>65<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
+ 
+        <span class="sc-1">&lt;!-- To enable detail dump of the server whenever a thread is detected as spinning, --&gt;</span>
+        <span class="sc-1">&lt;!-- uncomment the following lines. --&gt;</span>
+        <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"dumpable"</span><span class="re2">&gt;</span><span class="re1">&lt;Ref</span> <span class="re0">id</span>=<span class="st0">"Server"</span><span class="re2">/&gt;</span><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
+      <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;/Call<span class="re2">&gt;</span></span></span>
+<span class="sc3"><span class="re1">&lt;/Configure<span class="re2">&gt;</span></span></span></pre>
                 </div>
               </div>
               <h2>

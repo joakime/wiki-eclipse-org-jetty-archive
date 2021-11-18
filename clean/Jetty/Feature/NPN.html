@@ -16,7 +16,7 @@
               <span class="subpages">
                 &lt;
                 <a href="../../Jetty.html" title="Jetty">Jetty</a>
-                |
+                 |
                 <a href="../Feature.html" title="Jetty/Feature">Feature</a>
               </span>
             </div>
@@ -125,15 +125,7 @@ Jetty's NPN implementation, although hosted under the umbrella of the Jetty proj
               <p>To enable NPN support, you need to start the JVM with:</p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="bash source-bash">
-                  <pre class="de1">
-                    java -Xbootclasspath
-                    <span class="sy0">/</span>
-                    p:
-                    <span class="sy0">&lt;</span>
-                    path_to_npn_boot_jar
-                    <span class="sy0">&gt;</span>
-                    ...
-                  </pre>
+                  <pre class="de1" xml:space="preserve">java -Xbootclasspath<span class="sy0">/</span>p:<span class="sy0">&lt;</span>path_to_npn_boot_jar<span class="sy0">&gt;</span> ...</pre>
                 </div>
               </div>
               <p>
@@ -182,83 +174,29 @@ Refer to
               </h4>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="java source-java">
-                  <pre class="de1">
-                    SSLContext sslContext
-                    <span class="sy0">=</span>
-                    ...
-                    <span class="sy0">;</span>
-                    SSLSocket sslSocket
-                    <span class="sy0">=</span>
-                    <span class="br0">(</span>
-                    SSLSocket
-                    <span class="br0">)</span>
-                    context.
-                    <span class="me1">getSocketFactory</span>
-                    <span class="br0">(</span>
-                    <span class="br0">)</span>
-                    .
-                    <span class="me1">createSocket</span>
-                    <span class="br0">(</span>
-                    <span class="st0">"localhost"</span>
-                    , server.
-                    <span class="me1">getLocalPort</span>
-                    <span class="br0">(</span>
-                    <span class="br0">)</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    NextProtoNego.
-                    <span class="me1">put</span>
-                    <span class="br0">(</span>
-                    sslSocket,
-                    <span class="kw1">new</span>
-                    NextProtoNego.
-                    <span class="me1">ClientProvider</span>
-                    <span class="br0">(</span>
-                    <span class="br0">)</span>
-                    <span class="br0">{</span>
-                    @Override
-                    <span class="kw1">public</span>
-                    <span class="kw4">boolean</span>
-                    supports
-                    <span class="br0">(</span>
-                    <span class="br0">)</span>
-                    <span class="br0">{</span>
-                    <span class="kw1">return</span>
-                    <span class="kw2">true</span>
-                    <span class="sy0">;</span>
-                    <span class="br0">}</span>
-                    @Override
-                    <span class="kw1">public</span>
-                    <span class="kw4">void</span>
-                    unsupported
-                    <span class="br0">(</span>
-                    <span class="br0">)</span>
-                    <span class="br0">{</span>
-                    <span class="br0">}</span>
-                    @Override
-                    <span class="kw1">public</span>
-                    <span class="kw3">String</span>
-                    selectProtocol
-                    <span class="br0">(</span>
-                    List
-                    <span class="sy0">&lt;</span>
-                    String
-                    <span class="sy0">&gt;</span>
-                    protocols
-                    <span class="br0">)</span>
-                    <span class="br0">{</span>
-                    <span class="kw1">return</span>
-                    protocols.
-                    <span class="me1">get</span>
-                    <span class="br0">(</span>
-                    <span class="nu0">0</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    <span class="br0">}</span>
-                    <span class="br0">}</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                  </pre>
+                  <pre class="de1" xml:space="preserve">SSLContext sslContext <span class="sy0">=</span> ...<span class="sy0">;</span>
+SSLSocket sslSocket <span class="sy0">=</span> <span class="br0">(</span>SSLSocket<span class="br0">)</span>context.<span class="me1">getSocketFactory</span><span class="br0">(</span><span class="br0">)</span>
+        .<span class="me1">createSocket</span><span class="br0">(</span><span class="st0">"localhost"</span>, server.<span class="me1">getLocalPort</span><span class="br0">(</span><span class="br0">)</span><span class="br0">)</span><span class="sy0">;</span>
+ 
+NextProtoNego.<span class="me1">put</span><span class="br0">(</span>sslSocket, <span class="kw1">new</span> NextProtoNego.<span class="me1">ClientProvider</span><span class="br0">(</span><span class="br0">)</span>
+<span class="br0">{</span>
+    @Override
+    <span class="kw1">public</span> <span class="kw4">boolean</span> supports<span class="br0">(</span><span class="br0">)</span>
+    <span class="br0">{</span>
+        <span class="kw1">return</span> <span class="kw2">true</span><span class="sy0">;</span>
+    <span class="br0">}</span>
+ 
+    @Override
+    <span class="kw1">public</span> <span class="kw4">void</span> unsupported<span class="br0">(</span><span class="br0">)</span>
+    <span class="br0">{</span>
+    <span class="br0">}</span>
+ 
+    @Override
+    <span class="kw1">public</span> <span class="kw3">String</span> selectProtocol<span class="br0">(</span>List<span class="sy0">&lt;</span>String<span class="sy0">&gt;</span> protocols<span class="br0">)</span>
+    <span class="br0">{</span>
+        <span class="kw1">return</span> protocols.<span class="me1">get</span><span class="br0">(</span><span class="nu0">0</span><span class="br0">)</span><span class="sy0">;</span>
+    <span class="br0">}</span>
+<span class="br0">}</span><span class="br0">)</span><span class="sy0">;</span></pre>
                 </div>
               </div>
               <p>
@@ -291,73 +229,26 @@ Refer to
               </h4>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="java source-java">
-                  <pre class="de1">
-                    SSLSocket sslSocket
-                    <span class="sy0">=</span>
-                    ...
-                    <span class="sy0">;</span>
-                    NextProtoNego.
-                    <span class="me1">put</span>
-                    <span class="br0">(</span>
-                    sslSocket,
-                    <span class="kw1">new</span>
-                    NextProtoNego.
-                    <span class="me1">ServerProvider</span>
-                    <span class="br0">(</span>
-                    <span class="br0">)</span>
-                    <span class="br0">{</span>
-                    @Override
-                    <span class="kw1">public</span>
-                    <span class="kw4">void</span>
-                    unsupported
-                    <span class="br0">(</span>
-                    <span class="br0">)</span>
-                    <span class="br0">{</span>
-                    <span class="br0">}</span>
-                    @Override
-                    <span class="kw1">public</span>
-                    List
-                    <span class="sy0">&lt;</span>
-                    String
-                    <span class="sy0">&gt;</span>
-                    protocols
-                    <span class="br0">(</span>
-                    <span class="br0">)</span>
-                    <span class="br0">{</span>
-                    <span class="kw1">return</span>
-                    <span class="kw3">Arrays</span>
-                    .
-                    <span class="me1">asList</span>
-                    <span class="br0">(</span>
-                    <span class="st0">"http/1.1"</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    <span class="br0">}</span>
-                    @Override
-                    <span class="kw1">public</span>
-                    <span class="kw4">void</span>
-                    protocolSelected
-                    <span class="br0">(</span>
-                    <span class="kw3">String</span>
-                    protocol
-                    <span class="br0">)</span>
-                    <span class="br0">{</span>
-                    <span class="kw3">System</span>
-                    .
-                    <span class="me1">out</span>
-                    .
-                    <span class="me1">println</span>
-                    <span class="br0">(</span>
-                    <span class="st0">"Protocol Selected is: "</span>
-                    <span class="sy0">+</span>
-                    protocol
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    <span class="br0">}</span>
-                    <span class="br0">}</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                  </pre>
+                  <pre class="de1" xml:space="preserve">SSLSocket sslSocket <span class="sy0">=</span> ...<span class="sy0">;</span>
+NextProtoNego.<span class="me1">put</span><span class="br0">(</span>sslSocket, <span class="kw1">new</span> NextProtoNego.<span class="me1">ServerProvider</span><span class="br0">(</span><span class="br0">)</span>
+<span class="br0">{</span>
+    @Override
+    <span class="kw1">public</span> <span class="kw4">void</span> unsupported<span class="br0">(</span><span class="br0">)</span>
+    <span class="br0">{</span>
+    <span class="br0">}</span>
+ 
+    @Override
+    <span class="kw1">public</span> List<span class="sy0">&lt;</span>String<span class="sy0">&gt;</span> protocols<span class="br0">(</span><span class="br0">)</span>
+    <span class="br0">{</span>
+        <span class="kw1">return</span> <span class="kw3">Arrays</span>.<span class="me1">asList</span><span class="br0">(</span><span class="st0">"http/1.1"</span><span class="br0">)</span><span class="sy0">;</span>
+    <span class="br0">}</span>
+ 
+    @Override
+    <span class="kw1">public</span> <span class="kw4">void</span> protocolSelected<span class="br0">(</span><span class="kw3">String</span> protocol<span class="br0">)</span>
+    <span class="br0">{</span>
+        <span class="kw3">System</span>.<span class="me1">out</span>.<span class="me1">println</span><span class="br0">(</span><span class="st0">"Protocol Selected is: "</span> <span class="sy0">+</span> protocol<span class="br0">)</span><span class="sy0">;</span>
+    <span class="br0">}</span>
+<span class="br0">}</span><span class="br0">)</span><span class="sy0">;</span></pre>
                 </div>
               </div>
               <p>
@@ -432,120 +323,29 @@ Refer to
 The solution that we use with Maven is to specify an additional command line argument to the Surefire plugin:</p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="xml source-xml">
-                  <pre class="de1">
-                    <span class="sc3">
-                      <span class="re1">&lt;project</span>
-                      ...
-                      <span class="re2">&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;properties
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;npn-version
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    7.6.2.v20120308
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/npn-version
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/properties
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;build
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;plugins
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;plugin
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;artifactId
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    maven-surefire-plugin
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/artifactId
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;configuration
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;argLine
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    -Xbootclasspath/p:${settings.localRepository}/org/mortbay/jetty/npn/npn-boot/${npn-version}/npn-boot-${npn-version}.jar
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/argLine
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/configuration
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/plugin
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    ...
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/plugins
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/build
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    ...
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/project
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                  </pre>
+                  <pre class="de1" xml:space="preserve"><span class="sc3"><span class="re1">&lt;project</span> ...<span class="re2">&gt;</span></span>
+ 
+  <span class="sc3"><span class="re1">&lt;properties<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;npn-version<span class="re2">&gt;</span></span></span>7.6.2.v20120308<span class="sc3"><span class="re1">&lt;/npn-version<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;/properties<span class="re2">&gt;</span></span></span>
+ 
+  <span class="sc3"><span class="re1">&lt;build<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;plugins<span class="re2">&gt;</span></span></span>
+      <span class="sc3"><span class="re1">&lt;plugin<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;artifactId<span class="re2">&gt;</span></span></span>maven-surefire-plugin<span class="sc3"><span class="re1">&lt;/artifactId<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;configuration<span class="re2">&gt;</span></span></span>
+          <span class="sc3"><span class="re1">&lt;argLine<span class="re2">&gt;</span></span></span>-Xbootclasspath/p:${settings.localRepository}/org/mortbay/jetty/npn/npn-boot/${npn-version}/npn-boot-${npn-version}.jar<span class="sc3"><span class="re1">&lt;/argLine<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;/configuration<span class="re2">&gt;</span></span></span>
+      <span class="sc3"><span class="re1">&lt;/plugin<span class="re2">&gt;</span></span></span>
+ 
+      ...
+ 
+    <span class="sc3"><span class="re1">&lt;/plugins<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;/build<span class="re2">&gt;</span></span></span>
+ 
+  ...
+ 
+<span class="sc3"><span class="re1">&lt;/project<span class="re2">&gt;</span></span></span></pre>
                 </div>
               </div>
               <h3>
@@ -554,13 +354,7 @@ The solution that we use with Maven is to specify an additional command line arg
               <p>You can enable debug logging for the NPN implementation in this way:</p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="java source-java">
-                  <pre class="de1">
-                    NextProtoNego.
-                    <span class="me1">debug</span>
-                    <span class="sy0">=</span>
-                    <span class="kw2">true</span>
-                    <span class="sy0">;</span>
-                  </pre>
+                  <pre class="de1" xml:space="preserve">NextProtoNego.<span class="me1">debug</span> <span class="sy0">=</span> <span class="kw2">true</span><span class="sy0">;</span></pre>
                 </div>
               </div>
               <p>

@@ -16,7 +16,7 @@
               <span class="subpages">
                 &lt;
                 <a href="../../Jetty.html" title="Jetty">Jetty</a>
-                |
+                 |
                 <a href="../Tutorial.html" title="Jetty/Tutorial">Tutorial</a>
               </span>
             </div>
@@ -125,13 +125,13 @@
               <dl>
                 <dt>lib/policy/global.policy</dt>
                 <dd>permissions that are applied to all protection domains</dd>
-                <dt>lib/policy/jetty-start.policy</dt>
+                <dt>lib/policy/jetty-start.policy </dt>
                 <dd>permissions which apply to start.jar and immediate startup of jetty</dd>
-                <dt>lib/policy/jetty.policy</dt>
+                <dt>lib/policy/jetty.policy </dt>
                 <dd>permissions that apply to jetty as a whole, and any jar files under the lib directory</dd>
-                <dt>lib/policy/temp-dirs.policy</dt>
+                <dt>lib/policy/temp-dirs.policy </dt>
                 <dd>permission that apply to the contents of tmp directories, this can include unpacked webapps unless you follow the recommended conventions</dd>
-                <dt>lib/policy/jetty-work.policy</dt>
+                <dt>lib/policy/jetty-work.policy </dt>
                 <dd>permissions that apply to webapps unpacked to the work directory.</dd>
               </dl>
               <p>Adding and removing permissions required a lot of in-depth knowledge about how whatever java code your running operates and it is no different with jetty or webapps running inside of jetty, it is just a little more complex.</p>
@@ -158,7 +158,7 @@
               <p>Remember that when permission is checked for any call, the entire call stack is checked for permission being granted.  What this means in practice is that if you are granting permission to read and write directory A, then both the webapp classes and the jetty classes have to be granted access to read and write that directory.  What having per webapp permissions setup allows you is the ability to _not_ grant another webapp read and write access to that directory.  This could be potentially important if your running untrusted webapps, or some combination of trusted and untrusted webapps.   Below is an example of what a typical webapp policy file might look like.</p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="text source-text">
-                  <pre class="de1">//
+                  <pre class="de1" xml:space="preserve">//
 // Permissions granted to the webapp
 //
 grant codebase "file:${jetty.home}/work/policy-tests/-" {
@@ -188,103 +188,16 @@ grant codeBase "file:${jetty.home}/lib/-" {
               <p>As for actually starting this system up, we have a jetty.xml file that will initialize and startup the relevant bits.</p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="xml source-xml">
-                  <pre class="de1">
-                    <span class="sc3">
-                      <span class="re1">&lt;Configure</span>
-                      <span class="re0">id</span>
-                      =
-                      <span class="st0">"Policy"</span>
-                      <span class="re0">class</span>
-                      =
-                      <span class="st0">"org.eclipse.jetty.policy.JettyPolicyConfigurator"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;Call</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"setPolicyDirectory"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                      <span class="re1">&lt;Property</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"jetty.home"</span>
-                      <span class="re2">/&gt;</span>
-                    </span>
-                    /lib/policy
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Call
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;Call</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"addProperty"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    jetty.home
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                      <span class="re1">&lt;Property</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"jetty.home"</span>
-                      <span class="re2">/&gt;</span>
-                      <span class="re1">
-                        &lt;/Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Call
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;Call</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"initialize"</span>
-                      <span class="re2">/&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Configure
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                  </pre>
+                  <pre class="de1" xml:space="preserve"><span class="sc3"><span class="re1">&lt;Configure</span> <span class="re0">id</span>=<span class="st0">"Policy"</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.policy.JettyPolicyConfigurator"</span><span class="re2">&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;Call</span> <span class="re0">name</span>=<span class="st0">"setPolicyDirectory"</span><span class="re2">&gt;</span></span>
+       <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span><span class="re1">&lt;Property</span> <span class="re0">name</span>=<span class="st0">"jetty.home"</span><span class="re2">/&gt;</span></span>/lib/policy<span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;/Call<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;Call</span> <span class="re0">name</span>=<span class="st0">"addProperty"</span><span class="re2">&gt;</span></span>
+      <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>jetty.home<span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
+      <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span><span class="re1">&lt;Property</span> <span class="re0">name</span>=<span class="st0">"jetty.home"</span><span class="re2">/&gt;</span><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;/Call<span class="re2">&gt;</span></span></span> 
+    <span class="sc3"><span class="re1">&lt;Call</span> <span class="re0">name</span>=<span class="st0">"initialize"</span><span class="re2">/&gt;</span></span>
+<span class="sc3"><span class="re1">&lt;/Configure<span class="re2">&gt;</span></span></span></pre>
                 </div>
               </div>
               <p>When this xml is processed by the XMLConfiguration classes it will set the location of the directory that policy files are loaded up from and create the JettyPolicy object.  Inside of the policy files you can use properties of the form ${jetty.home} in various locations, and the addProperty line in the xml above will set that property.  If you want to use other ${} properties you may set them in the same way with a new &lt;Call&gt; element.  Lastly the initialize method on the configurator is called which actually creates the SecurityManager, set the System Policy object (to our JettyPolicy class) and then form that point all, the jdk is locked down and checking permissions.</p>

@@ -16,7 +16,7 @@
               <span class="subpages">
                 &lt;
                 <a href="../../Jetty.html" title="Jetty">Jetty</a>
-                |
+                 |
                 <a href="../Tutorial.html" title="Jetty/Tutorial">Tutorial</a>
               </span>
             </div>
@@ -129,7 +129,7 @@
               </ol>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="xml source-xml">
-                  <pre class="de1">===========================================================
+                  <pre class="de1" xml:space="preserve">===========================================================
 # Start classpath OPTIONS.
 # These control what classes are on the classpath
 # for a full listing do
@@ -161,199 +161,42 @@ etc/jetty-testrealm.xml
               </ol>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="xml source-xml">
-                  <pre class="de1">
-                    <span class="sc3">
-                      <span class="re1">&lt;?xml</span>
-                      <span class="re0">version</span>
-                      =
-                      <span class="st0">"1.0"</span>
-                      <span class="re0">encoding</span>
-                      =
-                      <span class="st0">"UTF-8"</span>
-                      <span class="re2">?&gt;</span>
-                    </span>
-                    <span class="sc-1">&lt;!--</span>
-                    <span class="sc-1">Example LOGBACK Configuration File</span>
-                    <span class="sc-1">http://logback.qos.ch/manual/configuration.html</span>
-                    <span class="sc-1">--&gt;</span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;configuration
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;appender</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"STDOUT"</span>
-                      <span class="re0">class</span>
-                      =
-                      <span class="st0">"ch.qos.logback.core.ConsoleAppender"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    <span class="sc-1">&lt;!-- encoders are assigned the type</span>
-                    <span class="sc-1">ch.qos.logback.classic.encoder.PatternLayoutEncoder by default --&gt;</span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;encoder
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;pattern
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    %d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/pattern
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/encoder
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/appender
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;appender</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"FILE"</span>
-                      <span class="re0">class</span>
-                      =
-                      <span class="st0">"ch.qos.logback.core.rolling.RollingFileAppender"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;file
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    ${jetty.home}/logs/jetty.log
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/file
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;rollingPolicy</span>
-                      <span class="re0">class</span>
-                      =
-                      <span class="st0">"ch.qos.logback.core.rolling.TimeBasedRollingPolicy"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    <span class="sc-1">&lt;!-- daily rollover --&gt;</span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;fileNamePattern
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    jetty_%d{yyyy-MM-dd}.log
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/fileNamePattern
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc-1">&lt;!-- keep 30 days' worth of history --&gt;</span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;maxHistory
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    30
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/maxHistory
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/rollingPolicy
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;encoder
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;pattern
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    %-4relative [%thread] %-5level %logger{35} - %msg%n
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/pattern
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/encoder
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/appender
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;root</span>
-                      <span class="re0">level</span>
-                      =
-                      <span class="st0">"info"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;appender-ref</span>
-                      <span class="re0">ref</span>
-                      =
-                      <span class="st0">"STDOUT"</span>
-                      <span class="re2">/&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;appender-ref</span>
-                      <span class="re0">ref</span>
-                      =
-                      <span class="st0">"FILE"</span>
-                      <span class="re2">/&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/root
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/configuration
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                  </pre>
+                  <pre class="de1" xml:space="preserve"><span class="sc3"><span class="re1">&lt;?xml</span> <span class="re0">version</span>=<span class="st0">"1.0"</span> <span class="re0">encoding</span>=<span class="st0">"UTF-8"</span><span class="re2">?&gt;</span></span>
+<span class="sc-1">&lt;!--</span>
+<span class="sc-1">  Example LOGBACK Configuration File</span>
+ 
+<span class="sc-1">http://logback.qos.ch/manual/configuration.html</span>
+ 
+<span class="sc-1">  --&gt;</span>
+<span class="sc3"><span class="re1">&lt;configuration<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;appender</span> <span class="re0">name</span>=<span class="st0">"STDOUT"</span> <span class="re0">class</span>=<span class="st0">"ch.qos.logback.core.ConsoleAppender"</span><span class="re2">&gt;</span></span>
+   <span class="sc-1">&lt;!-- encoders are assigned the type</span>
+<span class="sc-1">         ch.qos.logback.classic.encoder.PatternLayoutEncoder by default --&gt;</span>
+    <span class="sc3"><span class="re1">&lt;encoder<span class="re2">&gt;</span></span></span>
+      <span class="sc3"><span class="re1">&lt;pattern<span class="re2">&gt;</span></span></span>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n<span class="sc3"><span class="re1">&lt;/pattern<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;/encoder<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;/appender<span class="re2">&gt;</span></span></span>
+ 
+  <span class="sc3"><span class="re1">&lt;appender</span> <span class="re0">name</span>=<span class="st0">"FILE"</span> <span class="re0">class</span>=<span class="st0">"ch.qos.logback.core.rolling.RollingFileAppender"</span><span class="re2">&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;file<span class="re2">&gt;</span></span></span>${jetty.home}/logs/jetty.log<span class="sc3"><span class="re1">&lt;/file<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;rollingPolicy</span> <span class="re0">class</span>=<span class="st0">"ch.qos.logback.core.rolling.TimeBasedRollingPolicy"</span><span class="re2">&gt;</span></span>
+      <span class="sc-1">&lt;!-- daily rollover --&gt;</span>
+      <span class="sc3"><span class="re1">&lt;fileNamePattern<span class="re2">&gt;</span></span></span>jetty_%d{yyyy-MM-dd}.log<span class="sc3"><span class="re1">&lt;/fileNamePattern<span class="re2">&gt;</span></span></span>
+ 
+      <span class="sc-1">&lt;!-- keep 30 days' worth of history --&gt;</span>
+      <span class="sc3"><span class="re1">&lt;maxHistory<span class="re2">&gt;</span></span></span>30<span class="sc3"><span class="re1">&lt;/maxHistory<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;/rollingPolicy<span class="re2">&gt;</span></span></span>
+ 
+    <span class="sc3"><span class="re1">&lt;encoder<span class="re2">&gt;</span></span></span>
+      <span class="sc3"><span class="re1">&lt;pattern<span class="re2">&gt;</span></span></span>%-4relative [%thread] %-5level %logger{35} - %msg%n<span class="sc3"><span class="re1">&lt;/pattern<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;/encoder<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;/appender<span class="re2">&gt;</span></span></span>
+ 
+  <span class="sc3"><span class="re1">&lt;root</span> <span class="re0">level</span>=<span class="st0">"info"</span><span class="re2">&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;appender-ref</span> <span class="re0">ref</span>=<span class="st0">"STDOUT"</span> <span class="re2">/&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;appender-ref</span> <span class="re0">ref</span>=<span class="st0">"FILE"</span> <span class="re2">/&gt;</span></span>
+  <span class="sc3"><span class="re1">&lt;/root<span class="re2">&gt;</span></span></span>
+<span class="sc3"><span class="re1">&lt;/configuration<span class="re2">&gt;</span></span></span></pre>
                 </div>
               </div>
               <p>That’s it, now you have (in the following order):</p>
@@ -386,12 +229,7 @@ etc/jetty-testrealm.xml
               <p>Now start Jetty.</p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="java source-java">
-                  <pre class="de1">
-                    $ java
-                    <span class="sy0">-</span>
-                    jar start.
-                    <span class="me1">jar</span>
-                  </pre>
+                  <pre class="de1" xml:space="preserve">$ java <span class="sy0">-</span>jar start.<span class="me1">jar</span></pre>
                 </div>
               </div>
               <p>
@@ -475,7 +313,7 @@ etc/jetty-testrealm.xml
               </ol>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="xml source-xml">
-                  <pre class="de1">#===========================================================
+                  <pre class="de1" xml:space="preserve">#===========================================================
 # Start classpath OPTIONS.
 # These control what classes are on the classpath
 # for a full listing do
@@ -526,268 +364,53 @@ etc/jetty-testrealm.xml
               </ol>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="xml source-xml">
-                  <pre class="de1">
-                    <span class="sc3">
-                      <span class="re1">&lt;?xml</span>
-                      <span class="re0">version</span>
-                      =
-                      <span class="st0">"1.0"</span>
-                      <span class="re0">encoding</span>
-                      =
-                      <span class="st0">"UTF-8"</span>
-                      <span class="re2">?&gt;</span>
-                    </span>
-                    <span class="sc-1">&lt;!--</span>
-                    <span class="sc-1">Example LOGBACK Configuration File</span>
-                    <span class="sc-1">http://logback.qos.ch/manual/configuration.html</span>
-                    <span class="sc-1">--&gt;</span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;configuration
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;appender</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"STDOUT"</span>
-                      <span class="re0">class</span>
-                      =
-                      <span class="st0">"ch.qos.logback.core.ConsoleAppender"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    <span class="sc-1">&lt;!-- encoders are assigned the type</span>
-                    <span class="sc-1">ch.qos.logback.classic.encoder.PatternLayoutEncoder by default --&gt;</span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;encoder
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;pattern
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    %d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/pattern
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/encoder
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/appender
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;appender</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"SIFT"</span>
-                      <span class="re0">class</span>
-                      =
-                      <span class="st0">"ch.qos.logback.classic.sift.SiftingAppender"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    <span class="sc-1">&lt;!-- in the absence of the class attribute, it is assumed that the</span>
-                    <span class="sc-1">desired discriminator type is</span>
-                    <span class="sc-1">ch.qos.logback.classic.sift.MDCBasedDiscriminator --&gt;</span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;discriminator
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;key
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    host
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/key
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;defaultValue
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    unknown
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/defaultValue
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/discriminator
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;sift
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;appender</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"FILE-${host}"</span>
-                      <span class="re0">class</span>
-                      =
-                      <span class="st0">"ch.qos.logback.core.rolling.RollingFileAppender"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;file
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    ${jetty.home}/logs/jetty-${host}.log
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/file
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;rollingPolicy</span>
-                      <span class="re0">class</span>
-                      =
-                      <span class="st0">"ch.qos.logback.core.rolling.TimeBasedRollingPolicy"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    <span class="sc-1">&lt;!-- daily rollover --&gt;</span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;fileNamePattern
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    jetty-${host}_%d{yyyy-MM-dd}.log
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/fileNamePattern
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc-1">&lt;!-- keep 30 days' worth of history --&gt;</span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;maxHistory
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    30
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/maxHistory
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/rollingPolicy
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;encoder
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;pattern
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    %-4relative [%thread] %-5level %logger{35} - %msg%n
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/pattern
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/encoder
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/appender
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/sift
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/appender
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;root</span>
-                      <span class="re0">level</span>
-                      =
-                      <span class="st0">"INFO"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;appender-ref</span>
-                      <span class="re0">ref</span>
-                      =
-                      <span class="st0">"STDOUT"</span>
-                      <span class="re2">/&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;appender-ref</span>
-                      <span class="re0">ref</span>
-                      =
-                      <span class="st0">"SIFT"</span>
-                      <span class="re2">/&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/root
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/configuration
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                  </pre>
+                  <pre class="de1" xml:space="preserve"><span class="sc3"><span class="re1">&lt;?xml</span> <span class="re0">version</span>=<span class="st0">"1.0"</span> <span class="re0">encoding</span>=<span class="st0">"UTF-8"</span><span class="re2">?&gt;</span></span>
+<span class="sc-1">&lt;!--</span>
+<span class="sc-1">    Example LOGBACK Configuration File</span>
+ 
+<span class="sc-1">http://logback.qos.ch/manual/configuration.html</span>
+ 
+<span class="sc-1">   --&gt;</span>
+<span class="sc3"><span class="re1">&lt;configuration<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;appender</span> <span class="re0">name</span>=<span class="st0">"STDOUT"</span> <span class="re0">class</span>=<span class="st0">"ch.qos.logback.core.ConsoleAppender"</span><span class="re2">&gt;</span></span>
+    <span class="sc-1">&lt;!-- encoders are assigned the type</span>
+<span class="sc-1">         ch.qos.logback.classic.encoder.PatternLayoutEncoder by default --&gt;</span>
+    <span class="sc3"><span class="re1">&lt;encoder<span class="re2">&gt;</span></span></span>
+      <span class="sc3"><span class="re1">&lt;pattern<span class="re2">&gt;</span></span></span>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n<span class="sc3"><span class="re1">&lt;/pattern<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;/encoder<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;/appender<span class="re2">&gt;</span></span></span>
+ 
+  <span class="sc3"><span class="re1">&lt;appender</span> <span class="re0">name</span>=<span class="st0">"SIFT"</span> <span class="re0">class</span>=<span class="st0">"ch.qos.logback.classic.sift.SiftingAppender"</span><span class="re2">&gt;</span></span>
+    <span class="sc-1">&lt;!-- in the absence of the class attribute, it is assumed that the</span>
+<span class="sc-1">         desired discriminator type is</span>
+<span class="sc-1">         ch.qos.logback.classic.sift.MDCBasedDiscriminator --&gt;</span>
+    <span class="sc3"><span class="re1">&lt;discriminator<span class="re2">&gt;</span></span></span>
+      <span class="sc3"><span class="re1">&lt;key<span class="re2">&gt;</span></span></span>host<span class="sc3"><span class="re1">&lt;/key<span class="re2">&gt;</span></span></span>
+      <span class="sc3"><span class="re1">&lt;defaultValue<span class="re2">&gt;</span></span></span>unknown<span class="sc3"><span class="re1">&lt;/defaultValue<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;/discriminator<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;sift<span class="re2">&gt;</span></span></span>
+      <span class="sc3"><span class="re1">&lt;appender</span> <span class="re0">name</span>=<span class="st0">"FILE-${host}"</span> <span class="re0">class</span>=<span class="st0">"ch.qos.logback.core.rolling.RollingFileAppender"</span><span class="re2">&gt;</span></span>
+        <span class="sc3"><span class="re1">&lt;file<span class="re2">&gt;</span></span></span>${jetty.home}/logs/jetty-${host}.log<span class="sc3"><span class="re1">&lt;/file<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;rollingPolicy</span> <span class="re0">class</span>=<span class="st0">"ch.qos.logback.core.rolling.TimeBasedRollingPolicy"</span><span class="re2">&gt;</span></span>
+          <span class="sc-1">&lt;!-- daily rollover --&gt;</span>
+          <span class="sc3"><span class="re1">&lt;fileNamePattern<span class="re2">&gt;</span></span></span>jetty-${host}_%d{yyyy-MM-dd}.log<span class="sc3"><span class="re1">&lt;/fileNamePattern<span class="re2">&gt;</span></span></span>
+ 
+          <span class="sc-1">&lt;!-- keep 30 days' worth of history --&gt;</span>
+          <span class="sc3"><span class="re1">&lt;maxHistory<span class="re2">&gt;</span></span></span>30<span class="sc3"><span class="re1">&lt;/maxHistory<span class="re2">&gt;</span></span></span>
+         <span class="sc3"><span class="re1">&lt;/rollingPolicy<span class="re2">&gt;</span></span></span>
+ 
+        <span class="sc3"><span class="re1">&lt;encoder<span class="re2">&gt;</span></span></span>
+          <span class="sc3"><span class="re1">&lt;pattern<span class="re2">&gt;</span></span></span>%-4relative [%thread] %-5level %logger{35} - %msg%n<span class="sc3"><span class="re1">&lt;/pattern<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;/encoder<span class="re2">&gt;</span></span></span>
+      <span class="sc3"><span class="re1">&lt;/appender<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;/sift<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;/appender<span class="re2">&gt;</span></span></span>
+ 
+  <span class="sc3"><span class="re1">&lt;root</span> <span class="re0">level</span>=<span class="st0">"INFO"</span><span class="re2">&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;appender-ref</span> <span class="re0">ref</span>=<span class="st0">"STDOUT"</span> <span class="re2">/&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;appender-ref</span> <span class="re0">ref</span>=<span class="st0">"SIFT"</span> <span class="re2">/&gt;</span></span>
+  <span class="sc3"><span class="re1">&lt;/root<span class="re2">&gt;</span></span></span>
+<span class="sc3"><span class="re1">&lt;/configuration<span class="re2">&gt;</span></span></span></pre>
                 </div>
               </div>
               <p>That’s it, now you have (in the following order):</p>
@@ -825,12 +448,7 @@ etc/jetty-testrealm.xml
               <p>Now start Jetty.</p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="java source-java">
-                  <pre class="de1">
-                    $ java
-                    <span class="sy0">-</span>
-                    jar start.
-                    <span class="me1">jar</span>
-                  </pre>
+                  <pre class="de1" xml:space="preserve">$ java <span class="sy0">-</span>jar start.<span class="me1">jar</span></pre>
                 </div>
               </div>
               <p>

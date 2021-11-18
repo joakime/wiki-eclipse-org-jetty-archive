@@ -16,7 +16,7 @@
               <span class="subpages">
                 &lt;
                 <a href="../../Jetty.html" title="Jetty">Jetty</a>
-                |
+                 |
                 <a href="../Howto.html" title="Jetty/Howto">Howto</a>
               </span>
             </div>
@@ -138,21 +138,7 @@
               <p>On some Linux systems you can use the ipchains REDIRECT mechanism to redirect from one port to another inside the kernel (if ipchains is not available, then usually iptables is (see below)):</p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="bash source-bash">
-                  <pre class="de1">
-                    <span class="sy0">/</span>
-                    sbin
-                    <span class="sy0">/</span>
-                    ipchains
-                    <span class="re5">-I</span>
-                    input
-                    <span class="re5">--proto</span>
-                    TCP
-                    <span class="re5">--dport</span>
-                    <span class="nu0">80</span>
-                    <span class="re5">-j</span>
-                    REDIRECT
-                    <span class="nu0">8080</span>
-                  </pre>
+                  <pre class="de1" xml:space="preserve"><span class="sy0">/</span>sbin<span class="sy0">/</span>ipchains <span class="re5">-I</span> input <span class="re5">--proto</span> TCP <span class="re5">--dport</span> <span class="nu0">80</span> <span class="re5">-j</span> REDIRECT <span class="nu0">8080</span></pre>
                 </div>
               </div>
               <p>This command instructs the system as follows: "Insert into the kernel's packet filtering the following as the first rule to check on incoming packets: If the protocol is TCP and the destination port is 80, redirect the packet to port 8080." Be aware that your kernel must be compiled with support for ipchains (virtually all stock kernels are). You must have the "ipchains" command-line utility installed (on RedHat the package is aptly named "ipchains"). You can run this command at any time, preferably just once since it inserts another copy of the rule every time you run it.</p>
@@ -164,24 +150,7 @@
               <p>You need to add something like the following to the startup scripts or your firewall rules:</p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="bash source-bash">
-                  <pre class="de1">
-                    <span class="sy0">/</span>
-                    sbin
-                    <span class="sy0">/</span>
-                    iptables
-                    <span class="re5">-t</span>
-                    nat
-                    <span class="re5">-I</span>
-                    PREROUTING
-                    <span class="re5">-p</span>
-                    tcp
-                    <span class="re5">--dport</span>
-                    <span class="nu0">80</span>
-                    <span class="re5">-j</span>
-                    REDIRECT
-                    <span class="re5">--to-port</span>
-                    <span class="nu0">8080</span>
-                  </pre>
+                  <pre class="de1" xml:space="preserve"><span class="sy0">/</span>sbin<span class="sy0">/</span>iptables <span class="re5">-t</span> nat <span class="re5">-I</span> PREROUTING <span class="re5">-p</span> tcp <span class="re5">--dport</span> <span class="nu0">80</span> <span class="re5">-j</span> REDIRECT <span class="re5">--to-port</span> <span class="nu0">8080</span></pre>
                 </div>
               </div>
               <p>The underlying model of iptables is different from ipchains, so the forwarding normally happens only to packets originating off-box. You also need to allow incoming packets to port 8080 if you use iptables as a local firewall.</p>
@@ -238,60 +207,12 @@
               <p>Create a Jetty config file as follows:</p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="xml source-xml">
-                  <pre class="de1">
-                    <span class="sc3">
-                      <span class="re1">&lt;?xml</span>
-                      <span class="re0">version</span>
-                      =
-                      <span class="st0">"1.0"</span>
-                      <span class="re2">?&gt;</span>
-                    </span>
-                    <span class="sc0">&lt;!DOCTYPE Configure PUBLIC "-//Mort Bay Consulting//DTD Configure//EN" "http://jetty.mortbay.org/jetty/configure.dtd"&gt;</span>
-                    <span class="sc3">
-                      <span class="re1">&lt;Configure</span>
-                      <span class="re0">id</span>
-                      =
-                      <span class="st0">"Server"</span>
-                      <span class="re0">class</span>
-                      =
-                      <span class="st0">"org.mortbay.setuid.SetUIDServer"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;Set</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"umask"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    UMASK
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Set
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;Set</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"uid"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    USERID
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Set
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Configure
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                  </pre>
+                  <pre class="de1" xml:space="preserve"><span class="sc3"><span class="re1">&lt;?xml</span> <span class="re0">version</span>=<span class="st0">"1.0"</span><span class="re2">?&gt;</span></span>
+<span class="sc0">&lt;!DOCTYPE Configure PUBLIC "-//Mort Bay Consulting//DTD Configure//EN" "http://jetty.mortbay.org/jetty/configure.dtd"&gt;</span>
+<span class="sc3"><span class="re1">&lt;Configure</span> <span class="re0">id</span>=<span class="st0">"Server"</span> <span class="re0">class</span>=<span class="st0">"org.mortbay.setuid.SetUIDServer"</span><span class="re2">&gt;</span></span>
+  <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"umask"</span><span class="re2">&gt;</span></span>UMASK<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"uid"</span><span class="re2">&gt;</span></span>USERID<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
+<span class="sc3"><span class="re1">&lt;/Configure<span class="re2">&gt;</span></span></span></pre>
                 </div>
               </div>
               <p>Where you replace:</p>
@@ -320,74 +241,13 @@
               </p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="xml source-xml">
-                  <pre class="de1">
-                    <span class="sc3">
-                      <span class="re1">&lt;?xml</span>
-                      <span class="re0">version</span>
-                      =
-                      <span class="st0">"1.0"</span>
-                      <span class="re2">?&gt;</span>
-                    </span>
-                    <span class="sc0">&lt;!DOCTYPE Configure PUBLIC "-//Mort Bay Consulting//DTD Configure//EN" "http://jetty.mortbay.org/jetty/configure.dtd"&gt;</span>
-                    <span class="sc3">
-                      <span class="re1">&lt;Configure</span>
-                      <span class="re0">id</span>
-                      =
-                      <span class="st0">"Server"</span>
-                      <span class="re0">class</span>
-                      =
-                      <span class="st0">"org.mortbay.setuid.SetUIDServer"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;Set</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"umask"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    UMASK
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Set
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;Set</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"uid"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    USERID
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Set
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;Set</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"startServerAsPrivileged"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    true
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Set
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Configure
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                  </pre>
+                  <pre class="de1" xml:space="preserve"><span class="sc3"><span class="re1">&lt;?xml</span> <span class="re0">version</span>=<span class="st0">"1.0"</span><span class="re2">?&gt;</span></span>
+<span class="sc0">&lt;!DOCTYPE Configure PUBLIC "-//Mort Bay Consulting//DTD Configure//EN" "http://jetty.mortbay.org/jetty/configure.dtd"&gt;</span>
+<span class="sc3"><span class="re1">&lt;Configure</span> <span class="re0">id</span>=<span class="st0">"Server"</span> <span class="re0">class</span>=<span class="st0">"org.mortbay.setuid.SetUIDServer"</span><span class="re2">&gt;</span></span>
+  <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"umask"</span><span class="re2">&gt;</span></span>UMASK<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"uid"</span><span class="re2">&gt;</span></span>USERID<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"startServerAsPrivileged"</span><span class="re2">&gt;</span></span>true<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
+<span class="sc3"><span class="re1">&lt;/Configure<span class="re2">&gt;</span></span></span></pre>
                 </div>
               </div>
               <h3>
@@ -432,12 +292,7 @@
               </ol>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="bash source-bash">
-                  <pre class="de1">
-                    <span class="kw2">sudo</span>
-                    java
-                    <span class="re5">-jar</span>
-                    start.jar
-                  </pre>
+                  <pre class="de1" xml:space="preserve"><span class="kw2">sudo</span> java <span class="re5">-jar</span> start.jar</pre>
                 </div>
               </div>
               <p>
@@ -462,7 +317,7 @@
               <p>The following entry redirects all inward TCP traffic on port 80 to port 8888 on the local machine. You can also redirect to other machines for gimp proxying:</p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="text source-text">
-                  <pre class="de1">service my_redirector
+                  <pre class="de1" xml:space="preserve">service my_redirector
 {
  type = UNLISTED
  disable = no
@@ -490,7 +345,7 @@
               </ul>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="text source-text">
-                  <pre class="de1">service http
+                  <pre class="de1" xml:space="preserve">service http
 {
  disable = no
  socket_type = stream
@@ -513,12 +368,7 @@
               <p>Solaris 10 provides a User Rights Management framework that can permit users and processes superuser-like abilities:</p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="bash source-bash">
-                  <pre class="de1">
-                    usermod
-                    <span class="re5">-K</span>
-                    <span class="re2">defaultpriv</span>
-                    =basic,net_privaddr myself
-                  </pre>
+                  <pre class="de1" xml:space="preserve">usermod <span class="re5">-K</span> <span class="re2">defaultpriv</span>=basic,net_privaddr myself</pre>
                 </div>
               </div>
               <p>

@@ -16,7 +16,7 @@
               <span class="subpages">
                 &lt;
                 <a href="../../Jetty.html" title="Jetty">Jetty</a>
-                |
+                 |
                 <a href="../Reference.html" title="Jetty/Reference">Reference</a>
               </span>
             </div>
@@ -111,82 +111,27 @@
               </p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="xml source-xml">
-                  <pre class="de1">
-                    <span class="sc3">
-                      <span class="re1">&lt;Configure</span>
-                      <span class="re0">class</span>
-                      =
-                      <span class="st0">"org.eclipse.jetty.webapp.WebAppContext"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    ...
-                    <span class="sc-1">&lt;!-- Set up the path to the custom override descriptor,</span>
-                    <span class="sc-1">relative to your $(jetty.home) directory or to the current directory --&gt;</span>
-                    <span class="sc3">
-                      <span class="re1">&lt;Set</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"overrideDescriptor"</span>
-                      <span class="re2">&gt;</span>
-                      <span class="re1">&lt;SystemProperty</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"jetty.home"</span>
-                      <span class="re0">default</span>
-                      =
-                      <span class="st0">"."</span>
-                      <span class="re2">/&gt;</span>
-                    </span>
-                    /my/path/to/override-web.xml
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Set
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    ...
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Configure
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                  </pre>
+                  <pre class="de1" xml:space="preserve"><span class="sc3"><span class="re1">&lt;Configure</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.webapp.WebAppContext"</span><span class="re2">&gt;</span></span>
+  ...
+  <span class="sc-1">&lt;!-- Set up the path to the custom override descriptor, </span>
+<span class="sc-1">  relative to your $(jetty.home) directory or to the current directory --&gt;</span>
+  <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"overrideDescriptor"</span><span class="re2">&gt;</span><span class="re1">&lt;SystemProperty</span> <span class="re0">name</span>=<span class="st0">"jetty.home"</span> <span class="re0">default</span>=<span class="st0">"."</span><span class="re2">/&gt;</span></span>/my/path/to/override-web.xml<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
+  ...
+<span class="sc3"><span class="re1">&lt;/Configure<span class="re2">&gt;</span></span></span></pre>
                 </div>
               </div>
               <p>The equivalent in code is:</p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="java source-java">
-                  <pre class="de1">
-                    <span class="kw1">import</span>
-                    <span class="co2">org.eclipse.jetty.webapp.WebAppContext</span>
-                    <span class="sy0">;</span>
-                    ...
-                    <span class="me1">WebAppContext</span>
-                    wac
-                    <span class="sy0">=</span>
-                    <span class="kw1">new</span>
-                    WebAppContext
-                    <span class="br0">(</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    ...
-                    <span class="co1">//Set the path to the override descriptor, based on your $(jetty.home) directory</span>
-                    wac.
-                    <span class="me1">setOverrideDescriptor</span>
-                    <span class="br0">(</span>
-                    <span class="kw3">System</span>
-                    .
-                    <span class="me1">getProperty</span>
-                    <span class="br0">(</span>
-                    <span class="st0">"jetty.home"</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">+</span>
-                    <span class="st0">"/my/path/to/override-web.xml"</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    ...
-                  </pre>
+                  <pre class="de1" xml:space="preserve"><span class="kw1">import</span> <span class="co2">org.eclipse.jetty.webapp.WebAppContext</span><span class="sy0">;</span>
+ 
+    ...
+ 
+    <span class="me1">WebAppContext</span> wac <span class="sy0">=</span> <span class="kw1">new</span> WebAppContext<span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
+    ...
+    <span class="co1">//Set the path to the override descriptor, based on your $(jetty.home) directory</span>
+    wac.<span class="me1">setOverrideDescriptor</span><span class="br0">(</span><span class="kw3">System</span>.<span class="me1">getProperty</span><span class="br0">(</span><span class="st0">"jetty.home"</span><span class="br0">)</span><span class="sy0">+</span><span class="st0">"/my/path/to/override-web.xml"</span><span class="br0">)</span><span class="sy0">;</span>
+    ...</pre>
                 </div>
               </div>
               <p>Alternatively, use the classloader to get the path to the override descriptor as a resource.</p>
@@ -200,99 +145,23 @@
               </p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="xml source-xml">
-                  <pre class="de1">
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;project
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    ...
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;plugins
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;plugin
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    ...
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;artifactId
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    jetty-maven-plugin
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/artifactId
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;configuration
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;webAppConfig
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    ...
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;overrideDescriptor
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    src/main/resources/override-web.xml
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/overrideDescriptor
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/webAppConfig
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/configuration
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/plugin
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    ...
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/plugins
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    ...
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/project
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                  </pre>
+                  <pre class="de1" xml:space="preserve"><span class="sc3"><span class="re1">&lt;project<span class="re2">&gt;</span></span></span>
+    ...
+    <span class="sc3"><span class="re1">&lt;plugins<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;plugin<span class="re2">&gt;</span></span></span>
+            ...
+            <span class="sc3"><span class="re1">&lt;artifactId<span class="re2">&gt;</span></span></span>jetty-maven-plugin<span class="sc3"><span class="re1">&lt;/artifactId<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;configuration<span class="re2">&gt;</span></span></span>
+                <span class="sc3"><span class="re1">&lt;webAppConfig<span class="re2">&gt;</span></span></span>
+                  ...
+                  <span class="sc3"><span class="re1">&lt;overrideDescriptor<span class="re2">&gt;</span></span></span>src/main/resources/override-web.xml<span class="sc3"><span class="re1">&lt;/overrideDescriptor<span class="re2">&gt;</span></span></span>
+                <span class="sc3"><span class="re1">&lt;/webAppConfig<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;/configuration<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;/plugin<span class="re2">&gt;</span></span></span>
+        ...
+    <span class="sc3"><span class="re1">&lt;/plugins<span class="re2">&gt;</span></span></span>
+    ...
+<span class="sc3"><span class="re1">&lt;/project<span class="re2">&gt;</span></span></span></pre>
                 </div>
               </div>
               <h2>

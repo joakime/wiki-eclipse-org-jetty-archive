@@ -16,7 +16,7 @@
               <span class="subpages">
                 &lt;
                 <a href="../../Jetty.html" title="Jetty">Jetty</a>
-                |
+                 |
                 <a href="../Feature.html" title="Jetty/Feature">Feature</a>
               </span>
             </div>
@@ -116,74 +116,12 @@
               <p>The simplest way to get started is to download 3 jars: The Jetty aggregate Jar contains all of jetty; the jetty-websocket test jar that contains a client and server; and the servlet jar. You can do this using a browser or with the following command line wgets:</p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="bash source-bash">
-                  <pre class="de1">
-                    <span class="kw2">wget</span>
-                    <span class="re5">-O</span>
-                    jetty-all.jar
-                    <span class="re5">--user-agent</span>
-                    =demo \
-  http:
-                    <span class="sy0">//</span>
-                    repo2.maven.org
-                    <span class="sy0">/</span>
-                    maven2
-                    <span class="sy0">/</span>
-                    org
-                    <span class="sy0">/</span>
-                    eclipse
-                    <span class="sy0">/</span>
-                    jetty
-                    <span class="sy0">/</span>
-                    aggregate
-                    <span class="sy0">/</span>
-                    jetty-all
-                    <span class="sy0">/</span>
-                    7.6.2.v20120308
-                    <span class="sy0">/</span>
-                    jetty-all-7.6.2.v20120308.jar
-                    <span class="kw2">wget</span>
-                    <span class="re5">-O</span>
-                    jetty-websocket-tests.jar
-                    <span class="re5">--user-agent</span>
-                    =demo \
-  http:
-                    <span class="sy0">//</span>
-                    repo2.maven.org
-                    <span class="sy0">/</span>
-                    maven2
-                    <span class="sy0">/</span>
-                    org
-                    <span class="sy0">/</span>
-                    eclipse
-                    <span class="sy0">/</span>
-                    jetty
-                    <span class="sy0">/</span>
-                    jetty-websocket
-                    <span class="sy0">/</span>
-                    7.6.2.v20120308
-                    <span class="sy0">/</span>
-                    jetty-websocket-7.6.2.v20120308-tests.jar
-                    <span class="kw2">wget</span>
-                    <span class="re5">--user-agent</span>
-                    =demo \
-    http:
-                    <span class="sy0">//</span>
-                    repo2.maven.org
-                    <span class="sy0">/</span>
-                    maven2
-                    <span class="sy0">/</span>
-                    javax
-                    <span class="sy0">/</span>
-                    servlet
-                    <span class="sy0">/</span>
-                    servlet-api
-                    <span class="sy0">/</span>
-                    <span class="nu0">2.5</span>
-                    <span class="sy0">/</span>
-                    servlet-api-
-                    <span class="nu0">2.5</span>
-                    .jar
-                  </pre>
+                  <pre class="de1" xml:space="preserve"><span class="kw2">wget</span> <span class="re5">-O</span> jetty-all.jar <span class="re5">--user-agent</span>=demo \
+  http:<span class="sy0">//</span>repo2.maven.org<span class="sy0">/</span>maven2<span class="sy0">/</span>org<span class="sy0">/</span>eclipse<span class="sy0">/</span>jetty<span class="sy0">/</span>aggregate<span class="sy0">/</span>jetty-all<span class="sy0">/</span>7.6.2.v20120308<span class="sy0">/</span>jetty-all-7.6.2.v20120308.jar
+<span class="kw2">wget</span> <span class="re5">-O</span> jetty-websocket-tests.jar <span class="re5">--user-agent</span>=demo \
+  http:<span class="sy0">//</span>repo2.maven.org<span class="sy0">/</span>maven2<span class="sy0">/</span>org<span class="sy0">/</span>eclipse<span class="sy0">/</span>jetty<span class="sy0">/</span>jetty-websocket<span class="sy0">/</span>7.6.2.v20120308<span class="sy0">/</span>jetty-websocket-7.6.2.v20120308-tests.jar
+<span class="kw2">wget</span> <span class="re5">--user-agent</span>=demo \
+    http:<span class="sy0">//</span>repo2.maven.org<span class="sy0">/</span>maven2<span class="sy0">/</span>javax<span class="sy0">/</span>servlet<span class="sy0">/</span>servlet-api<span class="sy0">/</span><span class="nu0">2.5</span><span class="sy0">/</span>servlet-api-<span class="nu0">2.5</span>.jar</pre>
                 </div>
               </div>
               <p>
@@ -193,47 +131,11 @@
               </p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="java source-java">
-                  <pre class="de1">
-                    java
-                    <span class="sy0">-</span>
-                    cp jetty
-                    <span class="sy0">-</span>
-                    websocket
-                    <span class="sy0">-</span>
-                    tests.
-                    <span class="me1">jar</span>
-                    <span class="sy0">:</span>
-                    jetty
-                    <span class="sy0">-</span>
-                    all.
-                    <span class="me1">jar</span>
-                    <span class="sy0">:</span>
-                    servlet
-                    <span class="sy0">-</span>
-                    api
-                    <span class="sy0">-</span>
-                    <span class="nu0">2.5</span>
-                    .
-                    <span class="me1">jar</span>
-                    \
-   org.
-                    <span class="me1">eclipse</span>
-                    .
-                    <span class="me1">jetty</span>
-                    .
-                    <span class="me1">websocket</span>
-                    .
-                    <span class="me1">TestServer</span>
-                    \
-                    <span class="sy0">--</span>
-                    port
-                    <span class="nu0">8080</span>
-                    \
-                    <span class="sy0">--</span>
-                    docroot . \
-                    <span class="sy0">--</span>
-                    verbose
-                  </pre>
+                  <pre class="de1" xml:space="preserve"> java <span class="sy0">-</span>cp jetty<span class="sy0">-</span>websocket<span class="sy0">-</span>tests.<span class="me1">jar</span><span class="sy0">:</span>jetty<span class="sy0">-</span>all.<span class="me1">jar</span><span class="sy0">:</span>servlet<span class="sy0">-</span>api<span class="sy0">-</span><span class="nu0">2.5</span>.<span class="me1">jar</span> \
+   org.<span class="me1">eclipse</span>.<span class="me1">jetty</span>.<span class="me1">websocket</span>.<span class="me1">TestServer</span> \
+   <span class="sy0">--</span>port <span class="nu0">8080</span> \
+   <span class="sy0">--</span>docroot . \
+   <span class="sy0">--</span>verbose</pre>
                 </div>
               </div>
               <p>
@@ -244,45 +146,10 @@
               </p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="java source-java">
-                  <pre class="de1">
-                    java
-                    <span class="sy0">-</span>
-                    cp jetty
-                    <span class="sy0">-</span>
-                    websocket
-                    <span class="sy0">-</span>
-                    tests.
-                    <span class="me1">jar</span>
-                    <span class="sy0">:</span>
-                    jetty
-                    <span class="sy0">-</span>
-                    all.
-                    <span class="me1">jar</span>
-                    <span class="sy0">:</span>
-                    servlet
-                    <span class="sy0">-</span>
-                    api
-                    <span class="sy0">-</span>
-                    <span class="nu0">2.5</span>
-                    .
-                    <span class="me1">jar</span>
-                    \
-   org.
-                    <span class="me1">eclipse</span>
-                    .
-                    <span class="me1">jetty</span>
-                    .
-                    <span class="me1">websocket</span>
-                    .
-                    <span class="me1">TestClient</span>
-                    \
-                    <span class="sy0">--</span>
-                    port
-                    <span class="nu0">8080</span>
-                    \
-                    <span class="sy0">--</span>
-                    protocol echo
-                  </pre>
+                  <pre class="de1" xml:space="preserve"> java <span class="sy0">-</span>cp jetty<span class="sy0">-</span>websocket<span class="sy0">-</span>tests.<span class="me1">jar</span><span class="sy0">:</span>jetty<span class="sy0">-</span>all.<span class="me1">jar</span><span class="sy0">:</span>servlet<span class="sy0">-</span>api<span class="sy0">-</span><span class="nu0">2.5</span>.<span class="me1">jar</span> \
+   org.<span class="me1">eclipse</span>.<span class="me1">jetty</span>.<span class="me1">websocket</span>.<span class="me1">TestClient</span> \
+   <span class="sy0">--</span>port <span class="nu0">8080</span> \
+   <span class="sy0">--</span>protocol echo</pre>
                 </div>
               </div>
               <p>
@@ -304,7 +171,7 @@
                 <tt>–docroot</tt>
                 , so in this case you should see in the browser a listing of the directory in which you ran the test server.
               </p>
-              <p>To turn the browser into a WebSocket client, you need to serve some HTML and Javascript that executes in the browser and talks back to the server using Websockets.</p>
+              <p>To turn the browser into a WebSocket client, you need to serve some HTML and Javascript that executes in the browser and talks back to the server using Websockets. </p>
               <ol>
                 <li>
                   Create the file
@@ -330,76 +197,14 @@
               </p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="java source-java">
-                  <pre class="de1">
-                    join
-                    <span class="sy0">:</span>
-                    function
-                    <span class="br0">(</span>
-                    name
-                    <span class="br0">)</span>
-                    <span class="br0">{</span>
-                    <span class="kw1">this</span>
-                    ._username
-                    <span class="sy0">=</span>
-                    name
-                    <span class="sy0">;</span>
-                    var location
-                    <span class="sy0">=</span>
-                    document.
-                    <span class="me1">location</span>
-                    .
-                    <span class="me1">toString</span>
-                    <span class="br0">(</span>
-                    <span class="br0">)</span>
-                    .
-                    <span class="me1">replace</span>
-                    <span class="br0">(</span>
-                    <span class="st0">'http://'</span>
-                    ,
-                    <span class="st0">'ws://'</span>
-                    <span class="br0">)</span>
-                    .
-                    <span class="me1">replace</span>
-                    <span class="br0">(</span>
-                    <span class="st0">'https://'</span>
-                    ,
-                    <span class="st0">'wss://'</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    <span class="kw1">this</span>
-                    ._ws
-                    <span class="sy0">=</span>
-                    <span class="kw1">new</span>
-                    WebSocket
-                    <span class="br0">(</span>
-                    location,
-                    <span class="st0">"org.ietf.websocket.test-echo-broadcast"</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    <span class="kw1">this</span>
-                    ._ws.
-                    <span class="me1">onopen</span>
-                    <span class="sy0">=</span>
-                    <span class="kw1">this</span>
-                    ._onopen
-                    <span class="sy0">;</span>
-                    <span class="kw1">this</span>
-                    ._ws.
-                    <span class="me1">onmessage</span>
-                    <span class="sy0">=</span>
-                    <span class="kw1">this</span>
-                    ._onmessage
-                    <span class="sy0">;</span>
-                    <span class="kw1">this</span>
-                    ._ws.
-                    <span class="me1">onclose</span>
-                    <span class="sy0">=</span>
-                    <span class="kw1">this</span>
-                    ._onclose
-                    <span class="sy0">;</span>
-                    <span class="br0">}</span>
-                    ,
-                  </pre>
+                  <pre class="de1" xml:space="preserve">join<span class="sy0">:</span> function<span class="br0">(</span>name<span class="br0">)</span> <span class="br0">{</span>
+  <span class="kw1">this</span>._username<span class="sy0">=</span>name<span class="sy0">;</span>
+  var location <span class="sy0">=</span> document.<span class="me1">location</span>.<span class="me1">toString</span><span class="br0">(</span><span class="br0">)</span>.<span class="me1">replace</span><span class="br0">(</span><span class="st0">'http://'</span>,<span class="st0">'ws://'</span><span class="br0">)</span>.<span class="me1">replace</span><span class="br0">(</span><span class="st0">'https://'</span>,<span class="st0">'wss://'</span><span class="br0">)</span><span class="sy0">;</span>
+  <span class="kw1">this</span>._ws<span class="sy0">=</span><span class="kw1">new</span> WebSocket<span class="br0">(</span>location,<span class="st0">"org.ietf.websocket.test-echo-broadcast"</span><span class="br0">)</span><span class="sy0">;</span>
+  <span class="kw1">this</span>._ws.<span class="me1">onopen</span><span class="sy0">=</span><span class="kw1">this</span>._onopen<span class="sy0">;</span>
+  <span class="kw1">this</span>._ws.<span class="me1">onmessage</span><span class="sy0">=</span><span class="kw1">this</span>._onmessage<span class="sy0">;</span>
+  <span class="kw1">this</span>._ws.<span class="me1">onclose</span><span class="sy0">=</span><span class="kw1">this</span>._onclose<span class="sy0">;</span>
+<span class="br0">}</span>,</pre>
                 </div>
               </div>
               <p>
@@ -409,49 +214,12 @@
               </p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="java source-java">
-                  <pre class="de1">
-                    _onopen
-                    <span class="sy0">:</span>
-                    function
-                    <span class="br0">(</span>
-                    <span class="br0">)</span>
-                    <span class="br0">{</span>
-                    $
-                    <span class="br0">(</span>
-                    <span class="st0">'join'</span>
-                    <span class="br0">)</span>
-                    .
-                    <span class="me1">className</span>
-                    <span class="sy0">=</span>
-                    <span class="st0">'hidden'</span>
-                    <span class="sy0">;</span>
-                    $
-                    <span class="br0">(</span>
-                    <span class="st0">'joined'</span>
-                    <span class="br0">)</span>
-                    .
-                    <span class="me1">className</span>
-                    <span class="sy0">=</span>
-                    <span class="st0">''</span>
-                    <span class="sy0">;</span>
-                    $
-                    <span class="br0">(</span>
-                    <span class="st0">'phrase'</span>
-                    <span class="br0">)</span>
-                    .
-                    <span class="me1">focus</span>
-                    <span class="br0">(</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    room._send
-                    <span class="br0">(</span>
-                    room._username,
-                    <span class="st0">'has joined!'</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    <span class="br0">}</span>
-                    ,
-                  </pre>
+                  <pre class="de1" xml:space="preserve">_onopen<span class="sy0">:</span> function<span class="br0">(</span><span class="br0">)</span><span class="br0">{</span>
+  $<span class="br0">(</span><span class="st0">'join'</span><span class="br0">)</span>.<span class="me1">className</span><span class="sy0">=</span><span class="st0">'hidden'</span><span class="sy0">;</span>
+  $<span class="br0">(</span><span class="st0">'joined'</span><span class="br0">)</span>.<span class="me1">className</span><span class="sy0">=</span><span class="st0">''</span><span class="sy0">;</span>
+  $<span class="br0">(</span><span class="st0">'phrase'</span><span class="br0">)</span>.<span class="me1">focus</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
+  room._send<span class="br0">(</span>room._username,<span class="st0">'has joined!'</span><span class="br0">)</span><span class="sy0">;</span>
+<span class="br0">}</span>,</pre>
                 </div>
               </div>
               <p>
@@ -463,75 +231,16 @@
               </p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="java source-java">
-                  <pre class="de1">
-                    _send
-                    <span class="sy0">:</span>
-                    function
-                    <span class="br0">(</span>
-                    user,message
-                    <span class="br0">)</span>
-                    <span class="br0">{</span>
-                    user
-                    <span class="sy0">=</span>
-                    user.
-                    <span class="me1">replace</span>
-                    <span class="br0">(</span>
-                    <span class="st0">':'</span>
-                    ,
-                    <span class="st0">'_'</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    <span class="kw1">if</span>
-                    <span class="br0">(</span>
-                    <span class="kw1">this</span>
-                    ._ws
-                    <span class="br0">)</span>
-                    <span class="kw1">this</span>
-                    ._ws.
-                    <span class="me1">send</span>
-                    <span class="br0">(</span>
-                    user
-                    <span class="sy0">+</span>
-                    <span class="st0">':'</span>
-                    <span class="sy0">+</span>
-                    message
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    <span class="br0">}</span>
-                    ,
-
-chat
-                    <span class="sy0">:</span>
-                    function
-                    <span class="br0">(</span>
-                    text
-                    <span class="br0">)</span>
-                    <span class="br0">{</span>
-                    <span class="kw1">if</span>
-                    <span class="br0">(</span>
-                    text
-                    <span class="sy0">!=</span>
-                    <span class="kw2">null</span>
-                    <span class="sy0">&amp;</span>
-                    amp
-                    <span class="sy0">;&amp;</span>
-                    amp
-                    <span class="sy0">;</span>
-                    text.
-                    <span class="me1">length</span>
-                    <span class="sy0">&amp;</span>
-                    gt
-                    <span class="sy0">;</span>
-                    <span class="nu0">0</span>
-                    <span class="br0">)</span>
-                    room._send
-                    <span class="br0">(</span>
-                    room._username,text
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    <span class="br0">}</span>
-                    ,
-                  </pre>
+                  <pre class="de1" xml:space="preserve">_send<span class="sy0">:</span> function<span class="br0">(</span>user,message<span class="br0">)</span><span class="br0">{</span>
+  user<span class="sy0">=</span>user.<span class="me1">replace</span><span class="br0">(</span><span class="st0">':'</span>,<span class="st0">'_'</span><span class="br0">)</span><span class="sy0">;</span>
+  <span class="kw1">if</span> <span class="br0">(</span><span class="kw1">this</span>._ws<span class="br0">)</span>
+    <span class="kw1">this</span>._ws.<span class="me1">send</span><span class="br0">(</span>user<span class="sy0">+</span><span class="st0">':'</span><span class="sy0">+</span>message<span class="br0">)</span><span class="sy0">;</span>
+<span class="br0">}</span>,
+ 
+chat<span class="sy0">:</span> function<span class="br0">(</span>text<span class="br0">)</span> <span class="br0">{</span>
+  <span class="kw1">if</span> <span class="br0">(</span>text <span class="sy0">!=</span> <span class="kw2">null</span> <span class="sy0">&amp;</span>amp<span class="sy0">;&amp;</span>amp<span class="sy0">;</span> text.<span class="me1">length</span><span class="sy0">&amp;</span>gt<span class="sy0">;</span><span class="nu0">0</span> <span class="br0">)</span>
+     room._send<span class="br0">(</span>room._username,text<span class="br0">)</span><span class="sy0">;</span>
+<span class="br0">}</span>,</pre>
                 </div>
               </div>
               <p>
@@ -541,165 +250,25 @@ chat
               </p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="java source-java">
-                  <pre class="de1">
-                    _onmessage
-                    <span class="sy0">:</span>
-                    function
-                    <span class="br0">(</span>
-                    m
-                    <span class="br0">)</span>
-                    <span class="br0">{</span>
-                    <span class="kw1">if</span>
-                    <span class="br0">(</span>
-                    m.
-                    <span class="me1">data</span>
-                    <span class="br0">)</span>
-                    <span class="br0">{</span>
-                    var c
-                    <span class="sy0">=</span>
-                    m.
-                    <span class="me1">data</span>
-                    .
-                    <span class="me1">indexOf</span>
-                    <span class="br0">(</span>
-                    <span class="st0">':'</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    var from
-                    <span class="sy0">=</span>
-                    m.
-                    <span class="me1">data</span>
-                    .
-                    <span class="me1">substring</span>
-                    <span class="br0">(</span>
-                    <span class="nu0">0</span>
-                    ,c
-                    <span class="br0">)</span>
-                    .
-                    <span class="me1">replace</span>
-                    <span class="br0">(</span>
-                    <span class="st0">'&amp;lt;'</span>
-                    ,
-                    <span class="st0">'&amp;lt;'</span>
-                    <span class="br0">)</span>
-                    .
-                    <span class="me1">replace</span>
-                    <span class="br0">(</span>
-                    <span class="st0">'&amp;gt;'</span>
-                    ,
-                    <span class="st0">'&amp;gt;'</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    var text
-                    <span class="sy0">=</span>
-                    m.
-                    <span class="me1">data</span>
-                    .
-                    <span class="me1">substring</span>
-                    <span class="br0">(</span>
-                    c
-                    <span class="sy0">+</span>
-                    <span class="nu0">1</span>
-                    <span class="br0">)</span>
-                    .
-                    <span class="me1">replace</span>
-                    <span class="br0">(</span>
-                    <span class="st0">'&amp;lt;'</span>
-                    ,
-                    <span class="st0">'&amp;lt;'</span>
-                    <span class="br0">)</span>
-                    .
-                    <span class="me1">replace</span>
-                    <span class="br0">(</span>
-                    <span class="st0">'&amp;gt;'</span>
-                    ,
-                    <span class="st0">'&amp;gt;'</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    var chat
-                    <span class="sy0">=</span>
-                    $
-                    <span class="br0">(</span>
-                    <span class="st0">'chat'</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    var spanFrom
-                    <span class="sy0">=</span>
-                    document.
-                    <span class="me1">createElement</span>
-                    <span class="br0">(</span>
-                    <span class="st0">'span'</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    spanFrom.
-                    <span class="me1">className</span>
-                    <span class="sy0">=</span>
-                    <span class="st0">'from'</span>
-                    <span class="sy0">;</span>
-                    spanFrom.
-                    <span class="me1">innerHTML</span>
-                    <span class="sy0">=</span>
-                    from
-                    <span class="sy0">+</span>
-                    <span class="st0">': '</span>
-                    <span class="sy0">;</span>
-                    var spanText
-                    <span class="sy0">=</span>
-                    document.
-                    <span class="me1">createElement</span>
-                    <span class="br0">(</span>
-                    <span class="st0">'span'</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    spanText.
-                    <span class="me1">className</span>
-                    <span class="sy0">=</span>
-                    <span class="st0">'text'</span>
-                    <span class="sy0">;</span>
-                    spanText.
-                    <span class="me1">innerHTML</span>
-                    <span class="sy0">=</span>
-                    text
-                    <span class="sy0">;</span>
-                    var lineBreak
-                    <span class="sy0">=</span>
-                    document.
-                    <span class="me1">createElement</span>
-                    <span class="br0">(</span>
-                    <span class="st0">'br'</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    chat.
-                    <span class="me1">appendChild</span>
-                    <span class="br0">(</span>
-                    spanFrom
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    chat.
-                    <span class="me1">appendChild</span>
-                    <span class="br0">(</span>
-                    spanText
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    chat.
-                    <span class="me1">appendChild</span>
-                    <span class="br0">(</span>
-                    lineBreak
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    chat.
-                    <span class="me1">scrollTop</span>
-                    <span class="sy0">=</span>
-                    chat.
-                    <span class="me1">scrollHeight</span>
-                    <span class="sy0">-</span>
-                    chat.
-                    <span class="me1">clientHeight</span>
-                    <span class="sy0">;</span>
-                    <span class="br0">}</span>
-                    <span class="br0">}</span>
-                    ,
-                  </pre>
+                  <pre class="de1" xml:space="preserve">_onmessage<span class="sy0">:</span> function<span class="br0">(</span>m<span class="br0">)</span> <span class="br0">{</span>
+  <span class="kw1">if</span> <span class="br0">(</span>m.<span class="me1">data</span><span class="br0">)</span><span class="br0">{</span>
+    var c<span class="sy0">=</span>m.<span class="me1">data</span>.<span class="me1">indexOf</span><span class="br0">(</span><span class="st0">':'</span><span class="br0">)</span><span class="sy0">;</span>
+    var from<span class="sy0">=</span>m.<span class="me1">data</span>.<span class="me1">substring</span><span class="br0">(</span><span class="nu0">0</span>,c<span class="br0">)</span>.<span class="me1">replace</span><span class="br0">(</span><span class="st0">'&amp;lt;'</span>,<span class="st0">'&amp;lt;'</span><span class="br0">)</span>.<span class="me1">replace</span><span class="br0">(</span><span class="st0">'&amp;gt;'</span>,<span class="st0">'&amp;gt;'</span><span class="br0">)</span><span class="sy0">;</span>
+    var text<span class="sy0">=</span>m.<span class="me1">data</span>.<span class="me1">substring</span><span class="br0">(</span>c<span class="sy0">+</span><span class="nu0">1</span><span class="br0">)</span>.<span class="me1">replace</span><span class="br0">(</span><span class="st0">'&amp;lt;'</span>,<span class="st0">'&amp;lt;'</span><span class="br0">)</span>.<span class="me1">replace</span><span class="br0">(</span><span class="st0">'&amp;gt;'</span>,<span class="st0">'&amp;gt;'</span><span class="br0">)</span><span class="sy0">;</span>
+    var chat<span class="sy0">=</span>$<span class="br0">(</span><span class="st0">'chat'</span><span class="br0">)</span><span class="sy0">;</span>
+    var spanFrom <span class="sy0">=</span> document.<span class="me1">createElement</span><span class="br0">(</span><span class="st0">'span'</span><span class="br0">)</span><span class="sy0">;</span>
+    spanFrom.<span class="me1">className</span><span class="sy0">=</span><span class="st0">'from'</span><span class="sy0">;</span>
+    spanFrom.<span class="me1">innerHTML</span><span class="sy0">=</span>from<span class="sy0">+</span><span class="st0">': '</span><span class="sy0">;</span>
+    var spanText <span class="sy0">=</span> document.<span class="me1">createElement</span><span class="br0">(</span><span class="st0">'span'</span><span class="br0">)</span><span class="sy0">;</span>
+    spanText.<span class="me1">className</span><span class="sy0">=</span><span class="st0">'text'</span><span class="sy0">;</span>
+    spanText.<span class="me1">innerHTML</span><span class="sy0">=</span>text<span class="sy0">;</span>
+    var lineBreak <span class="sy0">=</span> document.<span class="me1">createElement</span><span class="br0">(</span><span class="st0">'br'</span><span class="br0">)</span><span class="sy0">;</span>
+    chat.<span class="me1">appendChild</span><span class="br0">(</span>spanFrom<span class="br0">)</span><span class="sy0">;</span>
+    chat.<span class="me1">appendChild</span><span class="br0">(</span>spanText<span class="br0">)</span><span class="sy0">;</span>
+    chat.<span class="me1">appendChild</span><span class="br0">(</span>lineBreak<span class="br0">)</span><span class="sy0">;</span>
+    chat.<span class="me1">scrollTop</span> <span class="sy0">=</span> chat.<span class="me1">scrollHeight</span> <span class="sy0">-</span> chat.<span class="me1">clientHeight</span><span class="sy0">;</span>
+  <span class="br0">}</span>
+<span class="br0">}</span>,</pre>
                 </div>
               </div>
               <p>
@@ -709,57 +278,13 @@ chat
               </p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="java source-java">
-                  <pre class="de1">
-                    onclose
-                    <span class="sy0">:</span>
-                    function
-                    <span class="br0">(</span>
-                    m
-                    <span class="br0">)</span>
-                    <span class="br0">{</span>
-                    <span class="kw1">this</span>
-                    ._ws
-                    <span class="sy0">=</span>
-                    <span class="kw2">null</span>
-                    <span class="sy0">;</span>
-                    $
-                    <span class="br0">(</span>
-                    <span class="st0">'join'</span>
-                    <span class="br0">)</span>
-                    .
-                    <span class="me1">className</span>
-                    <span class="sy0">=</span>
-                    <span class="st0">''</span>
-                    <span class="sy0">;</span>
-                    $
-                    <span class="br0">(</span>
-                    <span class="st0">'joined'</span>
-                    <span class="br0">)</span>
-                    .
-                    <span class="me1">className</span>
-                    <span class="sy0">=</span>
-                    <span class="st0">'hidden'</span>
-                    <span class="sy0">;</span>
-                    $
-                    <span class="br0">(</span>
-                    <span class="st0">'username'</span>
-                    <span class="br0">)</span>
-                    .
-                    <span class="me1">focus</span>
-                    <span class="br0">(</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    $
-                    <span class="br0">(</span>
-                    <span class="st0">'chat'</span>
-                    <span class="br0">)</span>
-                    .
-                    <span class="me1">innerHTML</span>
-                    <span class="sy0">=</span>
-                    <span class="st0">''</span>
-                    <span class="sy0">;</span>
-                    <span class="br0">}</span>
-                  </pre>
+                  <pre class="de1" xml:space="preserve"> onclose<span class="sy0">:</span> function<span class="br0">(</span>m<span class="br0">)</span> <span class="br0">{</span>
+  <span class="kw1">this</span>._ws<span class="sy0">=</span><span class="kw2">null</span><span class="sy0">;</span>
+  $<span class="br0">(</span><span class="st0">'join'</span><span class="br0">)</span>.<span class="me1">className</span><span class="sy0">=</span><span class="st0">''</span><span class="sy0">;</span>
+  $<span class="br0">(</span><span class="st0">'joined'</span><span class="br0">)</span>.<span class="me1">className</span><span class="sy0">=</span><span class="st0">'hidden'</span><span class="sy0">;</span>
+  $<span class="br0">(</span><span class="st0">'username'</span><span class="br0">)</span>.<span class="me1">focus</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
+  $<span class="br0">(</span><span class="st0">'chat'</span><span class="br0">)</span>.<span class="me1">innerHTML</span><span class="sy0">=</span><span class="st0">''</span><span class="sy0">;</span>
+<span class="br0">}</span></pre>
                 </div>
               </div>
               <h2>
@@ -783,86 +308,27 @@ chat
               </p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="java source-java">
-                  <pre class="de1">
-                    <span class="kw1">public</span>
-                    TestServer
-                    <span class="br0">(</span>
-                    <span class="kw4">int</span>
-                    port
-                    <span class="br0">)</span>
-                    <span class="br0">{</span>
-                    _connector
-                    <span class="sy0">=</span>
-                    <span class="kw1">new</span>
-                    SelectChannelConnector
-                    <span class="br0">(</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    _connector.
-                    <span class="me1">setPort</span>
-                    <span class="br0">(</span>
-                    port
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    addConnector
-                    <span class="br0">(</span>
-                    _connector
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    _wsHandler
-                    <span class="sy0">=</span>
-                    <span class="kw1">new</span>
-                    WebSocketHandler
-                    <span class="br0">(</span>
-                    <span class="br0">)</span>
-                    <span class="br0">{</span>
-                    <span class="kw1">public</span>
-                    WebSocket doWebSocketConnect
-                    <span class="br0">(</span>
-                    HttpServletRequest request,
-                    <span class="kw3">String</span>
-                    protocol
-                    <span class="br0">)</span>
-                    <span class="br0">{</span>
-                    ...
-                    <span class="kw1">return</span>
-                    _websocket
-                    <span class="sy0">;</span>
-                    <span class="br0">}</span>
-                    <span class="br0">}</span>
-                    <span class="sy0">;</span>
-                    setHandler
-                    <span class="br0">(</span>
-                    _wsHandler
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    _rHandler
-                    <span class="sy0">=</span>
-                    <span class="kw1">new</span>
-                    ResourceHandler
-                    <span class="br0">(</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    _rHandler.
-                    <span class="me1">setDirectoriesListed</span>
-                    <span class="br0">(</span>
-                    <span class="kw2">true</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    _rHandler.
-                    <span class="me1">setResourceBase</span>
-                    <span class="br0">(</span>
-                    _docroot
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    _wsHandler.
-                    <span class="me1">setHandler</span>
-                    <span class="br0">(</span>
-                    _rHandler
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    <span class="br0">}</span>
-                  </pre>
+                  <pre class="de1" xml:space="preserve"> <span class="kw1">public</span> TestServer<span class="br0">(</span><span class="kw4">int</span> port<span class="br0">)</span>
+<span class="br0">{</span>
+    _connector <span class="sy0">=</span> <span class="kw1">new</span> SelectChannelConnector<span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
+    _connector.<span class="me1">setPort</span><span class="br0">(</span>port<span class="br0">)</span><span class="sy0">;</span>
+    addConnector<span class="br0">(</span>_connector<span class="br0">)</span><span class="sy0">;</span>
+ 
+    _wsHandler <span class="sy0">=</span> <span class="kw1">new</span> WebSocketHandler<span class="br0">(</span><span class="br0">)</span>
+    <span class="br0">{</span>
+        <span class="kw1">public</span> WebSocket doWebSocketConnect<span class="br0">(</span>HttpServletRequest request, <span class="kw3">String</span> protocol<span class="br0">)</span>
+        <span class="br0">{</span>
+            ...
+            <span class="kw1">return</span> _websocket<span class="sy0">;</span>
+        <span class="br0">}</span>
+    <span class="br0">}</span><span class="sy0">;</span>
+    setHandler<span class="br0">(</span>_wsHandler<span class="br0">)</span><span class="sy0">;</span>
+ 
+    _rHandler<span class="sy0">=</span><span class="kw1">new</span> ResourceHandler<span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
+    _rHandler.<span class="me1">setDirectoriesListed</span><span class="br0">(</span><span class="kw2">true</span><span class="br0">)</span><span class="sy0">;</span>
+    _rHandler.<span class="me1">setResourceBase</span><span class="br0">(</span>_docroot<span class="br0">)</span><span class="sy0">;</span>
+    _wsHandler.<span class="me1">setHandler</span><span class="br0">(</span>_rHandler<span class="br0">)</span><span class="sy0">;</span>
+<span class="br0">}</span></pre>
                 </div>
               </div>
               <p>
@@ -872,124 +338,23 @@ chat
               </p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="java source-java">
-                  <pre class="de1">
-                    _wsHandler
-                    <span class="sy0">=</span>
-                    <span class="kw1">new</span>
-                    WebSocketHandler
-                    <span class="br0">(</span>
-                    <span class="br0">)</span>
-                    <span class="br0">{</span>
-                    <span class="kw1">public</span>
-                    WebSocket doWebSocketConnect
-                    <span class="br0">(</span>
-                    HttpServletRequest request,
-                    <span class="kw3">String</span>
-                    protocol
-                    <span class="br0">)</span>
-                    <span class="br0">{</span>
-                    <span class="kw1">if</span>
-                    <span class="br0">(</span>
-                    <span class="st0">"org.ietf.websocket.test-echo"</span>
-                    .
-                    <span class="me1">equals</span>
-                    <span class="br0">(</span>
-                    protocol
-                    <span class="br0">)</span>
-                    <span class="sy0">||</span>
-                    <span class="st0">"echo"</span>
-                    .
-                    <span class="me1">equals</span>
-                    <span class="br0">(</span>
-                    protocol
-                    <span class="br0">)</span>
-                    <span class="sy0">||</span>
-                    <span class="st0">"lws-mirror-protocol"</span>
-                    .
-                    <span class="me1">equals</span>
-                    <span class="br0">(</span>
-                    protocol
-                    <span class="br0">)</span>
-                    <span class="br0">)</span>
-                    _websocket
-                    <span class="sy0">=</span>
-                    <span class="kw1">new</span>
-                    TestEchoWebSocket
-                    <span class="br0">(</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    <span class="kw1">else</span>
-                    <span class="kw1">if</span>
-                    <span class="br0">(</span>
-                    <span class="st0">"org.ietf.websocket.test-echo-broadcast"</span>
-                    .
-                    <span class="me1">equals</span>
-                    <span class="br0">(</span>
-                    protocol
-                    <span class="br0">)</span>
-                    <span class="br0">)</span>
-                    _websocket
-                    <span class="sy0">=</span>
-                    <span class="kw1">new</span>
-                    TestEchoBroadcastWebSocket
-                    <span class="br0">(</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    <span class="kw1">else</span>
-                    <span class="kw1">if</span>
-                    <span class="br0">(</span>
-                    <span class="st0">"org.ietf.websocket.test-echo-assemble"</span>
-                    .
-                    <span class="me1">equals</span>
-                    <span class="br0">(</span>
-                    protocol
-                    <span class="br0">)</span>
-                    <span class="br0">)</span>
-                    _websocket
-                    <span class="sy0">=</span>
-                    <span class="kw1">new</span>
-                    TestEchoAssembleWebSocket
-                    <span class="br0">(</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    <span class="kw1">else</span>
-                    <span class="kw1">if</span>
-                    <span class="br0">(</span>
-                    <span class="st0">"org.ietf.websocket.test-echo-fragment"</span>
-                    .
-                    <span class="me1">equals</span>
-                    <span class="br0">(</span>
-                    protocol
-                    <span class="br0">)</span>
-                    <span class="br0">)</span>
-                    _websocket
-                    <span class="sy0">=</span>
-                    <span class="kw1">new</span>
-                    TestEchoFragmentWebSocket
-                    <span class="br0">(</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    <span class="kw1">else</span>
-                    <span class="kw1">if</span>
-                    <span class="br0">(</span>
-                    protocol
-                    <span class="sy0">==</span>
-                    <span class="kw2">null</span>
-                    <span class="br0">)</span>
-                    _websocket
-                    <span class="sy0">=</span>
-                    <span class="kw1">new</span>
-                    TestWebSocket
-                    <span class="br0">(</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    <span class="kw1">return</span>
-                    _websocket
-                    <span class="sy0">;</span>
-                    <span class="br0">}</span>
-                    <span class="br0">}</span>
-                    <span class="sy0">;</span>
-                  </pre>
+                  <pre class="de1" xml:space="preserve">_wsHandler <span class="sy0">=</span> <span class="kw1">new</span> WebSocketHandler<span class="br0">(</span><span class="br0">)</span>
+<span class="br0">{</span>
+    <span class="kw1">public</span> WebSocket doWebSocketConnect<span class="br0">(</span>HttpServletRequest request, <span class="kw3">String</span> protocol<span class="br0">)</span>
+    <span class="br0">{</span>
+        <span class="kw1">if</span> <span class="br0">(</span><span class="st0">"org.ietf.websocket.test-echo"</span>.<span class="me1">equals</span><span class="br0">(</span>protocol<span class="br0">)</span> <span class="sy0">||</span> <span class="st0">"echo"</span>.<span class="me1">equals</span><span class="br0">(</span>protocol<span class="br0">)</span> <span class="sy0">||</span> <span class="st0">"lws-mirror-protocol"</span>.<span class="me1">equals</span><span class="br0">(</span>protocol<span class="br0">)</span><span class="br0">)</span>
+            _websocket <span class="sy0">=</span> <span class="kw1">new</span> TestEchoWebSocket<span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
+        <span class="kw1">else</span> <span class="kw1">if</span> <span class="br0">(</span><span class="st0">"org.ietf.websocket.test-echo-broadcast"</span>.<span class="me1">equals</span><span class="br0">(</span>protocol<span class="br0">)</span><span class="br0">)</span>
+            _websocket <span class="sy0">=</span> <span class="kw1">new</span> TestEchoBroadcastWebSocket<span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
+        <span class="kw1">else</span> <span class="kw1">if</span> <span class="br0">(</span><span class="st0">"org.ietf.websocket.test-echo-assemble"</span>.<span class="me1">equals</span><span class="br0">(</span>protocol<span class="br0">)</span><span class="br0">)</span>
+            _websocket <span class="sy0">=</span> <span class="kw1">new</span> TestEchoAssembleWebSocket<span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
+        <span class="kw1">else</span> <span class="kw1">if</span> <span class="br0">(</span><span class="st0">"org.ietf.websocket.test-echo-fragment"</span>.<span class="me1">equals</span><span class="br0">(</span>protocol<span class="br0">)</span><span class="br0">)</span>
+            _websocket <span class="sy0">=</span> <span class="kw1">new</span> TestEchoFragmentWebSocket<span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
+        <span class="kw1">else</span> <span class="kw1">if</span> <span class="br0">(</span>protocol<span class="sy0">==</span><span class="kw2">null</span><span class="br0">)</span>
+            _websocket <span class="sy0">=</span> <span class="kw1">new</span> TestWebSocket<span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
+        <span class="kw1">return</span> _websocket<span class="sy0">;</span>
+    <span class="br0">}</span>
+<span class="br0">}</span><span class="sy0">;</span></pre>
                 </div>
               </div>
               <p>
@@ -1013,107 +378,37 @@ chat
               </p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="java source-java">
-                  <pre class="de1">
-                    ConcurrentLinkedQueue _broadcast
-                    <span class="sy0">=</span>
-                    <span class="kw1">new</span>
-                    ConcurrentLinkedQueue
-                    <span class="br0">(</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    <span class="kw1">class</span>
-                    TestEchoBroadcastWebSocket
-                    <span class="kw1">implements</span>
-                    WebSocket.
-                    <span class="me1">OnTextMessage</span>
-                    <span class="br0">{</span>
-                    <span class="kw1">protected</span>
-                    <span class="kw3">Connection</span>
-                    _connection
-                    <span class="sy0">;</span>
-                    <span class="kw1">public</span>
-                    <span class="kw4">void</span>
-                    onOpen
-                    <span class="br0">(</span>
-                    <span class="kw3">Connection</span>
-                    connection
-                    <span class="br0">)</span>
-                    <span class="br0">{</span>
-                    _connection
-                    <span class="sy0">=</span>
-                    connection
-                    <span class="sy0">;</span>
-                    _broadcast.
-                    <span class="me1">add</span>
-                    <span class="br0">(</span>
-                    <span class="kw1">this</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    <span class="br0">}</span>
-                    <span class="kw1">public</span>
-                    <span class="kw4">void</span>
-                    onClose
-                    <span class="br0">(</span>
-                    <span class="kw4">int</span>
-                    code,
-                    <span class="kw3">String</span>
-                    message
-                    <span class="br0">)</span>
-                    <span class="br0">{</span>
-                    _broadcast.
-                    <span class="me1">remove</span>
-                    <span class="br0">(</span>
-                    <span class="kw1">this</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    <span class="br0">}</span>
-                    <span class="kw1">public</span>
-                    <span class="kw4">void</span>
-                    onMessage
-                    <span class="br0">(</span>
-                    <span class="kw1">final</span>
-                    <span class="kw3">String</span>
-                    data
-                    <span class="br0">)</span>
-                    <span class="br0">{</span>
-                    <span class="kw1">for</span>
-                    <span class="br0">(</span>
-                    TestEchoBroadcastWebSocket ws
-                    <span class="sy0">:</span>
-                    _broadcast
-                    <span class="br0">)</span>
-                    <span class="br0">{</span>
-                    <span class="kw1">try</span>
-                    <span class="br0">{</span>
-                    ws._connection.
-                    <span class="me1">sendMessage</span>
-                    <span class="br0">(</span>
-                    data
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    <span class="br0">}</span>
-                    <span class="kw1">catch</span>
-                    <span class="br0">(</span>
-                    <span class="kw3">IOException</span>
-                    e
-                    <span class="br0">)</span>
-                    <span class="br0">{</span>
-                    _broadcast.
-                    <span class="me1">remove</span>
-                    <span class="br0">(</span>
-                    ws
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    e.
-                    <span class="me1">printStackTrace</span>
-                    <span class="br0">(</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    <span class="br0">}</span>
-                    <span class="br0">}</span>
-                    <span class="br0">}</span>
-                    <span class="br0">}</span>
-                  </pre>
+                  <pre class="de1" xml:space="preserve">ConcurrentLinkedQueue _broadcast <span class="sy0">=</span>
+    <span class="kw1">new</span> ConcurrentLinkedQueue<span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
+<span class="kw1">class</span> TestEchoBroadcastWebSocket <span class="kw1">implements</span> WebSocket.<span class="me1">OnTextMessage</span>
+<span class="br0">{</span>
+    <span class="kw1">protected</span> <span class="kw3">Connection</span> _connection<span class="sy0">;</span>
+ 
+    <span class="kw1">public</span> <span class="kw4">void</span> onOpen<span class="br0">(</span><span class="kw3">Connection</span> connection<span class="br0">)</span>
+    <span class="br0">{</span>
+        _connection<span class="sy0">=</span>connection<span class="sy0">;</span>
+        _broadcast.<span class="me1">add</span><span class="br0">(</span><span class="kw1">this</span><span class="br0">)</span><span class="sy0">;</span>
+    <span class="br0">}</span>
+    <span class="kw1">public</span> <span class="kw4">void</span> onClose<span class="br0">(</span><span class="kw4">int</span> code,<span class="kw3">String</span> message<span class="br0">)</span>
+    <span class="br0">{</span>
+        _broadcast.<span class="me1">remove</span><span class="br0">(</span><span class="kw1">this</span><span class="br0">)</span><span class="sy0">;</span>
+    <span class="br0">}</span>
+    <span class="kw1">public</span> <span class="kw4">void</span> onMessage<span class="br0">(</span><span class="kw1">final</span> <span class="kw3">String</span> data<span class="br0">)</span>
+    <span class="br0">{</span>
+        <span class="kw1">for</span> <span class="br0">(</span>TestEchoBroadcastWebSocket ws <span class="sy0">:</span> _broadcast<span class="br0">)</span>
+        <span class="br0">{</span>
+            <span class="kw1">try</span>
+            <span class="br0">{</span>
+                ws._connection.<span class="me1">sendMessage</span><span class="br0">(</span>data<span class="br0">)</span><span class="sy0">;</span>
+            <span class="br0">}</span>
+            <span class="kw1">catch</span> <span class="br0">(</span><span class="kw3">IOException</span> e<span class="br0">)</span>
+            <span class="br0">{</span>
+                _broadcast.<span class="me1">remove</span><span class="br0">(</span>ws<span class="br0">)</span><span class="sy0">;</span>
+                e.<span class="me1">printStackTrace</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
+            <span class="br0">}</span>
+        <span class="br0">}</span>
+    <span class="br0">}</span>
+<span class="br0">}</span></pre>
                 </div>
               </div>
               <h2>

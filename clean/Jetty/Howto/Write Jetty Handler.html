@@ -16,7 +16,7 @@
               <span class="subpages">
                 &lt;
                 <a href="../../Jetty.html" title="Jetty">Jetty</a>
-                |
+                 |
                 <a href="../Howto.html" title="Jetty/Howto">Howto</a>
               </span>
             </div>
@@ -129,20 +129,8 @@
               <p>The core API of the Handler interface is</p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="java source-java">
-                  <pre class="de1">
-                    <span class="kw1">public</span>
-                    <span class="kw4">void</span>
-                    handle
-                    <span class="br0">(</span>
-                    <span class="kw3">String</span>
-                    target,
-                    <span class="kw3">Request</span>
-                    baseRequest, HttpServletRequest request, HttpServletResponse response
-                    <span class="br0">)</span>
-                    <span class="kw1">throws</span>
-                    <span class="kw3">IOException</span>
-                    , ServletException
-                  </pre>
+                  <pre class="de1" xml:space="preserve"><span class="kw1">public</span> <span class="kw4">void</span> handle<span class="br0">(</span><span class="kw3">String</span> target, <span class="kw3">Request</span> baseRequest, HttpServletRequest request, HttpServletResponse response<span class="br0">)</span>
+    <span class="kw1">throws</span> <span class="kw3">IOException</span>, ServletException</pre>
                 </div>
               </div>
               <p>An implementation of this method can handle a request, pass the request onto another handler (or servlet), or it can modify and/or wrap the request and then pass it on. This gives three styles of handler:</p>
@@ -177,49 +165,8 @@ Generating Handlers - Handlers that produce content (ResourceHandler and Servlet
               </p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="java source-java">
-                  <pre class="de1">
-                    <span class="kw3">Request</span>
-                    base_request
-                    <span class="sy0">=</span>
-                    request
-                    <span class="kw1">instanceof</span>
-                    <span class="kw3">Request</span>
-                    <span class="sy0">?</span>
-                    <span class="br0">(</span>
-                    <span class="kw3">Request</span>
-                    <span class="br0">)</span>
-                    request
-                    <span class="sy0">:</span>
-                    HttpConnection.
-                    <span class="me1">getCurrentConnection</span>
-                    <span class="br0">(</span>
-                    <span class="br0">)</span>
-                    .
-                    <span class="me1">getRequest</span>
-                    <span class="br0">(</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    Response base_response
-                    <span class="sy0">=</span>
-                    response
-                    <span class="kw1">instanceof</span>
-                    Response
-                    <span class="sy0">?</span>
-                    <span class="br0">(</span>
-                    Response
-                    <span class="br0">)</span>
-                    response
-                    <span class="sy0">:</span>
-                    HttpConnection.
-                    <span class="me1">getCurrentConnection</span>
-                    <span class="br0">(</span>
-                    <span class="br0">)</span>
-                    .
-                    <span class="me1">getResponse</span>
-                    <span class="br0">(</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                  </pre>
+                  <pre class="de1" xml:space="preserve"><span class="kw3">Request</span> base_request <span class="sy0">=</span> request <span class="kw1">instanceof</span> <span class="kw3">Request</span> <span class="sy0">?</span> <span class="br0">(</span><span class="kw3">Request</span><span class="br0">)</span>request <span class="sy0">:</span> HttpConnection.<span class="me1">getCurrentConnection</span><span class="br0">(</span><span class="br0">)</span>.<span class="me1">getRequest</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
+Response base_response <span class="sy0">=</span> response <span class="kw1">instanceof</span> Response <span class="sy0">?</span> <span class="br0">(</span>Response<span class="br0">)</span>response <span class="sy0">:</span> HttpConnection.<span class="me1">getCurrentConnection</span><span class="br0">(</span><span class="br0">)</span>.<span class="me1">getResponse</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span></pre>
                 </div>
               </div>
               <p>
@@ -253,67 +200,18 @@ Generating Handlers - Handlers that produce content (ResourceHandler and Servlet
               <p>The normal servlet response API can be used and will typically set some status, content headers and then write out the content:</p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="java source-java">
-                  <pre class="de1">
-                    response.
-                    <span class="me1">setContentType</span>
-                    <span class="br0">(</span>
-                    <span class="st0">"text/html"</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    response.
-                    <span class="me1">setStatus</span>
-                    <span class="br0">(</span>
-                    HttpServletResponse.
-                    <span class="me1">SC_OK</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    response.
-                    <span class="me1">getWriter</span>
-                    <span class="br0">(</span>
-                    <span class="br0">)</span>
-                    .
-                    <span class="me1">println</span>
-                    <span class="br0">(</span>
-                    <span class="st0">"&lt;h1&gt;Hello OneHandler&lt;/h1&gt;"</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                  </pre>
+                  <pre class="de1" xml:space="preserve"> 
+ response.<span class="me1">setContentType</span><span class="br0">(</span><span class="st0">"text/html"</span><span class="br0">)</span><span class="sy0">;</span>
+ response.<span class="me1">setStatus</span><span class="br0">(</span>HttpServletResponse.<span class="me1">SC_OK</span><span class="br0">)</span><span class="sy0">;</span>
+ response.<span class="me1">getWriter</span><span class="br0">(</span><span class="br0">)</span>.<span class="me1">println</span><span class="br0">(</span><span class="st0">"&lt;h1&gt;Hello OneHandler&lt;/h1&gt;"</span><span class="br0">)</span><span class="sy0">;</span></pre>
                 </div>
               </div>
               <p>It is also very important that a handler indicate that it has completed handling the request and that the request should not be passed to other handlers:</p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="java source-java">
-                  <pre class="de1">
-                    <span class="kw3">Request</span>
-                    base_request
-                    <span class="sy0">=</span>
-                    <span class="br0">(</span>
-                    request
-                    <span class="kw1">instanceof</span>
-                    <span class="kw3">Request</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">?</span>
-                    <span class="br0">(</span>
-                    <span class="kw3">Request</span>
-                    <span class="br0">)</span>
-                    request
-                    <span class="sy0">:</span>
-                    HttpConnection.
-                    <span class="me1">getCurrentConnection</span>
-                    <span class="br0">(</span>
-                    <span class="br0">)</span>
-                    .
-                    <span class="me1">getRequest</span>
-                    <span class="br0">(</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    base_request.
-                    <span class="me1">setHandled</span>
-                    <span class="br0">(</span>
-                    <span class="kw2">true</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                  </pre>
+                  <pre class="de1" xml:space="preserve"> 
+ <span class="kw3">Request</span> base_request <span class="sy0">=</span> <span class="br0">(</span>request <span class="kw1">instanceof</span> <span class="kw3">Request</span><span class="br0">)</span> <span class="sy0">?</span> <span class="br0">(</span><span class="kw3">Request</span><span class="br0">)</span>request<span class="sy0">:</span>HttpConnection.<span class="me1">getCurrentConnection</span><span class="br0">(</span><span class="br0">)</span>.<span class="me1">getRequest</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
+ base_request.<span class="me1">setHandled</span><span class="br0">(</span><span class="kw2">true</span><span class="br0">)</span><span class="sy0">;</span></pre>
                 </div>
               </div>
               <h3>
@@ -335,32 +233,16 @@ Generating Handlers - Handlers that produce content (ResourceHandler and Servlet
               <p>Typically a modified request is passed to another handler and then the modifications are undone in a finally block afterwards:</p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="java source-java">
-                  <pre class="de1">
-                    <span class="kw1">try</span>
-                    <span class="br0">{</span>
-                    base_request.
-                    <span class="me1">setSession</span>
-                    <span class="br0">(</span>
-                    a_session
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    next_handler.
-                    <span class="me1">handle</span>
-                    <span class="br0">(</span>
-                    target,request,response,dispatch
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    <span class="br0">}</span>
-                    <span class="kw1">finally</span>
-                    <span class="br0">{</span>
-                    base_request.
-                    <span class="me1">setSession</span>
-                    <span class="br0">(</span>
-                    old_session
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    <span class="br0">}</span>
-                  </pre>
+                  <pre class="de1" xml:space="preserve"> 
+ <span class="kw1">try</span>
+ <span class="br0">{</span>
+    base_request.<span class="me1">setSession</span><span class="br0">(</span>a_session<span class="br0">)</span><span class="sy0">;</span>
+    next_handler.<span class="me1">handle</span><span class="br0">(</span>target,request,response,dispatch<span class="br0">)</span><span class="sy0">;</span>
+ <span class="br0">}</span>
+ <span class="kw1">finally</span>
+ <span class="br0">{</span>
+    base_request.<span class="me1">setSession</span><span class="br0">(</span>old_session<span class="br0">)</span><span class="sy0">;</span>
+ <span class="br0">}</span></pre>
                 </div>
               </div>
               <p>

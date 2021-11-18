@@ -16,7 +16,7 @@
               <span class="subpages">
                 &lt;
                 <a href="../../Jetty.html" title="Jetty">Jetty</a>
-                |
+                 |
                 <a href="../Feature.html" title="Jetty/Feature">Feature</a>
               </span>
             </div>
@@ -212,10 +212,7 @@ Edit the $JETTY_HOME/start.ini file.</p>
 Modify the Server OPTIONS to include "plus", eg:</p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="bash source-bash">
-                  <pre class="de1">
-                    <span class="re2">OPTIONS</span>
-                    =Server,jsp,jmx,resources,websocket,ext,plus
-                  </pre>
+                  <pre class="de1" xml:space="preserve"><span class="re2">OPTIONS</span>=Server,jsp,jmx,resources,websocket,ext,plus</pre>
                 </div>
               </div>
               <p>
@@ -226,11 +223,7 @@ Near the bottom of the file, in the section on Configuration files, add the foll
               </p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="bash source-bash">
-                  <pre class="de1">
-                    etc
-                    <span class="sy0">/</span>
-                    jetty-plus.xml
-                  </pre>
+                  <pre class="de1" xml:space="preserve">etc<span class="sy0">/</span>jetty-plus.xml</pre>
                 </div>
               </div>
               <p>Step4:
@@ -250,131 +243,16 @@ Save the file.</p>
               <p>To use JNDI with jetty, you need a couple of extra Configurations that do things like reading WEB-INF/jetty-env.xml, setting up a java:comp/env context, and hooking up JNDI entries from the environment into your web app. The listing below shows the 2 extra Configurations in the correct order they must be defined:</p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="xml source-xml">
-                  <pre class="de1">
-                    <span class="sc3">
-                      <span class="re1">&lt;Array</span>
-                      <span class="re0">id</span>
-                      =
-                      <span class="st0">"plusConfig"</span>
-                      <span class="re0">type</span>
-                      =
-                      <span class="st0">"java.lang.String"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;Item
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    org.eclipse.jetty.webapp.WebInfConfiguration
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Item
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;Item
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    org.eclipse.jetty.webapp.WebXmlConfiguration
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Item
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;Item
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    org.eclipse.jetty.webapp.MetaInfConfiguration
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Item
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;Item
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    org.eclipse.jetty.webapp.FragmentConfiguration
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Item
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;Item
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    org.eclipse.jetty.plus.webapp.EnvConfiguration
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Item
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc-1">&lt;!-- add for jndi --&gt;</span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;Item
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    org.eclipse.jetty.plus.webapp.PlusConfiguration
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Item
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc-1">&lt;!-- add for jndi --&gt;</span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;Item
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    org.eclipse.jetty.webapp.JettyWebXmlConfiguration
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Item
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;Item
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    org.eclipse.jetty.webapp.TagLibConfiguration
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Item
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc-1">&lt;!-- not needed for jetty-8 --&gt;</span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Array
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                  </pre>
+                  <pre class="de1" xml:space="preserve"><span class="sc3"><span class="re1">&lt;Array</span> <span class="re0">id</span>=<span class="st0">"plusConfig"</span> <span class="re0">type</span>=<span class="st0">"java.lang.String"</span><span class="re2">&gt;</span></span>
+  <span class="sc3"><span class="re1">&lt;Item<span class="re2">&gt;</span></span></span>org.eclipse.jetty.webapp.WebInfConfiguration<span class="sc3"><span class="re1">&lt;/Item<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;Item<span class="re2">&gt;</span></span></span>org.eclipse.jetty.webapp.WebXmlConfiguration<span class="sc3"><span class="re1">&lt;/Item<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;Item<span class="re2">&gt;</span></span></span>org.eclipse.jetty.webapp.MetaInfConfiguration<span class="sc3"><span class="re1">&lt;/Item<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;Item<span class="re2">&gt;</span></span></span>org.eclipse.jetty.webapp.FragmentConfiguration<span class="sc3"><span class="re1">&lt;/Item<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;Item<span class="re2">&gt;</span></span></span>org.eclipse.jetty.plus.webapp.EnvConfiguration<span class="sc3"><span class="re1">&lt;/Item<span class="re2">&gt;</span></span></span> <span class="sc-1">&lt;!-- add for jndi --&gt;</span>
+  <span class="sc3"><span class="re1">&lt;Item<span class="re2">&gt;</span></span></span>org.eclipse.jetty.plus.webapp.PlusConfiguration<span class="sc3"><span class="re1">&lt;/Item<span class="re2">&gt;</span></span></span>    <span class="sc-1">&lt;!-- add for jndi --&gt;</span>
+  <span class="sc3"><span class="re1">&lt;Item<span class="re2">&gt;</span></span></span>org.eclipse.jetty.webapp.JettyWebXmlConfiguration<span class="sc3"><span class="re1">&lt;/Item<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;Item<span class="re2">&gt;</span></span></span>org.eclipse.jetty.webapp.TagLibConfiguration<span class="sc3"><span class="re1">&lt;/Item<span class="re2">&gt;</span></span></span>  <span class="sc-1">&lt;!-- not needed for jetty-8 --&gt;</span>
+<span class="sc3"><span class="re1">&lt;/Array<span class="re2">&gt;</span></span></span></pre>
                 </div>
               </div>
               <p>
@@ -391,11 +269,7 @@ Save the file.</p>
               </p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="bash source-bash">
-                  <pre class="de1">
-                    etc
-                    <span class="sy0">/</span>
-                    jetty-plus.xml
-                  </pre>
+                  <pre class="de1" xml:space="preserve">etc<span class="sy0">/</span>jetty-plus.xml</pre>
                 </div>
               </div>
               <p>Now skip down to the section on Adding JNDI Implementation Jars to the Jetty Classpath.</p>
@@ -409,184 +283,23 @@ Save the file.</p>
               <p>If you only have a few webapps that you want to use with JNDI, you can apply the augmented list of Configurations specifically to those webapps. To do that, create a context XML file for each web app, and set up the Configuration classes. Here's an example of how that would look:</p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="xml source-xml">
-                  <pre class="de1">
-                    <span class="sc3">
-                      <span class="re1">&lt;Configure</span>
-                      <span class="re0">id</span>
-                      =
-                      <span class="st0">'wac'</span>
-                      <span class="re0">class</span>
-                      =
-                      <span class="st0">"org.eclipse.jetty.webapp.WebAppContext"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;Array</span>
-                      <span class="re0">id</span>
-                      =
-                      <span class="st0">"plusConfig"</span>
-                      <span class="re0">type</span>
-                      =
-                      <span class="st0">"java.lang.String"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;Item
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    org.eclipse.jetty.webapp.WebInfConfiguration
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Item
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;Item
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    org.eclipse.jetty.webapp.WebXmlConfiguration
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Item
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;Item
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    org.eclipse.jetty.webapp.MetaInfConfiguration
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Item
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;Item
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    org.eclipse.jetty.webapp.FragmentConfiguration
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Item
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;Item
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    org.eclipse.jetty.plus.webapp.EnvConfiguration
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Item
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc-1">&lt;!-- add for JNDI --&gt;</span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;Item
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    org.eclipse.jetty.plus.webapp.PlusConfiguration
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Item
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc-1">&lt;!-- add for JNDI --&gt;</span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;Item
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    org.eclipse.jetty.webapp.JettyWebXmlConfiguration
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Item
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;Item
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    org.eclipse.jetty.webapp.TagLibConfiguration
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Item
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Array
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;Set</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"war"</span>
-                      <span class="re2">&gt;</span>
-                      <span class="re1">&lt;SystemProperty</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"jetty.home"</span>
-                      <span class="re0">default</span>
-                      =
-                      <span class="st0">"."</span>
-                      <span class="re2">/&gt;</span>
-                    </span>
-                    /webapps/my-cool-webapp
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Set
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;Set</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"configurationClasses"</span>
-                      <span class="re2">&gt;</span>
-                      <span class="re1">&lt;Ref</span>
-                      <span class="re0">refid</span>
-                      =
-                      <span class="st0">"plusConfig"</span>
-                      <span class="re2">/&gt;</span>
-                      <span class="re1">
-                        &lt;/Set
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Configure
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                  </pre>
+                  <pre class="de1" xml:space="preserve"><span class="sc3"><span class="re1">&lt;Configure</span> <span class="re0">id</span>=<span class="st0">'wac'</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.webapp.WebAppContext"</span><span class="re2">&gt;</span></span>
+ 
+  <span class="sc3"><span class="re1">&lt;Array</span> <span class="re0">id</span>=<span class="st0">"plusConfig"</span> <span class="re0">type</span>=<span class="st0">"java.lang.String"</span><span class="re2">&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;Item<span class="re2">&gt;</span></span></span>org.eclipse.jetty.webapp.WebInfConfiguration<span class="sc3"><span class="re1">&lt;/Item<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;Item<span class="re2">&gt;</span></span></span>org.eclipse.jetty.webapp.WebXmlConfiguration<span class="sc3"><span class="re1">&lt;/Item<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;Item<span class="re2">&gt;</span></span></span>org.eclipse.jetty.webapp.MetaInfConfiguration<span class="sc3"><span class="re1">&lt;/Item<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;Item<span class="re2">&gt;</span></span></span>org.eclipse.jetty.webapp.FragmentConfiguration<span class="sc3"><span class="re1">&lt;/Item<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;Item<span class="re2">&gt;</span></span></span>org.eclipse.jetty.plus.webapp.EnvConfiguration<span class="sc3"><span class="re1">&lt;/Item<span class="re2">&gt;</span></span></span> <span class="sc-1">&lt;!-- add for JNDI --&gt;</span>
+    <span class="sc3"><span class="re1">&lt;Item<span class="re2">&gt;</span></span></span>org.eclipse.jetty.plus.webapp.PlusConfiguration<span class="sc3"><span class="re1">&lt;/Item<span class="re2">&gt;</span></span></span>    <span class="sc-1">&lt;!-- add for JNDI --&gt;</span>
+    <span class="sc3"><span class="re1">&lt;Item<span class="re2">&gt;</span></span></span>org.eclipse.jetty.webapp.JettyWebXmlConfiguration<span class="sc3"><span class="re1">&lt;/Item<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;Item<span class="re2">&gt;</span></span></span>org.eclipse.jetty.webapp.TagLibConfiguration<span class="sc3"><span class="re1">&lt;/Item<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;/Array<span class="re2">&gt;</span></span></span>
+ 
+  <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"war"</span><span class="re2">&gt;</span><span class="re1">&lt;SystemProperty</span> <span class="re0">name</span>=<span class="st0">"jetty.home"</span> <span class="re0">default</span>=<span class="st0">"."</span><span class="re2">/&gt;</span></span>/webapps/my-cool-webapp<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"configurationClasses"</span><span class="re2">&gt;</span><span class="re1">&lt;Ref</span> <span class="re0">refid</span>=<span class="st0">"plusConfig"</span><span class="re2">/&gt;</span><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
+ 
+<span class="sc3"><span class="re1">&lt;/Configure<span class="re2">&gt;</span></span></span></pre>
                 </div>
               </div>
               <p>Now you're ready for the next step, which is to put the JNDI jars onto jetty's classpath, described in Adding JNDI Implementation Jars to the Jetty Classpath.</p>
@@ -600,13 +313,7 @@ Save the file.</p>
               <p>One way to do this is to supply it on the command line like so:</p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="bash source-bash">
-                  <pre class="de1">
-                    java
-                    <span class="re5">-jar</span>
-                    start.jar
-                    <span class="re2">OPTIONS</span>
-                    =plus
-                  </pre>
+                  <pre class="de1" xml:space="preserve">java <span class="re5">-jar</span> start.jar <span class="re2">OPTIONS</span>=plus</pre>
                 </div>
               </div>
               <p>
@@ -619,10 +326,7 @@ Save the file.</p>
               </p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="bash source-bash">
-                  <pre class="de1">
-                    <span class="re2">OPTIONS</span>
-                    =Server,jsp,jmx,resources,websocket,ext,plus
-                  </pre>
+                  <pre class="de1" xml:space="preserve"><span class="re2">OPTIONS</span>=Server,jsp,jmx,resources,websocket,ext,plus</pre>
                 </div>
               </div>
               <h3>
@@ -660,20 +364,9 @@ Save the file.</p>
               </p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="xml source-xml">
-                  <pre class="de1">
-                    <span class="sc3">
-                      <span class="re1">&lt;env-entry</span>
-                      <span class="re2">/&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;resource-ref</span>
-                      <span class="re2">/&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;resource-env-ref</span>
-                      <span class="re2">/&gt;</span>
-                    </span>
-                  </pre>
+                  <pre class="de1" xml:space="preserve"><span class="sc3"><span class="re1">&lt;env-entry</span><span class="re2">/&gt;</span></span>
+<span class="sc3"><span class="re1">&lt;resource-ref</span><span class="re2">/&gt;</span></span>
+<span class="sc3"><span class="re1">&lt;resource-env-ref</span><span class="re2">/&gt;</span></span></pre>
                 </div>
               </div>
               <p>
@@ -738,59 +431,11 @@ Save the file.</p>
               <p>The binding for all of these object types follows the same pattern:</p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="xml source-xml">
-                  <pre class="de1">
-                    <span class="sc3">
-                      <span class="re1">&lt;New</span>
-                      <span class="re0">class</span>
-                      =type of naming entry
-                      <span class="re2">&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    scope
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    name to bind as
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    the object to bind
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/New
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                  </pre>
+                  <pre class="de1" xml:space="preserve"><span class="sc3"><span class="re1">&lt;New</span> <span class="re0">class</span>=type of naming entry<span class="re2">&gt;</span></span>
+  <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>scope<span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>name to bind as<span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>the object to bind<span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
+<span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span></pre>
                 </div>
               </div>
               <h4>
@@ -859,72 +504,12 @@ Save the file.</p>
               </p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="xml source-xml">
-                  <pre class="de1">
-                    <span class="sc3">
-                      <span class="re1">&lt;New</span>
-                      <span class="re0">class</span>
-                      =
-                      <span class="st0">"org.eclipse.jetty.plus.jndi.EnvEntry"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                      <span class="re1">
-                        &lt;/Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    mySpecialValue
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;Arg</span>
-                      <span class="re0">type</span>
-                      =
-                      <span class="st0">"java.lang.Integer"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    4000
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;Arg</span>
-                      <span class="re0">type</span>
-                      =
-                      <span class="st0">"boolean"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    true
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/New
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                  </pre>
+                  <pre class="de1" xml:space="preserve"><span class="sc3"><span class="re1">&lt;New</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.plus.jndi.EnvEntry"</span><span class="re2">&gt;</span></span>
+  <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>mySpecialValue<span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;Arg</span> <span class="re0">type</span>=<span class="st0">"java.lang.Integer"</span><span class="re2">&gt;</span></span>4000<span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;Arg</span> <span class="re0">type</span>=<span class="st0">"boolean"</span><span class="re2">&gt;</span></span>true<span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
+<span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span></pre>
                 </div>
               </div>
               <p>
@@ -979,31 +564,10 @@ Save the file.</p>
               </p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="java source-java">
-                  <pre class="de1">
-                    <span class="kw1">import</span>
-                    <span class="co2">javax.naming.InitialContext</span>
-                    <span class="sy0">;</span>
-                    <span class="kw3">InitialContext</span>
-                    ic
-                    <span class="sy0">=</span>
-                    <span class="kw1">new</span>
-                    <span class="kw3">InitialContext</span>
-                    <span class="br0">(</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    <span class="kw3">Integer</span>
-                    mySpecialValue
-                    <span class="sy0">=</span>
-                    <span class="br0">(</span>
-                    <span class="kw3">Integer</span>
-                    <span class="br0">)</span>
-                    ic.
-                    <span class="me1">lookup</span>
-                    <span class="br0">(</span>
-                    <span class="st0">"java:comp/env/mySpecialValue"</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                  </pre>
+                  <pre class="de1" xml:space="preserve"><span class="kw1">import</span> <span class="co2">javax.naming.InitialContext</span><span class="sy0">;</span>
+ 
+<span class="kw3">InitialContext</span> ic <span class="sy0">=</span> <span class="kw1">new</span> <span class="kw3">InitialContext</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
+<span class="kw3">Integer</span> mySpecialValue <span class="sy0">=</span> <span class="br0">(</span><span class="kw3">Integer</span><span class="br0">)</span>ic.<span class="me1">lookup</span><span class="br0">(</span><span class="st0">"java:comp/env/mySpecialValue"</span><span class="br0">)</span><span class="sy0">;</span></pre>
                 </div>
               </div>
               <h4>
@@ -1043,33 +607,33 @@ Save the file.</p>
                 <tbody>
                   <tr>
                     <td>Resource Type</td>
-                    <td />
+                    <td> </td>
                     <td>
                       Name in
                       <code>jetty.xml</code>
                     </td>
-                    <td />
+                    <td> </td>
                     <td>Environment Lookup</td>
                   </tr>
                   <tr>
                     <td>javax.sql.DataSource</td>
-                    <td />
+                    <td> </td>
                     <td>jdbc/myDB</td>
-                    <td />
+                    <td> </td>
                     <td>java:comp/env/jdbc/myDB</td>
                   </tr>
                   <tr>
                     <td>javax.jms.QueueConnectionFactory</td>
-                    <td />
+                    <td> </td>
                     <td>jms/myQueue</td>
-                    <td />
+                    <td> </td>
                     <td>java:comp/env/jms/myQueue</td>
                   </tr>
                   <tr>
                     <td>javax.mail.Session</td>
-                    <td />
+                    <td> </td>
                     <td>mail/myMailService</td>
-                    <td />
+                    <td> </td>
                     <td>java:comp/env/mail/myMailService</td>
                   </tr>
                 </tbody>
@@ -1090,122 +654,19 @@ Save the file.</p>
               </p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="xml source-xml">
-                  <pre class="de1">
-                    <span class="sc3">
-                      <span class="re1">&lt;Configure</span>
-                      <span class="re0">id</span>
-                      =
-                      <span class="st0">'wac'</span>
-                      <span class="re0">class</span>
-                      =
-                      <span class="st0">"org.eclipse.jetty.webapp.WebAppContext"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    ...
-                    <span class="sc3">
-                      <span class="re1">&lt;New</span>
-                      <span class="re0">id</span>
-                      =
-                      <span class="st0">"myds"</span>
-                      <span class="re0">class</span>
-                      =
-                      <span class="st0">"org.eclipse.jetty.plus.jndi.Resource"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                      <span class="re1">&lt;Ref</span>
-                      <span class="re0">refid</span>
-                      =
-                      <span class="st0">"wac"</span>
-                      <span class="re2">/&gt;</span>
-                      <span class="re1">
-                        &lt;/Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    jdbc/myds
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;New</span>
-                      <span class="re0">class</span>
-                      =
-                      <span class="st0">"org.apache.derby.jdbc.EmbeddedDataSource"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;Set</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"DatabaseName"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    test
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Set
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;Set</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"createDatabase"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    create
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Set
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/New
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/New
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Configure
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                  </pre>
+                  <pre class="de1" xml:space="preserve"><span class="sc3"><span class="re1">&lt;Configure</span> <span class="re0">id</span>=<span class="st0">'wac'</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.webapp.WebAppContext"</span><span class="re2">&gt;</span></span>
+...
+<span class="sc3"><span class="re1">&lt;New</span> <span class="re0">id</span>=<span class="st0">"myds"</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.plus.jndi.Resource"</span><span class="re2">&gt;</span></span>
+  <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span><span class="re1">&lt;Ref</span> <span class="re0">refid</span>=<span class="st0">"wac"</span><span class="re2">/&gt;</span><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>jdbc/myds<span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">class</span>=<span class="st0">"org.apache.derby.jdbc.EmbeddedDataSource"</span><span class="re2">&gt;</span></span>
+      <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"DatabaseName"</span><span class="re2">&gt;</span></span>test<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
+      <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"createDatabase"</span><span class="re2">&gt;</span></span>create<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
+<span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span>
+<span class="sc3"><span class="re1">&lt;/Configure<span class="re2">&gt;</span></span></span></pre>
                 </div>
               </div>
               <p>
@@ -1226,91 +687,21 @@ Save the file.</p>
               <p>Here's an example web.xml declaration for the datasource above:</p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="xml source-xml">
-                  <pre class="de1">
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;resource-ref
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;res-ref-name
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    jdbc/myds
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/res-ref-name
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;res-type
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    javax.sql.DataSource
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/res-type
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;res-auth
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    Container
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/res-auth
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/resource-ref
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                  </pre>
+                  <pre class="de1" xml:space="preserve">  <span class="sc3"><span class="re1">&lt;resource-ref<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;res-ref-name<span class="re2">&gt;</span></span></span>jdbc/myds<span class="sc3"><span class="re1">&lt;/res-ref-name<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;res-type<span class="re2">&gt;</span></span></span>javax.sql.DataSource<span class="sc3"><span class="re1">&lt;/res-type<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;res-auth<span class="re2">&gt;</span></span></span>Container<span class="sc3"><span class="re1">&lt;/res-auth<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;/resource-ref<span class="re2">&gt;</span></span></span></pre>
                 </div>
               </div>
               <p>To lookup your DataSource in your servlet/filter/etc.:</p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="java source-java">
-                  <pre class="de1">
-                    <span class="kw1">import</span>
-                    <span class="co2">javax.naming.InitialContext</span>
-                    <span class="sy0">;</span>
-                    <span class="kw1">import</span>
-                    <span class="co2">javax.sql.DataSource</span>
-                    <span class="sy0">;</span>
-                    <span class="kw3">InitialContext</span>
-                    ic
-                    <span class="sy0">=</span>
-                    <span class="kw1">new</span>
-                    <span class="kw3">InitialContext</span>
-                    <span class="br0">(</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    DataSource myDS
-                    <span class="sy0">=</span>
-                    <span class="br0">(</span>
-                    DataSource
-                    <span class="br0">)</span>
-                    ic.
-                    <span class="me1">lookup</span>
-                    <span class="br0">(</span>
-                    <span class="st0">"java:comp/env/jdbc/myds"</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                  </pre>
+                  <pre class="de1" xml:space="preserve"><span class="kw1">import</span> <span class="co2">javax.naming.InitialContext</span><span class="sy0">;</span>
+<span class="kw1">import</span> <span class="co2">javax.sql.DataSource</span><span class="sy0">;</span>
+ 
+<span class="kw3">InitialContext</span> ic <span class="sy0">=</span> <span class="kw1">new</span> <span class="kw3">InitialContext</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
+DataSource myDS <span class="sy0">=</span> <span class="br0">(</span>DataSource<span class="br0">)</span>ic.<span class="me1">lookup</span><span class="br0">(</span><span class="st0">"java:comp/env/jdbc/myds"</span><span class="br0">)</span><span class="sy0">;</span></pre>
                 </div>
               </div>
               <p>
@@ -1326,107 +717,18 @@ Save the file.</p>
               </p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="xml source-xml">
-                  <pre class="de1">
-                    <span class="sc3">
-                      <span class="re1">&lt;Configure</span>
-                      <span class="re0">id</span>
-                      =
-                      <span class="st0">'wac'</span>
-                      <span class="re0">class</span>
-                      =
-                      <span class="st0">"org.eclipse.jetty.webapp.WebAppContext"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    ...
-                    <span class="sc3">
-                      <span class="re1">&lt;New</span>
-                      <span class="re0">id</span>
-                      =
-                      <span class="st0">"cf"</span>
-                      <span class="re0">class</span>
-                      =
-                      <span class="st0">"org.eclipse.jetty.plus.jndi.Resource"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                      <span class="re1">&lt;Ref</span>
-                      <span class="re0">refid</span>
-                      =
-                      <span class="st0">'wac'</span>
-                      <span class="re2">/&gt;</span>
-                      <span class="re1">
-                        &lt;/Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    jms/connectionFactory
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;New</span>
-                      <span class="re0">class</span>
-                      =
-                      <span class="st0">"org.apache.activemq.ActiveMQConnectionFactory"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    vm://localhost?broker.persistent=false
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/New
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/New
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Configure
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                  </pre>
+                  <pre class="de1" xml:space="preserve"><span class="sc3"><span class="re1">&lt;Configure</span> <span class="re0">id</span>=<span class="st0">'wac'</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.webapp.WebAppContext"</span><span class="re2">&gt;</span></span>
+...
+<span class="sc3"><span class="re1">&lt;New</span> <span class="re0">id</span>=<span class="st0">"cf"</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.plus.jndi.Resource"</span><span class="re2">&gt;</span></span>
+  <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span><span class="re1">&lt;Ref</span> <span class="re0">refid</span>=<span class="st0">'wac'</span><span class="re2">/&gt;</span><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>jms/connectionFactory<span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">class</span>=<span class="st0">"org.apache.activemq.ActiveMQConnectionFactory"</span><span class="re2">&gt;</span></span>
+       <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>vm://localhost?broker.persistent=false<span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
+<span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span>
+<span class="sc3"><span class="re1">&lt;/Configure<span class="re2">&gt;</span></span></span></pre>
                 </div>
               </div>
               <p>
@@ -1442,190 +744,26 @@ Save the file.</p>
               <p>Jetty also provides infrastructure for access to javax.mail.Sessions from within an application:</p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="xml source-xml">
-                  <pre class="de1">
-                    <span class="sc3">
-                      <span class="re1">&lt;Configure</span>
-                      <span class="re0">id</span>
-                      =
-                      <span class="st0">'wac'</span>
-                      <span class="re0">class</span>
-                      =
-                      <span class="st0">"org.eclipse.jetty.webapp.WebAppContext"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    ...
-                    <span class="sc3">
-                      <span class="re1">&lt;New</span>
-                      <span class="re0">id</span>
-                      =
-                      <span class="st0">"mail"</span>
-                      <span class="re0">class</span>
-                      =
-                      <span class="st0">"org.eclipse.jetty.plus.jndi.Resource"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                      <span class="re1">&lt;Ref</span>
-                      <span class="re0">refid</span>
-                      =
-                      <span class="st0">"wac"</span>
-                      <span class="re2">/&gt;</span>
-                      <span class="re1">
-                        &lt;/Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    mail/Session
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;New</span>
-                      <span class="re0">class</span>
-                      =
-                      <span class="st0">"org.eclipse.jetty.jndi.factories.MailSessionReference"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;Set</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"user"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    fred
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Set
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;Set</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"password"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    OBF:1xmk1w261z0f1w1c1xmq
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Set
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;Set</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"properties"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;New</span>
-                      <span class="re0">class</span>
-                      =
-                      <span class="st0">"java.util.Properties"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;Put</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"mail.smtp.host"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    XXX
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Put
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;Put</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"mail.from"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    me@me
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Put
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;Put</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"mail.debug"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    true
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Put
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/New
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Set
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/New
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/New
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Configure
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                  </pre>
+                  <pre class="de1" xml:space="preserve"><span class="sc3"><span class="re1">&lt;Configure</span> <span class="re0">id</span>=<span class="st0">'wac'</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.webapp.WebAppContext"</span><span class="re2">&gt;</span></span>
+...
+<span class="sc3"><span class="re1">&lt;New</span> <span class="re0">id</span>=<span class="st0">"mail"</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.plus.jndi.Resource"</span><span class="re2">&gt;</span></span>
+     <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span><span class="re1">&lt;Ref</span> <span class="re0">refid</span>=<span class="st0">"wac"</span><span class="re2">/&gt;</span><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
+     <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>mail/Session<span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
+     <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>
+       <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.jndi.factories.MailSessionReference"</span><span class="re2">&gt;</span></span>
+         <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"user"</span><span class="re2">&gt;</span></span>fred<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
+         <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"password"</span><span class="re2">&gt;</span></span>OBF:1xmk1w261z0f1w1c1xmq<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
+         <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"properties"</span><span class="re2">&gt;</span></span>
+           <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">class</span>=<span class="st0">"java.util.Properties"</span><span class="re2">&gt;</span></span>
+             <span class="sc3"><span class="re1">&lt;Put</span> <span class="re0">name</span>=<span class="st0">"mail.smtp.host"</span><span class="re2">&gt;</span></span>XXX<span class="sc3"><span class="re1">&lt;/Put<span class="re2">&gt;</span></span></span>
+             <span class="sc3"><span class="re1">&lt;Put</span> <span class="re0">name</span>=<span class="st0">"mail.from"</span><span class="re2">&gt;</span></span>me@me<span class="sc3"><span class="re1">&lt;/Put<span class="re2">&gt;</span></span></span>
+             <span class="sc3"><span class="re1">&lt;Put</span> <span class="re0">name</span>=<span class="st0">"mail.debug"</span><span class="re2">&gt;</span></span>true<span class="sc3"><span class="re1">&lt;/Put<span class="re2">&gt;</span></span></span>
+           <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span>
+          <span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
+       <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span>
+     <span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
+<span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span>
+<span class="sc3"><span class="re1">&lt;/Configure<span class="re2">&gt;</span></span></span></pre>
                 </div>
               </div>
               <p>
@@ -1664,43 +802,11 @@ You can set the password to be plain text, or use Jetty's
               </p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="xml source-xml">
-                  <pre class="de1">
-                    <span class="sc3">
-                      <span class="re1">&lt;New</span>
-                      <span class="re0">id</span>
-                      =
-                      <span class="st0">"tx"</span>
-                      <span class="re0">class</span>
-                      =
-                      <span class="st0">"org.eclipse.jetty.plus.jndi.Transaction"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;New</span>
-                      <span class="re0">class</span>
-                      =
-                      <span class="st0">"com.atomikos.icatch.jta.UserTransactionImp"</span>
-                      <span class="re2">/&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/New
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                  </pre>
+                  <pre class="de1" xml:space="preserve"><span class="sc3"><span class="re1">&lt;New</span> <span class="re0">id</span>=<span class="st0">"tx"</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.plus.jndi.Transaction"</span><span class="re2">&gt;</span></span>
+  <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">class</span>=<span class="st0">"com.atomikos.icatch.jta.UserTransactionImp"</span><span class="re2">/&gt;</span></span>
+  <span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
+<span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span></pre>
                 </div>
               </div>
               <p>
@@ -1722,122 +828,19 @@ You can set the password to be plain text, or use Jetty's
               <p>In a context xml file:</p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="xml source-xml">
-                  <pre class="de1">
-                    <span class="sc3">
-                      <span class="re1">&lt;Configure</span>
-                      <span class="re0">id</span>
-                      =
-                      <span class="st0">'wac'</span>
-                      <span class="re0">class</span>
-                      =
-                      <span class="st0">"org.eclipse.jetty.webapp.WebAppContext"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    ...
-                    <span class="sc3">
-                      <span class="re1">&lt;New</span>
-                      <span class="re0">id</span>
-                      =
-                      <span class="st0">"myds"</span>
-                      <span class="re0">class</span>
-                      =
-                      <span class="st0">"org.eclipse.jetty.plus.jndi.Resource"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                      <span class="re1">&lt;Ref</span>
-                      <span class="re0">refid</span>
-                      =
-                      <span class="st0">"wac"</span>
-                      <span class="re2">/&gt;</span>
-                      <span class="re1">
-                        &lt;/Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    jdbc/mydatasource
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;New</span>
-                      <span class="re0">class</span>
-                      =
-                      <span class="st0">"org.apache.derby.jdbc.EmbeddedDataSource"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;Set</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"DatabaseName"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    test
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Set
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;Set</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"createDatabase"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    create
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Set
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/New
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/New
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Configure
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                  </pre>
+                  <pre class="de1" xml:space="preserve"><span class="sc3"><span class="re1">&lt;Configure</span> <span class="re0">id</span>=<span class="st0">'wac'</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.webapp.WebAppContext"</span><span class="re2">&gt;</span></span>
+...
+<span class="sc3"><span class="re1">&lt;New</span> <span class="re0">id</span>=<span class="st0">"myds"</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.plus.jndi.Resource"</span><span class="re2">&gt;</span></span>
+  <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span><span class="re1">&lt;Ref</span> <span class="re0">refid</span>=<span class="st0">"wac"</span><span class="re2">/&gt;</span><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>jdbc/mydatasource<span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">class</span>=<span class="st0">"org.apache.derby.jdbc.EmbeddedDataSource"</span><span class="re2">&gt;</span></span>
+      <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"DatabaseName"</span><span class="re2">&gt;</span></span>test<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
+      <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"createDatabase"</span><span class="re2">&gt;</span></span>create<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
+<span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span>
+<span class="sc3"><span class="re1">&lt;/Configure<span class="re2">&gt;</span></span></span></pre>
                 </div>
               </div>
               <p>
@@ -1847,97 +850,15 @@ You can set the password to be plain text, or use Jetty's
               </p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="xml source-xml">
-                  <pre class="de1">
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;resource-ref
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;res-ref-name
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    jdbc/mydatasource
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/res-ref-name
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;res-type
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    javax.sql.DataSource
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/res-type
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;res-auth
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    Container
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/res-auth
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;injection-target
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;injection-target-class
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    com.acme.JNDITest
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/injection-target-class
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;injection-target-name
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    myDatasource
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/injection-target-name
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/injection-target
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/resource-ref
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                  </pre>
+                  <pre class="de1" xml:space="preserve">  <span class="sc3"><span class="re1">&lt;resource-ref<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;res-ref-name<span class="re2">&gt;</span></span></span>jdbc/mydatasource<span class="sc3"><span class="re1">&lt;/res-ref-name<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;res-type<span class="re2">&gt;</span></span></span>javax.sql.DataSource<span class="sc3"><span class="re1">&lt;/res-type<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;res-auth<span class="re2">&gt;</span></span></span>Container<span class="sc3"><span class="re1">&lt;/res-auth<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;injection-target<span class="re2">&gt;</span></span></span>
+      <span class="sc3"><span class="re1">&lt;injection-target-class<span class="re2">&gt;</span></span></span>com.acme.JNDITest<span class="sc3"><span class="re1">&lt;/injection-target-class<span class="re2">&gt;</span></span></span>
+      <span class="sc3"><span class="re1">&lt;injection-target-name<span class="re2">&gt;</span></span></span>myDatasource<span class="sc3"><span class="re1">&lt;/injection-target-name<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;/injection-target<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;/resource-ref<span class="re2">&gt;</span></span></span></pre>
                 </div>
               </div>
               <p>
@@ -1956,122 +877,19 @@ You can set the password to be plain text, or use Jetty's
               <p>In a context xml file:</p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="xml source-xml">
-                  <pre class="de1">
-                    <span class="sc3">
-                      <span class="re1">&lt;Configure</span>
-                      <span class="re0">id</span>
-                      =
-                      <span class="st0">'wac'</span>
-                      <span class="re0">class</span>
-                      =
-                      <span class="st0">"org.eclipse.jetty.webapp.WebAppContext"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    ...
-                    <span class="sc3">
-                      <span class="re1">&lt;New</span>
-                      <span class="re0">id</span>
-                      =
-                      <span class="st0">"myds"</span>
-                      <span class="re0">class</span>
-                      =
-                      <span class="st0">"org.eclipse.jetty.plus.jndi.Resource"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                      <span class="re1">&lt;Ref</span>
-                      <span class="re0">refid</span>
-                      =
-                      <span class="st0">"wac"</span>
-                      <span class="re2">/&gt;</span>
-                      <span class="re1">
-                        &lt;/Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    jdbc/mydatasource
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;New</span>
-                      <span class="re0">class</span>
-                      =
-                      <span class="st0">"org.apache.derby.jdbc.EmbeddedDataSource"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;Set</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"DatabaseName"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    test
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Set
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;Set</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"createDatabase"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    create
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Set
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/New
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/New
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Configure
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                  </pre>
+                  <pre class="de1" xml:space="preserve"><span class="sc3"><span class="re1">&lt;Configure</span> <span class="re0">id</span>=<span class="st0">'wac'</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.webapp.WebAppContext"</span><span class="re2">&gt;</span></span>
+...
+<span class="sc3"><span class="re1">&lt;New</span> <span class="re0">id</span>=<span class="st0">"myds"</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.plus.jndi.Resource"</span><span class="re2">&gt;</span></span>
+  <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span><span class="re1">&lt;Ref</span> <span class="re0">refid</span>=<span class="st0">"wac"</span><span class="re2">/&gt;</span><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>jdbc/mydatasource<span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">class</span>=<span class="st0">"org.apache.derby.jdbc.EmbeddedDataSource"</span><span class="re2">&gt;</span></span>
+      <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"DatabaseName"</span><span class="re2">&gt;</span></span>test<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
+      <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"createDatabase"</span><span class="re2">&gt;</span></span>create<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
+<span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span>
+<span class="sc3"><span class="re1">&lt;/Configure<span class="re2">&gt;</span></span></span></pre>
                 </div>
               </div>
               <p>
@@ -2081,67 +899,11 @@ You can set the password to be plain text, or use Jetty's
               </p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="xml source-xml">
-                  <pre class="de1">
-                    <span class="sc3">
-                      <span class="re1">&lt;New</span>
-                      <span class="re0">id</span>
-                      =
-                      <span class="st0">"map1"</span>
-                      <span class="re0">class</span>
-                      =
-                      <span class="st0">"org.eclipse.jetty.plus.jndi.Link"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                      <span class="re1">&lt;Ref</span>
-                      <span class="re0">refid</span>
-                      =
-                      <span class="st0">'wac'</span>
-                      <span class="re2">/&gt;</span>
-                      <span class="re1">
-                        &lt;/Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    jdbc/mydatasource1
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc-1">&lt;!-- name in web.xml --&gt;</span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    jdbc/mydatasource
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc-1">&lt;!-- name in container environment --&gt;</span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/New
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                  </pre>
+                  <pre class="de1" xml:space="preserve">  <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">id</span>=<span class="st0">"map1"</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.plus.jndi.Link"</span><span class="re2">&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span><span class="re1">&lt;Ref</span> <span class="re0">refid</span>=<span class="st0">'wac'</span><span class="re2">/&gt;</span><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>jdbc/mydatasource1<span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span> <span class="sc-1">&lt;!-- name in web.xml --&gt;</span>
+    <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>jdbc/mydatasource<span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>  <span class="sc-1">&lt;!-- name in container environment --&gt;</span>
+  <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span></pre>
                 </div>
               </div>
               <p>
@@ -2151,97 +913,15 @@ You can set the password to be plain text, or use Jetty's
               </p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="xml source-xml">
-                  <pre class="de1">
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;resource-ref
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;res-ref-name
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    jdbc/mydatasource1
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/res-ref-name
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;res-type
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    javax.sql.DataSource
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/res-type
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;res-auth
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    Container
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/res-auth
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;injection-target
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;injection-target-class
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    com.acme.JNDITest
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/injection-target-class
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;injection-target-name
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    myDatasource
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/injection-target-name
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/injection-target
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/resource-ref
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                  </pre>
+                  <pre class="de1" xml:space="preserve">  <span class="sc3"><span class="re1">&lt;resource-ref<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;res-ref-name<span class="re2">&gt;</span></span></span>jdbc/mydatasource1<span class="sc3"><span class="re1">&lt;/res-ref-name<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;res-type<span class="re2">&gt;</span></span></span>javax.sql.DataSource<span class="sc3"><span class="re1">&lt;/res-type<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;res-auth<span class="re2">&gt;</span></span></span>Container<span class="sc3"><span class="re1">&lt;/res-auth<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;injection-target<span class="re2">&gt;</span></span></span>
+      <span class="sc3"><span class="re1">&lt;injection-target-class<span class="re2">&gt;</span></span></span>com.acme.JNDITest<span class="sc3"><span class="re1">&lt;/injection-target-class<span class="re2">&gt;</span></span></span>
+      <span class="sc3"><span class="re1">&lt;injection-target-name<span class="re2">&gt;</span></span></span>myDatasource<span class="sc3"><span class="re1">&lt;/injection-target-name<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;/injection-target<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;/resource-ref<span class="re2">&gt;</span></span></span></pre>
                 </div>
               </div>
               <p>
@@ -2260,141 +940,20 @@ You can set the password to be plain text, or use Jetty's
               <p>If you have defined your naming entry in a WEB-INF/jetty-env.xml file, you can simply bind it into your webapp's java:comp/env namespace by adding a single line:</p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="xml source-xml">
-                  <pre class="de1">
-                    <span class="sc3">
-                      <span class="re1">&lt;New</span>
-                      <span class="re0">id</span>
-                      =
-                      <span class="st0">"jdbc/myds"</span>
-                      <span class="re0">class</span>
-                      =
-                      <span class="st0">"org.eclipse.jetty.plus.jndi.Resource"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                      <span class="re1">
-                        &lt;/Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    jdbc/myds
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;New</span>
-                      <span class="re0">class</span>
-                      =
-                      <span class="st0">"com.mysql.jdbc.jdbc2.optional.MysqlConnectionPoolDataSource"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;Set</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"Url"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    jdbc:mysql://localhost:3306/chat
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Set
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;Set</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"User"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    root
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Set
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;Set</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"Password"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    sillyness
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Set
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/New
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;Call</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"bindToENC"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    jdbc/myfoo
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc-1">&lt;!-- binds jdbc/myds to java:comp/env/jdbc/myfoo for this webapp --&gt;</span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Call
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/New
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                  </pre>
+                  <pre class="de1" xml:space="preserve">  <span class="sc3"><span class="re1">&lt;New</span>  <span class="re0">id</span>=<span class="st0">"jdbc/myds"</span>  <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.plus.jndi.Resource"</span><span class="re2">&gt;</span></span>
+     <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
+     <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>jdbc/myds<span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
+     <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>
+       <span class="sc3"><span class="re1">&lt;New</span>  <span class="re0">class</span>=<span class="st0">"com.mysql.jdbc.jdbc2.optional.MysqlConnectionPoolDataSource"</span><span class="re2">&gt;</span></span>
+         <span class="sc3"><span class="re1">&lt;Set</span>  <span class="re0">name</span>=<span class="st0">"Url"</span><span class="re2">&gt;</span></span>jdbc:mysql://localhost:3306/chat<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
+         <span class="sc3"><span class="re1">&lt;Set</span>  <span class="re0">name</span>=<span class="st0">"User"</span><span class="re2">&gt;</span></span>root<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
+         <span class="sc3"><span class="re1">&lt;Set</span>  <span class="re0">name</span>=<span class="st0">"Password"</span><span class="re2">&gt;</span></span>sillyness<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
+       <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span>
+     <span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
+     <span class="sc3"><span class="re1">&lt;Call</span> <span class="re0">name</span>=<span class="st0">"bindToENC"</span><span class="re2">&gt;</span></span>
+        <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>jdbc/myfoo<span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>  <span class="sc-1">&lt;!-- binds jdbc/myds to java:comp/env/jdbc/myfoo for this webapp --&gt;</span>
+    <span class="sc3"><span class="re1">&lt;/Call<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span></pre>
                 </div>
               </div>
               <p>
@@ -2407,114 +966,17 @@ You can set the password to be plain text, or use Jetty's
               <p>Assume the following naming entry is in $JETTY_HOME/etc/jetty-myjndi.xml:</p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="xml source-xml">
-                  <pre class="de1">
-                    <span class="sc3">
-                      <span class="re1">&lt;New</span>
-                      <span class="re0">id</span>
-                      =
-                      <span class="st0">"jdbc/myds"</span>
-                      <span class="re0">class</span>
-                      =
-                      <span class="st0">"org.eclipse.jetty.plus.jndi.Resource"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                      <span class="re1">
-                        &lt;/Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    jdbc/myds
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;New</span>
-                      <span class="re0">class</span>
-                      =
-                      <span class="st0">"com.mysql.jdbc.jdbc2.optional.MysqlConnectionPoolDataSource"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;Set</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"Url"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    jdbc:mysql://localhost:3306/chat
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Set
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;Set</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"User"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    root
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Set
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;Set</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"Password"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    sillyness
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Set
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/New
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/New
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                  </pre>
+                  <pre class="de1" xml:space="preserve">  <span class="sc3"><span class="re1">&lt;New</span>  <span class="re0">id</span>=<span class="st0">"jdbc/myds"</span>  <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.plus.jndi.Resource"</span><span class="re2">&gt;</span></span>
+     <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
+     <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>jdbc/myds<span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
+     <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>
+       <span class="sc3"><span class="re1">&lt;New</span>  <span class="re0">class</span>=<span class="st0">"com.mysql.jdbc.jdbc2.optional.MysqlConnectionPoolDataSource"</span><span class="re2">&gt;</span></span>
+         <span class="sc3"><span class="re1">&lt;Set</span>  <span class="re0">name</span>=<span class="st0">"Url"</span><span class="re2">&gt;</span></span>jdbc:mysql://localhost:3306/chat<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
+         <span class="sc3"><span class="re1">&lt;Set</span>  <span class="re0">name</span>=<span class="st0">"User"</span><span class="re2">&gt;</span></span>root<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
+         <span class="sc3"><span class="re1">&lt;Set</span>  <span class="re0">name</span>=<span class="st0">"Password"</span><span class="re2">&gt;</span></span>sillyness<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
+       <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span>
+     <span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span></pre>
                 </div>
               </div>
               <p>
@@ -2523,61 +985,11 @@ You can set the password to be plain text, or use Jetty's
               </p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="xml source-xml">
-                  <pre class="de1">
-                    <span class="sc3">
-                      <span class="re1">&lt;Call</span>
-                      <span class="re0">class</span>
-                      =
-                      <span class="st0">"org.eclipse.jetty.plus.jndi.NamingEntryUtil"</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"bindToENC"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                      <span class="re1">
-                        &lt;/Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc-1">&lt;!-- scope of naming entry, ie same as first argument to your naming entry definition, in this case, null --&gt;</span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    jdbc/myfoo
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    jdbc/myds
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Call
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                  </pre>
+                  <pre class="de1" xml:space="preserve">   <span class="sc3"><span class="re1">&lt;Call</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.plus.jndi.NamingEntryUtil"</span> <span class="re0">name</span>=<span class="st0">"bindToENC"</span><span class="re2">&gt;</span></span>
+       <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>    <span class="sc-1">&lt;!-- scope of naming entry, ie same as first argument to your naming entry definition, in this case, null --&gt;</span>
+       <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>jdbc/myfoo<span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
+       <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>jdbc/myds<span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
+   <span class="sc3"><span class="re1">&lt;/Call<span class="re2">&gt;</span></span></span></pre>
                 </div>
               </div>
               <p>Note that you *must* use a WEB-INF/jetty-env.xml file to call the "bindToENC" method and *not* a context xml file, as the latter is not interpreted at the correct phase of the webapp's deployment to have the java:comp/env namespace created.</p>
@@ -2600,297 +1012,49 @@ You can set the password to be plain text, or use Jetty's
               <p>The jvm scope is represented by a null parameter:</p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="xml source-xml">
-                  <pre class="de1">
-                    <span class="sc3">
-                      <span class="re1">&lt;New</span>
-                      <span class="re0">id</span>
-                      =
-                      <span class="st0">"cf"</span>
-                      <span class="re0">class</span>
-                      =
-                      <span class="st0">"org.eclipse.jetty.plus.jndi.Resource"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                      <span class="re1">
-                        &lt;/Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    jms/connectionFactory
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;New</span>
-                      <span class="re0">class</span>
-                      =
-                      <span class="st0">"org.apache.activemq.ActiveMQConnectionFactory"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    vm://localhost?broker.persistent=false
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/New
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/New
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                  </pre>
+                  <pre class="de1" xml:space="preserve"><span class="sc3"><span class="re1">&lt;New</span> <span class="re0">id</span>=<span class="st0">"cf"</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.plus.jndi.Resource"</span><span class="re2">&gt;</span></span>
+  <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>jms/connectionFactory<span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">class</span>=<span class="st0">"org.apache.activemq.ActiveMQConnectionFactory"</span><span class="re2">&gt;</span></span>
+       <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>vm://localhost?broker.persistent=false<span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
+<span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span></pre>
                 </div>
               </div>
               <p>The Server scope is represented by referencing the related Server object:</p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="xml source-xml">
-                  <pre class="de1">
-                    <span class="sc3">
-                      <span class="re1">&lt;Configure</span>
-                      <span class="re0">id</span>
-                      =
-                      <span class="st0">"Server"</span>
-                      <span class="re0">class</span>
-                      =
-                      <span class="st0">"org.eclipse.jetty.Server"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    ...
-                    <span class="sc3">
-                      <span class="re1">&lt;New</span>
-                      <span class="re0">id</span>
-                      =
-                      <span class="st0">"cf"</span>
-                      <span class="re0">class</span>
-                      =
-                      <span class="st0">"org.eclipse.jetty.plus.jndi.Resource"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                      <span class="re1">&lt;Ref</span>
-                      <span class="re0">refid</span>
-                      =
-                      <span class="st0">"Server"</span>
-                      <span class="re2">/&gt;</span>
-                      <span class="re1">
-                        &lt;/Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    jms/connectionFactory
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;New</span>
-                      <span class="re0">class</span>
-                      =
-                      <span class="st0">"org.apache.activemq.ActiveMQConnectionFactory"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    vm://localhost?broker.persistent=false
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/New
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/New
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Configure
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                  </pre>
+                  <pre class="de1" xml:space="preserve"><span class="sc3"><span class="re1">&lt;Configure</span> <span class="re0">id</span>=<span class="st0">"Server"</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.Server"</span><span class="re2">&gt;</span></span>
+...
+<span class="sc3"><span class="re1">&lt;New</span> <span class="re0">id</span>=<span class="st0">"cf"</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.plus.jndi.Resource"</span><span class="re2">&gt;</span></span>
+  <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span><span class="re1">&lt;Ref</span> <span class="re0">refid</span>=<span class="st0">"Server"</span><span class="re2">/&gt;</span><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>jms/connectionFactory<span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">class</span>=<span class="st0">"org.apache.activemq.ActiveMQConnectionFactory"</span><span class="re2">&gt;</span></span>
+       <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>vm://localhost?broker.persistent=false<span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
+<span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span>
+<span class="sc3"><span class="re1">&lt;/Configure<span class="re2">&gt;</span></span></span></pre>
                 </div>
               </div>
               <p>The webapp scope is represented by referencing the related WebAppContext object:</p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="xml source-xml">
-                  <pre class="de1">
-                    <span class="sc3">
-                      <span class="re1">&lt;Configure</span>
-                      <span class="re0">id</span>
-                      =
-                      <span class="st0">'wac'</span>
-                      <span class="re0">class</span>
-                      =
-                      <span class="st0">"org.eclipse.jetty.webapp.WebAppContext"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    ...
-                    <span class="sc3">
-                      <span class="re1">&lt;New</span>
-                      <span class="re0">id</span>
-                      =
-                      <span class="st0">"cf"</span>
-                      <span class="re0">class</span>
-                      =
-                      <span class="st0">"org.eclipse.jetty.plus.jndi.Resource"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                      <span class="re1">&lt;Ref</span>
-                      <span class="re0">refid</span>
-                      =
-                      <span class="st0">'wac'</span>
-                      <span class="re2">/&gt;</span>
-                      <span class="re1">
-                        &lt;/Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    jms/connectionFactory
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;New</span>
-                      <span class="re0">class</span>
-                      =
-                      <span class="st0">"org.apache.activemq.ActiveMQConnectionFactory"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    vm://localhost?broker.persistent=false
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/New
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/New
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Configure
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                  </pre>
+                  <pre class="de1" xml:space="preserve"><span class="sc3"><span class="re1">&lt;Configure</span> <span class="re0">id</span>=<span class="st0">'wac'</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.webapp.WebAppContext"</span><span class="re2">&gt;</span></span>
+...
+<span class="sc3"><span class="re1">&lt;New</span> <span class="re0">id</span>=<span class="st0">"cf"</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.plus.jndi.Resource"</span><span class="re2">&gt;</span></span>
+  <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span><span class="re1">&lt;Ref</span> <span class="re0">refid</span>=<span class="st0">'wac'</span><span class="re2">/&gt;</span><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>jms/connectionFactory<span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">class</span>=<span class="st0">"org.apache.activemq.ActiveMQConnectionFactory"</span><span class="re2">&gt;</span></span>
+       <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>vm://localhost?broker.persistent=false<span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
+<span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span>
+<span class="sc3"><span class="re1">&lt;/Configure<span class="re2">&gt;</span></span></span></pre>
                 </div>
               </div>
               <p>As you can see, the most natural configuration files in which to declare naming entries of each scope are:</p>

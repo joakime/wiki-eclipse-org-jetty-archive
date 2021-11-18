@@ -16,7 +16,7 @@
               <span class="subpages">
                 &lt;
                 <a href="../../Jetty.html" title="Jetty">Jetty</a>
-                |
+                 |
                 <a href="../Feature.html" title="Jetty/Feature">Feature</a>
               </span>
             </div>
@@ -144,14 +144,8 @@
               </p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="bash source-bash">
-                  <pre class="de1">
-                    <span class="sy0">*</span>
-                    hard nofile
-                    <span class="nu0">40000</span>
-                    <span class="sy0">*</span>
-                    hard nofile
-                    <span class="nu0">40000</span>
-                  </pre>
+                  <pre class="de1" xml:space="preserve"><span class="sy0">*</span> hard nofile <span class="nu0">40000</span>
+<span class="sy0">*</span> hard nofile <span class="nu0">40000</span></pre>
                 </div>
               </div>
               <p>
@@ -192,182 +186,28 @@
               <p>The relevant section to update is:</p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="xml source-xml">
-                  <pre class="de1">
-                    <span class="sc3">
-                      <span class="re1">&lt;Call</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"addConnector"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;New</span>
-                      <span class="re0">class</span>
-                      =
-                      <span class="st0">"org.eclipse.jetty.nio.SelectChannelConnector"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;Set</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"host"</span>
-                      <span class="re2">&gt;</span>
-                      <span class="re1">&lt;SystemProperty</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"jetty.host"</span>
-                      <span class="re2">/&gt;</span>
-                      <span class="re1">
-                        &lt;/Set
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;Set</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"port"</span>
-                      <span class="re2">&gt;</span>
-                      <span class="re1">&lt;SystemProperty</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"jetty.port"</span>
-                      <span class="re0">default</span>
-                      =
-                      <span class="st0">"8080"</span>
-                      <span class="re2">/&gt;</span>
-                      <span class="re1">
-                        &lt;/Set
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;Set</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"maxIdleTime"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    300000
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Set
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;Set</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"Acceptors"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    2
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Set
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;Set</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"statsOn"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    false
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Set
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;Set</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"confidentialPort"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    8443
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Set
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;Set</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"lowResourcesConnections"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    25000
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Set
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;Set</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"lowResourcesMaxIdleTime"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    5000
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Set
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/New
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Call
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                  </pre>
+                  <pre class="de1" xml:space="preserve"> 
+ <span class="sc3"><span class="re1">&lt;Call</span> <span class="re0">name</span>=<span class="st0">"addConnector"</span><span class="re2">&gt;</span></span>
+   <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>
+     <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.nio.SelectChannelConnector"</span><span class="re2">&gt;</span></span>
+       <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"host"</span><span class="re2">&gt;</span><span class="re1">&lt;SystemProperty</span> <span class="re0">name</span>=<span class="st0">"jetty.host"</span> <span class="re2">/&gt;</span><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
+       <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"port"</span><span class="re2">&gt;</span><span class="re1">&lt;SystemProperty</span> <span class="re0">name</span>=<span class="st0">"jetty.port"</span> <span class="re0">default</span>=<span class="st0">"8080"</span><span class="re2">/&gt;</span><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
+       <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"maxIdleTime"</span><span class="re2">&gt;</span></span>300000<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
+       <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"Acceptors"</span><span class="re2">&gt;</span></span>2<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
+       <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"statsOn"</span><span class="re2">&gt;</span></span>false<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
+       <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"confidentialPort"</span><span class="re2">&gt;</span></span>8443<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
+       <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"lowResourcesConnections"</span><span class="re2">&gt;</span></span>25000<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
+       <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"lowResourcesMaxIdleTime"</span><span class="re2">&gt;</span></span>5000<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
+         <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span>
+   <span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
+ <span class="sc3"><span class="re1">&lt;/Call<span class="re2">&gt;</span></span></span></pre>
                 </div>
               </div>
               <p>To run the server with the additional memory needed for the test, use:</p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="java source-java">
-                  <pre class="de1">
-                    java
-                    <span class="sy0">-</span>
-                    Xmx2048m
-                    <span class="sy0">-</span>
-                    jar start.
-                    <span class="me1">jar</span>
-                    etc
-                    <span class="sy0">/</span>
-                    jetty.
-                    <span class="me1">xml</span>
-                  </pre>
+                  <pre class="de1" xml:space="preserve"> 
+ java <span class="sy0">-</span>Xmx2048m <span class="sy0">-</span>jar start.<span class="me1">jar</span> etc<span class="sy0">/</span>jetty.<span class="me1">xml</span></pre>
                 </div>
               </div>
               <p>You should now be able to point a browser at the server at either:</p>
@@ -382,19 +222,8 @@
               <p>The Jetty CometD Bayeux test client generates load simulating users in a chat room. To run the client:</p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="bash source-bash">
-                  <pre class="de1">
-                    <span class="kw3">cd</span>
-                    <span class="re1">$JETTY_HOME</span>
-                    <span class="sy0">/</span>
-                    contrib
-                    <span class="sy0">/</span>
-                    cometd
-                    <span class="sy0">/</span>
-                    client
- bin
-                    <span class="sy0">/</span>
-                    run.sh
-                  </pre>
+                  <pre class="de1" xml:space="preserve"> <span class="kw3">cd</span> <span class="re1">$JETTY_HOME</span><span class="sy0">/</span>contrib<span class="sy0">/</span>cometd<span class="sy0">/</span>client
+ bin<span class="sy0">/</span>run.sh</pre>
                 </div>
               </div>
               <p>
@@ -403,57 +232,15 @@
               </p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="bash source-bash">
-                  <pre class="de1">
-                    <span class="co0"># bin/run.sh</span>
-                    <span class="nu0">2008</span>
-                    -04-06
-                    <span class="nu0">13</span>
-                    :
-                    <span class="nu0">43</span>
-                    :
-                    <span class="nu0">57.545</span>
-                    ::INFO:  Logging to STDERR via org.eclipse.log.StdErrLog
- server
-                    <span class="br0">[</span>
-                    localhost
-                    <span class="br0">]</span>
-                    : 192.126.8.11
- port
-                    <span class="br0">[</span>
-                    <span class="nu0">8080</span>
-                    <span class="br0">]</span>
-                    :
- context
-                    <span class="br0">[</span>
-                    <span class="sy0">/</span>
-                    cometd
-                    <span class="br0">]</span>
-                    :
- base
-                    <span class="br0">[</span>
-                    <span class="sy0">/</span>
-                    chat
-                    <span class="sy0">/</span>
-                    demo
-                    <span class="br0">]</span>
-                    :
- rooms
-                    <span class="br0">[</span>
-                    <span class="nu0">100</span>
-                    <span class="br0">]</span>
-                    :
-                    <span class="nu0">10</span>
-                    rooms per client
-                    <span class="br0">[</span>
-                    <span class="nu0">1</span>
-                    <span class="br0">]</span>
-                    :
- max Latency
-                    <span class="br0">[</span>
-                    <span class="nu0">5000</span>
-                    <span class="br0">]</span>
-                    :
-                  </pre>
+                  <pre class="de1" xml:space="preserve"> <span class="co0"># bin/run.sh</span>
+ <span class="nu0">2008</span>-04-06 <span class="nu0">13</span>:<span class="nu0">43</span>:<span class="nu0">57.545</span>::INFO:  Logging to STDERR via org.eclipse.log.StdErrLog
+ server<span class="br0">[</span>localhost<span class="br0">]</span>: 192.126.8.11
+ port<span class="br0">[</span><span class="nu0">8080</span><span class="br0">]</span>:
+ context<span class="br0">[</span><span class="sy0">/</span>cometd<span class="br0">]</span>:
+ base<span class="br0">[</span><span class="sy0">/</span>chat<span class="sy0">/</span>demo<span class="br0">]</span>:
+ rooms <span class="br0">[</span><span class="nu0">100</span><span class="br0">]</span>: <span class="nu0">10</span>
+ rooms per client <span class="br0">[</span><span class="nu0">1</span><span class="br0">]</span>:
+ max Latency <span class="br0">[</span><span class="nu0">5000</span><span class="br0">]</span>:</pre>
                 </div>
               </div>
               <p>
@@ -494,14 +281,8 @@
               <p>After the global configuration, the test client loops through individual tests cycles.¬† Again, press Enter to accept the default value. Two example iterations of the test cycle follow:</p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="bash source-bash">
-                  <pre class="de1">
-                    clients
-                    <span class="br0">[</span>
-                    <span class="nu0">100</span>
-                    <span class="br0">]</span>
-                    :
-                    <span class="nu0">100</span>
-                    clients = 0010
+                  <pre class="de1" xml:space="preserve"> clients <span class="br0">[</span><span class="nu0">100</span><span class="br0">]</span>: <span class="nu0">100</span>
+ clients = 0010
  clients = 0020
  clients = 0030
  clients = 0040
@@ -537,80 +318,21 @@
                     <span class="br0">]</span>
                     : 
  0011111111221111111111111111100000000000000000000000000000000000000000000000000000000000000000000000
-
- Got:
-                    <span class="nu0">10000</span>
-                    of
-                    <span class="nu0">10000</span>
-                    Got
-                    <span class="nu0">10000</span>
-                    at
-                    <span class="nu0">901</span>
-                    <span class="sy0">/</span>
-                    s, latency min
-                    <span class="sy0">/</span>
-                    ave
-                    <span class="sy0">/</span>
-                    max =
-                    <span class="nu0">2</span>
-                    <span class="sy0">/</span>
-                    <span class="nu0">41</span>
-                    <span class="sy0">/</span>
-                    922ms
-                    <span class="re5">--</span>
-                    clients
-                    <span class="br0">[</span>
-                    <span class="nu0">100</span>
-                    <span class="br0">]</span>
-                    : 
- Clients:
-                    <span class="nu0">100</span>
-                    subscribed:
-                    <span class="nu0">100</span>
-                    publish
-                    <span class="br0">[</span>
-                    <span class="nu0">1000</span>
-                    <span class="br0">]</span>
-                    : 
- publish
-                    <span class="kw2">size</span>
-                    <span class="br0">[</span>
-                    <span class="nu0">50</span>
-                    <span class="br0">]</span>
-                    : 
- pause
-                    <span class="br0">[</span>
-                    <span class="nu0">100</span>
-                    <span class="br0">]</span>
-                    : 
- batch
-                    <span class="br0">[</span>
-                    <span class="nu0">10</span>
-                    <span class="br0">]</span>
-                    : 
+ 
+ Got:<span class="nu0">10000</span> of <span class="nu0">10000</span>
+ Got <span class="nu0">10000</span> at <span class="nu0">901</span><span class="sy0">/</span>s, latency min<span class="sy0">/</span>ave<span class="sy0">/</span>max =<span class="nu0">2</span><span class="sy0">/</span><span class="nu0">41</span><span class="sy0">/</span>922ms
+ <span class="re5">--</span>
+ clients <span class="br0">[</span><span class="nu0">100</span><span class="br0">]</span>: 
+ Clients: <span class="nu0">100</span> subscribed:<span class="nu0">100</span>
+ publish <span class="br0">[</span><span class="nu0">1000</span><span class="br0">]</span>: 
+ publish <span class="kw2">size</span> <span class="br0">[</span><span class="nu0">50</span><span class="br0">]</span>: 
+ pause <span class="br0">[</span><span class="nu0">100</span><span class="br0">]</span>: 
+ batch <span class="br0">[</span><span class="nu0">10</span><span class="br0">]</span>: 
  0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
-
- Got:
-                    <span class="nu0">10000</span>
-                    of
-                    <span class="nu0">10000</span>
-                    Got
-                    <span class="nu0">10000</span>
-                    at
-                    <span class="nu0">972</span>
-                    <span class="sy0">/</span>
-                    s, latency min
-                    <span class="sy0">/</span>
-                    ave
-                    <span class="sy0">/</span>
-                    max =
-                    <span class="nu0">3</span>
-                    <span class="sy0">/</span>
-                    <span class="nu0">26</span>
-                    <span class="sy0">/</span>
-                    172ms
-                    <span class="re5">--</span>
-                  </pre>
+ 
+ Got:<span class="nu0">10000</span> of <span class="nu0">10000</span>
+ Got <span class="nu0">10000</span> at <span class="nu0">972</span><span class="sy0">/</span>s, latency min<span class="sy0">/</span>ave<span class="sy0">/</span>max =<span class="nu0">3</span><span class="sy0">/</span><span class="nu0">26</span><span class="sy0">/</span>172ms
+ <span class="re5">--</span></pre>
                 </div>
               </div>
               <p>The parameters that you can set follow:</p>

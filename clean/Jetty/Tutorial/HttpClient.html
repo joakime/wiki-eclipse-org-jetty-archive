@@ -16,7 +16,7 @@
               <span class="subpages">
                 &lt;
                 <a href="../../Jetty.html" title="Jetty">Jetty</a>
-                |
+                 |
                 <a href="../Tutorial.html" title="Jetty/Tutorial">Tutorial</a>
               </span>
             </div>
@@ -123,78 +123,20 @@ These callbacks will be called by the HttpClient implementation to allow further
               <p>Before exchanging requests/responses with the HTTP server, you need to setup the HttpClient and then start it:</p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="java source-java">
-                  <pre class="de1">
-                    HttpClient client
-                    <span class="sy0">=</span>
-                    <span class="kw1">new</span>
-                    HttpClient
-                    <span class="br0">(</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    client.
-                    <span class="me1">setConnectorType</span>
-                    <span class="br0">(</span>
-                    HttpClient.
-                    <span class="me1">CONNECTOR_SELECT_CHANNEL</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    client.
-                    <span class="me1">start</span>
-                    <span class="br0">(</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                  </pre>
+                  <pre class="de1" xml:space="preserve">HttpClient client <span class="sy0">=</span> <span class="kw1">new</span> HttpClient<span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
+client.<span class="me1">setConnectorType</span><span class="br0">(</span>HttpClient.<span class="me1">CONNECTOR_SELECT_CHANNEL</span><span class="br0">)</span><span class="sy0">;</span>
+client.<span class="me1">start</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span></pre>
                 </div>
               </div>
               <p>You can also choose to setup the maximum number of connections per address (connections are pooled up to that maximum number), or to specify the thread pool, or the timeout:</p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="java source-java">
-                  <pre class="de1">
-                    HttpClient client
-                    <span class="sy0">=</span>
-                    <span class="kw1">new</span>
-                    HttpClient
-                    <span class="br0">(</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    client.
-                    <span class="me1">setConnectorType</span>
-                    <span class="br0">(</span>
-                    HttpClient.
-                    <span class="me1">CONNECTOR_SELECT_CHANNEL</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    client.
-                    <span class="me1">setMaxConnectionsPerAddress</span>
-                    <span class="br0">(</span>
-                    <span class="nu0">200</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    <span class="co1">// max 200 concurrent connections to every address</span>
-                    client.
-                    <span class="me1">setThreadPool</span>
-                    <span class="br0">(</span>
-                    <span class="kw1">new</span>
-                    QueuedThreadPool
-                    <span class="br0">(</span>
-                    <span class="nu0">250</span>
-                    <span class="br0">)</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    <span class="co1">// max 250 threads</span>
-                    client.
-                    <span class="me1">setTimeout</span>
-                    <span class="br0">(</span>
-                    <span class="nu0">30000</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    <span class="co1">// 30 seconds timeout; if no server reply, the request expires</span>
-                    client.
-                    <span class="me1">start</span>
-                    <span class="br0">(</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                  </pre>
+                  <pre class="de1" xml:space="preserve">HttpClient client <span class="sy0">=</span> <span class="kw1">new</span> HttpClient<span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
+client.<span class="me1">setConnectorType</span><span class="br0">(</span>HttpClient.<span class="me1">CONNECTOR_SELECT_CHANNEL</span><span class="br0">)</span><span class="sy0">;</span>
+client.<span class="me1">setMaxConnectionsPerAddress</span><span class="br0">(</span><span class="nu0">200</span><span class="br0">)</span><span class="sy0">;</span> <span class="co1">// max 200 concurrent connections to every address</span>
+client.<span class="me1">setThreadPool</span><span class="br0">(</span><span class="kw1">new</span> QueuedThreadPool<span class="br0">(</span><span class="nu0">250</span><span class="br0">)</span><span class="br0">)</span><span class="sy0">;</span> <span class="co1">// max 250 threads</span>
+client.<span class="me1">setTimeout</span><span class="br0">(</span><span class="nu0">30000</span><span class="br0">)</span><span class="sy0">;</span> <span class="co1">// 30 seconds timeout; if no server reply, the request expires</span>
+client.<span class="me1">start</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span></pre>
                 </div>
               </div>
               <p>Remember to configure the HttpClient before starting it, or the settings will not have effect.</p>
@@ -211,62 +153,19 @@ You normally need one HttpClient instance for all your needs, even if you plan t
               <p>The exchange must be configured with two mandatory fields: the address to connect to, and the request URI, or equivalently with an absolute URL:</p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="java source-java">
-                  <pre class="de1">
-                    HttpExchange exchange
-                    <span class="sy0">=</span>
-                    <span class="kw1">new</span>
-                    HttpExchange
-                    <span class="br0">(</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    <span class="co1">// Optionally set the HTTP method</span>
-                    exchange.
-                    <span class="me1">setMethod</span>
-                    <span class="br0">(</span>
-                    <span class="st0">"POST"</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    exchange.
-                    <span class="me1">setAddress</span>
-                    <span class="br0">(</span>
-                    <span class="kw1">new</span>
-                    Address
-                    <span class="br0">(</span>
-                    <span class="st0">"ping.host.com"</span>
-                    ,
-                    <span class="nu0">80</span>
-                    <span class="br0">)</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    exchange.
-                    <span class="me1">setURI</span>
-                    <span class="br0">(</span>
-                    <span class="st0">"/ping"</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    <span class="co1">// Or, equivalently, this:</span>
-                    exchange.
-                    <span class="me1">setURL</span>
-                    <span class="br0">(</span>
-                    <span class="st0">"http://ping.host.com/ping"</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    client.
-                    <span class="me1">send</span>
-                    <span class="br0">(</span>
-                    exchange
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    <span class="kw3">System</span>
-                    .
-                    <span class="me1">out</span>
-                    .
-                    <span class="me1">println</span>
-                    <span class="br0">(</span>
-                    <span class="st0">"Exchange sent"</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                  </pre>
+                  <pre class="de1" xml:space="preserve">HttpExchange exchange <span class="sy0">=</span> <span class="kw1">new</span> HttpExchange<span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
+ 
+<span class="co1">// Optionally set the HTTP method</span>
+exchange.<span class="me1">setMethod</span><span class="br0">(</span><span class="st0">"POST"</span><span class="br0">)</span><span class="sy0">;</span>
+ 
+exchange.<span class="me1">setAddress</span><span class="br0">(</span><span class="kw1">new</span> Address<span class="br0">(</span><span class="st0">"ping.host.com"</span>, <span class="nu0">80</span><span class="br0">)</span><span class="br0">)</span><span class="sy0">;</span>
+exchange.<span class="me1">setURI</span><span class="br0">(</span><span class="st0">"/ping"</span><span class="br0">)</span><span class="sy0">;</span>
+<span class="co1">// Or, equivalently, this:</span>
+exchange.<span class="me1">setURL</span><span class="br0">(</span><span class="st0">"http://ping.host.com/ping"</span><span class="br0">)</span><span class="sy0">;</span>
+ 
+client.<span class="me1">send</span><span class="br0">(</span>exchange<span class="br0">)</span><span class="sy0">;</span>
+ 
+<span class="kw3">System</span>.<span class="me1">out</span>.<span class="me1">println</span><span class="br0">(</span><span class="st0">"Exchange sent"</span><span class="br0">)</span><span class="sy0">;</span></pre>
                 </div>
               </div>
               <p>
@@ -358,49 +257,17 @@ This class overrides most of the callback methods above to allow easy retrieval 
               </p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="java source-java">
-                  <pre class="de1">
-                    ContentExchange exchange
-                    <span class="sy0">=</span>
-                    <span class="kw1">new</span>
-                    ContentExchange
-                    <span class="br0">(</span>
-                    <span class="kw2">true</span>
-                    <span class="br0">)</span>
-                    <span class="br0">{</span>
-                    <span class="kw1">protected</span>
-                    <span class="kw4">void</span>
-                    onResponseComplete
-                    <span class="br0">(</span>
-                    <span class="br0">)</span>
-                    <span class="kw1">throws</span>
-                    <span class="kw3">IOException</span>
-                    <span class="br0">{</span>
-                    <span class="kw4">int</span>
-                    status
-                    <span class="sy0">=</span>
-                    getResponseStatus
-                    <span class="br0">(</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    <span class="kw1">if</span>
-                    <span class="br0">(</span>
-                    status
-                    <span class="sy0">==</span>
-                    <span class="nu0">200</span>
-                    <span class="br0">)</span>
-                    doSomething
-                    <span class="br0">(</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    <span class="kw1">else</span>
-                    handleError
-                    <span class="br0">(</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    <span class="br0">}</span>
-                    <span class="br0">}</span>
-                    <span class="sy0">;</span>
-                  </pre>
+                  <pre class="de1" xml:space="preserve">ContentExchange exchange <span class="sy0">=</span> <span class="kw1">new</span> ContentExchange<span class="br0">(</span><span class="kw2">true</span><span class="br0">)</span>
+<span class="br0">{</span>
+    <span class="kw1">protected</span> <span class="kw4">void</span> onResponseComplete<span class="br0">(</span><span class="br0">)</span> <span class="kw1">throws</span> <span class="kw3">IOException</span>
+    <span class="br0">{</span>
+        <span class="kw4">int</span> status <span class="sy0">=</span> getResponseStatus<span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
+        <span class="kw1">if</span> <span class="br0">(</span>status <span class="sy0">==</span> <span class="nu0">200</span><span class="br0">)</span>
+            doSomething<span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
+        <span class="kw1">else</span>
+            handleError<span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
+    <span class="br0">}</span>
+<span class="br0">}</span><span class="sy0">;</span></pre>
                 </div>
               </div>
               <h2>
@@ -414,84 +281,23 @@ This is possible by using the
               </p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="java source-java">
-                  <pre class="de1">
-                    HttpClient client
-                    <span class="sy0">=</span>
-                    <span class="kw1">new</span>
-                    HttpClient
-                    <span class="br0">(</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    client.
-                    <span class="me1">start</span>
-                    <span class="br0">(</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    ContentExchange exchange
-                    <span class="sy0">=</span>
-                    <span class="kw1">new</span>
-                    ContentExchange
-                    <span class="br0">(</span>
-                    <span class="kw2">true</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    exchange.
-                    <span class="me1">setURL</span>
-                    <span class="br0">(</span>
-                    <span class="st0">"http://foobar.com/baz"</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    client.
-                    <span class="me1">send</span>
-                    <span class="br0">(</span>
-                    exchange
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    <span class="co1">// Waits until the exchange is terminated</span>
-                    <span class="kw4">int</span>
-                    exchangeState
-                    <span class="sy0">=</span>
-                    exchange.
-                    <span class="me1">waitForDone</span>
-                    <span class="br0">(</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    <span class="kw1">if</span>
-                    <span class="br0">(</span>
-                    exchangeState
-                    <span class="sy0">==</span>
-                    HttpExchange.
-                    <span class="me1">STATUS_COMPLETED</span>
-                    <span class="br0">)</span>
-                    doSomething
-                    <span class="br0">(</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    <span class="kw1">else</span>
-                    <span class="kw1">if</span>
-                    <span class="br0">(</span>
-                    exchangeState
-                    <span class="sy0">==</span>
-                    HttpExchange.
-                    <span class="me1">STATUS_EXCEPTED</span>
-                    <span class="br0">)</span>
-                    handleError
-                    <span class="br0">(</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    <span class="kw1">else</span>
-                    <span class="kw1">if</span>
-                    <span class="br0">(</span>
-                    exchangeState
-                    <span class="sy0">==</span>
-                    HttpExchange.
-                    <span class="me1">STATUS_EXPIRED</span>
-                    <span class="br0">)</span>
-                    handleSlowServer
-                    <span class="br0">(</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                  </pre>
+                  <pre class="de1" xml:space="preserve">HttpClient client <span class="sy0">=</span> <span class="kw1">new</span> HttpClient<span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
+client.<span class="me1">start</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
+ 
+ContentExchange exchange <span class="sy0">=</span> <span class="kw1">new</span> ContentExchange<span class="br0">(</span><span class="kw2">true</span><span class="br0">)</span><span class="sy0">;</span>
+exchange.<span class="me1">setURL</span><span class="br0">(</span><span class="st0">"http://foobar.com/baz"</span><span class="br0">)</span><span class="sy0">;</span>
+ 
+client.<span class="me1">send</span><span class="br0">(</span>exchange<span class="br0">)</span><span class="sy0">;</span>
+ 
+<span class="co1">// Waits until the exchange is terminated</span>
+<span class="kw4">int</span> exchangeState <span class="sy0">=</span> exchange.<span class="me1">waitForDone</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
+ 
+<span class="kw1">if</span> <span class="br0">(</span>exchangeState <span class="sy0">==</span> HttpExchange.<span class="me1">STATUS_COMPLETED</span><span class="br0">)</span>
+    doSomething<span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
+<span class="kw1">else</span> <span class="kw1">if</span> <span class="br0">(</span>exchangeState <span class="sy0">==</span> HttpExchange.<span class="me1">STATUS_EXCEPTED</span><span class="br0">)</span>
+    handleError<span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
+<span class="kw1">else</span> <span class="kw1">if</span> <span class="br0">(</span>exchangeState <span class="sy0">==</span> HttpExchange.<span class="me1">STATUS_EXPIRED</span><span class="br0">)</span>
+    handleSlowServer<span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span></pre>
                 </div>
               </div>
               <p>

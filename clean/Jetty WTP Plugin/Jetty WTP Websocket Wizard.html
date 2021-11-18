@@ -147,35 +147,18 @@
                 </ul>
                 <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                   <div class="java source-java">
-                    <pre class="de1">
-                      <span class="kw1">package</span>
-                      <span class="co2">org.sample.websocket</span>
-                      <span class="sy0">;</span>
-                      <span class="kw1">import</span>
-                      <span class="co2">java.io.IOException</span>
-                      <span class="sy0">;</span>
-                      <span class="kw1">import</span>
-                      <span class="co2">java.util.Set</span>
-                      <span class="sy0">;</span>
-                      <span class="kw1">import</span>
-                      <span class="co2">java.util.concurrent.CopyOnWriteArraySet</span>
-                      <span class="sy0">;</span>
-                      <span class="kw1">import</span>
-                      <span class="co2">javax.servlet.ServletException</span>
-                      <span class="sy0">;</span>
-                      <span class="kw1">import</span>
-                      <span class="co2">javax.servlet.http.HttpServletRequest</span>
-                      <span class="sy0">;</span>
-                      <span class="kw1">import</span>
-                      <span class="co2">javax.servlet.http.HttpServletResponse</span>
-                      <span class="sy0">;</span>
-                      <span class="kw1">import</span>
-                      <span class="co2">org.eclipse.jetty.websocket.WebSocket</span>
-                      <span class="sy0">;</span>
-                      <span class="kw1">import</span>
-                      <span class="co2">org.eclipse.jetty.websocket.WebSocketServlet</span>
-                      <span class="sy0">;</span>
-                      <span class="co3">/**
+                    <pre class="de1" xml:space="preserve"><span class="kw1">package</span> <span class="co2">org.sample.websocket</span><span class="sy0">;</span>
+ 
+<span class="kw1">import</span> <span class="co2">java.io.IOException</span><span class="sy0">;</span>
+<span class="kw1">import</span> <span class="co2">java.util.Set</span><span class="sy0">;</span>
+<span class="kw1">import</span> <span class="co2">java.util.concurrent.CopyOnWriteArraySet</span><span class="sy0">;</span>
+<span class="kw1">import</span> <span class="co2">javax.servlet.ServletException</span><span class="sy0">;</span>
+<span class="kw1">import</span> <span class="co2">javax.servlet.http.HttpServletRequest</span><span class="sy0">;</span>
+<span class="kw1">import</span> <span class="co2">javax.servlet.http.HttpServletResponse</span><span class="sy0">;</span>
+<span class="kw1">import</span> <span class="co2">org.eclipse.jetty.websocket.WebSocket</span><span class="sy0">;</span>
+<span class="kw1">import</span> <span class="co2">org.eclipse.jetty.websocket.WebSocketServlet</span><span class="sy0">;</span>
+ 
+<span class="co3">/**
  * Jetty WebSocketServlet implementation class ChatWebSocketServlet
  */</span>
                       <span class="kw1">public</span>
@@ -382,128 +365,28 @@
                       <span class="coMULTI">/*
 		 * @see org.eclipse.jetty.websocket.WebSocket#onDisconnect()
 		 */</span>
-                      <span class="kw1">public</span>
-                      <span class="kw4">void</span>
-                      onDisconnect
-                      <span class="br0">(</span>
-                      <span class="br0">)</span>
-                      <span class="br0">{</span>
-                      members.
-                      <span class="me1">remove</span>
-                      <span class="br0">(</span>
-                      <span class="kw1">this</span>
-                      <span class="br0">)</span>
-                      <span class="sy0">;</span>
-                      <span class="br0">}</span>
-                      <span class="br0">}</span>
-                      <span class="br0">}</span>
-                    </pre>
+		<span class="kw1">public</span> <span class="kw4">void</span> onDisconnect<span class="br0">(</span><span class="br0">)</span> <span class="br0">{</span>
+			members.<span class="me1">remove</span><span class="br0">(</span><span class="kw1">this</span><span class="br0">)</span><span class="sy0">;</span>
+		<span class="br0">}</span>
+	<span class="br0">}</span>
+ 
+ 
+<span class="br0">}</span></pre>
                   </div>
                 </div>
                 <p>1.web.xml is modified like this :</p>
                 <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                   <div class="xml source-xml">
-                    <pre class="de1">
-                      <span class="sc3">
-                        <span class="re1">
-                          &lt;servlet
-                          <span class="re2">&gt;</span>
-                        </span>
-                      </span>
-                      <span class="sc3">
-                        <span class="re1">
-                          &lt;description
-                          <span class="re2">&gt;</span>
-                        </span>
-                        <span class="re1">
-                          &lt;/description
-                          <span class="re2">&gt;</span>
-                        </span>
-                      </span>
-                      <span class="sc3">
-                        <span class="re1">
-                          &lt;display-name
-                          <span class="re2">&gt;</span>
-                        </span>
-                      </span>
-                      ChatWebSocketServlet
-                      <span class="sc3">
-                        <span class="re1">
-                          &lt;/display-name
-                          <span class="re2">&gt;</span>
-                        </span>
-                      </span>
-                      <span class="sc3">
-                        <span class="re1">
-                          &lt;servlet-name
-                          <span class="re2">&gt;</span>
-                        </span>
-                      </span>
-                      ChatWebSocketServlet
-                      <span class="sc3">
-                        <span class="re1">
-                          &lt;/servlet-name
-                          <span class="re2">&gt;</span>
-                        </span>
-                      </span>
-                      <span class="sc3">
-                        <span class="re1">
-                          &lt;servlet-class
-                          <span class="re2">&gt;</span>
-                        </span>
-                      </span>
-                      org.sample.websocket.ChatWebSocketServlet
-                      <span class="sc3">
-                        <span class="re1">
-                          &lt;/servletclass
-                          <span class="re2">&gt;</span>
-                        </span>
-                      </span>
-                      <span class="sc3">
-                        <span class="re1">
-                          &lt;/servlet
-                          <span class="re2">&gt;</span>
-                        </span>
-                      </span>
-                      <span class="sc3">
-                        <span class="re1">
-                          &lt;servlet-mapping
-                          <span class="re2">&gt;</span>
-                        </span>
-                      </span>
-                      <span class="sc3">
-                        <span class="re1">
-                          &lt;servlet-name
-                          <span class="re2">&gt;</span>
-                        </span>
-                      </span>
-                      ChatWebSocketServlet
-                      <span class="sc3">
-                        <span class="re1">
-                          &lt;/servlet-name
-                          <span class="re2">&gt;</span>
-                        </span>
-                      </span>
-                      <span class="sc3">
-                        <span class="re1">
-                          &lt;url-pattern
-                          <span class="re2">&gt;</span>
-                        </span>
-                      </span>
-                      /ChatWebSocketServlet
-                      <span class="sc3">
-                        <span class="re1">
-                          &lt;/url-pattern
-                          <span class="re2">&gt;</span>
-                        </span>
-                      </span>
-                      <span class="sc3">
-                        <span class="re1">
-                          &lt;/servlet-mapping
-                          <span class="re2">&gt;</span>
-                        </span>
-                      </span>
-                    </pre>
+                    <pre class="de1" xml:space="preserve">  <span class="sc3"><span class="re1">&lt;servlet<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;description<span class="re2">&gt;</span></span><span class="re1">&lt;/description<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;display-name<span class="re2">&gt;</span></span></span>ChatWebSocketServlet<span class="sc3"><span class="re1">&lt;/display-name<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;servlet-name<span class="re2">&gt;</span></span></span>ChatWebSocketServlet<span class="sc3"><span class="re1">&lt;/servlet-name<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;servlet-class<span class="re2">&gt;</span></span></span>org.sample.websocket.ChatWebSocketServlet<span class="sc3"><span class="re1">&lt;/servletclass<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;/servlet<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;servlet-mapping<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;servlet-name<span class="re2">&gt;</span></span></span>ChatWebSocketServlet<span class="sc3"><span class="re1">&lt;/servlet-name<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;url-pattern<span class="re2">&gt;</span></span></span>/ChatWebSocketServlet<span class="sc3"><span class="re1">&lt;/url-pattern<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;/servlet-mapping<span class="re2">&gt;</span></span></span></pre>
                   </div>
                 </div>
                 2.TODO : generate an HTML file which consume the WebSocket.

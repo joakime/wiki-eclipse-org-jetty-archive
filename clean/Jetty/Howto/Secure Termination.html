@@ -16,7 +16,7 @@
               <span class="subpages">
                 &lt;
                 <a href="../../Jetty.html" title="Jetty">Jetty</a>
-                |
+                 |
                 <a href="../Howto.html" title="Jetty/Howto">Howto</a>
               </span>
             </div>
@@ -41,22 +41,26 @@
                 <span class="mw-headline" id="Steps">Steps</span>
               </h2>
               <p>In order to protect you Jetty instance from unwanted termination you need to start Jetty with a *STOP.PORT* parameter:</p>
-              <pre>java -DSTOP.PORT=8079 -jar start.jar</pre>
+              <pre xml:space="preserve">java -DSTOP.PORT=8079 -jar start.jar
+</pre>
               <p>
                 The *STOP.PORT* is the number of a port on which Jetty will listen for termination requests. In this case, the port number is 8079. You can then stop jetty either with a
                 <a class="new" href="edit" title="Template:Cntrl-c (page does not exist)">Template:Cntrl-c</a>
                 in the controlling terminal window (unless you have disassociated the Jetty process from a terminal), or by supplying this port number on a stop request from any terminal.
               </p>
               <p>You can also supply a secret key on startup which must also be present on the termination request to enhance security:</p>
-              <pre>java -DSTOP.PORT=8079 -DSTOP.KEY=mysecret -jar start.jar</pre>
+              <pre xml:space="preserve">java -DSTOP.PORT=8079 -DSTOP.KEY=mysecret -jar start.jar
+</pre>
               <p>
                 <br />
                 As a further security measure, you can omit the *STOP.KEY* property on startup, in which case Jetty will generate and print on stdout a random key:
               </p>
-              <pre>&gt; java -DSTOP.PORT=8079 -jar start.jar
--DSTOP.KEY=3xspihnnsse8</pre>
+              <pre xml:space="preserve">&gt; java -DSTOP.PORT=8079 -jar start.jar
+-DSTOP.KEY=3xspihnnsse8 
+</pre>
               <p>This key should then be supplied on the termination request:</p>
-              <pre>java -DSTOP.PORT=8079 -DSTOP.KEY=3xspihnnsse8 -jar start.jar --stop</pre>
+              <pre xml:space="preserve">java -DSTOP.PORT=8079 -DSTOP.KEY=3xspihnnsse8 -jar start.jar --stop
+</pre>
             </div>
           </div>
         </div>

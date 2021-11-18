@@ -16,7 +16,7 @@
               <span class="subpages">
                 &lt;
                 <a href="../../Jetty.html" title="Jetty">Jetty</a>
-                |
+                 |
                 <a href="../Contributor.html" title="Jetty/Contributor">Contributor</a>
               </span>
             </div>
@@ -95,11 +95,12 @@
                 to identify the commit(s) you want to include in your patch:
               </p>
               <tt>
-                <pre>commit 70e29326fe904675f772b88a67128c0b3529565e
+                <pre xml:space="preserve">commit 70e29326fe904675f772b88a67128c0b3529565e
 Author: Thomas Becker &lt;tbecker AT intalio . com&gt;
 Date:   Tue Aug 2 14:36:50 2011 +0200
 
-   353563: HttpDestinationQueueTest too slow</pre>
+   353563: HttpDestinationQueueTest too slow
+</pre>
               </tt>
               <p>
                 Use
@@ -138,23 +139,27 @@ Date:   Tue Aug 2 14:36:50 2011 +0200
 For example:
               </p>
               <tt>
-                <pre>$ git checkout -b patch
+                <pre xml:space="preserve">$ git checkout -b patch
 $ git apply john-doe.patch
-$ git commit -a -m "&lt;Original commit message from John Doe&gt;"</pre>
+$ git commit -a -m "&lt;Original commit message from John Doe&gt;"
+</pre>
               </tt>
               <p>At this point the patch is committed with the committer's name on a local branch.</p>
               <tt>
-                <pre>$ git commit --amend --author "John Doe &lt;john.doe@who.com&gt;" --signoff</pre>
+                <pre xml:space="preserve">$ git commit --amend --author "John Doe &lt;john.doe@who.com&gt;" --signoff
+</pre>
               </tt>
               <p>Now the patch has the correct author and it has been signed off.</p>
               <tt>
-                <pre>$ git checkout master
-$ git merge patch</pre>
+                <pre xml:space="preserve">$ git checkout master
+$ git merge patch
+</pre>
               </tt>
               <p>Now the local branch has been merged into master with the correct author.</p>
               <tt>
-                <pre>$ git branch -d patch
-$ git push</pre>
+                <pre xml:space="preserve">$ git branch -d patch
+$ git push
+</pre>
               </tt>
               <h2>
                 <span class="mw-headline" id="Using_Gerrit_.40_Eclipse">Using Gerrit @ Eclipse</span>
@@ -165,7 +170,8 @@ $ git push</pre>
               </p>
               <p>Then clone the jetty-project:</p>
               <tt>
-                <pre>git clone ssh://git.eclipse.org:29418/jetty/org.eclipse.jetty.project</pre>
+                <pre xml:space="preserve">git clone ssh://git.eclipse.org:29418/jetty/org.eclipse.jetty.project
+</pre>
               </tt>
               <p>Make sure to properly set the changeIds as described here:</p>
               <p>
@@ -173,7 +179,8 @@ $ git push</pre>
               </p>
               <p>Make your changes, commit them as usual with git. Once done do:</p>
               <tt>
-                <pre>git push ssh://git.eclipse.org:29418/jetty/org.eclipse.jetty.project HEAD:refs/for/master</pre>
+                <pre xml:space="preserve">git push ssh://git.eclipse.org:29418/jetty/org.eclipse.jetty.project HEAD:refs/for/master
+</pre>
               </tt>
               <p>Note the magic: "HEAD:refs/for/master". Without gerrit will not permit you to push.</p>
               <p>

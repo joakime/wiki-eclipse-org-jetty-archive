@@ -16,7 +16,7 @@
               <span class="subpages">
                 &lt;
                 <a href="../../Jetty.html" title="Jetty">Jetty</a>
-                |
+                 |
                 <a href="../Tutorial.html" title="Jetty/Tutorial">Tutorial</a>
               </span>
             </div>
@@ -135,7 +135,8 @@ The simplest way to access the MBeans that are published by Jetty is to use the
                 <span class="mw-headline" id="Standalone_Jetty">Standalone Jetty</span>
               </h4>
               <p>When running in standalone mode, the MBeanContainer instance can be configured for a Jetty server by the jetty-jmx.xml configuration file. This can be run with the standard configuration file as follows:</p>
-              <pre>java -jar start.jar OPTIONS=Server,jmx etc/jetty-jmx.xml etc/jetty.xml</pre>
+              <pre xml:space="preserve">java -jar start.jar OPTIONS=Server,jmx etc/jetty-jmx.xml etc/jetty.xml
+</pre>
               <p>
                 Please make sure that the jetty-jmx.xml is the
                 <b>first</b>
@@ -147,53 +148,15 @@ The simplest way to access the MBeans that are published by Jetty is to use the
               <p>If Jetty is embedded into an application, the following snippet of code shows how to create and configure an MBeanContainer instance:</p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="java source-java">
-                  <pre class="de1">
-                    Server _server
-                    <span class="sy0">=</span>
-                    <span class="kw1">new</span>
-                    Server
-                    <span class="br0">(</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    <span class="co1">// Setup JMX</span>
-                    MBeanContainer mbContainer
-                    <span class="sy0">=</span>
-                    <span class="kw1">new</span>
-                    MBeanContainer
-                    <span class="br0">(</span>
-                    ManagementFactory.
-                    <span class="me1">getPlatformMBeanServer</span>
-                    <span class="br0">(</span>
-                    <span class="br0">)</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    _server.
-                    <span class="me1">getContainer</span>
-                    <span class="br0">(</span>
-                    <span class="br0">)</span>
-                    .
-                    <span class="me1">addEventListener</span>
-                    <span class="br0">(</span>
-                    mbContainer
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    _server.
-                    <span class="me1">addBean</span>
-                    <span class="br0">(</span>
-                    mbContainer
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    <span class="co1">// Register loggers as MBeans</span>
-                    mbContainer.
-                    <span class="me1">addBean</span>
-                    <span class="br0">(</span>
-                    Log.
-                    <span class="me1">getLog</span>
-                    <span class="br0">(</span>
-                    <span class="br0">)</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                  </pre>
+                  <pre class="de1" xml:space="preserve">Server _server <span class="sy0">=</span> <span class="kw1">new</span> Server<span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
+ 
+<span class="co1">// Setup JMX</span>
+MBeanContainer mbContainer<span class="sy0">=</span><span class="kw1">new</span> MBeanContainer<span class="br0">(</span>ManagementFactory.<span class="me1">getPlatformMBeanServer</span><span class="br0">(</span><span class="br0">)</span><span class="br0">)</span><span class="sy0">;</span>
+_server.<span class="me1">getContainer</span><span class="br0">(</span><span class="br0">)</span>.<span class="me1">addEventListener</span><span class="br0">(</span>mbContainer<span class="br0">)</span><span class="sy0">;</span>
+_server.<span class="me1">addBean</span><span class="br0">(</span>mbContainer<span class="br0">)</span><span class="sy0">;</span>
+ 
+<span class="co1">// Register loggers as MBeans</span>
+mbContainer.<span class="me1">addBean</span><span class="br0">(</span>Log.<span class="me1">getLog</span><span class="br0">(</span><span class="br0">)</span><span class="br0">)</span><span class="sy0">;</span></pre>
                 </div>
               </div>
               <p>Please note that MBeanContainer is created immediately after the Server is created, and immediately after it is registered as an EventListener of the Server's Container object. 
@@ -208,97 +171,15 @@ Because logging is initialized prior to the MBeanContainer, it is necessary to r
               </p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="xml source-xml">
-                  <pre class="de1">
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;plugin
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;groupid
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    org.mortbay.jetty
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/groupid
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;artifactid
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    maven-jetty-plugin
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/artifactid
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;version
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    ${project.version}
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/version
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;configuration
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;scanintervalseconds
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    10
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/scanintervalseconds
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;jettyXml
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    src/etc/jetty-jmx.xml
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/jettyXml
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/configuration
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/plugin
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                  </pre>
+                  <pre class="de1" xml:space="preserve"><span class="sc3"><span class="re1">&lt;plugin<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;groupid<span class="re2">&gt;</span></span></span>org.mortbay.jetty<span class="sc3"><span class="re1">&lt;/groupid<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;artifactid<span class="re2">&gt;</span></span></span>maven-jetty-plugin<span class="sc3"><span class="re1">&lt;/artifactid<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;version<span class="re2">&gt;</span></span></span>${project.version}<span class="sc3"><span class="re1">&lt;/version<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;configuration<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;scanintervalseconds<span class="re2">&gt;</span></span></span>10<span class="sc3"><span class="re1">&lt;/scanintervalseconds<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;jettyXml<span class="re2">&gt;</span></span></span>src/etc/jetty-jmx.xml<span class="sc3"><span class="re1">&lt;/jettyXml<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;/configuration<span class="re2">&gt;</span></span></span>
+<span class="sc3"><span class="re1">&lt;/plugin<span class="re2">&gt;</span></span></span></pre>
                 </div>
               </div>
               <h3>
@@ -311,145 +192,18 @@ Unfortunately, this solution does not play well with firewalls and it is not fle
 To enable usage of this class, just uncomment the correspondent portion in etc/jetty-jmx.xml; it will look like this:</p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="xml source-xml">
-                  <pre class="de1">
-                    <span class="sc3">
-                      <span class="re1">&lt;New</span>
-                      <span class="re0">id</span>
-                      =
-                      <span class="st0">"ConnectorServer"</span>
-                      <span class="re0">class</span>
-                      =
-                      <span class="st0">"org.eclipse.jetty.jmx.ConnectorServer"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;New</span>
-                      <span class="re0">class</span>
-                      =
-                      <span class="st0">"javax.management.remote.JMXServiceURL"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;Arg</span>
-                      <span class="re0">type</span>
-                      =
-                      <span class="st0">"java.lang.String"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    rmi
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;Arg</span>
-                      <span class="re0">type</span>
-                      =
-                      <span class="st0">"java.lang.String"</span>
-                      <span class="re2">/&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;Arg</span>
-                      <span class="re0">type</span>
-                      =
-                      <span class="st0">"java.lang.Integer"</span>
-                      <span class="re2">&gt;</span>
-                      <span class="re1">&lt;SystemProperty</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"jetty.jmxrmiport"</span>
-                      <span class="re0">default</span>
-                      =
-                      <span class="st0">"1099"</span>
-                      <span class="re2">/&gt;</span>
-                      <span class="re1">
-                        &lt;/Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;Arg</span>
-                      <span class="re0">type</span>
-                      =
-                      <span class="st0">"java.lang.String"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    /jndi/rmi://
-                    <span class="sc3">
-                      <span class="re1">&lt;SystemProperty</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"jetty.jmxrmihost"</span>
-                      <span class="re0">default</span>
-                      =
-                      <span class="st0">"localhost"</span>
-                      <span class="re2">/&gt;</span>
-                    </span>
-                    :
-                    <span class="sc3">
-                      <span class="re1">&lt;SystemProperty</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"jetty.jmxrmiport"</span>
-                      <span class="re0">default</span>
-                      =
-                      <span class="st0">"1099"</span>
-                      <span class="re2">/&gt;</span>
-                    </span>
-                    /jmxrmi
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/New
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    org.eclipse.jetty.jmx:name=rmiconnectorserver
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;Call</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"start"</span>
-                      <span class="re2">/&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/New
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                  </pre>
+                  <pre class="de1" xml:space="preserve"><span class="sc3"><span class="re1">&lt;New</span> <span class="re0">id</span>=<span class="st0">"ConnectorServer"</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.jmx.ConnectorServer"</span><span class="re2">&gt;</span></span>
+  <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">class</span>=<span class="st0">"javax.management.remote.JMXServiceURL"</span><span class="re2">&gt;</span></span>
+      <span class="sc3"><span class="re1">&lt;Arg</span> <span class="re0">type</span>=<span class="st0">"java.lang.String"</span><span class="re2">&gt;</span></span>rmi<span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
+      <span class="sc3"><span class="re1">&lt;Arg</span> <span class="re0">type</span>=<span class="st0">"java.lang.String"</span> <span class="re2">/&gt;</span></span>
+      <span class="sc3"><span class="re1">&lt;Arg</span> <span class="re0">type</span>=<span class="st0">"java.lang.Integer"</span><span class="re2">&gt;</span><span class="re1">&lt;SystemProperty</span> <span class="re0">name</span>=<span class="st0">"jetty.jmxrmiport"</span> <span class="re0">default</span>=<span class="st0">"1099"</span><span class="re2">/&gt;</span><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
+      <span class="sc3"><span class="re1">&lt;Arg</span> <span class="re0">type</span>=<span class="st0">"java.lang.String"</span><span class="re2">&gt;</span></span>/jndi/rmi://<span class="sc3"><span class="re1">&lt;SystemProperty</span> <span class="re0">name</span>=<span class="st0">"jetty.jmxrmihost"</span> <span class="re0">default</span>=<span class="st0">"localhost"</span><span class="re2">/&gt;</span></span>:<span class="sc3"><span class="re1">&lt;SystemProperty</span> <span class="re0">name</span>=<span class="st0">"jetty.jmxrmiport"</span> <span class="re0">default</span>=<span class="st0">"1099"</span><span class="re2">/&gt;</span></span>/jmxrmi<span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>org.eclipse.jetty.jmx:name=rmiconnectorserver<span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;Call</span> <span class="re0">name</span>=<span class="st0">"start"</span> <span class="re2">/&gt;</span></span>
+<span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span></pre>
                 </div>
               </div>
               <p>This configuration snippet will start an RMIRegistry and a JMXConnectorServer both on port 1099 (by default), so that firewalls should open just that one port to allow connections from JConsole.</p>
@@ -464,303 +218,34 @@ To enable usage of this class, just uncomment the correspondent portion in etc/j
               <p>In order to restrict access to the JMXConnectorServer, you can use this configuration, where the "jmx.password" and "jmx.access" files have the format specified in the tutorial above:</p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="xml source-xml">
-                  <pre class="de1">
-                    <span class="sc3">
-                      <span class="re1">&lt;New</span>
-                      <span class="re0">id</span>
-                      =
-                      <span class="st0">"ConnectorServer"</span>
-                      <span class="re0">class</span>
-                      =
-                      <span class="st0">"org.eclipse.jetty.jmx.ConnectorServer"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;New</span>
-                      <span class="re0">class</span>
-                      =
-                      <span class="st0">"javax.management.remote.JMXServiceURL"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;Arg</span>
-                      <span class="re0">type</span>
-                      =
-                      <span class="st0">"java.lang.String"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    rmi
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;Arg</span>
-                      <span class="re0">type</span>
-                      =
-                      <span class="st0">"java.lang.String"</span>
-                      <span class="re2">/&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;Arg</span>
-                      <span class="re0">type</span>
-                      =
-                      <span class="st0">"java.lang.Integer"</span>
-                      <span class="re2">&gt;</span>
-                      <span class="re1">&lt;SystemProperty</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"jetty.jmxrmiport"</span>
-                      <span class="re0">default</span>
-                      =
-                      <span class="st0">"1099"</span>
-                      <span class="re2">/&gt;</span>
-                      <span class="re1">
-                        &lt;/Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;Arg</span>
-                      <span class="re0">type</span>
-                      =
-                      <span class="st0">"java.lang.String"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    /jndi/rmi://
-                    <span class="sc3">
-                      <span class="re1">&lt;SystemProperty</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"jetty.jmxrmihost"</span>
-                      <span class="re0">default</span>
-                      =
-                      <span class="st0">"localhost"</span>
-                      <span class="re2">/&gt;</span>
-                    </span>
-                    :
-                    <span class="sc3">
-                      <span class="re1">&lt;SystemProperty</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"jetty.jmxrmiport"</span>
-                      <span class="re0">default</span>
-                      =
-                      <span class="st0">"1099"</span>
-                      <span class="re2">/&gt;</span>
-                    </span>
-                    /jmxrmi
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/New
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;Map
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;Entry
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;Item
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    jmx.remote.x.password.file
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Item
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;Item
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;New</span>
-                      <span class="re0">class</span>
-                      =
-                      <span class="st0">"java.lang.String"</span>
-                      <span class="re2">&gt;</span>
-                      <span class="re1">
-                        &lt;Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                      <span class="re1">&lt;Property</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"jetty.home"</span>
-                      <span class="re0">default</span>
-                      =
-                      <span class="st0">"."</span>
-                      <span class="re2">/&gt;</span>
-                    </span>
-                    /resources/jmx.password
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                      <span class="re1">
-                        &lt;/New
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Item
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Entry
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;Entry
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;Item
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    jmx.remote.x.access.file
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Item
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;Item
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;New</span>
-                      <span class="re0">class</span>
-                      =
-                      <span class="st0">"java.lang.String"</span>
-                      <span class="re2">&gt;</span>
-                      <span class="re1">
-                        &lt;Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                      <span class="re1">&lt;Property</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"jetty.home"</span>
-                      <span class="re0">default</span>
-                      =
-                      <span class="st0">"."</span>
-                      <span class="re2">/&gt;</span>
-                    </span>
-                    /resources/jmx.access
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                      <span class="re1">
-                        &lt;/New
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Item
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Entry
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Map
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    org.eclipse.jetty.jmx:name=rmiconnectorserver
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;Call</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"start"</span>
-                      <span class="re2">/&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/New
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                  </pre>
+                  <pre class="de1" xml:space="preserve"><span class="sc3"><span class="re1">&lt;New</span> <span class="re0">id</span>=<span class="st0">"ConnectorServer"</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.jmx.ConnectorServer"</span><span class="re2">&gt;</span></span>
+  <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">class</span>=<span class="st0">"javax.management.remote.JMXServiceURL"</span><span class="re2">&gt;</span></span>
+      <span class="sc3"><span class="re1">&lt;Arg</span> <span class="re0">type</span>=<span class="st0">"java.lang.String"</span><span class="re2">&gt;</span></span>rmi<span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
+      <span class="sc3"><span class="re1">&lt;Arg</span> <span class="re0">type</span>=<span class="st0">"java.lang.String"</span> <span class="re2">/&gt;</span></span>
+      <span class="sc3"><span class="re1">&lt;Arg</span> <span class="re0">type</span>=<span class="st0">"java.lang.Integer"</span><span class="re2">&gt;</span><span class="re1">&lt;SystemProperty</span> <span class="re0">name</span>=<span class="st0">"jetty.jmxrmiport"</span> <span class="re0">default</span>=<span class="st0">"1099"</span><span class="re2">/&gt;</span><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
+      <span class="sc3"><span class="re1">&lt;Arg</span> <span class="re0">type</span>=<span class="st0">"java.lang.String"</span><span class="re2">&gt;</span></span>/jndi/rmi://<span class="sc3"><span class="re1">&lt;SystemProperty</span> <span class="re0">name</span>=<span class="st0">"jetty.jmxrmihost"</span> <span class="re0">default</span>=<span class="st0">"localhost"</span><span class="re2">/&gt;</span></span>:<span class="sc3"><span class="re1">&lt;SystemProperty</span> <span class="re0">name</span>=<span class="st0">"jetty.jmxrmiport"</span> <span class="re0">default</span>=<span class="st0">"1099"</span><span class="re2">/&gt;</span></span>/jmxrmi<span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;Map<span class="re2">&gt;</span></span></span>
+      <span class="sc3"><span class="re1">&lt;Entry<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;Item<span class="re2">&gt;</span></span></span>jmx.remote.x.password.file<span class="sc3"><span class="re1">&lt;/Item<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;Item<span class="re2">&gt;</span></span></span>
+          <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">class</span>=<span class="st0">"java.lang.String"</span><span class="re2">&gt;</span><span class="re1">&lt;Arg<span class="re2">&gt;</span></span><span class="re1">&lt;Property</span> <span class="re0">name</span>=<span class="st0">"jetty.home"</span> <span class="re0">default</span>=<span class="st0">"."</span> <span class="re2">/&gt;</span></span>/resources/jmx.password<span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;/Item<span class="re2">&gt;</span></span></span>
+      <span class="sc3"><span class="re1">&lt;/Entry<span class="re2">&gt;</span></span></span>
+      <span class="sc3"><span class="re1">&lt;Entry<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;Item<span class="re2">&gt;</span></span></span>jmx.remote.x.access.file<span class="sc3"><span class="re1">&lt;/Item<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;Item<span class="re2">&gt;</span></span></span>
+          <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">class</span>=<span class="st0">"java.lang.String"</span><span class="re2">&gt;</span><span class="re1">&lt;Arg<span class="re2">&gt;</span></span><span class="re1">&lt;Property</span> <span class="re0">name</span>=<span class="st0">"jetty.home"</span> <span class="re0">default</span>=<span class="st0">"."</span> <span class="re2">/&gt;</span></span>/resources/jmx.access<span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;/Item<span class="re2">&gt;</span></span></span>
+      <span class="sc3"><span class="re1">&lt;/Entry<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;/Map<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>org.eclipse.jetty.jmx:name=rmiconnectorserver<span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;Call</span> <span class="re0">name</span>=<span class="st0">"start"</span> <span class="re2">/&gt;</span></span>
+<span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span></pre>
                 </div>
               </div>
               <h3>

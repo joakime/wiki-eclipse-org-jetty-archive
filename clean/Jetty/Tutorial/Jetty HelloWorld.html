@@ -16,7 +16,7 @@
               <span class="subpages">
                 &lt;
                 <a href="../../Jetty.html" title="Jetty">Jetty</a>
-                |
+                 |
                 <a href="../Tutorial.html" title="Jetty/Tutorial">Tutorial</a>
               </span>
             </div>
@@ -110,56 +110,11 @@ your class path.  If you want to use Maven or standard web applications, see the
               </p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="bash source-bash">
-                  <pre class="de1">
-                    <span class="kw2">mkdir</span>
-                    Demo
-                    <span class="kw3">cd</span>
-                    Demo
-                    <span class="re2">JETTY_VERSION</span>
-                    =7.0.2.v20100331
-                    <span class="kw2">wget</span>
-                    <span class="re5">-U</span>
-                    none http:
-                    <span class="sy0">//</span>
-                    repo1.maven.org
-                    <span class="sy0">/</span>
-                    maven2
-                    <span class="sy0">/</span>
-                    org
-                    <span class="sy0">/</span>
-                    eclipse
-                    <span class="sy0">/</span>
-                    jetty
-                    <span class="sy0">/</span>
-                    aggregate
-                    <span class="sy0">/</span>
-                    jetty-all
-                    <span class="sy0">/</span>
-                    <span class="re1">$JETTY_VERSION</span>
-                    <span class="sy0">/</span>
-                    jetty-all-
-                    <span class="re1">$JETTY_VERSION</span>
-                    .jar
-                    <span class="kw2">wget</span>
-                    <span class="re5">-U</span>
-                    none http:
-                    <span class="sy0">//</span>
-                    repo1.maven.org
-                    <span class="sy0">/</span>
-                    maven2
-                    <span class="sy0">/</span>
-                    javax
-                    <span class="sy0">/</span>
-                    servlet
-                    <span class="sy0">/</span>
-                    servlet-api
-                    <span class="sy0">/</span>
-                    <span class="nu0">2.5</span>
-                    <span class="sy0">/</span>
-                    servlet-api-
-                    <span class="nu0">2.5</span>
-                    .jar
-                  </pre>
+                  <pre class="de1" xml:space="preserve"><span class="kw2">mkdir</span> Demo
+<span class="kw3">cd</span> Demo
+<span class="re2">JETTY_VERSION</span>=7.0.2.v20100331
+<span class="kw2">wget</span> <span class="re5">-U</span> none http:<span class="sy0">//</span>repo1.maven.org<span class="sy0">/</span>maven2<span class="sy0">/</span>org<span class="sy0">/</span>eclipse<span class="sy0">/</span>jetty<span class="sy0">/</span>aggregate<span class="sy0">/</span>jetty-all<span class="sy0">/</span><span class="re1">$JETTY_VERSION</span><span class="sy0">/</span>jetty-all-<span class="re1">$JETTY_VERSION</span>.jar
+<span class="kw2">wget</span> <span class="re5">-U</span> none http:<span class="sy0">//</span>repo1.maven.org<span class="sy0">/</span>maven2<span class="sy0">/</span>javax<span class="sy0">/</span>servlet<span class="sy0">/</span>servlet-api<span class="sy0">/</span><span class="nu0">2.5</span><span class="sy0">/</span>servlet-api-<span class="nu0">2.5</span>.jar</pre>
                 </div>
               </div>
               <h3>
@@ -174,122 +129,39 @@ your class path.  If you want to use Maven or standard web applications, see the
               </p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="java source-java">
-                  <pre class="de1">
-                    <span class="kw1">import</span>
-                    <span class="co2">javax.servlet.http.HttpServletRequest</span>
-                    <span class="sy0">;</span>
-                    <span class="kw1">import</span>
-                    <span class="co2">javax.servlet.http.HttpServletResponse</span>
-                    <span class="sy0">;</span>
-                    <span class="kw1">import</span>
-                    <span class="co2">javax.servlet.ServletException</span>
-                    <span class="sy0">;</span>
-                    <span class="kw1">import</span>
-                    <span class="co2">java.io.IOException</span>
-                    <span class="sy0">;</span>
-                    <span class="kw1">import</span>
-                    <span class="co2">org.eclipse.jetty.server.Server</span>
-                    <span class="sy0">;</span>
-                    <span class="kw1">import</span>
-                    <span class="co2">org.eclipse.jetty.server.Request</span>
-                    <span class="sy0">;</span>
-                    <span class="kw1">import</span>
-                    <span class="co2">org.eclipse.jetty.server.handler.AbstractHandler</span>
-                    <span class="sy0">;</span>
-                    <span class="kw1">public</span>
-                    <span class="kw1">class</span>
-                    HelloWorld
-                    <span class="kw1">extends</span>
-                    AbstractHandler
-                    <span class="br0">{</span>
-                    <span class="kw1">public</span>
-                    <span class="kw4">void</span>
-                    handle
-                    <span class="br0">(</span>
-                    <span class="kw3">String</span>
-                    target,
-                    <span class="kw3">Request</span>
-                    baseRequest,
+                  <pre class="de1" xml:space="preserve"><span class="kw1">import</span> <span class="co2">javax.servlet.http.HttpServletRequest</span><span class="sy0">;</span>
+<span class="kw1">import</span> <span class="co2">javax.servlet.http.HttpServletResponse</span><span class="sy0">;</span>
+<span class="kw1">import</span> <span class="co2">javax.servlet.ServletException</span><span class="sy0">;</span>
+ 
+<span class="kw1">import</span> <span class="co2">java.io.IOException</span><span class="sy0">;</span>
+ 
+<span class="kw1">import</span> <span class="co2">org.eclipse.jetty.server.Server</span><span class="sy0">;</span>
+<span class="kw1">import</span> <span class="co2">org.eclipse.jetty.server.Request</span><span class="sy0">;</span>
+<span class="kw1">import</span> <span class="co2">org.eclipse.jetty.server.handler.AbstractHandler</span><span class="sy0">;</span>
+ 
+<span class="kw1">public</span> <span class="kw1">class</span> HelloWorld <span class="kw1">extends</span> AbstractHandler
+<span class="br0">{</span>
+    <span class="kw1">public</span> <span class="kw4">void</span> handle<span class="br0">(</span><span class="kw3">String</span> target,
+                       <span class="kw3">Request</span> baseRequest,
                        HttpServletRequest request,
-                       HttpServletResponse response
-                    <span class="br0">)</span>
-                    <span class="kw1">throws</span>
-                    <span class="kw3">IOException</span>
-                    , ServletException
-                    <span class="br0">{</span>
-                    response.
-                    <span class="me1">setContentType</span>
-                    <span class="br0">(</span>
-                    <span class="st0">"text/html;charset=utf-8"</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    response.
-                    <span class="me1">setStatus</span>
-                    <span class="br0">(</span>
-                    HttpServletResponse.
-                    <span class="me1">SC_OK</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    baseRequest.
-                    <span class="me1">setHandled</span>
-                    <span class="br0">(</span>
-                    <span class="kw2">true</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    response.
-                    <span class="me1">getWriter</span>
-                    <span class="br0">(</span>
-                    <span class="br0">)</span>
-                    .
-                    <span class="me1">println</span>
-                    <span class="br0">(</span>
-                    <span class="st0">"&lt;h1&gt;Hello World&lt;/h1&gt;"</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    <span class="br0">}</span>
-                    <span class="kw1">public</span>
-                    <span class="kw1">static</span>
-                    <span class="kw4">void</span>
-                    main
-                    <span class="br0">(</span>
-                    <span class="kw3">String</span>
-                    <span class="br0">[</span>
-                    <span class="br0">]</span>
-                    args
-                    <span class="br0">)</span>
-                    <span class="kw1">throws</span>
-                    <span class="kw3">Exception</span>
-                    <span class="br0">{</span>
-                    Server server
-                    <span class="sy0">=</span>
-                    <span class="kw1">new</span>
-                    Server
-                    <span class="br0">(</span>
-                    <span class="nu0">8080</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    server.
-                    <span class="me1">setHandler</span>
-                    <span class="br0">(</span>
-                    <span class="kw1">new</span>
-                    HelloWorld
-                    <span class="br0">(</span>
-                    <span class="br0">)</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    server.
-                    <span class="me1">start</span>
-                    <span class="br0">(</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    server.
-                    <span class="me1">join</span>
-                    <span class="br0">(</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    <span class="br0">}</span>
-                    <span class="br0">}</span>
-                  </pre>
+                       HttpServletResponse response<span class="br0">)</span> 
+        <span class="kw1">throws</span> <span class="kw3">IOException</span>, ServletException
+    <span class="br0">{</span>
+        response.<span class="me1">setContentType</span><span class="br0">(</span><span class="st0">"text/html;charset=utf-8"</span><span class="br0">)</span><span class="sy0">;</span>
+        response.<span class="me1">setStatus</span><span class="br0">(</span>HttpServletResponse.<span class="me1">SC_OK</span><span class="br0">)</span><span class="sy0">;</span>
+        baseRequest.<span class="me1">setHandled</span><span class="br0">(</span><span class="kw2">true</span><span class="br0">)</span><span class="sy0">;</span>
+        response.<span class="me1">getWriter</span><span class="br0">(</span><span class="br0">)</span>.<span class="me1">println</span><span class="br0">(</span><span class="st0">"&lt;h1&gt;Hello World&lt;/h1&gt;"</span><span class="br0">)</span><span class="sy0">;</span>
+    <span class="br0">}</span>
+ 
+    <span class="kw1">public</span> <span class="kw1">static</span> <span class="kw4">void</span> main<span class="br0">(</span><span class="kw3">String</span><span class="br0">[</span><span class="br0">]</span> args<span class="br0">)</span> <span class="kw1">throws</span> <span class="kw3">Exception</span>
+    <span class="br0">{</span>
+        Server server <span class="sy0">=</span> <span class="kw1">new</span> Server<span class="br0">(</span><span class="nu0">8080</span><span class="br0">)</span><span class="sy0">;</span>
+        server.<span class="me1">setHandler</span><span class="br0">(</span><span class="kw1">new</span> HelloWorld<span class="br0">(</span><span class="br0">)</span><span class="br0">)</span><span class="sy0">;</span>
+ 
+        server.<span class="me1">start</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
+        server.<span class="me1">join</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
+    <span class="br0">}</span>
+<span class="br0">}</span></pre>
                 </div>
               </div>
               <h3>
@@ -298,15 +170,7 @@ your class path.  If you want to use Maven or standard web applications, see the
               <p>The following command  compiles the HelloWorld class:</p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="bash source-bash">
-                  <pre class="de1">
-                    javac
-                    <span class="re5">-cp</span>
-                    servlet-api-
-                    <span class="nu0">2.5</span>
-                    .jar:jetty-all-
-                    <span class="re1">$JETTY_VERSION</span>
-                    .jar HelloWorld.java
-                  </pre>
+                  <pre class="de1" xml:space="preserve">javac <span class="re5">-cp</span> servlet-api-<span class="nu0">2.5</span>.jar:jetty-all-<span class="re1">$JETTY_VERSION</span>.jar HelloWorld.java</pre>
                 </div>
               </div>
               <h3>
@@ -315,15 +179,7 @@ your class path.  If you want to use Maven or standard web applications, see the
               <p>The following command runs the HelloWorld example:</p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="bash source-bash">
-                  <pre class="de1">
-                    java
-                    <span class="re5">-cp</span>
-                    .:servlet-api-
-                    <span class="nu0">2.5</span>
-                    .jar:jetty-all-
-                    <span class="re1">$JETTY_VERSION</span>
-                    .jar HelloWorld
-                  </pre>
+                  <pre class="de1" xml:space="preserve">java <span class="re5">-cp</span> .:servlet-api-<span class="nu0">2.5</span>.jar:jetty-all-<span class="re1">$JETTY_VERSION</span>.jar HelloWorld</pre>
                 </div>
               </div>
               <p>You can now point your browser at http://localhost:8080 to see your hello world page.</p>

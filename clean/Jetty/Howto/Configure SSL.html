@@ -16,7 +16,7 @@
               <span class="subpages">
                 &lt;
                 <a href="../../Jetty.html" title="Jetty">Jetty</a>
-                |
+                 |
                 <a href="../Howto.html" title="Jetty/Howto">Howto</a>
               </span>
             </div>
@@ -275,16 +275,7 @@
               <p>The following command generates a key pair and certificate directly into a keystore:</p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="bash source-bash">
-                  <pre class="de1">
-                    keytool
-                    <span class="re5">-keystore</span>
-                    keystore
-                    <span class="re5">-alias</span>
-                    jetty
-                    <span class="re5">-genkey</span>
-                    <span class="re5">-keyalg</span>
-                    RSA
-                  </pre>
+                  <pre class="de1" xml:space="preserve"> keytool <span class="re5">-keystore</span> keystore <span class="re5">-alias</span> jetty <span class="re5">-genkey</span> <span class="re5">-keyalg</span> RSA</pre>
                 </div>
               </div>
               <p>
@@ -293,15 +284,7 @@
               </p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="bash source-bash">
-                  <pre class="de1">
-                    keytool
-                    <span class="re5">-keystore</span>
-                    keystore
-                    <span class="re5">-alias</span>
-                    jetty
-                    <span class="re5">-genkey</span>
-                    <span class="re5">-keyalg</span>
-                    RSA
+                  <pre class="de1" xml:space="preserve"> keytool <span class="re5">-keystore</span> keystore <span class="re5">-alias</span> jetty <span class="re5">-genkey</span> <span class="re5">-keyalg</span> RSA
  Enter keystore password:  password
  What is your first and
                     <span class="kw2">last</span>
@@ -326,49 +309,15 @@
                     <span class="br0">]</span>
                     :
  What is the name of your State or Province?
-                    <span class="br0">[</span>
-                    Unknown
-                    <span class="br0">]</span>
-                    :
- What is the two-letter country code
-                    <span class="kw1">for</span>
-                    this unit?
-                    <span class="br0">[</span>
-                    Unknown
-                    <span class="br0">]</span>
-                    :
- Is
-                    <span class="re2">CN</span>
-                    =jetty.eclipse.org,
-                    <span class="re2">OU</span>
-                    =Jetty,
-                    <span class="re2">O</span>
-                    =Mort Bay Consulting Pty. Ltd.,
-                    <span class="re2">L</span>
-                    =Unknown,
-                    <span class="re2">ST</span>
-                    =Unknown,
-                    <span class="re2">C</span>
-                    =Unknown correct?
-                    <span class="br0">[</span>
-                    no
-                    <span class="br0">]</span>
-                    :
-                    <span class="kw2">yes</span>
-                    Enter key password
-                    <span class="kw1">for</span>
-                    <span class="sy0">&lt;</span>
-                    jetty
-                    <span class="sy0">&gt;</span>
-                    <span class="br0">(</span>
-                    RETURN
-                    <span class="kw1">if</span>
-                    same
-                    <span class="kw2">as</span>
-                    keystore password
-                    <span class="br0">)</span>
-                    :  password
-                  </pre>
+   <span class="br0">[</span>Unknown<span class="br0">]</span>:
+ What is the two-letter country code <span class="kw1">for</span> this unit?
+   <span class="br0">[</span>Unknown<span class="br0">]</span>:
+ Is <span class="re2">CN</span>=jetty.eclipse.org, <span class="re2">OU</span>=Jetty, <span class="re2">O</span>=Mort Bay Consulting Pty. Ltd.,
+ <span class="re2">L</span>=Unknown, <span class="re2">ST</span>=Unknown, <span class="re2">C</span>=Unknown correct?
+   <span class="br0">[</span>no<span class="br0">]</span>:  <span class="kw2">yes</span>
+ 
+ Enter key password <span class="kw1">for</span> <span class="sy0">&lt;</span>jetty<span class="sy0">&gt;</span>
+         <span class="br0">(</span>RETURN <span class="kw1">if</span> same <span class="kw2">as</span> keystore password<span class="br0">)</span>:  password</pre>
                 </div>
               </div>
               <p>
@@ -388,12 +337,7 @@
               </p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="bash source-bash">
-                  <pre class="de1">
-                    openssl genrsa
-                    <span class="re5">-des3</span>
-                    <span class="re5">-out</span>
-                    jetty.key
-                  </pre>
+                  <pre class="de1" xml:space="preserve"> openssl genrsa <span class="re5">-des3</span> <span class="re5">-out</span> jetty.key</pre>
                 </div>
               </div>
               <p>
@@ -408,15 +352,7 @@
               </p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="bash source-bash">
-                  <pre class="de1">
-                    openssl req
-                    <span class="re5">-new</span>
-                    <span class="re5">-x509</span>
-                    <span class="re5">-key</span>
-                    jetty.key
-                    <span class="re5">-out</span>
-                    jetty.crt
-                  </pre>
+                  <pre class="de1" xml:space="preserve"> openssl req <span class="re5">-new</span> <span class="re5">-x509</span> <span class="re5">-key</span> jetty.key <span class="re5">-out</span> jetty.crt</pre>
                 </div>
               </div>
               <p>
@@ -427,14 +363,8 @@
               </p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="bash source-bash">
-                  <pre class="de1">
-                    openssl genrsa
-                    <span class="re5">-des3</span>
-                    <span class="re5">-out</span>
-                    jetty.key
- Generating RSA private key,
-                    <span class="nu0">512</span>
-                    bit long modulus
+                  <pre class="de1" xml:space="preserve"> openssl genrsa <span class="re5">-des3</span> <span class="re5">-out</span> jetty.key
+ Generating RSA private key, <span class="nu0">512</span> bit long modulus
  ...........................++++++++++++
  ..++++++++++++
  e is
@@ -457,62 +387,17 @@
  What you are about to enter is what is called a Distinguished Name or a DN.
  There are quite a few fields but you can leave some blank
  For some fields there is a default value,
- If you enter
-                    <span class="st_h">'.'</span>
-                    , the field is left blank.
-                    <span class="re5">-----</span>
-                    Country Name
-                    <span class="br0">(</span>
-                    <span class="nu0">2</span>
-                    letter code
-                    <span class="br0">)</span>
-                    <span class="br0">[</span>
-                    AU
-                    <span class="br0">]</span>
-                    :.
- State or Province Name
-                    <span class="br0">(</span>
-                    full name
-                    <span class="br0">)</span>
-                    <span class="br0">[</span>
-                    Some-State
-                    <span class="br0">]</span>
-                    :.
- Locality Name
-                    <span class="br0">(</span>
-                    eg, city
-                    <span class="br0">)</span>
-                    <span class="br0">[</span>
-                    <span class="br0">]</span>
-                    :.
- Organization Name
-                    <span class="br0">(</span>
-                    eg, company
-                    <span class="br0">)</span>
-                    <span class="br0">[</span>
-                    Internet Widgets Pty Ltd
-                    <span class="br0">]</span>
-                    :Mort Bay Consulting Pty. Ltd.
- Organizational Unit Name
-                    <span class="br0">(</span>
-                    eg, section
-                    <span class="br0">)</span>
-                    <span class="br0">[</span>
-                    <span class="br0">]</span>
-                    :Jetty
- Common Name
-                    <span class="br0">(</span>
-                    eg, YOUR name
-                    <span class="br0">)</span>
-                    <span class="br0">[</span>
-                    <span class="br0">]</span>
-                    :jetty.eclipse.org
- Email Address
-                    <span class="br0">[</span>
-                    <span class="br0">]</span>
-                    :
-                    <span class="co0">#</span>
-                  </pre>
+ If you enter <span class="st_h">'.'</span>, the field is left blank.
+ <span class="re5">-----</span>
+ Country Name <span class="br0">(</span><span class="nu0">2</span> letter code<span class="br0">)</span> <span class="br0">[</span>AU<span class="br0">]</span>:.
+ State or Province Name <span class="br0">(</span>full name<span class="br0">)</span> <span class="br0">[</span>Some-State<span class="br0">]</span>:.
+ Locality Name <span class="br0">(</span>eg, city<span class="br0">)</span> <span class="br0">[</span><span class="br0">]</span>:.
+ Organization Name <span class="br0">(</span>eg, company<span class="br0">)</span> <span class="br0">[</span>Internet Widgets Pty Ltd<span class="br0">]</span>:Mort Bay Consulting Pty. Ltd.
+ Organizational Unit Name <span class="br0">(</span>eg, section<span class="br0">)</span> <span class="br0">[</span><span class="br0">]</span>:Jetty
+ Common Name <span class="br0">(</span>eg, YOUR name<span class="br0">)</span> <span class="br0">[</span><span class="br0">]</span>:jetty.eclipse.org
+ Email Address <span class="br0">[</span><span class="br0">]</span>:
+ 
+ <span class="co0">#</span></pre>
                 </div>
               </div>
               <p>
@@ -546,16 +431,7 @@
               </p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="bash source-bash">
-                  <pre class="de1">
-                    keytool
-                    <span class="re5">-certreq</span>
-                    <span class="re5">-alias</span>
-                    jetty
-                    <span class="re5">-keystore</span>
-                    keystore
-                    <span class="re5">-file</span>
-                    jetty.csr
-                  </pre>
+                  <pre class="de1" xml:space="preserve"> keytool <span class="re5">-certreq</span> <span class="re5">-alias</span> jetty <span class="re5">-keystore</span> keystore <span class="re5">-file</span> jetty.csr</pre>
                 </div>
               </div>
               <p>
@@ -573,14 +449,7 @@
               </p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="bash source-bash">
-                  <pre class="de1">
-                    openssl req
-                    <span class="re5">-new</span>
-                    <span class="re5">-key</span>
-                    jetty.key
-                    <span class="re5">-out</span>
-                    jetty.csr
-                  </pre>
+                  <pre class="de1" xml:space="preserve"> openssl req <span class="re5">-new</span> <span class="re5">-key</span> jetty.key <span class="re5">-out</span> jetty.csr</pre>
                 </div>
               </div>
               <p>
@@ -603,10 +472,8 @@
               <p>You can use keytool to load a certificate in PEM form directly into a keystore. The PEM format is a text encoding of certificates; it is produced by OpenSSL, and is returned by some CAs. An example PEM file is:</p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="bash source-bash">
-                  <pre class="de1">
-                    jetty.crt
-                    <span class="re5">-----BEGIN</span>
-                    CERTIFICATE-----
+                  <pre class="de1" xml:space="preserve"> jetty.crt
+ <span class="re5">-----BEGIN</span> CERTIFICATE-----
  MIICSDCCAfKgAwIBAgIBADANBgkqhkiG9w0BAQQFADBUMSYwJAYDVQQKEx1Nb3J0
  IEJheSBDb25zdWx0aW5nIFB0eS4gTHRkLjEOMAwGA1UECxMFSmV0dHkxGjAYBgNV
  BAMTEWpldHR5Lm1vcnRiYXkub3JnMB4XDTAzMDQwNjEzMTk1MFoXDTAzMDUwNjEz
@@ -634,9 +501,7 @@
                     <span class="sy0">/</span>
                     qSCmF44jdcARmrXhiXUcXzjxsLjSJeYPJojhUdC2LQKy+p4ki8
  Rcz6oCRvCGCe5kDB
-                    <span class="re5">-----END</span>
-                    CERTIFICATE-----
-                  </pre>
+ <span class="re5">-----END</span> CERTIFICATE-----</pre>
                 </div>
               </div>
               <p>
@@ -646,17 +511,7 @@
               </p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="bash source-bash">
-                  <pre class="de1">
-                    keytool
-                    <span class="re5">-keystore</span>
-                    keystore
-                    <span class="re5">-import</span>
-                    <span class="re5">-alias</span>
-                    jetty
-                    <span class="re5">-file</span>
-                    jetty.crt
-                    <span class="re5">-trustcacerts</span>
-                  </pre>
+                  <pre class="de1" xml:space="preserve"> keytool <span class="re5">-keystore</span> keystore <span class="re5">-import</span> <span class="re5">-alias</span> jetty <span class="re5">-file</span> jetty.crt <span class="re5">-trustcacerts</span></pre>
                 </div>
               </div>
               <p>
@@ -668,17 +523,7 @@
               </p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="bash source-bash">
-                  <pre class="de1">
-                    openssl x509
-                    <span class="re5">-in</span>
-                    jetty.der
-                    <span class="re5">-inform</span>
-                    DER
-                    <span class="re5">-outform</span>
-                    PEM
-                    <span class="re5">-out</span>
-                    jetty.crt
-                  </pre>
+                  <pre class="de1" xml:space="preserve"> openssl x509 <span class="re5">-in</span> jetty.der <span class="re5">-inform</span> DER <span class="re5">-outform</span> PEM <span class="re5">-out</span> jetty.crt</pre>
                 </div>
               </div>
               <h3>
@@ -696,25 +541,14 @@
               </p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="bash source-bash">
-                  <pre class="de1">
-                    openssl pkcs12
-                    <span class="re5">-inkey</span>
-                    jetty.key
-                    <span class="re5">-in</span>
-                    jetty.crt
-                    <span class="re5">-export</span>
-                    <span class="re5">-out</span>
-                    jetty.pkcs12
-                  </pre>
+                  <pre class="de1" xml:space="preserve"> openssl pkcs12 <span class="re5">-inkey</span> jetty.key <span class="re5">-in</span> jetty.crt <span class="re5">-export</span> <span class="re5">-out</span> jetty.pkcs12</pre>
                 </div>
               </div>
               <p>If you have a chain of certificates, because your CA is an intermediary, build the PKCS12 file as follows:</p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="bash source-bash">
-                  <pre class="de1">
-                    <span class="co0"># cat example.crt intermediate.crt [intermediate2.crt]... rootCA.crt &gt; cert-chain.txt</span>
-                    <span class="co0"># openssl pkcs12 -export -inkey example.key -in cert-chain.txt -out example.pkcs12</span>
-                  </pre>
+                  <pre class="de1" xml:space="preserve"> <span class="co0"># cat example.crt intermediate.crt [intermediate2.crt]... rootCA.crt &gt; cert-chain.txt</span>
+ <span class="co0"># openssl pkcs12 -export -inkey example.key -in cert-chain.txt -out example.pkcs12</span></pre>
                 </div>
               </div>
               <p>The order of certificates must be from server to rootCA, as per RFC2246 section 7.4.2.</p>
@@ -725,43 +559,7 @@
               </p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="java source-java">
-                  <pre class="de1">
-                    java
-                    <span class="sy0">-</span>
-                    classpath $JETTY_HOME
-                    <span class="sy0">/</span>
-                    lib
-                    <span class="sy0">/</span>
-                    jetty
-                    <span class="sy0">-</span>
-                    util
-                    <span class="sy0">-</span>
-                    <span class="nu0">6.1</span>
-                    <span class="sy0">-</span>
-                    SNAPSHOT.
-                    <span class="me1">jar</span>
-                    <span class="sy0">:</span>
-                    $JETTY_HOME
-                    <span class="sy0">/</span>
-                    lib
-                    <span class="sy0">/</span>
-                    jetty
-                    <span class="sy0">-</span>
-                    <span class="nu0">6.1</span>
-                    <span class="sy0">-</span>
-                    SNAPSHOT.
-                    <span class="me1">jar</span>
-                    org.
-                    <span class="me1">eclipse</span>
-                    .
-                    <span class="me1">jetty</span>
-                    .
-                    <span class="me1">security</span>
-                    .
-                    <span class="me1">PKCS12Import</span>
-                    <span class="co2">jetty.pkcs12</span>
-                    keystore
-                  </pre>
+                  <pre class="de1" xml:space="preserve"> java <span class="sy0">-</span>classpath $JETTY_HOME<span class="sy0">/</span>lib<span class="sy0">/</span>jetty<span class="sy0">-</span>util<span class="sy0">-</span><span class="nu0">6.1</span><span class="sy0">-</span>SNAPSHOT.<span class="me1">jar</span><span class="sy0">:</span>$JETTY_HOME<span class="sy0">/</span>lib<span class="sy0">/</span>jetty<span class="sy0">-</span><span class="nu0">6.1</span><span class="sy0">-</span>SNAPSHOT.<span class="me1">jar</span> org.<span class="me1">eclipse</span>.<span class="me1">jetty</span>.<span class="me1">security</span>.<span class="me1">PKCS12Import</span> <span class="co2">jetty.pkcs12</span> keystore</pre>
                 </div>
               </div>
               <p>
@@ -772,16 +570,7 @@
               <p>You can also use keytool (starting form jdk1.6) to import a PKCS12 file with the following command:</p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="bash source-bash">
-                  <pre class="de1">
-                    keytool
-                    <span class="re5">-importkeystore</span>
-                    <span class="re5">-srckeystore</span>
-                    jetty.pkcs12
-                    <span class="re5">-srcstoretype</span>
-                    PKCS12
-                    <span class="re5">-destkeystore</span>
-                    keystore
-                  </pre>
+                  <pre class="de1" xml:space="preserve"> keytool <span class="re5">-importkeystore</span> <span class="re5">-srckeystore</span> jetty.pkcs12 <span class="re5">-srcstoretype</span> PKCS12 <span class="re5">-destkeystore</span> keystore</pre>
                 </div>
               </div>
               <h2>
@@ -800,185 +589,23 @@
               </p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="xml source-xml">
-                  <pre class="de1">
-                    <span class="sc3">
-                      <span class="re1">&lt;Call</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"addConnector"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;New</span>
-                      <span class="re0">class</span>
-                      =
-                      <span class="st0">"org.eclipse.jetty.server.ssl.SslSelectChannelConnector"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;New</span>
-                      <span class="re0">class</span>
-                      =
-                      <span class="st0">"org.eclipse.jetty.http.ssl.SslContextFactory"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;Set</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"keyStore"</span>
-                      <span class="re2">&gt;</span>
-                      <span class="re1">&lt;SystemProperty</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"jetty.home"</span>
-                      <span class="re0">default</span>
-                      =
-                      <span class="st0">"."</span>
-                      <span class="re2">/&gt;</span>
-                    </span>
-                    /etc/keystore
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Set
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;Set</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"keyStorePassword"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    OBF:1vny1zlo1x8e1vnw1vn61x8g1zlu1vn4
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Set
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;Set</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"keyManagerPassword"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    OBF:1u2u1wml1z7s1z7a1wnl1u2g
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Set
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;Set</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"trustStore"</span>
-                      <span class="re2">&gt;</span>
-                      <span class="re1">&lt;SystemProperty</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"jetty.home"</span>
-                      <span class="re0">default</span>
-                      =
-                      <span class="st0">"."</span>
-                      <span class="re2">/&gt;</span>
-                    </span>
-                    /etc/keystore
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Set
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;Set</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"trustStorePassword"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    OBF:1vny1zlo1x8e1vnw1vn61x8g1zlu1vn4
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Set
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/New
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;Set</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"port"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    8443
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Set
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;Set</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"maxIdleTime"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    30000
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Set
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/New
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Call
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                  </pre>
+                  <pre class="de1" xml:space="preserve">   <span class="sc3"><span class="re1">&lt;Call</span> <span class="re0">name</span>=<span class="st0">"addConnector"</span><span class="re2">&gt;</span></span>
+     <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>
+       <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.server.ssl.SslSelectChannelConnector"</span><span class="re2">&gt;</span></span>
+         <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>
+           <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.http.ssl.SslContextFactory"</span><span class="re2">&gt;</span></span>
+             <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"keyStore"</span><span class="re2">&gt;</span><span class="re1">&lt;SystemProperty</span> <span class="re0">name</span>=<span class="st0">"jetty.home"</span> <span class="re0">default</span>=<span class="st0">"."</span> <span class="re2">/&gt;</span></span>/etc/keystore<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
+             <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"keyStorePassword"</span><span class="re2">&gt;</span></span>OBF:1vny1zlo1x8e1vnw1vn61x8g1zlu1vn4<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
+             <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"keyManagerPassword"</span><span class="re2">&gt;</span></span>OBF:1u2u1wml1z7s1z7a1wnl1u2g<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
+             <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"trustStore"</span><span class="re2">&gt;</span><span class="re1">&lt;SystemProperty</span> <span class="re0">name</span>=<span class="st0">"jetty.home"</span> <span class="re0">default</span>=<span class="st0">"."</span> <span class="re2">/&gt;</span></span>/etc/keystore<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
+             <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"trustStorePassword"</span><span class="re2">&gt;</span></span>OBF:1vny1zlo1x8e1vnw1vn61x8g1zlu1vn4<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
+           <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span>
+         <span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
+         <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"port"</span><span class="re2">&gt;</span></span>8443<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
+         <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"maxIdleTime"</span><span class="re2">&gt;</span></span>30000<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
+       <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span>
+     <span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
+   <span class="sc3"><span class="re1">&lt;/Call<span class="re2">&gt;</span></span></span></pre>
                 </div>
               </div>
               <p>Other properties that you can set for the SslContextFactory include:</p>
@@ -1025,13 +652,7 @@
               <p>The keystore file in the example above is given relative to the jetty home directory. For production, choose a private directory with restricted access to keep your keystore in. Even though it has a password on it, the password may be configured into the runtime environment so is vulnerable to theft. You can now start Jetty the normal way (make sure that jcert.jar, jnet.jar and jsse.jar are on your classpath) and SSL can be used with a URL like:</p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="bash source-bash">
-                  <pre class="de1">
-                    https:
-                    <span class="sy0">//</span>
-                    localhost:
-                    <span class="nu0">8443</span>
-                    <span class="sy0">/</span>
-                  </pre>
+                  <pre class="de1" xml:space="preserve"> https:<span class="sy0">//</span>localhost:<span class="nu0">8443</span><span class="sy0">/</span></pre>
                 </div>
               </div>
               <h3>
@@ -1055,157 +676,32 @@
 done in web.xml:</p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="xml source-xml">
-                  <pre class="de1">
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;web-app
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    ...
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;security-constraint
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;web-resource-collection
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;web-resource-name
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    Everything in the webapp
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/web-resource-name
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;url-pattern
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    /*
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/url-pattern
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/web-resource-collection
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;user-data-constraint
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;transport-guarantee
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    CONFIDENTIAL
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/transport-guarantee
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/user-data-constraint
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/security-constraint
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/web-app
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                  </pre>
+                  <pre class="de1" xml:space="preserve"><span class="sc3"><span class="re1">&lt;web-app<span class="re2">&gt;</span></span></span>
+  ...
+  <span class="sc3"><span class="re1">&lt;security-constraint<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;web-resource-collection<span class="re2">&gt;</span></span></span>
+      <span class="sc3"><span class="re1">&lt;web-resource-name<span class="re2">&gt;</span></span></span>Everything in the webapp<span class="sc3"><span class="re1">&lt;/web-resource-name<span class="re2">&gt;</span></span></span>
+      <span class="sc3"><span class="re1">&lt;url-pattern<span class="re2">&gt;</span></span></span>/*<span class="sc3"><span class="re1">&lt;/url-pattern<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;/web-resource-collection<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;user-data-constraint<span class="re2">&gt;</span></span></span>
+      <span class="sc3"><span class="re1">&lt;transport-guarantee<span class="re2">&gt;</span></span></span>CONFIDENTIAL<span class="sc3"><span class="re1">&lt;/transport-guarantee<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;/user-data-constraint<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;/security-constraint<span class="re2">&gt;</span></span></span>
+<span class="sc3"><span class="re1">&lt;/web-app<span class="re2">&gt;</span></span></span></pre>
                 </div>
               </div>
               <p>Then you need to tell the plain http connector if the users try to access that webapp using plain http, they
 should be redirected to the port of your ssl connector (the "confidential port"):</p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="xml source-xml">
-                  <pre class="de1">
-                    <span class="sc3">
-                      <span class="re1">&lt;Call</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"addConnector"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;New</span>
-                      <span class="re0">class</span>
-                      =
-                      <span class="st0">"org.eclipse.jetty.nio.SelectChannelConnector"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    ...
-                    <span class="sc3">
-                      <span class="re1">&lt;Set</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"confidentialPort"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    443
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Set
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/New
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Call
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                  </pre>
+                  <pre class="de1" xml:space="preserve"><span class="sc3"><span class="re1">&lt;Call</span> <span class="re0">name</span>=<span class="st0">"addConnector"</span><span class="re2">&gt;</span></span>
+   <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>
+      <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.nio.SelectChannelConnector"</span><span class="re2">&gt;</span></span>
+         ...
+         <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"confidentialPort"</span><span class="re2">&gt;</span></span>443<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
+      <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span>
+   <span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
+<span class="sc3"><span class="re1">&lt;/Call<span class="re2">&gt;</span></span></span></pre>
                 </div>
               </div>
               <p>That's it. If the webapp doesn't indicate it needs CONFIDENTIAL or INTEGRAL connections (as it may be considered
@@ -1213,140 +709,25 @@ a deployment issue), you can set this requirement in the context (so you must de
 instead of just a war file):</p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="xml source-xml">
-                  <pre class="de1">
-                    <span class="sc3">
-                      <span class="re1">&lt;Configure</span>
-                      <span class="re0">class</span>
-                      =
-                      <span class="st0">"org.eclipse.jetty.webapp.WebAppContext"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;Set</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"securityHandler"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;New</span>
-                      <span class="re0">class</span>
-                      =
-                      <span class="st0">"org.eclipse.jetty.security.ConstraintSecurityHandler"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;Call</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"addConstraintMapping"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;New</span>
-                      <span class="re0">class</span>
-                      =
-                      <span class="st0">"org.eclipse.jetty.security.ConstraintMapping"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;Set</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"pathSpec"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    /*
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Set
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;Set</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"constraint"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;New</span>
-                      <span class="re0">class</span>
-                      =
-                      <span class="st0">"org.eclipse.jetty.util.security.Constraint"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    <span class="sc-1">&lt;!-- 2 means CONFIDENTIAL. 1 means INTEGRITY --&gt;</span>
-                    <span class="sc3">
-                      <span class="re1">&lt;Set</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"dataConstraint"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    2
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Set
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/New
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Set
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/New
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Call
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/New
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Set
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Configure
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                  </pre>
+                  <pre class="de1" xml:space="preserve">  <span class="sc3"><span class="re1">&lt;Configure</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.webapp.WebAppContext"</span><span class="re2">&gt;</span></span>
+     <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"securityHandler"</span><span class="re2">&gt;</span></span>
+        <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.security.ConstraintSecurityHandler"</span><span class="re2">&gt;</span></span>
+            <span class="sc3"><span class="re1">&lt;Call</span> <span class="re0">name</span>=<span class="st0">"addConstraintMapping"</span><span class="re2">&gt;</span></span>
+                <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>
+                   <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.security.ConstraintMapping"</span><span class="re2">&gt;</span></span>
+                       <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"pathSpec"</span><span class="re2">&gt;</span></span>/*<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
+                       <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"constraint"</span><span class="re2">&gt;</span></span>
+                          <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.util.security.Constraint"</span><span class="re2">&gt;</span></span>
+                             <span class="sc-1">&lt;!-- 2 means CONFIDENTIAL. 1 means INTEGRITY --&gt;</span>
+                             <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"dataConstraint"</span><span class="re2">&gt;</span></span>2<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
+                          <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span>
+                       <span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
+                   <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span>
+                <span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;/Call<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span>
+     <span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;/Configure<span class="re2">&gt;</span></span></span></pre>
                 </div>
               </div>
               <h3>

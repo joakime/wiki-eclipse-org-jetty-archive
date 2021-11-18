@@ -16,7 +16,7 @@
               <span class="subpages">
                 &lt;
                 <a href="../../Jetty.html" title="Jetty">Jetty</a>
-                |
+                 |
                 <a href="../Feature.html" title="Jetty/Feature">Feature</a>
               </span>
             </div>
@@ -253,50 +253,15 @@
               <p>First, add jetty-maven-plugin to your pom.xml definition:</p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="xml source-xml">
-                  <pre class="de1">
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;plugin
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;groupId
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    org.mortbay.jetty
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/groupId
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;artifactId
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    jetty-maven-plugin
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/artifactId
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/plugin
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                  </pre>
+                  <pre class="de1" xml:space="preserve"><span class="sc3"><span class="re1">&lt;plugin<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;groupId<span class="re2">&gt;</span></span></span>org.mortbay.jetty<span class="sc3"><span class="re1">&lt;/groupId<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;artifactId<span class="re2">&gt;</span></span></span>jetty-maven-plugin<span class="sc3"><span class="re1">&lt;/artifactId<span class="re2">&gt;</span></span></span>
+<span class="sc3"><span class="re1">&lt;/plugin<span class="re2">&gt;</span></span></span></pre>
                 </div>
               </div>
               <p>Then, from the same directory as your root pom.xml, simply type:</p>
-              <pre>mvn jetty:run</pre>
+              <pre xml:space="preserve"> mvn jetty:run
+</pre>
               <p>This starts Jetty and serves up your project on http://localhost:8080/.</p>
               <p>Jetty continues to run until you stop it. While it runs, it periodically scans for changes to your project files, so if you save changes and recompile your class files, Jetty redeploys your webapp, and you can instantly test the changes you just made.</p>
               <h3>
@@ -312,10 +277,8 @@
               </h2>
               <p>The jetty-maven-plugin has a number of distinct Maven goals. Each goal is an action you can run to accomplish a specific task, or to work with a particular web application setup. You might need to insert goal-specific configuration to run it properly.</p>
               <p>To run the jetty-maven-plugin with a particular goal, use this command:</p>
-              <pre>
-                mvn jetty:
-                <var>goalname</var>
-              </pre>
+              <pre xml:space="preserve"> mvn jetty:<var>goalname</var>
+</pre>
               <p>Here are the configuration elements that are common to all goals:</p>
               <h2>
                 <span class="mw-headline" id="Configuring_the_Jetty_Container">Configuring the Jetty Container</span>
@@ -499,96 +462,16 @@
               <p>Here is a small example, which turns on scanning for changes every ten seconds, and sets the webapp context path to "/test":</p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="xml source-xml">
-                  <pre class="de1">
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;plugin
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;groupId
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    org.mortbay.jetty
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/groupId
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;artifactId
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    jetty-maven-plugin
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/artifactId
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;configuration
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;scanIntervalSeconds
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    10
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/scanIntervalSeconds
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;webApp
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;contextPath
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    /test
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/contextPath
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/webApp
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/configuration
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/plugin
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                  </pre>
+                  <pre class="de1" xml:space="preserve"><span class="sc3"><span class="re1">&lt;plugin<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;groupId<span class="re2">&gt;</span></span></span>org.mortbay.jetty<span class="sc3"><span class="re1">&lt;/groupId<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;artifactId<span class="re2">&gt;</span></span></span>jetty-maven-plugin<span class="sc3"><span class="re1">&lt;/artifactId<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;configuration<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;scanIntervalSeconds<span class="re2">&gt;</span></span></span>10<span class="sc3"><span class="re1">&lt;/scanIntervalSeconds<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;webApp<span class="re2">&gt;</span></span></span>
+      <span class="sc3"><span class="re1">&lt;contextPath<span class="re2">&gt;</span></span></span>/test<span class="sc3"><span class="re1">&lt;/contextPath<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;/webApp<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;/configuration<span class="re2">&gt;</span></span></span>
+<span class="sc3"><span class="re1">&lt;/plugin<span class="re2">&gt;</span></span></span></pre>
                 </div>
               </div>
               <h4>
@@ -642,312 +525,42 @@
               <p>Here's an example:</p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="xml source-xml">
-                  <pre class="de1">
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;project
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    ...
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;plugins
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    ...
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;plugin
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;groupId
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    org.mortbay.jetty
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/groupId
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;artifactId
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    jetty-maven-plugin
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/artifactId
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;configuration
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;webAppSourceDirectory
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    ${basedir}/src/staticfiles
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/webAppSourceDirectory
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;webAppConfig
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;contextPath
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    /
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/contextPath
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;descriptor
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    ${basedir}/src/over/here/web.xml
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/descriptor
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;jettyEnvXml
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    ${basedir}/src/over/here/jetty-env.xml
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/jettyEnvXml
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/webAppConfig
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;classesDirectory
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    ${basedir}/somewhere/else
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/classesDirectory
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;scanTargets
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;scanTarget
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    src/mydir
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/scanTarget
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;scanTarget
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    src/myfile.txt
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/scanTarget
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/scanTargets
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;scanTargetPatterns
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;scanTargetPattern
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;directory
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    src/other-resources
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/directory
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;includes
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;include
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    **/*.xml
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/include
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;include
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    **/*.properties
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/include
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/includes
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;excludes
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;exclude
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    **/myspecial.xml
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/exclude
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;exclude
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    **/myspecial.properties
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/exclude
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/excludes
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/scanTargetPattern
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/scanTargetPatterns
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/configuration
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/plugin
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/plugins
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/project
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                  </pre>
+                  <pre class="de1" xml:space="preserve"><span class="sc3"><span class="re1">&lt;project<span class="re2">&gt;</span></span></span>
+  ...
+  <span class="sc3"><span class="re1">&lt;plugins<span class="re2">&gt;</span></span></span>
+    ...
+      <span class="sc3"><span class="re1">&lt;plugin<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;groupId<span class="re2">&gt;</span></span></span>org.mortbay.jetty<span class="sc3"><span class="re1">&lt;/groupId<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;artifactId<span class="re2">&gt;</span></span></span>jetty-maven-plugin<span class="sc3"><span class="re1">&lt;/artifactId<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;configuration<span class="re2">&gt;</span></span></span>
+          <span class="sc3"><span class="re1">&lt;webAppSourceDirectory<span class="re2">&gt;</span></span></span>${basedir}/src/staticfiles<span class="sc3"><span class="re1">&lt;/webAppSourceDirectory<span class="re2">&gt;</span></span></span>
+          <span class="sc3"><span class="re1">&lt;webAppConfig<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;contextPath<span class="re2">&gt;</span></span></span>/<span class="sc3"><span class="re1">&lt;/contextPath<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;descriptor<span class="re2">&gt;</span></span></span>${basedir}/src/over/here/web.xml<span class="sc3"><span class="re1">&lt;/descriptor<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;jettyEnvXml<span class="re2">&gt;</span></span></span>${basedir}/src/over/here/jetty-env.xml<span class="sc3"><span class="re1">&lt;/jettyEnvXml<span class="re2">&gt;</span></span></span>
+          <span class="sc3"><span class="re1">&lt;/webAppConfig<span class="re2">&gt;</span></span></span>
+          <span class="sc3"><span class="re1">&lt;classesDirectory<span class="re2">&gt;</span></span></span>${basedir}/somewhere/else<span class="sc3"><span class="re1">&lt;/classesDirectory<span class="re2">&gt;</span></span></span>
+          <span class="sc3"><span class="re1">&lt;scanTargets<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;scanTarget<span class="re2">&gt;</span></span></span>src/mydir<span class="sc3"><span class="re1">&lt;/scanTarget<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;scanTarget<span class="re2">&gt;</span></span></span>src/myfile.txt<span class="sc3"><span class="re1">&lt;/scanTarget<span class="re2">&gt;</span></span></span>
+          <span class="sc3"><span class="re1">&lt;/scanTargets<span class="re2">&gt;</span></span></span>
+          <span class="sc3"><span class="re1">&lt;scanTargetPatterns<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;scanTargetPattern<span class="re2">&gt;</span></span></span>
+              <span class="sc3"><span class="re1">&lt;directory<span class="re2">&gt;</span></span></span>src/other-resources<span class="sc3"><span class="re1">&lt;/directory<span class="re2">&gt;</span></span></span>
+              <span class="sc3"><span class="re1">&lt;includes<span class="re2">&gt;</span></span></span>
+                <span class="sc3"><span class="re1">&lt;include<span class="re2">&gt;</span></span></span>**/*.xml<span class="sc3"><span class="re1">&lt;/include<span class="re2">&gt;</span></span></span>
+                <span class="sc3"><span class="re1">&lt;include<span class="re2">&gt;</span></span></span>**/*.properties<span class="sc3"><span class="re1">&lt;/include<span class="re2">&gt;</span></span></span>
+              <span class="sc3"><span class="re1">&lt;/includes<span class="re2">&gt;</span></span></span>
+              <span class="sc3"><span class="re1">&lt;excludes<span class="re2">&gt;</span></span></span>
+                <span class="sc3"><span class="re1">&lt;exclude<span class="re2">&gt;</span></span></span>**/myspecial.xml<span class="sc3"><span class="re1">&lt;/exclude<span class="re2">&gt;</span></span></span>
+                <span class="sc3"><span class="re1">&lt;exclude<span class="re2">&gt;</span></span></span>**/myspecial.properties<span class="sc3"><span class="re1">&lt;/exclude<span class="re2">&gt;</span></span></span>
+              <span class="sc3"><span class="re1">&lt;/excludes<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;/scanTargetPattern<span class="re2">&gt;</span></span></span>
+          <span class="sc3"><span class="re1">&lt;/scanTargetPatterns<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;/configuration<span class="re2">&gt;</span></span></span>
+      <span class="sc3"><span class="re1">&lt;/plugin<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;/plugins<span class="re2">&gt;</span></span></span>
+<span class="sc3"><span class="re1">&lt;/project<span class="re2">&gt;</span></span></span></pre>
                 </div>
               </div>
               <p>
@@ -977,97 +590,19 @@
               <p>Here's how to set it:</p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="xml source-xml">
-                  <pre class="de1">
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;project
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    ...
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;plugins
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    ...
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;plugin
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;groupId
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    org.mortbay.jetty
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/groupId
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;artifactId
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    jetty-maven-plugin
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/artifactId
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;configuration
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;war
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    ${basedir}/target/mycustom.war
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/war
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/configuration
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/plugin
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/plugins
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/project
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                  </pre>
+                  <pre class="de1" xml:space="preserve"><span class="sc3"><span class="re1">&lt;project<span class="re2">&gt;</span></span></span>
+  ...
+  <span class="sc3"><span class="re1">&lt;plugins<span class="re2">&gt;</span></span></span>
+    ...
+      <span class="sc3"><span class="re1">&lt;plugin<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;groupId<span class="re2">&gt;</span></span></span>org.mortbay.jetty<span class="sc3"><span class="re1">&lt;/groupId<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;artifactId<span class="re2">&gt;</span></span></span>jetty-maven-plugin<span class="sc3"><span class="re1">&lt;/artifactId<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;configuration<span class="re2">&gt;</span></span></span>
+          <span class="sc3"><span class="re1">&lt;war<span class="re2">&gt;</span></span></span>${basedir}/target/mycustom.war<span class="sc3"><span class="re1">&lt;/war<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;/configuration<span class="re2">&gt;</span></span></span>
+      <span class="sc3"><span class="re1">&lt;/plugin<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;/plugins<span class="re2">&gt;</span></span></span>
+<span class="sc3"><span class="re1">&lt;/project<span class="re2">&gt;</span></span></span></pre>
                 </div>
               </div>
               <h3>
@@ -1086,97 +621,19 @@
               <p>Here's how to set it:</p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="xml source-xml">
-                  <pre class="de1">
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;project
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    ...
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;plugins
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    ...
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;plugin
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;groupId
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    org.mortbay.jetty
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/groupId
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;artifactId
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    maven-jetty-plugin
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/artifactId
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;configuration
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;war
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    ${basedir}/target/myfunkywebapp
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/war
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/configuration
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/plugin
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/plugins
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/project
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                  </pre>
+                  <pre class="de1" xml:space="preserve"><span class="sc3"><span class="re1">&lt;project<span class="re2">&gt;</span></span></span>
+  ...
+  <span class="sc3"><span class="re1">&lt;plugins<span class="re2">&gt;</span></span></span>
+    ...
+      <span class="sc3"><span class="re1">&lt;plugin<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;groupId<span class="re2">&gt;</span></span></span>org.mortbay.jetty<span class="sc3"><span class="re1">&lt;/groupId<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;artifactId<span class="re2">&gt;</span></span></span>maven-jetty-plugin<span class="sc3"><span class="re1">&lt;/artifactId<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;configuration<span class="re2">&gt;</span></span></span>
+          <span class="sc3"><span class="re1">&lt;war<span class="re2">&gt;</span></span></span>${basedir}/target/myfunkywebapp<span class="sc3"><span class="re1">&lt;/war<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;/configuration<span class="re2">&gt;</span></span></span>
+      <span class="sc3"><span class="re1">&lt;/plugin<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;/plugins<span class="re2">&gt;</span></span></span>
+<span class="sc3"><span class="re1">&lt;/project<span class="re2">&gt;</span></span></span></pre>
                 </div>
               </div>
               <h3>
@@ -1187,273 +644,39 @@
 Here's the configuration for that:</p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="xml source-xml">
-                  <pre class="de1">
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;project
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    ...
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;plugins
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    ...
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;plugin
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;groupId
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    org.mortbay.jetty
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/groupId
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;artifactId
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    jetty-maven-plugin
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/artifactId
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;configuration
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;war
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    ${basedir}/target/mycustom.war
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/war
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/configuration
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;executions
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;execution
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;id
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    start-jetty
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/id
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;phase
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    test-compile
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/phase
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;goals
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;goal
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    deploy-war
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/goal
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/goals
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;configuration
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;daemon
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    true
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/daemon
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;reload
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    manual
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/reload
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/configuration
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/execution
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;execution
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;id
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    stop-jetty
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/id
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;phase
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    test
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/phase
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;goals
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;goal
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    stop
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/goal
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/goals
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/execution
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/executions
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/plugin
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/plugins
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/project
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                  </pre>
+                  <pre class="de1" xml:space="preserve"><span class="sc3"><span class="re1">&lt;project<span class="re2">&gt;</span></span></span>
+  ...
+  <span class="sc3"><span class="re1">&lt;plugins<span class="re2">&gt;</span></span></span>
+    ...
+      <span class="sc3"><span class="re1">&lt;plugin<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;groupId<span class="re2">&gt;</span></span></span>org.mortbay.jetty<span class="sc3"><span class="re1">&lt;/groupId<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;artifactId<span class="re2">&gt;</span></span></span>jetty-maven-plugin<span class="sc3"><span class="re1">&lt;/artifactId<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;configuration<span class="re2">&gt;</span></span></span>
+          <span class="sc3"><span class="re1">&lt;war<span class="re2">&gt;</span></span></span>${basedir}/target/mycustom.war<span class="sc3"><span class="re1">&lt;/war<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;/configuration<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;executions<span class="re2">&gt;</span></span></span>
+          <span class="sc3"><span class="re1">&lt;execution<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;id<span class="re2">&gt;</span></span></span>start-jetty<span class="sc3"><span class="re1">&lt;/id<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;phase<span class="re2">&gt;</span></span></span>test-compile<span class="sc3"><span class="re1">&lt;/phase<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;goals<span class="re2">&gt;</span></span></span>
+              <span class="sc3"><span class="re1">&lt;goal<span class="re2">&gt;</span></span></span>deploy-war<span class="sc3"><span class="re1">&lt;/goal<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;/goals<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;configuration<span class="re2">&gt;</span></span></span>
+              <span class="sc3"><span class="re1">&lt;daemon<span class="re2">&gt;</span></span></span>true<span class="sc3"><span class="re1">&lt;/daemon<span class="re2">&gt;</span></span></span>
+              <span class="sc3"><span class="re1">&lt;reload<span class="re2">&gt;</span></span></span>manual<span class="sc3"><span class="re1">&lt;/reload<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;/configuration<span class="re2">&gt;</span></span></span>
+          <span class="sc3"><span class="re1">&lt;/execution<span class="re2">&gt;</span></span></span>
+          <span class="sc3"><span class="re1">&lt;execution<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;id<span class="re2">&gt;</span></span></span>stop-jetty<span class="sc3"><span class="re1">&lt;/id<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;phase<span class="re2">&gt;</span></span></span>test<span class="sc3"><span class="re1">&lt;/phase<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;goals<span class="re2">&gt;</span></span></span>
+              <span class="sc3"><span class="re1">&lt;goal<span class="re2">&gt;</span></span></span>stop<span class="sc3"><span class="re1">&lt;/goal<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;/goals<span class="re2">&gt;</span></span></span>
+          <span class="sc3"><span class="re1">&lt;/execution<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;/executions<span class="re2">&gt;</span></span></span>
+      <span class="sc3"><span class="re1">&lt;/plugin<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;/plugins<span class="re2">&gt;</span></span></span>
+<span class="sc3"><span class="re1">&lt;/project<span class="re2">&gt;</span></span></span></pre>
                 </div>
               </div>
               <p>
@@ -1577,7 +800,8 @@ Here's the configuration for that:</p>
                 <br />
                 To deploy your unassembled web app to jetty running in a new jvm:
               </p>
-              <pre>mvn jetty:run-forked</pre>
+              <pre xml:space="preserve">   mvn jetty:run-forked
+</pre>
               <p>
                 With
                 <b>&lt;waitForChild&gt;true&lt;/waitForChild&gt;</b>
@@ -1618,273 +842,35 @@ Here's the configuration for that:</p>
               </p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="xml source-xml">
-                  <pre class="de1">
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;plugin
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;groupId
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    org.mortbay.jetty
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/groupId
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;artifactId
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    jetty-maven-plugin
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/artifactId
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;configuration
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;scanIntervalSeconds
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    10
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/scanIntervalSeconds
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;stopKey
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    foo
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/stopKey
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;stopPort
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    9999
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/stopPort
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/configuration
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;executions
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;execution
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;id
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    start-jetty
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/id
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;phase
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    pre-integration-test
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/phase
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;goals
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;goal
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    start
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/goal
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/goals
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;configuration
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;scanIntervalSeconds
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    0
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/scanIntervalSeconds
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;daemon
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    true
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/daemon
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/configuration
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/execution
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;execution
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;id
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    stop-jetty
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/id
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;phase
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    post-integration-test
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/phase
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;goals
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;goal
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    stop
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/goal
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/goals
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/execution
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/executions
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/plugin
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                  </pre>
+                  <pre class="de1" xml:space="preserve"><span class="sc3"><span class="re1">&lt;plugin<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;groupId<span class="re2">&gt;</span></span></span>org.mortbay.jetty<span class="sc3"><span class="re1">&lt;/groupId<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;artifactId<span class="re2">&gt;</span></span></span>jetty-maven-plugin<span class="sc3"><span class="re1">&lt;/artifactId<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;configuration<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;scanIntervalSeconds<span class="re2">&gt;</span></span></span>10<span class="sc3"><span class="re1">&lt;/scanIntervalSeconds<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;stopKey<span class="re2">&gt;</span></span></span>foo<span class="sc3"><span class="re1">&lt;/stopKey<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;stopPort<span class="re2">&gt;</span></span></span>9999<span class="sc3"><span class="re1">&lt;/stopPort<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;/configuration<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;executions<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;execution<span class="re2">&gt;</span></span></span>
+      <span class="sc3"><span class="re1">&lt;id<span class="re2">&gt;</span></span></span>start-jetty<span class="sc3"><span class="re1">&lt;/id<span class="re2">&gt;</span></span></span>
+      <span class="sc3"><span class="re1">&lt;phase<span class="re2">&gt;</span></span></span>pre-integration-test<span class="sc3"><span class="re1">&lt;/phase<span class="re2">&gt;</span></span></span>
+      <span class="sc3"><span class="re1">&lt;goals<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;goal<span class="re2">&gt;</span></span></span>start<span class="sc3"><span class="re1">&lt;/goal<span class="re2">&gt;</span></span></span>
+      <span class="sc3"><span class="re1">&lt;/goals<span class="re2">&gt;</span></span></span>
+      <span class="sc3"><span class="re1">&lt;configuration<span class="re2">&gt;</span></span></span>
+       <span class="sc3"><span class="re1">&lt;scanIntervalSeconds<span class="re2">&gt;</span></span></span>0<span class="sc3"><span class="re1">&lt;/scanIntervalSeconds<span class="re2">&gt;</span></span></span>
+       <span class="sc3"><span class="re1">&lt;daemon<span class="re2">&gt;</span></span></span>true<span class="sc3"><span class="re1">&lt;/daemon<span class="re2">&gt;</span></span></span>
+      <span class="sc3"><span class="re1">&lt;/configuration<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;/execution<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;execution<span class="re2">&gt;</span></span></span>
+      <span class="sc3"><span class="re1">&lt;id<span class="re2">&gt;</span></span></span>stop-jetty<span class="sc3"><span class="re1">&lt;/id<span class="re2">&gt;</span></span></span>
+      <span class="sc3"><span class="re1">&lt;phase<span class="re2">&gt;</span></span></span>post-integration-test<span class="sc3"><span class="re1">&lt;/phase<span class="re2">&gt;</span></span></span>
+      <span class="sc3"><span class="re1">&lt;goals<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;goal<span class="re2">&gt;</span></span></span>stop<span class="sc3"><span class="re1">&lt;/goal<span class="re2">&gt;</span></span></span>
+      <span class="sc3"><span class="re1">&lt;/goals<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;/execution<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;/executions<span class="re2">&gt;</span></span></span>
+<span class="sc3"><span class="re1">&lt;/plugin<span class="re2">&gt;</span></span></span></pre>
                 </div>
               </div>
               <p>Of course, you can use this goal from the command line (mvn jetty:start), however, you need to be sure that all generated classes and files for your webapp are already present first.</p>
@@ -1911,33 +897,9 @@ Here's the configuration for that:</p>
               </ul>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="xml source-xml">
-                  <pre class="de1">
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;configuration
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;excludedGoals
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    run,run-exploded
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/excludedGoals
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/configuration
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                  </pre>
+                  <pre class="de1" xml:space="preserve"><span class="sc3"><span class="re1">&lt;configuration<span class="re2">&gt;</span></span></span>
+   <span class="sc3"><span class="re1">&lt;excludedGoals<span class="re2">&gt;</span></span></span>run,run-exploded<span class="sc3"><span class="re1">&lt;/excludedGoals<span class="re2">&gt;</span></span></span>
+<span class="sc3"><span class="re1">&lt;/configuration<span class="re2">&gt;</span></span></span></pre>
                 </div>
               </div>
               <p>
@@ -1983,88 +945,19 @@ Here's the configuration for that:</p>
               <p>Here's a configuration example:</p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="xml source-xml">
-                  <pre class="de1">
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;plugin
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;groupId
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    org.mortbay.jetty
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/groupId
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;artifactId
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    jetty-maven-plugin
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/artifactId
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;configuration
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;stopPort
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    9966
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/stopPort
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;stopKey
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    foo
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/stopKey
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/configuration
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/plugin
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                  </pre>
+                  <pre class="de1" xml:space="preserve"><span class="sc3"><span class="re1">&lt;plugin<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;groupId<span class="re2">&gt;</span></span></span>org.mortbay.jetty<span class="sc3"><span class="re1">&lt;/groupId<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;artifactId<span class="re2">&gt;</span></span></span>jetty-maven-plugin<span class="sc3"><span class="re1">&lt;/artifactId<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;configuration<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;stopPort<span class="re2">&gt;</span></span></span>9966<span class="sc3"><span class="re1">&lt;/stopPort<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;stopKey<span class="re2">&gt;</span></span></span>foo<span class="sc3"><span class="re1">&lt;/stopKey<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;/configuration<span class="re2">&gt;</span></span></span>
+<span class="sc3"><span class="re1">&lt;/plugin<span class="re2">&gt;</span></span></span></pre>
                 </div>
               </div>
               <p>Then, while Jetty is running, type:</p>
-              <pre>mvn jetty:stop</pre>
+              <pre xml:space="preserve">   mvn jetty:stop
+</pre>
               <p>
                 The
                 <code>&lt;stopPort&gt;</code>
@@ -2085,7 +978,8 @@ Here's the configuration for that:</p>
                 <span class="mw-headline" id="Skipping_execution_of_jetty">Skipping execution of jetty</span>
               </h3>
               <p>Similarly to the well known system property "mvn.test.skip", you can define the system property "jetty.skip" to prevent jetty running. This is most useful when configuring jetty for execution during integration testing and you want to skip the tests:</p>
-              <pre>mvn -Djetty.skip=true</pre>
+              <pre xml:space="preserve">   mvn -Djetty.skip=true
+</pre>
               <p>
                 You can also use the
                 <b>&lt;skip&gt;</b>
@@ -2100,147 +994,22 @@ Here's the configuration for that:</p>
               <p>You can configure LoginServices (this was known as UserRealms in Jetty 6) in the plugin. Here's an example of setting up the HashLoginService for a webapp:</p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="xml source-xml">
-                  <pre class="de1">
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;plugin
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;groupId
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    org.mortbay.jetty
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/groupId
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;artifactId
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    jetty-maven-plugin
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/artifactId
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;configuration
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;scanIntervalSeconds
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    10
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/scanIntervalSeconds
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;webAppConfig
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;contextPath
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    /test
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/contextPath
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/webAppConfig
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;loginServices
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;loginService</span>
-                      <span class="re0">implementation</span>
-                      =
-                      <span class="st0">"org.eclipse.jetty.security.HashLoginService"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;name
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    Test Realm
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/name
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;config
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    ${basedir}/src/etc/realm.properties
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/config
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/loginService
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/loginServices
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/configuration
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/plugin
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                  </pre>
+                  <pre class="de1" xml:space="preserve"><span class="sc3"><span class="re1">&lt;plugin<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;groupId<span class="re2">&gt;</span></span></span>org.mortbay.jetty<span class="sc3"><span class="re1">&lt;/groupId<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;artifactId<span class="re2">&gt;</span></span></span>jetty-maven-plugin<span class="sc3"><span class="re1">&lt;/artifactId<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;configuration<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;scanIntervalSeconds<span class="re2">&gt;</span></span></span>10<span class="sc3"><span class="re1">&lt;/scanIntervalSeconds<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;webAppConfig<span class="re2">&gt;</span></span></span>
+      <span class="sc3"><span class="re1">&lt;contextPath<span class="re2">&gt;</span></span></span>/test<span class="sc3"><span class="re1">&lt;/contextPath<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;/webAppConfig<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;loginServices<span class="re2">&gt;</span></span></span>
+      <span class="sc3"><span class="re1">&lt;loginService</span> <span class="re0">implementation</span>=<span class="st0">"org.eclipse.jetty.security.HashLoginService"</span><span class="re2">&gt;</span></span>
+        <span class="sc3"><span class="re1">&lt;name<span class="re2">&gt;</span></span></span>Test Realm<span class="sc3"><span class="re1">&lt;/name<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;config<span class="re2">&gt;</span></span></span>${basedir}/src/etc/realm.properties<span class="sc3"><span class="re1">&lt;/config<span class="re2">&gt;</span></span></span>
+      <span class="sc3"><span class="re1">&lt;/loginService<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;/loginServices<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;/configuration<span class="re2">&gt;</span></span></span>
+<span class="sc3"><span class="re1">&lt;/plugin<span class="re2">&gt;</span></span></span></pre>
                 </div>
               </div>
               <p>
@@ -2252,147 +1021,22 @@ Here's the configuration for that:</p>
               <p>You can configure a list of org.eclipse.jetty.server.Connector objects for the plugin. If you don't specify any, an NIO org.eclipse.jetty.server.nio.SelectChannelConnector is configured on port 8080. You can change this default port number by using the system property jetty.port on the command line, for example "mvn -Djetty.port=9999 jetty:run". Alternatively, you can specify as many connectors as you like. Here's an example of configuring a connector on a different port number:</p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="xml source-xml">
-                  <pre class="de1">
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;plugin
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;groupId
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    org.mortbay.jetty
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/groupId
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;artifactId
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    jetty-maven-plugin
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/artifactId
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;configuration
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;scanIntervalSeconds
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    10
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/scanIntervalSeconds
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;webApp
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;contextPath
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    /test
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/contextPath
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/webApp
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;connectors
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;connector</span>
-                      <span class="re0">implementation</span>
-                      =
-                      <span class="st0">"org.eclipse.jetty.server.nio.SelectChannelConnector"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;port
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    9090
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/port
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;maxIdleTime
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    60000
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/maxIdleTime
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/connector
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/connectors
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/configuration
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/plugin
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                  </pre>
+                  <pre class="de1" xml:space="preserve"><span class="sc3"><span class="re1">&lt;plugin<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;groupId<span class="re2">&gt;</span></span></span>org.mortbay.jetty<span class="sc3"><span class="re1">&lt;/groupId<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;artifactId<span class="re2">&gt;</span></span></span>jetty-maven-plugin<span class="sc3"><span class="re1">&lt;/artifactId<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;configuration<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;scanIntervalSeconds<span class="re2">&gt;</span></span></span>10<span class="sc3"><span class="re1">&lt;/scanIntervalSeconds<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;webApp<span class="re2">&gt;</span></span></span>
+      <span class="sc3"><span class="re1">&lt;contextPath<span class="re2">&gt;</span></span></span>/test<span class="sc3"><span class="re1">&lt;/contextPath<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;/webApp<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;connectors<span class="re2">&gt;</span></span></span>
+       <span class="sc3"><span class="re1">&lt;connector</span> <span class="re0">implementation</span>=<span class="st0">"org.eclipse.jetty.server.nio.SelectChannelConnector"</span><span class="re2">&gt;</span></span>
+          <span class="sc3"><span class="re1">&lt;port<span class="re2">&gt;</span></span></span>9090<span class="sc3"><span class="re1">&lt;/port<span class="re2">&gt;</span></span></span>
+          <span class="sc3"><span class="re1">&lt;maxIdleTime<span class="re2">&gt;</span></span></span>60000<span class="sc3"><span class="re1">&lt;/maxIdleTime<span class="re2">&gt;</span></span></span>
+       <span class="sc3"><span class="re1">&lt;/connector<span class="re2">&gt;</span></span></span>
+     <span class="sc3"><span class="re1">&lt;/connectors<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;/configuration<span class="re2">&gt;</span></span></span>
+<span class="sc3"><span class="re1">&lt;/plugin<span class="re2">&gt;</span></span></span></pre>
                 </div>
               </div>
               <h3>
@@ -2402,110 +1046,16 @@ Here's the configuration for that:</p>
               <p>For example, suppose our webapp depends on these two WARs:</p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="xml source-xml">
-                  <pre class="de1">
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;dependency
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;groupId
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    com.acme
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/groupId
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;artifactId
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    X
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/artifactId
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;type
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    war
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/type
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/dependency
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;dependency
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;groupId
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    com.acme
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/groupId
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;artifactId
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    Y
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/artifactId
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;type
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    war
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/type
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/dependency
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                  </pre>
+                  <pre class="de1" xml:space="preserve"><span class="sc3"><span class="re1">&lt;dependency<span class="re2">&gt;</span></span></span>
+      <span class="sc3"><span class="re1">&lt;groupId<span class="re2">&gt;</span></span></span>com.acme<span class="sc3"><span class="re1">&lt;/groupId<span class="re2">&gt;</span></span></span>
+      <span class="sc3"><span class="re1">&lt;artifactId<span class="re2">&gt;</span></span></span>X<span class="sc3"><span class="re1">&lt;/artifactId<span class="re2">&gt;</span></span></span>
+      <span class="sc3"><span class="re1">&lt;type<span class="re2">&gt;</span></span></span>war<span class="sc3"><span class="re1">&lt;/type<span class="re2">&gt;</span></span></span>
+<span class="sc3"><span class="re1">&lt;/dependency<span class="re2">&gt;</span></span></span>
+<span class="sc3"><span class="re1">&lt;dependency<span class="re2">&gt;</span></span></span>
+      <span class="sc3"><span class="re1">&lt;groupId<span class="re2">&gt;</span></span></span>com.acme<span class="sc3"><span class="re1">&lt;/groupId<span class="re2">&gt;</span></span></span>
+      <span class="sc3"><span class="re1">&lt;artifactId<span class="re2">&gt;</span></span></span>Y<span class="sc3"><span class="re1">&lt;/artifactId<span class="re2">&gt;</span></span></span>
+      <span class="sc3"><span class="re1">&lt;type<span class="re2">&gt;</span></span></span>war<span class="sc3"><span class="re1">&lt;/type<span class="re2">&gt;</span></span></span>
+<span class="sc3"><span class="re1">&lt;/dependency<span class="re2">&gt;</span></span></span></pre>
                 </div>
               </div>
               <p>
@@ -2514,8 +1064,8 @@ Here's the configuration for that:</p>
               </p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="text source-text">
-                  <pre class="de1">WebAppX:
-
+                  <pre class="de1" xml:space="preserve">WebAppX:
+ 
 /foo.jsp
 /bar.jsp
 /WEB-INF/web.xml
@@ -2533,7 +1083,7 @@ WebAppY:
               <p>Then our webapp will have available these additional resources:</p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="text source-text">
-                  <pre class="de1">/foo.jsp (X)
+                  <pre class="de1" xml:space="preserve">/foo.jsp (X)
 /bar.jsp (X)
 /baz.jsp (Y)
 /WEB-INF/web.xml (X)
@@ -2550,71 +1100,14 @@ WebAppY:
               </p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="xml source-xml">
-                  <pre class="de1">
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;configuration
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;webApp
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;contextPath
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    /${build.finalName}
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/contextPath
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;baseResource</span>
-                      <span class="re0">implementation</span>
-                      =
-                      <span class="st0">"org.eclipse.jetty.util.resource.ResourceCollection"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;resourcesAsCSV
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    src/main/webapp,/home/johndoe/path/to/my/other/source,/yet/another/folder
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/resourcesAsCSV
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/baseResource
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/webApp
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/configuration
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                  </pre>
+                  <pre class="de1" xml:space="preserve"><span class="sc3"><span class="re1">&lt;configuration<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;webApp<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;contextPath<span class="re2">&gt;</span></span></span>/${build.finalName}<span class="sc3"><span class="re1">&lt;/contextPath<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;baseResource</span> <span class="re0">implementation</span>=<span class="st0">"org.eclipse.jetty.util.resource.ResourceCollection"</span><span class="re2">&gt;</span></span>
+      <span class="sc3"><span class="re1">&lt;resourcesAsCSV<span class="re2">&gt;</span></span></span>src/main/webapp,/home/johndoe/path/to/my/other/source,/yet/another/folder<span class="sc3"><span class="re1">&lt;/resourcesAsCSV<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;/baseResource<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;/webApp<span class="re2">&gt;</span></span></span>
+<span class="sc3"><span class="re1">&lt;/configuration<span class="re2">&gt;</span></span></span></pre>
                 </div>
               </div>
               <h3>
@@ -2623,135 +1116,21 @@ WebAppY:
               <p>You must be explicit enable GZip compression and other Jetty extensions by adding a dependency on jetty-servlets:</p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="xml source-xml">
-                  <pre class="de1">
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;plugin
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;groupId
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    org.mortbay.jetty
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/groupId
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;artifactId
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    jetty-maven-plugin
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/artifactId
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;version
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    7.0.1.v20091125
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/version
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;configuration
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    [...]
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/configuration
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;dependencies
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;dependency
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;groupId
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    org.eclipse.jetty
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/groupId
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;artifactId
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    jetty-servlets
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/artifactId
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;version
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    7.0.1.v20091125
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/version
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/dependency
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/dependencies
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/plugin
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                  </pre>
+                  <pre class="de1" xml:space="preserve">      <span class="sc3"><span class="re1">&lt;plugin<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;groupId<span class="re2">&gt;</span></span></span>org.mortbay.jetty<span class="sc3"><span class="re1">&lt;/groupId<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;artifactId<span class="re2">&gt;</span></span></span>jetty-maven-plugin<span class="sc3"><span class="re1">&lt;/artifactId<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;version<span class="re2">&gt;</span></span></span>7.0.1.v20091125<span class="sc3"><span class="re1">&lt;/version<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;configuration<span class="re2">&gt;</span></span></span>
+          [...]
+        <span class="sc3"><span class="re1">&lt;/configuration<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;dependencies<span class="re2">&gt;</span></span></span>
+          <span class="sc3"><span class="re1">&lt;dependency<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;groupId<span class="re2">&gt;</span></span></span>org.eclipse.jetty<span class="sc3"><span class="re1">&lt;/groupId<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;artifactId<span class="re2">&gt;</span></span></span>jetty-servlets<span class="sc3"><span class="re1">&lt;/artifactId<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;version<span class="re2">&gt;</span></span></span>7.0.1.v20091125<span class="sc3"><span class="re1">&lt;/version<span class="re2">&gt;</span></span></span>
+          <span class="sc3"><span class="re1">&lt;/dependency<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;/dependencies<span class="re2">&gt;</span></span></span>
+      <span class="sc3"><span class="re1">&lt;/plugin<span class="re2">&gt;</span></span></span></pre>
                 </div>
               </div>
               <p>
@@ -2770,186 +1149,26 @@ WebAppY:
               <p>Putting the configuration in webapp A's pom.xml:</p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="xml source-xml">
-                  <pre class="de1">
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;plugin
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;groupId
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    org.mortbay.jetty
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/groupId
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;artifactId
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    jetty-maven-plugin
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/artifactId
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;configuration
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;scanIntervalSeconds
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    10
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/scanIntervalSeconds
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;webApp
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;contextPath
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    /test
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/contextPath
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/webApp
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;contextHandlers
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;contextHandler</span>
-                      <span class="re0">implementation</span>
-                      =
-                      <span class="st0">"org.eclipse.jetty.webapp.WebAppContext"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;war
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    ${basedir}../../B.war
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/war
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;contextPath
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    /B
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/contextPath
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/contextHandler
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;contextHandler</span>
-                      <span class="re0">implementation</span>
-                      =
-                      <span class="st0">"org.eclipse.jetty.webapp.WebAppContext"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;war
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    ${basedir}../../C.war
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/war
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;contextPath
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    /B
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/contextPath
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/contextHandler
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/contextHandlers
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/configuration
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/plugin
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                  </pre>
+                  <pre class="de1" xml:space="preserve"><span class="sc3"><span class="re1">&lt;plugin<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;groupId<span class="re2">&gt;</span></span></span>org.mortbay.jetty<span class="sc3"><span class="re1">&lt;/groupId<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;artifactId<span class="re2">&gt;</span></span></span>jetty-maven-plugin<span class="sc3"><span class="re1">&lt;/artifactId<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;configuration<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;scanIntervalSeconds<span class="re2">&gt;</span></span></span>10<span class="sc3"><span class="re1">&lt;/scanIntervalSeconds<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;webApp<span class="re2">&gt;</span></span></span>
+      <span class="sc3"><span class="re1">&lt;contextPath<span class="re2">&gt;</span></span></span>/test<span class="sc3"><span class="re1">&lt;/contextPath<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;/webApp<span class="re2">&gt;</span></span></span>
+      <span class="sc3"><span class="re1">&lt;contextHandlers<span class="re2">&gt;</span></span></span>           
+            <span class="sc3"><span class="re1">&lt;contextHandler</span> <span class="re0">implementation</span>=<span class="st0">"org.eclipse.jetty.webapp.WebAppContext"</span><span class="re2">&gt;</span></span>
+              <span class="sc3"><span class="re1">&lt;war<span class="re2">&gt;</span></span></span>${basedir}../../B.war<span class="sc3"><span class="re1">&lt;/war<span class="re2">&gt;</span></span></span>
+              <span class="sc3"><span class="re1">&lt;contextPath<span class="re2">&gt;</span></span></span>/B<span class="sc3"><span class="re1">&lt;/contextPath<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;/contextHandler<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;contextHandler</span> <span class="re0">implementation</span>=<span class="st0">"org.eclipse.jetty.webapp.WebAppContext"</span><span class="re2">&gt;</span></span>
+              <span class="sc3"><span class="re1">&lt;war<span class="re2">&gt;</span></span></span>${basedir}../../C.war<span class="sc3"><span class="re1">&lt;/war<span class="re2">&gt;</span></span></span>
+              <span class="sc3"><span class="re1">&lt;contextPath<span class="re2">&gt;</span></span></span>/B<span class="sc3"><span class="re1">&lt;/contextPath<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;/contextHandler<span class="re2">&gt;</span></span></span>
+          <span class="sc3"><span class="re1">&lt;/contextHandlers<span class="re2">&gt;</span></span></span> 
+  <span class="sc3"><span class="re1">&lt;/configuration<span class="re2">&gt;</span></span></span>
+<span class="sc3"><span class="re1">&lt;/plugin<span class="re2">&gt;</span></span></span></pre>
                 </div>
               </div>
               <p>
@@ -2962,152 +1181,24 @@ WebAppY:
               </p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="xml source-xml">
-                  <pre class="de1">
-                    <span class="sc3">
-                      <span class="re1">&lt;Ref</span>
-                      <span class="re0">id</span>
-                      =
-                      <span class="st0">"Contexts"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;Call</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"addHandler"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;New</span>
-                      <span class="re0">class</span>
-                      =
-                      <span class="st0">"org.eclipse.jetty.webapp.WebAppContext"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;Set</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"contextPath"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    /B
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Set
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;Set</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"war"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    ../../B.war
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Set
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/New
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Call
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;Call
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;New</span>
-                      <span class="re0">class</span>
-                      =
-                      <span class="st0">"org.eclipse.jetty.webapp.WebAppContext"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;Set</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"contextPath"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    /C
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Set
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;Set</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"war"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    ../../C.war
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Set
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/New
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Call
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Ref
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                  </pre>
+                  <pre class="de1" xml:space="preserve">   <span class="sc3"><span class="re1">&lt;Ref</span> <span class="re0">id</span>=<span class="st0">"Contexts"</span><span class="re2">&gt;</span></span>
+       <span class="sc3"><span class="re1">&lt;Call</span> <span class="re0">name</span>=<span class="st0">"addHandler"</span><span class="re2">&gt;</span></span>
+         <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>
+           <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.webapp.WebAppContext"</span><span class="re2">&gt;</span></span>
+             <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"contextPath"</span><span class="re2">&gt;</span></span>/B<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
+             <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"war"</span><span class="re2">&gt;</span></span>../../B.war<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
+           <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span>
+         <span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
+       <span class="sc3"><span class="re1">&lt;/Call<span class="re2">&gt;</span></span></span>
+       <span class="sc3"><span class="re1">&lt;Call<span class="re2">&gt;</span></span></span>
+         <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>
+           <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.webapp.WebAppContext"</span><span class="re2">&gt;</span></span>
+             <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"contextPath"</span><span class="re2">&gt;</span></span>/C<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
+             <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"war"</span><span class="re2">&gt;</span></span>../../C.war<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
+          <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span>
+         <span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
+       <span class="sc3"><span class="re1">&lt;/Call<span class="re2">&gt;</span></span></span>
+   <span class="sc3"><span class="re1">&lt;/Ref<span class="re2">&gt;</span></span></span></pre>
                 </div>
               </div>
               <p>
@@ -3117,109 +1208,17 @@ WebAppY:
               </p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="xml source-xml">
-                  <pre class="de1">
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;plugin
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;groupId
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    org.mortbay.jetty
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/groupId
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;artifactId
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    jetty-maven-plugin
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/artifactId
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;configuration
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;scanIntervalSeconds
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    10
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/scanIntervalSeconds
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;webApp
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;contextPath
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    /test
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/contextPath
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/webApp
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;jettyXml
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    src/main/etc/jetty.xml
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/jettyXml
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/configuration
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/plugin
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                  </pre>
+                  <pre class="de1" xml:space="preserve"><span class="sc3"><span class="re1">&lt;plugin<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;groupId<span class="re2">&gt;</span></span></span>org.mortbay.jetty<span class="sc3"><span class="re1">&lt;/groupId<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;artifactId<span class="re2">&gt;</span></span></span>jetty-maven-plugin<span class="sc3"><span class="re1">&lt;/artifactId<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;configuration<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;scanIntervalSeconds<span class="re2">&gt;</span></span></span>10<span class="sc3"><span class="re1">&lt;/scanIntervalSeconds<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;webApp<span class="re2">&gt;</span></span></span>
+      <span class="sc3"><span class="re1">&lt;contextPath<span class="re2">&gt;</span></span></span>/test<span class="sc3"><span class="re1">&lt;/contextPath<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;/webApp<span class="re2">&gt;</span></span></span>
+     <span class="sc3"><span class="re1">&lt;jettyXml<span class="re2">&gt;</span></span></span>src/main/etc/jetty.xml<span class="sc3"><span class="re1">&lt;/jettyXml<span class="re2">&gt;</span></span></span>
+   <span class="sc3"><span class="re1">&lt;/configuration<span class="re2">&gt;</span></span></span>
+<span class="sc3"><span class="re1">&lt;/plugin<span class="re2">&gt;</span></span></span></pre>
                 </div>
               </div>
               <p>For either of these solutions, the other webapps must already have been built, and they are not automatically monitored for changes. You can refer either to the packed war file of the pre-built webapps or to their expanded equivalents.</p>
@@ -3237,170 +1236,26 @@ WebAppY:
               </p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="xml source-xml">
-                  <pre class="de1">
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;plugin
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;groupId
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    org.codehaus.mojo
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/groupId
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;artifactId
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    properties-maven-plugin
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/artifactId
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;version
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    1.0-alpha-2
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/version
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;executions
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;execution
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;goals
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;goal
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    set-system-properties
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/goal
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/goals
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;configuration
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;properties
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;property
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;name
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    logback.configurationFile
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/name
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;value
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    ${project.baseUri}/resources/logback.xml
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/value
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/property
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/properties
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/configuration
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/execution
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/executions
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/plugin
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                  </pre>
+                  <pre class="de1" xml:space="preserve"><span class="sc3"><span class="re1">&lt;plugin<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;groupId<span class="re2">&gt;</span></span></span>org.codehaus.mojo<span class="sc3"><span class="re1">&lt;/groupId<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;artifactId<span class="re2">&gt;</span></span></span>properties-maven-plugin<span class="sc3"><span class="re1">&lt;/artifactId<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;version<span class="re2">&gt;</span></span></span>1.0-alpha-2<span class="sc3"><span class="re1">&lt;/version<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;executions<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;execution<span class="re2">&gt;</span></span></span>
+      <span class="sc3"><span class="re1">&lt;goals<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;goal<span class="re2">&gt;</span></span></span>set-system-properties<span class="sc3"><span class="re1">&lt;/goal<span class="re2">&gt;</span></span></span>
+      <span class="sc3"><span class="re1">&lt;/goals<span class="re2">&gt;</span></span></span>
+      <span class="sc3"><span class="re1">&lt;configuration<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;properties<span class="re2">&gt;</span></span></span>
+          <span class="sc3"><span class="re1">&lt;property<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;name<span class="re2">&gt;</span></span></span>logback.configurationFile<span class="sc3"><span class="re1">&lt;/name<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;value<span class="re2">&gt;</span></span></span>${project.baseUri}/resources/logback.xml<span class="sc3"><span class="re1">&lt;/value<span class="re2">&gt;</span></span></span>
+          <span class="sc3"><span class="re1">&lt;/property<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;/properties<span class="re2">&gt;</span></span></span>
+      <span class="sc3"><span class="re1">&lt;/configuration<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;/execution<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;/executions<span class="re2">&gt;</span></span></span>
+<span class="sc3"><span class="re1">&lt;/plugin<span class="re2">&gt;</span></span></span></pre>
                 </div>
               </div>
               <h4>
@@ -3409,133 +1264,21 @@ WebAppY:
               <p>Note that if a System property is found that is already set (for example, from the command line or by the JVM itself), then these configured properties DO NOT override them. This feature is useful to tidy up the command line and save a lot of typing. Here's an example:</p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="xml source-xml">
-                  <pre class="de1">
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;plugin
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;groupId
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    org.mortbay.jetty
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/groupId
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;artifactId
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    jetty-maven-plugin
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/artifactId
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;configuration
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;systemProperties
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;systemProperty
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;name
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    fooprop
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/name
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;value
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    222
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/value
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/systemProperty
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/systemProperties
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;webApp
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;contextPath
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    /test
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/contextPath
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/webApp
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/configuration
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/plugin
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                  </pre>
+                  <pre class="de1" xml:space="preserve"><span class="sc3"><span class="re1">&lt;plugin<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;groupId<span class="re2">&gt;</span></span></span>org.mortbay.jetty<span class="sc3"><span class="re1">&lt;/groupId<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;artifactId<span class="re2">&gt;</span></span></span>jetty-maven-plugin<span class="sc3"><span class="re1">&lt;/artifactId<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;configuration<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;systemProperties<span class="re2">&gt;</span></span></span>
+      <span class="sc3"><span class="re1">&lt;systemProperty<span class="re2">&gt;</span></span></span>
+         <span class="sc3"><span class="re1">&lt;name<span class="re2">&gt;</span></span></span>fooprop<span class="sc3"><span class="re1">&lt;/name<span class="re2">&gt;</span></span></span>
+         <span class="sc3"><span class="re1">&lt;value<span class="re2">&gt;</span></span></span>222<span class="sc3"><span class="re1">&lt;/value<span class="re2">&gt;</span></span></span>
+       <span class="sc3"><span class="re1">&lt;/systemProperty<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;/systemProperties<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;webApp<span class="re2">&gt;</span></span></span>
+      <span class="sc3"><span class="re1">&lt;contextPath<span class="re2">&gt;</span></span></span>/test<span class="sc3"><span class="re1">&lt;/contextPath<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;/webApp<span class="re2">&gt;</span></span></span>
+   <span class="sc3"><span class="re1">&lt;/configuration<span class="re2">&gt;</span></span></span>
+<span class="sc3"><span class="re1">&lt;/plugin<span class="re2">&gt;</span></span></span></pre>
                 </div>
               </div>
               <p>
@@ -3544,146 +1287,22 @@ WebAppY:
               </p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="xml source-xml">
-                  <pre class="de1">
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;plugin
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;groupId
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    org.mortbay.jetty
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/groupId
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;artifactId
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    jetty-maven-plugin
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/artifactId
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;configuration
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;systemProperties
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;force
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    true
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/force
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;systemProperty
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;name
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    fooprop
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/name
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;value
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    222
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/value
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/systemProperty
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/systemProperties
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;webApp
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;contextPath
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    /test
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/contextPath
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/webApp
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/configuration
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/plugin
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                  </pre>
+                  <pre class="de1" xml:space="preserve"><span class="sc3"><span class="re1">&lt;plugin<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;groupId<span class="re2">&gt;</span></span></span>org.mortbay.jetty<span class="sc3"><span class="re1">&lt;/groupId<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;artifactId<span class="re2">&gt;</span></span></span>jetty-maven-plugin<span class="sc3"><span class="re1">&lt;/artifactId<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;configuration<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;systemProperties<span class="re2">&gt;</span></span></span>
+      <span class="sc3"><span class="re1">&lt;force<span class="re2">&gt;</span></span></span>true<span class="sc3"><span class="re1">&lt;/force<span class="re2">&gt;</span></span></span>
+      <span class="sc3"><span class="re1">&lt;systemProperty<span class="re2">&gt;</span></span></span>
+         <span class="sc3"><span class="re1">&lt;name<span class="re2">&gt;</span></span></span>fooprop<span class="sc3"><span class="re1">&lt;/name<span class="re2">&gt;</span></span></span>
+         <span class="sc3"><span class="re1">&lt;value<span class="re2">&gt;</span></span></span>222<span class="sc3"><span class="re1">&lt;/value<span class="re2">&gt;</span></span></span>
+       <span class="sc3"><span class="re1">&lt;/systemProperty<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;/systemProperties<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;webApp<span class="re2">&gt;</span></span></span>
+      <span class="sc3"><span class="re1">&lt;contextPath<span class="re2">&gt;</span></span></span>/test<span class="sc3"><span class="re1">&lt;/contextPath<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;/webApp<span class="re2">&gt;</span></span></span>
+   <span class="sc3"><span class="re1">&lt;/configuration<span class="re2">&gt;</span></span></span>
+<span class="sc3"><span class="re1">&lt;/plugin<span class="re2">&gt;</span></span></span></pre>
                 </div>
               </div>
               <h4>
@@ -3693,7 +1312,7 @@ WebAppY:
               <p>Here's an example of the file:</p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="text source-text">
-                  <pre class="de1">fooprop=222</pre>
+                  <pre class="de1" xml:space="preserve">fooprop=222</pre>
                 </div>
               </div>
               <p>
@@ -3703,96 +1322,16 @@ WebAppY:
               </p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="xml source-xml">
-                  <pre class="de1">
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;plugin
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;groupId
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    org.mortbay.jetty
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/groupId
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;artifactId
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    jetty-maven-plugin
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/artifactId
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;configuration
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;systemPropertiesFile
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    ${basedir}/mysys.props
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/systemPropertiesFile
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;webApp
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;contextPath
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    /test
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/contextPath
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/webApp
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/configuration
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/plugin
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                  </pre>
+                  <pre class="de1" xml:space="preserve"><span class="sc3"><span class="re1">&lt;plugin<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;groupId<span class="re2">&gt;</span></span></span>org.mortbay.jetty<span class="sc3"><span class="re1">&lt;/groupId<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;artifactId<span class="re2">&gt;</span></span></span>jetty-maven-plugin<span class="sc3"><span class="re1">&lt;/artifactId<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;configuration<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;systemPropertiesFile<span class="re2">&gt;</span></span></span>${basedir}/mysys.props<span class="sc3"><span class="re1">&lt;/systemPropertiesFile<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;webApp<span class="re2">&gt;</span></span></span>
+      <span class="sc3"><span class="re1">&lt;contextPath<span class="re2">&gt;</span></span></span>/test<span class="sc3"><span class="re1">&lt;/contextPath<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;/webApp<span class="re2">&gt;</span></span></span>
+   <span class="sc3"><span class="re1">&lt;/configuration<span class="re2">&gt;</span></span></span>
+<span class="sc3"><span class="re1">&lt;/plugin<span class="re2">&gt;</span></span></span></pre>
                 </div>
               </div>
             </div>

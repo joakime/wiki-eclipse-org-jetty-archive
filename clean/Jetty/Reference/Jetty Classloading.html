@@ -16,7 +16,7 @@
               <span class="subpages">
                 &lt;
                 <a href="../../Jetty.html" title="Jetty">Jetty</a>
-                |
+                 |
                 <a href="../Reference.html" title="Jetty/Reference">Reference</a>
               </span>
             </div>
@@ -295,30 +295,12 @@
               </p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="xml source-xml">
-                  <pre class="de1">
-                    <span class="sc3">
-                      <span class="re1">&lt;Configure</span>
-                      <span class="re0">class</span>
-                      =
-                      <span class="st0">"org.eclipse.jetty.webapp.WebAppContext"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    ...
-                    <span class="sc3">
-                      <span class="re1">&lt;Set</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"extraClasspath&gt;</span>
-                    </span>
-                    ../my/classes,../my/jars/special.jar,../my/jars/other.jar&gt;
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Set
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    ...
-                  </pre>
+                  <pre class="de1" xml:space="preserve"> 
+<span class="sc3"><span class="re1">&lt;Configure</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.webapp.WebAppContext"</span><span class="re2">&gt;</span></span>
+ ...
+ <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"extraClasspath&gt;</span></span>../my/classes,../my/jars/special.jar,../my/jars/other.jar&gt;
+ <span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
+ ...</pre>
                 </div>
               </div>
               <h2>
@@ -331,32 +313,11 @@
               </p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="java source-java">
-                  <pre class="de1">
-                    MyCleverClassLoader myCleverClassLoader
-                    <span class="sy0">=</span>
-                    <span class="kw1">new</span>
-                    MyCleverClassLoader
-                    <span class="br0">(</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    ...
-                    <span class="me1">WebAppContext</span>
-                    webapp
-                    <span class="sy0">=</span>
-                    <span class="kw1">new</span>
-                    WebAppContext
-                    <span class="br0">(</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    ...
-                    <span class="me1">webapp</span>
-                    .
-                    <span class="me1">setClassLoader</span>
-                    <span class="br0">(</span>
-                    myCleverClassLoader
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                  </pre>
+                  <pre class="de1" xml:space="preserve">MyCleverClassLoader myCleverClassLoader <span class="sy0">=</span> <span class="kw1">new</span> MyCleverClassLoader<span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
+ ...
+   <span class="me1">WebAppContext</span> webapp <span class="sy0">=</span> <span class="kw1">new</span> WebAppContext<span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
+ ...
+   <span class="me1">webapp</span>.<span class="me1">setClassLoader</span><span class="br0">(</span>myCleverClassLoader<span class="br0">)</span><span class="sy0">;</span></pre>
                 </div>
               </div>
               <p>You can also accomplish this in a context xml file.</p>
@@ -366,48 +327,13 @@
               <p>If you start a jetty server using a custom class loader - consider the jetty classes not being available to the system class loader, only your custom class loader - you may run into class loading issues when the WebAppClassLoader kicks in.  By default the WebAppClassLoader uses the system class loader as its parent, hence the problem.  This is easy to fix, like so:</p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="java source-java">
-                  <pre class="de1">
-                    context.
-                    <span class="me1">setClassLoader</span>
-                    <span class="br0">(</span>
-                    <span class="kw1">new</span>
-                    WebAppClassLoader
-                    <span class="br0">(</span>
-                    <span class="kw1">this</span>
-                    .
-                    <span class="me1">getClass</span>
-                    <span class="br0">(</span>
-                    <span class="br0">)</span>
-                    .
-                    <span class="me1">getClassLoader</span>
-                    <span class="br0">(</span>
-                    <span class="br0">)</span>
-                    , context
-                    <span class="br0">)</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                  </pre>
+                  <pre class="de1" xml:space="preserve">context.<span class="me1">setClassLoader</span><span class="br0">(</span><span class="kw1">new</span> WebAppClassLoader<span class="br0">(</span><span class="kw1">this</span>.<span class="me1">getClass</span><span class="br0">(</span><span class="br0">)</span>.<span class="me1">getClassLoader</span><span class="br0">(</span><span class="br0">)</span>, context<span class="br0">)</span><span class="br0">)</span><span class="sy0">;</span></pre>
                 </div>
               </div>
               <p>or</p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="java source-java">
-                  <pre class="de1">
-                    context.
-                    <span class="me1">setClassLoader</span>
-                    <span class="br0">(</span>
-                    <span class="kw1">new</span>
-                    WebAppClassLoader
-                    <span class="br0">(</span>
-                    <span class="kw1">new</span>
-                    MyCustomClassLoader
-                    <span class="br0">(</span>
-                    <span class="br0">)</span>
-                    , context
-                    <span class="br0">)</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                  </pre>
+                  <pre class="de1" xml:space="preserve">context.<span class="me1">setClassLoader</span><span class="br0">(</span><span class="kw1">new</span> WebAppClassLoader<span class="br0">(</span><span class="kw1">new</span> MyCustomClassLoader<span class="br0">(</span><span class="br0">)</span>, context<span class="br0">)</span><span class="br0">)</span><span class="sy0">;</span></pre>
                 </div>
               </div>
             </div>

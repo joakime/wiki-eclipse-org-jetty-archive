@@ -16,9 +16,9 @@
               <span class="subpages">
                 &lt;
                 <a href="../../../Jetty.html" title="Jetty">Jetty</a>
-                |
+                 |
                 <a href="../../Howto.html" title="Jetty/Howto">Howto</a>
-                |
+                 |
                 <a href="https://wiki.eclipse.org/Jetty/Howto/Deploy_3rd_Party_Products" title="Jetty/Howto/Deploy 3rd Party Products">Deploy 3rd Party Products</a>
               </span>
             </div>
@@ -127,7 +127,7 @@
                     add a
                     <tt>&lt;resource-ref&gt;</tt>
                     element for the datasource:
-                    <pre>&lt;resource-ref&gt;
+                    <pre xml:space="preserve">&lt;resource-ref&gt;
     &lt;res-ref-name&gt;jdbc/JiraDS&lt;/res-ref-name&gt;
     &lt;res-type&gt;javax.sql.DataSource&lt;/res-type&gt;
     &lt;res-auth&gt;SERVLET&lt;/res-auth&gt;
@@ -192,7 +192,7 @@
                     create the server-wide transaction manager Jetty configuration file
                     <tt>$JETTY/etc/jetty-tm.xml</tt>
                     with the following content:
-                    <pre>&lt;?xml version="1.0"?&gt;
+                    <pre xml:space="preserve">&lt;?xml version="1.0"?&gt;
 &lt;!DOCTYPE Configure PUBLIC "-//Mort Bay Consulting//DTD Configure//EN" "http://jetty.mortbay.org/configure.dtd"&gt;
 
 &lt;Configure id="Server" class="org.eclipse.jetty.server.Server"&gt;
@@ -212,7 +212,7 @@
                   Create the JIRA web application context configuration file
                   <tt>$JETTY/contexts/jira.xml</tt>
                   with the following content:
-                  <pre>&lt;?xml version="1.0"  encoding="UTF-8"?&gt;
+                  <pre xml:space="preserve">&lt;?xml version="1.0"  encoding="UTF-8"?&gt;
 &lt;!DOCTYPE Configure PUBLIC "-//Jetty//Configure//EN" "http://www.eclipse.org/jetty/configure.dtd"&gt;
  
 &lt;Configure class="org.eclipse.jetty.webapp.WebAppContext"&gt;
@@ -251,12 +251,13 @@
                     <tt>testQuery</tt>
                     that will be use to validate the connection:
                   </p>
-                  <pre>...
+                  <pre xml:space="preserve">...
 &lt;New class="com.atomikos.jdbc.nonxa.AtomikosNonXADataSourceBean"&gt;
     ....
     &lt;Set name="testQuery"&gt;select 1&lt;/Set&gt;
 &lt;/New&gt;
-...</pre>
+...
+</pre>
                   <p>
                     See also
                     <a class="external text" href="http://confluence.atlassian.com/display/JIRA/Surviving+Connection+Closures" rel="nofollow">this page</a>
@@ -268,7 +269,8 @@
                 <span class="mw-headline" id="Start_Jetty">Start Jetty</span>
               </h3>
               <p>Start Jetty with the following command from the $JETTY directory:</p>
-              <pre>java -jar start.jar OPTIONS=default,plus,jsp etc/jetty.xml etc/jetty-tm.xml</pre>
+              <pre xml:space="preserve">java -jar start.jar OPTIONS=default,plus,jsp etc/jetty.xml etc/jetty-tm.xml
+</pre>
             </div>
           </div>
         </div>

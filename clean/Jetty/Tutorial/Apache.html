@@ -16,7 +16,7 @@
               <span class="subpages">
                 &lt;
                 <a href="../../Jetty.html" title="Jetty">Jetty</a>
-                |
+                 |
                 <a href="../Tutorial.html" title="Jetty/Tutorial">Tutorial</a>
               </span>
             </div>
@@ -184,43 +184,19 @@ Jetty is a full functional and optimized HTTP server and has no need of an apach
 the following directives can be used to load all the modules discussed</p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="apache source-apache">
-                  <pre class="de1">
-                    <span class="kw1">LoadModule</span>
-                    proxy_module /usr/lib/apache2/modules/mod_proxy.so
-                    <span class="kw1">LoadModule</span>
-                    proxy_balancer_module /usr/lib/apache2/modules/mod_proxy_balancer.so
-                    <span class="kw1">LoadModule</span>
-                    proxy_http_module /usr/lib/apache2/modules/mod_proxy_http.so
-                    <span class="kw1">LoadModule</span>
-                    proxy_ajp_module /usr/lib/apache2/modules/mod_proxy_ajp.so
-                    <span class="kw1">LoadModule</span>
-                    jk_module /usr/lib/apache2/modules/mod_jk.so
-                  </pre>
+                  <pre class="de1" xml:space="preserve"><span class="kw1">LoadModule</span> proxy_module /usr/lib/apache2/modules/mod_proxy.so
+<span class="kw1">LoadModule</span> proxy_balancer_module /usr/lib/apache2/modules/mod_proxy_balancer.so
+<span class="kw1">LoadModule</span> proxy_http_module /usr/lib/apache2/modules/mod_proxy_http.so
+<span class="kw1">LoadModule</span> proxy_ajp_module /usr/lib/apache2/modules/mod_proxy_ajp.so
+<span class="kw1">LoadModule</span> jk_module /usr/lib/apache2/modules/mod_jk.so</pre>
                 </div>
               </div>
               <p>In some distributions, these load directives can be enabled with symlinks:</p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="bash source-bash">
-                  <pre class="de1">
-                    <span class="kw3">cd</span>
-                    <span class="re1">$APACHE_HOME</span>
-                    <span class="sy0">/</span>
-                    mods-enabled
-                    <span class="kw2">ln</span>
-                    <span class="re5">-s</span>
-                    ..
-                    <span class="sy0">/</span>
-                    mods-available
-                    <span class="sy0">/</span>
-                    proxy.load proxy.load
-                    <span class="kw2">ln</span>
-                    <span class="re5">-s</span>
-                    ..
-                    <span class="sy0">/</span>
-                    mods-available
-                    <span class="sy0">/</span>
-                    proxy_http.load proxy_http.load
-                  </pre>
+                  <pre class="de1" xml:space="preserve"><span class="kw3">cd</span> <span class="re1">$APACHE_HOME</span><span class="sy0">/</span>mods-enabled
+<span class="kw2">ln</span> <span class="re5">-s</span> ..<span class="sy0">/</span>mods-available<span class="sy0">/</span>proxy.load proxy.load
+<span class="kw2">ln</span> <span class="re5">-s</span> ..<span class="sy0">/</span>mods-available<span class="sy0">/</span>proxy_http.load proxy_http.load</pre>
                 </div>
               </div>
               <h3>
@@ -240,54 +216,33 @@ the following directives can be used to load all the modules discussed</p>
               <p>The following directives form a good base configuration for mod_proxy:</p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="apache source-apache">
-                  <pre class="de1">
-                    <span class="co1"># Turn off support for true Proxy behaviour as we are acting as</span>
-                    <span class="co1"># a transparent proxy</span>
-                    <span class="kw1">ProxyRequests</span>
-                    <span class="kw2">Off</span>
-                    <span class="co1"># Turn off VIA header as we know where the requests are proxied</span>
-                    <span class="kw1">ProxyVia</span>
-                    <span class="kw2">Off</span>
-                    <span class="co1"># Turn on Host header preservation so that the servlet container</span>
-                    <span class="co1"># can write links with the correct host and rewriting can be avoided.</span>
-                    <span class="kw1">ProxyPreserveHost</span>
-                    <span class="kw2">On</span>
-                    <span class="co1"># Set the permissions for the proxy</span>
-                    &lt;
-                    <span class="kw3">Proxy</span>
-                    *&gt;
-                    <span class="kw1">AddDefaultCharset</span>
-                    <span class="kw2">off</span>
-                    <span class="kw1">Order</span>
-                    <span class="kw1">deny</span>
-                    ,
-                    <span class="kw1">allow</span>
-                    <span class="kw1">Allow</span>
-                    from
-                    <span class="kw2">all</span>
-                    &lt;/
-                    <span class="kw3">Proxy</span>
-                    &gt;
-                    <span class="co1"># Turn on Proxy status reporting at /status</span>
-                    <span class="co1"># This should be better protected than: Allow from all</span>
-                    <span class="kw1">ProxyStatus</span>
-                    <span class="kw2">On</span>
-                    &lt;
-                    <span class="kw3">Location</span>
-                    /status&gt;
-                    <span class="kw1">SetHandler</span>
-                    server-status
-                    <span class="kw1">Order</span>
-                    <span class="kw1">Deny</span>
-                    ,
-                    <span class="kw1">Allow</span>
-                    <span class="kw1">Allow</span>
-                    from
-                    <span class="kw2">all</span>
-                    &lt;/
-                    <span class="kw3">Location</span>
-                    &gt;
-                  </pre>
+                  <pre class="de1" xml:space="preserve"><span class="co1"># Turn off support for true Proxy behaviour as we are acting as </span>
+<span class="co1"># a transparent proxy</span>
+<span class="kw1">ProxyRequests</span> <span class="kw2">Off</span>
+ 
+<span class="co1"># Turn off VIA header as we know where the requests are proxied</span>
+<span class="kw1">ProxyVia</span> <span class="kw2">Off</span>
+ 
+<span class="co1"># Turn on Host header preservation so that the servlet container</span>
+<span class="co1"># can write links with the correct host and rewriting can be avoided.</span>
+<span class="kw1">ProxyPreserveHost</span> <span class="kw2">On</span>
+ 
+ 
+<span class="co1"># Set the permissions for the proxy</span>
+&lt;<span class="kw3">Proxy</span> *&gt;
+  <span class="kw1">AddDefaultCharset</span> <span class="kw2">off</span>
+  <span class="kw1">Order</span> <span class="kw1">deny</span>,<span class="kw1">allow</span>
+  <span class="kw1">Allow</span> from <span class="kw2">all</span>
+&lt;/<span class="kw3">Proxy</span>&gt;
+ 
+<span class="co1"># Turn on Proxy status reporting at /status</span>
+<span class="co1"># This should be better protected than: Allow from all</span>
+<span class="kw1">ProxyStatus</span> <span class="kw2">On</span>
+&lt;<span class="kw3">Location</span> /status&gt;
+  <span class="kw1">SetHandler</span> server-status
+  <span class="kw1">Order</span> <span class="kw1">Deny</span>,<span class="kw1">Allow</span>
+  <span class="kw1">Allow</span> from <span class="kw2">all</span>
+&lt;/<span class="kw3">Location</span>&gt;</pre>
                 </div>
               </div>
               <h3>
@@ -296,33 +251,16 @@ the following directives can be used to load all the modules discussed</p>
               <p>To connect to servlet container with HTTP protocol, the ProxyPass directive can be used to send requests received on a particular URL to a Jetty instance.  The following example will proxy all requests received by apache on /test/* to the /context running on the local jetty instance on port 8080:</p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="apache source-apache">
-                  <pre class="de1">
-                    <span class="kw1">ProxyPass</span>
-                    /test http://localhost:
-                    <span class="nu0">8080</span>
-                    /context
-                  </pre>
+                  <pre class="de1" xml:space="preserve"><span class="kw1">ProxyPass</span> /test http://localhost:<span class="nu0">8080</span>/context</pre>
                 </div>
               </div>
               <p>Alternately, the location directive can be used to group multiple directives for the same URL:</p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="apache source-apache">
-                  <pre class="de1">
-                    &lt;
-                    <span class="kw3">Location</span>
-                    /test/&gt;
-                    <span class="kw1">ProxyPass</span>
-                    /test http://localhost:
-                    <span class="nu0">8080</span>
-                    /context
-                    <span class="kw1">SetEnv</span>
-                    proxy-
-                    <span class="kw2">nokeepalive</span>
-                    <span class="nu0">1</span>
-                    &lt;/
-                    <span class="kw3">Location</span>
-                    &gt;
-                  </pre>
+                  <pre class="de1" xml:space="preserve">&lt;<span class="kw3">Location</span> /test/&gt;
+  <span class="kw1">ProxyPass</span> /test http://localhost:<span class="nu0">8080</span>/context
+  <span class="kw1">SetEnv</span> proxy-<span class="kw2">nokeepalive</span> <span class="nu0">1</span>
+&lt;/<span class="kw3">Location</span>&gt;</pre>
                 </div>
               </div>
               <p>The mod_proxy_http will set some additional headers on the requests that it proxies:</p>
@@ -351,103 +289,24 @@ the following directives can be used to load all the modules discussed</p>
               <p>If the values of these headers are meaningful to your web application, then Jetty can be configured to interpret them and make their values available via the servlet API. The setForwarded(true) method should be called on the connector.  This can be done in jetty.xml like:</p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="xml source-xml">
-                  <pre class="de1">
-                    <span class="sc3">
-                      <span class="re1">&lt;Call</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"addConnector"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;New</span>
-                      <span class="re0">class</span>
-                      =
-                      <span class="st0">"org.eclipse.jetty.server.nio.SelectChannelConnector"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;Set</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"host"</span>
-                      <span class="re2">&gt;</span>
-                      <span class="re1">&lt;SystemProperty</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"jetty.host"</span>
-                      <span class="re2">/&gt;</span>
-                      <span class="re1">
-                        &lt;/Set
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;Set</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"port"</span>
-                      <span class="re2">&gt;</span>
-                      <span class="re1">&lt;SystemProperty</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"jetty.port"</span>
-                      <span class="re0">default</span>
-                      =
-                      <span class="st0">"8080"</span>
-                      <span class="re2">/&gt;</span>
-                      <span class="re1">
-                        &lt;/Set
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;Set</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"forwarded"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    true
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Set
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/New
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Call
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                  </pre>
+                  <pre class="de1" xml:space="preserve"><span class="sc3"><span class="re1">&lt;Call</span> <span class="re0">name</span>=<span class="st0">"addConnector"</span><span class="re2">&gt;</span></span>
+  <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.server.nio.SelectChannelConnector"</span><span class="re2">&gt;</span></span>
+       <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"host"</span><span class="re2">&gt;</span><span class="re1">&lt;SystemProperty</span> <span class="re0">name</span>=<span class="st0">"jetty.host"</span> <span class="re2">/&gt;</span><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
+       <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"port"</span><span class="re2">&gt;</span><span class="re1">&lt;SystemProperty</span> <span class="re0">name</span>=<span class="st0">"jetty.port"</span> <span class="re0">default</span>=<span class="st0">"8080"</span><span class="re2">/&gt;</span><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
+       <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"forwarded"</span><span class="re2">&gt;</span></span>true<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
+     <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span>
+   <span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
+<span class="sc3"><span class="re1">&lt;/Call<span class="re2">&gt;</span></span></span></pre>
                 </div>
               </div>
               <h3>
                 <span class="mw-headline" id="Proxying_SSL_on_Apache_to_HTTP_on_Jetty">Proxying SSL on Apache to HTTP on Jetty</span>
               </h3>
               <p>The situation here is:</p>
-              <pre>https                 http
----------&gt;   Apache   -------&gt; Jetty</pre>
+              <pre xml:space="preserve">  https                 http
+---------&gt;   Apache   -------&gt; Jetty
+</pre>
               <p>In other words, you have offloaded your SSL onto Apache and you want to use plain http to proxy to Jetty. You want Jetty to return all redirected pages using https:// to your Apache server. You can do that by setting the X-Forwarded-Proto as describe above.</p>
               <p>
                 If you need access on Jetty to some of the SSL information accessible on Apache, then you need to some configuration tricks on Apache to insert the SSL info as headers on outgoing requests. Follow the Apache configuration suggestions on
@@ -463,87 +322,25 @@ the following directives can be used to load all the modules discussed</p>
               <p>To connect to servlet container with AJP protocol, the ProxyPass directive can be used to send requests received on a particular URL to a Jetty instance, using "ajp" as the protocol on the URL.  The following example will proxy all requests received by apache on /test/* to the /context running on the local jetty instance accepting AJP on port 8009:</p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="apache source-apache">
-                  <pre class="de1">
-                    <span class="kw1">ProxyPass</span>
-                    /test ajp://localhost:
-                    <span class="nu0">8009</span>
-                    /context
-                  </pre>
+                  <pre class="de1" xml:space="preserve"><span class="kw1">ProxyPass</span> /test ajp://localhost:<span class="nu0">8009</span>/context</pre>
                 </div>
               </div>
               <p>In order to accept AJP, the jetty instance must be started with an AJP connector configured. This can normally be done with the command line like:</p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="bash source-bash">
-                  <pre class="de1">
-                    java
-                    <span class="re5">-jar</span>
-                    start.jar
-                    <span class="re2">OPTIONS</span>
-                    =Server,ajp etc
-                    <span class="sy0">/</span>
-                    jetty.xml etc
-                    <span class="sy0">/</span>
-                    jetty-ajp.xml
-                  </pre>
+                  <pre class="de1" xml:space="preserve">java <span class="re5">-jar</span> start.jar <span class="re2">OPTIONS</span>=Server,ajp etc<span class="sy0">/</span>jetty.xml etc<span class="sy0">/</span>jetty-ajp.xml</pre>
                 </div>
               </div>
               <p>The contents of the jetty-ajp.xml file simply add an AJP connector with the following</p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="xml source-xml">
-                  <pre class="de1">
-                    <span class="sc3">
-                      <span class="re1">&lt;Call</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"addConnector"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;New</span>
-                      <span class="re0">class</span>
-                      =
-                      <span class="st0">"org.eclipse.jetty.ajp.Ajp13SocketConnector"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;Set</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"port"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    8009
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Set
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/New
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Call
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                  </pre>
+                  <pre class="de1" xml:space="preserve"><span class="sc3"><span class="re1">&lt;Call</span> <span class="re0">name</span>=<span class="st0">"addConnector"</span><span class="re2">&gt;</span></span>
+  <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>
+     <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.ajp.Ajp13SocketConnector"</span><span class="re2">&gt;</span></span>
+       <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"port"</span><span class="re2">&gt;</span></span>8009<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
+     <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
+<span class="sc3"><span class="re1">&lt;/Call<span class="re2">&gt;</span></span></span></pre>
                 </div>
               </div>
               <p>It is recommended to NOT use the AJP protocol, and superior performance and clearer semantics will be achieve using HTTP.</p>
@@ -560,22 +357,11 @@ the following directives can be used to load all the modules discussed</p>
               <p>The balancer allows a received request to be proxied to one of several Jetty instances using either HTTP or AJP as the protocol.  The following example shows how all requests to /test can be proxied to a two node cluster:</p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="apache source-apache">
-                  <pre class="de1">
-                    <span class="kw1">ProxyPass</span>
-                    /test balancer://mycluster/context
-&lt;
-                    <span class="kw3">Proxy</span>
-                    balancer://mycluster&gt;
-                    <span class="kw1">BalancerMember</span>
-                    http://myhost1.org:
-                    <span class="nu0">8080</span>
-                    <span class="kw1">BalancerMember</span>
-                    http://myhost2.org:
-                    <span class="nu0">8080</span>
-                    &lt;/
-                    <span class="kw3">Proxy</span>
-                    &gt;
-                  </pre>
+                  <pre class="de1" xml:space="preserve"><span class="kw1">ProxyPass</span> /test balancer://mycluster/context
+&lt;<span class="kw3">Proxy</span> balancer://mycluster&gt;
+    <span class="kw1">BalancerMember</span> http://myhost1.org:<span class="nu0">8080</span>
+    <span class="kw1">BalancerMember</span> http://myhost2.org:<span class="nu0">8080</span>
+&lt;/<span class="kw3">Proxy</span>&gt;</pre>
                 </div>
               </div>
               <p>
@@ -592,108 +378,18 @@ the following directives can be used to load all the modules discussed</p>
               </p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="xml source-xml">
-                  <pre class="de1">
-                    <span class="sc3">
-                      <span class="re1">&lt;Configure</span>
-                      <span class="re0">id</span>
-                      =
-                      <span class="st0">"Server"</span>
-                      <span class="re0">class</span>
-                      =
-                      <span class="st0">"org.eclipse.jetty.server.Server"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;Set</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"sessionIdManager"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;New</span>
-                      <span class="re0">id</span>
-                      =
-                      <span class="st0">"hashIdMgr"</span>
-                      <span class="re0">class</span>
-                      =
-                      <span class="st0">"org.eclipse.jetty.server.session.HashSessionIdManager"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;Set</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"workerName"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    node1
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Set
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/New
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Set
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;Call</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"setAttribute"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    hashIdMgr
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                      <span class="re1">&lt;Ref</span>
-                      <span class="re0">id</span>
-                      =
-                      <span class="st0">"hashIdMgr"</span>
-                      <span class="re2">/&gt;</span>
-                      <span class="re1">
-                        &lt;/Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Call
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Configure
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                  </pre>
+                  <pre class="de1" xml:space="preserve"><span class="sc3"><span class="re1">&lt;Configure</span> <span class="re0">id</span>=<span class="st0">"Server"</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.server.Server"</span><span class="re2">&gt;</span></span>
+<span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"sessionIdManager"</span><span class="re2">&gt;</span></span>
+     <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">id</span>=<span class="st0">"hashIdMgr"</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.server.session.HashSessionIdManager"</span><span class="re2">&gt;</span></span>
+         <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"workerName"</span><span class="re2">&gt;</span></span>node1<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
+     <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span>
+ <span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
+ <span class="sc3"><span class="re1">&lt;Call</span> <span class="re0">name</span>=<span class="st0">"setAttribute"</span><span class="re2">&gt;</span></span>
+       <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>hashIdMgr<span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
+       <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span><span class="re1">&lt;Ref</span> <span class="re0">id</span>=<span class="st0">"hashIdMgr"</span><span class="re2">/&gt;</span><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
+ <span class="sc3"><span class="re1">&lt;/Call<span class="re2">&gt;</span></span></span>
+ 
+<span class="sc3"><span class="re1">&lt;/Configure<span class="re2">&gt;</span></span></span></pre>
                 </div>
               </div>
               <p>
@@ -702,151 +398,33 @@ the following directives can be used to load all the modules discussed</p>
               </p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="xml source-xml">
-                  <pre class="de1">
-                    <span class="sc3">
-                      <span class="re1">&lt;Ref</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"Server"</span>
-                      <span class="re0">id</span>
-                      =
-                      <span class="st0">"Server"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;Call</span>
-                      <span class="re0">id</span>
-                      =
-                      <span class="st0">"hashIdMgr"</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"getAttribute"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    hashIdMgr
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Call
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Ref
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;Set</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"sessionHandler"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;New</span>
-                      <span class="re0">class</span>
-                      =
-                      <span class="st0">"org.eclipse.jetty.server.session.SessionHandler"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;New</span>
-                      <span class="re0">id</span>
-                      =
-                      <span class="st0">"hashMgr"</span>
-                      <span class="re0">class</span>
-                      =
-                      <span class="st0">"org.eclipse.jetty.server.session.HashSessionManager"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;Set</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"idManager"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;Ref</span>
-                      <span class="re0">id</span>
-                      =
-                      <span class="st0">"hashIdMgr"</span>
-                      <span class="re2">/&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Set
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/New
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/New
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Set
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                  </pre>
+                  <pre class="de1" xml:space="preserve"><span class="sc3"><span class="re1">&lt;Ref</span> <span class="re0">name</span>=<span class="st0">"Server"</span> <span class="re0">id</span>=<span class="st0">"Server"</span><span class="re2">&gt;</span></span>
+   <span class="sc3"><span class="re1">&lt;Call</span> <span class="re0">id</span>=<span class="st0">"hashIdMgr"</span> <span class="re0">name</span>=<span class="st0">"getAttribute"</span><span class="re2">&gt;</span></span>
+     <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>hashIdMgr<span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
+   <span class="sc3"><span class="re1">&lt;/Call<span class="re2">&gt;</span></span></span>
+ <span class="sc3"><span class="re1">&lt;/Ref<span class="re2">&gt;</span></span></span>
+ 
+ <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"sessionHandler"</span><span class="re2">&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.server.session.SessionHandler"</span><span class="re2">&gt;</span></span>
+      <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">id</span>=<span class="st0">"hashMgr"</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.server.session.HashSessionManager"</span><span class="re2">&gt;</span></span>
+          <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"idManager"</span><span class="re2">&gt;</span></span>
+            <span class="sc3"><span class="re1">&lt;Ref</span> <span class="re0">id</span>=<span class="st0">"hashIdMgr"</span><span class="re2">/&gt;</span></span>
+          <span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span>
+      <span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span>
+ <span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span></pre>
                 </div>
               </div>
               <p>Once your jetty instances have been configured with worker names, then the following configuration will set up mod_proxy_balancer to look for those worker names in the JSESSIONID cookie and jsessionid URL parameter:</p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="apache source-apache">
-                  <pre class="de1">
-                    <span class="kw1">ProxyPass</span>
-                    /test balancer://mycluster/context stickysession=JSESSIONID|jsessionid nofailover=
-                    <span class="kw2">On</span>
-                    &lt;
-                    <span class="kw3">Proxy</span>
-                    balancer://mycluster&gt;
-                    <span class="kw1">BalancerMember</span>
-                    http://myhost1.org:
-                    <span class="nu0">8080</span>
-                    route=node1
-                    <span class="kw1">BalancerMember</span>
-                    http://myhost2.org:
-                    <span class="nu0">8080</span>
-                    route=node2
-&lt;/
-                    <span class="kw3">Proxy</span>
-                    &gt;
-                  </pre>
+                  <pre class="de1" xml:space="preserve"><span class="kw1">ProxyPass</span> /test balancer://mycluster/context stickysession=JSESSIONID|jsessionid nofailover=<span class="kw2">On</span>
+&lt;<span class="kw3">Proxy</span> balancer://mycluster&gt;
+    <span class="kw1">BalancerMember</span> http://myhost1.org:<span class="nu0">8080</span> route=node1
+    <span class="kw1">BalancerMember</span> http://myhost2.org:<span class="nu0">8080</span> route=node2
+&lt;/<span class="kw3">Proxy</span>&gt;</pre>
                 </div>
               </div>
               <p>If your cluster supports distributed sessions (via Database, Wadi, terracotta, gigaspaces, etc), then you can set nofailover=Off, so that if a node fails then the balancer will reroute the request to another node in the cluster.  Jetty will automatically rewrite the worker ID of a cookie for a rerouted request. With nofailover=On, an 503 unavailable response will be sent if a worker node fails.</p>
@@ -857,16 +435,10 @@ the following directives can be used to load all the modules discussed</p>
               <p>However, not all web applications are well written with regards to the Host header, and some hard code domain names.  If this is the case with your webapp, then you may need to rewrite some headers and links. The following example shows how the ProxyPassReverse directives can be used to rewrite headers and cookies.</p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="apache source-apache">
-                  <pre class="de1">
-                    <span class="kw1">ProxyPass</span>
-                    /mirror/foo/ http://backend.example.com/
-                    <span class="kw1">ProxyPassReverse</span>
-                    /mirror/foo/ http://backend.example.com/
-                    <span class="kw1">ProxyPassReverseCookieDomain</span>
-                    backend.example.com public.example.com
-                    <span class="kw1">ProxyPassReverseCookiePath</span>
-                    / /mirror/foo/
-                  </pre>
+                  <pre class="de1" xml:space="preserve"><span class="kw1">ProxyPass</span> /mirror/foo/ http://backend.example.com/
+<span class="kw1">ProxyPassReverse</span> /mirror/foo/ http://backend.example.com/
+<span class="kw1">ProxyPassReverseCookieDomain</span> backend.example.com public.example.com
+<span class="kw1">ProxyPassReverseCookiePath</span> / /mirror/foo/</pre>
                 </div>
               </div>
               <p>

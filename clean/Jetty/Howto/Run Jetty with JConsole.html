@@ -16,7 +16,7 @@
               <span class="subpages">
                 &lt;
                 <a href="../../Jetty.html" title="Jetty">Jetty</a>
-                |
+                 |
                 <a href="../Howto.html" title="Jetty/Howto">Howto</a>
               </span>
             </div>
@@ -101,8 +101,9 @@
                 <span class="mw-headline" id="Starting_Jetty_Standalone">Starting Jetty Standalone</span>
               </h3>
               <p>This is straightforward from the command line, when running the standalone Jetty binary.</p>
-              <pre>java -Dcom.sun.management.jmxremote -jar start.jar  etc/jetty-jmx.xml
- jconsole &amp;        # runs jconsole in the background</pre>
+              <pre xml:space="preserve"> java -Dcom.sun.management.jmxremote -jar start.jar  etc/jetty-jmx.xml
+ jconsole &amp;        # runs jconsole in the background 
+</pre>
               <p>
                 You might also want to consult the section on configuring the
                 <a href="../Feature/Start.jar.html" title="Jetty/Feature/Start.jar">start.ini</a>
@@ -119,9 +120,10 @@
                 on Maven before running the plugin. The way to do this is to set your MAVEN_OPTS environment variable (if you're not sure how to do this, consult the Maven documentation).
               </p>
               <p>Here is an example that sets the system property on the fly in a BASH shell, before starting Jetty via the plugin:</p>
-              <pre>export MAVEN_OPTS=-Dcom.sun.management.jmxremote
+              <pre xml:space="preserve"> export MAVEN_OPTS=-Dcom.sun.management.jmxremote
  mvn jetty:run
- jconsole &amp;        # runs jconsole in the background</pre>
+ jconsole &amp;        # runs jconsole in the background 
+</pre>
               <h3>
                 <span class="mw-headline" id="Connecting_to_your_server_process">Connecting to your server process</span>
               </h3>
@@ -165,8 +167,9 @@
                   configuration, to configure the JVM JMX Server.
                 </li>
               </ul>
-              <pre>java -Dcom.sun.management.jmxremote -jar start.jar OPTIONS=default,jmx etc/jetty-jmx.xml etc/jetty.xml [more config files]
-   jconsole &amp;</pre>
+              <pre xml:space="preserve">   java -Dcom.sun.management.jmxremote -jar start.jar OPTIONS=default,jmx etc/jetty-jmx.xml etc/jetty.xml [more config files]
+   jconsole &amp;
+</pre>
               <h3>
                 <span class="mw-headline" id="Starting_the_Jetty_Maven_Plugin_2">Starting the Jetty Maven Plugin</span>
               </h3>
@@ -179,82 +182,25 @@
               </p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="xml source-xml">
-                  <pre class="de1">
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;plugin
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;groupId
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    org.mortbay.jetty
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/groupId
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;artifactId
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    jetty-maven-plugin
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/artifactId
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;configuration
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    ...
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;jettyConfig
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    /path/to/jetty-jmx.xml
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/jettyConfig
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    ...
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/configuration
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/plugin
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                  </pre>
+                  <pre class="de1" xml:space="preserve"><span class="sc3"><span class="re1">&lt;plugin<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;groupId<span class="re2">&gt;</span></span></span>org.mortbay.jetty<span class="sc3"><span class="re1">&lt;/groupId<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;artifactId<span class="re2">&gt;</span></span></span>jetty-maven-plugin<span class="sc3"><span class="re1">&lt;/artifactId<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;configuration<span class="re2">&gt;</span></span></span>
+    ...
+    <span class="sc3"><span class="re1">&lt;jettyConfig<span class="re2">&gt;</span></span></span>/path/to/jetty-jmx.xml<span class="sc3"><span class="re1">&lt;/jettyConfig<span class="re2">&gt;</span></span></span>
+    ...
+  <span class="sc3"><span class="re1">&lt;/configuration<span class="re2">&gt;</span></span></span>
+<span class="sc3"><span class="re1">&lt;/plugin<span class="re2">&gt;</span></span></span></pre>
                 </div>
               </div>
               <p>
                 <br />
                 Then, just as above, start JConsole and Jetty:
               </p>
-              <pre>export MAVEN_OPTS=-Dcom.sun.management.jmxremote
+              <pre xml:space="preserve"> export MAVEN_OPTS=-Dcom.sun.management.jmxremote
  mvn jetty:run
- jconsole &amp;        # runs jconsole in the background</pre>
+ jconsole &amp;        # runs jconsole in the background
+</pre>
             </div>
           </div>
         </div>

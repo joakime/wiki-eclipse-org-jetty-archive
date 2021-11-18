@@ -16,7 +16,7 @@
               <span class="subpages">
                 &lt;
                 <a href="../../Jetty.html" title="Jetty">Jetty</a>
-                |
+                 |
                 <a href="../Feature.html" title="Jetty/Feature">Feature</a>
               </span>
             </div>
@@ -202,18 +202,7 @@ It starts a jetty server according to these configuration files:
               </p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="xml source-xml">
-                  <pre class="de1">
-                    <span class="sc3">
-                      <span class="re1">&lt;Configure</span>
-                      <span class="re0">id</span>
-                      =
-                      <span class="st0">"Server"</span>
-                      <span class="re0">class</span>
-                      =
-                      <span class="st0">"org.eclipse.jetty.server.Server"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                  </pre>
+                  <pre class="de1" xml:space="preserve"> <span class="sc3"><span class="re1">&lt;Configure</span> <span class="re0">id</span>=<span class="st0">"Server"</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.server.Server"</span><span class="re2">&gt;</span></span></pre>
                 </div>
               </div>
               <p>The classloader inside which the jetty server is executing is a mix of the OSGi classloader provided by the 'org.eclipse.jetty.osgi.boot' bundle and also the jars and folders found inside ${jetty.home}/lib/ext and ${jetty.home}/resources.</p>
@@ -239,7 +228,7 @@ When a bundle is started and contains "WEB-INF/web.xml", an RFC66 implementation
                 <span class="mw-headline" id="Manifest_headers_and_access_to_OSGI_in_the_servlet_context">Manifest headers and access to OSGI in the servlet context</span>
               </h4>
               <p>The mandatory manifest header of RFC66 is supported:</p>
-              <pre>Web-ContextPath: /theContextPath&lt;br&gt;</pre>
+              <pre xml:space="preserve">Web-ContextPath: /theContextPath&lt;br&gt;</pre>
               <p>The default behavior when it is missing is also supported: the default context path is the symbolic name of the bundle that contains WEB-INF/web.xml.</p>
               <p>The optional header "Jsp-ExtractLocation" is not supported currently.</p>
               <p>A web-application deployed by OSGi contains a pointer to the org.osgi.BundleContext object as the attribute 'osgi-bundlecontext' of the servlet context.</p>
@@ -249,7 +238,7 @@ When a bundle is started and contains "WEB-INF/web.xml", an RFC66 implementation
               </h4>
               <p>The "war" URL scheme specified by RFC66 support the installation of J2EE web archives - "war" files - into an OSGi environment.
 On the OSGi shell, it is possible to install a war file with a command like this one:</p>
-              <pre>&gt;install war:file://path/to/pet.war&lt;br&gt;</pre>
+              <pre xml:space="preserve">&gt;install war:file://path/to/pet.war&lt;br&gt;</pre>
               <p>The corresponding war file is transformed into a suitable OSGi bundle and installed on to the OSGi container.</p>
               <p>The support for this protocol is mostly complete.
 The query string parameters that enable overriding the manifest headers and other settings have not been extensively tested.</p>
@@ -267,7 +256,7 @@ It is in the bundle
               <h4>
                 <span class="mw-headline" id="Manifest_headers_specific_to_jetty">Manifest headers specific to jetty</span>
               </h4>
-              <pre>Jetty-WarFolderPath: /path/to/a/webapp</pre>
+              <pre xml:space="preserve">Jetty-WarFolderPath: /path/to/a/webapp</pre>
               <p>This entry let's the user define a comma separated list of folder paths relative to the base folder of the bundle.
 Each folder will be deployed as a web-application.
 It is required that each folder contains WEB-INF/web.xml
@@ -282,7 +271,7 @@ Hence each webapp can eventually contain WEB-INF/lib and WEB-INF/classes for lib
                 <a class="external text" href="http://wiki.eclipse.org/Jetty/Reference/jetty-web.xml" rel="nofollow">WEB-INF/jetty-web.xml file</a>
                 to post-configure the webapp too.
               </p>
-              <pre>Jetty-ContextFilePath: /path/to/a/context/file.xml,/path/to/another/context/file.xml</pre>
+              <pre xml:space="preserve">Jetty-ContextFilePath: /path/to/a/context/file.xml,/path/to/another/context/file.xml</pre>
               <p>
                 This header is a comma separated list of
                 <a class="external text" href="http://wiki.eclipse.org/Jetty/Feature/ContextDeployer#Contexts" rel="nofollow">context xml</a>
@@ -301,70 +290,15 @@ Whenever an instance of that service is registered, jetty-osgi will read the att
               <p>The following static method illustrate how to deploy a web-application in OSGi programmatically:</p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="java source-java">
-                  <pre class="de1">
-                    <span class="kw1">public</span>
-                    <span class="kw1">static</span>
-                    <span class="kw4">void</span>
-                    registerWebapplication
-                    <span class="br0">(</span>
-                    Bundle contributor,
-                    <span class="kw3">String</span>
-                    webappFolderPath,
-                    <span class="kw3">String</span>
-                    contextPath
-                    <span class="br0">)</span>
-                    <span class="kw1">throws</span>
-                    <span class="kw3">Exception</span>
-                    <span class="br0">{</span>
-                    WebAppContext contextHandler
-                    <span class="sy0">=</span>
-                    <span class="kw1">new</span>
-                    WebAppContext
-                    <span class="br0">(</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    <span class="kw3">Properties</span>
-                    dic
-                    <span class="sy0">=</span>
-                    <span class="kw1">new</span>
-                    <span class="kw3">Properties</span>
-                    <span class="br0">(</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    dic.
-                    <span class="me1">put</span>
-                    <span class="br0">(</span>
-                    OSGiWebappConstants.
-                    <span class="me1">SERVICE_PROP_WAR</span>
-                    , webappFolderPath
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    dic.
-                    <span class="me1">put</span>
-                    <span class="br0">(</span>
-                    OSGiWebappConstants.
-                    <span class="me1">SERVICE_PROP_CONTEXT_PATH</span>
-                    , contextPath
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    contributor.
-                    <span class="me1">getBundleContext</span>
-                    <span class="br0">(</span>
-                    <span class="br0">)</span>
-                    .
-                    <span class="me1">registerService</span>
-                    <span class="br0">(</span>
-                    ContextHandler.
-                    <span class="kw1">class</span>
-                    .
-                    <span class="me1">getName</span>
-                    <span class="br0">(</span>
-                    <span class="br0">)</span>
-                    , contextHandler, dic
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    <span class="br0">}</span>
-                  </pre>
+                  <pre class="de1" xml:space="preserve"><span class="kw1">public</span> <span class="kw1">static</span> <span class="kw4">void</span> registerWebapplication<span class="br0">(</span>Bundle contributor, <span class="kw3">String</span> webappFolderPath, <span class="kw3">String</span> contextPath<span class="br0">)</span> <span class="kw1">throws</span> <span class="kw3">Exception</span>  <span class="br0">{</span>
+        WebAppContext contextHandler <span class="sy0">=</span> <span class="kw1">new</span> WebAppContext<span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
+ 
+        <span class="kw3">Properties</span> dic <span class="sy0">=</span> <span class="kw1">new</span> <span class="kw3">Properties</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
+        dic.<span class="me1">put</span><span class="br0">(</span>OSGiWebappConstants.<span class="me1">SERVICE_PROP_WAR</span>, webappFolderPath<span class="br0">)</span><span class="sy0">;</span>
+        dic.<span class="me1">put</span><span class="br0">(</span>OSGiWebappConstants.<span class="me1">SERVICE_PROP_CONTEXT_PATH</span>, contextPath<span class="br0">)</span><span class="sy0">;</span>
+ 
+        contributor.<span class="me1">getBundleContext</span><span class="br0">(</span><span class="br0">)</span>.<span class="me1">registerService</span><span class="br0">(</span>ContextHandler.<span class="kw1">class</span>.<span class="me1">getName</span><span class="br0">(</span><span class="br0">)</span>, contextHandler, dic<span class="br0">)</span><span class="sy0">;</span>
+<span class="br0">}</span></pre>
                 </div>
               </div>
               <p>When deploying a web-application, it is necessary to create a WebAppContext rather than a basic ContextHandler.</p>
@@ -431,9 +365,10 @@ Whenever an instance of that service is registered, jetty-osgi will read the att
               <h3>
                 <span class="mw-headline" id="Classloader_tree">Classloader tree</span>
               </h3>
-              <pre>'org.eclipse.jetty.osgi.boot' (org.eclipse.jetty.*, javax.*, most optional) + dependencies_injected_by_fragments
+              <pre xml:space="preserve">'org.eclipse.jetty.osgi.boot' (org.eclipse.jetty.*, javax.*, most optional) + dependencies_injected_by_fragments
       jetty-server (${jetty.home}/resources, ${jetty.home}/lib/ext)
-      web-application (OSGi-bundle-that-contains-it, WEB-INF/classes, WEB-INF/lib, extraClasspath)</pre>
+      web-application (OSGi-bundle-that-contains-it, WEB-INF/classes, WEB-INF/lib, extraClasspath)
+</pre>
               <p>To be more precise we could mention the extra classloader for jsp that supports jasper and the taglibraries.</p>
               <h3>
                 <span class="mw-headline" id="Injecting_new_server-wide_features_into_jetty-osgi">Injecting new server-wide features into jetty-osgi</span>

@@ -16,7 +16,7 @@
               <span class="subpages">
                 &lt;
                 <a href="../../Jetty.html" title="Jetty">Jetty</a>
-                |
+                 |
                 <a href="../Tutorial.html" title="Jetty/Tutorial">Tutorial</a>
               </span>
             </div>
@@ -177,45 +177,15 @@
               </p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="java source-java">
-                  <pre class="de1">
-                    <span class="kw1">public</span>
-                    <span class="kw1">class</span>
-                    SimplestServer
-                    <span class="br0">{</span>
-                    <span class="kw1">public</span>
-                    <span class="kw1">static</span>
-                    <span class="kw4">void</span>
-                    main
-                    <span class="br0">(</span>
-                    <span class="kw3">String</span>
-                    <span class="br0">[</span>
-                    <span class="br0">]</span>
-                    args
-                    <span class="br0">)</span>
-                    <span class="kw1">throws</span>
-                    <span class="kw3">Exception</span>
-                    <span class="br0">{</span>
-                    Server server
-                    <span class="sy0">=</span>
-                    <span class="kw1">new</span>
-                    Server
-                    <span class="br0">(</span>
-                    <span class="nu0">8080</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    server.
-                    <span class="me1">start</span>
-                    <span class="br0">(</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    server.
-                    <span class="me1">join</span>
-                    <span class="br0">(</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    <span class="br0">}</span>
-                    <span class="br0">}</span>
-                  </pre>
+                  <pre class="de1" xml:space="preserve"><span class="kw1">public</span> <span class="kw1">class</span> SimplestServer
+<span class="br0">{</span>
+    <span class="kw1">public</span> <span class="kw1">static</span> <span class="kw4">void</span> main<span class="br0">(</span><span class="kw3">String</span><span class="br0">[</span><span class="br0">]</span> args<span class="br0">)</span> <span class="kw1">throws</span> <span class="kw3">Exception</span>
+    <span class="br0">{</span>
+        Server server <span class="sy0">=</span> <span class="kw1">new</span> Server<span class="br0">(</span><span class="nu0">8080</span><span class="br0">)</span><span class="sy0">;</span>
+        server.<span class="me1">start</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
+        server.<span class="me1">join</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
+    <span class="br0">}</span>
+<span class="br0">}</span></pre>
                 </div>
               </div>
               <p>This runs an HTTP server on port 8080.  It is not a very useful server as it has no handlers and thus returns a 404 error for every request.</p>
@@ -254,58 +224,17 @@
               </p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="java source-java">
-                  <pre class="de1">
-                    <span class="kw1">public</span>
-                    <span class="kw1">class</span>
-                    HelloHandler
-                    <span class="kw1">extends</span>
-                    AbstractHandler
-                    <span class="br0">{</span>
-                    <span class="kw1">public</span>
-                    <span class="kw4">void</span>
-                    handle
-                    <span class="br0">(</span>
-                    <span class="kw3">String</span>
-                    target,
-                    <span class="kw3">Request</span>
-                    baseRequest,HttpServletRequest request,HttpServletResponse response
-                    <span class="br0">)</span>
-                    <span class="kw1">throws</span>
-                    <span class="kw3">IOException</span>
-                    , ServletException
-                    <span class="br0">{</span>
-                    response.
-                    <span class="me1">setContentType</span>
-                    <span class="br0">(</span>
-                    <span class="st0">"text/html;charset=utf-8"</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    response.
-                    <span class="me1">setStatus</span>
-                    <span class="br0">(</span>
-                    HttpServletResponse.
-                    <span class="me1">SC_OK</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    baseRequest.
-                    <span class="me1">setHandled</span>
-                    <span class="br0">(</span>
-                    <span class="kw2">true</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    response.
-                    <span class="me1">getWriter</span>
-                    <span class="br0">(</span>
-                    <span class="br0">)</span>
-                    .
-                    <span class="me1">println</span>
-                    <span class="br0">(</span>
-                    <span class="st0">"&lt;h1&gt;Hello World&lt;/h1&gt;"</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    <span class="br0">}</span>
-                    <span class="br0">}</span>
-                  </pre>
+                  <pre class="de1" xml:space="preserve"><span class="kw1">public</span> <span class="kw1">class</span> HelloHandler <span class="kw1">extends</span> AbstractHandler
+<span class="br0">{</span>
+    <span class="kw1">public</span> <span class="kw4">void</span> handle<span class="br0">(</span><span class="kw3">String</span> target,<span class="kw3">Request</span> baseRequest,HttpServletRequest request,HttpServletResponse response<span class="br0">)</span> 
+        <span class="kw1">throws</span> <span class="kw3">IOException</span>, ServletException
+    <span class="br0">{</span>
+        response.<span class="me1">setContentType</span><span class="br0">(</span><span class="st0">"text/html;charset=utf-8"</span><span class="br0">)</span><span class="sy0">;</span>
+        response.<span class="me1">setStatus</span><span class="br0">(</span>HttpServletResponse.<span class="me1">SC_OK</span><span class="br0">)</span><span class="sy0">;</span>
+        baseRequest.<span class="me1">setHandled</span><span class="br0">(</span><span class="kw2">true</span><span class="br0">)</span><span class="sy0">;</span>
+        response.<span class="me1">getWriter</span><span class="br0">(</span><span class="br0">)</span>.<span class="me1">println</span><span class="br0">(</span><span class="st0">"&lt;h1&gt;Hello World&lt;/h1&gt;"</span><span class="br0">)</span><span class="sy0">;</span>
+    <span class="br0">}</span>
+<span class="br0">}</span></pre>
                 </div>
               </div>
               <p>The parameters passed to the handle method are:</p>
@@ -323,49 +252,14 @@
               </p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="java source-java">
-                  <pre class="de1">
-                    <span class="kw1">public</span>
-                    <span class="kw1">static</span>
-                    <span class="kw4">void</span>
-                    main
-                    <span class="br0">(</span>
-                    <span class="kw3">String</span>
-                    <span class="br0">[</span>
-                    <span class="br0">]</span>
-                    args
-                    <span class="br0">)</span>
-                    <span class="kw1">throws</span>
-                    <span class="kw3">Exception</span>
-                    <span class="br0">{</span>
-                    Server server
-                    <span class="sy0">=</span>
-                    <span class="kw1">new</span>
-                    Server
-                    <span class="br0">(</span>
-                    <span class="nu0">8080</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    server.
-                    <span class="me1">setHandler</span>
-                    <span class="br0">(</span>
-                    <span class="kw1">new</span>
-                    HelloHandler
-                    <span class="br0">(</span>
-                    <span class="br0">)</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    server.
-                    <span class="me1">start</span>
-                    <span class="br0">(</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    server.
-                    <span class="me1">join</span>
-                    <span class="br0">(</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    <span class="br0">}</span>
-                  </pre>
+                  <pre class="de1" xml:space="preserve"><span class="kw1">public</span> <span class="kw1">static</span> <span class="kw4">void</span> main<span class="br0">(</span><span class="kw3">String</span><span class="br0">[</span><span class="br0">]</span> args<span class="br0">)</span> <span class="kw1">throws</span> <span class="kw3">Exception</span>
+<span class="br0">{</span>
+    Server server <span class="sy0">=</span> <span class="kw1">new</span> Server<span class="br0">(</span><span class="nu0">8080</span><span class="br0">)</span><span class="sy0">;</span>
+    server.<span class="me1">setHandler</span><span class="br0">(</span><span class="kw1">new</span> HelloHandler<span class="br0">(</span><span class="br0">)</span><span class="br0">)</span><span class="sy0">;</span>
+ 
+    server.<span class="me1">start</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
+    server.<span class="me1">join</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
+<span class="br0">}</span></pre>
                 </div>
               </div>
               <p>
@@ -388,185 +282,41 @@
               </p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="java source-java">
-                  <pre class="de1">
-                    <span class="kw1">public</span>
-                    <span class="kw1">class</span>
-                    ManyConnectors
-                    <span class="br0">{</span>
-                    <span class="kw1">public</span>
-                    <span class="kw1">static</span>
-                    <span class="kw4">void</span>
-                    main
-                    <span class="br0">(</span>
-                    <span class="kw3">String</span>
-                    <span class="br0">[</span>
-                    <span class="br0">]</span>
-                    args
-                    <span class="br0">)</span>
-                    <span class="kw1">throws</span>
-                    <span class="kw3">Exception</span>
-                    <span class="br0">{</span>
-                    Server server
-                    <span class="sy0">=</span>
-                    <span class="kw1">new</span>
-                    Server
-                    <span class="br0">(</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    SelectChannelConnector connector0
-                    <span class="sy0">=</span>
-                    <span class="kw1">new</span>
-                    SelectChannelConnector
-                    <span class="br0">(</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    connector0.
-                    <span class="me1">setPort</span>
-                    <span class="br0">(</span>
-                    <span class="nu0">8080</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    connector0.
-                    <span class="me1">setMaxIdleTime</span>
-                    <span class="br0">(</span>
-                    <span class="nu0">30000</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    connector0.
-                    <span class="me1">setRequestHeaderSize</span>
-                    <span class="br0">(</span>
-                    <span class="nu0">8192</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    SelectChannelConnector connector1
-                    <span class="sy0">=</span>
-                    <span class="kw1">new</span>
-                    SelectChannelConnector
-                    <span class="br0">(</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    connector1.
-                    <span class="me1">setHost</span>
-                    <span class="br0">(</span>
-                    <span class="st0">"127.0.0.1"</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    connector1.
-                    <span class="me1">setPort</span>
-                    <span class="br0">(</span>
-                    <span class="nu0">8888</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    connector1.
-                    <span class="me1">setThreadPool</span>
-                    <span class="br0">(</span>
-                    <span class="kw1">new</span>
-                    QueuedThreadPool
-                    <span class="br0">(</span>
-                    <span class="nu0">20</span>
-                    <span class="br0">)</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    connector1.
-                    <span class="me1">setName</span>
-                    <span class="br0">(</span>
-                    <span class="st0">"admin"</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    SslSelectChannelConnector ssl_connector
-                    <span class="sy0">=</span>
-                    <span class="kw1">new</span>
-                    SslSelectChannelConnector
-                    <span class="br0">(</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    <span class="kw3">String</span>
-                    jetty_home
-                    <span class="sy0">=</span>
-                    <span class="kw3">System</span>
-                    .
-                    <span class="me1">getProperty</span>
-                    <span class="br0">(</span>
-                    <span class="st0">"jetty.home"</span>
-                    ,
-                    <span class="st0">"../jetty-distribution/target/distribution"</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    <span class="kw3">System</span>
-                    .
-                    <span class="me1">setProperty</span>
-                    <span class="br0">(</span>
-                    <span class="st0">"jetty.home"</span>
-                    ,jetty_home
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    ssl_connector.
-                    <span class="me1">setPort</span>
-                    <span class="br0">(</span>
-                    <span class="nu0">8443</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    SslContextFactory cf
-                    <span class="sy0">=</span>
-                    ssl_connector.
-                    <span class="me1">getSslContextFactory</span>
-                    <span class="br0">(</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    cf.
-                    <span class="me1">setKeyStore</span>
-                    <span class="br0">(</span>
-                    jetty_home
-                    <span class="sy0">+</span>
-                    <span class="st0">"/etc/keystore"</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    cf.
-                    <span class="me1">setKeyStorePassword</span>
-                    <span class="br0">(</span>
-                    <span class="st0">"OBF:1vny1zlo1x8e1vnw1vn61x8g1zlu1vn4"</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    cf.
-                    <span class="me1">setKeyManagerPassword</span>
-                    <span class="br0">(</span>
-                    <span class="st0">"OBF:1u2u1wml1z7s1z7a1wnl1u2g"</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    server.
-                    <span class="me1">setConnectors</span>
-                    <span class="br0">(</span>
-                    <span class="kw1">new</span>
-                    Connector
-                    <span class="br0">[</span>
-                    <span class="br0">]</span>
-                    <span class="br0">{</span>
-                    connector0, connector1, ssl_connector
-                    <span class="br0">}</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    server.
-                    <span class="me1">setHandler</span>
-                    <span class="br0">(</span>
-                    <span class="kw1">new</span>
-                    HelloHandler
-                    <span class="br0">(</span>
-                    <span class="br0">)</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    server.
-                    <span class="me1">start</span>
-                    <span class="br0">(</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    server.
-                    <span class="me1">join</span>
-                    <span class="br0">(</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    <span class="br0">}</span>
-                    <span class="br0">}</span>
-                  </pre>
+                  <pre class="de1" xml:space="preserve"><span class="kw1">public</span> <span class="kw1">class</span> ManyConnectors
+<span class="br0">{</span>
+    <span class="kw1">public</span> <span class="kw1">static</span> <span class="kw4">void</span> main<span class="br0">(</span><span class="kw3">String</span><span class="br0">[</span><span class="br0">]</span> args<span class="br0">)</span> <span class="kw1">throws</span> <span class="kw3">Exception</span>
+    <span class="br0">{</span>
+        Server server <span class="sy0">=</span> <span class="kw1">new</span> Server<span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
+ 
+        SelectChannelConnector connector0 <span class="sy0">=</span> <span class="kw1">new</span> SelectChannelConnector<span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
+        connector0.<span class="me1">setPort</span><span class="br0">(</span><span class="nu0">8080</span><span class="br0">)</span><span class="sy0">;</span>
+        connector0.<span class="me1">setMaxIdleTime</span><span class="br0">(</span><span class="nu0">30000</span><span class="br0">)</span><span class="sy0">;</span>
+        connector0.<span class="me1">setRequestHeaderSize</span><span class="br0">(</span><span class="nu0">8192</span><span class="br0">)</span><span class="sy0">;</span>
+ 
+        SelectChannelConnector connector1 <span class="sy0">=</span> <span class="kw1">new</span> SelectChannelConnector<span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
+        connector1.<span class="me1">setHost</span><span class="br0">(</span><span class="st0">"127.0.0.1"</span><span class="br0">)</span><span class="sy0">;</span>
+        connector1.<span class="me1">setPort</span><span class="br0">(</span><span class="nu0">8888</span><span class="br0">)</span><span class="sy0">;</span>
+        connector1.<span class="me1">setThreadPool</span><span class="br0">(</span><span class="kw1">new</span> QueuedThreadPool<span class="br0">(</span><span class="nu0">20</span><span class="br0">)</span><span class="br0">)</span><span class="sy0">;</span>
+        connector1.<span class="me1">setName</span><span class="br0">(</span><span class="st0">"admin"</span><span class="br0">)</span><span class="sy0">;</span>
+ 
+        SslSelectChannelConnector ssl_connector <span class="sy0">=</span> <span class="kw1">new</span> SslSelectChannelConnector<span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
+        <span class="kw3">String</span> jetty_home <span class="sy0">=</span> 
+          <span class="kw3">System</span>.<span class="me1">getProperty</span><span class="br0">(</span><span class="st0">"jetty.home"</span>,<span class="st0">"../jetty-distribution/target/distribution"</span><span class="br0">)</span><span class="sy0">;</span>
+        <span class="kw3">System</span>.<span class="me1">setProperty</span><span class="br0">(</span><span class="st0">"jetty.home"</span>,jetty_home<span class="br0">)</span><span class="sy0">;</span>
+        ssl_connector.<span class="me1">setPort</span><span class="br0">(</span><span class="nu0">8443</span><span class="br0">)</span><span class="sy0">;</span>
+        SslContextFactory cf <span class="sy0">=</span> ssl_connector.<span class="me1">getSslContextFactory</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
+        cf.<span class="me1">setKeyStore</span><span class="br0">(</span>jetty_home <span class="sy0">+</span> <span class="st0">"/etc/keystore"</span><span class="br0">)</span><span class="sy0">;</span>
+        cf.<span class="me1">setKeyStorePassword</span><span class="br0">(</span><span class="st0">"OBF:1vny1zlo1x8e1vnw1vn61x8g1zlu1vn4"</span><span class="br0">)</span><span class="sy0">;</span>
+        cf.<span class="me1">setKeyManagerPassword</span><span class="br0">(</span><span class="st0">"OBF:1u2u1wml1z7s1z7a1wnl1u2g"</span><span class="br0">)</span><span class="sy0">;</span>
+ 
+        server.<span class="me1">setConnectors</span><span class="br0">(</span><span class="kw1">new</span> Connector<span class="br0">[</span><span class="br0">]</span><span class="br0">{</span> connector0, connector1, ssl_connector <span class="br0">}</span><span class="br0">)</span><span class="sy0">;</span>
+ 
+        server.<span class="me1">setHandler</span><span class="br0">(</span><span class="kw1">new</span> HelloHandler<span class="br0">(</span><span class="br0">)</span><span class="br0">)</span><span class="sy0">;</span>
+ 
+        server.<span class="me1">start</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
+        server.<span class="me1">join</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
+    <span class="br0">}</span>
+<span class="br0">}</span></pre>
                 </div>
               </div>
               <h2>
@@ -616,123 +366,29 @@
               </p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="java source-java">
-                  <pre class="de1">
-                    <span class="kw1">public</span>
-                    <span class="kw1">class</span>
-                    FileServer
-                    <span class="br0">{</span>
-                    <span class="kw1">public</span>
-                    <span class="kw1">static</span>
-                    <span class="kw4">void</span>
-                    main
-                    <span class="br0">(</span>
-                    <span class="kw3">String</span>
-                    <span class="br0">[</span>
-                    <span class="br0">]</span>
-                    args
-                    <span class="br0">)</span>
-                    <span class="kw1">throws</span>
-                    <span class="kw3">Exception</span>
-                    <span class="br0">{</span>
-                    Server server
-                    <span class="sy0">=</span>
-                    <span class="kw1">new</span>
-                    Server
-                    <span class="br0">(</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    SelectChannelConnector connector
-                    <span class="sy0">=</span>
-                    <span class="kw1">new</span>
-                    SelectChannelConnector
-                    <span class="br0">(</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    connector.
-                    <span class="me1">setPort</span>
-                    <span class="br0">(</span>
-                    <span class="nu0">8080</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    server.
-                    <span class="me1">addConnector</span>
-                    <span class="br0">(</span>
-                    connector
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    ResourceHandler resource_handler
-                    <span class="sy0">=</span>
-                    <span class="kw1">new</span>
-                    ResourceHandler
-                    <span class="br0">(</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    resource_handler.
-                    <span class="me1">setDirectoriesListed</span>
-                    <span class="br0">(</span>
-                    <span class="kw2">true</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    resource_handler.
-                    <span class="me1">setWelcomeFiles</span>
-                    <span class="br0">(</span>
-                    <span class="kw1">new</span>
-                    <span class="kw3">String</span>
-                    <span class="br0">[</span>
-                    <span class="br0">]</span>
-                    <span class="br0">{</span>
-                    <span class="st0">"index.html"</span>
-                    <span class="br0">}</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    resource_handler.
-                    <span class="me1">setResourceBase</span>
-                    <span class="br0">(</span>
-                    <span class="st0">"."</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    HandlerList handlers
-                    <span class="sy0">=</span>
-                    <span class="kw1">new</span>
-                    HandlerList
-                    <span class="br0">(</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    handlers.
-                    <span class="me1">setHandlers</span>
-                    <span class="br0">(</span>
-                    <span class="kw1">new</span>
-                    Handler
-                    <span class="br0">[</span>
-                    <span class="br0">]</span>
-                    <span class="br0">{</span>
-                    resource_handler,
-                    <span class="kw1">new</span>
-                    DefaultHandler
-                    <span class="br0">(</span>
-                    <span class="br0">)</span>
-                    <span class="br0">}</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    server.
-                    <span class="me1">setHandler</span>
-                    <span class="br0">(</span>
-                    handlers
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    server.
-                    <span class="me1">start</span>
-                    <span class="br0">(</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    server.
-                    <span class="me1">join</span>
-                    <span class="br0">(</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    <span class="br0">}</span>
-                    <span class="br0">}</span>
-                  </pre>
+                  <pre class="de1" xml:space="preserve"><span class="kw1">public</span> <span class="kw1">class</span> FileServer
+<span class="br0">{</span>
+    <span class="kw1">public</span> <span class="kw1">static</span> <span class="kw4">void</span> main<span class="br0">(</span><span class="kw3">String</span><span class="br0">[</span><span class="br0">]</span> args<span class="br0">)</span> <span class="kw1">throws</span> <span class="kw3">Exception</span>
+    <span class="br0">{</span>
+        Server server <span class="sy0">=</span> <span class="kw1">new</span> Server<span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
+        SelectChannelConnector connector <span class="sy0">=</span> <span class="kw1">new</span> SelectChannelConnector<span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
+        connector.<span class="me1">setPort</span><span class="br0">(</span><span class="nu0">8080</span><span class="br0">)</span><span class="sy0">;</span>
+        server.<span class="me1">addConnector</span><span class="br0">(</span>connector<span class="br0">)</span><span class="sy0">;</span>
+ 
+        ResourceHandler resource_handler <span class="sy0">=</span> <span class="kw1">new</span> ResourceHandler<span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
+        resource_handler.<span class="me1">setDirectoriesListed</span><span class="br0">(</span><span class="kw2">true</span><span class="br0">)</span><span class="sy0">;</span>
+        resource_handler.<span class="me1">setWelcomeFiles</span><span class="br0">(</span><span class="kw1">new</span> <span class="kw3">String</span><span class="br0">[</span><span class="br0">]</span><span class="br0">{</span> <span class="st0">"index.html"</span> <span class="br0">}</span><span class="br0">)</span><span class="sy0">;</span>
+ 
+        resource_handler.<span class="me1">setResourceBase</span><span class="br0">(</span><span class="st0">"."</span><span class="br0">)</span><span class="sy0">;</span>
+ 
+        HandlerList handlers <span class="sy0">=</span> <span class="kw1">new</span> HandlerList<span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
+        handlers.<span class="me1">setHandlers</span><span class="br0">(</span><span class="kw1">new</span> Handler<span class="br0">[</span><span class="br0">]</span> <span class="br0">{</span> resource_handler, <span class="kw1">new</span> DefaultHandler<span class="br0">(</span><span class="br0">)</span> <span class="br0">}</span><span class="br0">)</span><span class="sy0">;</span>
+        server.<span class="me1">setHandler</span><span class="br0">(</span>handlers<span class="br0">)</span><span class="sy0">;</span>
+ 
+        server.<span class="me1">start</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
+        server.<span class="me1">join</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
+    <span class="br0">}</span>
+<span class="br0">}</span></pre>
                 </div>
               </div>
               <p>The resource handler is passed the request first and looks for a matching file in the local directory to serve. If it does not find a file, the request passes to the default handler which  generates a 404 (or favicon.ico).</p>
@@ -746,249 +402,41 @@
               </p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="xml source-xml">
-                  <pre class="de1">
-                    <span class="sc3">
-                      <span class="re1">&lt;?xml</span>
-                      <span class="re0">version</span>
-                      =
-                      <span class="st0">"1.0"</span>
-                      <span class="re2">?&gt;</span>
-                    </span>
-                    <span class="sc0">&lt;!DOCTYPE Configure PUBLIC "-//Jetty//Configure//EN" "http://www.eclipse.org/jetty/configure.dtd"&gt;</span>
-                    <span class="sc3">
-                      <span class="re1">&lt;Configure</span>
-                      <span class="re0">id</span>
-                      =
-                      <span class="st0">"FileServer"</span>
-                      <span class="re0">class</span>
-                      =
-                      <span class="st0">"org.eclipse.jetty.server.Server"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;Call</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"addConnector"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;New</span>
-                      <span class="re0">class</span>
-                      =
-                      <span class="st0">"org.eclipse.jetty.server.nio.SelectChannelConnector"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;Set</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"port"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    8080
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Set
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/New
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Arg
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Call
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;Set</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"handler"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;New</span>
-                      <span class="re0">class</span>
-                      =
-                      <span class="st0">"org.eclipse.jetty.server.handler.HandlerList"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;Set</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"handlers"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;Array</span>
-                      <span class="re0">type</span>
-                      =
-                      <span class="st0">"org.eclipse.jetty.server.Handler"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;Item
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;New</span>
-                      <span class="re0">class</span>
-                      =
-                      <span class="st0">"org.eclipse.jetty.server.handler.ResourceHandler"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;Set</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"directoriesListed"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    true
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Set
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;Set</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"welcomeFiles"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;Array</span>
-                      <span class="re0">type</span>
-                      =
-                      <span class="st0">"String"</span>
-                      <span class="re2">&gt;</span>
-                      <span class="re1">
-                        &lt;Item
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    index.html
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Item
-                        <span class="re2">&gt;</span>
-                      </span>
-                      <span class="re1">
-                        &lt;/Array
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Set
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;Set</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"resourceBase"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    .
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Set
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/New
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Item
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;Item
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;New</span>
-                      <span class="re0">class</span>
-                      =
-                      <span class="st0">"org.eclipse.jetty.server.handler.DefaultHandler"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/New
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Item
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Array
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Set
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/New
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Set
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/Configure
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                  </pre>
+                  <pre class="de1" xml:space="preserve"><span class="sc3"><span class="re1">&lt;?xml</span> <span class="re0">version</span>=<span class="st0">"1.0"</span><span class="re2">?&gt;</span></span>
+<span class="sc0">&lt;!DOCTYPE Configure PUBLIC "-//Jetty//Configure//EN" "http://www.eclipse.org/jetty/configure.dtd"&gt;</span>
+ 
+<span class="sc3"><span class="re1">&lt;Configure</span> <span class="re0">id</span>=<span class="st0">"FileServer"</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.server.Server"</span><span class="re2">&gt;</span></span>
+ 
+    <span class="sc3"><span class="re1">&lt;Call</span> <span class="re0">name</span>=<span class="st0">"addConnector"</span><span class="re2">&gt;</span></span>
+      <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>
+          <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.server.nio.SelectChannelConnector"</span><span class="re2">&gt;</span></span>
+            <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"port"</span><span class="re2">&gt;</span></span>8080<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
+          <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span>
+      <span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;/Call<span class="re2">&gt;</span></span></span>
+ 
+    <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"handler"</span><span class="re2">&gt;</span></span>
+      <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.server.handler.HandlerList"</span><span class="re2">&gt;</span></span>
+        <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"handlers"</span><span class="re2">&gt;</span></span>
+	  <span class="sc3"><span class="re1">&lt;Array</span> <span class="re0">type</span>=<span class="st0">"org.eclipse.jetty.server.Handler"</span><span class="re2">&gt;</span></span>
+	    <span class="sc3"><span class="re1">&lt;Item<span class="re2">&gt;</span></span></span>
+	      <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.server.handler.ResourceHandler"</span><span class="re2">&gt;</span></span>
+	        <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"directoriesListed"</span><span class="re2">&gt;</span></span>true<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
+		<span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"welcomeFiles"</span><span class="re2">&gt;</span></span>
+		  <span class="sc3"><span class="re1">&lt;Array</span> <span class="re0">type</span>=<span class="st0">"String"</span><span class="re2">&gt;</span><span class="re1">&lt;Item<span class="re2">&gt;</span></span></span>index.html<span class="sc3"><span class="re1">&lt;/Item<span class="re2">&gt;</span></span><span class="re1">&lt;/Array<span class="re2">&gt;</span></span></span>
+		<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
+	        <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"resourceBase"</span><span class="re2">&gt;</span></span>.<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
+	      <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span>
+	    <span class="sc3"><span class="re1">&lt;/Item<span class="re2">&gt;</span></span></span>
+	    <span class="sc3"><span class="re1">&lt;Item<span class="re2">&gt;</span></span></span>
+	      <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.server.handler.DefaultHandler"</span><span class="re2">&gt;</span></span>
+	      <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span>
+	    <span class="sc3"><span class="re1">&lt;/Item<span class="re2">&gt;</span></span></span>
+	  <span class="sc3"><span class="re1">&lt;/Array<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
+      <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
+<span class="sc3"><span class="re1">&lt;/Configure<span class="re2">&gt;</span></span></span></pre>
                 </div>
               </div>
               <p>
@@ -998,66 +446,17 @@
               </p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="java source-java">
-                  <pre class="de1">
-                    <span class="kw1">public</span>
-                    <span class="kw1">class</span>
-                    FileServerXml
-                    <span class="br0">{</span>
-                    <span class="kw1">public</span>
-                    <span class="kw1">static</span>
-                    <span class="kw4">void</span>
-                    main
-                    <span class="br0">(</span>
-                    <span class="kw3">String</span>
-                    <span class="br0">[</span>
-                    <span class="br0">]</span>
-                    args
-                    <span class="br0">)</span>
-                    <span class="kw1">throws</span>
-                    <span class="kw3">Exception</span>
-                    <span class="br0">{</span>
-                    Resource fileserver_xml
-                    <span class="sy0">=</span>
-                    Resource.
-                    <span class="me1">newSystemResource</span>
-                    <span class="br0">(</span>
-                    <span class="st0">"fileserver.xml"</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    XmlConfiguration configuration
-                    <span class="sy0">=</span>
-                    <span class="kw1">new</span>
-                    XmlConfiguration
-                    <span class="br0">(</span>
-                    fileserver_xml.
-                    <span class="me1">getInputStream</span>
-                    <span class="br0">(</span>
-                    <span class="br0">)</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    Server server
-                    <span class="sy0">=</span>
-                    <span class="br0">(</span>
-                    Server
-                    <span class="br0">)</span>
-                    configuration.
-                    <span class="me1">configure</span>
-                    <span class="br0">(</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    server.
-                    <span class="me1">start</span>
-                    <span class="br0">(</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    server.
-                    <span class="me1">join</span>
-                    <span class="br0">(</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    <span class="br0">}</span>
-                    <span class="br0">}</span>
-                  </pre>
+                  <pre class="de1" xml:space="preserve"><span class="kw1">public</span> <span class="kw1">class</span> FileServerXml
+<span class="br0">{</span>
+    <span class="kw1">public</span> <span class="kw1">static</span> <span class="kw4">void</span> main<span class="br0">(</span><span class="kw3">String</span><span class="br0">[</span><span class="br0">]</span> args<span class="br0">)</span> <span class="kw1">throws</span> <span class="kw3">Exception</span>
+    <span class="br0">{</span>
+        Resource fileserver_xml <span class="sy0">=</span> Resource.<span class="me1">newSystemResource</span><span class="br0">(</span><span class="st0">"fileserver.xml"</span><span class="br0">)</span><span class="sy0">;</span>
+        XmlConfiguration configuration <span class="sy0">=</span> <span class="kw1">new</span> XmlConfiguration<span class="br0">(</span>fileserver_xml.<span class="me1">getInputStream</span><span class="br0">(</span><span class="br0">)</span><span class="br0">)</span><span class="sy0">;</span>
+        Server server <span class="sy0">=</span> <span class="br0">(</span>Server<span class="br0">)</span>configuration.<span class="me1">configure</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
+        server.<span class="me1">start</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
+        server.<span class="me1">join</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
+    <span class="br0">}</span>
+<span class="br0">}</span></pre>
                 </div>
               </div>
               <h3>
@@ -1066,225 +465,37 @@
               <p>You can also use the Spring framework to assemble Jetty servers.  The file server example above can be written in Spring configuration as:</p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="xml source-xml">
-                  <pre class="de1">
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;beans
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;bean</span>
-                      <span class="re0">id</span>
-                      =
-                      <span class="st0">"Server"</span>
-                      <span class="re0">class</span>
-                      =
-                      <span class="st0">"org.eclipse.jetty.server.Server"</span>
-                      <span class="re0">init-method</span>
-                      =
-                      <span class="st0">"start"</span>
-                      <span class="re0">destroy-method</span>
-                      =
-                      <span class="st0">"stop"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;property</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"connectors"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;list
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;bean</span>
-                      <span class="re0">id</span>
-                      =
-                      <span class="st0">"Connector"</span>
-                      <span class="re0">class</span>
-                      =
-                      <span class="st0">"org.eclipse.jetty.server.nio.SelectChannelConnector"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;property</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"port"</span>
-                      <span class="re0">value</span>
-                      =
-                      <span class="st0">"8080"</span>
-                      <span class="re2">/&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/bean
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/list
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/property
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;property</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"handler"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;bean</span>
-                      <span class="re0">id</span>
-                      =
-                      <span class="st0">"handlers"</span>
-                      <span class="re0">class</span>
-                      =
-                      <span class="st0">"org.eclipse.jetty.server.handler.HandlerList"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;property</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"handlers"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;list
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;bean</span>
-                      <span class="re0">class</span>
-                      =
-                      <span class="st0">"org.eclipse.jetty.server.handler.ResourceHandler"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;property</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"directoriesListed"</span>
-                      <span class="re0">value</span>
-                      =
-                      <span class="st0">"true"</span>
-                      <span class="re2">/&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;property</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"welcomeFiles"</span>
-                      <span class="re2">&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;list
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;value
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    index.html
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/value
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/list
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/property
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;property</span>
-                      <span class="re0">name</span>
-                      =
-                      <span class="st0">"resourceBase"</span>
-                      <span class="re0">value</span>
-                      =
-                      <span class="st0">"."</span>
-                      <span class="re2">/&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/bean
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">&lt;bean</span>
-                      <span class="re0">class</span>
-                      =
-                      <span class="st0">"org.eclipse.jetty.server.handler.DefaultHandler"</span>
-                      <span class="re2">/&gt;</span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/list
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/property
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/bean
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/property
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/bean
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                    <span class="sc3">
-                      <span class="re1">
-                        &lt;/beans
-                        <span class="re2">&gt;</span>
-                      </span>
-                    </span>
-                  </pre>
+                  <pre class="de1" xml:space="preserve"><span class="sc3"><span class="re1">&lt;beans<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;bean</span> <span class="re0">id</span>=<span class="st0">"Server"</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.server.Server"</span> <span class="re0">init-method</span>=<span class="st0">"start"</span> <span class="re0">destroy-method</span>=<span class="st0">"stop"</span><span class="re2">&gt;</span></span>
+ 
+    <span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span class="st0">"connectors"</span><span class="re2">&gt;</span></span>
+      <span class="sc3"><span class="re1">&lt;list<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;bean</span> <span class="re0">id</span>=<span class="st0">"Connector"</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.server.nio.SelectChannelConnector"</span><span class="re2">&gt;</span></span>
+          <span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span class="st0">"port"</span> <span class="re0">value</span>=<span class="st0">"8080"</span><span class="re2">/&gt;</span></span>
+        <span class="sc3"><span class="re1">&lt;/bean<span class="re2">&gt;</span></span></span>
+      <span class="sc3"><span class="re1">&lt;/list<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;/property<span class="re2">&gt;</span></span></span>
+ 
+    <span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span class="st0">"handler"</span><span class="re2">&gt;</span></span>
+      <span class="sc3"><span class="re1">&lt;bean</span> <span class="re0">id</span>=<span class="st0">"handlers"</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.server.handler.HandlerList"</span><span class="re2">&gt;</span></span>
+        <span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span class="st0">"handlers"</span><span class="re2">&gt;</span></span>
+          <span class="sc3"><span class="re1">&lt;list<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;bean</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.server.handler.ResourceHandler"</span><span class="re2">&gt;</span></span>
+              <span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span class="st0">"directoriesListed"</span> <span class="re0">value</span>=<span class="st0">"true"</span><span class="re2">/&gt;</span></span>
+              <span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span class="st0">"welcomeFiles"</span><span class="re2">&gt;</span></span>
+                <span class="sc3"><span class="re1">&lt;list<span class="re2">&gt;</span></span></span>
+                  <span class="sc3"><span class="re1">&lt;value<span class="re2">&gt;</span></span></span>index.html<span class="sc3"><span class="re1">&lt;/value<span class="re2">&gt;</span></span></span>
+                <span class="sc3"><span class="re1">&lt;/list<span class="re2">&gt;</span></span></span>
+              <span class="sc3"><span class="re1">&lt;/property<span class="re2">&gt;</span></span></span>
+              <span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span class="st0">"resourceBase"</span> <span class="re0">value</span>=<span class="st0">"."</span><span class="re2">/&gt;</span></span>
+            <span class="sc3"><span class="re1">&lt;/bean<span class="re2">&gt;</span></span></span>       
+            <span class="sc3"><span class="re1">&lt;bean</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.server.handler.DefaultHandler"</span><span class="re2">/&gt;</span></span>
+          <span class="sc3"><span class="re1">&lt;/list<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;/property<span class="re2">&gt;</span></span></span>
+      <span class="sc3"><span class="re1">&lt;/bean<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;/property<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;/bean<span class="re2">&gt;</span></span></span>
+<span class="sc3"><span class="re1">&lt;/beans<span class="re2">&gt;</span></span></span></pre>
                 </div>
               </div>
               <p>
@@ -1301,11 +512,12 @@
                 is a HandlerWrapper that responds only to requests that have a URI prefix that matches the configured context path.
               </p>
               <p>Requests that match the context path have their path methods updated accordingly, and the following optional context features applied as appropriate:</p>
-              <pre>* A Thread Context classloader.
+              <pre xml:space="preserve">* A Thread Context classloader.
 * A set of attributes
 * A set of init parameters
 * A resource base (aka document root)
-* A set of virtual host names</pre>
+* A set of virtual host names
+</pre>
               <p>Requests that don't match are not handled.</p>
               <p>
                 The following code is based on
@@ -1314,93 +526,24 @@
               </p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="java source-java">
-                  <pre class="de1">
-                    <span class="kw1">public</span>
-                    <span class="kw1">class</span>
-                    OneContext
-                    <span class="br0">{</span>
-                    <span class="kw1">public</span>
-                    <span class="kw1">static</span>
-                    <span class="kw4">void</span>
-                    main
-                    <span class="br0">(</span>
-                    <span class="kw3">String</span>
-                    <span class="br0">[</span>
-                    <span class="br0">]</span>
-                    args
-                    <span class="br0">)</span>
-                    <span class="kw1">throws</span>
-                    <span class="kw3">Exception</span>
-                    <span class="br0">{</span>
-                    Server server
-                    <span class="sy0">=</span>
-                    <span class="kw1">new</span>
-                    Server
-                    <span class="br0">(</span>
-                    <span class="nu0">8080</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    ContextHandler context
-                    <span class="sy0">=</span>
-                    <span class="kw1">new</span>
-                    ContextHandler
-                    <span class="br0">(</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    context.
-                    <span class="me1">setContextPath</span>
-                    <span class="br0">(</span>
-                    <span class="st0">"/hello"</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    context.
-                    <span class="me1">setResourceBase</span>
-                    <span class="br0">(</span>
-                    <span class="st0">"."</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    context.
-                    <span class="me1">setClassLoader</span>
-                    <span class="br0">(</span>
-                    <span class="kw3">Thread</span>
-                    .
-                    <span class="me1">currentThread</span>
-                    <span class="br0">(</span>
-                    <span class="br0">)</span>
-                    .
-                    <span class="me1">getContextClassLoader</span>
-                    <span class="br0">(</span>
-                    <span class="br0">)</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    server.
-                    <span class="me1">setHandler</span>
-                    <span class="br0">(</span>
-                    context
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    context.
-                    <span class="me1">setHandler</span>
-                    <span class="br0">(</span>
-                    <span class="kw1">new</span>
-                    HelloHandler
-                    <span class="br0">(</span>
-                    <span class="br0">)</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    server.
-                    <span class="me1">start</span>
-                    <span class="br0">(</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    server.
-                    <span class="me1">join</span>
-                    <span class="br0">(</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    <span class="br0">}</span>
-                    <span class="br0">}</span>
-                  </pre>
+                  <pre class="de1" xml:space="preserve"><span class="kw1">public</span> <span class="kw1">class</span> OneContext
+<span class="br0">{</span>
+    <span class="kw1">public</span> <span class="kw1">static</span> <span class="kw4">void</span> main<span class="br0">(</span><span class="kw3">String</span><span class="br0">[</span><span class="br0">]</span> args<span class="br0">)</span> <span class="kw1">throws</span> <span class="kw3">Exception</span>
+    <span class="br0">{</span>
+        Server server <span class="sy0">=</span> <span class="kw1">new</span> Server<span class="br0">(</span><span class="nu0">8080</span><span class="br0">)</span><span class="sy0">;</span>
+ 
+        ContextHandler context <span class="sy0">=</span> <span class="kw1">new</span> ContextHandler<span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
+        context.<span class="me1">setContextPath</span><span class="br0">(</span><span class="st0">"/hello"</span><span class="br0">)</span><span class="sy0">;</span>
+        context.<span class="me1">setResourceBase</span><span class="br0">(</span><span class="st0">"."</span><span class="br0">)</span><span class="sy0">;</span>
+        context.<span class="me1">setClassLoader</span><span class="br0">(</span><span class="kw3">Thread</span>.<span class="me1">currentThread</span><span class="br0">(</span><span class="br0">)</span>.<span class="me1">getContextClassLoader</span><span class="br0">(</span><span class="br0">)</span><span class="br0">)</span><span class="sy0">;</span>
+        server.<span class="me1">setHandler</span><span class="br0">(</span>context<span class="br0">)</span><span class="sy0">;</span>
+ 
+        context.<span class="me1">setHandler</span><span class="br0">(</span><span class="kw1">new</span> HelloHandler<span class="br0">(</span><span class="br0">)</span><span class="br0">)</span><span class="sy0">;</span>
+ 
+        server.<span class="me1">start</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
+        server.<span class="me1">join</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
+    <span class="br0">}</span>
+<span class="br0">}</span></pre>
                 </div>
               </div>
               <h2>
@@ -1413,99 +556,22 @@
               </p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="java source-java">
-                  <pre class="de1">
-                    <span class="kw1">public</span>
-                    <span class="kw1">class</span>
-                    HelloServlet
-                    <span class="kw1">extends</span>
-                    HttpServlet
-                    <span class="br0">{</span>
-                    <span class="kw1">private</span>
-                    <span class="kw3">String</span>
-                    greeting
-                    <span class="sy0">=</span>
-                    <span class="st0">"Hello World"</span>
-                    <span class="sy0">;</span>
-                    <span class="kw1">public</span>
-                    HelloServlet
-                    <span class="br0">(</span>
-                    <span class="br0">)</span>
-                    <span class="br0">{</span>
-                    <span class="br0">}</span>
-                    <span class="kw1">public</span>
-                    HelloServlet
-                    <span class="br0">(</span>
-                    <span class="kw3">String</span>
-                    greeting
-                    <span class="br0">)</span>
-                    <span class="br0">{</span>
-                    <span class="kw1">this</span>
-                    .
-                    <span class="me1">greeting</span>
-                    <span class="sy0">=</span>
-                    greeting
-                    <span class="sy0">;</span>
-                    <span class="br0">}</span>
-                    <span class="kw1">protected</span>
-                    <span class="kw4">void</span>
-                    doGet
-                    <span class="br0">(</span>
-                    HttpServletRequest request, HttpServletResponse response
-                    <span class="br0">)</span>
-                    <span class="kw1">throws</span>
-                    ServletException,
-                    <span class="kw3">IOException</span>
-                    <span class="br0">{</span>
-                    response.
-                    <span class="me1">setContentType</span>
-                    <span class="br0">(</span>
-                    <span class="st0">"text/html"</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    response.
-                    <span class="me1">setStatus</span>
-                    <span class="br0">(</span>
-                    HttpServletResponse.
-                    <span class="me1">SC_OK</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    response.
-                    <span class="me1">getWriter</span>
-                    <span class="br0">(</span>
-                    <span class="br0">)</span>
-                    .
-                    <span class="me1">println</span>
-                    <span class="br0">(</span>
-                    <span class="st0">"&lt;h1&gt;"</span>
-                    <span class="sy0">+</span>
-                    greeting
-                    <span class="sy0">+</span>
-                    <span class="st0">"&lt;/h1&gt;"</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    response.
-                    <span class="me1">getWriter</span>
-                    <span class="br0">(</span>
-                    <span class="br0">)</span>
-                    .
-                    <span class="me1">println</span>
-                    <span class="br0">(</span>
-                    <span class="st0">"session="</span>
-                    <span class="sy0">+</span>
-                    request.
-                    <span class="me1">getSession</span>
-                    <span class="br0">(</span>
-                    <span class="kw2">true</span>
-                    <span class="br0">)</span>
-                    .
-                    <span class="me1">getId</span>
-                    <span class="br0">(</span>
-                    <span class="br0">)</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    <span class="br0">}</span>
-                    <span class="br0">}</span>
-                  </pre>
+                  <pre class="de1" xml:space="preserve"><span class="kw1">public</span> <span class="kw1">class</span> HelloServlet <span class="kw1">extends</span> HttpServlet
+<span class="br0">{</span>
+    <span class="kw1">private</span> <span class="kw3">String</span> greeting<span class="sy0">=</span><span class="st0">"Hello World"</span><span class="sy0">;</span>
+    <span class="kw1">public</span> HelloServlet<span class="br0">(</span><span class="br0">)</span><span class="br0">{</span><span class="br0">}</span>
+    <span class="kw1">public</span> HelloServlet<span class="br0">(</span><span class="kw3">String</span> greeting<span class="br0">)</span>
+    <span class="br0">{</span>
+        <span class="kw1">this</span>.<span class="me1">greeting</span><span class="sy0">=</span>greeting<span class="sy0">;</span>
+    <span class="br0">}</span>
+    <span class="kw1">protected</span> <span class="kw4">void</span> doGet<span class="br0">(</span>HttpServletRequest request, HttpServletResponse response<span class="br0">)</span> <span class="kw1">throws</span> ServletException, <span class="kw3">IOException</span>
+    <span class="br0">{</span>
+        response.<span class="me1">setContentType</span><span class="br0">(</span><span class="st0">"text/html"</span><span class="br0">)</span><span class="sy0">;</span>
+        response.<span class="me1">setStatus</span><span class="br0">(</span>HttpServletResponse.<span class="me1">SC_OK</span><span class="br0">)</span><span class="sy0">;</span>
+        response.<span class="me1">getWriter</span><span class="br0">(</span><span class="br0">)</span>.<span class="me1">println</span><span class="br0">(</span><span class="st0">"&lt;h1&gt;"</span><span class="sy0">+</span>greeting<span class="sy0">+</span><span class="st0">"&lt;/h1&gt;"</span><span class="br0">)</span><span class="sy0">;</span>
+        response.<span class="me1">getWriter</span><span class="br0">(</span><span class="br0">)</span>.<span class="me1">println</span><span class="br0">(</span><span class="st0">"session="</span> <span class="sy0">+</span> request.<span class="me1">getSession</span><span class="br0">(</span><span class="kw2">true</span><span class="br0">)</span>.<span class="me1">getId</span><span class="br0">(</span><span class="br0">)</span><span class="br0">)</span><span class="sy0">;</span>
+    <span class="br0">}</span>
+<span class="br0">}</span></pre>
                 </div>
               </div>
               <h2>
@@ -1520,113 +586,24 @@
               </p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="java source-java">
-                  <pre class="de1">
-                    <span class="kw1">public</span>
-                    <span class="kw1">class</span>
-                    OneServletContext
-                    <span class="br0">{</span>
-                    <span class="kw1">public</span>
-                    <span class="kw1">static</span>
-                    <span class="kw4">void</span>
-                    main
-                    <span class="br0">(</span>
-                    <span class="kw3">String</span>
-                    <span class="br0">[</span>
-                    <span class="br0">]</span>
-                    args
-                    <span class="br0">)</span>
-                    <span class="kw1">throws</span>
-                    <span class="kw3">Exception</span>
-                    <span class="br0">{</span>
-                    Server server
-                    <span class="sy0">=</span>
-                    <span class="kw1">new</span>
-                    Server
-                    <span class="br0">(</span>
-                    <span class="nu0">8080</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    ServletContextHandler context
-                    <span class="sy0">=</span>
-                    <span class="kw1">new</span>
-                    ServletContextHandler
-                    <span class="br0">(</span>
-                    ServletContextHandler.
-                    <span class="me1">SESSIONS</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    context.
-                    <span class="me1">setContextPath</span>
-                    <span class="br0">(</span>
-                    <span class="st0">"/"</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    server.
-                    <span class="me1">setHandler</span>
-                    <span class="br0">(</span>
-                    context
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    context.
-                    <span class="me1">addServlet</span>
-                    <span class="br0">(</span>
-                    <span class="kw1">new</span>
-                    ServletHolder
-                    <span class="br0">(</span>
-                    <span class="kw1">new</span>
-                    HelloServlet
-                    <span class="br0">(</span>
-                    <span class="br0">)</span>
-                    <span class="br0">)</span>
-                    ,
-                    <span class="st0">"/*"</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    context.
-                    <span class="me1">addServlet</span>
-                    <span class="br0">(</span>
-                    <span class="kw1">new</span>
-                    ServletHolder
-                    <span class="br0">(</span>
-                    <span class="kw1">new</span>
-                    HelloServlet
-                    <span class="br0">(</span>
-                    <span class="st0">"Buongiorno Mondo"</span>
-                    <span class="br0">)</span>
-                    <span class="br0">)</span>
-                    ,
-                    <span class="st0">"/it/*"</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    context.
-                    <span class="me1">addServlet</span>
-                    <span class="br0">(</span>
-                    <span class="kw1">new</span>
-                    ServletHolder
-                    <span class="br0">(</span>
-                    <span class="kw1">new</span>
-                    HelloServlet
-                    <span class="br0">(</span>
-                    <span class="st0">"Bonjour le Monde"</span>
-                    <span class="br0">)</span>
-                    <span class="br0">)</span>
-                    ,
-                    <span class="st0">"/fr/*"</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    server.
-                    <span class="me1">start</span>
-                    <span class="br0">(</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    server.
-                    <span class="me1">join</span>
-                    <span class="br0">(</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    <span class="br0">}</span>
-                    <span class="br0">}</span>
-                  </pre>
+                  <pre class="de1" xml:space="preserve"><span class="kw1">public</span> <span class="kw1">class</span> OneServletContext
+<span class="br0">{</span>
+    <span class="kw1">public</span> <span class="kw1">static</span> <span class="kw4">void</span> main<span class="br0">(</span><span class="kw3">String</span><span class="br0">[</span><span class="br0">]</span> args<span class="br0">)</span> <span class="kw1">throws</span> <span class="kw3">Exception</span>
+    <span class="br0">{</span>
+        Server server <span class="sy0">=</span> <span class="kw1">new</span> Server<span class="br0">(</span><span class="nu0">8080</span><span class="br0">)</span><span class="sy0">;</span>
+ 
+        ServletContextHandler context <span class="sy0">=</span> <span class="kw1">new</span> ServletContextHandler<span class="br0">(</span>ServletContextHandler.<span class="me1">SESSIONS</span><span class="br0">)</span><span class="sy0">;</span>
+        context.<span class="me1">setContextPath</span><span class="br0">(</span><span class="st0">"/"</span><span class="br0">)</span><span class="sy0">;</span>
+        server.<span class="me1">setHandler</span><span class="br0">(</span>context<span class="br0">)</span><span class="sy0">;</span>
+ 
+        context.<span class="me1">addServlet</span><span class="br0">(</span><span class="kw1">new</span> ServletHolder<span class="br0">(</span><span class="kw1">new</span> HelloServlet<span class="br0">(</span><span class="br0">)</span><span class="br0">)</span>,<span class="st0">"/*"</span><span class="br0">)</span><span class="sy0">;</span>
+        context.<span class="me1">addServlet</span><span class="br0">(</span><span class="kw1">new</span> ServletHolder<span class="br0">(</span><span class="kw1">new</span> HelloServlet<span class="br0">(</span><span class="st0">"Buongiorno Mondo"</span><span class="br0">)</span><span class="br0">)</span>,<span class="st0">"/it/*"</span><span class="br0">)</span><span class="sy0">;</span>
+        context.<span class="me1">addServlet</span><span class="br0">(</span><span class="kw1">new</span> ServletHolder<span class="br0">(</span><span class="kw1">new</span> HelloServlet<span class="br0">(</span><span class="st0">"Bonjour le Monde"</span><span class="br0">)</span><span class="br0">)</span>,<span class="st0">"/fr/*"</span><span class="br0">)</span><span class="sy0">;</span>
+ 
+        server.<span class="me1">start</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
+        server.<span class="me1">join</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
+    <span class="br0">}</span>
+<span class="br0">}</span></pre>
                 </div>
               </div>
               <h2>
@@ -1639,167 +616,46 @@
               </p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="java source-java">
-                  <pre class="de1">
-                    <span class="kw1">public</span>
-                    <span class="kw1">class</span>
-                    OneWebApp
-                    <span class="br0">{</span>
-                    <span class="kw1">public</span>
-                    <span class="kw1">static</span>
-                    <span class="kw4">void</span>
-                    main
-                    <span class="br0">(</span>
-                    <span class="kw3">String</span>
-                    <span class="br0">[</span>
-                    <span class="br0">]</span>
-                    args
-                    <span class="br0">)</span>
-                    <span class="kw1">throws</span>
-                    <span class="kw3">Exception</span>
-                    <span class="br0">{</span>
-                    <span class="kw3">String</span>
-                    jetty_home
-                    <span class="sy0">=</span>
-                    <span class="kw3">System</span>
-                    .
-                    <span class="me1">getProperty</span>
-                    <span class="br0">(</span>
-                    <span class="st0">"jetty.home"</span>
-                    ,
-                    <span class="st0">".."</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    Server server
-                    <span class="sy0">=</span>
-                    <span class="kw1">new</span>
-                    Server
-                    <span class="br0">(</span>
-                    <span class="nu0">8080</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    WebAppContext webapp
-                    <span class="sy0">=</span>
-                    <span class="kw1">new</span>
-                    WebAppContext
-                    <span class="br0">(</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    webapp.
-                    <span class="me1">setContextPath</span>
-                    <span class="br0">(</span>
-                    <span class="st0">"/"</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    webapp.
-                    <span class="me1">setWar</span>
-                    <span class="br0">(</span>
-                    jetty_home
-                    <span class="sy0">+</span>
-                    <span class="st0">"/webapps/test.war"</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    server.
-                    <span class="me1">setHandler</span>
-                    <span class="br0">(</span>
-                    webapp
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    server.
-                    <span class="me1">start</span>
-                    <span class="br0">(</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    server.
-                    <span class="me1">join</span>
-                    <span class="br0">(</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    <span class="br0">}</span>
-                    <span class="br0">}</span>
-                  </pre>
+                  <pre class="de1" xml:space="preserve"><span class="kw1">public</span> <span class="kw1">class</span> OneWebApp
+<span class="br0">{</span>
+    <span class="kw1">public</span> <span class="kw1">static</span> <span class="kw4">void</span> main<span class="br0">(</span><span class="kw3">String</span><span class="br0">[</span><span class="br0">]</span> args<span class="br0">)</span> <span class="kw1">throws</span> <span class="kw3">Exception</span>
+    <span class="br0">{</span>
+        <span class="kw3">String</span> jetty_home <span class="sy0">=</span> <span class="kw3">System</span>.<span class="me1">getProperty</span><span class="br0">(</span><span class="st0">"jetty.home"</span>,<span class="st0">".."</span><span class="br0">)</span><span class="sy0">;</span>
+ 
+        Server server <span class="sy0">=</span> <span class="kw1">new</span> Server<span class="br0">(</span><span class="nu0">8080</span><span class="br0">)</span><span class="sy0">;</span>
+ 
+        WebAppContext webapp <span class="sy0">=</span> <span class="kw1">new</span> WebAppContext<span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
+        webapp.<span class="me1">setContextPath</span><span class="br0">(</span><span class="st0">"/"</span><span class="br0">)</span><span class="sy0">;</span>
+        webapp.<span class="me1">setWar</span><span class="br0">(</span>jetty_home<span class="sy0">+</span><span class="st0">"/webapps/test.war"</span><span class="br0">)</span><span class="sy0">;</span>
+        server.<span class="me1">setHandler</span><span class="br0">(</span>webapp<span class="br0">)</span><span class="sy0">;</span>
+ 
+        server.<span class="me1">start</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
+        server.<span class="me1">join</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
+    <span class="br0">}</span>
+<span class="br0">}</span></pre>
                 </div>
               </div>
               <p>If during development, you have not assembled your application into a WAR file, you can run it from its source components with something like:</p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="java source-java">
-                  <pre class="de1">
-                    <span class="kw1">public</span>
-                    <span class="kw1">class</span>
-                    OneWebAppUnassembled
-                    <span class="br0">{</span>
-                    <span class="kw1">public</span>
-                    <span class="kw1">static</span>
-                    <span class="kw4">void</span>
-                    main
-                    <span class="br0">(</span>
-                    <span class="kw3">String</span>
-                    <span class="br0">[</span>
-                    <span class="br0">]</span>
-                    args
-                    <span class="br0">)</span>
-                    <span class="kw1">throws</span>
-                    <span class="kw3">Exception</span>
-                    <span class="br0">{</span>
-                    Server server
-                    <span class="sy0">=</span>
-                    <span class="kw1">new</span>
-                    Server
-                    <span class="br0">(</span>
-                    <span class="nu0">8080</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    WebAppContext context
-                    <span class="sy0">=</span>
-                    <span class="kw1">new</span>
-                    WebAppContext
-                    <span class="br0">(</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    context.
-                    <span class="me1">setDescriptor</span>
-                    <span class="br0">(</span>
-                    webapp
-                    <span class="sy0">+</span>
-                    <span class="st0">"/WEB-INF/web.xml"</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    context.
-                    <span class="me1">setResourceBase</span>
-                    <span class="br0">(</span>
-                    <span class="st0">"../test-jetty-webapp/src/main/webapp"</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    context.
-                    <span class="me1">setContextPath</span>
-                    <span class="br0">(</span>
-                    <span class="st0">"/"</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    context.
-                    <span class="me1">setParentLoaderPriority</span>
-                    <span class="br0">(</span>
-                    <span class="kw2">true</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    server.
-                    <span class="me1">setHandler</span>
-                    <span class="br0">(</span>
-                    context
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    server.
-                    <span class="me1">start</span>
-                    <span class="br0">(</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    server.
-                    <span class="me1">join</span>
-                    <span class="br0">(</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    <span class="br0">}</span>
-                    <span class="br0">}</span>
-                  </pre>
+                  <pre class="de1" xml:space="preserve"><span class="kw1">public</span> <span class="kw1">class</span> OneWebAppUnassembled
+<span class="br0">{</span>
+    <span class="kw1">public</span> <span class="kw1">static</span> <span class="kw4">void</span> main<span class="br0">(</span><span class="kw3">String</span><span class="br0">[</span><span class="br0">]</span> args<span class="br0">)</span> <span class="kw1">throws</span> <span class="kw3">Exception</span>
+    <span class="br0">{</span>
+        Server server <span class="sy0">=</span> <span class="kw1">new</span> Server<span class="br0">(</span><span class="nu0">8080</span><span class="br0">)</span><span class="sy0">;</span>
+ 
+        WebAppContext context <span class="sy0">=</span> <span class="kw1">new</span> WebAppContext<span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
+        context.<span class="me1">setDescriptor</span><span class="br0">(</span>webapp<span class="sy0">+</span><span class="st0">"/WEB-INF/web.xml"</span><span class="br0">)</span><span class="sy0">;</span>
+        context.<span class="me1">setResourceBase</span><span class="br0">(</span><span class="st0">"../test-jetty-webapp/src/main/webapp"</span><span class="br0">)</span><span class="sy0">;</span>
+        context.<span class="me1">setContextPath</span><span class="br0">(</span><span class="st0">"/"</span><span class="br0">)</span><span class="sy0">;</span>
+        context.<span class="me1">setParentLoaderPriority</span><span class="br0">(</span><span class="kw2">true</span><span class="br0">)</span><span class="sy0">;</span>
+ 
+        server.<span class="me1">setHandler</span><span class="br0">(</span>context<span class="br0">)</span><span class="sy0">;</span>
+ 
+        server.<span class="me1">start</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
+        server.<span class="me1">join</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
+    <span class="br0">}</span>
+<span class="br0">}</span></pre>
                 </div>
               </div>
               <h2>
@@ -1812,153 +668,31 @@
               </p>
               <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
                 <div class="java source-java">
-                  <pre class="de1">
-                    <span class="kw1">public</span>
-                    <span class="kw1">class</span>
-                    ManyContexts
-                    <span class="br0">{</span>
-                    <span class="kw1">public</span>
-                    <span class="kw1">static</span>
-                    <span class="kw4">void</span>
-                    main
-                    <span class="br0">(</span>
-                    <span class="kw3">String</span>
-                    <span class="br0">[</span>
-                    <span class="br0">]</span>
-                    args
-                    <span class="br0">)</span>
-                    <span class="kw1">throws</span>
-                    <span class="kw3">Exception</span>
-                    <span class="br0">{</span>
-                    Server server
-                    <span class="sy0">=</span>
-                    <span class="kw1">new</span>
-                    Server
-                    <span class="br0">(</span>
-                    <span class="nu0">8080</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    ServletContextHandler context0
-                    <span class="sy0">=</span>
-                    <span class="kw1">new</span>
-                    ServletContextHandler
-                    <span class="br0">(</span>
-                    ServletContextHandler.
-                    <span class="me1">SESSIONS</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    context0.
-                    <span class="me1">setContextPath</span>
-                    <span class="br0">(</span>
-                    <span class="st0">"/ctx0"</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    context0.
-                    <span class="me1">addServlet</span>
-                    <span class="br0">(</span>
-                    <span class="kw1">new</span>
-                    ServletHolder
-                    <span class="br0">(</span>
-                    <span class="kw1">new</span>
-                    HelloServlet
-                    <span class="br0">(</span>
-                    <span class="br0">)</span>
-                    <span class="br0">)</span>
-                    ,
-                    <span class="st0">"/*"</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    context0.
-                    <span class="me1">addServlet</span>
-                    <span class="br0">(</span>
-                    <span class="kw1">new</span>
-                    ServletHolder
-                    <span class="br0">(</span>
-                    <span class="kw1">new</span>
-                    HelloServlet
-                    <span class="br0">(</span>
-                    <span class="st0">"Buongiorno Mondo"</span>
-                    <span class="br0">)</span>
-                    <span class="br0">)</span>
-                    ,
-                    <span class="st0">"/it/*"</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    context0.
-                    <span class="me1">addServlet</span>
-                    <span class="br0">(</span>
-                    <span class="kw1">new</span>
-                    ServletHolder
-                    <span class="br0">(</span>
-                    <span class="kw1">new</span>
-                    HelloServlet
-                    <span class="br0">(</span>
-                    <span class="st0">"Bonjour le Monde"</span>
-                    <span class="br0">)</span>
-                    <span class="br0">)</span>
-                    ,
-                    <span class="st0">"/fr/*"</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    WebAppContext webapp
-                    <span class="sy0">=</span>
-                    <span class="kw1">new</span>
-                    WebAppContext
-                    <span class="br0">(</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    webapp.
-                    <span class="me1">setContextPath</span>
-                    <span class="br0">(</span>
-                    <span class="st0">"/ctx1"</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    webapp.
-                    <span class="me1">setWar</span>
-                    <span class="br0">(</span>
-                    jetty_home
-                    <span class="sy0">+</span>
-                    <span class="st0">"/webapps/test.war"</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    ContextHandlerCollection contexts
-                    <span class="sy0">=</span>
-                    <span class="kw1">new</span>
-                    ContextHandlerCollection
-                    <span class="br0">(</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    contexts.
-                    <span class="me1">setHandlers</span>
-                    <span class="br0">(</span>
-                    <span class="kw1">new</span>
-                    Handler
-                    <span class="br0">[</span>
-                    <span class="br0">]</span>
-                    <span class="br0">{</span>
-                    context0, webapp
-                    <span class="br0">}</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    server.
-                    <span class="me1">setHandler</span>
-                    <span class="br0">(</span>
-                    contexts
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    server.
-                    <span class="me1">start</span>
-                    <span class="br0">(</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    server.
-                    <span class="me1">join</span>
-                    <span class="br0">(</span>
-                    <span class="br0">)</span>
-                    <span class="sy0">;</span>
-                    <span class="br0">}</span>
-                    <span class="br0">}</span>
-                  </pre>
+                  <pre class="de1" xml:space="preserve"><span class="kw1">public</span> <span class="kw1">class</span> ManyContexts
+<span class="br0">{</span>
+    <span class="kw1">public</span> <span class="kw1">static</span> <span class="kw4">void</span> main<span class="br0">(</span><span class="kw3">String</span><span class="br0">[</span><span class="br0">]</span> args<span class="br0">)</span> <span class="kw1">throws</span> <span class="kw3">Exception</span>
+    <span class="br0">{</span>
+        Server server <span class="sy0">=</span> <span class="kw1">new</span> Server<span class="br0">(</span><span class="nu0">8080</span><span class="br0">)</span><span class="sy0">;</span>
+ 
+        ServletContextHandler context0 <span class="sy0">=</span> <span class="kw1">new</span> ServletContextHandler<span class="br0">(</span>ServletContextHandler.<span class="me1">SESSIONS</span><span class="br0">)</span><span class="sy0">;</span>
+        context0.<span class="me1">setContextPath</span><span class="br0">(</span><span class="st0">"/ctx0"</span><span class="br0">)</span><span class="sy0">;</span>
+        context0.<span class="me1">addServlet</span><span class="br0">(</span><span class="kw1">new</span> ServletHolder<span class="br0">(</span><span class="kw1">new</span> HelloServlet<span class="br0">(</span><span class="br0">)</span><span class="br0">)</span>,<span class="st0">"/*"</span><span class="br0">)</span><span class="sy0">;</span>
+        context0.<span class="me1">addServlet</span><span class="br0">(</span><span class="kw1">new</span> ServletHolder<span class="br0">(</span><span class="kw1">new</span> HelloServlet<span class="br0">(</span><span class="st0">"Buongiorno Mondo"</span><span class="br0">)</span><span class="br0">)</span>,<span class="st0">"/it/*"</span><span class="br0">)</span><span class="sy0">;</span>
+        context0.<span class="me1">addServlet</span><span class="br0">(</span><span class="kw1">new</span> ServletHolder<span class="br0">(</span><span class="kw1">new</span> HelloServlet<span class="br0">(</span><span class="st0">"Bonjour le Monde"</span><span class="br0">)</span><span class="br0">)</span>,<span class="st0">"/fr/*"</span><span class="br0">)</span><span class="sy0">;</span>
+ 
+        WebAppContext webapp <span class="sy0">=</span> <span class="kw1">new</span> WebAppContext<span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
+        webapp.<span class="me1">setContextPath</span><span class="br0">(</span><span class="st0">"/ctx1"</span><span class="br0">)</span><span class="sy0">;</span>
+        webapp.<span class="me1">setWar</span><span class="br0">(</span>jetty_home<span class="sy0">+</span><span class="st0">"/webapps/test.war"</span><span class="br0">)</span><span class="sy0">;</span>
+ 
+        ContextHandlerCollection contexts <span class="sy0">=</span> <span class="kw1">new</span> ContextHandlerCollection<span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
+        contexts.<span class="me1">setHandlers</span><span class="br0">(</span><span class="kw1">new</span> Handler<span class="br0">[</span><span class="br0">]</span> <span class="br0">{</span> context0, webapp <span class="br0">}</span><span class="br0">)</span><span class="sy0">;</span>
+ 
+        server.<span class="me1">setHandler</span><span class="br0">(</span>contexts<span class="br0">)</span><span class="sy0">;</span>
+ 
+        server.<span class="me1">start</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
+        server.<span class="me1">join</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
+    <span class="br0">}</span>
+<span class="br0">}</span></pre>
                 </div>
               </div>
               <h2>
@@ -1966,13 +700,14 @@
               </h2>
               <p>Embedding JSP support can be a bit confusing if you look at the Jars under the lib/jsp directory in the jetty distribution.  This is because we have to ship from Eclipse with the JSP bundles that are marked up as OSGi bundles, which you cannot directly download from Maven Central.  There are dependencies available in Maven Central that work because they were the actual source for the OSGi bundles themselves.  The OSGi bundles are simply these Maven Central artifacts decomposed into a few extra bundles.</p>
               <p>An example of what you can use follows:</p>
-              <pre>[INFO] org.eclipse.jetty:jetty-jsp-2.1:jar:7.2.2-SNAPSHOT
+              <pre xml:space="preserve">[INFO] org.eclipse.jetty:jetty-jsp-2.1:jar:7.2.2-SNAPSHOT
 [INFO] +- org.eclipse.jetty:jetty-util:jar:7.2.2-SNAPSHOT:provided
 [INFO] +- org.mortbay.jetty:jsp-2.1-glassfish:jar:2.1.v20100127:provided
 [INFO] |  +- org.eclipse.jdt.core.compiler:ecj:jar:3.5.1:provided
 [INFO] |  +- org.mortbay.jetty:jsp-api-2.1-glassfish:jar:2.1.v20100127:provided
 [INFO] |  \- ant:ant:jar:1.6.5:provided
-[INFO] \- javax.servlet:servlet-api:jar:2.5:provided</pre>
+[INFO] \- javax.servlet:servlet-api:jar:2.5:provided
+</pre>
               <p>You should be able to depend on one of the embedding aggregates that we provide to get these dependencies without too much trouble.</p>
               <p>
                 <a class="external free" href="http://repo2.maven.org/maven2/org/eclipse/jetty/aggregate" rel="nofollow">http://repo2.maven.org/maven2/org/eclipse/jetty/aggregate</a>
