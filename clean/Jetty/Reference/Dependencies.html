@@ -1,61 +1,127 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
-<head>
+  <head>
     <title>Jetty WTP Plugin</title>
-    <link rel="stylesheet" media="screen, print" href="wiki-style.css"/>
-</head>
-<body>
-<div id="mainContent" class="col-md-20">
-                                <div class="tab-content background-white">
-              <div id="tab-pane-main-page-content" class="tab-pane active">
-
-                
-                <h1 class="firstHeading page-header" id="firstHeading">
-                  <span dir="auto">Jetty/Reference/Dependencies</span>
-                </h1>
-                <div id="main-page-content">
-
-                  <div class="alert alert-small alert-warning" id="contentSub"><span class="subpages">&lt; <a href="../../Jetty.html" title="Jetty">Jetty</a>‎ | <a title="Jetty/Reference" href="../Reference.html">Reference</a></span></div>
-
-                  
-                  
-                  <div id="mw-content-text" dir="ltr" class="mw-content-ltr" lang="en"><p><br/>
-</p><p><br/>
-</p>
-<div class="toc" id="toc"><div id="toctitle"><h2>Contents</h2></div>
-<ul>
-<li class="toclevel-1"><a href="Dependencies.html#Introduction"><span class="tocnumber">1</span> <span class="toctext">Introduction</span></a>
-<ul>
-<li class="toclevel-2"><a href="Dependencies.html#Maven_Dependency"><span class="tocnumber">1.1</span> <span class="toctext">Maven Dependency</span></a></li>
-<li class="toclevel-2"><a href="Dependencies.html#Types_of_Dependencies"><span class="tocnumber">1.2</span> <span class="toctext">Types of Dependencies</span></a></li>
-</ul>
-</li>
-<li class="toclevel-1"><a href="Dependencies.html#Dependency_Tree"><span class="tocnumber">2</span> <span class="toctext">Dependency Tree</span></a>
-<ul>
-<li class="toclevel-2"><a href="Dependencies.html#HTTP"><span class="tocnumber">2.1</span> <span class="toctext">HTTP</span></a></li>
-<li class="toclevel-2"><a href="Dependencies.html#Server"><span class="tocnumber">2.2</span> <span class="toctext">Server</span></a></li>
-<li class="toclevel-2"><a href="Dependencies.html#Servlets_and_Webapps"><span class="tocnumber">2.3</span> <span class="toctext">Servlets and Webapps</span></a></li>
-<li class="toclevel-2"><a href="Dependencies.html#Plus"><span class="tocnumber">2.4</span> <span class="toctext">Plus</span></a></li>
-</ul>
-</li>
-<li class="toclevel-1"><a href="Dependencies.html#External_Dependencies"><span class="tocnumber">3</span> <span class="toctext">External Dependencies</span></a></li>
-<li class="toclevel-1"><a href="Dependencies.html#start.jar"><span class="tocnumber">4</span> <span class="toctext">start.jar</span></a></li>
-<li class="toclevel-1"><a href="Dependencies.html#Classpath_Execution"><span class="tocnumber">5</span> <span class="toctext">Classpath Execution</span></a></li>
-<li class="toclevel-1"><a href="Dependencies.html#Aggregate_JARs"><span class="tocnumber">6</span> <span class="toctext">Aggregate JARs</span></a></li>
-</ul>
-</div>
-
-<h2><span class="mw-headline" id="Introduction">Introduction</span></h2>
-<div class="messagebox" style="background-color: #f9f6b7; border: 1px solid #c4c295; color: black; padding: 5px; margin: 1ex 0; min-height: 35px; padding-left: 45px;">
-<div style="float: left; margin-left: -40px;"><a class="image" href="https://wiki.eclipse.org/File:Warning2.png"><img alt="Warning2.png" height="35" src="../../images/3/37/Warning2.png" width="35"/></a></div>
-<div>Some or all of this content remains to be ported to Jetty 9 <a class="external text" rel="nofollow" href="http://www.eclipse.org/jetty/documentation/current">Documentation</a>.<br/>If you are interested in migrating this content see our <a class="external text" rel="nofollow" href="http://www.eclipse.org/jetty/documentation/current/contributing-documentation.html">contribution guide</a> or <a href="http://www.eclipse.org/jetty/documentation/current/community.html" rel="nofollow" class="external text">contact us</a>.</div>
-</div>
-<p><br/>
-The Jetty classes are organized into almost fifty JARs, so it is crucial to understand the organization and dependencies (internal or external) when creating classpaths for Jetty.  
-</p>
-<h3><span class="mw-headline" id="Maven_Dependency">Maven Dependency</span></h3>
-<p>When working out dependencies, the Maven dependency:tree plugin is your friend.  For example, to find out the dependencies of the jetty-servlet module:
-</p>
-<pre># mvn -f jetty-servlet/pom.xml dependency:tree
+    <link href="wiki-style.css" media="screen, print" rel="stylesheet" />
+  </head>
+  <body>
+    <div class="col-md-20" id="mainContent">
+      <div class="tab-content background-white">
+        <div class="tab-pane active" id="tab-pane-main-page-content">
+          <h1 class="firstHeading page-header" id="firstHeading">
+            <span dir="auto">Jetty/Reference/Dependencies</span>
+          </h1>
+          <div id="main-page-content">
+            <div class="alert alert-small alert-warning" id="contentSub">
+              <span class="subpages">
+                &lt;
+                <a href="../../Jetty.html" title="Jetty">Jetty</a>
+                 |
+                <a href="../Reference.html" title="Jetty/Reference">Reference</a>
+              </span>
+            </div>
+            <div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="en">
+              <p>
+                <br />
+              </p>
+              <p>
+                <br />
+              </p>
+              <div class="toc" id="toc">
+                <div id="toctitle">
+                  <h2>Contents</h2>
+                </div>
+                <ul>
+                  <li class="toclevel-1">
+                    <a href="Dependencies.html#Introduction">
+                      <span class="tocnumber">1</span>
+                      <span class="toctext">Introduction</span>
+                    </a>
+                    <ul>
+                      <li class="toclevel-2">
+                        <a href="Dependencies.html#Maven_Dependency">
+                          <span class="tocnumber">1.1</span>
+                          <span class="toctext">Maven Dependency</span>
+                        </a>
+                      </li>
+                      <li class="toclevel-2">
+                        <a href="Dependencies.html#Types_of_Dependencies">
+                          <span class="tocnumber">1.2</span>
+                          <span class="toctext">Types of Dependencies</span>
+                        </a>
+                      </li>
+                    </ul>
+                  </li>
+                  <li class="toclevel-1">
+                    <a href="Dependencies.html#Dependency_Tree">
+                      <span class="tocnumber">2</span>
+                      <span class="toctext">Dependency Tree</span>
+                    </a>
+                    <ul>
+                      <li class="toclevel-2">
+                        <a href="Dependencies.html#HTTP">
+                          <span class="tocnumber">2.1</span>
+                          <span class="toctext">HTTP</span>
+                        </a>
+                      </li>
+                      <li class="toclevel-2">
+                        <a href="Dependencies.html#Server">
+                          <span class="tocnumber">2.2</span>
+                          <span class="toctext">Server</span>
+                        </a>
+                      </li>
+                      <li class="toclevel-2">
+                        <a href="Dependencies.html#Servlets_and_Webapps">
+                          <span class="tocnumber">2.3</span>
+                          <span class="toctext">Servlets and Webapps</span>
+                        </a>
+                      </li>
+                      <li class="toclevel-2">
+                        <a href="Dependencies.html#Plus">
+                          <span class="tocnumber">2.4</span>
+                          <span class="toctext">Plus</span>
+                        </a>
+                      </li>
+                    </ul>
+                  </li>
+                  <li class="toclevel-1">
+                    <a href="Dependencies.html#External_Dependencies">
+                      <span class="tocnumber">3</span>
+                      <span class="toctext">External Dependencies</span>
+                    </a>
+                  </li>
+                  <li class="toclevel-1">
+                    <a href="Dependencies.html#start.jar">
+                      <span class="tocnumber">4</span>
+                      <span class="toctext">start.jar</span>
+                    </a>
+                  </li>
+                  <li class="toclevel-1">
+                    <a href="Dependencies.html#Classpath_Execution">
+                      <span class="tocnumber">5</span>
+                      <span class="toctext">Classpath Execution</span>
+                    </a>
+                  </li>
+                  <li class="toclevel-1">
+                    <a href="Dependencies.html#Aggregate_JARs">
+                      <span class="tocnumber">6</span>
+                      <span class="toctext">Aggregate JARs</span>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+              <h2>
+                <span class="mw-headline" id="Introduction">Introduction</span>
+              </h2>
+              <p>
+                <br />
+                The Jetty classes are organized into almost fifty JARs, so it is crucial to understand the organization and dependencies (internal or external) when creating classpaths for Jetty.
+              </p>
+              <h3>
+                <span class="mw-headline" id="Maven_Dependency">Maven Dependency</span>
+              </h3>
+              <p>When working out dependencies, the Maven dependency:tree plugin is your friend.  For example, to find out the dependencies of the jetty-servlet module:</p>
+              <pre xml:space="preserve"># mvn -f jetty-servlet/pom.xml dependency:tree
 [INFO] Scanning for projects...
 [INFO] Searching repository for plugin with prefix: 'dependency'.
 [INFO] ------------------------------------------------------------------------
@@ -73,73 +139,155 @@ The Jetty classes are organized into almost fifty JARs, so it is crucial to unde
 [INFO]          \- org.eclipse.jetty:jetty-io:jar:7.0.0.RC2-SNAPSHOT:compile
 [INFO]             \- org.eclipse.jetty:jetty-util:jar:7.0.0.RC2-SNAPSHOT:compile
 </pre>
-<h3><span id="Types_of_Dependencies" class="mw-headline">Types of Dependencies</span></h3>
-<p>Jetty uses three types of Maven dependencies:
-</p>
-<div class="wide-list">
-<dl><dt> compile</dt>
-<dd> Real, hard dependencies that you need to compile and run the code. In the example above, you can see that jetty-servlet has a single hard dependency on jetty-security, which has transitive dependencies on jetty-server, servlet-api, jetty-continuation, jetty-http, jetty-io, jetty-util.  </dd>
-<dt> provided</dt>
-<dd> (Optional) Used for optional dependencies needed to compile the code, but are not necessary at runtime. For example jetty-util <i>provide</i>-depends on org.slf4j:slf4j-api so that it can compile the <a href="http://git.eclipse.org/c/jetty/org.eclipse.jetty.project.git/plain/jetty-util/src/main/java/org/eclipse/jetty/util/log/Slf4jLog.java" class="external text" rel="nofollow">Slf4jLog</a>. However, slf4j is optional at runtime, so that if the dependency is not on the classpath, then the Slf4J logger is not used.</dd>
-<dd> (Environmental) Also used for dependencies that are expected to be present in a runtime environment. For example the <a href="http://git.eclipse.org/c/jetty/org.eclipse.jetty.project.git/plain/test-jetty-webapp/pom.xml" rel="nofollow" class="external text">test-jetty-webapp <i>provide</i>-depends on the servlet-api</a> so that it can be compiled against the API, but the servlet container is expected to provide the servlet API, so the servlet-api JAR is not included in the WEB-INF/lib of the assembled WAR file.     </dd>
-<dt> test </dt>
-<dd> Used for unit tests (note that some integration tests are in modules with test-foo names, and use normal compile dependencies to access common test resources).</dd></dl>
-</div>
-<h2><span class="mw-headline" id="Dependency_Tree">Dependency Tree</span></h2>
-<p><a class="image" href="https://wiki.eclipse.org/File:Dependencies.jpg"><img alt="Dependencies.jpg" width="1586" height="862" src="../../images/e/e2/Dependencies.jpg"/></a>
-</p><p>This diagram shows the compile dependencies for the Jetty project. The external dependencies are listed on the right hand side and all other modules shown are part of the project.   The dependencies are best understood in the following groups:
-</p>
-<h3><span class="mw-headline" id="HTTP">HTTP</span></h3>
-<p>The <b>jetty-util</b>, <b>jetty-io</b> and <b>jetty-http</b> jars form the core of the jetty HTTP handler (generation and parsing) that is used for both the <b>jetty-client</b> and the <b>jetty-server</b>
-</p>
-<h3><span class="mw-headline" id="Server">Server</span></h3>
-<p>Together with the HTTP jars, the <b>jetty-server</b>, <b>jetty-continuation</b> and <b>server-api</b> jars make up the minimal dependencies needed to run a HTTP server. Note that while the <b>servlet-api</b> is used for requests and responses, this is not a servlet server and Jetty handlers must be used to generate responses.
-</p>
-<h3><span id="Servlets_and_Webapps" class="mw-headline">Servlets and Webapps</span></h3>
-<p>If the <b>jetty-security</b> and <b>jetty-servlet</b> modules are added to the server dependencies, then you have the capability to run standard Servlets and Filters, but these must be configured programmatically.   If the <b>jetty-xml</b> and <b>jetty-webapp</b> modules are included, then standard web applications and WAR files may be run using <a title="Jetty/Reference/jetty.xml syntax" href="jetty.xml syntax.html">web.xml</a> configuration.   The <b>jetty-deploy</b> module then adds the ability to discover and deploy WAR files in application server style.
-</p>
-<h3><span class="mw-headline" id="Plus">Plus</span></h3>
-<p>The <b>jetty-jndi</b>, <b>jetty-plus</b> and <b>jetty-annotation</b> modules together add more J2EE-like capabilities that are often collectively called "Jetty Plus" 
-</p>
-<h2><span class="mw-headline" id="External_Dependencies">External Dependencies</span></h2>
-<p>The main Jetty external dependencies are shown in the dependency diagram above.  You can see that other than JSP, annotations, plus and JNDI, the only other compile dependency on Jetty is the servlet-api.  This means that for a standard web application without JSP, the only non-jetty jar required to run is the servlet-api jar.
-</p><p>Jetty does have some run-time optional dependencies.  For example, the log mechanism contained in the jetty-util jar looks for an <a href="http://www.slf4j.org" class="external text" rel="nofollow">SLF4J</a> jar on the classpath.  If it finds one, SLF4J is used for Jetty logging; otherwise a simple stderr logger is used.  
-</p>
-<h2><span class="mw-headline" id="start.jar">start.jar</span></h2>
-<p>The start.jar is a generic and portable way to assemble a classpath and run a Java program.  The default <a href="http://dev.eclipse.org/svnroot/rt/org.eclipse.jetty/jetty/trunk/jetty-start/src/main/resources/org/eclipse/jetty/start/start.config" class="external text" rel="nofollow">start.config</a> file baked into the start.jar is for Jetty, but it could be modified for any application.
-</p><p>The start.jar mechanism uses the options defined in the config file to define the JARs required to run. The default configuration, which supports the core Jetty server with web applications, but no JSPs, is run with:
-</p>
-<pre>   java -jar start.jar etc/myjetty.xml
+              <h3>
+                <span class="mw-headline" id="Types_of_Dependencies">Types of Dependencies</span>
+              </h3>
+              <p>Jetty uses three types of Maven dependencies:</p>
+              <div class="wide-list">
+                <dl>
+                  <dt>compile</dt>
+                  <dd>Real, hard dependencies that you need to compile and run the code. In the example above, you can see that jetty-servlet has a single hard dependency on jetty-security, which has transitive dependencies on jetty-server, servlet-api, jetty-continuation, jetty-http, jetty-io, jetty-util.</dd>
+                  <dt>provided</dt>
+                  <dd>
+                    (Optional) Used for optional dependencies needed to compile the code, but are not necessary at runtime. For example jetty-util
+                    <i>provide</i>
+                    -depends on org.slf4j:slf4j-api so that it can compile the
+                    <a class="external text" href="http://git.eclipse.org/c/jetty/org.eclipse.jetty.project.git/plain/jetty-util/src/main/java/org/eclipse/jetty/util/log/Slf4jLog.java" rel="nofollow">Slf4jLog</a>
+                    . However, slf4j is optional at runtime, so that if the dependency is not on the classpath, then the Slf4J logger is not used.
+                  </dd>
+                  <dd>
+                    (Environmental) Also used for dependencies that are expected to be present in a runtime environment. For example the
+                    <a class="external text" href="http://git.eclipse.org/c/jetty/org.eclipse.jetty.project.git/plain/test-jetty-webapp/pom.xml" rel="nofollow">
+                      test-jetty-webapp
+                      <i>provide</i>
+                      -depends on the servlet-api
+                    </a>
+                    so that it can be compiled against the API, but the servlet container is expected to provide the servlet API, so the servlet-api JAR is not included in the WEB-INF/lib of the assembled WAR file.
+                  </dd>
+                  <dt>test </dt>
+                  <dd>Used for unit tests (note that some integration tests are in modules with test-foo names, and use normal compile dependencies to access common test resources).</dd>
+                </dl>
+              </div>
+              <h2>
+                <span class="mw-headline" id="Dependency_Tree">Dependency Tree</span>
+              </h2>
+              <p>
+                <a class="image" href="https://wiki.eclipse.org/File:Dependencies.jpg">
+                  <img alt="Dependencies.jpg" height="862" src="../../images/e/e2/Dependencies.jpg" width="1586" />
+                </a>
+              </p>
+              <p>This diagram shows the compile dependencies for the Jetty project. The external dependencies are listed on the right hand side and all other modules shown are part of the project.   The dependencies are best understood in the following groups:</p>
+              <h3>
+                <span class="mw-headline" id="HTTP">HTTP</span>
+              </h3>
+              <p>
+                The
+                <b>jetty-util</b>
+                ,
+                <b>jetty-io</b>
+                and
+                <b>jetty-http</b>
+                jars form the core of the jetty HTTP handler (generation and parsing) that is used for both the
+                <b>jetty-client</b>
+                and the
+                <b>jetty-server</b>
+              </p>
+              <h3>
+                <span class="mw-headline" id="Server">Server</span>
+              </h3>
+              <p>
+                Together with the HTTP jars, the
+                <b>jetty-server</b>
+                ,
+                <b>jetty-continuation</b>
+                and
+                <b>server-api</b>
+                jars make up the minimal dependencies needed to run a HTTP server. Note that while the
+                <b>servlet-api</b>
+                is used for requests and responses, this is not a servlet server and Jetty handlers must be used to generate responses.
+              </p>
+              <h3>
+                <span class="mw-headline" id="Servlets_and_Webapps">Servlets and Webapps</span>
+              </h3>
+              <p>
+                If the
+                <b>jetty-security</b>
+                and
+                <b>jetty-servlet</b>
+                modules are added to the server dependencies, then you have the capability to run standard Servlets and Filters, but these must be configured programmatically.   If the
+                <b>jetty-xml</b>
+                and
+                <b>jetty-webapp</b>
+                modules are included, then standard web applications and WAR files may be run using
+                <a href="jetty.xml syntax.html" title="Jetty/Reference/jetty.xml syntax">web.xml</a>
+                configuration.   The
+                <b>jetty-deploy</b>
+                module then adds the ability to discover and deploy WAR files in application server style.
+              </p>
+              <h3>
+                <span class="mw-headline" id="Plus">Plus</span>
+              </h3>
+              <p>
+                The
+                <b>jetty-jndi</b>
+                ,
+                <b>jetty-plus</b>
+                and
+                <b>jetty-annotation</b>
+                modules together add more J2EE-like capabilities that are often collectively called "Jetty Plus"
+              </p>
+              <h2>
+                <span class="mw-headline" id="External_Dependencies">External Dependencies</span>
+              </h2>
+              <p>The main Jetty external dependencies are shown in the dependency diagram above.  You can see that other than JSP, annotations, plus and JNDI, the only other compile dependency on Jetty is the servlet-api.  This means that for a standard web application without JSP, the only non-jetty jar required to run is the servlet-api jar.</p>
+              <p>
+                Jetty does have some run-time optional dependencies.  For example, the log mechanism contained in the jetty-util jar looks for an
+                <a class="external text" href="http://www.slf4j.org" rel="nofollow">SLF4J</a>
+                jar on the classpath.  If it finds one, SLF4J is used for Jetty logging; otherwise a simple stderr logger is used.
+              </p>
+              <h2>
+                <span class="mw-headline" id="start.jar">start.jar</span>
+              </h2>
+              <p>
+                The start.jar is a generic and portable way to assemble a classpath and run a Java program.  The default
+                <a class="external text" href="http://dev.eclipse.org/svnroot/rt/org.eclipse.jetty/jetty/trunk/jetty-start/src/main/resources/org/eclipse/jetty/start/start.config" rel="nofollow">start.config</a>
+                file baked into the start.jar is for Jetty, but it could be modified for any application.
+              </p>
+              <p>The start.jar mechanism uses the options defined in the config file to define the JARs required to run. The default configuration, which supports the core Jetty server with web applications, but no JSPs, is run with:</p>
+              <pre xml:space="preserve">   java -jar start.jar etc/myjetty.xml
 </pre>
-<p>If the core server jars are needed plus JSP and JMX, then specify these options, for example:
-</p>
-<pre>   java -jar start.jar OPTIONS=Server,jsp,jmx
+              <p>If the core server jars are needed plus JSP and JMX, then specify these options, for example:</p>
+              <pre xml:space="preserve">   java -jar start.jar OPTIONS=Server,jsp,jmx
 </pre>
-<p>By convention, options starting with a capital letter refer to a set of Jetty modules, while those starting with lowercase refer to a specific module (e.g., "jsp" for jetty-jsp and its dependencies, "jmx" for jetty-jmx). 
-</p><p>You can view the available start parameters and options with:
-</p>
-<pre>   java -jar start.jar --help
+              <p>By convention, options starting with a capital letter refer to a set of Jetty modules, while those starting with lowercase refer to a specific module (e.g., "jsp" for jetty-jsp and its dependencies, "jmx" for jetty-jmx).</p>
+              <p>You can view the available start parameters and options with:</p>
+              <pre xml:space="preserve">   java -jar start.jar --help
 </pre>
-<p>You can see details of the jars each OPTION provides <a title="Jetty/Reference/Start Options" href="Start Options.html">here</a> or listed with:
-</p>
-<pre>   java -jar start.jar --list-options
+              <p>
+                You can see details of the jars each OPTION provides
+                <a href="Start Options.html" title="Jetty/Reference/Start Options">here</a>
+                or listed with:
+              </p>
+              <pre xml:space="preserve">   java -jar start.jar --list-options
 </pre>
-<p><br/>
-In addition to OPTIONS, the default configuration start.jar allows the classpath to be expanded by setting options for "lib" (to a directory containing jars) or "path" to a specific classpath.  For example:
-</p>
-<pre>   java -jar start.jar lib=/usr/share/java path=$HOME/src/myproject/classes
+              <p>
+                <br />
+                In addition to OPTIONS, the default configuration start.jar allows the classpath to be expanded by setting options for "lib" (to a directory containing jars) or "path" to a specific classpath.  For example:
+              </p>
+              <pre xml:space="preserve">   java -jar start.jar lib=/usr/share/java path=$HOME/src/myproject/classes
 </pre>
-<p><br/>
-</p>
-<h2><span id="Classpath_Execution" class="mw-headline">Classpath Execution</span></h2>
-<p>There is no requirement to start Jetty with the start.jar mechanism.   A normal shell or bat script can be used to assemble a classpath to run a Jetty server from a direct invocation of the java command.  Note that the start.jar mechanism has the --exec-print options to assist with creation of java command lines.  For example, executing:
-</p>
-<pre>   cd /usr/local/jetty-7
+              <p>
+                <br />
+              </p>
+              <h2>
+                <span class="mw-headline" id="Classpath_Execution">Classpath Execution</span>
+              </h2>
+              <p>There is no requirement to start Jetty with the start.jar mechanism.   A normal shell or bat script can be used to assemble a classpath to run a Jetty server from a direct invocation of the java command.  Note that the start.jar mechanism has the --exec-print options to assist with creation of java command lines.  For example, executing:</p>
+              <pre xml:space="preserve">   cd /usr/local/jetty-7
    java -jar start.jar OPTIONS=server path=/usr/share/java/junit4.jar --dry-run
 </pre>
-<p>produces the following command line on the stdout:
-</p>
-<pre>/usr/lib/jvm/java-1.5.0-sun-1.5.0.19/jre/bin/java \
+              <p>produces the following command line on the stdout:</p>
+              <pre xml:space="preserve">/usr/lib/jvm/java-1.5.0-sun-1.5.0.19/jre/bin/java \
 -cp /usr/share/java/junit4-4.3.1.jar:\
 /usr/local/jetty-7/lib/servlet-api-2.5.jar:\
 /usr/local/jetty-7/lib/jetty-http-7.0.0.RC2-SNAPSHOT.jar:\
@@ -151,26 +299,25 @@ In addition to OPTIONS, the default configuration start.jar allows the classpath
 org.eclipse.jetty.xml.XmlConfiguration \
 /usr/local/jetty-7/etc/jetty.xml
 </pre>
-<h2><span class="mw-headline" id="Aggregate_JARs">Aggregate JARs</span></h2>
-<p>When embedding Jetty in other applications, it might be inconvenient and/or verbose to include the many small Jars that comprise Jetty.  Thus there are several aggregate Jars available, which combine many smaller Jars into a single Jar. 
-</p><p>Aggregate Jars are available as a Maven artifact under the org.eclipse.jetty.aggregate group ID.
-</p><p>The aggregate Jars available are:
-</p>
-<ul><li> jetty-all</li>
-<li> jetty-all-server</li>
-<li> jetty-client</li>
-<li> jetty-plus</li>
-<li> jetty-server</li>
-<li> jetty-servlet</li>
-<li> jetty-webapp</li></ul>
-
-
-</div>
-
-                    <div class="catlinks" id="catlinks"><div class="mw-normal-catlinks" id="mw-normal-catlinks"><a title="Special:Categories" href="https://wiki.eclipse.org/Special:Categories">Categories</a>: <ul><li><a title="Category:Jetty" href="https://wiki.eclipse.org/Category:Jetty">Jetty</a></li><li><a title="Category:Jetty Reference" href="https://wiki.eclipse.org/Category:Jetty_Reference">Jetty Reference</a></li></ul></div></div>
-                                  </div>
-              </div>
+              <h2>
+                <span class="mw-headline" id="Aggregate_JARs">Aggregate JARs</span>
+              </h2>
+              <p>When embedding Jetty in other applications, it might be inconvenient and/or verbose to include the many small Jars that comprise Jetty.  Thus there are several aggregate Jars available, which combine many smaller Jars into a single Jar.</p>
+              <p>Aggregate Jars are available as a Maven artifact under the org.eclipse.jetty.aggregate group ID.</p>
+              <p>The aggregate Jars available are:</p>
+              <ul>
+                <li>jetty-all</li>
+                <li>jetty-all-server</li>
+                <li>jetty-client</li>
+                <li>jetty-plus</li>
+                <li>jetty-server</li>
+                <li>jetty-servlet</li>
+                <li>jetty-webapp</li>
+              </ul>
             </div>
           </div>
-</body>
+        </div>
+      </div>
+    </div>
+  </body>
 </html>

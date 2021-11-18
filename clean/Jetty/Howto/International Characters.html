@@ -1,171 +1,294 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
-<head>
+  <head>
     <title>Jetty WTP Plugin</title>
-    <link rel="stylesheet" media="screen, print" href="wiki-style.css"/>
-</head>
-<body>
-<div class="col-md-20" id="mainContent">
-                      <ul class="nav nav-tabs noprint hidden-print" role="tablist">
-                       <li id="ca-nstab-main" class="active"><a accesskey="c" tabindex="-1" href="International Characters.html" title="View the content page [c]">Page</a></li>
-                        <li id="ca-talk" class="new"><a href="edit" tabindex="-1" accesskey="t" title="Discussion about the content page [t]">Discussion</a></li>
-                        <li id="ca-viewsource"><a title="This page is protected.&#10;You can view its source [e]" href="edit" tabindex="-1" accesskey="e">View source</a></li>
-                        <li class="collapsible" id="ca-history"><a tabindex="-1" accesskey="h" href="edit" title="Past revisions of this page [h]">History</a></li>
-                      </ul>            <div class="tab-content background-white">
-              <div class="tab-pane active" id="tab-pane-main-page-content">
-
-                
-                <h1 class="firstHeading page-header" id="firstHeading">
-                  <span dir="auto">Jetty/Howto/International Characters</span>
-                </h1>
-                <div id="main-page-content">
-
-                  <div id="contentSub" class="alert alert-small alert-warning"><span class="subpages">&lt; <a href="../../Jetty.html" title="Jetty">Jetty</a>‎ | <a href="../Howto.html" title="Jetty/Howto">Howto</a></span></div>
-
-                  
-                  
-                  <div dir="ltr" id="mw-content-text" lang="en" class="mw-content-ltr"><p><br/>
-</p><p><br/>
-</p>
-<div id="toc" class="toc"><div id="toctitle"><h2>Contents</h2></div>
-<ul>
-<li class="toclevel-1"><a href="International Characters.html#Introduction"><span class="tocnumber">1</span> <span class="toctext">Introduction</span></a></li>
-<li class="toclevel-1"><a href="International Characters.html#Steps"><span class="tocnumber">2</span> <span class="toctext">Steps</span></a></li>
-<li class="toclevel-1"><a href="International Characters.html#Primer_and_Terminology"><span class="tocnumber">3</span> <span class="toctext">Primer and Terminology</span></a></li>
-<li class="toclevel-1"><a href="International Characters.html#Characters_included_in_HTTP_requests"><span class="tocnumber">4</span> <span class="toctext">Characters included in HTTP requests</span></a>
-<ul>
-<li class="toclevel-2"><a href="International Characters.html#Characters_in_the_HTTP_content_part"><span class="tocnumber">4.1</span> <span class="toctext">Characters in the HTTP content part</span></a></li>
-<li class="toclevel-2"><a href="International Characters.html#International_characters_in_URLs"><span class="tocnumber">4.2</span> <span class="toctext">International characters in URLs</span></a>
-<ul>
-<li class="toclevel-3"><a href="International Characters.html#International_characters_in_domain_names"><span class="tocnumber">4.2.1</span> <span class="toctext">International characters in domain names</span></a></li>
-</ul>
-</li>
-<li class="toclevel-2"><a href="International Characters.html#Handling_of_International_characters_by_browsers"><span class="tocnumber">4.3</span> <span class="toctext">Handling of International characters by browsers</span></a></li>
-<li class="toclevel-2"><a href="International Characters.html#Techniques_for_working_with_international_characters"><span class="tocnumber">4.4</span> <span class="toctext">Techniques for working with international characters</span></a></li>
-<li class="toclevel-2"><a href="International Characters.html#Need_for_GET-method_support"><span class="tocnumber">4.5</span> <span class="toctext">Need for GET-method support</span></a></li>
-<li class="toclevel-2"><a href="International Characters.html#International_characters_in_Jetty_configuration_files"><span class="tocnumber">4.6</span> <span class="toctext">International characters in Jetty configuration files</span></a></li>
-</ul>
-</li>
-</ul>
-</div>
-
-<h2><span id="Introduction" class="mw-headline">Introduction</span></h2>
-<p>Internet standards support for international character sets was historically weak, is now improving, but is still not perfect. The current standards situation is confusing, and has led to false expectations about what can be reliably achieved using today's browsers, protocols and servers.
-</p><p>Jetty fully supports and implements the current relevant standards and specifications, but this alone is not sufficient to make working with international characters easy or reliable in all situations. This FAQ explains the current standards, provides hints and tips for building and decoding Internationalised web pages (including ones with dynamic data) and explains how Jetty has anticipated the probable future direction of the standards.
-</p><p>The intended readership is people developing Servlet applications and their associated web pages. A basic knowledge of Java, HTML and of hexadecimal notation is assumed.
-</p><p>Unless otherwise stated, the information below applies to all current (August 2002) standards-conformant Web Servers, not just to Jetty.
-</p><p>This document is largely based on the document originally contributed to jetty-6 by Chris Hayes.
-</p><p><br/>
-</p>
-<h2><span id="Steps" class="mw-headline">Steps</span></h2>
-<h2><span class="mw-headline" id="Primer_and_Terminology">Primer and Terminology</span></h2>
-<p>There are four groups whose standards and specifications affect character handling in web pages:
-</p>
-<ol><li> The Internet Engineering Task Force (IETF) manages the Requests for Comments (RFCs) which define the basic transportation protocols, including the HyperTextTransfer Protocol (HTTP) and Uniform Resource Locators (URLs) with which we are concerned.</li>
-<li> The World Wide Web Consortium (W3C) manages the HTML and XHTML standards, with which web pages are built, and the XML standard, used in Jetty configuration.</li>
-<li> The Internet Assigned Numbers Authority (IANA), which, among other duties, maintains a list of character encodings.</li>
-<li> Oracle owns the Servlet specification, which is expressed in Java APIs.</li>
-<li> The Internet was initially designed and constructed using basic English characters encoded in the 7-bit US-ASCII character set. This provides 26 upper and lower case letters, 10 digits, and a variety of punctuation and other symbols - it encodes 95 'printing' characters. Today, these are still the only printable characters which can be used in HTTP.</li></ol>
-<p>A single byte (8 bits) has the capacity to represent up to 256 characters. There are several widely-used encodings which give the US-ASCII characters their normal values in the range 0-127, and a selection of other characters are assigned code values in the range 128-255. In many web browsers the encoding to use can either be specified by the web page designer or selected by the user. Some of these encodings are proprietary, others specified by consortia or international standards bodies.
-</p><p>The first approaches to supporting international characters involved selecting one of these 8-bit character sets, and attempting to ensure that the web page source, the browser, and any server using data from that browser were using the same character encoding.
-</p><p>There is a default character set ISO-8859-1, which supports most western European languages, and is currently the official 'default' content encoding for content carried by HTTP (but not for data included in URLs - see below). This is also the default for all Jetty versions except 4.0.x. Alternative encodings may be specified by defining the HTTP Content-Type header of the page to be something like "text/html; charset=ISO-8859-4". From a Servlet you can use request.setContentType("text/html; charset=ISO-8859-4"); . Pages can then be composed using the desired literal characters (e.g. accented letters from Europe or, with a different encoding selected, Japanese characters). This mechanism can be unreliable; the browser's user can select the encoding to be applied, which may be different from that intended by the servlet designer.
-</p><p>Today the Internet is converging on a single, common encoding - Unicode - in which can be represented all known written languages, as well as a wide range of symbols (e.g. mathematical symbols and decorative marks). Unicode requires a 16-bit integer value to represent each character. By design, the 95 printable US-ASCII characters have the same code values in Unicode; US-ASCII is a subset of Unicode. Most modern browsers can decode and display a wide range of the characters represented by Unicode - but it would be rare to find a browser capable of displaying all the Unicode characters.
-</p><p>Unicode is the only character encoding used in XML and is now the default in HTML, XHML and in most Java implementations.
-</p><p>The Internet transmits data in groups of 8 bits, which the IETF usually call 'octets', but everyone else calls 'bytes'. When larger values have to be sent, such as the 16 bits needed for Unicode and some other international character encodings, there has to be a convention on how the 16 bits are packed into one or more octets. There are two standards commonly used to encode Unicode: UTF-8 and UTF-16.
-</p><p>UTF-16 is the 'brute-force' encoding for data transmission. The 16 bits representing the character value are placed in adjacent octets. Variants of UTF-16 place the octets in different orders.
-</p><p>UTF-8 is more common, and is recommended for most purposes. Characters with values less 0080 (hexadecimal notation) are transmitted as a single octet whose value is that of the character. Characters with values in the range 0080 to 07FF are encoded as two octets, whilst the (infrequently-used) Unicode characters with values between 0800 and FFFF are encoded into three octets. This encoding has the really useful property that a sequence of (7-bit) US-ASCII characters sent as bytes and then sent as Unicode UTF-8 octets produce identical octet streams - a US-ASCII byte stream is a valid UTF-8 octet stream and represents the same printing characters. This is not the case if other characters are being sent, or if UTF-16 is in use.
-</p><p>As well as having US-ASCII compatibility, UTF-8 is preferred because, in the majority of situations, it results in shorter messages than UTF-16.
-</p><p>Note that, when UTF-8 is specified, it not only defines the way in which the character code values are packed into octets, it also implicitly defines the character encoding in use as Unicode.
-</p><p>There is an international standard - ISO-10646 - which defines an identical character set to Unicode - but omits much essential additional information. For most purposes refer to Unicode rather than ISO-10646.
-</p>
-<h2><span class="mw-headline" id="Characters_included_in_HTTP_requests">Characters included in HTTP requests</span></h2>
-<p>There are two places in which HTTP requests (from browsers to web servers) may include character data:
-</p>
-<ol><li> In the URL part of the first line of the HTTP request,</li>
-<li> In the HTTP content area at the end of the HTTP message, resulting from an HTML &lt;form method='post'...&gt; ... &lt;/form&gt; submission</li></ol>
-<h3><span id="Characters_in_the_HTTP_content_part" class="mw-headline">Characters in the HTTP content part</span></h3>
-<p>Wherever possible, a POST method should be used when international characters are involved.
-</p><p>This is because the browser sends a HTTP <tt>Content-Type</tt> header which can help the web server determine the encoding of the content. The <tt>Content-Type</tt> header will tell the server the MIME-type encoding of the content (usually <tt>application/x-www-form-urlencoded</tt>) and also can optionally include the character encoding of the content eg:
-</p><p><tt>Content-Type: application/x-www-form-urlencoded;charset=UTF-8</tt>
-</p><p>If both the MIME-type and the charset encoding information is sent in the POST HTTP header, the server can correctly decode the content.
-</p><p>Unfortunately, many browsers do not bother to send the charset information, leaving the web server to guess the correct encoding. For this reason, the Servlet API provides the SevletRequest.setCharacterEncoding(String) method to allow the webapp developer to control the decoding of the form content.
-</p><p>Jetty-7 and 8 uses a default of UTF-8 if no overriding character encoding is set on a request.
-</p>
-<h3><span id="International_characters_in_URLs" class="mw-headline">International characters in URLs</span></h3>
-<p>A typical URL looks like:
-</p><p><a rel="nofollow" href="http://www.my.site/dir/page.html" class="external free">http://www.my.site/dir/page.html</a>
-</p><p>When a form is sent, using the default GET method, the data values from the form are included in the URL e.g.:
-</p><p><a rel="nofollow" class="external free" href="http://www.my.site/dir/page.html?name=Durst&amp;age=18">http://www.my.site/dir/page.html?name=Durst&amp;age=18</a>
-</p><p>It is important to note that only a very restricted sub-set of the US-ASCII printing characters are permitted in URLs.
-</p><p>Something like name=Dürst (with an umlaut) is illegal. It might work with some browser/server combinations (and might even deliver the expected value), but it should never be used.
-</p><p>The HTTP Specification provides an 'escape' mechanism, commonly referred to as <a class="external text" href="http://en.wikipedia.org/wiki/Percent-encoding" rel="nofollow">"percent encoding"</a> or <a href="http://www.w3schools.com/tags/ref_urlencode.asp" class="external text" rel="nofollow">"url encoding"</a>  which permits arbitrary octet values to be included in the URL. The three characters %HH - where HH are hexadecimal characters - inserts the specified octet value into the URL. This has to be used for the US-ASCII characters which may not appear literally in URLs, and can be used for other octet values.
-</p><p>It is a common fallacy that this permits international characters to be reliably transmitted. This is wrong.
-</p><p>This is because the %HH escape permits the transmission of a sequence of octets, but has nothing to say about what character encoding is in use.
-</p><p>There is no provision in the HTTP protocol for the sender (the browser) to tell the receiver (the web server) what encoding has been used in the URI, and none of the specifications related to HTTP/HTML define a default encoding.
-</p><p>Thus, although any desired octet sequence can be placed in a URL, none of the standards tell the web server how to interpret that octet sequence.
-</p><p>The designers of web servers with Servlet APIs currently have a problem. They are presented with an octet stream of unspecified encoding, and yet have to deliver a Java String (a sequence of decoded characters) to the Servlet API.
-</p><p>Due to the lack of a standard, different browers took different approaches to the character encoding used. Some use the encoding of the page and some use UTF-8. Some drafts were prepared by various standards bodies suggesting that UTF-8 would become the standard encoding.
-</p><p>The W3C organization's HTML standard now recommends the use of UTF-8: <a rel="nofollow" class="external free" href="http://www.w3.org/TR/html40/appendix/notes.html#non-ascii-chars">http://www.w3.org/TR/html40/appendix/notes.html#non-ascii-chars</a> and accordingly jetty-7 and 8 series uses a default of UTF-8.
-</p><p>If UTF-8 is not correct for your environment, you may use one of two methods to set the charset encoding of the query string in GET requests:
-</p>
-<ol><li> to change the encoding on a request by request basis, call <a rel="nofollow" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/server/Request.html#setQueryEncoding%28java.lang.String%29" class="external text">Request.setQueryEncoding("xxx")</a> - where "xxx" is replaced with the name of the charset encoding desired - before reading any of the content or params. If you don't wish to use this jetty-specific API, you can instead call <a rel="nofollow" href="http://docs.oracle.com/javaee/6/api/javax/servlet/ServletRequest.html#setAttribute%28java.lang.String,%20java.lang.Object%29" class="external text">javax.servlet.ServletRequest.setAttribute("org.eclipse.jetty.server.Request.queryEncoding", "xxx")</a> - where "xxx" is replaced with the name of the charset encoding desired - before reading the content or params. <i>NOTE</i> that for efficiency reasons, the parameters are parsed only the first time any of the Request.getParameterXXX() methods are called. Therefore, if you are not sure of the encoding used on the request, after using one of the 2 methods explained above for setting the character encoding, retrieve the query string with <a href="http://docs.oracle.com/javaee/6/api/javax/servlet/http/HttpServletRequest.html#getQueryString%28%29" class="external text" rel="nofollow">javax.servlet.http.HttpServletRequest.getQueryString()</a> and try parsing it yourself (see below "Techniques for working with international characters" for further tips for working out what encoding was used).</li>
-<li> to change the encoding for every request, set the system property "org.eclipse.jetty.util.UrlEncoding.charset" to the encoding you want to use.</li></ol>
-<h4><span class="mw-headline" id="International_characters_in_domain_names">International characters in domain names</span></h4>
-<p>In May 2010, the first <a href="http://en.wikipedia.org/wiki/Internationalized_domain_name" class="external text" rel="nofollow">domain names using internationalized characters</a> were loaded into the DNS root name servers. It is now possible to register domains such as:
-</p><p><tt>åäö.com</tt>
-</p><p>To accommodate these names, given the restrictions on acceptable characters in hostnames, web browsers and clients must translate internationalized hostnames to ascii-only using an encoding called <a class="external text" href="http://tools.ietf.org/html/rfc3492" rel="nofollow">punycode</a>. Here's an example:
-</p><p>The following domain name:
-</p>
-<pre><tt><a class="external free" href="http://www.åäö.com:8080/test/" rel="nofollow">http://www.åäö.com:8080/test/</a></tt>
-</pre>
-<p>would be translated by the browser to:
-</p>
-<pre><tt><a rel="nofollow" class="external free" href="http://www.xn--4cab6c.com:8080/test/">http://www.xn--4cab6c.com:8080/test/</a></tt>
-</pre>
-<p>You can read more about internationalized domain names and jetty (such as how to configure virtual hosts with internationalized characters) here: 
-<a title="Jetty/Howto/Configure Virtual Hosts" href="Configure Virtual Hosts.html#Configuring_Virtual_Hosts_with_Non-ascii_Characters">Virtual Hosts with non-ascii characters</a>
-</p>
-<h3><span id="Handling_of_International_characters_by_browsers" class="mw-headline">Handling of International characters by browsers</span></h3>
-<p>There are many ways in which international characters can be displayed or placed into browsers for inclusion in HTTP requests. Some examples are:
-</p>
-<ul><li> Dürst </li>
-<li> &lt;h3&gt;Dürst&lt;/h3&gt; </li>
-<li> &lt;input type='text' value='Dürst'&gt;</li>
-<li> &lt;script language='javascript'&gt;name="D\u00FCrst";&lt;/script&gt;</li>
-<li> &lt;form action='/servlet?name=D%C3%BCrst'&gt;...&lt;/form&gt;</li>
-<li> &lt;a href='/servlet?name=D%C3%BCrst'&gt;...&lt;/a&gt;</li></ul>
-<p>It is also possible to manipulate document text using the DOM APIs.
-</p><p>It is believed that, in all the above examples, all modern browsers (those supporting HTML 4) will treat the &amp;...; encoding as representing Unicode characters. Earlier ones may not understand this encoding.
-</p><p>The first example, with the literal ü, should only be used if the character encoding can be relied upon, and if support for 'legacy' browsers (those not understanding the &amp;...; encoding) is essential.
-</p><p>It is, of course, possible for users to enter characters using &lt;input..&gt; and &lt;textarea...&gt; elements via the operating system. Text can come from keyboards, and also from 'cut and paste' mechanisms. It appears that most browsers use their current (user-selectable) 'Encoding' setting (e.g. in MSIE: View..Encoding) to encode such characters. After the User has selected the encoding to use, it appears that many browsers will transmit the data characters in the request in that locally-defined encoding, rather than the one specified with the page. 
-</p>
-<h3><span class="mw-headline" id="Techniques_for_working_with_international_characters">Techniques for working with international characters</span></h3>
-<p>The only reliable, standards-supported way to handle international characters in a browser- and server-neutral way appears to be:
-</p>
-<ol><li> To specify the contents of the HTML page using &amp;...; encoding and</li>
-<li> To use the &lt;form method='post' ...&gt; method of submission.</li></ol>
-<h3><span class="mw-headline" id="Need_for_GET-method_support">Need for GET-method support</span></h3>
-<p>It is sometimes suggested that all forms can and should be submitted using the above POST method. There is, in fact, a valid need to use the default GET method.
-</p><p>To appreciate this need one must consider carefully a significant difference between submitting a form using POST and GET. When using GET the data values from the form are appended to the URI and form part of the visible 'address' seen at the top of the browser. It is also this entire string that is saved if the page is bookmarked by the browser, and may be moved using 'cut-and-paste' into an eMail, another web page etc..
-</p><p>It is possible that the dynamic data from the form is an integral part of the semantics of the 'page address' to be stored.
-</p><p>The address may be part of a map; one of the data values from the map may define the town on which the map view is to be centered - and this name may only be expressible in, say, Thai characters. The town name may have been entered or selected by the user - it was not a 'literal' in the HTML defining the page or in the URL.
-</p><p>Another common need is to 'bookmark' or sent by eMail the request string from a search engine request which has non-ASCII characters in the search.
-</p><p>There is not yet any standards-based way of constructing this dynamically-defined URL - there is no direct way to be certain what character encodings have been applied in constructing the URI-with-query string that the browser generates.
-</p><p>A work-around which has been suggested is to provide additional, known text fields alongside the unknown text. In the example above, the form with the dynamically-defined town name could also have a hidden field into which the generated page inserts 'known' text from the same character set (using the &amp;...; encoding). When the request is eventually received by a servlet the octet contents of the known field are inspected (typically by using request.getQueryString() ). If the characters of the 'tracer' field are the same as those injected into the page when it was generated (and the character code values encompass those of the unknown town) then there is an assumption that the encoding used was Unicode and that the town name as present in Java is accurate.
-</p><p>If the the actual encoding can be deduced from the 'tracer' octets, the Servlet API request.setCharacterEncoding() can be called (before calling any of the .getParameter() methods) to tell the web server which encoding to assume when decoding the query.
-</p><p>There is an obvious potential flaw in this 'tracer' technique - the browser may represent &amp;...;-specified 'tracer' text with its Unicode values, yet may use the local keyboard/operating system encoding for locally-entered data. The author is not aware of any conclusive knowledge or evidence in this area.
-</p><p>An alternative work-around, which is more complex but might be more certain if GET has to be used, would be to use Javascript or the DOM interfaces to transfer the characters from the input fields to the query part of the URL string. 
-</p>
-<h3><span class="mw-headline" id="International_characters_in_Jetty_configuration_files">International characters in Jetty configuration files</span></h3>
-<p>Jetty configuration files use XML. If international characters need to be included in these files, the standard XML character encoding method should be used. Where the character has a defined abbreviation (such as ü for u-umlaut), that should be used. In other cases the hexadecimal description of the character's Unicode code value should be used. For example Α defines the Greek capital A letter. Use of the decimal form (Α) seems now to be unfashionable in W3C circles.
-</p><p>For information on how to configure virtual host names that use internationlized domain names in jetty config files, see <a title="Jetty/Howto/Configure Virtual Hosts" href="Configure Virtual Hosts.html#Configuring_Virtual_Hosts_with_Non-ascii_Characters">Configuring Virtual Hosts with Internationalized Domain Names</a>.
-</p>
-
-</div>
-
-                    <div class="catlinks" id="catlinks"><div class="mw-normal-catlinks" id="mw-normal-catlinks"><a title="Special:Categories" href="https://wiki.eclipse.org/Special:Categories">Categories</a>: <ul><li><a title="Category:Jetty" href="https://wiki.eclipse.org/Category:Jetty">Jetty</a></li><li><a title="Category:Jetty Howto" href="https://wiki.eclipse.org/Category:Jetty_Howto">Jetty Howto</a></li></ul></div></div>
-                                  </div>
+    <link href="wiki-style.css" media="screen, print" rel="stylesheet" />
+  </head>
+  <body>
+    <div class="col-md-20" id="mainContent">
+      <div class="tab-content background-white">
+        <div class="tab-pane active" id="tab-pane-main-page-content">
+          <h1 class="firstHeading page-header" id="firstHeading">
+            <span dir="auto">Jetty/Howto/International Characters</span>
+          </h1>
+          <div id="main-page-content">
+            <div class="alert alert-small alert-warning" id="contentSub">
+              <span class="subpages">
+                &lt;
+                <a href="../../Jetty.html" title="Jetty">Jetty</a>
+                 |
+                <a href="../Howto.html" title="Jetty/Howto">Howto</a>
+              </span>
+            </div>
+            <div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="en">
+              <p>
+                <br />
+              </p>
+              <p>
+                <br />
+              </p>
+              <div class="toc" id="toc">
+                <div id="toctitle">
+                  <h2>Contents</h2>
+                </div>
+                <ul>
+                  <li class="toclevel-1">
+                    <a href="International Characters.html#Introduction">
+                      <span class="tocnumber">1</span>
+                      <span class="toctext">Introduction</span>
+                    </a>
+                  </li>
+                  <li class="toclevel-1">
+                    <a href="International Characters.html#Steps">
+                      <span class="tocnumber">2</span>
+                      <span class="toctext">Steps</span>
+                    </a>
+                  </li>
+                  <li class="toclevel-1">
+                    <a href="International Characters.html#Primer_and_Terminology">
+                      <span class="tocnumber">3</span>
+                      <span class="toctext">Primer and Terminology</span>
+                    </a>
+                  </li>
+                  <li class="toclevel-1">
+                    <a href="International Characters.html#Characters_included_in_HTTP_requests">
+                      <span class="tocnumber">4</span>
+                      <span class="toctext">Characters included in HTTP requests</span>
+                    </a>
+                    <ul>
+                      <li class="toclevel-2">
+                        <a href="International Characters.html#Characters_in_the_HTTP_content_part">
+                          <span class="tocnumber">4.1</span>
+                          <span class="toctext">Characters in the HTTP content part</span>
+                        </a>
+                      </li>
+                      <li class="toclevel-2">
+                        <a href="International Characters.html#International_characters_in_URLs">
+                          <span class="tocnumber">4.2</span>
+                          <span class="toctext">International characters in URLs</span>
+                        </a>
+                        <ul>
+                          <li class="toclevel-3">
+                            <a href="International Characters.html#International_characters_in_domain_names">
+                              <span class="tocnumber">4.2.1</span>
+                              <span class="toctext">International characters in domain names</span>
+                            </a>
+                          </li>
+                        </ul>
+                      </li>
+                      <li class="toclevel-2">
+                        <a href="International Characters.html#Handling_of_International_characters_by_browsers">
+                          <span class="tocnumber">4.3</span>
+                          <span class="toctext">Handling of International characters by browsers</span>
+                        </a>
+                      </li>
+                      <li class="toclevel-2">
+                        <a href="International Characters.html#Techniques_for_working_with_international_characters">
+                          <span class="tocnumber">4.4</span>
+                          <span class="toctext">Techniques for working with international characters</span>
+                        </a>
+                      </li>
+                      <li class="toclevel-2">
+                        <a href="International Characters.html#Need_for_GET-method_support">
+                          <span class="tocnumber">4.5</span>
+                          <span class="toctext">Need for GET-method support</span>
+                        </a>
+                      </li>
+                      <li class="toclevel-2">
+                        <a href="International Characters.html#International_characters_in_Jetty_configuration_files">
+                          <span class="tocnumber">4.6</span>
+                          <span class="toctext">International characters in Jetty configuration files</span>
+                        </a>
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
               </div>
+              <h2>
+                <span class="mw-headline" id="Introduction">Introduction</span>
+              </h2>
+              <p>Internet standards support for international character sets was historically weak, is now improving, but is still not perfect. The current standards situation is confusing, and has led to false expectations about what can be reliably achieved using today's browsers, protocols and servers.</p>
+              <p>Jetty fully supports and implements the current relevant standards and specifications, but this alone is not sufficient to make working with international characters easy or reliable in all situations. This FAQ explains the current standards, provides hints and tips for building and decoding Internationalised web pages (including ones with dynamic data) and explains how Jetty has anticipated the probable future direction of the standards.</p>
+              <p>The intended readership is people developing Servlet applications and their associated web pages. A basic knowledge of Java, HTML and of hexadecimal notation is assumed.</p>
+              <p>Unless otherwise stated, the information below applies to all current (August 2002) standards-conformant Web Servers, not just to Jetty.</p>
+              <p>This document is largely based on the document originally contributed to jetty-6 by Chris Hayes.</p>
+              <p>
+                <br />
+              </p>
+              <h2>
+                <span class="mw-headline" id="Steps">Steps</span>
+              </h2>
+              <h2>
+                <span class="mw-headline" id="Primer_and_Terminology">Primer and Terminology</span>
+              </h2>
+              <p>There are four groups whose standards and specifications affect character handling in web pages:</p>
+              <ol>
+                <li>The Internet Engineering Task Force (IETF) manages the Requests for Comments (RFCs) which define the basic transportation protocols, including the HyperTextTransfer Protocol (HTTP) and Uniform Resource Locators (URLs) with which we are concerned.</li>
+                <li>The World Wide Web Consortium (W3C) manages the HTML and XHTML standards, with which web pages are built, and the XML standard, used in Jetty configuration.</li>
+                <li>The Internet Assigned Numbers Authority (IANA), which, among other duties, maintains a list of character encodings.</li>
+                <li>Oracle owns the Servlet specification, which is expressed in Java APIs.</li>
+                <li>The Internet was initially designed and constructed using basic English characters encoded in the 7-bit US-ASCII character set. This provides 26 upper and lower case letters, 10 digits, and a variety of punctuation and other symbols - it encodes 95 'printing' characters. Today, these are still the only printable characters which can be used in HTTP.</li>
+              </ol>
+              <p>A single byte (8 bits) has the capacity to represent up to 256 characters. There are several widely-used encodings which give the US-ASCII characters their normal values in the range 0-127, and a selection of other characters are assigned code values in the range 128-255. In many web browsers the encoding to use can either be specified by the web page designer or selected by the user. Some of these encodings are proprietary, others specified by consortia or international standards bodies.</p>
+              <p>The first approaches to supporting international characters involved selecting one of these 8-bit character sets, and attempting to ensure that the web page source, the browser, and any server using data from that browser were using the same character encoding.</p>
+              <p>There is a default character set ISO-8859-1, which supports most western European languages, and is currently the official 'default' content encoding for content carried by HTTP (but not for data included in URLs - see below). This is also the default for all Jetty versions except 4.0.x. Alternative encodings may be specified by defining the HTTP Content-Type header of the page to be something like "text/html; charset=ISO-8859-4". From a Servlet you can use request.setContentType("text/html; charset=ISO-8859-4"); . Pages can then be composed using the desired literal characters (e.g. accented letters from Europe or, with a different encoding selected, Japanese characters). This mechanism can be unreliable; the browser's user can select the encoding to be applied, which may be different from that intended by the servlet designer.</p>
+              <p>Today the Internet is converging on a single, common encoding - Unicode - in which can be represented all known written languages, as well as a wide range of symbols (e.g. mathematical symbols and decorative marks). Unicode requires a 16-bit integer value to represent each character. By design, the 95 printable US-ASCII characters have the same code values in Unicode; US-ASCII is a subset of Unicode. Most modern browsers can decode and display a wide range of the characters represented by Unicode - but it would be rare to find a browser capable of displaying all the Unicode characters.</p>
+              <p>Unicode is the only character encoding used in XML and is now the default in HTML, XHML and in most Java implementations.</p>
+              <p>The Internet transmits data in groups of 8 bits, which the IETF usually call 'octets', but everyone else calls 'bytes'. When larger values have to be sent, such as the 16 bits needed for Unicode and some other international character encodings, there has to be a convention on how the 16 bits are packed into one or more octets. There are two standards commonly used to encode Unicode: UTF-8 and UTF-16.</p>
+              <p>UTF-16 is the 'brute-force' encoding for data transmission. The 16 bits representing the character value are placed in adjacent octets. Variants of UTF-16 place the octets in different orders.</p>
+              <p>UTF-8 is more common, and is recommended for most purposes. Characters with values less 0080 (hexadecimal notation) are transmitted as a single octet whose value is that of the character. Characters with values in the range 0080 to 07FF are encoded as two octets, whilst the (infrequently-used) Unicode characters with values between 0800 and FFFF are encoded into three octets. This encoding has the really useful property that a sequence of (7-bit) US-ASCII characters sent as bytes and then sent as Unicode UTF-8 octets produce identical octet streams - a US-ASCII byte stream is a valid UTF-8 octet stream and represents the same printing characters. This is not the case if other characters are being sent, or if UTF-16 is in use.</p>
+              <p>As well as having US-ASCII compatibility, UTF-8 is preferred because, in the majority of situations, it results in shorter messages than UTF-16.</p>
+              <p>Note that, when UTF-8 is specified, it not only defines the way in which the character code values are packed into octets, it also implicitly defines the character encoding in use as Unicode.</p>
+              <p>There is an international standard - ISO-10646 - which defines an identical character set to Unicode - but omits much essential additional information. For most purposes refer to Unicode rather than ISO-10646.</p>
+              <h2>
+                <span class="mw-headline" id="Characters_included_in_HTTP_requests">Characters included in HTTP requests</span>
+              </h2>
+              <p>There are two places in which HTTP requests (from browsers to web servers) may include character data:</p>
+              <ol>
+                <li>In the URL part of the first line of the HTTP request,</li>
+                <li>In the HTTP content area at the end of the HTTP message, resulting from an HTML &lt;form method='post'...&gt; ... &lt;/form&gt; submission</li>
+              </ol>
+              <h3>
+                <span class="mw-headline" id="Characters_in_the_HTTP_content_part">Characters in the HTTP content part</span>
+              </h3>
+              <p>Wherever possible, a POST method should be used when international characters are involved.</p>
+              <p>
+                This is because the browser sends a HTTP
+                <tt>Content-Type</tt>
+                header which can help the web server determine the encoding of the content. The
+                <tt>Content-Type</tt>
+                header will tell the server the MIME-type encoding of the content (usually
+                <tt>application/x-www-form-urlencoded</tt>
+                ) and also can optionally include the character encoding of the content eg:
+              </p>
+              <p>
+                <tt>Content-Type: application/x-www-form-urlencoded;charset=UTF-8</tt>
+              </p>
+              <p>If both the MIME-type and the charset encoding information is sent in the POST HTTP header, the server can correctly decode the content.</p>
+              <p>Unfortunately, many browsers do not bother to send the charset information, leaving the web server to guess the correct encoding. For this reason, the Servlet API provides the SevletRequest.setCharacterEncoding(String) method to allow the webapp developer to control the decoding of the form content.</p>
+              <p>Jetty-7 and 8 uses a default of UTF-8 if no overriding character encoding is set on a request.</p>
+              <h3>
+                <span class="mw-headline" id="International_characters_in_URLs">International characters in URLs</span>
+              </h3>
+              <p>A typical URL looks like:</p>
+              <p>
+                <a class="external free" href="http://www.my.site/dir/page.html" rel="nofollow">http://www.my.site/dir/page.html</a>
+              </p>
+              <p>When a form is sent, using the default GET method, the data values from the form are included in the URL e.g.:</p>
+              <p>
+                <a class="external free" href="http://www.my.site/dir/page.html?name=Durst&amp;age=18" rel="nofollow">http://www.my.site/dir/page.html?name=Durst&amp;age=18</a>
+              </p>
+              <p>It is important to note that only a very restricted sub-set of the US-ASCII printing characters are permitted in URLs.</p>
+              <p>Something like name=Dürst (with an umlaut) is illegal. It might work with some browser/server combinations (and might even deliver the expected value), but it should never be used.</p>
+              <p>
+                The HTTP Specification provides an 'escape' mechanism, commonly referred to as
+                <a class="external text" href="http://en.wikipedia.org/wiki/Percent-encoding" rel="nofollow">"percent encoding"</a>
+                or
+                <a class="external text" href="http://www.w3schools.com/tags/ref_urlencode.asp" rel="nofollow">"url encoding"</a>
+                which permits arbitrary octet values to be included in the URL. The three characters %HH - where HH are hexadecimal characters - inserts the specified octet value into the URL. This has to be used for the US-ASCII characters which may not appear literally in URLs, and can be used for other octet values.
+              </p>
+              <p>It is a common fallacy that this permits international characters to be reliably transmitted. This is wrong.</p>
+              <p>This is because the %HH escape permits the transmission of a sequence of octets, but has nothing to say about what character encoding is in use.</p>
+              <p>There is no provision in the HTTP protocol for the sender (the browser) to tell the receiver (the web server) what encoding has been used in the URI, and none of the specifications related to HTTP/HTML define a default encoding.</p>
+              <p>Thus, although any desired octet sequence can be placed in a URL, none of the standards tell the web server how to interpret that octet sequence.</p>
+              <p>The designers of web servers with Servlet APIs currently have a problem. They are presented with an octet stream of unspecified encoding, and yet have to deliver a Java String (a sequence of decoded characters) to the Servlet API.</p>
+              <p>Due to the lack of a standard, different browers took different approaches to the character encoding used. Some use the encoding of the page and some use UTF-8. Some drafts were prepared by various standards bodies suggesting that UTF-8 would become the standard encoding.</p>
+              <p>
+                The W3C organization's HTML standard now recommends the use of UTF-8:
+                <a class="external free" href="http://www.w3.org/TR/html40/appendix/notes.html#non-ascii-chars" rel="nofollow">http://www.w3.org/TR/html40/appendix/notes.html#non-ascii-chars</a>
+                and accordingly jetty-7 and 8 series uses a default of UTF-8.
+              </p>
+              <p>If UTF-8 is not correct for your environment, you may use one of two methods to set the charset encoding of the query string in GET requests:</p>
+              <ol>
+                <li>
+                  to change the encoding on a request by request basis, call
+                  <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/server/Request.html#setQueryEncoding%28java.lang.String%29" rel="nofollow">Request.setQueryEncoding("xxx")</a>
+                  - where "xxx" is replaced with the name of the charset encoding desired - before reading any of the content or params. If you don't wish to use this jetty-specific API, you can instead call
+                  <a class="external text" href="http://docs.oracle.com/javaee/6/api/javax/servlet/ServletRequest.html#setAttribute%28java.lang.String,%20java.lang.Object%29" rel="nofollow">javax.servlet.ServletRequest.setAttribute("org.eclipse.jetty.server.Request.queryEncoding", "xxx")</a>
+                  - where "xxx" is replaced with the name of the charset encoding desired - before reading the content or params.
+                  <i>NOTE</i>
+                  that for efficiency reasons, the parameters are parsed only the first time any of the Request.getParameterXXX() methods are called. Therefore, if you are not sure of the encoding used on the request, after using one of the 2 methods explained above for setting the character encoding, retrieve the query string with
+                  <a class="external text" href="http://docs.oracle.com/javaee/6/api/javax/servlet/http/HttpServletRequest.html#getQueryString%28%29" rel="nofollow">javax.servlet.http.HttpServletRequest.getQueryString()</a>
+                  and try parsing it yourself (see below "Techniques for working with international characters" for further tips for working out what encoding was used).
+                </li>
+                <li>to change the encoding for every request, set the system property "org.eclipse.jetty.util.UrlEncoding.charset" to the encoding you want to use.</li>
+              </ol>
+              <h4>
+                <span class="mw-headline" id="International_characters_in_domain_names">International characters in domain names</span>
+              </h4>
+              <p>
+                In May 2010, the first
+                <a class="external text" href="http://en.wikipedia.org/wiki/Internationalized_domain_name" rel="nofollow">domain names using internationalized characters</a>
+                were loaded into the DNS root name servers. It is now possible to register domains such as:
+              </p>
+              <p>
+                <tt>åäö.com</tt>
+              </p>
+              <p>
+                To accommodate these names, given the restrictions on acceptable characters in hostnames, web browsers and clients must translate internationalized hostnames to ascii-only using an encoding called
+                <a class="external text" href="http://tools.ietf.org/html/rfc3492" rel="nofollow">punycode</a>
+                . Here's an example:
+              </p>
+              <p>The following domain name:</p>
+              <pre xml:space="preserve"><tt><a class="external free" href="http://www.åäö.com:8080/test/" rel="nofollow">http://www.åäö.com:8080/test/</a></tt>
+</pre>
+              <p>would be translated by the browser to:</p>
+              <pre xml:space="preserve"><tt><a class="external free" href="http://www.xn--4cab6c.com:8080/test/" rel="nofollow">http://www.xn--4cab6c.com:8080/test/</a></tt>
+</pre>
+              <p>
+                You can read more about internationalized domain names and jetty (such as how to configure virtual hosts with internationalized characters) here:
+                <a href="Configure Virtual Hosts.html#Configuring_Virtual_Hosts_with_Non-ascii_Characters" title="Jetty/Howto/Configure Virtual Hosts">Virtual Hosts with non-ascii characters</a>
+              </p>
+              <h3>
+                <span class="mw-headline" id="Handling_of_International_characters_by_browsers">Handling of International characters by browsers</span>
+              </h3>
+              <p>There are many ways in which international characters can be displayed or placed into browsers for inclusion in HTTP requests. Some examples are:</p>
+              <ul>
+                <li>Dürst</li>
+                <li>&lt;h3&gt;Dürst&lt;/h3&gt;</li>
+                <li>&lt;input type='text' value='Dürst'&gt;</li>
+                <li>&lt;script language='javascript'&gt;name="D\u00FCrst";&lt;/script&gt;</li>
+                <li>&lt;form action='/servlet?name=D%C3%BCrst'&gt;...&lt;/form&gt;</li>
+                <li>&lt;a href='/servlet?name=D%C3%BCrst'&gt;...&lt;/a&gt;</li>
+              </ul>
+              <p>It is also possible to manipulate document text using the DOM APIs.</p>
+              <p>It is believed that, in all the above examples, all modern browsers (those supporting HTML 4) will treat the &amp;...; encoding as representing Unicode characters. Earlier ones may not understand this encoding.</p>
+              <p>The first example, with the literal ü, should only be used if the character encoding can be relied upon, and if support for 'legacy' browsers (those not understanding the &amp;...; encoding) is essential.</p>
+              <p>It is, of course, possible for users to enter characters using &lt;input..&gt; and &lt;textarea...&gt; elements via the operating system. Text can come from keyboards, and also from 'cut and paste' mechanisms. It appears that most browsers use their current (user-selectable) 'Encoding' setting (e.g. in MSIE: View..Encoding) to encode such characters. After the User has selected the encoding to use, it appears that many browsers will transmit the data characters in the request in that locally-defined encoding, rather than the one specified with the page.</p>
+              <h3>
+                <span class="mw-headline" id="Techniques_for_working_with_international_characters">Techniques for working with international characters</span>
+              </h3>
+              <p>The only reliable, standards-supported way to handle international characters in a browser- and server-neutral way appears to be:</p>
+              <ol>
+                <li>To specify the contents of the HTML page using &amp;...; encoding and</li>
+                <li>To use the &lt;form method='post' ...&gt; method of submission.</li>
+              </ol>
+              <h3>
+                <span class="mw-headline" id="Need_for_GET-method_support">Need for GET-method support</span>
+              </h3>
+              <p>It is sometimes suggested that all forms can and should be submitted using the above POST method. There is, in fact, a valid need to use the default GET method.</p>
+              <p>To appreciate this need one must consider carefully a significant difference between submitting a form using POST and GET. When using GET the data values from the form are appended to the URI and form part of the visible 'address' seen at the top of the browser. It is also this entire string that is saved if the page is bookmarked by the browser, and may be moved using 'cut-and-paste' into an eMail, another web page etc..</p>
+              <p>It is possible that the dynamic data from the form is an integral part of the semantics of the 'page address' to be stored.</p>
+              <p>The address may be part of a map; one of the data values from the map may define the town on which the map view is to be centered - and this name may only be expressible in, say, Thai characters. The town name may have been entered or selected by the user - it was not a 'literal' in the HTML defining the page or in the URL.</p>
+              <p>Another common need is to 'bookmark' or sent by eMail the request string from a search engine request which has non-ASCII characters in the search.</p>
+              <p>There is not yet any standards-based way of constructing this dynamically-defined URL - there is no direct way to be certain what character encodings have been applied in constructing the URI-with-query string that the browser generates.</p>
+              <p>A work-around which has been suggested is to provide additional, known text fields alongside the unknown text. In the example above, the form with the dynamically-defined town name could also have a hidden field into which the generated page inserts 'known' text from the same character set (using the &amp;...; encoding). When the request is eventually received by a servlet the octet contents of the known field are inspected (typically by using request.getQueryString() ). If the characters of the 'tracer' field are the same as those injected into the page when it was generated (and the character code values encompass those of the unknown town) then there is an assumption that the encoding used was Unicode and that the town name as present in Java is accurate.</p>
+              <p>If the the actual encoding can be deduced from the 'tracer' octets, the Servlet API request.setCharacterEncoding() can be called (before calling any of the .getParameter() methods) to tell the web server which encoding to assume when decoding the query.</p>
+              <p>There is an obvious potential flaw in this 'tracer' technique - the browser may represent &amp;...;-specified 'tracer' text with its Unicode values, yet may use the local keyboard/operating system encoding for locally-entered data. The author is not aware of any conclusive knowledge or evidence in this area.</p>
+              <p>An alternative work-around, which is more complex but might be more certain if GET has to be used, would be to use Javascript or the DOM interfaces to transfer the characters from the input fields to the query part of the URL string.</p>
+              <h3>
+                <span class="mw-headline" id="International_characters_in_Jetty_configuration_files">International characters in Jetty configuration files</span>
+              </h3>
+              <p>Jetty configuration files use XML. If international characters need to be included in these files, the standard XML character encoding method should be used. Where the character has a defined abbreviation (such as ü for u-umlaut), that should be used. In other cases the hexadecimal description of the character's Unicode code value should be used. For example Α defines the Greek capital A letter. Use of the decimal form (Α) seems now to be unfashionable in W3C circles.</p>
+              <p>
+                For information on how to configure virtual host names that use internationlized domain names in jetty config files, see
+                <a href="Configure Virtual Hosts.html#Configuring_Virtual_Hosts_with_Non-ascii_Characters" title="Jetty/Howto/Configure Virtual Hosts">Configuring Virtual Hosts with Internationalized Domain Names</a>
+                .
+              </p>
             </div>
           </div>
-</body>
+        </div>
+      </div>
+    </div>
+  </body>
 </html>

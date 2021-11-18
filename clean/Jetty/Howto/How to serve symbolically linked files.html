@@ -1,115 +1,39 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
-<head>
+  <head>
     <title>Jetty WTP Plugin</title>
-    <link rel="stylesheet" media="screen, print" href="wiki-style.css"/>
-</head>
-<body>
-<div class="col-md-20" id="mainContent">
-                      <ul class="nav nav-tabs noprint hidden-print" role="tablist">
-                       <li class="active" id="ca-nstab-main"><a href="How to serve symbolically linked files.html" tabindex="-1" accesskey="c" title="View the content page [c]">Page</a></li>
-                        <li class="new" id="ca-talk"><a href="edit" tabindex="-1" title="Discussion about the content page [t]" accesskey="t">Discussion</a></li>
-                        <li id="ca-viewsource"><a accesskey="e" title="This page is protected.&#10;You can view its source [e]" href="edit" tabindex="-1">View source</a></li>
-                        <li class="collapsible" id="ca-history"><a accesskey="h" title="Past revisions of this page [h]" tabindex="-1" href="edit">History</a></li>
-                      </ul>            <div class="tab-content background-white">
-              <div class="tab-pane active" id="tab-pane-main-page-content">
-
-                
-                <h1 id="firstHeading" class="firstHeading page-header">
-                  <span dir="auto">Jetty/Howto/How to serve symbolically linked files</span>
-                </h1>
-                <div id="main-page-content">
-
-                  <div class="alert alert-small alert-warning" id="contentSub"><span class="subpages">&lt; <a title="Jetty" href="../../Jetty.html">Jetty</a>‎ | <a href="../Howto.html" title="Jetty/Howto">Howto</a></span></div>
-
-                  
-                  
-                  <div dir="ltr" id="mw-content-text" class="mw-content-ltr" lang="en"><p><br/>
-</p><p><br/>
-</p>
-<h2><span class="mw-headline" id="Introduction">Introduction</span></h2>
-<div class="messagebox" style="background-color: #f9f6b7; border: 1px solid #c4c295; color: black; padding: 5px; margin: 1ex 0; min-height: 35px; padding-left: 45px; font-size: 150%; color: white; background-color: #FF8888; padding: 50px">
-<div style="float: left; margin-left: -40px;"><a href="https://wiki.eclipse.org/File:Warning2.png" class="image"><img height="35" width="35" alt="Warning2.png" src="../../images/3/37/Warning2.png"/></a></div>
-<div>Jetty 7 and Jetty 8 are now EOL (End of Life)<br/>
-<p><br/>
-<br/>
-<br/>
-THIS IS NOT THE DOCUMENTATION YOU ARE LOOKING FOR!!!!!<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-All development and stable releases are being performed with Jetty 9 and Jetty 10.<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-This <b>wiki is now officially out of date</b> and all content has been moved to the <a rel="nofollow" href="http://www.eclipse.org/jetty/documentation" class="external text">Jetty Documentation Hub</a><br/> 
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-</p>
-
-</div>
-<p><br/>
-There are two parts to serving aliased files with Jetty: alias <i>detection</i> and then alias <i>serving</i>.
-</p>
-<h2><span id="Alias_Detection" class="mw-headline">Alias Detection</span></h2>
-<p>By default Jetty runs in a mode where all file accesses are checked for aliases, such as case insensitivity, short names, symbolic links and extra characters (Eg %00).
-</p><p>Alias requests are a security problem because web application security constraints are applied with case sensitive URL patterns. For example, if a security constraint is place on a /mySecretFolder/* and alias checking was not implemented then on a win32 system the following requests could retrieve files from that URL:
-</p>
-<pre>   /MySeCrEtFoLdEr/secret.html
-   /mysec~a0.dir/secret.html
-   /mySecretFolder/secret.html%00
-</pre>
-<p>File name aliases come in many forms including case insensitivity, VMS version numbers, Unix symbolic links, 8.3 short names, etc. While some of these aliases (eg symbolic links) are deliberate, there is no general way to tell this in portable 100% java.
-</p><p>Jetty detects aliases by comparing the file's absolutePath with its canonicalPath.
-</p><p>Alias detection can be turned off by calling the static method <a class="external text" rel="nofollow" href="http://download.eclipse.org/jetty/stable-7/xref/org/eclipse/jetty/util/resource/FileResource.html">org.eclipse.jetty.util.resource.FileResource.setCheckAliases(false)</a>. If alias checking is not used, then greater care is needed when designing security constraints. It is recommended that a restrictive constraint be applied to a whole subtree of URL space and then selective constraints be applied to relax security only for specific URLs.
-</p>
-<h2><span class="mw-headline" id="Alias_Serving">Alias Serving</span></h2>
-<p>By default, Jetty checks for alias and disallows the serving of aliased files. If instead you wish to allow aliased files (such as symbolic links) to be served, then you set the &lt;init-param&gt; called "aliases" to "true" for the org.eclipse.jetty.servlet.DefaultServlet. You can do this in a number of different ways, pick one of the following:
-</p>
-<ul><li> copy the setup of the DefaultServlet from $JETTY_HOME/etc/webdefault.xml into your webapp's WEB-INF/web.xml and add the aliases &lt;init-param&gt;</li>
-<li> or if you're using the webapp deployer (ie $JETTY_HOME/etc/jetty-webapps.xml is being used) then edit the $JETTY_HOME/etc/webdefault.xml to add the aliases &lt;init-param&gt;</li>
-<li> or if you have a context xml file which describes your webapp, then copy or edit the $JETTY_HOME/etc/webdefault.xml to add the aliases &lt;init-param&gt; and then ensure your context xml file references it as the defaultsDescriptor</li>
-<li> or if you're programmatically configuring jetty, then add the aliases init-param to the DefaultServlet declaration</li></ul>
-<p>From jetty-7.6.9 and Jetty-8.1.9 Jetty also supports a pluggable interface called CheckAlias that can be used to selectively allows some aliases, such as symbolic links.   This is done by adding instances of CheckAlias to the ContextHandler, typically in the context XML file.   The following example is from the test.xml context file:
-</p>
-<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="xml source-xml"><pre class="de1">  <span class="sc-1">&lt;!-- Allow directory symbolic links  --&gt;</span>
-  <span class="sc3"><span class="re1">&lt;Call</span> <span class="re0">name</span>=<span class="st0">"addAliasCheck"</span><span class="re2">&gt;</span></span>
-    <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>
-      <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.server.handler.ContextHandler$ApprovePathPrefixAliases"</span><span class="re2">/&gt;</span></span>
-    <span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
-  <span class="sc3"><span class="re1">&lt;/Call<span class="re2">&gt;</span></span></span>
-  <span class="sc-1">&lt;!-- Allow file symbolic links  --&gt;</span>
-  <span class="sc3"><span class="re1">&lt;Call</span> <span class="re0">name</span>=<span class="st0">"addAliasCheck"</span><span class="re2">&gt;</span></span>
-    <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>
-      <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.server.handler.ContextHandler$ApproveSameSuffixAliases"</span><span class="re2">/&gt;</span></span>
-    <span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
-  <span class="sc3"><span class="re1">&lt;/Call<span class="re2">&gt;</span></span></span></pre></div></div>
-
-
-</div>
-
-                      <div id="catlinks" class="catlinks">
-                          <div id="mw-normal-catlinks" class="mw-normal-catlinks">
-                              <a title="Special:Categories" href="https://wiki.eclipse.org/Special:Categories">Categories</a>:
-                              <ul>
-                                  <li><a href="https://wiki.eclipse.org/Category:Jetty" title="Category:Jetty">Jetty</a></li>
-                                  <li><a title="Category:Jetty Howto" href="https://wiki.eclipse.org/Category:Jetty_Howto">Jetty Howto</a></li>
-                              </ul>
-                          </div>
-                      </div>
-                                  </div>
-              </div>
+    <link href="wiki-style.css" media="screen, print" rel="stylesheet" />
+  </head>
+  <body>
+    <div class="col-md-20" id="mainContent">
+      <div class="tab-content background-white">
+        <div class="tab-pane active" id="tab-pane-main-page-content">
+          <h1 class="firstHeading page-header" id="firstHeading">
+            <span dir="auto">Jetty/Howto/How to serve symbolically linked files</span>
+          </h1>
+          <div id="main-page-content">
+            <div class="alert alert-small alert-warning" id="contentSub">
+              <span class="subpages">
+                &lt;
+                <a href="../../Jetty.html" title="Jetty">Jetty</a>
+                 |
+                <a href="../Howto.html" title="Jetty/Howto">Howto</a>
+              </span>
+            </div>
+            <div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="en">
+              <p>
+                <br />
+              </p>
+              <p>
+                <br />
+              </p>
+              <h2>
+                <span class="mw-headline" id="Introduction">Introduction</span>
+              </h2>
             </div>
           </div>
-</div>
-</body>
+        </div>
+      </div>
+    </div>
+  </body>
 </html>

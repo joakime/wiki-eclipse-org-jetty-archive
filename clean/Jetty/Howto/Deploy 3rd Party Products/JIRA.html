@@ -1,101 +1,198 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
-<head>
+  <head>
     <title>Jetty WTP Plugin</title>
-    <link rel="stylesheet" media="screen, print" href="wiki-style.css"/>
-</head>
-<body>
-<div class="col-md-20" id="mainContent">
-                      <ul class="nav nav-tabs noprint hidden-print" role="tablist">
-                       <li id="ca-nstab-main" class="active"><a tabindex="-1" accesskey="c" href="JIRA.html" title="View the content page [c]">Page</a></li>
-                        <li id="ca-talk" class="new"><a tabindex="-1" accesskey="t" title="Discussion about the content page [t]" href="edit">Discussion</a></li>
-                        <li id="ca-viewsource"><a href="edit" title="This page is protected.&#10;You can view its source [e]" tabindex="-1" accesskey="e">View source</a></li>
-                        <li class="collapsible" id="ca-history"><a title="Past revisions of this page [h]" href="edit" accesskey="h" tabindex="-1">History</a></li>
-                      </ul>            <div class="tab-content background-white">
-              <div class="tab-pane active" id="tab-pane-main-page-content">
-
-                
-                <h1 class="firstHeading page-header" id="firstHeading">
-                  <span dir="auto">Jetty/Howto/Deploy 3rd Party Products/JIRA</span>
-                </h1>
-                <div id="main-page-content">
-
-                  <div class="alert alert-small alert-warning" id="contentSub"><span class="subpages">&lt; <a title="Jetty" href="../../../Jetty.html">Jetty</a>‎ | <a title="Jetty/Howto" href="../../Howto.html">Howto</a>‎ | <a href="https://wiki.eclipse.org/Jetty/Howto/Deploy_3rd_Party_Products" title="Jetty/Howto/Deploy 3rd Party Products">Deploy 3rd Party Products</a></span></div>
-
-                  
-                  
-                  <div class="mw-content-ltr" dir="ltr" lang="en" id="mw-content-text"><p><br/>
-</p><p><br/>
-</p><p><br/>
-</p>
-<div class="toc" id="toc"><div id="toctitle"><h2>Contents</h2></div>
-<ul>
-<li class="toclevel-1"><a href="JIRA.html#Introduction"><span class="tocnumber">1</span> <span class="toctext">Introduction</span></a></li>
-<li class="toclevel-1"><a href="JIRA.html#Steps"><span class="tocnumber">2</span> <span class="toctext">Steps</span></a>
-<ul>
-<li class="toclevel-2"><a href="JIRA.html#Prepare_the_JIRA_Web_Application"><span class="tocnumber">2.1</span> <span class="toctext">Prepare the JIRA Web Application</span></a></li>
-<li class="toclevel-2"><a href="JIRA.html#Start_Jetty"><span class="tocnumber">2.2</span> <span class="toctext">Start Jetty</span></a></li>
-</ul>
-</li>
-</ul>
-</div>
-
-<h2><span class="mw-headline" id="Introduction">Introduction</span></h2>
-<p><a rel="nofollow" href="http://www.atlassian.com/software/jira/" class="external text">JIRA</a> is a bug and issue tracker.
-</p><p>These instructions have been tested against:
-</p>
-<table class="jetty-table">
-
-<tbody><tr>
-<th> Jetty </th>
-<th> JIRA </th>
-<th> Servlet / JSP </th>
-<th> JVM </th>
-<th> Transaction Manager / DataSource
-</th></tr>
-<tr>
-<td> 7.0.0.RC1 </td>
-<td> 3.13.4 </td>
-<td> 2.5 / 2.1 </td>
-<td> 1.5 </td>
-<td> Atomikos 3.5.5 / HSQLDB 1.8.0.5
-</td></tr></tbody></table>
-<p><br/>
-</p>
-<h2><span class="mw-headline" id="Steps">Steps</span></h2>
-<h3><span class="mw-headline" id="Prepare_the_JIRA_Web_Application">Prepare the JIRA Web Application</span></h3>
-<p>Start from the JIRA Standalone Distribution, and:
-</p>
-<ul>
- <li>Copy <tt>$JIRA/common/lib/hsqldb-1.8.0.5.jar</tt> to <tt>$JETTY/lib/ext/hsqldb/hsqldb-1.8.0.5.jar</tt> (create the directories as needed).<br/>
- This is to install the JDBC driver. Use a different JDBC driver if you don't use HSQLDB.</li>
- <li>Copy <tt>$JIRA/atlassian-jira</tt> to <tt>$JETTY/contexts-available/atlassian-jira</tt></li>
- <li>Modify <tt>$JETTY/contexts-available/atlassian-jira/WEB-INF/web.xml</tt>:</li>
- <ul>
-  <li>add a <tt>&lt;resource-ref&gt;</tt> element for the datasource:
-<pre>&lt;resource-ref&gt;
+    <link href="wiki-style.css" media="screen, print" rel="stylesheet" />
+  </head>
+  <body>
+    <div class="col-md-20" id="mainContent">
+      <div class="tab-content background-white">
+        <div class="tab-pane active" id="tab-pane-main-page-content">
+          <h1 class="firstHeading page-header" id="firstHeading">
+            <span dir="auto">Jetty/Howto/Deploy 3rd Party Products/JIRA</span>
+          </h1>
+          <div id="main-page-content">
+            <div class="alert alert-small alert-warning" id="contentSub">
+              <span class="subpages">
+                &lt;
+                <a href="../../../Jetty.html" title="Jetty">Jetty</a>
+                 |
+                <a href="../../Howto.html" title="Jetty/Howto">Howto</a>
+                 |
+                <a href="https://wiki.eclipse.org/Jetty/Howto/Deploy_3rd_Party_Products" title="Jetty/Howto/Deploy 3rd Party Products">Deploy 3rd Party Products</a>
+              </span>
+            </div>
+            <div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="en">
+              <p>
+                <br />
+              </p>
+              <p>
+                <br />
+              </p>
+              <p>
+                <br />
+              </p>
+              <div class="toc" id="toc">
+                <div id="toctitle">
+                  <h2>Contents</h2>
+                </div>
+                <ul>
+                  <li class="toclevel-1">
+                    <a href="JIRA.html#Introduction">
+                      <span class="tocnumber">1</span>
+                      <span class="toctext">Introduction</span>
+                    </a>
+                  </li>
+                  <li class="toclevel-1">
+                    <a href="JIRA.html#Steps">
+                      <span class="tocnumber">2</span>
+                      <span class="toctext">Steps</span>
+                    </a>
+                    <ul>
+                      <li class="toclevel-2">
+                        <a href="JIRA.html#Prepare_the_JIRA_Web_Application">
+                          <span class="tocnumber">2.1</span>
+                          <span class="toctext">Prepare the JIRA Web Application</span>
+                        </a>
+                      </li>
+                      <li class="toclevel-2">
+                        <a href="JIRA.html#Start_Jetty">
+                          <span class="tocnumber">2.2</span>
+                          <span class="toctext">Start Jetty</span>
+                        </a>
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </div>
+              <h2>
+                <span class="mw-headline" id="Introduction">Introduction</span>
+              </h2>
+              <p>
+                <a class="external text" href="http://www.atlassian.com/software/jira/" rel="nofollow">JIRA</a>
+                is a bug and issue tracker.
+              </p>
+              <p>These instructions have been tested against:</p>
+              <table class="jetty-table">
+                <tbody>
+                  <tr>
+                    <th>Jetty</th>
+                    <th>JIRA</th>
+                    <th>Servlet / JSP</th>
+                    <th>JVM</th>
+                    <th>Transaction Manager / DataSource</th>
+                  </tr>
+                  <tr>
+                    <td>7.0.0.RC1</td>
+                    <td>3.13.4</td>
+                    <td>2.5 / 2.1</td>
+                    <td>1.5</td>
+                    <td>Atomikos 3.5.5 / HSQLDB 1.8.0.5</td>
+                  </tr>
+                </tbody>
+              </table>
+              <p>
+                <br />
+              </p>
+              <h2>
+                <span class="mw-headline" id="Steps">Steps</span>
+              </h2>
+              <h3>
+                <span class="mw-headline" id="Prepare_the_JIRA_Web_Application">Prepare the JIRA Web Application</span>
+              </h3>
+              <p>Start from the JIRA Standalone Distribution, and:</p>
+              <ul>
+                <li>
+                  Copy
+                  <tt>$JIRA/common/lib/hsqldb-1.8.0.5.jar</tt>
+                  to
+                  <tt>$JETTY/lib/ext/hsqldb/hsqldb-1.8.0.5.jar</tt>
+                  (create the directories as needed).
+                  <br />
+                  This is to install the JDBC driver. Use a different JDBC driver if you don't use HSQLDB.
+                </li>
+                <li>
+                  Copy
+                  <tt>$JIRA/atlassian-jira</tt>
+                  to
+                  <tt>$JETTY/contexts-available/atlassian-jira</tt>
+                </li>
+                <li>
+                  Modify
+                  <tt>$JETTY/contexts-available/atlassian-jira/WEB-INF/web.xml</tt>
+                  :
+                </li>
+                <ul>
+                  <li>
+                    add a
+                    <tt>&lt;resource-ref&gt;</tt>
+                    element for the datasource:
+                    <pre xml:space="preserve">&lt;resource-ref&gt;
     &lt;res-ref-name&gt;jdbc/JiraDS&lt;/res-ref-name&gt;
     &lt;res-type&gt;javax.sql.DataSource&lt;/res-type&gt;
     &lt;res-auth&gt;SERVLET&lt;/res-auth&gt;
 &lt;/resource-ref&gt;</pre>
-  </li>
-  <li>if you want to use email notifications, no configuration is needed apart the one available from the JIRA administration pages.</li>
- </ul>
- <li>Modify <tt>$JETTY/contexts-available/atlassian-jira/WEB-INF/classes/entityengine.xml</tt>:</li>
- <ul>
-  <li>modify the JNDI name for the user transaction from <tt>java:comp/env/UserTransaction</tt> to <tt>java:comp/UserTransaction</tt></li>
-  <li>make sure the JNDI name for the data source is <tt>java:comp/env/jdbc/JiraDS</tt></li>
-  <li>If you use a different database, make sure that the attribute <tt>field-type-name</tt> of the <tt>datasource</tt> element is set to the appropriate database type (see <a href="http://confluence.atlassian.com/display/JIRA/Installing+JIRA+on+Tomcat+5.5" class="external text" rel="nofollow">here</a>, section 2, for the possible values)</li>
- </ul>
- <li>Setup the transaction manager:</li>
- <ul>
-  <li>unzip and copy <a title="Jta.properties.zip" href="https://wiki.eclipse.org/images/a/a5/Jta.properties.zip" class="internal">jta.properties</a> to <tt>$JETTY/resources</tt></li>
-  <li>download <a rel="nofollow" class="external text" href="http://atomikos.com">Atomikos TransactionEssentials</a> and copy:</li>
-  <ul>
-   <li><tt>$ATOMIKOS/dist/transactions-essentials-all.jar</tt> to <tt>$JETTY/lib/ext/atomikos/transactions-essentials-all.jar</tt> (create the directories as needed)</li>
-   <li><tt>$ATOMIKOS/lib/jta.jar</tt> to <tt>$JETTY/lib/ext/atomikos/jta.jar</tt> (or alternatively make sure the JTA classes are available to Jetty)</li>
-  </ul>
-  <li>create the server-wide transaction manager Jetty configuration file <tt>$JETTY/etc/jetty-tm.xml</tt> with the following content:
-<pre>&lt;?xml version="1.0"?&gt;
+                  </li>
+                  <li>if you want to use email notifications, no configuration is needed apart the one available from the JIRA administration pages.</li>
+                </ul>
+                <li>
+                  Modify
+                  <tt>$JETTY/contexts-available/atlassian-jira/WEB-INF/classes/entityengine.xml</tt>
+                  :
+                </li>
+                <ul>
+                  <li>
+                    modify the JNDI name for the user transaction from
+                    <tt>java:comp/env/UserTransaction</tt>
+                    to
+                    <tt>java:comp/UserTransaction</tt>
+                  </li>
+                  <li>
+                    make sure the JNDI name for the data source is
+                    <tt>java:comp/env/jdbc/JiraDS</tt>
+                  </li>
+                  <li>
+                    If you use a different database, make sure that the attribute
+                    <tt>field-type-name</tt>
+                    of the
+                    <tt>datasource</tt>
+                    element is set to the appropriate database type (see
+                    <a class="external text" href="http://confluence.atlassian.com/display/JIRA/Installing+JIRA+on+Tomcat+5.5" rel="nofollow">here</a>
+                    , section 2, for the possible values)
+                  </li>
+                </ul>
+                <li>Setup the transaction manager:</li>
+                <ul>
+                  <li>
+                    unzip and copy
+                    <a class="internal" href="https://wiki.eclipse.org/images/a/a5/Jta.properties.zip" title="Jta.properties.zip">jta.properties</a>
+                    to
+                    <tt>$JETTY/resources</tt>
+                  </li>
+                  <li>
+                    download
+                    <a class="external text" href="http://atomikos.com" rel="nofollow">Atomikos TransactionEssentials</a>
+                    and copy:
+                  </li>
+                  <ul>
+                    <li>
+                      <tt>$ATOMIKOS/dist/transactions-essentials-all.jar</tt>
+                      to
+                      <tt>$JETTY/lib/ext/atomikos/transactions-essentials-all.jar</tt>
+                      (create the directories as needed)
+                    </li>
+                    <li>
+                      <tt>$ATOMIKOS/lib/jta.jar</tt>
+                      to
+                      <tt>$JETTY/lib/ext/atomikos/jta.jar</tt>
+                      (or alternatively make sure the JTA classes are available to Jetty)
+                    </li>
+                  </ul>
+                  <li>
+                    create the server-wide transaction manager Jetty configuration file
+                    <tt>$JETTY/etc/jetty-tm.xml</tt>
+                    with the following content:
+                    <pre xml:space="preserve">&lt;?xml version="1.0"?&gt;
 &lt;!DOCTYPE Configure PUBLIC "-//Mort Bay Consulting//DTD Configure//EN" "http://jetty.mortbay.org/configure.dtd"&gt;
 
 &lt;Configure id="Server" class="org.eclipse.jetty.server.Server"&gt;
@@ -109,10 +206,13 @@
         &lt;/Arg&gt;
     &lt;/New&gt;
 &lt;/Configure&gt;</pre>
-  </li>
- </ul>
- <li>Create the JIRA web application context configuration file <tt>$JETTY/contexts/jira.xml</tt> with the following content:
-<pre>&lt;?xml version="1.0"  encoding="UTF-8"?&gt;
+                  </li>
+                </ul>
+                <li>
+                  Create the JIRA web application context configuration file
+                  <tt>$JETTY/contexts/jira.xml</tt>
+                  with the following content:
+                  <pre xml:space="preserve">&lt;?xml version="1.0"  encoding="UTF-8"?&gt;
 &lt;!DOCTYPE Configure PUBLIC "-//Jetty//Configure//EN" "http://www.eclipse.org/jetty/configure.dtd"&gt;
  
 &lt;Configure class="org.eclipse.jetty.webapp.WebAppContext"&gt;
@@ -144,32 +244,37 @@
         &lt;/Array&gt;
     &lt;/Set&gt;
 &lt;/Configure&gt;</pre>
-<p>A note for usage with MySQL: it could be useful to add a further property to the <tt>AtomikosNonXADataSourceBean</tt> configuration that sets the <tt>testQuery</tt> that will be use to validate the connection:
-</p>
-<pre>...
+                  <p>
+                    A note for usage with MySQL: it could be useful to add a further property to the
+                    <tt>AtomikosNonXADataSourceBean</tt>
+                    configuration that sets the
+                    <tt>testQuery</tt>
+                    that will be use to validate the connection:
+                  </p>
+                  <pre xml:space="preserve">...
 &lt;New class="com.atomikos.jdbc.nonxa.AtomikosNonXADataSourceBean"&gt;
     ....
     &lt;Set name="testQuery"&gt;select 1&lt;/Set&gt;
 &lt;/New&gt;
 ...
 </pre>
-<p>See also <a href="http://confluence.atlassian.com/display/JIRA/Surviving+Connection+Closures" class="external text" rel="nofollow">this page</a> for further details.
-</p>
- </li>
-</ul>
-<h3><span class="mw-headline" id="Start_Jetty">Start Jetty</span></h3>
-<p>Start Jetty with the following command from the $JETTY directory:
-</p>
-<pre>java -jar start.jar OPTIONS=default,plus,jsp etc/jetty.xml etc/jetty-tm.xml
+                  <p>
+                    See also
+                    <a class="external text" href="http://confluence.atlassian.com/display/JIRA/Surviving+Connection+Closures" rel="nofollow">this page</a>
+                    for further details.
+                  </p>
+                </li>
+              </ul>
+              <h3>
+                <span class="mw-headline" id="Start_Jetty">Start Jetty</span>
+              </h3>
+              <p>Start Jetty with the following command from the $JETTY directory:</p>
+              <pre xml:space="preserve">java -jar start.jar OPTIONS=default,plus,jsp etc/jetty.xml etc/jetty-tm.xml
 </pre>
-
-
-</div>
-
-                    <div id="catlinks" class="catlinks"><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="https://wiki.eclipse.org/Special:Categories" title="Special:Categories">Categories</a>: <ul><li><a href="https://wiki.eclipse.org/Category:Jetty" title="Category:Jetty">Jetty</a></li><li><a title="Category:Jetty Howto" href="https://wiki.eclipse.org/Category:Jetty_Howto">Jetty Howto</a></li></ul></div></div>
-                                  </div>
-              </div>
             </div>
           </div>
-</body>
+        </div>
+      </div>
+    </div>
+  </body>
 </html>

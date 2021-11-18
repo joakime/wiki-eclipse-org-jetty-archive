@@ -1,76 +1,139 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
-<head>
+  <head>
     <title>Jetty WTP Plugin</title>
-    <link rel="stylesheet" media="screen, print" href="wiki-style.css"/>
-</head>
-<body>
-<div id="mainContent" class="col-md-20">
-                      <ul class="nav nav-tabs noprint hidden-print" role="tablist">
-                       <li id="ca-nstab-main" class="active"><a tabindex="-1" accesskey="c" href="Release Checklist.html" title="View the content page [c]">Page</a></li>
-                        <li class="new" id="ca-talk"><a title="Discussion about the content page [t]" tabindex="-1" href="edit" accesskey="t">Discussion</a></li>
-                        <li id="ca-viewsource"><a tabindex="-1" accesskey="e" href="edit" title="This page is protected.&#10;You can view its source [e]">View source</a></li>
-                        <li id="ca-history" class="collapsible"><a href="edit" accesskey="h" tabindex="-1" title="Past revisions of this page [h]">History</a></li>
-                      </ul>            <div class="tab-content background-white">
-              <div id="tab-pane-main-page-content" class="tab-pane active">
-
-                
-                <h1 class="firstHeading page-header" id="firstHeading">
-                  <span dir="auto">Jetty/Release Checklist</span>
-                </h1>
-                <div id="main-page-content">
-
-                  <div id="contentSub" class="alert alert-small alert-warning"><span class="subpages">&lt; <a href="../Jetty.html" title="Jetty">Jetty</a></span></div>
-
-                  
-                  
-                  <div dir="ltr" class="mw-content-ltr" id="mw-content-text" lang="en"><p><br/>
-</p><p><br/>
-</p>
-<div id="toc" class="toc"><div id="toctitle"><h2>Contents</h2></div>
-<ul>
-<li class="toclevel-1"><a href="Release Checklist.html#Introduction"><span class="tocnumber">1</span> <span class="toctext">Introduction</span></a></li>
-<li class="toclevel-1"><a href="Release Checklist.html#Steps"><span class="tocnumber">2</span> <span class="toctext">Steps</span></a></li>
-<li class="toclevel-1"><a href="Release Checklist.html#Testing_Jetty"><span class="tocnumber">3</span> <span class="toctext">Testing Jetty</span></a></li>
-<li class="toclevel-1"><a href="Release Checklist.html#Testing_CometD"><span class="tocnumber">4</span> <span class="toctext">Testing CometD</span></a></li>
-</ul>
-</div>
-
-<h2><span class="mw-headline" id="Introduction">Introduction</span></h2>
-<p>Complete these steps to determine whether a staged release is set to go.
-</p><p><br/>
-</p>
-<h2><span class="mw-headline" id="Steps">Steps</span></h2>
-<p>Download the staged releases for jetty(x, x+1):
-</p>
-<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="bash source-bash"><pre class="de1"><span class="kw2">wget</span> https:<span class="sy0">//</span>oss.sonatype.org<span class="sy0">/</span>content<span class="sy0">/</span>repositories<span class="sy0">/</span>jetty-<span class="br0">[</span>reponumber<span class="br0">]</span><span class="sy0">/</span>org<span class="sy0">/</span>eclipse<span class="sy0">/</span>jetty<span class="sy0">/</span>jetty-distribution<span class="sy0">/</span><span class="br0">[</span>jetty-version<span class="br0">]</span><span class="sy0">/</span> jetty-distribution-<span class="nu0">7</span>.<span class="br0">[</span>jetty-minor-version<span class="br0">]</span>.tar.gz
-<span class="kw2">wget</span> https:<span class="sy0">//</span>oss.sonatype.org<span class="sy0">/</span>content<span class="sy0">/</span>repositories<span class="sy0">/</span>jetty-<span class="br0">[</span>reponumber<span class="br0">]</span><span class="sy0">/</span>org<span class="sy0">/</span>eclipse<span class="sy0">/</span>jetty<span class="sy0">/</span>jetty-distribution<span class="sy0">/</span><span class="br0">[</span>jetty-version<span class="br0">]</span><span class="sy0">/</span>jetty-distribution-<span class="nu0">8</span>.<span class="br0">[</span>jetty-minor-version<span class="br0">]</span>.tar.gz</pre></div></div>
-<div class="messagebox" style="background-color: #def3fe; border: 1px solid #c5d7e0; color: black; padding: 5px; margin: 1ex 0; min-height: 35px; padding-left: 45px;">
-<div style="float: left; margin-left: -40px;"><a href="https://wiki.eclipse.org/File:Note.png" class="image"><img height="35" alt="Note.png" src="../images/c/cc/Note.png" width="35"/></a></div>
-<div><b>Note:</b><br/>You must perform the following steps for each release that you are testing.</div>
-</div>
-<p><br/>
-</p>
-<h2><span class="mw-headline" id="Testing_Jetty">Testing Jetty</span></h2>
-<p>1. Extract the release(s) to a directory of your choice.
-</p><p>2. Start jetty.
-</p>
-<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="bash source-bash"><pre class="de1"><span class="kw3">cd</span> <span class="br0">[</span>installdir<span class="br0">]</span> ; java <span class="re5">-jar</span> start.jar <span class="re2">OPTIONS</span>=rewrite etc<span class="sy0">/</span>jetty-rewrite.xml etc<span class="sy0">/</span>jetty-ssl.xml</pre></div></div>
-<p>No exceptions? Good. Proceed. Otherwise investigate.
-</p><p>3. Open <a class="external free" rel="nofollow" href="http://localhost:8080/">http://localhost:8080/</a> in your favourite browser.
-</p><p>You should see the <code>test.war</code> webapp.
-</p><p>4. Go through ALL the tests and verify that everything works fine.
-</p><p>5. Verify that hot deployment works.
-</p>
-<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="bash source-bash"><pre class="de1"><span class="kw2">touch</span> <span class="br0">[</span>pathToJettyDistribution<span class="br0">]</span><span class="sy0">/</span>contexts<span class="sy0">/</span>test.xml</pre></div></div>
-<p>6. Verify that <code>test.war</code> is redeployed in <code>STDOUT</code>.
-</p>
-<h2><span class="mw-headline" id="Testing_CometD">Testing CometD</span></h2>
-<p>1. clone <code><a rel="nofollow" class="external free" href="git://github.com/cometd/cometd.git">git://github.com/cometd/cometd.git</a></code>.
-</p>
-<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="bash source-bash"><pre class="de1"><span class="kw2">git clone</span> git:<span class="sy0">//</span>github.com<span class="sy0">/</span>cometd<span class="sy0">/</span>cometd.git</pre></div></div>
-<p>2.Edit <code>pom.xml</code> and update jetty-version and repository URL to match the current staged release.
-</p>
-<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="bash source-bash"><pre class="de1">    <span class="sy0">&lt;</span>properties<span class="sy0">&gt;</span>
+    <link href="wiki-style.css" media="screen, print" rel="stylesheet" />
+  </head>
+  <body>
+    <div class="col-md-20" id="mainContent">
+      <div class="tab-content background-white">
+        <div class="tab-pane active" id="tab-pane-main-page-content">
+          <h1 class="firstHeading page-header" id="firstHeading">
+            <span dir="auto">Jetty/Release Checklist</span>
+          </h1>
+          <div id="main-page-content">
+            <div class="alert alert-small alert-warning" id="contentSub">
+              <span class="subpages">
+                &lt;
+                <a href="../Jetty.html" title="Jetty">Jetty</a>
+              </span>
+            </div>
+            <div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="en">
+              <p>
+                <br />
+              </p>
+              <p>
+                <br />
+              </p>
+              <div class="toc" id="toc">
+                <div id="toctitle">
+                  <h2>Contents</h2>
+                </div>
+                <ul>
+                  <li class="toclevel-1">
+                    <a href="Release Checklist.html#Introduction">
+                      <span class="tocnumber">1</span>
+                      <span class="toctext">Introduction</span>
+                    </a>
+                  </li>
+                  <li class="toclevel-1">
+                    <a href="Release Checklist.html#Steps">
+                      <span class="tocnumber">2</span>
+                      <span class="toctext">Steps</span>
+                    </a>
+                  </li>
+                  <li class="toclevel-1">
+                    <a href="Release Checklist.html#Testing_Jetty">
+                      <span class="tocnumber">3</span>
+                      <span class="toctext">Testing Jetty</span>
+                    </a>
+                  </li>
+                  <li class="toclevel-1">
+                    <a href="Release Checklist.html#Testing_CometD">
+                      <span class="tocnumber">4</span>
+                      <span class="toctext">Testing CometD</span>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+              <h2>
+                <span class="mw-headline" id="Introduction">Introduction</span>
+              </h2>
+              <p>Complete these steps to determine whether a staged release is set to go.</p>
+              <p>
+                <br />
+              </p>
+              <h2>
+                <span class="mw-headline" id="Steps">Steps</span>
+              </h2>
+              <p>Download the staged releases for jetty(x, x+1):</p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="bash source-bash">
+                  <pre class="de1" xml:space="preserve"><span class="kw2">wget</span> https:<span class="sy0">//</span>oss.sonatype.org<span class="sy0">/</span>content<span class="sy0">/</span>repositories<span class="sy0">/</span>jetty-<span class="br0">[</span>reponumber<span class="br0">]</span><span class="sy0">/</span>org<span class="sy0">/</span>eclipse<span class="sy0">/</span>jetty<span class="sy0">/</span>jetty-distribution<span class="sy0">/</span><span class="br0">[</span>jetty-version<span class="br0">]</span><span class="sy0">/</span> jetty-distribution-<span class="nu0">7</span>.<span class="br0">[</span>jetty-minor-version<span class="br0">]</span>.tar.gz
+<span class="kw2">wget</span> https:<span class="sy0">//</span>oss.sonatype.org<span class="sy0">/</span>content<span class="sy0">/</span>repositories<span class="sy0">/</span>jetty-<span class="br0">[</span>reponumber<span class="br0">]</span><span class="sy0">/</span>org<span class="sy0">/</span>eclipse<span class="sy0">/</span>jetty<span class="sy0">/</span>jetty-distribution<span class="sy0">/</span><span class="br0">[</span>jetty-version<span class="br0">]</span><span class="sy0">/</span>jetty-distribution-<span class="nu0">8</span>.<span class="br0">[</span>jetty-minor-version<span class="br0">]</span>.tar.gz</pre>
+                </div>
+              </div>
+              <p>
+                <br />
+              </p>
+              <h2>
+                <span class="mw-headline" id="Testing_Jetty">Testing Jetty</span>
+              </h2>
+              <p>1. Extract the release(s) to a directory of your choice.</p>
+              <p>2. Start jetty.</p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="bash source-bash">
+                  <pre class="de1" xml:space="preserve"><span class="kw3">cd</span> <span class="br0">[</span>installdir<span class="br0">]</span> ; java <span class="re5">-jar</span> start.jar <span class="re2">OPTIONS</span>=rewrite etc<span class="sy0">/</span>jetty-rewrite.xml etc<span class="sy0">/</span>jetty-ssl.xml</pre>
+                </div>
+              </div>
+              <p>No exceptions? Good. Proceed. Otherwise investigate.</p>
+              <p>
+                3. Open
+                <a class="external free" href="http://localhost:8080/" rel="nofollow">http://localhost:8080/</a>
+                in your favourite browser.
+              </p>
+              <p>
+                You should see the
+                <code>test.war</code>
+                webapp.
+              </p>
+              <p>4. Go through ALL the tests and verify that everything works fine.</p>
+              <p>5. Verify that hot deployment works.</p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="bash source-bash">
+                  <pre class="de1" xml:space="preserve"><span class="kw2">touch</span> <span class="br0">[</span>pathToJettyDistribution<span class="br0">]</span><span class="sy0">/</span>contexts<span class="sy0">/</span>test.xml</pre>
+                </div>
+              </div>
+              <p>
+                6. Verify that
+                <code>test.war</code>
+                is redeployed in
+                <code>STDOUT</code>
+                .
+              </p>
+              <h2>
+                <span class="mw-headline" id="Testing_CometD">Testing CometD</span>
+              </h2>
+              <p>
+                1. clone
+                <code>
+                  <a class="external free" href="git://github.com/cometd/cometd.git" rel="nofollow">git://github.com/cometd/cometd.git</a>
+                </code>
+                .
+              </p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="bash source-bash">
+                  <pre class="de1" xml:space="preserve"><span class="kw2">git clone</span> git:<span class="sy0">//</span>github.com<span class="sy0">/</span>cometd<span class="sy0">/</span>cometd.git</pre>
+                </div>
+              </div>
+              <p>
+                2.Edit
+                <code>pom.xml</code>
+                and update jetty-version and repository URL to match the current staged release.
+              </p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="bash source-bash">
+                  <pre class="de1" xml:space="preserve">    <span class="sy0">&lt;</span>properties<span class="sy0">&gt;</span>
         <span class="sy0">&lt;</span>project.build.sourceEncoding<span class="sy0">&gt;</span>UTF-<span class="nu0">8</span><span class="sy0">&lt;/</span>project.build.sourceEncoding<span class="sy0">&gt;</span>
         <span class="sy0">&lt;</span>jetty-version<span class="sy0">&gt;</span>7.6.2.v20120308<span class="sy0">&lt;/</span>jetty-version<span class="sy0">&gt;</span>
         <span class="sy0">&lt;</span>jetty-plugin-version<span class="sy0">&gt;</span><span class="co1">${jetty-version}</span><span class="sy0">&lt;/</span>jetty-plugin-version<span class="sy0">&gt;</span>
@@ -83,31 +146,51 @@
       <span class="sy0">&lt;</span><span class="kw2">id</span><span class="sy0">&gt;</span>Jetty Staging<span class="sy0">&lt;/</span><span class="kw2">id</span><span class="sy0">&gt;</span>
       <span class="sy0">&lt;</span>url<span class="sy0">&gt;</span>https:<span class="sy0">//</span>oss.sonatype.org<span class="sy0">/</span>content<span class="sy0">/</span>repositories<span class="sy0">/</span>jetty-<span class="nu0">988</span><span class="sy0">/&lt;/</span>url<span class="sy0">&gt;</span>
     <span class="sy0">&lt;/</span>repository<span class="sy0">&gt;</span>
-  <span class="sy0">&lt;/</span>repositories<span class="sy0">&gt;</span></pre></div></div>
-<p>3. Build cometd.
-</p>
-<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="bash source-bash"><pre class="de1">mvn clean <span class="kw2">install</span></pre></div></div>
-<p>4. Be patient.
-</p><p>5. Run the loadtest as it is described here: <a class="external free" rel="nofollow" href="http://cometd.org/documentation/2.x/howtos/loadtesting">http://cometd.org/documentation/2.x/howtos/loadtesting</a>. Keep the default values, but make sure that you raise the client setting to 1000. We might change the default to 1000 (currently 100). Run the loadtest until <tt>JIT compilation time</tt> is close to zero value (after about 10k calls).
-</p><p>Make sure that performance results are reasonably fast. 
-</p><p>6. Deploy <code>cometd.war</code> to the webapps directory of the jetty-distribution tested above.
-</p>
-<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="bash source-bash"><pre class="de1"><span class="kw2">cp</span> cometd-demo<span class="sy0">/</span>target<span class="sy0">/</span>cometd-demo-<span class="br0">[</span>version<span class="br0">]</span>.war <span class="br0">[</span>pathToJetty<span class="br0">]</span><span class="sy0">/</span>jetty-distribution-<span class="br0">[</span>jetty-version<span class="br0">]</span><span class="sy0">/</span>webapps<span class="sy0">/</span></pre></div></div>
-<p>7. Start jetty and make sure there are no exceptions.
-</p>
-<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="bash source-bash"><pre class="de1"><span class="kw3">cd</span> <span class="br0">[</span>pathToJetty<span class="br0">]</span> <span class="sy0">&amp;&amp;</span> java <span class="re5">-jar</span> start.jar</pre></div></div>
-<p>8. Go through all pages of the demo and test them.
-</p>
-<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="bash source-bash"><pre class="de1">http:<span class="sy0">//</span>localhost:<span class="nu0">8080</span><span class="sy0">/</span>cometd-demo-2.4.1-SNAPSHOT<span class="sy0">/</span></pre></div></div>
-<p>9. All tests green? Yeeeaaaaay!
-</p>
-
-</div>
-
-                    <div id="catlinks" class="catlinks"><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="https://wiki.eclipse.org/Special:Categories" title="Special:Categories">Categories</a>: <ul><li><a href="https://wiki.eclipse.org/Category:Jetty" title="Category:Jetty">Jetty</a></li><li><a href="https://wiki.eclipse.org/Category:Jetty_Howto" title="Category:Jetty Howto">Jetty Howto</a></li></ul></div></div>
-                                  </div>
+  <span class="sy0">&lt;/</span>repositories<span class="sy0">&gt;</span></pre>
+                </div>
               </div>
+              <p>3. Build cometd.</p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="bash source-bash">
+                  <pre class="de1" xml:space="preserve">mvn clean <span class="kw2">install</span></pre>
+                </div>
+              </div>
+              <p>4. Be patient.</p>
+              <p>
+                5. Run the loadtest as it is described here:
+                <a class="external free" href="http://cometd.org/documentation/2.x/howtos/loadtesting" rel="nofollow">http://cometd.org/documentation/2.x/howtos/loadtesting</a>
+                . Keep the default values, but make sure that you raise the client setting to 1000. We might change the default to 1000 (currently 100). Run the loadtest until
+                <tt>JIT compilation time</tt>
+                is close to zero value (after about 10k calls).
+              </p>
+              <p>Make sure that performance results are reasonably fast.</p>
+              <p>
+                6. Deploy
+                <code>cometd.war</code>
+                to the webapps directory of the jetty-distribution tested above.
+              </p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="bash source-bash">
+                  <pre class="de1" xml:space="preserve"><span class="kw2">cp</span> cometd-demo<span class="sy0">/</span>target<span class="sy0">/</span>cometd-demo-<span class="br0">[</span>version<span class="br0">]</span>.war <span class="br0">[</span>pathToJetty<span class="br0">]</span><span class="sy0">/</span>jetty-distribution-<span class="br0">[</span>jetty-version<span class="br0">]</span><span class="sy0">/</span>webapps<span class="sy0">/</span></pre>
+                </div>
+              </div>
+              <p>7. Start jetty and make sure there are no exceptions.</p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="bash source-bash">
+                  <pre class="de1" xml:space="preserve"><span class="kw3">cd</span> <span class="br0">[</span>pathToJetty<span class="br0">]</span> <span class="sy0">&amp;&amp;</span> java <span class="re5">-jar</span> start.jar</pre>
+                </div>
+              </div>
+              <p>8. Go through all pages of the demo and test them.</p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="bash source-bash">
+                  <pre class="de1" xml:space="preserve">http:<span class="sy0">//</span>localhost:<span class="nu0">8080</span><span class="sy0">/</span>cometd-demo-2.4.1-SNAPSHOT<span class="sy0">/</span></pre>
+                </div>
+              </div>
+              <p>9. All tests green? Yeeeaaaaay!</p>
             </div>
           </div>
-</body>
+        </div>
+      </div>
+    </div>
+  </body>
 </html>

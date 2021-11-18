@@ -1,205 +1,633 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
-<head>
+  <head>
     <title>Jetty WTP Plugin</title>
-    <link rel="stylesheet" media="screen, print" href="wiki-style.css"/>
-</head>
-<body>
-<div class="col-md-20" id="mainContent">
-                                <div class="tab-content background-white">
-              <div id="tab-pane-main-page-content" class="tab-pane active">
-
-                
-                <h1 class="firstHeading page-header" id="firstHeading">
-                  <span dir="auto">Jetty/Howto</span>
-                </h1>
-                <div id="main-page-content">
-
-                  <div class="alert alert-small alert-warning" id="contentSub"><span class="subpages">&lt; <a title="Jetty" href="../Jetty.html">Jetty</a></span></div>
-
-                  
-                  
-                  <div lang="en" id="mw-content-text" dir="ltr" class="mw-content-ltr"><p><br/>
-</p><p><br/>
-</p>
-<div id="toc" class="toc"><div id="toctitle"><h2>Contents</h2></div>
-<ul>
-<li class="toclevel-1 tocsection-1"><a href="Howto.html#Howto_Get_Started"><span class="tocnumber">1</span> <span class="toctext">Howto Get Started</span></a></li>
-<li class="toclevel-1 tocsection-2"><a href="Howto.html#Configuration"><span class="tocnumber">2</span> <span class="toctext">Configuration</span></a>
-<ul>
-<li class="toclevel-2 tocsection-3"><a href="Howto.html#Optimization"><span class="tocnumber">2.1</span> <span class="toctext">Optimization</span></a></li>
-<li class="toclevel-2 tocsection-4"><a href="Howto.html#Security"><span class="tocnumber">2.2</span> <span class="toctext">Security</span></a></li>
-</ul>
-</li>
-<li class="toclevel-1 tocsection-5"><a href="Howto.html#Development"><span class="tocnumber">3</span> <span class="toctext">Development</span></a>
-<ul>
-<li class="toclevel-2 tocsection-6"><a href="Howto.html#Build_Tools"><span class="tocnumber">3.1</span> <span class="toctext">Build Tools</span></a></li>
-<li class="toclevel-2 tocsection-7"><a href="Howto.html#IDEs"><span class="tocnumber">3.2</span> <span class="toctext">IDEs</span></a></li>
-<li class="toclevel-2 tocsection-8"><a href="Howto.html#Troubleshooting"><span class="tocnumber">3.3</span> <span class="toctext">Troubleshooting</span></a></li>
-<li class="toclevel-2 tocsection-9"><a href="Howto.html#Upgrading"><span class="tocnumber">3.4</span> <span class="toctext">Upgrading</span></a></li>
-</ul>
-</li>
-<li class="toclevel-1 tocsection-10"><a href="Howto.html#Related_Pages"><span class="tocnumber">4</span> <span class="toctext">Related Pages</span></a></li>
-</ul>
-</div>
-
-<h2><span class="mw-headline" id="Howto_Get_Started">Howto Get Started</span></h2>
-<ul><li> <a title="Jetty/Starting/Downloads" href="Starting/Downloads.html">Download and Install Jetty</a></li>
-<li> <a href="Howto/Configure Jetty.html" title="Jetty/Howto/Configure Jetty">How to Configure Jetty</a></li>
-<li> <a title="Jetty/Howto/Run Jetty" href="Howto/Run Jetty.html">How to Run Jetty</a></li>
-<li> <a href="Howto/Deploy Web Applications.html" title="Jetty/Howto/Deploy Web Applications">How to Deploy Web Applications</a></li>
-<li> <a href="Howto/Develop.html" title="Jetty/Howto/Develop">How to Develop with Jetty</a></li></ul>
-<ul><li> <a title="Jetty/Howto/Deploy 3rd Party Products" href="https://wiki.eclipse.org/Jetty/Howto/Deploy_3rd_Party_Products">How to Deploy 3rd Party Products</a></li>
-<li> <a title="Jetty/Howto/Run Jetty with JConsole" href="Howto/Run Jetty with JConsole.html">How to Run Jetty with JConsole</a></li></ul>
-<h2><span id="Configuration" class="mw-headline">Configuration</span></h2>
-<ul><li> <a title="Jetty/Howto/Configure Jetty" href="Howto/Configure Jetty.html">How to configure Jetty</a></li>
-<li> <a href="Howto/SetContextPath.html" title="Jetty/Howto/SetContextPath">How to set the context path</a></li>
-<li> <a href="Howto/Port80.html" title="Jetty/Howto/Port80">How to use port 80</a></li>
-<li> <a href="Howto/Configure Connectors.html" title="Jetty/Howto/Configure Connectors">How to configure connectors</a></li>
-<li> <a title="Jetty/Howto/Configure Virtual Hosts" href="Howto/Configure Virtual Hosts.html">How to configure virtual hosts</a></li>
-<li> <a href="Howto/SessionIds.html" title="Jetty/Howto/SessionIds">How to configure Session Ids</a></li>
-<li> <a href="Howto/Persisting Sessions.html" title="Jetty/Howto/Persisting Sessions">How to configure persisting sessions</a></li>
-<li> <a href="Howto/Configure Request Logs.html" title="Jetty/Howto/Configure Request Logs">How to configure request logs</a></li>
-<li> <a href="Howto/Custom Error Pages.html" title="Jetty/Howto/Custom Error Pages">How to configure custom error pages</a></li>
-<li> <a href="Tutorial/Apache.html" title="Jetty/Tutorial/Apache">How to use Jetty with Apache, AJP, mod_jk, mod_proxy_balancer</a></li>
-<li> <a href="Howto/Jars.html" title="Jetty/Howto/Jars">How to know which jars to use</a></li>
-<li> <a href="Howto/Spring.html" title="Jetty/Howto/Spring">How to configure Jetty with Spring</a></li>
-<li> <a href="Howto/Configure Jetty with XBean.html" title="Jetty/Howto/Configure Jetty with XBean">How to configure Jetty with XBean</a></li>
-<li> <a href="https://wiki.eclipse.org/Jetty/Howto/MovedContextHandler" title="Jetty/Howto/MovedContextHandler">How to redirect or move a context</a></li>
-<li> <a href="https://wiki.eclipse.org/Jetty/Howto/WebappPerConnector" title="Jetty/Howto/WebappPerConnector">How to have a webapp respond only on a specific port</a></li>
-<li> <a title="Jetty/Howto/Configure JNDI Datasource" href="Howto/Configure JNDI Datasource.html">How to configure JNDI datasource</a></li>
-<li> <a href="Howto/Configure Form Size.html" title="Jetty/Howto/Configure Form Size">How to configure Form Size</a></li>
-<li> <a title="Jetty/Howto/Prevent Memory Leaks" href="Howto/Prevent Memory Leaks.html">How to prevent memory leaks</a></li>
-<li> <a href="Howto/International Characters.html" title="Jetty/Howto/International Characters">How to work with international characters</a></li>
-<li> <a title="Jetty/Howto/Avoid slow deployment" href="Howto/Avoid slow deployment.html">How to avoid slow webapp deployment</a></li>
-<li> <a href="Howto/How to serve symbolically linked files.html" title="Jetty/Howto/How to serve symbolically linked files">Jetty/Howto/How to serve symbolically linked files</a></li></ul>
-<h3><span id="Optimization" class="mw-headline">Optimization</span></h3>
-<ul><li> <a title="Jetty/Howto/Garbage Collection" href="Howto/Garbage Collection.html">How to configure Garbage Collection for Jetty</a></li>
-<li> <a title="Jetty/Howto/High Load" href="Howto/High Load.html">How to Configure for high load</a></li></ul>
-<h3><span id="Security" class="mw-headline">Security</span></h3>
-<ul><li> <a title="Jetty/Howto/CipherSuites" href="Howto/CipherSuites.html">How to enable and disable SSL Cipher Suites in Jetty</a></li>
-<li> <a href="Howto/Secure Passwords.html" title="Jetty/Howto/Secure Passwords">How to secure stored passwords in Jetty</a></li>
-<li> <a href="Howto/Secure Termination.html" title="Jetty/Howto/Secure Termination">How to secure termination of Jetty</a></li>
-<li> <a href="https://wiki.eclipse.org/Jetty/Howto/Spnego" title="Jetty/Howto/Spnego">How to configure Spnego</a></li></ul>
-<h2><span id="Development" class="mw-headline">Development</span></h2>
-<ul><li> <a href="Howto/Develop.html" title="Jetty/Howto/Develop">How to Develop with Jetty</a></li>
-<li> <a title="Jetty/Tutorial/Embedding Jetty" href="Tutorial/Embedding Jetty.html">How to Embed Jetty</a> (tutorial)</li>
-<li> <a title="Jetty/Howto/Write Jetty Handler" href="Howto/Write Jetty Handler.html">How to write Jetty handlers</a></li></ul>
-<h3><span class="mw-headline" id="Build_Tools">Build Tools</span></h3>
-<ul><li> <a href="https://wiki.eclipse.org/Jetty/Howto/Use_Jetty_with_Maven" title="Jetty/Howto/Use Jetty with Maven">How to use Jetty with Maven</a></li>
-<li> <a href="Howto/Use Jetty with Ant.html" title="Jetty/Howto/Use Jetty with Ant">How to use Jetty with Ant</a></li></ul>
-<h3><span id="IDEs" class="mw-headline">IDEs</span></h3>
-<ul><li> <a href="https://wiki.eclipse.org/Jetty/Howto/Use_Jetty_with_Eclipse" title="Jetty/Howto/Use Jetty with Eclipse">How to use Jetty with Eclipse IDE</a></li>
-<li> <a href="edit" class="new" title="Jetty/Howto/Use Jetty with IntelliJ (page does not exist)">How to use Jetty with IntelliJ</a></li></ul>
-<h3><span id="Troubleshooting" class="mw-headline">Troubleshooting</span></h3>
-<ul><li> <a href="Howto/Use the Dump Feature.html" title="Jetty/Howto/Use the Dump Feature">How to Use the Jetty Dump Feature</a></li></ul>
-<h3><span class="mw-headline" id="Upgrading">Upgrading</span></h3>
-<ul><li> <a href="Howto/Upgrade from Jetty 6 to Jetty 7.html" title="Jetty/Howto/Upgrade from Jetty 6 to Jetty 7">How to Upgrade from Jetty 6 to Jetty 7</a></li>
-<li> <a href="https://wiki.eclipse.org/Jetty/Howto/Upgrade_from_Jetty_7_to_Jetty_8" title="Jetty/Howto/Upgrade from Jetty 7 to Jetty 8">How to Upgrade from Jetty 7 to Jetty 8</a></li></ul>
-<h2><span class="mw-headline" id="Related_Pages">Related Pages</span></h2>
-<div class="CategoryTreeTag" data-ct-mode="10" data-ct-options="{&quot;mode&quot;:10,&quot;hideprefix&quot;:20,&quot;showcount&quot;:false,&quot;namespaces&quot;:false}"><div class="CategoryTreeSection"><div class="CategoryTreeItem"><span class="CategoryTreeBullet"><span style="display: none;" data-ct-loaded="1" class="CategoryTreeToggle" data-ct-state="expanded" data-ct-title="Jetty_Howto" title="collapse">[<b>−</b>]</span> </span> <a href="https://wiki.eclipse.org/Category:Jetty_Howto" class="CategoryTreeLabel  CategoryTreeLabelNs14 CategoryTreeLabelCategory">Jetty Howto</a></div>
-		<div style="display:block" class="CategoryTreeChildren"><div class="CategoryTreeSection"><div class="CategoryTreeItem"><span class="CategoryTreeBullet"> </span> <a class="CategoryTreeLabel  CategoryTreeLabelNs0 CategoryTreeLabelPage" href="Howto/Avoid slow deployment.html">Jetty/Howto/Avoid slow deployment</a></div>
-		<div style="display:none" class="CategoryTreeChildren"/></div>
-		<div class="CategoryTreeSection"><div class="CategoryTreeItem"><span class="CategoryTreeBullet"> </span> <a href="Howto/Install Jetty/Bundle.html" class="CategoryTreeLabel  CategoryTreeLabelNs0 CategoryTreeLabelPage">Jetty/Howto/Install Jetty/Bundle</a></div>
-		<div class="CategoryTreeChildren" style="display:none"/></div>
-		<div class="CategoryTreeSection"><div class="CategoryTreeItem"><span class="CategoryTreeBullet"> </span> <a class="CategoryTreeLabel  CategoryTreeLabelNs0 CategoryTreeLabelPage" href="Howto/CipherSuites.html">Jetty/Howto/CipherSuites</a></div>
-		<div class="CategoryTreeChildren" style="display:none"/></div>
-		<div class="CategoryTreeSection"><div class="CategoryTreeItem"><span class="CategoryTreeBullet"> </span> <a class="CategoryTreeLabel  CategoryTreeLabelNs0 CategoryTreeLabelPage" href="Howto/Configure Connectors.html">Jetty/Howto/Configure Connectors</a></div>
-		<div class="CategoryTreeChildren" style="display:none"/></div>
-		<div class="CategoryTreeSection"><div class="CategoryTreeItem"><span class="CategoryTreeBullet"> </span> <a class="CategoryTreeLabel  CategoryTreeLabelNs0 CategoryTreeLabelPage" href="Howto/Configure Form Size.html">Jetty/Howto/Configure Form Size</a></div>
-		<div style="display:none" class="CategoryTreeChildren"/></div>
-		<div class="CategoryTreeSection"><div class="CategoryTreeItem"><span class="CategoryTreeBullet"> </span> <a class="CategoryTreeLabel  CategoryTreeLabelNs0 CategoryTreeLabelPage" href="Howto/Configure Jetty.html">Jetty/Howto/Configure Jetty</a></div>
-		<div style="display:none" class="CategoryTreeChildren"/></div>
-		<div class="CategoryTreeSection"><div class="CategoryTreeItem"><span class="CategoryTreeBullet"> </span> <a class="CategoryTreeLabel  CategoryTreeLabelNs0 CategoryTreeLabelPage" href="Howto/Configure Jetty with XBean.html">Jetty/Howto/Configure Jetty with XBean</a></div>
-		<div class="CategoryTreeChildren" style="display:none"/></div>
-		<div class="CategoryTreeSection"><div class="CategoryTreeItem"><span class="CategoryTreeBullet"> </span> <a href="Howto/Configure JNDI Datasource.html" class="CategoryTreeLabel  CategoryTreeLabelNs0 CategoryTreeLabelPage">Jetty/Howto/Configure JNDI Datasource</a></div>
-		<div style="display:none" class="CategoryTreeChildren"/></div>
-		<div class="CategoryTreeSection"><div class="CategoryTreeItem"><span class="CategoryTreeBullet"> </span> <a class="CategoryTreeLabel  CategoryTreeLabelNs0 CategoryTreeLabelPage" href="Howto/Configure JSP.html">Jetty/Howto/Configure JSP</a></div>
-		<div style="display:none" class="CategoryTreeChildren"/></div>
-		<div class="CategoryTreeSection"><div class="CategoryTreeItem"><span class="CategoryTreeBullet"> </span> <a href="Howto/Configure mod proxy.html" class="CategoryTreeLabel  CategoryTreeLabelNs0 CategoryTreeLabelPage">Jetty/Howto/Configure mod proxy</a></div>
-		<div style="display:none" class="CategoryTreeChildren"/></div>
-		<div class="CategoryTreeSection"><div class="CategoryTreeItem"><span class="CategoryTreeBullet"> </span> <a href="Howto/Configure Request Logs.html" class="CategoryTreeLabel  CategoryTreeLabelNs0 CategoryTreeLabelPage">Jetty/Howto/Configure Request Logs</a></div>
-		<div style="display:none" class="CategoryTreeChildren"/></div>
-		<div class="CategoryTreeSection"><div class="CategoryTreeItem"><span class="CategoryTreeBullet"> </span> <a class="CategoryTreeLabel  CategoryTreeLabelNs0 CategoryTreeLabelPage" href="Howto/Configure SSL.html">Jetty/Howto/Configure SSL</a></div>
-		<div class="CategoryTreeChildren" style="display:none"/></div>
-		<div class="CategoryTreeSection"><div class="CategoryTreeItem"><span class="CategoryTreeBullet"> </span> <a href="Howto/Configure SSL Connectors.html" class="CategoryTreeLabel  CategoryTreeLabelNs0 CategoryTreeLabelPage">Jetty/Howto/Configure SSL Connectors</a></div>
-		<div class="CategoryTreeChildren" style="display:none"/></div>
-		<div class="CategoryTreeSection"><div class="CategoryTreeItem"><span class="CategoryTreeBullet"> </span> <a href="Howto/Configure Virtual Hosts.html" class="CategoryTreeLabel  CategoryTreeLabelNs0 CategoryTreeLabelPage">Jetty/Howto/Configure Virtual Hosts</a></div>
-		<div style="display:none" class="CategoryTreeChildren"/></div>
-		<div class="CategoryTreeSection"><div class="CategoryTreeItem"><span class="CategoryTreeBullet"> </span> <a class="CategoryTreeLabel  CategoryTreeLabelNs0 CategoryTreeLabelPage" href="Howto/Custom Error Pages.html">Jetty/Howto/Custom Error Pages</a></div>
-		<div style="display:none" class="CategoryTreeChildren"/></div>
-		<div class="CategoryTreeSection"><div class="CategoryTreeItem"><span class="CategoryTreeBullet"> </span> <a class="CategoryTreeLabel  CategoryTreeLabelNs0 CategoryTreeLabelPage" href="Howto/Deploy Web Applications.html">Jetty/Howto/Deploy Web Applications</a></div>
-		<div style="display:none" class="CategoryTreeChildren"/></div>
-		<div class="CategoryTreeSection"><div class="CategoryTreeItem"><span class="CategoryTreeBullet"> </span> <a href="Howto/Develop.html" class="CategoryTreeLabel  CategoryTreeLabelNs0 CategoryTreeLabelPage">Jetty/Howto/Develop</a></div>
-		<div class="CategoryTreeChildren" style="display:none"/></div>
-		<div class="CategoryTreeSection"><div class="CategoryTreeItem"><span class="CategoryTreeBullet"> </span> <a class="CategoryTreeLabel  CategoryTreeLabelNs0 CategoryTreeLabelPage" href="Howto/Develop with Eclipse.html">Jetty/Howto/Develop with Eclipse</a></div>
-		<div style="display:none" class="CategoryTreeChildren"/></div>
-		<div class="CategoryTreeSection"><div class="CategoryTreeItem"><span class="CategoryTreeBullet"> </span> <a class="CategoryTreeLabel  CategoryTreeLabelNs0 CategoryTreeLabelPage" href="Howto/Embed.html">Jetty/Howto/Embed</a></div>
-		<div class="CategoryTreeChildren" style="display:none"/></div>
-		<div class="CategoryTreeSection"><div class="CategoryTreeItem"><span class="CategoryTreeBullet"> </span> <a class="CategoryTreeLabel  CategoryTreeLabelNs0 CategoryTreeLabelPage" href="Howto/Garbage Collection.html">Jetty/Howto/Garbage Collection</a></div>
-		<div style="display:none" class="CategoryTreeChildren"/></div>
-		<div class="CategoryTreeSection"><div class="CategoryTreeItem"><span class="CategoryTreeBullet"> </span> <a href="Howto/High Load.html" class="CategoryTreeLabel  CategoryTreeLabelNs0 CategoryTreeLabelPage">Jetty/Howto/High Load</a></div>
-		<div style="display:none" class="CategoryTreeChildren"/></div>
-		<div class="CategoryTreeSection"><div class="CategoryTreeItem"><span class="CategoryTreeBullet"> </span> <a class="CategoryTreeLabel  CategoryTreeLabelNs0 CategoryTreeLabelPage" href="Howto/How to serve symbolically linked files.html">Jetty/Howto/How to serve symbolically linked files</a></div>
-		<div style="display:none" class="CategoryTreeChildren"/></div>
-		<div class="CategoryTreeSection"><div class="CategoryTreeItem"><span class="CategoryTreeBullet"> </span> <a href="Howto/International Characters.html" class="CategoryTreeLabel  CategoryTreeLabelNs0 CategoryTreeLabelPage">Jetty/Howto/International Characters</a></div>
-		<div style="display:none" class="CategoryTreeChildren"/></div>
-		<div class="CategoryTreeSection"><div class="CategoryTreeItem"><span class="CategoryTreeBullet"> </span> <a href="Howto/Jars.html" class="CategoryTreeLabel  CategoryTreeLabelNs0 CategoryTreeLabelPage">Jetty/Howto/Jars</a></div>
-		<div class="CategoryTreeChildren" style="display:none"/></div>
-		<div class="CategoryTreeSection"><div class="CategoryTreeItem"><span class="CategoryTreeBullet"> </span> <a href="../Jetty Expanded Webapp Deploy.html" class="CategoryTreeLabel  CategoryTreeLabelNs0 CategoryTreeLabelPage">Jetty Expanded Webapp Deploy</a></div>
-		<div style="display:none" class="CategoryTreeChildren"/></div>
-		<div class="CategoryTreeSection"><div class="CategoryTreeItem"><span class="CategoryTreeBullet"> </span> <a href="https://wiki.eclipse.org/Template:Jetty_Howto" class="CategoryTreeLabel  CategoryTreeLabelNs10 CategoryTreeLabelPage">Template:Jetty Howto</a></div>
-		<div style="display:none" class="CategoryTreeChildren"/></div>
-		<div class="CategoryTreeSection"><div class="CategoryTreeItem"><span class="CategoryTreeBullet"> </span> <a href="Howto/SetContextPathto /index.html" class="CategoryTreeLabel  CategoryTreeLabelNs0 CategoryTreeLabelPage">Jetty/Howto/SetContextPathto /</a></div>
-		<div style="display:none" class="CategoryTreeChildren"/></div>
-		<div class="CategoryTreeSection"><div class="CategoryTreeItem"><span class="CategoryTreeBullet"> </span> <a class="CategoryTreeLabel  CategoryTreeLabelNs0 CategoryTreeLabelPage" href="Howto/Deploy 3rd Party Products/JIRA.html">Jetty/Howto/Deploy 3rd Party Products/JIRA</a></div>
-		<div style="display:none" class="CategoryTreeChildren"/></div>
-		<div class="CategoryTreeSection"><div class="CategoryTreeItem"><span class="CategoryTreeBullet"> </span> <a href="Howto/Persisting Sessions.html" class="CategoryTreeLabel  CategoryTreeLabelNs0 CategoryTreeLabelPage">Jetty/Howto/Persisting Sessions</a></div>
-		<div style="display:none" class="CategoryTreeChildren"/></div>
-		<div class="CategoryTreeSection"><div class="CategoryTreeItem"><span class="CategoryTreeBullet"> </span> <a href="Howto/Port80.html" class="CategoryTreeLabel  CategoryTreeLabelNs0 CategoryTreeLabelPage">Jetty/Howto/Port80</a></div>
-		<div style="display:none" class="CategoryTreeChildren"/></div>
-		<div class="CategoryTreeSection"><div class="CategoryTreeItem"><span class="CategoryTreeBullet"> </span> <a class="CategoryTreeLabel  CategoryTreeLabelNs0 CategoryTreeLabelPage" href="Howto/Prevent Memory Leaks.html">Jetty/Howto/Prevent Memory Leaks</a></div>
-		<div style="display:none" class="CategoryTreeChildren"/></div>
-		<div class="CategoryTreeSection"><div class="CategoryTreeItem"><span class="CategoryTreeBullet"> </span> <a class="CategoryTreeLabel  CategoryTreeLabelNs0 CategoryTreeLabelPage" href="Release Checklist.html">Jetty/Release Checklist</a></div>
-		<div style="display:none" class="CategoryTreeChildren"/></div>
-		<div class="CategoryTreeSection"><div class="CategoryTreeItem"><span class="CategoryTreeBullet"> </span> <a class="CategoryTreeLabel  CategoryTreeLabelNs0 CategoryTreeLabelPage" href="Howto/Run Jetty.html">Jetty/Howto/Run Jetty</a></div>
-		<div class="CategoryTreeChildren" style="display:none"/></div>
-		<div class="CategoryTreeSection"><div class="CategoryTreeItem"><span class="CategoryTreeBullet"> </span> <a class="CategoryTreeLabel  CategoryTreeLabelNs0 CategoryTreeLabelPage" href="Howto/Run Jetty with JConsole.html">Jetty/Howto/Run Jetty with JConsole</a></div>
-		<div class="CategoryTreeChildren" style="display:none"/></div>
-		<div class="CategoryTreeSection"><div class="CategoryTreeItem"><span class="CategoryTreeBullet"> </span> <a href="Howto/Secure Passwords.html" class="CategoryTreeLabel  CategoryTreeLabelNs0 CategoryTreeLabelPage">Jetty/Howto/Secure Passwords</a></div>
-		<div style="display:none" class="CategoryTreeChildren"/></div>
-		<div class="CategoryTreeSection"><div class="CategoryTreeItem"><span class="CategoryTreeBullet"> </span> <a class="CategoryTreeLabel  CategoryTreeLabelNs0 CategoryTreeLabelPage" href="Howto/Secure Termination.html">Jetty/Howto/Secure Termination</a></div>
-		<div style="display:none" class="CategoryTreeChildren"/></div>
-		<div class="CategoryTreeSection"><div class="CategoryTreeItem"><span class="CategoryTreeBullet"> </span> <a class="CategoryTreeLabel  CategoryTreeLabelNs0 CategoryTreeLabelPage" href="Howto/SessionIds.html">Jetty/Howto/SessionIds</a></div>
-		<div class="CategoryTreeChildren" style="display:none"/></div>
-		<div class="CategoryTreeSection"><div class="CategoryTreeItem"><span class="CategoryTreeBullet"> </span> <a class="CategoryTreeLabel  CategoryTreeLabelNs0 CategoryTreeLabelPage" href="Howto/SetContextPath.html">Jetty/Howto/SetContextPath</a></div>
-		<div class="CategoryTreeChildren" style="display:none"/></div>
-		<div class="CategoryTreeSection"><div class="CategoryTreeItem"><span class="CategoryTreeBullet"> </span> <a href="Howto/Spring.html" class="CategoryTreeLabel  CategoryTreeLabelNs0 CategoryTreeLabelPage">Jetty/Howto/Spring</a></div>
-		<div class="CategoryTreeChildren" style="display:none"/></div>
-		<div class="CategoryTreeSection"><div class="CategoryTreeItem"><span class="CategoryTreeBullet"> </span> <a href="Howto/Upgrade from Jetty 6 to Jetty 7.html" class="CategoryTreeLabel  CategoryTreeLabelNs0 CategoryTreeLabelPage">Jetty/Howto/Upgrade from Jetty 6 to Jetty 7</a></div>
-		<div class="CategoryTreeChildren" style="display:none"/></div>
-		<div class="CategoryTreeSection"><div class="CategoryTreeItem"><span class="CategoryTreeBullet"> </span> <a href="Howto/Use Jetty with Ant.html" class="CategoryTreeLabel  CategoryTreeLabelNs0 CategoryTreeLabelPage">Jetty/Howto/Use Jetty with Ant</a></div>
-		<div class="CategoryTreeChildren" style="display:none"/></div>
-		<div class="CategoryTreeSection"><div class="CategoryTreeItem"><span class="CategoryTreeBullet"> </span> <a href="Howto/Use the Dump Feature.html" class="CategoryTreeLabel  CategoryTreeLabelNs0 CategoryTreeLabelPage">Jetty/Howto/Use the Dump Feature</a></div>
-		<div style="display:none" class="CategoryTreeChildren"/></div>
-		<div class="CategoryTreeSection"><div class="CategoryTreeItem"><span class="CategoryTreeBullet"> </span> <a href="Howto/Using Jetty Runner.html" class="CategoryTreeLabel  CategoryTreeLabelNs0 CategoryTreeLabelPage">Jetty/Howto/Using Jetty Runner</a></div>
-		<div class="CategoryTreeChildren" style="display:none"/></div>
-		<div class="CategoryTreeSection"><div class="CategoryTreeItem"><span class="CategoryTreeBullet"> </span> <a class="CategoryTreeLabel  CategoryTreeLabelNs0 CategoryTreeLabelPage" href="HowTo/Using Jetty with Eclipse.html">Jetty/HowTo/Using Jetty with Eclipse</a></div>
-		<div style="display:none" class="CategoryTreeChildren"/></div>
-		<div class="CategoryTreeSection"><div class="CategoryTreeItem"><span class="CategoryTreeBullet"> </span> <a class="CategoryTreeLabel  CategoryTreeLabelNs0 CategoryTreeLabelPage" href="HowTo/Using Jetty with IntelliJ.html">Jetty/HowTo/Using Jetty with IntelliJ</a></div>
-		<div class="CategoryTreeChildren" style="display:none"/></div>
-		<div class="CategoryTreeSection"><div class="CategoryTreeItem"><span class="CategoryTreeBullet"> </span> <a href="Howto/Write Jetty Handler.html" class="CategoryTreeLabel  CategoryTreeLabelNs0 CategoryTreeLabelPage">Jetty/Howto/Write Jetty Handler</a></div>
-		<div class="CategoryTreeChildren" style="display:none"/></div>
-		<div class="CategoryTreeSection"><div class="CategoryTreeItem"><span class="CategoryTreeBullet"> </span> <a class="CategoryTreeLabel  CategoryTreeLabelNs0 CategoryTreeLabelPage" href="Zip Exceptions Reading Jar or War Files.html">Jetty/Zip Exceptions Reading Jar or War Files</a></div>
-		<div style="display:none" class="CategoryTreeChildren"/></div>
-		</div></div>
-		</div>
-
-
-                    <div id="catlinks" class="catlinks"><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a title="Special:Categories" href="https://wiki.eclipse.org/Special:Categories">Categories</a>: <ul><li><a href="https://wiki.eclipse.org/Category:Jetty" title="Category:Jetty">Jetty</a></li><li><a title="Category:Draft Documentation" href="https://wiki.eclipse.org/Category:Draft_Documentation">Draft Documentation</a></li></ul></div></div>
-                                  </div>
+    <link href="wiki-style.css" media="screen, print" rel="stylesheet" />
+  </head>
+  <body>
+    <div class="col-md-20" id="mainContent">
+      <div class="tab-content background-white">
+        <div class="tab-pane active" id="tab-pane-main-page-content">
+          <h1 class="firstHeading page-header" id="firstHeading">
+            <span dir="auto">Jetty/Howto</span>
+          </h1>
+          <div id="main-page-content">
+            <div class="alert alert-small alert-warning" id="contentSub">
+              <span class="subpages">
+                &lt;
+                <a href="../Jetty.html" title="Jetty">Jetty</a>
+              </span>
+            </div>
+            <div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="en">
+              <p>
+                <br />
+              </p>
+              <p>
+                <br />
+              </p>
+              <div class="toc" id="toc">
+                <div id="toctitle">
+                  <h2>Contents</h2>
+                </div>
+                <ul>
+                  <li class="toclevel-1 tocsection-1">
+                    <a href="Howto.html#Howto_Get_Started">
+                      <span class="tocnumber">1</span>
+                      <span class="toctext">Howto Get Started</span>
+                    </a>
+                  </li>
+                  <li class="toclevel-1 tocsection-2">
+                    <a href="Howto.html#Configuration">
+                      <span class="tocnumber">2</span>
+                      <span class="toctext">Configuration</span>
+                    </a>
+                    <ul>
+                      <li class="toclevel-2 tocsection-3">
+                        <a href="Howto.html#Optimization">
+                          <span class="tocnumber">2.1</span>
+                          <span class="toctext">Optimization</span>
+                        </a>
+                      </li>
+                      <li class="toclevel-2 tocsection-4">
+                        <a href="Howto.html#Security">
+                          <span class="tocnumber">2.2</span>
+                          <span class="toctext">Security</span>
+                        </a>
+                      </li>
+                    </ul>
+                  </li>
+                  <li class="toclevel-1 tocsection-5">
+                    <a href="Howto.html#Development">
+                      <span class="tocnumber">3</span>
+                      <span class="toctext">Development</span>
+                    </a>
+                    <ul>
+                      <li class="toclevel-2 tocsection-6">
+                        <a href="Howto.html#Build_Tools">
+                          <span class="tocnumber">3.1</span>
+                          <span class="toctext">Build Tools</span>
+                        </a>
+                      </li>
+                      <li class="toclevel-2 tocsection-7">
+                        <a href="Howto.html#IDEs">
+                          <span class="tocnumber">3.2</span>
+                          <span class="toctext">IDEs</span>
+                        </a>
+                      </li>
+                      <li class="toclevel-2 tocsection-8">
+                        <a href="Howto.html#Troubleshooting">
+                          <span class="tocnumber">3.3</span>
+                          <span class="toctext">Troubleshooting</span>
+                        </a>
+                      </li>
+                      <li class="toclevel-2 tocsection-9">
+                        <a href="Howto.html#Upgrading">
+                          <span class="tocnumber">3.4</span>
+                          <span class="toctext">Upgrading</span>
+                        </a>
+                      </li>
+                    </ul>
+                  </li>
+                  <li class="toclevel-1 tocsection-10">
+                    <a href="Howto.html#Related_Pages">
+                      <span class="tocnumber">4</span>
+                      <span class="toctext">Related Pages</span>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+              <h2>
+                <span class="mw-headline" id="Howto_Get_Started">Howto Get Started</span>
+              </h2>
+              <ul>
+                <li>
+                  <a href="Starting/Downloads.html" title="Jetty/Starting/Downloads">Download and Install Jetty</a>
+                </li>
+                <li>
+                  <a href="Howto/Configure Jetty.html" title="Jetty/Howto/Configure Jetty">How to Configure Jetty</a>
+                </li>
+                <li>
+                  <a href="Howto/Run Jetty.html" title="Jetty/Howto/Run Jetty">How to Run Jetty</a>
+                </li>
+                <li>
+                  <a href="Howto/Deploy Web Applications.html" title="Jetty/Howto/Deploy Web Applications">How to Deploy Web Applications</a>
+                </li>
+                <li>
+                  <a href="Howto/Develop.html" title="Jetty/Howto/Develop">How to Develop with Jetty</a>
+                </li>
+              </ul>
+              <ul>
+                <li>
+                  <a href="https://wiki.eclipse.org/Jetty/Howto/Deploy_3rd_Party_Products" title="Jetty/Howto/Deploy 3rd Party Products">How to Deploy 3rd Party Products</a>
+                </li>
+                <li>
+                  <a href="Howto/Run Jetty with JConsole.html" title="Jetty/Howto/Run Jetty with JConsole">How to Run Jetty with JConsole</a>
+                </li>
+              </ul>
+              <h2>
+                <span class="mw-headline" id="Configuration">Configuration</span>
+              </h2>
+              <ul>
+                <li>
+                  <a href="Howto/Configure Jetty.html" title="Jetty/Howto/Configure Jetty">How to configure Jetty</a>
+                </li>
+                <li>
+                  <a href="Howto/SetContextPath.html" title="Jetty/Howto/SetContextPath">How to set the context path</a>
+                </li>
+                <li>
+                  <a href="Howto/Port80.html" title="Jetty/Howto/Port80">How to use port 80</a>
+                </li>
+                <li>
+                  <a href="Howto/Configure Connectors.html" title="Jetty/Howto/Configure Connectors">How to configure connectors</a>
+                </li>
+                <li>
+                  <a href="Howto/Configure Virtual Hosts.html" title="Jetty/Howto/Configure Virtual Hosts">How to configure virtual hosts</a>
+                </li>
+                <li>
+                  <a href="Howto/SessionIds.html" title="Jetty/Howto/SessionIds">How to configure Session Ids</a>
+                </li>
+                <li>
+                  <a href="Howto/Persisting Sessions.html" title="Jetty/Howto/Persisting Sessions">How to configure persisting sessions</a>
+                </li>
+                <li>
+                  <a href="Howto/Configure Request Logs.html" title="Jetty/Howto/Configure Request Logs">How to configure request logs</a>
+                </li>
+                <li>
+                  <a href="Howto/Custom Error Pages.html" title="Jetty/Howto/Custom Error Pages">How to configure custom error pages</a>
+                </li>
+                <li>
+                  <a href="Tutorial/Apache.html" title="Jetty/Tutorial/Apache">How to use Jetty with Apache, AJP, mod_jk, mod_proxy_balancer</a>
+                </li>
+                <li>
+                  <a href="Howto/Jars.html" title="Jetty/Howto/Jars">How to know which jars to use</a>
+                </li>
+                <li>
+                  <a href="Howto/Spring.html" title="Jetty/Howto/Spring">How to configure Jetty with Spring</a>
+                </li>
+                <li>
+                  <a href="Howto/Configure Jetty with XBean.html" title="Jetty/Howto/Configure Jetty with XBean">How to configure Jetty with XBean</a>
+                </li>
+                <li>
+                  <a href="https://wiki.eclipse.org/Jetty/Howto/MovedContextHandler" title="Jetty/Howto/MovedContextHandler">How to redirect or move a context</a>
+                </li>
+                <li>
+                  <a href="https://wiki.eclipse.org/Jetty/Howto/WebappPerConnector" title="Jetty/Howto/WebappPerConnector">How to have a webapp respond only on a specific port</a>
+                </li>
+                <li>
+                  <a href="Howto/Configure JNDI Datasource.html" title="Jetty/Howto/Configure JNDI Datasource">How to configure JNDI datasource</a>
+                </li>
+                <li>
+                  <a href="Howto/Configure Form Size.html" title="Jetty/Howto/Configure Form Size">How to configure Form Size</a>
+                </li>
+                <li>
+                  <a href="Howto/Prevent Memory Leaks.html" title="Jetty/Howto/Prevent Memory Leaks">How to prevent memory leaks</a>
+                </li>
+                <li>
+                  <a href="Howto/International Characters.html" title="Jetty/Howto/International Characters">How to work with international characters</a>
+                </li>
+                <li>
+                  <a href="Howto/Avoid slow deployment.html" title="Jetty/Howto/Avoid slow deployment">How to avoid slow webapp deployment</a>
+                </li>
+                <li>
+                  <a href="Howto/How to serve symbolically linked files.html" title="Jetty/Howto/How to serve symbolically linked files">Jetty/Howto/How to serve symbolically linked files</a>
+                </li>
+              </ul>
+              <h3>
+                <span class="mw-headline" id="Optimization">Optimization</span>
+              </h3>
+              <ul>
+                <li>
+                  <a href="Howto/Garbage Collection.html" title="Jetty/Howto/Garbage Collection">How to configure Garbage Collection for Jetty</a>
+                </li>
+                <li>
+                  <a href="Howto/High Load.html" title="Jetty/Howto/High Load">How to Configure for high load</a>
+                </li>
+              </ul>
+              <h3>
+                <span class="mw-headline" id="Security">Security</span>
+              </h3>
+              <ul>
+                <li>
+                  <a href="Howto/CipherSuites.html" title="Jetty/Howto/CipherSuites">How to enable and disable SSL Cipher Suites in Jetty</a>
+                </li>
+                <li>
+                  <a href="Howto/Secure Passwords.html" title="Jetty/Howto/Secure Passwords">How to secure stored passwords in Jetty</a>
+                </li>
+                <li>
+                  <a href="Howto/Secure Termination.html" title="Jetty/Howto/Secure Termination">How to secure termination of Jetty</a>
+                </li>
+                <li>
+                  <a href="https://wiki.eclipse.org/Jetty/Howto/Spnego" title="Jetty/Howto/Spnego">How to configure Spnego</a>
+                </li>
+              </ul>
+              <h2>
+                <span class="mw-headline" id="Development">Development</span>
+              </h2>
+              <ul>
+                <li>
+                  <a href="Howto/Develop.html" title="Jetty/Howto/Develop">How to Develop with Jetty</a>
+                </li>
+                <li>
+                  <a href="Tutorial/Embedding Jetty.html" title="Jetty/Tutorial/Embedding Jetty">How to Embed Jetty</a>
+                  (tutorial)
+                </li>
+                <li>
+                  <a href="Howto/Write Jetty Handler.html" title="Jetty/Howto/Write Jetty Handler">How to write Jetty handlers</a>
+                </li>
+              </ul>
+              <h3>
+                <span class="mw-headline" id="Build_Tools">Build Tools</span>
+              </h3>
+              <ul>
+                <li>
+                  <a href="https://wiki.eclipse.org/Jetty/Howto/Use_Jetty_with_Maven" title="Jetty/Howto/Use Jetty with Maven">How to use Jetty with Maven</a>
+                </li>
+                <li>
+                  <a href="Howto/Use Jetty with Ant.html" title="Jetty/Howto/Use Jetty with Ant">How to use Jetty with Ant</a>
+                </li>
+              </ul>
+              <h3>
+                <span class="mw-headline" id="IDEs">IDEs</span>
+              </h3>
+              <ul>
+                <li>
+                  <a href="https://wiki.eclipse.org/Jetty/Howto/Use_Jetty_with_Eclipse" title="Jetty/Howto/Use Jetty with Eclipse">How to use Jetty with Eclipse IDE</a>
+                </li>
+                <li>
+                  <a class="new" href="edit" title="Jetty/Howto/Use Jetty with IntelliJ (page does not exist)">How to use Jetty with IntelliJ</a>
+                </li>
+              </ul>
+              <h3>
+                <span class="mw-headline" id="Troubleshooting">Troubleshooting</span>
+              </h3>
+              <ul>
+                <li>
+                  <a href="Howto/Use the Dump Feature.html" title="Jetty/Howto/Use the Dump Feature">How to Use the Jetty Dump Feature</a>
+                </li>
+              </ul>
+              <h3>
+                <span class="mw-headline" id="Upgrading">Upgrading</span>
+              </h3>
+              <ul>
+                <li>
+                  <a href="Howto/Upgrade from Jetty 6 to Jetty 7.html" title="Jetty/Howto/Upgrade from Jetty 6 to Jetty 7">How to Upgrade from Jetty 6 to Jetty 7</a>
+                </li>
+                <li>
+                  <a href="https://wiki.eclipse.org/Jetty/Howto/Upgrade_from_Jetty_7_to_Jetty_8" title="Jetty/Howto/Upgrade from Jetty 7 to Jetty 8">How to Upgrade from Jetty 7 to Jetty 8</a>
+                </li>
+              </ul>
+              <h2>
+                <span class="mw-headline" id="Related_Pages">Related Pages</span>
+              </h2>
+              <div class="CategoryTreeTag" data-ct-mode="10" data-ct-options="{&quot;mode&quot;:10,&quot;hideprefix&quot;:20,&quot;showcount&quot;:false,&quot;namespaces&quot;:false}">
+                <div class="CategoryTreeSection">
+                  <div class="CategoryTreeItem">
+                    <span class="CategoryTreeBullet">
+                      <span class="CategoryTreeToggle" data-ct-loaded="1" data-ct-state="expanded" data-ct-title="Jetty_Howto" style="display: none;" title="collapse">
+                        [
+                        <b>−</b>
+                        ]
+                      </span>
+                    </span>
+                    <a class="CategoryTreeLabel  CategoryTreeLabelNs14 CategoryTreeLabelCategory" href="https://wiki.eclipse.org/Category:Jetty_Howto">Jetty Howto</a>
+                  </div>
+                  <div class="CategoryTreeChildren" style="display:block">
+                    <div class="CategoryTreeSection">
+                      <div class="CategoryTreeItem">
+                        <span class="CategoryTreeBullet"> </span>
+                        <a class="CategoryTreeLabel  CategoryTreeLabelNs0 CategoryTreeLabelPage" href="Howto/Avoid slow deployment.html">Jetty/Howto/Avoid slow deployment</a>
+                      </div>
+                      <div class="CategoryTreeChildren" style="display:none" />
+                    </div>
+                    <div class="CategoryTreeSection">
+                      <div class="CategoryTreeItem">
+                        <span class="CategoryTreeBullet"> </span>
+                        <a class="CategoryTreeLabel  CategoryTreeLabelNs0 CategoryTreeLabelPage" href="Howto/Install Jetty/Bundle.html">Jetty/Howto/Install Jetty/Bundle</a>
+                      </div>
+                      <div class="CategoryTreeChildren" style="display:none" />
+                    </div>
+                    <div class="CategoryTreeSection">
+                      <div class="CategoryTreeItem">
+                        <span class="CategoryTreeBullet"> </span>
+                        <a class="CategoryTreeLabel  CategoryTreeLabelNs0 CategoryTreeLabelPage" href="Howto/CipherSuites.html">Jetty/Howto/CipherSuites</a>
+                      </div>
+                      <div class="CategoryTreeChildren" style="display:none" />
+                    </div>
+                    <div class="CategoryTreeSection">
+                      <div class="CategoryTreeItem">
+                        <span class="CategoryTreeBullet"> </span>
+                        <a class="CategoryTreeLabel  CategoryTreeLabelNs0 CategoryTreeLabelPage" href="Howto/Configure Connectors.html">Jetty/Howto/Configure Connectors</a>
+                      </div>
+                      <div class="CategoryTreeChildren" style="display:none" />
+                    </div>
+                    <div class="CategoryTreeSection">
+                      <div class="CategoryTreeItem">
+                        <span class="CategoryTreeBullet"> </span>
+                        <a class="CategoryTreeLabel  CategoryTreeLabelNs0 CategoryTreeLabelPage" href="Howto/Configure Form Size.html">Jetty/Howto/Configure Form Size</a>
+                      </div>
+                      <div class="CategoryTreeChildren" style="display:none" />
+                    </div>
+                    <div class="CategoryTreeSection">
+                      <div class="CategoryTreeItem">
+                        <span class="CategoryTreeBullet"> </span>
+                        <a class="CategoryTreeLabel  CategoryTreeLabelNs0 CategoryTreeLabelPage" href="Howto/Configure Jetty.html">Jetty/Howto/Configure Jetty</a>
+                      </div>
+                      <div class="CategoryTreeChildren" style="display:none" />
+                    </div>
+                    <div class="CategoryTreeSection">
+                      <div class="CategoryTreeItem">
+                        <span class="CategoryTreeBullet"> </span>
+                        <a class="CategoryTreeLabel  CategoryTreeLabelNs0 CategoryTreeLabelPage" href="Howto/Configure Jetty with XBean.html">Jetty/Howto/Configure Jetty with XBean</a>
+                      </div>
+                      <div class="CategoryTreeChildren" style="display:none" />
+                    </div>
+                    <div class="CategoryTreeSection">
+                      <div class="CategoryTreeItem">
+                        <span class="CategoryTreeBullet"> </span>
+                        <a class="CategoryTreeLabel  CategoryTreeLabelNs0 CategoryTreeLabelPage" href="Howto/Configure JNDI Datasource.html">Jetty/Howto/Configure JNDI Datasource</a>
+                      </div>
+                      <div class="CategoryTreeChildren" style="display:none" />
+                    </div>
+                    <div class="CategoryTreeSection">
+                      <div class="CategoryTreeItem">
+                        <span class="CategoryTreeBullet"> </span>
+                        <a class="CategoryTreeLabel  CategoryTreeLabelNs0 CategoryTreeLabelPage" href="Howto/Configure JSP.html">Jetty/Howto/Configure JSP</a>
+                      </div>
+                      <div class="CategoryTreeChildren" style="display:none" />
+                    </div>
+                    <div class="CategoryTreeSection">
+                      <div class="CategoryTreeItem">
+                        <span class="CategoryTreeBullet"> </span>
+                        <a class="CategoryTreeLabel  CategoryTreeLabelNs0 CategoryTreeLabelPage" href="Howto/Configure mod proxy.html">Jetty/Howto/Configure mod proxy</a>
+                      </div>
+                      <div class="CategoryTreeChildren" style="display:none" />
+                    </div>
+                    <div class="CategoryTreeSection">
+                      <div class="CategoryTreeItem">
+                        <span class="CategoryTreeBullet"> </span>
+                        <a class="CategoryTreeLabel  CategoryTreeLabelNs0 CategoryTreeLabelPage" href="Howto/Configure Request Logs.html">Jetty/Howto/Configure Request Logs</a>
+                      </div>
+                      <div class="CategoryTreeChildren" style="display:none" />
+                    </div>
+                    <div class="CategoryTreeSection">
+                      <div class="CategoryTreeItem">
+                        <span class="CategoryTreeBullet"> </span>
+                        <a class="CategoryTreeLabel  CategoryTreeLabelNs0 CategoryTreeLabelPage" href="Howto/Configure SSL.html">Jetty/Howto/Configure SSL</a>
+                      </div>
+                      <div class="CategoryTreeChildren" style="display:none" />
+                    </div>
+                    <div class="CategoryTreeSection">
+                      <div class="CategoryTreeItem">
+                        <span class="CategoryTreeBullet"> </span>
+                        <a class="CategoryTreeLabel  CategoryTreeLabelNs0 CategoryTreeLabelPage" href="Howto/Configure SSL Connectors.html">Jetty/Howto/Configure SSL Connectors</a>
+                      </div>
+                      <div class="CategoryTreeChildren" style="display:none" />
+                    </div>
+                    <div class="CategoryTreeSection">
+                      <div class="CategoryTreeItem">
+                        <span class="CategoryTreeBullet"> </span>
+                        <a class="CategoryTreeLabel  CategoryTreeLabelNs0 CategoryTreeLabelPage" href="Howto/Configure Virtual Hosts.html">Jetty/Howto/Configure Virtual Hosts</a>
+                      </div>
+                      <div class="CategoryTreeChildren" style="display:none" />
+                    </div>
+                    <div class="CategoryTreeSection">
+                      <div class="CategoryTreeItem">
+                        <span class="CategoryTreeBullet"> </span>
+                        <a class="CategoryTreeLabel  CategoryTreeLabelNs0 CategoryTreeLabelPage" href="Howto/Custom Error Pages.html">Jetty/Howto/Custom Error Pages</a>
+                      </div>
+                      <div class="CategoryTreeChildren" style="display:none" />
+                    </div>
+                    <div class="CategoryTreeSection">
+                      <div class="CategoryTreeItem">
+                        <span class="CategoryTreeBullet"> </span>
+                        <a class="CategoryTreeLabel  CategoryTreeLabelNs0 CategoryTreeLabelPage" href="Howto/Deploy Web Applications.html">Jetty/Howto/Deploy Web Applications</a>
+                      </div>
+                      <div class="CategoryTreeChildren" style="display:none" />
+                    </div>
+                    <div class="CategoryTreeSection">
+                      <div class="CategoryTreeItem">
+                        <span class="CategoryTreeBullet"> </span>
+                        <a class="CategoryTreeLabel  CategoryTreeLabelNs0 CategoryTreeLabelPage" href="Howto/Develop.html">Jetty/Howto/Develop</a>
+                      </div>
+                      <div class="CategoryTreeChildren" style="display:none" />
+                    </div>
+                    <div class="CategoryTreeSection">
+                      <div class="CategoryTreeItem">
+                        <span class="CategoryTreeBullet"> </span>
+                        <a class="CategoryTreeLabel  CategoryTreeLabelNs0 CategoryTreeLabelPage" href="Howto/Develop with Eclipse.html">Jetty/Howto/Develop with Eclipse</a>
+                      </div>
+                      <div class="CategoryTreeChildren" style="display:none" />
+                    </div>
+                    <div class="CategoryTreeSection">
+                      <div class="CategoryTreeItem">
+                        <span class="CategoryTreeBullet"> </span>
+                        <a class="CategoryTreeLabel  CategoryTreeLabelNs0 CategoryTreeLabelPage" href="Howto/Embed.html">Jetty/Howto/Embed</a>
+                      </div>
+                      <div class="CategoryTreeChildren" style="display:none" />
+                    </div>
+                    <div class="CategoryTreeSection">
+                      <div class="CategoryTreeItem">
+                        <span class="CategoryTreeBullet"> </span>
+                        <a class="CategoryTreeLabel  CategoryTreeLabelNs0 CategoryTreeLabelPage" href="Howto/Garbage Collection.html">Jetty/Howto/Garbage Collection</a>
+                      </div>
+                      <div class="CategoryTreeChildren" style="display:none" />
+                    </div>
+                    <div class="CategoryTreeSection">
+                      <div class="CategoryTreeItem">
+                        <span class="CategoryTreeBullet"> </span>
+                        <a class="CategoryTreeLabel  CategoryTreeLabelNs0 CategoryTreeLabelPage" href="Howto/High Load.html">Jetty/Howto/High Load</a>
+                      </div>
+                      <div class="CategoryTreeChildren" style="display:none" />
+                    </div>
+                    <div class="CategoryTreeSection">
+                      <div class="CategoryTreeItem">
+                        <span class="CategoryTreeBullet"> </span>
+                        <a class="CategoryTreeLabel  CategoryTreeLabelNs0 CategoryTreeLabelPage" href="Howto/How to serve symbolically linked files.html">Jetty/Howto/How to serve symbolically linked files</a>
+                      </div>
+                      <div class="CategoryTreeChildren" style="display:none" />
+                    </div>
+                    <div class="CategoryTreeSection">
+                      <div class="CategoryTreeItem">
+                        <span class="CategoryTreeBullet"> </span>
+                        <a class="CategoryTreeLabel  CategoryTreeLabelNs0 CategoryTreeLabelPage" href="Howto/International Characters.html">Jetty/Howto/International Characters</a>
+                      </div>
+                      <div class="CategoryTreeChildren" style="display:none" />
+                    </div>
+                    <div class="CategoryTreeSection">
+                      <div class="CategoryTreeItem">
+                        <span class="CategoryTreeBullet"> </span>
+                        <a class="CategoryTreeLabel  CategoryTreeLabelNs0 CategoryTreeLabelPage" href="Howto/Jars.html">Jetty/Howto/Jars</a>
+                      </div>
+                      <div class="CategoryTreeChildren" style="display:none" />
+                    </div>
+                    <div class="CategoryTreeSection">
+                      <div class="CategoryTreeItem">
+                        <span class="CategoryTreeBullet"> </span>
+                        <a class="CategoryTreeLabel  CategoryTreeLabelNs0 CategoryTreeLabelPage" href="../Jetty Expanded Webapp Deploy.html">Jetty Expanded Webapp Deploy</a>
+                      </div>
+                      <div class="CategoryTreeChildren" style="display:none" />
+                    </div>
+                    <div class="CategoryTreeSection">
+                      <div class="CategoryTreeItem">
+                        <span class="CategoryTreeBullet"> </span>
+                        <a class="CategoryTreeLabel  CategoryTreeLabelNs10 CategoryTreeLabelPage" href="https://wiki.eclipse.org/Template:Jetty_Howto">Template:Jetty Howto</a>
+                      </div>
+                      <div class="CategoryTreeChildren" style="display:none" />
+                    </div>
+                    <div class="CategoryTreeSection">
+                      <div class="CategoryTreeItem">
+                        <span class="CategoryTreeBullet"> </span>
+                        <a class="CategoryTreeLabel  CategoryTreeLabelNs0 CategoryTreeLabelPage" href="Howto/SetContextPathto /index.html">Jetty/Howto/SetContextPathto /</a>
+                      </div>
+                      <div class="CategoryTreeChildren" style="display:none" />
+                    </div>
+                    <div class="CategoryTreeSection">
+                      <div class="CategoryTreeItem">
+                        <span class="CategoryTreeBullet"> </span>
+                        <a class="CategoryTreeLabel  CategoryTreeLabelNs0 CategoryTreeLabelPage" href="Howto/Deploy 3rd Party Products/JIRA.html">Jetty/Howto/Deploy 3rd Party Products/JIRA</a>
+                      </div>
+                      <div class="CategoryTreeChildren" style="display:none" />
+                    </div>
+                    <div class="CategoryTreeSection">
+                      <div class="CategoryTreeItem">
+                        <span class="CategoryTreeBullet"> </span>
+                        <a class="CategoryTreeLabel  CategoryTreeLabelNs0 CategoryTreeLabelPage" href="Howto/Persisting Sessions.html">Jetty/Howto/Persisting Sessions</a>
+                      </div>
+                      <div class="CategoryTreeChildren" style="display:none" />
+                    </div>
+                    <div class="CategoryTreeSection">
+                      <div class="CategoryTreeItem">
+                        <span class="CategoryTreeBullet"> </span>
+                        <a class="CategoryTreeLabel  CategoryTreeLabelNs0 CategoryTreeLabelPage" href="Howto/Port80.html">Jetty/Howto/Port80</a>
+                      </div>
+                      <div class="CategoryTreeChildren" style="display:none" />
+                    </div>
+                    <div class="CategoryTreeSection">
+                      <div class="CategoryTreeItem">
+                        <span class="CategoryTreeBullet"> </span>
+                        <a class="CategoryTreeLabel  CategoryTreeLabelNs0 CategoryTreeLabelPage" href="Howto/Prevent Memory Leaks.html">Jetty/Howto/Prevent Memory Leaks</a>
+                      </div>
+                      <div class="CategoryTreeChildren" style="display:none" />
+                    </div>
+                    <div class="CategoryTreeSection">
+                      <div class="CategoryTreeItem">
+                        <span class="CategoryTreeBullet"> </span>
+                        <a class="CategoryTreeLabel  CategoryTreeLabelNs0 CategoryTreeLabelPage" href="Release Checklist.html">Jetty/Release Checklist</a>
+                      </div>
+                      <div class="CategoryTreeChildren" style="display:none" />
+                    </div>
+                    <div class="CategoryTreeSection">
+                      <div class="CategoryTreeItem">
+                        <span class="CategoryTreeBullet"> </span>
+                        <a class="CategoryTreeLabel  CategoryTreeLabelNs0 CategoryTreeLabelPage" href="Howto/Run Jetty.html">Jetty/Howto/Run Jetty</a>
+                      </div>
+                      <div class="CategoryTreeChildren" style="display:none" />
+                    </div>
+                    <div class="CategoryTreeSection">
+                      <div class="CategoryTreeItem">
+                        <span class="CategoryTreeBullet"> </span>
+                        <a class="CategoryTreeLabel  CategoryTreeLabelNs0 CategoryTreeLabelPage" href="Howto/Run Jetty with JConsole.html">Jetty/Howto/Run Jetty with JConsole</a>
+                      </div>
+                      <div class="CategoryTreeChildren" style="display:none" />
+                    </div>
+                    <div class="CategoryTreeSection">
+                      <div class="CategoryTreeItem">
+                        <span class="CategoryTreeBullet"> </span>
+                        <a class="CategoryTreeLabel  CategoryTreeLabelNs0 CategoryTreeLabelPage" href="Howto/Secure Passwords.html">Jetty/Howto/Secure Passwords</a>
+                      </div>
+                      <div class="CategoryTreeChildren" style="display:none" />
+                    </div>
+                    <div class="CategoryTreeSection">
+                      <div class="CategoryTreeItem">
+                        <span class="CategoryTreeBullet"> </span>
+                        <a class="CategoryTreeLabel  CategoryTreeLabelNs0 CategoryTreeLabelPage" href="Howto/Secure Termination.html">Jetty/Howto/Secure Termination</a>
+                      </div>
+                      <div class="CategoryTreeChildren" style="display:none" />
+                    </div>
+                    <div class="CategoryTreeSection">
+                      <div class="CategoryTreeItem">
+                        <span class="CategoryTreeBullet"> </span>
+                        <a class="CategoryTreeLabel  CategoryTreeLabelNs0 CategoryTreeLabelPage" href="Howto/SessionIds.html">Jetty/Howto/SessionIds</a>
+                      </div>
+                      <div class="CategoryTreeChildren" style="display:none" />
+                    </div>
+                    <div class="CategoryTreeSection">
+                      <div class="CategoryTreeItem">
+                        <span class="CategoryTreeBullet"> </span>
+                        <a class="CategoryTreeLabel  CategoryTreeLabelNs0 CategoryTreeLabelPage" href="Howto/SetContextPath.html">Jetty/Howto/SetContextPath</a>
+                      </div>
+                      <div class="CategoryTreeChildren" style="display:none" />
+                    </div>
+                    <div class="CategoryTreeSection">
+                      <div class="CategoryTreeItem">
+                        <span class="CategoryTreeBullet"> </span>
+                        <a class="CategoryTreeLabel  CategoryTreeLabelNs0 CategoryTreeLabelPage" href="Howto/Spring.html">Jetty/Howto/Spring</a>
+                      </div>
+                      <div class="CategoryTreeChildren" style="display:none" />
+                    </div>
+                    <div class="CategoryTreeSection">
+                      <div class="CategoryTreeItem">
+                        <span class="CategoryTreeBullet"> </span>
+                        <a class="CategoryTreeLabel  CategoryTreeLabelNs0 CategoryTreeLabelPage" href="Howto/Upgrade from Jetty 6 to Jetty 7.html">Jetty/Howto/Upgrade from Jetty 6 to Jetty 7</a>
+                      </div>
+                      <div class="CategoryTreeChildren" style="display:none" />
+                    </div>
+                    <div class="CategoryTreeSection">
+                      <div class="CategoryTreeItem">
+                        <span class="CategoryTreeBullet"> </span>
+                        <a class="CategoryTreeLabel  CategoryTreeLabelNs0 CategoryTreeLabelPage" href="Howto/Use Jetty with Ant.html">Jetty/Howto/Use Jetty with Ant</a>
+                      </div>
+                      <div class="CategoryTreeChildren" style="display:none" />
+                    </div>
+                    <div class="CategoryTreeSection">
+                      <div class="CategoryTreeItem">
+                        <span class="CategoryTreeBullet"> </span>
+                        <a class="CategoryTreeLabel  CategoryTreeLabelNs0 CategoryTreeLabelPage" href="Howto/Use the Dump Feature.html">Jetty/Howto/Use the Dump Feature</a>
+                      </div>
+                      <div class="CategoryTreeChildren" style="display:none" />
+                    </div>
+                    <div class="CategoryTreeSection">
+                      <div class="CategoryTreeItem">
+                        <span class="CategoryTreeBullet"> </span>
+                        <a class="CategoryTreeLabel  CategoryTreeLabelNs0 CategoryTreeLabelPage" href="Howto/Using Jetty Runner.html">Jetty/Howto/Using Jetty Runner</a>
+                      </div>
+                      <div class="CategoryTreeChildren" style="display:none" />
+                    </div>
+                    <div class="CategoryTreeSection">
+                      <div class="CategoryTreeItem">
+                        <span class="CategoryTreeBullet"> </span>
+                        <a class="CategoryTreeLabel  CategoryTreeLabelNs0 CategoryTreeLabelPage" href="HowTo/Using Jetty with Eclipse.html">Jetty/HowTo/Using Jetty with Eclipse</a>
+                      </div>
+                      <div class="CategoryTreeChildren" style="display:none" />
+                    </div>
+                    <div class="CategoryTreeSection">
+                      <div class="CategoryTreeItem">
+                        <span class="CategoryTreeBullet"> </span>
+                        <a class="CategoryTreeLabel  CategoryTreeLabelNs0 CategoryTreeLabelPage" href="HowTo/Using Jetty with IntelliJ.html">Jetty/HowTo/Using Jetty with IntelliJ</a>
+                      </div>
+                      <div class="CategoryTreeChildren" style="display:none" />
+                    </div>
+                    <div class="CategoryTreeSection">
+                      <div class="CategoryTreeItem">
+                        <span class="CategoryTreeBullet"> </span>
+                        <a class="CategoryTreeLabel  CategoryTreeLabelNs0 CategoryTreeLabelPage" href="Howto/Write Jetty Handler.html">Jetty/Howto/Write Jetty Handler</a>
+                      </div>
+                      <div class="CategoryTreeChildren" style="display:none" />
+                    </div>
+                    <div class="CategoryTreeSection">
+                      <div class="CategoryTreeItem">
+                        <span class="CategoryTreeBullet"> </span>
+                        <a class="CategoryTreeLabel  CategoryTreeLabelNs0 CategoryTreeLabelPage" href="Zip Exceptions Reading Jar or War Files.html">Jetty/Zip Exceptions Reading Jar or War Files</a>
+                      </div>
+                      <div class="CategoryTreeChildren" style="display:none" />
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
-</div>
-</body>
+        </div>
+      </div>
+    </div>
+  </body>
 </html>

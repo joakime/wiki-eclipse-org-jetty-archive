@@ -1,102 +1,144 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
-<head>
+  <head>
     <title>Jetty WTP Plugin</title>
-    <link rel="stylesheet" media="screen, print" href="wiki-style.css"/>
-</head>
-<body>
-<div id="mainContent" class="col-md-20">
-                              <div class="tab-content background-white">
-              <div class="tab-pane active" id="tab-pane-main-page-content">
-
-                
-                <h1 id="firstHeading" class="firstHeading page-header">
-                  <span dir="auto">Jetty/Reference/jetty.xml</span>
-                </h1>
-                <div id="main-page-content">
-
-                  <div id="contentSub" class="alert alert-small alert-warning"><span class="subpages">&lt; <a href="../../Jetty.html" title="Jetty">Jetty</a>‎ | <a href="../Reference.html" title="Jetty/Reference">Reference</a></span></div>
-
-                  
-                  
-                  <div dir="ltr" id="mw-content-text" class="mw-content-ltr" lang="en"><p><br/>
-</p><p><br/>
-</p>
-<div class="toc" id="toc"><div id="toctitle"><h2>Contents</h2></div>
-<ul>
-<li class="toclevel-1"><a href="jetty.xml.html#Introduction"><span class="tocnumber">1</span> <span class="toctext">Introduction</span></a></li>
-<li class="toclevel-1"><a href="jetty.xml.html#Root_Element"><span class="tocnumber">2</span> <span class="toctext">Root Element</span></a></li>
-<li class="toclevel-1"><a href="jetty.xml.html#Examples"><span class="tocnumber">3</span> <span class="toctext">Examples</span></a></li>
-<li class="toclevel-1"><a href="jetty.xml.html#Additional_Resources"><span class="tocnumber">4</span> <span class="toctext">Additional Resources</span></a></li>
-</ul>
-</div>
-
-<h2><span id="Introduction" class="mw-headline">Introduction</span></h2>
-<div style="background-color: #f9f6b7; border: 1px solid #c4c295; color: black; padding: 5px; margin: 1ex 0; min-height: 35px; padding-left: 45px; font-size: 150%; color: white; background-color: #FF8888; padding: 50px" class="messagebox">
-<div style="float: left; margin-left: -40px;"><a class="image" href="https://wiki.eclipse.org/File:Warning2.png"><img alt="Warning2.png" width="35" src="../../images/3/37/Warning2.png" height="35"/></a></div>
-<div>Jetty 7 and Jetty 8 are now EOL (End of Life)<br/>
-<p><br/>
-<br/>
-<br/>
-THIS IS NOT THE DOCUMENTATION YOU ARE LOOKING FOR!!!!!<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-All development and stable releases are being performed with Jetty 9 and Jetty 10.<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-This <b>wiki is now officially out of date</b> and all content has been moved to the <a class="external text" rel="nofollow" href="http://www.eclipse.org/jetty/documentation">Jetty Documentation Hub</a><br/> 
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-</p>
-Direct Link to updated documentation: <a rel="nofollow" class="external free" href="http://www.eclipse.org/jetty/documentation/current/jetty-xml-config.html">http://www.eclipse.org/jetty/documentation/current/jetty-xml-config.html</a></div>
-</div>
-<p><br/>
-<tt>jetty.xml</tt> is the default configuration file for Jetty, typically located at <tt>$JETTY_HOME/etc/jetty.xml</tt>.   Usually the jetty.xml configures:
-</p>
-<ul><li> the Server class (or subclass if extended) and global options</li>
-<li> a ThreadPool (min &amp; max thread)</li>
-<li> connectors (ports, timeouts, buffer sizes, protocol, etc.)</li>
-<li> the handler structure (default handlers and/or a contextHandlerCollections, etc.)</li>
-<li> the deployment manager that scans for and deploys webapps and contexts</li>
-<li> login services that provides authentication checking</li>
-<li> a request log</li></ul>
-<p>Not all Jetty features are configured in <tt>jetty.xml</tt>. There are several optional configuration files that share the same format as <tt>jetty.xml</tt> and, if specified, concatenate to it.  These configuration files are also stored in <tt>$JETTY_HOME/etc/</tt>, and examples of them are in <a href="http://dev.eclipse.org/viewsvn/index.cgi/jetty/trunk/jetty-server/src/main/config/etc/?root=RT_JETTY" class="external text" rel="nofollow">SVN Repository</a>.  The selection of which configuration files to use is controlled by <a href="../Feature/Start.jar.html" title="Jetty/Feature/Start.jar">start.jar</a> and the process of merging configuration is described in <a title="Jetty/Reference/jetty.xml usage" href="jetty.xml usage.html">jetty.xml usage</a>.
-</p>
-<h2><span id="Root_Element" class="mw-headline">Root Element</span></h2>
-<p><tt>jetty.xml</tt> configures an instance of the Jetty org.eclipse.jetty.server.Server.
-</p>
-<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="xml source-xml"><pre class="de1"><span class="sc3"><span class="re1">&lt;?xml</span> <span class="re0">version</span>=<span class="st0">"1.0"</span><span class="re2">?&gt;</span></span>
+    <link href="wiki-style.css" media="screen, print" rel="stylesheet" />
+  </head>
+  <body>
+    <div class="col-md-20" id="mainContent">
+      <div class="tab-content background-white">
+        <div class="tab-pane active" id="tab-pane-main-page-content">
+          <h1 class="firstHeading page-header" id="firstHeading">
+            <span dir="auto">Jetty/Reference/jetty.xml</span>
+          </h1>
+          <div id="main-page-content">
+            <div class="alert alert-small alert-warning" id="contentSub">
+              <span class="subpages">
+                &lt;
+                <a href="../../Jetty.html" title="Jetty">Jetty</a>
+                 |
+                <a href="../Reference.html" title="Jetty/Reference">Reference</a>
+              </span>
+            </div>
+            <div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="en">
+              <p>
+                <br />
+              </p>
+              <p>
+                <br />
+              </p>
+              <div class="toc" id="toc">
+                <div id="toctitle">
+                  <h2>Contents</h2>
+                </div>
+                <ul>
+                  <li class="toclevel-1">
+                    <a href="jetty.xml.html#Introduction">
+                      <span class="tocnumber">1</span>
+                      <span class="toctext">Introduction</span>
+                    </a>
+                  </li>
+                  <li class="toclevel-1">
+                    <a href="jetty.xml.html#Root_Element">
+                      <span class="tocnumber">2</span>
+                      <span class="toctext">Root Element</span>
+                    </a>
+                  </li>
+                  <li class="toclevel-1">
+                    <a href="jetty.xml.html#Examples">
+                      <span class="tocnumber">3</span>
+                      <span class="toctext">Examples</span>
+                    </a>
+                  </li>
+                  <li class="toclevel-1">
+                    <a href="jetty.xml.html#Additional_Resources">
+                      <span class="tocnumber">4</span>
+                      <span class="toctext">Additional Resources</span>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+              <h2>
+                <span class="mw-headline" id="Introduction">Introduction</span>
+              </h2>
+              <p>
+                <br />
+                <tt>jetty.xml</tt>
+                is the default configuration file for Jetty, typically located at
+                <tt>$JETTY_HOME/etc/jetty.xml</tt>
+                .   Usually the jetty.xml configures:
+              </p>
+              <ul>
+                <li>the Server class (or subclass if extended) and global options</li>
+                <li>a ThreadPool (min &amp; max thread)</li>
+                <li>connectors (ports, timeouts, buffer sizes, protocol, etc.)</li>
+                <li>the handler structure (default handlers and/or a contextHandlerCollections, etc.)</li>
+                <li>the deployment manager that scans for and deploys webapps and contexts</li>
+                <li>login services that provides authentication checking</li>
+                <li>a request log</li>
+              </ul>
+              <p>
+                Not all Jetty features are configured in
+                <tt>jetty.xml</tt>
+                . There are several optional configuration files that share the same format as
+                <tt>jetty.xml</tt>
+                and, if specified, concatenate to it.  These configuration files are also stored in
+                <tt>$JETTY_HOME/etc/</tt>
+                , and examples of them are in
+                <a class="external text" href="http://dev.eclipse.org/viewsvn/index.cgi/jetty/trunk/jetty-server/src/main/config/etc/?root=RT_JETTY" rel="nofollow">SVN Repository</a>
+                .  The selection of which configuration files to use is controlled by
+                <a href="../Feature/Start.jar.html" title="Jetty/Feature/Start.jar">start.jar</a>
+                and the process of merging configuration is described in
+                <a href="jetty.xml usage.html" title="Jetty/Reference/jetty.xml usage">jetty.xml usage</a>
+                .
+              </p>
+              <h2>
+                <span class="mw-headline" id="Root_Element">Root Element</span>
+              </h2>
+              <p>
+                <tt>jetty.xml</tt>
+                configures an instance of the Jetty org.eclipse.jetty.server.Server.
+              </p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="xml source-xml">
+                  <pre class="de1" xml:space="preserve"><span class="sc3"><span class="re1">&lt;?xml</span> <span class="re0">version</span>=<span class="st0">"1.0"</span><span class="re2">?&gt;</span></span>
 <span class="sc0">&lt;!DOCTYPE Configure PUBLIC "-//Jetty//Configure//EN" "http://www.eclipse.org/jetty/configure.dtd"&gt;</span>
  
 <span class="sc3"><span class="re1">&lt;Configure</span> <span class="re0">id</span>=<span class="st0">"Server"</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.server.Server"</span><span class="re2">&gt;</span></span>
  ...
-<span class="sc3"><span class="re1">&lt;/Configure<span class="re2">&gt;</span></span></span></pre></div></div>
-<h2><span class="mw-headline" id="Examples">Examples</span></h2>
-<p><tt>$JETTY_HOME/etc</tt> contains the default <tt>jetty.xml</tt>, as well as other sample configuration files (jetty-*.xml) which can be passed to the server via the command line.
-</p>
-<h2><span class="mw-headline" id="Additional_Resources">Additional Resources</span></h2>
-<ul><li> <a href="edit" class="new" title="Jetty/Tutorial/jetty.xml (page does not exist)">jetty.xml Tutorial</a>–detailed tutorial that walks you through writing your own version of jetty.xml</li>
-<li> <a href="jetty.xml syntax.html" title="Jetty/Reference/jetty.xml syntax">jetty.xml Syntax Reference</a>–in-depth reference for Jetty-specific configuration XML syntax</li>
-<li> <a title="Jetty/Reference/jetty-web.xml" href="jetty-web.xml.html">jetty-web.xml</a>–configuration file for configuring a specific webapp</li></ul>
-
-
-</div>
-
-                    <div class="catlinks" id="catlinks"><div class="mw-normal-catlinks" id="mw-normal-catlinks"><a href="https://wiki.eclipse.org/Special:Categories" title="Special:Categories">Categories</a>: <ul><li><a href="https://wiki.eclipse.org/Category:Jetty" title="Category:Jetty">Jetty</a></li><li><a title="Category:Jetty Reference" href="https://wiki.eclipse.org/Category:Jetty_Reference">Jetty Reference</a></li></ul></div></div>
-                                  </div>
+<span class="sc3"><span class="re1">&lt;/Configure<span class="re2">&gt;</span></span></span></pre>
+                </div>
               </div>
+              <h2>
+                <span class="mw-headline" id="Examples">Examples</span>
+              </h2>
+              <p>
+                <tt>$JETTY_HOME/etc</tt>
+                contains the default
+                <tt>jetty.xml</tt>
+                , as well as other sample configuration files (jetty-*.xml) which can be passed to the server via the command line.
+              </p>
+              <h2>
+                <span class="mw-headline" id="Additional_Resources">Additional Resources</span>
+              </h2>
+              <ul>
+                <li>
+                  <a class="new" href="edit" title="Jetty/Tutorial/jetty.xml (page does not exist)">jetty.xml Tutorial</a>
+                  –detailed tutorial that walks you through writing your own version of jetty.xml
+                </li>
+                <li>
+                  <a href="jetty.xml syntax.html" title="Jetty/Reference/jetty.xml syntax">jetty.xml Syntax Reference</a>
+                  –in-depth reference for Jetty-specific configuration XML syntax
+                </li>
+                <li>
+                  <a href="jetty-web.xml.html" title="Jetty/Reference/jetty-web.xml">jetty-web.xml</a>
+                  –configuration file for configuring a specific webapp
+                </li>
+              </ul>
             </div>
           </div>
-</body>
+        </div>
+      </div>
+    </div>
+  </body>
 </html>

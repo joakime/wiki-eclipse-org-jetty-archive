@@ -1,100 +1,78 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
-<head>
+  <head>
     <title>Jetty WTP Plugin</title>
-    <link rel="stylesheet" media="screen, print" href="wiki-style.css"/>
-</head>
-<body>
-<div class="col-md-20" id="mainContent">
-                                 <div class="tab-content background-white">
-              <div id="tab-pane-main-page-content" class="tab-pane active">
-
-                
-                <h1 class="firstHeading page-header" id="firstHeading">
-                  <span dir="auto">Jetty/Howto/Garbage Collection</span>
-                </h1>
-                <div id="main-page-content">
-
-                  <div class="alert alert-small alert-warning" id="contentSub"><span class="subpages">&lt; <a title="Jetty" href="../../Jetty.html">Jetty</a>‎ | <a title="Jetty/Howto" href="../Howto.html">Howto</a></span></div>
-
-                  
-                  
-                  <div lang="en" dir="ltr" id="mw-content-text" class="mw-content-ltr"><p><br/>
-</p><p><br/>
-</p>
-<h2><span class="mw-headline" id="Introduction">Introduction</span></h2>
-<div class="messagebox" style="background-color: #f9f6b7; border: 1px solid #c4c295; color: black; padding: 5px; margin: 1ex 0; min-height: 35px; padding-left: 45px; font-size: 150%; color: white; background-color: #FF8888; padding: 50px">
-<div style="float: left; margin-left: -40px;"><a href="https://wiki.eclipse.org/File:Warning2.png" class="image"><img height="35" width="35" alt="Warning2.png" src="../../images/3/37/Warning2.png"/></a></div>
-<div>Jetty 7 and Jetty 8 are now EOL (End of Life)<br/>
-<p><br/>
-<br/>
-<br/>
-THIS IS NOT THE DOCUMENTATION YOU ARE LOOKING FOR!!!!!<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-All development and stable releases are being performed with Jetty 9 and Jetty 10.<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-This <b>wiki is now officially out of date</b> and all content has been moved to the <a rel="nofollow" href="http://www.eclipse.org/jetty/documentation" class="external text">Jetty Documentation Hub</a><br/> 
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-</p>
-Direct Link to updated documentation: <a rel="nofollow" href="http://www.eclipse.org/jetty/documentation/current/garbage-collection.html" class="external free">http://www.eclipse.org/jetty/documentation/current/garbage-collection.html</a></div>
-</div>
-<p><br/>
-Tuning the JVM garbage collection (GC) can greatly improve Jetty performance.  Specifically, you can avoid pauses while the system performs full garbage collections. Optimal tuning of the GC depends on the behaviour of the application and requires detailed analysis, however there are general recommendations.
-</p><p><br/>
-</p><p><br/>
-</p><p><br/>
-</p>
-<h2><span class="mw-headline" id="Examples">Examples</span></h2>
-<p>These options are general to the Sun JVM, and work in a JDK 6 installation. They provide good information about how your JVM is running; based on that initial information, you can then tune more finely.
-</p><p>To print the implicit flags with which the JVM is configured:
-</p>
-<pre>   -XX:+PrintCommandLineFlags 
+    <link href="wiki-style.css" media="screen, print" rel="stylesheet" />
+  </head>
+  <body>
+    <div class="col-md-20" id="mainContent">
+      <div class="tab-content background-white">
+        <div class="tab-pane active" id="tab-pane-main-page-content">
+          <h1 class="firstHeading page-header" id="firstHeading">
+            <span dir="auto">Jetty/Howto/Garbage Collection</span>
+          </h1>
+          <div id="main-page-content">
+            <div class="alert alert-small alert-warning" id="contentSub">
+              <span class="subpages">
+                &lt;
+                <a href="../../Jetty.html" title="Jetty">Jetty</a>
+                 |
+                <a href="../Howto.html" title="Jetty/Howto">Howto</a>
+              </span>
+            </div>
+            <div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="en">
+              <p>
+                <br />
+              </p>
+              <p>
+                <br />
+              </p>
+              <h2>
+                <span class="mw-headline" id="Introduction">Introduction</span>
+              </h2>
+              <p>
+                <br />
+                Tuning the JVM garbage collection (GC) can greatly improve Jetty performance.  Specifically, you can avoid pauses while the system performs full garbage collections. Optimal tuning of the GC depends on the behaviour of the application and requires detailed analysis, however there are general recommendations.
+              </p>
+              <p>
+                <br />
+              </p>
+              <p>
+                <br />
+              </p>
+              <p>
+                <br />
+              </p>
+              <h2>
+                <span class="mw-headline" id="Examples">Examples</span>
+              </h2>
+              <p>These options are general to the Sun JVM, and work in a JDK 6 installation. They provide good information about how your JVM is running; based on that initial information, you can then tune more finely.</p>
+              <p>To print the implicit flags with which the JVM is configured:</p>
+              <pre xml:space="preserve">   -XX:+PrintCommandLineFlags 
 </pre>
-<p>To disable explicit GC performed regularly by RMI:
-</p>
-<pre>   -XX:+DisableExplicitGC 
+              <p>To disable explicit GC performed regularly by RMI:</p>
+              <pre xml:space="preserve">   -XX:+DisableExplicitGC 
 </pre>
-<p>To print the date and time stamps of GC activity with details:
-</p>
-<pre>   -XX:+PrintGCDateStamps \
+              <p>To print the date and time stamps of GC activity with details:</p>
+              <pre xml:space="preserve">   -XX:+PrintGCDateStamps \
    -XX:+PrintGCTimeStamps \
    -XX:+PrintGCDetails \
    -XX:+PrintTenuringDistribution
 </pre>
-<p>To log GC details to a file:
-</p>
-<pre>   -Xloggc:[path/to/gc.log] 
+              <p>To log GC details to a file:</p>
+              <pre xml:space="preserve">   -Xloggc:[path/to/gc.log] 
 </pre>
-<p>To print GC activity with less detail:
-</p>
-<pre>   -verbose:gc 
+              <p>To print GC activity with less detail:</p>
+              <pre xml:space="preserve">   -verbose:gc 
 </pre>
-<p>To use the concurrent marksweep GC with full GC at 80% old generation full:
-</p>
-<pre>   -XX:+UseConcMarkSweepGC \
+              <p>To use the concurrent marksweep GC with full GC at 80% old generation full:</p>
+              <pre xml:space="preserve">   -XX:+UseConcMarkSweepGC \
    -XX:CMSInitiatingOccupancyFraction=80
 </pre>
-
-</div>
-
-                    <div id="catlinks" class="catlinks"><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a title="Special:Categories" href="https://wiki.eclipse.org/Special:Categories">Categories</a>: <ul><li><a href="https://wiki.eclipse.org/Category:Jetty" title="Category:Jetty">Jetty</a></li><li><a title="Category:Jetty Howto" href="https://wiki.eclipse.org/Category:Jetty_Howto">Jetty Howto</a></li></ul></div></div>
-                                  </div>
-              </div>
             </div>
           </div>
-</body>
+        </div>
+      </div>
+    </div>
+  </body>
 </html>

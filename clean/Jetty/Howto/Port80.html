@@ -1,216 +1,323 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
-<head>
+  <head>
     <title>Jetty WTP Plugin</title>
-    <link rel="stylesheet" media="screen, print" href="wiki-style.css"/>
-</head>
-<body>
-<div id="mainContent" class="col-md-20">
-                                <div class="tab-content background-white">
-              <div id="tab-pane-main-page-content" class="tab-pane active">
-
-                
-                <h1 id="firstHeading" class="firstHeading page-header">
-                  <span dir="auto">Jetty/Howto/Port80</span>
-                </h1>
-                <div id="main-page-content">
-
-                  <div id="contentSub" class="alert alert-small alert-warning"><span class="subpages">&lt; <a title="Jetty" href="../../Jetty.html">Jetty</a>‎ | <a title="Jetty/Howto" href="../Howto.html">Howto</a></span></div>
-
-                  
-                  
-                  <div lang="en" id="mw-content-text" dir="ltr" class="mw-content-ltr"><p><br/>
-</p><p><br/>
-</p>
-<div id="toc" class="toc"><div id="toctitle"><h2>Contents</h2></div>
-<ul>
-<li class="toclevel-1"><a href="Port80.html#Introduction"><span class="tocnumber">1</span> <span class="toctext">Introduction</span></a></li>
-<li class="toclevel-1"><a href="Port80.html#Using_ipchains"><span class="tocnumber">2</span> <span class="toctext">Using ipchains</span></a></li>
-<li class="toclevel-1"><a href="Port80.html#Using_iptables"><span class="tocnumber">3</span> <span class="toctext">Using iptables</span></a></li>
-<li class="toclevel-1"><a href="Port80.html#Configuring_Jetty.27s_SetUID_feature"><span class="tocnumber">4</span> <span class="toctext">Configuring Jetty's SetUID feature</span></a>
-<ul>
-<li class="toclevel-2"><a href="Port80.html#Obtaining_the_code"><span class="tocnumber">4.1</span> <span class="toctext">Obtaining the code</span></a></li>
-<li class="toclevel-2"><a href="Port80.html#Creating_a_Jetty_Config_File"><span class="tocnumber">4.2</span> <span class="toctext">Creating a Jetty Config File</span></a></li>
-<li class="toclevel-2"><a href="Port80.html#Configuring_jetty_for_setuid"><span class="tocnumber">4.3</span> <span class="toctext">Configuring jetty for setuid</span></a></li>
-<li class="toclevel-2"><a href="Port80.html#Running_Jetty_as_Root_User"><span class="tocnumber">4.4</span> <span class="toctext">Running Jetty as Root User</span></a></li>
-</ul>
-</li>
-<li class="toclevel-1"><a href="Port80.html#Using_xinetd"><span class="tocnumber">5</span> <span class="toctext">Using xinetd</span></a>
-<ul>
-<li class="toclevel-2"><a href="Port80.html#Caveats"><span class="tocnumber">5.1</span> <span class="toctext">Caveats</span></a></li>
-</ul>
-</li>
-<li class="toclevel-1"><a href="Port80.html#Using_the_Solaris_10_User_Rights_Management_Framework"><span class="tocnumber">6</span> <span class="toctext">Using the Solaris 10 User Rights Management Framework</span></a></li>
-</ul>
-</div>
-
-<h2><span id="Introduction" class="mw-headline">Introduction</span></h2>
-<div style="background-color: #f9f6b7; border: 1px solid #c4c295; color: black; padding: 5px; margin: 1ex 0; min-height: 35px; padding-left: 45px; font-size: 150%; color: white; background-color: #FF8888; padding: 50px" class="messagebox">
-<div style="float: left; margin-left: -40px;"><a href="https://wiki.eclipse.org/File:Warning2.png" class="image"><img height="35" alt="Warning2.png" src="../../images/3/37/Warning2.png" width="35"/></a></div>
-<div>Jetty 7 and Jetty 8 are now EOL (End of Life)<br/>
-<p><br/>
-<br/>
-<br/>
-THIS IS NOT THE DOCUMENTATION YOU ARE LOOKING FOR!!!!!<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-All development and stable releases are being performed with Jetty 9 and Jetty 10.<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-This <b>wiki is now officially out of date</b> and all content has been moved to the <a class="external text" href="http://www.eclipse.org/jetty/documentation" rel="nofollow">Jetty Documentation Hub</a><br/> 
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-</p>
-Direct Link to updated documentation: <a rel="nofollow" class="external free" href="http://www.eclipse.org/jetty/documentation/current/setting-port80-access.html">http://www.eclipse.org/jetty/documentation/current/setting-port80-access.html</a></div>
-</div>
-<p><br/>
-</p>
-<div class="messagebox" style="background-color: #f9f6b7; border: 1px solid #c4c295; color: black; padding: 5px; margin: 1ex 0; min-height: 35px; padding-left: 45px; font-size: 150%; color: white; background-color: #FF8888; padding: 50px">
-<div style="float: left; margin-left: -40px;"><a href="https://wiki.eclipse.org/File:Warning2.png" class="image"><img width="35" src="../../images/3/37/Warning2.png" alt="Warning2.png" height="35"/></a></div>
-<div>Jetty 7 and Jetty 8 are now EOL (End of Life)<br/>
-<p><br/>
-<br/>
-<br/>
-THIS IS NOT THE DOCUMENTATION YOU ARE LOOKING FOR!!!!!<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-All development and stable releases are being performed with Jetty 9 and Jetty 10.<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-This <b>wiki is now officially out of date</b> and all content has been moved to the <a class="external text" href="http://www.eclipse.org/jetty/documentation" rel="nofollow">Jetty Documentation Hub</a><br/> 
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-</p>
-Direct Link to updated documentation: <a rel="nofollow" class="external free" href="http://www.eclipse.org/jetty/documentation/current/setuid.html#configuring-setuid">http://www.eclipse.org/jetty/documentation/current/setuid.html#configuring-setuid</a></div>
-</div>
-<p><br/>
-On Unix-based systems, port 80 is protected; typically only the superuser root can open it. For security reasons, it is not desirable to run the server as root. This page presents several options to access port 80 as a non-root user. These include;
-</p><p><a href="Port80.html#Using_ipchains">Using ipchains</a>
-</p><p><a href="Port80.html#Using_iptables">Using iptables</a>
-</p><p><a href="Port80.html#Configuring_Jetty.27s_SetUID_Feature">Configuring Jetty's SetUID Feature</a>
-</p><p><a href="Port80.html#Using_xinetd">Using xinetd</a>
-</p><p><a href="Port80.html#Using_the_Solaris_10_User_Rights_Management_Framework">Using the Solaris 10 User Rights Management Framework</a>
-</p><p><br/>
-</p>
-<h2><span class="mw-headline" id="Using_ipchains">Using ipchains</span></h2>
-<p>On some Linux systems you can use the ipchains REDIRECT mechanism to redirect from one port to another inside the kernel (if ipchains is not available, then usually iptables is (see below)):
-</p>
-<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="bash source-bash"><pre class="de1"><span class="sy0">/</span>sbin<span class="sy0">/</span>ipchains <span class="re5">-I</span> input <span class="re5">--proto</span> TCP <span class="re5">--dport</span> <span class="nu0">80</span> <span class="re5">-j</span> REDIRECT <span class="nu0">8080</span></pre></div></div>
-<p>This command instructs the system as follows: "Insert into the kernel's packet filtering the following as the first rule to check on incoming packets: If the protocol is TCP and the destination port is 80, redirect the packet to port 8080." Be aware that your kernel must be compiled with support for ipchains (virtually all stock kernels are). You must have the "ipchains" command-line utility installed (on RedHat the package is aptly named "ipchains"). You can run this command at any time, preferably just once since it inserts another copy of the rule every time you run it.
-</p><p>Once you set up this rule , a Linux 2.2 kernel redirects all data addressed to port 80 to a server such as Jetty running on port 8080.This includes all RedHat 6.x distros. Linux 2.4 kernels, for example, RedHat 7.1+, have a similar "iptables" facility.
-</p>
-<h2><span id="Using_iptables" class="mw-headline">Using iptables</span></h2>
-<p>On many Linux systems you can use the iptables REDIRECT mechanism to redirect from one port to another inside the kernel (if iptables is not available, then usually ipchains is (see above).
-</p><p>You need to add something like the following to the startup scripts or your firewall rules:
-</p>
-<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="bash source-bash"><pre class="de1"><span class="sy0">/</span>sbin<span class="sy0">/</span>iptables <span class="re5">-t</span> nat <span class="re5">-I</span> PREROUTING <span class="re5">-p</span> tcp <span class="re5">--dport</span> <span class="nu0">80</span> <span class="re5">-j</span> REDIRECT <span class="re5">--to-port</span> <span class="nu0">8080</span></pre></div></div>
-<p>The underlying model of iptables is different from ipchains, so the forwarding normally happens only to packets originating off-box. You also need to allow incoming packets to port 8080 if you use iptables as a local firewall.
-</p><p>Be careful to place rules like this one early in your <i>input</i> chain. Such rules must precede any rule that accepts the packet, otherwise the redirection won't occur. You can insert as many rules as required if your server needs to listen on multiple ports, as for HTTPS.
-</p>
-<h2><span id="Configuring_Jetty.27s_SetUID_feature" class="mw-headline">Configuring Jetty's SetUID feature</span></h2>
-<p>This extension of <a href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/server/Server.html" class="external text" rel="nofollow">org.eclipse.jetty.server.Server</a> will make a JNI call to set the unix UID. This can be used to start the server as root so that privileged ports may be accessed and then switch to a non-root user for security.
-</p>
-<h3><span class="mw-headline" id="Obtaining_the_code">Obtaining the code</span></h3>
-<p>The SetUID feature is among the Jetty 7 modules that remain at Codehaus, and it retains the mortbay.org package naming. It uses the Jetty 7 package modules at <a rel="nofollow" href="http://download.eclipse.org/jetty/" class="external text">Eclipse</a>. Jetty-hightide at <a rel="nofollow" href="http://dist.codehaus.org/jetty/" class="external text">Codehaus</a> comes with jetty-setuid compiled and configured. 
-</p><p>Alternatively, you can download the necessary files from the maven central repository:
-</p>
-<ul><li> the setuid class jar is at <a href="http://repo1.maven.org/maven2/org/mortbay/jetty/jetty-setuid-java/" class="external text" rel="nofollow">jetty-setuid-java</a></li>
-<li> a jar file containing the jetty-setuid.xml file is at <a rel="nofollow" href="http://repo1.maven.org/maven2/org/mortbay/jetty/jetty-setuid-java/" class="external text">jetty-setuid-config</a></li>
-<li> the native library is at <a rel="nofollow" class="external text" href="http://repo1.maven.org/maven2/org/mortbay/jetty/libsetuid/">jetty-setuid-lib</a></li>
-<li> the jna jar is at <a class="external text" href="http://repo1.maven.org/maven2/net/java/dev/jna/jna/" rel="nofollow">jna</a></li></ul>
-<p>Copy the jetty-setuid.jar, and the jna jar to $jetty.home/lib/setuid. Also copy the .so file to $jetty.home/lib/setuid, <b>but make sure you rename it "libsetuid.so"</b>. Unjar the config jar into $jetty.home.
-</p>
-<h3><span class="mw-headline" id="Creating_a_Jetty_Config_File">Creating a Jetty Config File</span></h3>
-<p>Create a Jetty config file as follows:
-</p>
-<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="xml source-xml"><pre class="de1"><span class="sc3"><span class="re1">&lt;?xml</span> <span class="re0">version</span>=<span class="st0">"1.0"</span><span class="re2">?&gt;</span></span>
+    <link href="wiki-style.css" media="screen, print" rel="stylesheet" />
+  </head>
+  <body>
+    <div class="col-md-20" id="mainContent">
+      <div class="tab-content background-white">
+        <div class="tab-pane active" id="tab-pane-main-page-content">
+          <h1 class="firstHeading page-header" id="firstHeading">
+            <span dir="auto">Jetty/Howto/Port80</span>
+          </h1>
+          <div id="main-page-content">
+            <div class="alert alert-small alert-warning" id="contentSub">
+              <span class="subpages">
+                &lt;
+                <a href="../../Jetty.html" title="Jetty">Jetty</a>
+                 |
+                <a href="../Howto.html" title="Jetty/Howto">Howto</a>
+              </span>
+            </div>
+            <div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="en">
+              <p>
+                <br />
+              </p>
+              <p>
+                <br />
+              </p>
+              <div class="toc" id="toc">
+                <div id="toctitle">
+                  <h2>Contents</h2>
+                </div>
+                <ul>
+                  <li class="toclevel-1">
+                    <a href="Port80.html#Introduction">
+                      <span class="tocnumber">1</span>
+                      <span class="toctext">Introduction</span>
+                    </a>
+                  </li>
+                  <li class="toclevel-1">
+                    <a href="Port80.html#Using_ipchains">
+                      <span class="tocnumber">2</span>
+                      <span class="toctext">Using ipchains</span>
+                    </a>
+                  </li>
+                  <li class="toclevel-1">
+                    <a href="Port80.html#Using_iptables">
+                      <span class="tocnumber">3</span>
+                      <span class="toctext">Using iptables</span>
+                    </a>
+                  </li>
+                  <li class="toclevel-1">
+                    <a href="Port80.html#Configuring_Jetty.27s_SetUID_feature">
+                      <span class="tocnumber">4</span>
+                      <span class="toctext">Configuring Jetty's SetUID feature</span>
+                    </a>
+                    <ul>
+                      <li class="toclevel-2">
+                        <a href="Port80.html#Obtaining_the_code">
+                          <span class="tocnumber">4.1</span>
+                          <span class="toctext">Obtaining the code</span>
+                        </a>
+                      </li>
+                      <li class="toclevel-2">
+                        <a href="Port80.html#Creating_a_Jetty_Config_File">
+                          <span class="tocnumber">4.2</span>
+                          <span class="toctext">Creating a Jetty Config File</span>
+                        </a>
+                      </li>
+                      <li class="toclevel-2">
+                        <a href="Port80.html#Configuring_jetty_for_setuid">
+                          <span class="tocnumber">4.3</span>
+                          <span class="toctext">Configuring jetty for setuid</span>
+                        </a>
+                      </li>
+                      <li class="toclevel-2">
+                        <a href="Port80.html#Running_Jetty_as_Root_User">
+                          <span class="tocnumber">4.4</span>
+                          <span class="toctext">Running Jetty as Root User</span>
+                        </a>
+                      </li>
+                    </ul>
+                  </li>
+                  <li class="toclevel-1">
+                    <a href="Port80.html#Using_xinetd">
+                      <span class="tocnumber">5</span>
+                      <span class="toctext">Using xinetd</span>
+                    </a>
+                    <ul>
+                      <li class="toclevel-2">
+                        <a href="Port80.html#Caveats">
+                          <span class="tocnumber">5.1</span>
+                          <span class="toctext">Caveats</span>
+                        </a>
+                      </li>
+                    </ul>
+                  </li>
+                  <li class="toclevel-1">
+                    <a href="Port80.html#Using_the_Solaris_10_User_Rights_Management_Framework">
+                      <span class="tocnumber">6</span>
+                      <span class="toctext">Using the Solaris 10 User Rights Management Framework</span>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+              <h2>
+                <span class="mw-headline" id="Introduction">Introduction</span>
+              </h2>
+              <p>
+                <br />
+              </p>
+              <p>
+                <br />
+                On Unix-based systems, port 80 is protected; typically only the superuser root can open it. For security reasons, it is not desirable to run the server as root. This page presents several options to access port 80 as a non-root user. These include;
+              </p>
+              <p>
+                <a href="Port80.html#Using_ipchains">Using ipchains</a>
+              </p>
+              <p>
+                <a href="Port80.html#Using_iptables">Using iptables</a>
+              </p>
+              <p>
+                <a href="Port80.html#Configuring_Jetty.27s_SetUID_Feature">Configuring Jetty's SetUID Feature</a>
+              </p>
+              <p>
+                <a href="Port80.html#Using_xinetd">Using xinetd</a>
+              </p>
+              <p>
+                <a href="Port80.html#Using_the_Solaris_10_User_Rights_Management_Framework">Using the Solaris 10 User Rights Management Framework</a>
+              </p>
+              <p>
+                <br />
+              </p>
+              <h2>
+                <span class="mw-headline" id="Using_ipchains">Using ipchains</span>
+              </h2>
+              <p>On some Linux systems you can use the ipchains REDIRECT mechanism to redirect from one port to another inside the kernel (if ipchains is not available, then usually iptables is (see below)):</p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="bash source-bash">
+                  <pre class="de1" xml:space="preserve"><span class="sy0">/</span>sbin<span class="sy0">/</span>ipchains <span class="re5">-I</span> input <span class="re5">--proto</span> TCP <span class="re5">--dport</span> <span class="nu0">80</span> <span class="re5">-j</span> REDIRECT <span class="nu0">8080</span></pre>
+                </div>
+              </div>
+              <p>This command instructs the system as follows: "Insert into the kernel's packet filtering the following as the first rule to check on incoming packets: If the protocol is TCP and the destination port is 80, redirect the packet to port 8080." Be aware that your kernel must be compiled with support for ipchains (virtually all stock kernels are). You must have the "ipchains" command-line utility installed (on RedHat the package is aptly named "ipchains"). You can run this command at any time, preferably just once since it inserts another copy of the rule every time you run it.</p>
+              <p>Once you set up this rule , a Linux 2.2 kernel redirects all data addressed to port 80 to a server such as Jetty running on port 8080.This includes all RedHat 6.x distros. Linux 2.4 kernels, for example, RedHat 7.1+, have a similar "iptables" facility.</p>
+              <h2>
+                <span class="mw-headline" id="Using_iptables">Using iptables</span>
+              </h2>
+              <p>On many Linux systems you can use the iptables REDIRECT mechanism to redirect from one port to another inside the kernel (if iptables is not available, then usually ipchains is (see above).</p>
+              <p>You need to add something like the following to the startup scripts or your firewall rules:</p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="bash source-bash">
+                  <pre class="de1" xml:space="preserve"><span class="sy0">/</span>sbin<span class="sy0">/</span>iptables <span class="re5">-t</span> nat <span class="re5">-I</span> PREROUTING <span class="re5">-p</span> tcp <span class="re5">--dport</span> <span class="nu0">80</span> <span class="re5">-j</span> REDIRECT <span class="re5">--to-port</span> <span class="nu0">8080</span></pre>
+                </div>
+              </div>
+              <p>The underlying model of iptables is different from ipchains, so the forwarding normally happens only to packets originating off-box. You also need to allow incoming packets to port 8080 if you use iptables as a local firewall.</p>
+              <p>
+                Be careful to place rules like this one early in your
+                <i>input</i>
+                chain. Such rules must precede any rule that accepts the packet, otherwise the redirection won't occur. You can insert as many rules as required if your server needs to listen on multiple ports, as for HTTPS.
+              </p>
+              <h2>
+                <span class="mw-headline" id="Configuring_Jetty.27s_SetUID_feature">Configuring Jetty's SetUID feature</span>
+              </h2>
+              <p>
+                This extension of
+                <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/server/Server.html" rel="nofollow">org.eclipse.jetty.server.Server</a>
+                will make a JNI call to set the unix UID. This can be used to start the server as root so that privileged ports may be accessed and then switch to a non-root user for security.
+              </p>
+              <h3>
+                <span class="mw-headline" id="Obtaining_the_code">Obtaining the code</span>
+              </h3>
+              <p>
+                The SetUID feature is among the Jetty 7 modules that remain at Codehaus, and it retains the mortbay.org package naming. It uses the Jetty 7 package modules at
+                <a class="external text" href="http://download.eclipse.org/jetty/" rel="nofollow">Eclipse</a>
+                . Jetty-hightide at
+                <a class="external text" href="http://dist.codehaus.org/jetty/" rel="nofollow">Codehaus</a>
+                comes with jetty-setuid compiled and configured.
+              </p>
+              <p>Alternatively, you can download the necessary files from the maven central repository:</p>
+              <ul>
+                <li>
+                  the setuid class jar is at
+                  <a class="external text" href="http://repo1.maven.org/maven2/org/mortbay/jetty/jetty-setuid-java/" rel="nofollow">jetty-setuid-java</a>
+                </li>
+                <li>
+                  a jar file containing the jetty-setuid.xml file is at
+                  <a class="external text" href="http://repo1.maven.org/maven2/org/mortbay/jetty/jetty-setuid-java/" rel="nofollow">jetty-setuid-config</a>
+                </li>
+                <li>
+                  the native library is at
+                  <a class="external text" href="http://repo1.maven.org/maven2/org/mortbay/jetty/libsetuid/" rel="nofollow">jetty-setuid-lib</a>
+                </li>
+                <li>
+                  the jna jar is at
+                  <a class="external text" href="http://repo1.maven.org/maven2/net/java/dev/jna/jna/" rel="nofollow">jna</a>
+                </li>
+              </ul>
+              <p>
+                Copy the jetty-setuid.jar, and the jna jar to $jetty.home/lib/setuid. Also copy the .so file to $jetty.home/lib/setuid,
+                <b>but make sure you rename it "libsetuid.so"</b>
+                . Unjar the config jar into $jetty.home.
+              </p>
+              <h3>
+                <span class="mw-headline" id="Creating_a_Jetty_Config_File">Creating a Jetty Config File</span>
+              </h3>
+              <p>Create a Jetty config file as follows:</p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="xml source-xml">
+                  <pre class="de1" xml:space="preserve"><span class="sc3"><span class="re1">&lt;?xml</span> <span class="re0">version</span>=<span class="st0">"1.0"</span><span class="re2">?&gt;</span></span>
 <span class="sc0">&lt;!DOCTYPE Configure PUBLIC "-//Mort Bay Consulting//DTD Configure//EN" "http://jetty.mortbay.org/jetty/configure.dtd"&gt;</span>
 <span class="sc3"><span class="re1">&lt;Configure</span> <span class="re0">id</span>=<span class="st0">"Server"</span> <span class="re0">class</span>=<span class="st0">"org.mortbay.setuid.SetUIDServer"</span><span class="re2">&gt;</span></span>
   <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"umask"</span><span class="re2">&gt;</span></span>UMASK<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
   <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"uid"</span><span class="re2">&gt;</span></span>USERID<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
-<span class="sc3"><span class="re1">&lt;/Configure<span class="re2">&gt;</span></span></span></pre></div></div>
-<p>Where you replace:
-</p>
-<ul><li> <b>UMASK</b> with the umask setting you want the process to have.  The umask will be set before the server is started.
-<ul><li> You must enter it in decimal. That is, if you want the effect of umask 022, you must use &lt;Set name="umask"&gt;18&lt;/Set&gt;. </li>
-<li> If you prefer hexadecimal, enter &lt;Set name="umaskOctal"&gt;022&lt;/Set&gt;.</li>
-<li> You can remove this line if you don't want to change this at runtime. </li>
-<li> Set it to 002 if you get an error to the effect that root does not have permission to write to the log file. </li></ul></li>
-<li> <b>USERID</b> with the ID of the user you want the process to execute as once the ports have been opened.</li></ul>
-<div class="messagebox" style="background-color: #def3fe; border: 1px solid #c5d7e0; color: black; padding: 5px; margin: 1ex 0; min-height: 35px; padding-left: 45px;">
-<div style="float: left; margin-left: -40px;"><a class="image" href="https://wiki.eclipse.org/File:Idea.png"><img width="35" src="../../images/a/a4/Idea.png" height="35" alt="Idea.png"/></a></div>
-<div><b>TIP</b><br/>For your convenience, if you downloaded <a class="external text" href="http://dist.codehaus.org/jetty/" rel="nofollow">jetty-hightide</a>, you'll find one of these ready made in the <tt>$jetty.home/etc/jetty-setuid.xml</tt>.</div>
-</div>
-<p><br/>
-The default behaviour of the SetUIDServer is to <i>only open the Connectors as the privileged user</i>, and then switch down to the non privileged user to do the rest of the startup sequence, including starting up the webapps. If your webapp needs to open privileged ports itself, you can configure the SetUIDServer to do the entire startup sequence as the privileged user. Use the 
+<span class="sc3"><span class="re1">&lt;/Configure<span class="re2">&gt;</span></span></span></pre>
+                </div>
+              </div>
+              <p>Where you replace:</p>
+              <ul>
+                <li>
+                  <b>UMASK</b>
+                  with the umask setting you want the process to have.  The umask will be set before the server is started.
+                  <ul>
+                    <li>You must enter it in decimal. That is, if you want the effect of umask 022, you must use &lt;Set name="umask"&gt;18&lt;/Set&gt;.</li>
+                    <li>If you prefer hexadecimal, enter &lt;Set name="umaskOctal"&gt;022&lt;/Set&gt;.</li>
+                    <li>You can remove this line if you don't want to change this at runtime.</li>
+                    <li>Set it to 002 if you get an error to the effect that root does not have permission to write to the log file.</li>
+                  </ul>
+                </li>
+                <li>
+                  <b>USERID</b>
+                  with the ID of the user you want the process to execute as once the ports have been opened.
+                </li>
+              </ul>
+              <p>
+                <br />
+                The default behaviour of the SetUIDServer is to
+                <i>only open the Connectors as the privileged user</i>
+                , and then switch down to the non privileged user to do the rest of the startup sequence, including starting up the webapps. If your webapp needs to open privileged ports itself, you can configure the SetUIDServer to do the entire startup sequence as the privileged user. Use the 
 "startServerAsPrivileged" option to accomplish this (of course, this will mean that any files created will be owned by the root user, so be sure this is what you want), eg:
-</p>
-<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="xml source-xml"><pre class="de1"><span class="sc3"><span class="re1">&lt;?xml</span> <span class="re0">version</span>=<span class="st0">"1.0"</span><span class="re2">?&gt;</span></span>
+              </p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="xml source-xml">
+                  <pre class="de1" xml:space="preserve"><span class="sc3"><span class="re1">&lt;?xml</span> <span class="re0">version</span>=<span class="st0">"1.0"</span><span class="re2">?&gt;</span></span>
 <span class="sc0">&lt;!DOCTYPE Configure PUBLIC "-//Mort Bay Consulting//DTD Configure//EN" "http://jetty.mortbay.org/jetty/configure.dtd"&gt;</span>
 <span class="sc3"><span class="re1">&lt;Configure</span> <span class="re0">id</span>=<span class="st0">"Server"</span> <span class="re0">class</span>=<span class="st0">"org.mortbay.setuid.SetUIDServer"</span><span class="re2">&gt;</span></span>
   <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"umask"</span><span class="re2">&gt;</span></span>UMASK<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
   <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"uid"</span><span class="re2">&gt;</span></span>USERID<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
   <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"startServerAsPrivileged"</span><span class="re2">&gt;</span></span>true<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
-<span class="sc3"><span class="re1">&lt;/Configure<span class="re2">&gt;</span></span></span></pre></div></div>
-<h3><span id="Configuring_jetty_for_setuid" class="mw-headline">Configuring jetty for setuid</span></h3>
-<p>The easiest way to do this is to edit the $jetty.home/start.ini file:
-</p>
-<ul><li> uncomment <tt>--exec</tt></li>
-<li> add <tt>-Djava.library.path=lib/setuid</tt></li>
-<li> add an option for setuid: <tt>OPTIONS=Server,jsp,jmx,resources,websocket,ext,jta,plus,jdbc,annotations,<b>setuid</b></tt></li>
-<li> add <tt>etc/jetty-setuid.xml</tt> (or <tt>--pre=etc/jetty-setuid.xml</tt> for Jetty Hightide 7.6.5/8.1.5) as the first file in the configuration file section</li></ul>
-<div class="messagebox" style="background-color: #f9f6b7; border: 1px solid #c4c295; color: black; padding: 5px; margin: 1ex 0; min-height: 35px; padding-left: 45px;">
-<div style="float: left; margin-left: -40px;"><a href="https://wiki.eclipse.org/File:Warning2.png" class="image"><img width="35" src="../../images/3/37/Warning2.png" height="35" alt="Warning2.png"/></a></div>
-<div><b>NOTE</b><br/>You *must* ensure that the <tt>etc/jetty-setuid.xml</tt> (or <tt>--pre=etc/jetty-setuid.xml</tt> for Jetty Hightide 7.6.5/8.1.5) file is first in the list of config files.</div>
-</div>
-<p><br/>
-</p>
-<h3><span class="mw-headline" id="Running_Jetty_as_Root_User">Running Jetty as Root User</span></h3>
-<p>Having edited start.ini as advised above, to run jetty as the root user:
-</p>
-<ol><li> Switch to the userid of your choice.</li>
-<li> Optionally set the umask of your choice.</li>
-<li> Enter the following command:</li></ol>
-<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="bash source-bash"><pre class="de1"><span class="kw2">sudo</span> java <span class="re5">-jar</span> start.jar</pre></div></div>
-<div style="background-color: #def3fe; border: 1px solid #c5d7e0; color: black; padding: 5px; margin: 1ex 0; min-height: 35px; padding-left: 45px;" class="messagebox">
-<div style="float: left; margin-left: -40px;"><a class="image" href="https://wiki.eclipse.org/File:Note.png"><img alt="Note.png" height="35" src="../../images/c/cc/Note.png" width="35"/></a></div>
-<div><b>NOTE</b><br/>As the setuid feature relies on a native library, if the .so file available on the maven central repo at <a rel="nofollow" class="external text" href="http://repo1.maven.org/maven2/org/mortbay/jetty/libsetuid/">jetty-setuid-lib</a> does not work in your environment, you may need to build it from source. Checkout the <a class="external free" href="git://git.codehaus.org/jetty-project.git" rel="nofollow">git://git.codehaus.org/jetty-project.git</a> repository and modify the jetty-setuid/modules/native/pom.xml as necessary.</div>
-</div>
-<p><br/>
-</p>
-<h2><span id="Using_xinetd" class="mw-headline">Using xinetd</span></h2>
-<p>With modern Linux flavours, inetd has a newer, better big brother <i>xinetd</i>, that you can use to redirect network traffic. Since xinetd is driven by text files, all you need is a text editor. For detailed information, see <a href="http://www.xinetd.org/" class="external text" rel="nofollow">xinetd</a>. 
-</p><p>There are two ways to give xinetd instructions:
-</p>
-<ol><li> Add a new service to etc/xinetd.conf</li>
-<li> Add a new file to the directory etc/xinetd.d</li></ol>
-<p>The format is the same; if you have a look at the file/directory, you will get the picture.
-</p><p>The following entry redirects all inward TCP traffic on port 80 to port 8888 on the local machine. You can also redirect to other machines for gimp proxying:
-</p>
-<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="text source-text"><pre class="de1">service my_redirector
+<span class="sc3"><span class="re1">&lt;/Configure<span class="re2">&gt;</span></span></span></pre>
+                </div>
+              </div>
+              <h3>
+                <span class="mw-headline" id="Configuring_jetty_for_setuid">Configuring jetty for setuid</span>
+              </h3>
+              <p>The easiest way to do this is to edit the $jetty.home/start.ini file:</p>
+              <ul>
+                <li>
+                  uncomment
+                  <tt>--exec</tt>
+                </li>
+                <li>
+                  add
+                  <tt>-Djava.library.path=lib/setuid</tt>
+                </li>
+                <li>
+                  add an option for setuid:
+                  <tt>
+                    OPTIONS=Server,jsp,jmx,resources,websocket,ext,jta,plus,jdbc,annotations,
+                    <b>setuid</b>
+                  </tt>
+                </li>
+                <li>
+                  add
+                  <tt>etc/jetty-setuid.xml</tt>
+                  (or
+                  <tt>--pre=etc/jetty-setuid.xml</tt>
+                  for Jetty Hightide 7.6.5/8.1.5) as the first file in the configuration file section
+                </li>
+              </ul>
+              <p>
+                <br />
+              </p>
+              <h3>
+                <span class="mw-headline" id="Running_Jetty_as_Root_User">Running Jetty as Root User</span>
+              </h3>
+              <p>Having edited start.ini as advised above, to run jetty as the root user:</p>
+              <ol>
+                <li>Switch to the userid of your choice.</li>
+                <li>Optionally set the umask of your choice.</li>
+                <li>Enter the following command:</li>
+              </ol>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="bash source-bash">
+                  <pre class="de1" xml:space="preserve"><span class="kw2">sudo</span> java <span class="re5">-jar</span> start.jar</pre>
+                </div>
+              </div>
+              <p>
+                <br />
+              </p>
+              <h2>
+                <span class="mw-headline" id="Using_xinetd">Using xinetd</span>
+              </h2>
+              <p>
+                With modern Linux flavours, inetd has a newer, better big brother
+                <i>xinetd</i>
+                , that you can use to redirect network traffic. Since xinetd is driven by text files, all you need is a text editor. For detailed information, see
+                <a class="external text" href="http://www.xinetd.org/" rel="nofollow">xinetd</a>
+                .
+              </p>
+              <p>There are two ways to give xinetd instructions:</p>
+              <ol>
+                <li>Add a new service to etc/xinetd.conf</li>
+                <li>Add a new file to the directory etc/xinetd.d</li>
+              </ol>
+              <p>The format is the same; if you have a look at the file/directory, you will get the picture.</p>
+              <p>The following entry redirects all inward TCP traffic on port 80 to port 8888 on the local machine. You can also redirect to other machines for gimp proxying:</p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="text source-text">
+                  <pre class="de1" xml:space="preserve">service my_redirector
 {
  type = UNLISTED
  disable = no
@@ -221,11 +328,24 @@ The default behaviour of the SetUIDServer is to <i>only open the Connectors as t
  port = 80
  redirect = 127.0.0.1 8888
  log_type = FILE /tmp/somefile.log
-}</pre></div></div>
-<h3><span id="Caveats" class="mw-headline">Caveats</span></h3>
-<ul><li> Space on either side of the '=' or it is ignored.</li>
-<li> <tt>type = UNLISTED</tt> means that the name of the service does not have to be in <tt>/etc/services</tt>, but you have to specify port and protocol. If you want to do use an existing service name, for example, http:</li></ul>
-<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="text source-text"><pre class="de1">service http
+}</pre>
+                </div>
+              </div>
+              <h3>
+                <span class="mw-headline" id="Caveats">Caveats</span>
+              </h3>
+              <ul>
+                <li>Space on either side of the '=' or it is ignored.</li>
+                <li>
+                  <tt>type = UNLISTED</tt>
+                  means that the name of the service does not have to be in
+                  <tt>/etc/services</tt>
+                  , but you have to specify port and protocol. If you want to do use an existing service name, for example, http:
+                </li>
+              </ul>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="text source-text">
+                  <pre class="de1" xml:space="preserve">service http
 {
  disable = no
  socket_type = stream
@@ -233,27 +353,38 @@ The default behaviour of the SetUIDServer is to <i>only open the Connectors as t
  wait = no
  redirect = 127.0.0.1 8888
  log_type = FILE /tmp/somefile.log
-}</pre></div></div>
-<p>Have a browse in /etc/services and it will all become clear.
-</p>
-<ul><li> Logging might present certain security problems, so you might want to leave that out.</li>
-<li> RHEL5 doesn't contain xinetd by default for reasons best known to themselves.  yum install xinetd fixes that.</li></ul>
-<p>Xinetd is a hugely powerful and configurable system so expect to do some reading.
-</p>
-<h2><span id="Using_the_Solaris_10_User_Rights_Management_Framework" class="mw-headline">Using the Solaris 10 User Rights Management Framework</span></h2>
-<p>Solaris 10 provides a User Rights Management framework that can permit users and processes superuser-like abilities:
-</p>
-<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="bash source-bash"><pre class="de1">usermod <span class="re5">-K</span> <span class="re2">defaultpriv</span>=basic,net_privaddr myself</pre></div></div>
-<p>Now the <tt>myself</tt> user can bind to port 80.
-</p><p>Refer to the <a class="external text" href="http://docs.sun.com/app/docs/doc/816-4557/prbactm-1?a=view" rel="nofollow">Solaris documentation</a> for more information.
-</p>
-
-</div>
-
-                    <div class="catlinks" id="catlinks"><div class="mw-normal-catlinks" id="mw-normal-catlinks"><a href="https://wiki.eclipse.org/Special:Categories" title="Special:Categories">Categories</a>: <ul><li><a title="Category:Jetty" href="https://wiki.eclipse.org/Category:Jetty">Jetty</a></li><li><a title="Category:Jetty Howto" href="https://wiki.eclipse.org/Category:Jetty_Howto">Jetty Howto</a></li></ul></div></div>
-                                  </div>
+}</pre>
+                </div>
               </div>
+              <p>Have a browse in /etc/services and it will all become clear.</p>
+              <ul>
+                <li>Logging might present certain security problems, so you might want to leave that out.</li>
+                <li>RHEL5 doesn't contain xinetd by default for reasons best known to themselves.  yum install xinetd fixes that.</li>
+              </ul>
+              <p>Xinetd is a hugely powerful and configurable system so expect to do some reading.</p>
+              <h2>
+                <span class="mw-headline" id="Using_the_Solaris_10_User_Rights_Management_Framework">Using the Solaris 10 User Rights Management Framework</span>
+              </h2>
+              <p>Solaris 10 provides a User Rights Management framework that can permit users and processes superuser-like abilities:</p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="bash source-bash">
+                  <pre class="de1" xml:space="preserve">usermod <span class="re5">-K</span> <span class="re2">defaultpriv</span>=basic,net_privaddr myself</pre>
+                </div>
+              </div>
+              <p>
+                Now the
+                <tt>myself</tt>
+                user can bind to port 80.
+              </p>
+              <p>
+                Refer to the
+                <a class="external text" href="http://docs.sun.com/app/docs/doc/816-4557/prbactm-1?a=view" rel="nofollow">Solaris documentation</a>
+                for more information.
+              </p>
             </div>
           </div>
-</body>
+        </div>
+      </div>
+    </div>
+  </body>
 </html>

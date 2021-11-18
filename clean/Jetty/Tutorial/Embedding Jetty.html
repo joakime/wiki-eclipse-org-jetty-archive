@@ -1,106 +1,183 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
-<head>
+  <head>
     <title>Jetty WTP Plugin</title>
-    <link rel="stylesheet" media="screen, print" href="wiki-style.css"/>
-</head>
-<body>
-<div class="col-md-20" id="mainContent">
-                                <div class="tab-content background-white">
-              <div id="tab-pane-main-page-content" class="tab-pane active">
-
-                
-                <h1 class="firstHeading page-header" id="firstHeading">
-                  <span dir="auto">Jetty/Tutorial/Embedding Jetty</span>
-                </h1>
-                <div id="main-page-content">
-
-                  <div id="contentSub" class="alert alert-small alert-warning"><span class="subpages">&lt; <a href="../../Jetty.html" title="Jetty">Jetty</a>‎ | <a title="Jetty/Tutorial" href="../Tutorial.html">Tutorial</a></span></div>
-
-                  
-                  
-                  <div id="mw-content-text" class="mw-content-ltr" dir="ltr" lang="en"><p><br/>
-</p><p><br/>
-</p>
-<div id="toc" class="toc"><div id="toctitle"><h2>Contents</h2></div>
-<ul>
-<li class="toclevel-1"><a href="Embedding Jetty.html#Introduction"><span class="tocnumber">1</span> <span class="toctext">Introduction</span></a></li>
-<li class="toclevel-1"><a href="Embedding Jetty.html#Details"><span class="tocnumber">2</span> <span class="toctext">Details</span></a></li>
-<li class="toclevel-1"><a href="Embedding Jetty.html#Creating_a_Server"><span class="tocnumber">3</span> <span class="toctext">Creating a Server</span></a></li>
-<li class="toclevel-1"><a href="Embedding Jetty.html#Writing_Handlers"><span class="tocnumber">4</span> <span class="toctext">Writing Handlers</span></a>
-<ul>
-<li class="toclevel-2"><a href="Embedding Jetty.html#Hello_World_Handler"><span class="tocnumber">4.1</span> <span class="toctext">Hello World Handler</span></a></li>
-</ul>
-</li>
-<li class="toclevel-1"><a href="Embedding Jetty.html#Configuring_Connectors"><span class="tocnumber">5</span> <span class="toctext">Configuring Connectors</span></a></li>
-<li class="toclevel-1"><a href="Embedding Jetty.html#Understanding_Handler_Collections.2C_Wrappers_and_Scopes"><span class="tocnumber">6</span> <span class="toctext">Understanding Handler Collections, Wrappers and Scopes</span></a></li>
-<li class="toclevel-1"><a href="Embedding Jetty.html#Configuring_a_File_Server"><span class="tocnumber">7</span> <span class="toctext">Configuring a File Server</span></a>
-<ul>
-<li class="toclevel-2"><a href="Embedding Jetty.html#Configuring_a_File_Server_with_XML"><span class="tocnumber">7.1</span> <span class="toctext">Configuring a File Server with XML</span></a></li>
-<li class="toclevel-2"><a href="Embedding Jetty.html#Using_Spring_to_Configure_a_File_Server"><span class="tocnumber">7.2</span> <span class="toctext">Using Spring to Configure a File Server</span></a></li>
-</ul>
-</li>
-<li class="toclevel-1"><a href="Embedding Jetty.html#Setting_Contexts"><span class="tocnumber">8</span> <span class="toctext">Setting Contexts</span></a></li>
-<li class="toclevel-1"><a href="Embedding Jetty.html#Creating_Servlets"><span class="tocnumber">9</span> <span class="toctext">Creating Servlets</span></a></li>
-<li class="toclevel-1"><a href="Embedding Jetty.html#Setting_a_ServletContext"><span class="tocnumber">10</span> <span class="toctext">Setting a ServletContext</span></a></li>
-<li class="toclevel-1"><a href="Embedding Jetty.html#Setting_a_Web_Application_Context"><span class="tocnumber">11</span> <span class="toctext">Setting a Web Application Context</span></a></li>
-<li class="toclevel-1"><a href="Embedding Jetty.html#Configuring_a_Context_Handler_Collection"><span class="tocnumber">12</span> <span class="toctext">Configuring a Context Handler Collection</span></a></li>
-<li class="toclevel-1"><a href="Embedding Jetty.html#Embedding_JSP"><span class="tocnumber">13</span> <span class="toctext">Embedding JSP</span></a></li>
-</ul>
-</div>
-
-<h2><span class="mw-headline" id="Introduction">Introduction</span></h2>
-<div style="background-color: #f9f6b7; border: 1px solid #c4c295; color: black; padding: 5px; margin: 1ex 0; min-height: 35px; padding-left: 45px; font-size: 150%; color: white; background-color: #FF8888; padding: 50px" class="messagebox">
-<div style="float: left; margin-left: -40px;"><a href="https://wiki.eclipse.org/File:Warning2.png" class="image"><img width="35" src="../../images/3/37/Warning2.png" height="35" alt="Warning2.png"/></a></div>
-<div>Jetty 7 and Jetty 8 are now EOL (End of Life)<br/>
-<p><br/>
-<br/>
-<br/>
-THIS IS NOT THE DOCUMENTATION YOU ARE LOOKING FOR!!!!!<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-All development and stable releases are being performed with Jetty 9 and Jetty 10.<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-This <b>wiki is now officially out of date</b> and all content has been moved to the <a class="external text" href="http://www.eclipse.org/jetty/documentation" rel="nofollow">Jetty Documentation Hub</a><br/> 
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-</p>
-Direct Link to updated documentation: <a rel="nofollow" href="http://www.eclipse.org/jetty/documentation/current/embedding-jetty.html" class="external free">http://www.eclipse.org/jetty/documentation/current/embedding-jetty.html</a></div>
-</div>
-<p><br/>
-Jetty has a slogan, "Don't deploy your application in Jetty, deploy Jetty in your application." What this means is that as an alternative to bundling your application as a standard WAR to be deployed in Jetty, Jetty is designed to be a software component that can be instantiated and used in a Java program just like any <a href="http://en.wikipedia.org/wiki/Plain_Old_Java_Object" rel="nofollow" class="external text">POJO</a>. Put another way, running Jetty in embedded mode means putting an HTTP module into your application, rather than putting your application into an HTTP server.
-</p><p>This tutorial takes you step-by-step from the simplest Jetty server instantiation to running multiple web applications with standards-based deployment descriptors. The <a rel="nofollow" href="http://download.eclipse.org/jetty/stable-7/xref/org/eclipse/jetty/embedded/package-summary.html" class="external text">source</a> for most of these examples is part of the standard Jetty project.
-</p><p>Before doing this tutorial, it is worth while to do the <a href="Jetty HelloWorld.html" title="Jetty/Tutorial/Jetty HelloWorld">Hello World</a> tutorial. This tutorial is also available as a <a class="external text" href="http://vimeo.com/19146453" rel="nofollow">Embedding Jetty Webinar recording</a>.
-</p>
-<div style="background-color: #def3fe; border: 1px solid #c5d7e0; color: black; padding: 5px; margin: 1ex 0; min-height: 35px; padding-left: 45px;" class="messagebox">
-<div style="float: left; margin-left: -40px;"><a href="https://wiki.eclipse.org/File:Note.png" class="image"><img height="35" alt="Note.png" src="../../images/c/cc/Note.png" width="35"/></a></div>
-<div><b>Jetty Version</b><br/>The code in this tutorial is from Jetty 7, but should also work on Jetty 8. For the latest stable code, follow the links to the code xref from the latest release, which might vary slightly from the code examples given on this page.</div>
-</div>
-<h2><span class="mw-headline" id="Details">Details</span></h2>
-<p>To embed a Jetty server, the following steps are typical:
-</p>
-<ol><li> Create the server</li>
-<li> Add/Configure Connectors </li>
-<li> Add/Configure Handlers</li>
-<li> Add/Configure Servlets/Webapps to Handlers</li>
-<li> Start the server</li>
-<li> Wait (join the server to prevent main exiting)</li></ol>
-<h2><span class="mw-headline" id="Creating_a_Server">Creating a Server</span></h2>
-<p>The following code from <a href="http://download.eclipse.org/jetty/stable-7/xref/org/eclipse/jetty/embedded/SimplestServer.html" rel="nofollow" class="external text">SimplestServer.java</a>  instantiates and runs the simplest possible Jetty server:
-</p>
-<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="java source-java"><pre class="de1"><span class="kw1">public</span> <span class="kw1">class</span> SimplestServer
+    <link href="wiki-style.css" media="screen, print" rel="stylesheet" />
+  </head>
+  <body>
+    <div class="col-md-20" id="mainContent">
+      <div class="tab-content background-white">
+        <div class="tab-pane active" id="tab-pane-main-page-content">
+          <h1 class="firstHeading page-header" id="firstHeading">
+            <span dir="auto">Jetty/Tutorial/Embedding Jetty</span>
+          </h1>
+          <div id="main-page-content">
+            <div class="alert alert-small alert-warning" id="contentSub">
+              <span class="subpages">
+                &lt;
+                <a href="../../Jetty.html" title="Jetty">Jetty</a>
+                 |
+                <a href="../Tutorial.html" title="Jetty/Tutorial">Tutorial</a>
+              </span>
+            </div>
+            <div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="en">
+              <p>
+                <br />
+              </p>
+              <p>
+                <br />
+              </p>
+              <div class="toc" id="toc">
+                <div id="toctitle">
+                  <h2>Contents</h2>
+                </div>
+                <ul>
+                  <li class="toclevel-1">
+                    <a href="Embedding Jetty.html#Introduction">
+                      <span class="tocnumber">1</span>
+                      <span class="toctext">Introduction</span>
+                    </a>
+                  </li>
+                  <li class="toclevel-1">
+                    <a href="Embedding Jetty.html#Details">
+                      <span class="tocnumber">2</span>
+                      <span class="toctext">Details</span>
+                    </a>
+                  </li>
+                  <li class="toclevel-1">
+                    <a href="Embedding Jetty.html#Creating_a_Server">
+                      <span class="tocnumber">3</span>
+                      <span class="toctext">Creating a Server</span>
+                    </a>
+                  </li>
+                  <li class="toclevel-1">
+                    <a href="Embedding Jetty.html#Writing_Handlers">
+                      <span class="tocnumber">4</span>
+                      <span class="toctext">Writing Handlers</span>
+                    </a>
+                    <ul>
+                      <li class="toclevel-2">
+                        <a href="Embedding Jetty.html#Hello_World_Handler">
+                          <span class="tocnumber">4.1</span>
+                          <span class="toctext">Hello World Handler</span>
+                        </a>
+                      </li>
+                    </ul>
+                  </li>
+                  <li class="toclevel-1">
+                    <a href="Embedding Jetty.html#Configuring_Connectors">
+                      <span class="tocnumber">5</span>
+                      <span class="toctext">Configuring Connectors</span>
+                    </a>
+                  </li>
+                  <li class="toclevel-1">
+                    <a href="Embedding Jetty.html#Understanding_Handler_Collections.2C_Wrappers_and_Scopes">
+                      <span class="tocnumber">6</span>
+                      <span class="toctext">Understanding Handler Collections, Wrappers and Scopes</span>
+                    </a>
+                  </li>
+                  <li class="toclevel-1">
+                    <a href="Embedding Jetty.html#Configuring_a_File_Server">
+                      <span class="tocnumber">7</span>
+                      <span class="toctext">Configuring a File Server</span>
+                    </a>
+                    <ul>
+                      <li class="toclevel-2">
+                        <a href="Embedding Jetty.html#Configuring_a_File_Server_with_XML">
+                          <span class="tocnumber">7.1</span>
+                          <span class="toctext">Configuring a File Server with XML</span>
+                        </a>
+                      </li>
+                      <li class="toclevel-2">
+                        <a href="Embedding Jetty.html#Using_Spring_to_Configure_a_File_Server">
+                          <span class="tocnumber">7.2</span>
+                          <span class="toctext">Using Spring to Configure a File Server</span>
+                        </a>
+                      </li>
+                    </ul>
+                  </li>
+                  <li class="toclevel-1">
+                    <a href="Embedding Jetty.html#Setting_Contexts">
+                      <span class="tocnumber">8</span>
+                      <span class="toctext">Setting Contexts</span>
+                    </a>
+                  </li>
+                  <li class="toclevel-1">
+                    <a href="Embedding Jetty.html#Creating_Servlets">
+                      <span class="tocnumber">9</span>
+                      <span class="toctext">Creating Servlets</span>
+                    </a>
+                  </li>
+                  <li class="toclevel-1">
+                    <a href="Embedding Jetty.html#Setting_a_ServletContext">
+                      <span class="tocnumber">10</span>
+                      <span class="toctext">Setting a ServletContext</span>
+                    </a>
+                  </li>
+                  <li class="toclevel-1">
+                    <a href="Embedding Jetty.html#Setting_a_Web_Application_Context">
+                      <span class="tocnumber">11</span>
+                      <span class="toctext">Setting a Web Application Context</span>
+                    </a>
+                  </li>
+                  <li class="toclevel-1">
+                    <a href="Embedding Jetty.html#Configuring_a_Context_Handler_Collection">
+                      <span class="tocnumber">12</span>
+                      <span class="toctext">Configuring a Context Handler Collection</span>
+                    </a>
+                  </li>
+                  <li class="toclevel-1">
+                    <a href="Embedding Jetty.html#Embedding_JSP">
+                      <span class="tocnumber">13</span>
+                      <span class="toctext">Embedding JSP</span>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+              <h2>
+                <span class="mw-headline" id="Introduction">Introduction</span>
+              </h2>
+              <p>
+                <br />
+                Jetty has a slogan, "Don't deploy your application in Jetty, deploy Jetty in your application." What this means is that as an alternative to bundling your application as a standard WAR to be deployed in Jetty, Jetty is designed to be a software component that can be instantiated and used in a Java program just like any
+                <a class="external text" href="http://en.wikipedia.org/wiki/Plain_Old_Java_Object" rel="nofollow">POJO</a>
+                . Put another way, running Jetty in embedded mode means putting an HTTP module into your application, rather than putting your application into an HTTP server.
+              </p>
+              <p>
+                This tutorial takes you step-by-step from the simplest Jetty server instantiation to running multiple web applications with standards-based deployment descriptors. The
+                <a class="external text" href="http://download.eclipse.org/jetty/stable-7/xref/org/eclipse/jetty/embedded/package-summary.html" rel="nofollow">source</a>
+                for most of these examples is part of the standard Jetty project.
+              </p>
+              <p>
+                Before doing this tutorial, it is worth while to do the
+                <a href="Jetty HelloWorld.html" title="Jetty/Tutorial/Jetty HelloWorld">Hello World</a>
+                tutorial. This tutorial is also available as a
+                <a class="external text" href="http://vimeo.com/19146453" rel="nofollow">Embedding Jetty Webinar recording</a>
+                .
+              </p>
+              <h2>
+                <span class="mw-headline" id="Details">Details</span>
+              </h2>
+              <p>To embed a Jetty server, the following steps are typical:</p>
+              <ol>
+                <li>Create the server</li>
+                <li>Add/Configure Connectors</li>
+                <li>Add/Configure Handlers</li>
+                <li>Add/Configure Servlets/Webapps to Handlers</li>
+                <li>Start the server</li>
+                <li>Wait (join the server to prevent main exiting)</li>
+              </ol>
+              <h2>
+                <span class="mw-headline" id="Creating_a_Server">Creating a Server</span>
+              </h2>
+              <p>
+                The following code from
+                <a class="external text" href="http://download.eclipse.org/jetty/stable-7/xref/org/eclipse/jetty/embedded/SimplestServer.html" rel="nofollow">SimplestServer.java</a>
+                instantiates and runs the simplest possible Jetty server:
+              </p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="java source-java">
+                  <pre class="de1" xml:space="preserve"><span class="kw1">public</span> <span class="kw1">class</span> SimplestServer
 <span class="br0">{</span>
     <span class="kw1">public</span> <span class="kw1">static</span> <span class="kw4">void</span> main<span class="br0">(</span><span class="kw3">String</span><span class="br0">[</span><span class="br0">]</span> args<span class="br0">)</span> <span class="kw1">throws</span> <span class="kw3">Exception</span>
     <span class="br0">{</span>
@@ -108,21 +185,46 @@ Jetty has a slogan, "Don't deploy your application in Jetty, deploy Jetty in you
         server.<span class="me1">start</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
         server.<span class="me1">join</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
     <span class="br0">}</span>
-<span class="br0">}</span></pre></div></div>
-<p>This runs an HTTP server on port 8080.  It is not a very useful server as it has no handlers and thus returns a 404 error for every request.
-</p><p><br/>
-</p>
-<h2><span id="Writing_Handlers" class="mw-headline">Writing Handlers</span></h2>
-<p>To produce a response to a request, Jetty requires a <a rel="nofollow" href="http://download.eclipse.org/jetty/stable-7/xref/org/eclipse/jetty/server/Handler.html" class="external text">Handler</a> to be set on the server.  A handler may:
-</p>
-<ul><li> Examine/modify the HTTP request.</li>
-<li> Generate the complete HTTP response.</li>
-<li> Call another Handler (see <a class="external text" href="http://download.eclipse.org/jetty/stable-7/xref/org/eclipse/jetty/server/handler/HandlerWrapper.html" rel="nofollow">HandlerWrapper</a>).</li>
-<li> Select one or many Handlers to call (see <a href="http://download.eclipse.org/jetty/stable-7/xref/org/eclipse/jetty/server/handler/HandlerCollection.html" rel="nofollow" class="external text">HandlerCollection</a>).</li></ul>
-<h3><span id="Hello_World_Handler" class="mw-headline">Hello World Handler</span></h3>
-<p>The following code based on <a href="http://download.eclipse.org/jetty/stable-7/xref/org/eclipse/jetty/embedded/HelloHandler.html" rel="nofollow" class="external text">HelloHandler.java</a> shows a simple hello world handler:
-</p>
-<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="java source-java"><pre class="de1"><span class="kw1">public</span> <span class="kw1">class</span> HelloHandler <span class="kw1">extends</span> AbstractHandler
+<span class="br0">}</span></pre>
+                </div>
+              </div>
+              <p>This runs an HTTP server on port 8080.  It is not a very useful server as it has no handlers and thus returns a 404 error for every request.</p>
+              <p>
+                <br />
+              </p>
+              <h2>
+                <span class="mw-headline" id="Writing_Handlers">Writing Handlers</span>
+              </h2>
+              <p>
+                To produce a response to a request, Jetty requires a
+                <a class="external text" href="http://download.eclipse.org/jetty/stable-7/xref/org/eclipse/jetty/server/Handler.html" rel="nofollow">Handler</a>
+                to be set on the server.  A handler may:
+              </p>
+              <ul>
+                <li>Examine/modify the HTTP request.</li>
+                <li>Generate the complete HTTP response.</li>
+                <li>
+                  Call another Handler (see
+                  <a class="external text" href="http://download.eclipse.org/jetty/stable-7/xref/org/eclipse/jetty/server/handler/HandlerWrapper.html" rel="nofollow">HandlerWrapper</a>
+                  ).
+                </li>
+                <li>
+                  Select one or many Handlers to call (see
+                  <a class="external text" href="http://download.eclipse.org/jetty/stable-7/xref/org/eclipse/jetty/server/handler/HandlerCollection.html" rel="nofollow">HandlerCollection</a>
+                  ).
+                </li>
+              </ul>
+              <h3>
+                <span class="mw-headline" id="Hello_World_Handler">Hello World Handler</span>
+              </h3>
+              <p>
+                The following code based on
+                <a class="external text" href="http://download.eclipse.org/jetty/stable-7/xref/org/eclipse/jetty/embedded/HelloHandler.html" rel="nofollow">HelloHandler.java</a>
+                shows a simple hello world handler:
+              </p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="java source-java">
+                  <pre class="de1" xml:space="preserve"><span class="kw1">public</span> <span class="kw1">class</span> HelloHandler <span class="kw1">extends</span> AbstractHandler
 <span class="br0">{</span>
     <span class="kw1">public</span> <span class="kw4">void</span> handle<span class="br0">(</span><span class="kw3">String</span> target,<span class="kw3">Request</span> baseRequest,HttpServletRequest request,HttpServletResponse response<span class="br0">)</span> 
         <span class="kw1">throws</span> <span class="kw3">IOException</span>, ServletException
@@ -132,31 +234,55 @@ Jetty has a slogan, "Don't deploy your application in Jetty, deploy Jetty in you
         baseRequest.<span class="me1">setHandled</span><span class="br0">(</span><span class="kw2">true</span><span class="br0">)</span><span class="sy0">;</span>
         response.<span class="me1">getWriter</span><span class="br0">(</span><span class="br0">)</span>.<span class="me1">println</span><span class="br0">(</span><span class="st0">"&lt;h1&gt;Hello World&lt;/h1&gt;"</span><span class="br0">)</span><span class="sy0">;</span>
     <span class="br0">}</span>
-<span class="br0">}</span></pre></div></div>
-<p>The parameters passed to the handle method are:
-</p>
-<ul><li> target–the target of the request, which is either a URI or a name from a named dispatcher.</li>
-<li> baseRequest–the Jetty mutable request object, which is always unwrapped.</li>
-<li> request–the immutable request object, which might have been wrapped.</li>
-<li> response–the response, which might have been wrapped.</li></ul>
-<p>The handler sets the response status, content-type and marks the request as handled before it generates the body of the response using a writer.
-</p><p>The following code from <a rel="nofollow" href="http://download.eclipse.org/jetty/stable-7/xref/org/eclipse/jetty/embedded/OneHandler.html" class="external text">OneHandler.java</a> shows how a Jetty server can use this handler:
-</p>
-<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="java source-java"><pre class="de1"><span class="kw1">public</span> <span class="kw1">static</span> <span class="kw4">void</span> main<span class="br0">(</span><span class="kw3">String</span><span class="br0">[</span><span class="br0">]</span> args<span class="br0">)</span> <span class="kw1">throws</span> <span class="kw3">Exception</span>
+<span class="br0">}</span></pre>
+                </div>
+              </div>
+              <p>The parameters passed to the handle method are:</p>
+              <ul>
+                <li>target–the target of the request, which is either a URI or a name from a named dispatcher.</li>
+                <li>baseRequest–the Jetty mutable request object, which is always unwrapped.</li>
+                <li>request–the immutable request object, which might have been wrapped.</li>
+                <li>response–the response, which might have been wrapped.</li>
+              </ul>
+              <p>The handler sets the response status, content-type and marks the request as handled before it generates the body of the response using a writer.</p>
+              <p>
+                The following code from
+                <a class="external text" href="http://download.eclipse.org/jetty/stable-7/xref/org/eclipse/jetty/embedded/OneHandler.html" rel="nofollow">OneHandler.java</a>
+                shows how a Jetty server can use this handler:
+              </p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="java source-java">
+                  <pre class="de1" xml:space="preserve"><span class="kw1">public</span> <span class="kw1">static</span> <span class="kw4">void</span> main<span class="br0">(</span><span class="kw3">String</span><span class="br0">[</span><span class="br0">]</span> args<span class="br0">)</span> <span class="kw1">throws</span> <span class="kw3">Exception</span>
 <span class="br0">{</span>
     Server server <span class="sy0">=</span> <span class="kw1">new</span> Server<span class="br0">(</span><span class="nu0">8080</span><span class="br0">)</span><span class="sy0">;</span>
     server.<span class="me1">setHandler</span><span class="br0">(</span><span class="kw1">new</span> HelloHandler<span class="br0">(</span><span class="br0">)</span><span class="br0">)</span><span class="sy0">;</span>
  
     server.<span class="me1">start</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
     server.<span class="me1">join</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
-<span class="br0">}</span></pre></div></div>
-<p>You now know everything you need to know to write an HTTP server based on Jetty.  However, complex request handling is typically built from multiple Handlers. We will look in later sections at how you can combine handlers like aspects. You can see some of the handlers available in Jetty in the <a class="external text" href="http://download.eclipse.org/jetty/stable-7/xref/org/eclipse/jetty/server/handler/package-frame.html" rel="nofollow">org.eclipse.jetty.server.handler</a> package.
-</p>
-<h2><span id="Configuring_Connectors" class="mw-headline">Configuring Connectors</span></h2>
-<p>To configure the HTTP connectors that the server uses, you can set one or more <a class="external text" rel="nofollow" href="http://download.eclipse.org/jetty/stable-7/xref/org/eclipse/jetty/server/Connector.html">connector</a>s on the server. You can configure each connector with details such as interface, port, buffer sizes, timeouts, etc.
-</p><p>The following code is based on <a rel="nofollow" href="http://download.eclipse.org/jetty/stable-7/xref/org/eclipse/jetty/embedded/ManyConnectors.html" class="external text">ManyConnectors.java</a> and shows how to set and configure connectors for the Hello World example:
-</p>
-<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="java source-java"><pre class="de1"><span class="kw1">public</span> <span class="kw1">class</span> ManyConnectors
+<span class="br0">}</span></pre>
+                </div>
+              </div>
+              <p>
+                You now know everything you need to know to write an HTTP server based on Jetty.  However, complex request handling is typically built from multiple Handlers. We will look in later sections at how you can combine handlers like aspects. You can see some of the handlers available in Jetty in the
+                <a class="external text" href="http://download.eclipse.org/jetty/stable-7/xref/org/eclipse/jetty/server/handler/package-frame.html" rel="nofollow">org.eclipse.jetty.server.handler</a>
+                package.
+              </p>
+              <h2>
+                <span class="mw-headline" id="Configuring_Connectors">Configuring Connectors</span>
+              </h2>
+              <p>
+                To configure the HTTP connectors that the server uses, you can set one or more
+                <a class="external text" href="http://download.eclipse.org/jetty/stable-7/xref/org/eclipse/jetty/server/Connector.html" rel="nofollow">connector</a>
+                s on the server. You can configure each connector with details such as interface, port, buffer sizes, timeouts, etc.
+              </p>
+              <p>
+                The following code is based on
+                <a class="external text" href="http://download.eclipse.org/jetty/stable-7/xref/org/eclipse/jetty/embedded/ManyConnectors.html" rel="nofollow">ManyConnectors.java</a>
+                and shows how to set and configure connectors for the Hello World example:
+              </p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="java source-java">
+                  <pre class="de1" xml:space="preserve"><span class="kw1">public</span> <span class="kw1">class</span> ManyConnectors
 <span class="br0">{</span>
     <span class="kw1">public</span> <span class="kw1">static</span> <span class="kw4">void</span> main<span class="br0">(</span><span class="kw3">String</span><span class="br0">[</span><span class="br0">]</span> args<span class="br0">)</span> <span class="kw1">throws</span> <span class="kw3">Exception</span>
     <span class="br0">{</span>
@@ -190,20 +316,57 @@ Jetty has a slogan, "Don't deploy your application in Jetty, deploy Jetty in you
         server.<span class="me1">start</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
         server.<span class="me1">join</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
     <span class="br0">}</span>
-<span class="br0">}</span></pre></div></div>
-<h2><span class="mw-headline" id="Understanding_Handler_Collections.2C_Wrappers_and_Scopes">Understanding Handler Collections, Wrappers and Scopes</span></h2>
-<p>Complex request handling is typically built from multiple Handlers that can be combined in various ways:
-</p>
-<ul><li> A <a class="external text" href="http://download.eclipse.org/jetty/stable-7/xref/org/eclipse/jetty/server/handler/HandlerCollection.html" rel="nofollow">Handler Collection</a> holds a collection of other handlers and calls each handler in order. This is useful for combining statistics and logging handlers with the handler that generates the response.</li>
-<li> A <a href="http://download.eclipse.org/jetty/stable-7/xref/org/eclipse/jetty/server/handler/HandlerList.html" rel="nofollow" class="external text">Handler List</a> is a Handler Collection that calls each handler in turn until either an exception is thrown, the response is committed or the request.isHandled() returns true. It can be used to combine handlers that conditionally handle a request.</li>
-<li> A <a rel="nofollow" href="http://download.eclipse.org/jetty/stable-7/xref/org/eclipse/jetty/server/handler/HandlerWrapper.html" class="external text">Handler Wrapper</a> is a handler base class that can be used to daisy chain handlers together in the style of aspect-oriented programming.  For example, a standard web application is implemented by a chain of a context, session, security and servlet handlers.</li>
-<li> A <a class="external text" href="http://download.eclipse.org/jetty/stable-7/xref/org/eclipse/jetty/server/handler/ContextHandlerCollection.html" rel="nofollow">Context Handler Collection</a> uses the longest prefix of the request URI (the contextPath) to select a specific <a rel="nofollow" href="http://download.eclipse.org/jetty/stable-7/xref/org/eclipse/jetty/server/handler/ContextHandler.html" class="external text">ContextHandler</a> to handle the request. </li></ul>
-<p>See also <a href="../Howto/Write Jetty Handler.html" title="Jetty/Howto/Write Jetty Handler">How to Write a Jetty Handler</a>.
-</p>
-<h2><span id="Configuring_a_File_Server" class="mw-headline">Configuring a File Server</span></h2>
-<p>The following code from <a class="external text" rel="nofollow" href="http://download.eclipse.org/jetty/stable-7/xref/org/eclipse/jetty/embedded/FileServer.html">FileServer.java</a> uses a HandlerList to combine the <a class="external text" rel="nofollow" href="http://download.eclipse.org/jetty/stable-7/xref/org/eclipse/jetty/server/handler/ResourceHandler.html">ResourceHandler</a> with the <a class="external text" rel="nofollow" href="http://download.eclipse.org/jetty/stable-7/xref/org/eclipse/jetty/server/handler/DefaultHandler.html">DefaultHandler</a>:
-</p>
-<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="java source-java"><pre class="de1"><span class="kw1">public</span> <span class="kw1">class</span> FileServer
+<span class="br0">}</span></pre>
+                </div>
+              </div>
+              <h2>
+                <span class="mw-headline" id="Understanding_Handler_Collections.2C_Wrappers_and_Scopes">Understanding Handler Collections, Wrappers and Scopes</span>
+              </h2>
+              <p>Complex request handling is typically built from multiple Handlers that can be combined in various ways:</p>
+              <ul>
+                <li>
+                  A
+                  <a class="external text" href="http://download.eclipse.org/jetty/stable-7/xref/org/eclipse/jetty/server/handler/HandlerCollection.html" rel="nofollow">Handler Collection</a>
+                  holds a collection of other handlers and calls each handler in order. This is useful for combining statistics and logging handlers with the handler that generates the response.
+                </li>
+                <li>
+                  A
+                  <a class="external text" href="http://download.eclipse.org/jetty/stable-7/xref/org/eclipse/jetty/server/handler/HandlerList.html" rel="nofollow">Handler List</a>
+                  is a Handler Collection that calls each handler in turn until either an exception is thrown, the response is committed or the request.isHandled() returns true. It can be used to combine handlers that conditionally handle a request.
+                </li>
+                <li>
+                  A
+                  <a class="external text" href="http://download.eclipse.org/jetty/stable-7/xref/org/eclipse/jetty/server/handler/HandlerWrapper.html" rel="nofollow">Handler Wrapper</a>
+                  is a handler base class that can be used to daisy chain handlers together in the style of aspect-oriented programming.  For example, a standard web application is implemented by a chain of a context, session, security and servlet handlers.
+                </li>
+                <li>
+                  A
+                  <a class="external text" href="http://download.eclipse.org/jetty/stable-7/xref/org/eclipse/jetty/server/handler/ContextHandlerCollection.html" rel="nofollow">Context Handler Collection</a>
+                  uses the longest prefix of the request URI (the contextPath) to select a specific
+                  <a class="external text" href="http://download.eclipse.org/jetty/stable-7/xref/org/eclipse/jetty/server/handler/ContextHandler.html" rel="nofollow">ContextHandler</a>
+                  to handle the request.
+                </li>
+              </ul>
+              <p>
+                See also
+                <a href="../Howto/Write Jetty Handler.html" title="Jetty/Howto/Write Jetty Handler">How to Write a Jetty Handler</a>
+                .
+              </p>
+              <h2>
+                <span class="mw-headline" id="Configuring_a_File_Server">Configuring a File Server</span>
+              </h2>
+              <p>
+                The following code from
+                <a class="external text" href="http://download.eclipse.org/jetty/stable-7/xref/org/eclipse/jetty/embedded/FileServer.html" rel="nofollow">FileServer.java</a>
+                uses a HandlerList to combine the
+                <a class="external text" href="http://download.eclipse.org/jetty/stable-7/xref/org/eclipse/jetty/server/handler/ResourceHandler.html" rel="nofollow">ResourceHandler</a>
+                with the
+                <a class="external text" href="http://download.eclipse.org/jetty/stable-7/xref/org/eclipse/jetty/server/handler/DefaultHandler.html" rel="nofollow">DefaultHandler</a>
+                :
+              </p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="java source-java">
+                  <pre class="de1" xml:space="preserve"><span class="kw1">public</span> <span class="kw1">class</span> FileServer
 <span class="br0">{</span>
     <span class="kw1">public</span> <span class="kw1">static</span> <span class="kw4">void</span> main<span class="br0">(</span><span class="kw3">String</span><span class="br0">[</span><span class="br0">]</span> args<span class="br0">)</span> <span class="kw1">throws</span> <span class="kw3">Exception</span>
     <span class="br0">{</span>
@@ -225,13 +388,21 @@ Jetty has a slogan, "Don't deploy your application in Jetty, deploy Jetty in you
         server.<span class="me1">start</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
         server.<span class="me1">join</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
     <span class="br0">}</span>
-<span class="br0">}</span></pre></div></div>
-<p>The resource handler is passed the request first and looks for a matching file in the local directory to serve. If it does not find a file, the request passes to the default handler which  generates a 404 (or favicon.ico).
-</p>
-<h3><span class="mw-headline" id="Configuring_a_File_Server_with_XML">Configuring a File Server with XML</span></h3>
-<p>Now is a good time to remind you that the <a href="../Reference/jetty.xml syntax.html" title="Jetty/Reference/jetty.xml syntax">Jetty XML</a> configuration format can render simple Java code into XML configuration.  So the File Server example above can be written with a little reordering in Jetty XML as follows:
-</p>
-<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="xml source-xml"><pre class="de1"><span class="sc3"><span class="re1">&lt;?xml</span> <span class="re0">version</span>=<span class="st0">"1.0"</span><span class="re2">?&gt;</span></span>
+<span class="br0">}</span></pre>
+                </div>
+              </div>
+              <p>The resource handler is passed the request first and looks for a matching file in the local directory to serve. If it does not find a file, the request passes to the default handler which  generates a 404 (or favicon.ico).</p>
+              <h3>
+                <span class="mw-headline" id="Configuring_a_File_Server_with_XML">Configuring a File Server with XML</span>
+              </h3>
+              <p>
+                Now is a good time to remind you that the
+                <a href="../Reference/jetty.xml syntax.html" title="Jetty/Reference/jetty.xml syntax">Jetty XML</a>
+                configuration format can render simple Java code into XML configuration.  So the File Server example above can be written with a little reordering in Jetty XML as follows:
+              </p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="xml source-xml">
+                  <pre class="de1" xml:space="preserve"><span class="sc3"><span class="re1">&lt;?xml</span> <span class="re0">version</span>=<span class="st0">"1.0"</span><span class="re2">?&gt;</span></span>
 <span class="sc0">&lt;!DOCTYPE Configure PUBLIC "-//Jetty//Configure//EN" "http://www.eclipse.org/jetty/configure.dtd"&gt;</span>
  
 <span class="sc3"><span class="re1">&lt;Configure</span> <span class="re0">id</span>=<span class="st0">"FileServer"</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.server.Server"</span><span class="re2">&gt;</span></span>
@@ -265,10 +436,17 @@ Jetty has a slogan, "Don't deploy your application in Jetty, deploy Jetty in you
         <span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
       <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span>
     <span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
-<span class="sc3"><span class="re1">&lt;/Configure<span class="re2">&gt;</span></span></span></pre></div></div>
-<p>You can run this XML file from the <a href="http://dev.eclipse.org/svnroot/rt/org.eclipse.jetty/jetty/trunk/example-jetty-embedded/src/main/java/org/eclipse/jetty/embedded/FileServerXml.java" rel="nofollow" class="external text">FileServerXml.java</a> class:
-</p>
-<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="java source-java"><pre class="de1"><span class="kw1">public</span> <span class="kw1">class</span> FileServerXml
+<span class="sc3"><span class="re1">&lt;/Configure<span class="re2">&gt;</span></span></span></pre>
+                </div>
+              </div>
+              <p>
+                You can run this XML file from the
+                <a class="external text" href="http://dev.eclipse.org/svnroot/rt/org.eclipse.jetty/jetty/trunk/example-jetty-embedded/src/main/java/org/eclipse/jetty/embedded/FileServerXml.java" rel="nofollow">FileServerXml.java</a>
+                class:
+              </p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="java source-java">
+                  <pre class="de1" xml:space="preserve"><span class="kw1">public</span> <span class="kw1">class</span> FileServerXml
 <span class="br0">{</span>
     <span class="kw1">public</span> <span class="kw1">static</span> <span class="kw4">void</span> main<span class="br0">(</span><span class="kw3">String</span><span class="br0">[</span><span class="br0">]</span> args<span class="br0">)</span> <span class="kw1">throws</span> <span class="kw3">Exception</span>
     <span class="br0">{</span>
@@ -278,11 +456,16 @@ Jetty has a slogan, "Don't deploy your application in Jetty, deploy Jetty in you
         server.<span class="me1">start</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
         server.<span class="me1">join</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
     <span class="br0">}</span>
-<span class="br0">}</span></pre></div></div>
-<h3><span id="Using_Spring_to_Configure_a_File_Server" class="mw-headline">Using Spring to Configure a File Server</span></h3>
-<p>You can also use the Spring framework to assemble Jetty servers.  The file server example above can be written in Spring configuration as:
-</p>
-<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="xml source-xml"><pre class="de1"><span class="sc3"><span class="re1">&lt;beans<span class="re2">&gt;</span></span></span>
+<span class="br0">}</span></pre>
+                </div>
+              </div>
+              <h3>
+                <span class="mw-headline" id="Using_Spring_to_Configure_a_File_Server">Using Spring to Configure a File Server</span>
+              </h3>
+              <p>You can also use the Spring framework to assemble Jetty servers.  The file server example above can be written in Spring configuration as:</p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="xml source-xml">
+                  <pre class="de1" xml:space="preserve"><span class="sc3"><span class="re1">&lt;beans<span class="re2">&gt;</span></span></span>
   <span class="sc3"><span class="re1">&lt;bean</span> <span class="re0">id</span>=<span class="st0">"Server"</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.server.Server"</span> <span class="re0">init-method</span>=<span class="st0">"start"</span> <span class="re0">destroy-method</span>=<span class="st0">"stop"</span><span class="re2">&gt;</span></span>
  
     <span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span class="st0">"connectors"</span><span class="re2">&gt;</span></span>
@@ -312,23 +495,38 @@ Jetty has a slogan, "Don't deploy your application in Jetty, deploy Jetty in you
       <span class="sc3"><span class="re1">&lt;/bean<span class="re2">&gt;</span></span></span>
     <span class="sc3"><span class="re1">&lt;/property<span class="re2">&gt;</span></span></span>
   <span class="sc3"><span class="re1">&lt;/bean<span class="re2">&gt;</span></span></span>
-<span class="sc3"><span class="re1">&lt;/beans<span class="re2">&gt;</span></span></span></pre></div></div>
-<p>See also <a title="Jetty/Howto/Spring" href="../Howto/Spring.html">How to Configure Jetty with Spring</a>.
-</p>
-<h2><span class="mw-headline" id="Setting_Contexts">Setting Contexts</span></h2>
-<p>A <a class="external text" rel="nofollow" href="http://download.eclipse.org/jetty/stable-7/xref/org/eclipse/jetty/server/handler/ContextHandler.html">ContextHandler</a> is a HandlerWrapper that responds only to requests that have a URI prefix that matches the configured context path. 
-</p><p>Requests that match the context path have their path methods updated accordingly, and the following optional context features applied as appropriate:
-</p>
-<pre>* A Thread Context classloader.
+<span class="sc3"><span class="re1">&lt;/beans<span class="re2">&gt;</span></span></span></pre>
+                </div>
+              </div>
+              <p>
+                See also
+                <a href="../Howto/Spring.html" title="Jetty/Howto/Spring">How to Configure Jetty with Spring</a>
+                .
+              </p>
+              <h2>
+                <span class="mw-headline" id="Setting_Contexts">Setting Contexts</span>
+              </h2>
+              <p>
+                A
+                <a class="external text" href="http://download.eclipse.org/jetty/stable-7/xref/org/eclipse/jetty/server/handler/ContextHandler.html" rel="nofollow">ContextHandler</a>
+                is a HandlerWrapper that responds only to requests that have a URI prefix that matches the configured context path.
+              </p>
+              <p>Requests that match the context path have their path methods updated accordingly, and the following optional context features applied as appropriate:</p>
+              <pre xml:space="preserve">* A Thread Context classloader.
 * A set of attributes
 * A set of init parameters
 * A resource base (aka document root)
 * A set of virtual host names
 </pre>
-<p>Requests that don't match are not handled.
-</p><p>The following code is based on <a href="http://download.eclipse.org/jetty/stable-7/xref/org/eclipse/jetty/embedded/OneContext.html" rel="nofollow" class="external text">OneContext.java</a> and sets context path and classloader for the hello handler:
-</p>
-<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="java source-java"><pre class="de1"><span class="kw1">public</span> <span class="kw1">class</span> OneContext
+              <p>Requests that don't match are not handled.</p>
+              <p>
+                The following code is based on
+                <a class="external text" href="http://download.eclipse.org/jetty/stable-7/xref/org/eclipse/jetty/embedded/OneContext.html" rel="nofollow">OneContext.java</a>
+                and sets context path and classloader for the hello handler:
+              </p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="java source-java">
+                  <pre class="de1" xml:space="preserve"><span class="kw1">public</span> <span class="kw1">class</span> OneContext
 <span class="br0">{</span>
     <span class="kw1">public</span> <span class="kw1">static</span> <span class="kw4">void</span> main<span class="br0">(</span><span class="kw3">String</span><span class="br0">[</span><span class="br0">]</span> args<span class="br0">)</span> <span class="kw1">throws</span> <span class="kw3">Exception</span>
     <span class="br0">{</span>
@@ -345,11 +543,20 @@ Jetty has a slogan, "Don't deploy your application in Jetty, deploy Jetty in you
         server.<span class="me1">start</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
         server.<span class="me1">join</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
     <span class="br0">}</span>
-<span class="br0">}</span></pre></div></div>
-<h2><span id="Creating_Servlets" class="mw-headline">Creating Servlets</span></h2>
-<p>Servlets are the standard way to provide application logic that handles HTTP requests. Servlets are like constrained Handlers with standard ways to map specific URIs to specific servlets. The following code is based on <a class="external text" href="http://dev.eclipse.org/svnroot/rt/org.eclipse.jetty/jetty/trunk/example-jetty-embedded/src/main/java/org/eclipse/jetty/embedded/HelloServlet.java" rel="nofollow">HelloServlet.java</a>:
-</p>
-<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="java source-java"><pre class="de1"><span class="kw1">public</span> <span class="kw1">class</span> HelloServlet <span class="kw1">extends</span> HttpServlet
+<span class="br0">}</span></pre>
+                </div>
+              </div>
+              <h2>
+                <span class="mw-headline" id="Creating_Servlets">Creating Servlets</span>
+              </h2>
+              <p>
+                Servlets are the standard way to provide application logic that handles HTTP requests. Servlets are like constrained Handlers with standard ways to map specific URIs to specific servlets. The following code is based on
+                <a class="external text" href="http://dev.eclipse.org/svnroot/rt/org.eclipse.jetty/jetty/trunk/example-jetty-embedded/src/main/java/org/eclipse/jetty/embedded/HelloServlet.java" rel="nofollow">HelloServlet.java</a>
+                :
+              </p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="java source-java">
+                  <pre class="de1" xml:space="preserve"><span class="kw1">public</span> <span class="kw1">class</span> HelloServlet <span class="kw1">extends</span> HttpServlet
 <span class="br0">{</span>
     <span class="kw1">private</span> <span class="kw3">String</span> greeting<span class="sy0">=</span><span class="st0">"Hello World"</span><span class="sy0">;</span>
     <span class="kw1">public</span> HelloServlet<span class="br0">(</span><span class="br0">)</span><span class="br0">{</span><span class="br0">}</span>
@@ -364,11 +571,22 @@ Jetty has a slogan, "Don't deploy your application in Jetty, deploy Jetty in you
         response.<span class="me1">getWriter</span><span class="br0">(</span><span class="br0">)</span>.<span class="me1">println</span><span class="br0">(</span><span class="st0">"&lt;h1&gt;"</span><span class="sy0">+</span>greeting<span class="sy0">+</span><span class="st0">"&lt;/h1&gt;"</span><span class="br0">)</span><span class="sy0">;</span>
         response.<span class="me1">getWriter</span><span class="br0">(</span><span class="br0">)</span>.<span class="me1">println</span><span class="br0">(</span><span class="st0">"session="</span> <span class="sy0">+</span> request.<span class="me1">getSession</span><span class="br0">(</span><span class="kw2">true</span><span class="br0">)</span>.<span class="me1">getId</span><span class="br0">(</span><span class="br0">)</span><span class="br0">)</span><span class="sy0">;</span>
     <span class="br0">}</span>
-<span class="br0">}</span></pre></div></div>
-<h2><span class="mw-headline" id="Setting_a_ServletContext">Setting a ServletContext</span></h2>
-<p>A <a rel="nofollow" href="http://download.eclipse.org/jetty/stable-7/xref/org/eclipse/jetty/servlet/ServletContextHandler.html" class="external text">ServletContextHandler</a> is a specialization of ContextHandler with support for standard servlets.  The following code from <a class="external text" rel="nofollow" href="http://download.eclipse.org/jetty/stable-7/xref/org/eclipse/jetty/embedded/OneServletContext.html">OneServletContext</a> shows three instances of the helloworld servlet registered with a ServletContextHandler:
-</p>
-<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="java source-java"><pre class="de1"><span class="kw1">public</span> <span class="kw1">class</span> OneServletContext
+<span class="br0">}</span></pre>
+                </div>
+              </div>
+              <h2>
+                <span class="mw-headline" id="Setting_a_ServletContext">Setting a ServletContext</span>
+              </h2>
+              <p>
+                A
+                <a class="external text" href="http://download.eclipse.org/jetty/stable-7/xref/org/eclipse/jetty/servlet/ServletContextHandler.html" rel="nofollow">ServletContextHandler</a>
+                is a specialization of ContextHandler with support for standard servlets.  The following code from
+                <a class="external text" href="http://download.eclipse.org/jetty/stable-7/xref/org/eclipse/jetty/embedded/OneServletContext.html" rel="nofollow">OneServletContext</a>
+                shows three instances of the helloworld servlet registered with a ServletContextHandler:
+              </p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="java source-java">
+                  <pre class="de1" xml:space="preserve"><span class="kw1">public</span> <span class="kw1">class</span> OneServletContext
 <span class="br0">{</span>
     <span class="kw1">public</span> <span class="kw1">static</span> <span class="kw4">void</span> main<span class="br0">(</span><span class="kw3">String</span><span class="br0">[</span><span class="br0">]</span> args<span class="br0">)</span> <span class="kw1">throws</span> <span class="kw3">Exception</span>
     <span class="br0">{</span>
@@ -385,11 +603,20 @@ Jetty has a slogan, "Don't deploy your application in Jetty, deploy Jetty in you
         server.<span class="me1">start</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
         server.<span class="me1">join</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
     <span class="br0">}</span>
-<span class="br0">}</span></pre></div></div>
-<h2><span id="Setting_a_Web_Application_Context" class="mw-headline">Setting a Web Application Context</span></h2>
-<p>A <a rel="nofollow" href="http://download.eclipse.org/jetty/stable-7/xref/org/eclipse/jetty/webapp/WebAppContext.html" class="external text">Web Applications context</a> is a variation of ServletContextHandler that uses the standard layout and web.xml to configure the servlets, filters and other features:
-</p>
-<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="java source-java"><pre class="de1"><span class="kw1">public</span> <span class="kw1">class</span> OneWebApp
+<span class="br0">}</span></pre>
+                </div>
+              </div>
+              <h2>
+                <span class="mw-headline" id="Setting_a_Web_Application_Context">Setting a Web Application Context</span>
+              </h2>
+              <p>
+                A
+                <a class="external text" href="http://download.eclipse.org/jetty/stable-7/xref/org/eclipse/jetty/webapp/WebAppContext.html" rel="nofollow">Web Applications context</a>
+                is a variation of ServletContextHandler that uses the standard layout and web.xml to configure the servlets, filters and other features:
+              </p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="java source-java">
+                  <pre class="de1" xml:space="preserve"><span class="kw1">public</span> <span class="kw1">class</span> OneWebApp
 <span class="br0">{</span>
     <span class="kw1">public</span> <span class="kw1">static</span> <span class="kw4">void</span> main<span class="br0">(</span><span class="kw3">String</span><span class="br0">[</span><span class="br0">]</span> args<span class="br0">)</span> <span class="kw1">throws</span> <span class="kw3">Exception</span>
     <span class="br0">{</span>
@@ -405,10 +632,13 @@ Jetty has a slogan, "Don't deploy your application in Jetty, deploy Jetty in you
         server.<span class="me1">start</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
         server.<span class="me1">join</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
     <span class="br0">}</span>
-<span class="br0">}</span></pre></div></div>
-<p>If during development, you have not assembled your application into a WAR file, you can run it from its source components with something like:
-</p>
-<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="java source-java"><pre class="de1"><span class="kw1">public</span> <span class="kw1">class</span> OneWebAppUnassembled
+<span class="br0">}</span></pre>
+                </div>
+              </div>
+              <p>If during development, you have not assembled your application into a WAR file, you can run it from its source components with something like:</p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="java source-java">
+                  <pre class="de1" xml:space="preserve"><span class="kw1">public</span> <span class="kw1">class</span> OneWebAppUnassembled
 <span class="br0">{</span>
     <span class="kw1">public</span> <span class="kw1">static</span> <span class="kw4">void</span> main<span class="br0">(</span><span class="kw3">String</span><span class="br0">[</span><span class="br0">]</span> args<span class="br0">)</span> <span class="kw1">throws</span> <span class="kw3">Exception</span>
     <span class="br0">{</span>
@@ -425,11 +655,20 @@ Jetty has a slogan, "Don't deploy your application in Jetty, deploy Jetty in you
         server.<span class="me1">start</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
         server.<span class="me1">join</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
     <span class="br0">}</span>
-<span class="br0">}</span></pre></div></div>
-<h2><span class="mw-headline" id="Configuring_a_Context_Handler_Collection">Configuring a Context Handler Collection</span></h2>
-<p>A <a rel="nofollow" href="http://download.eclipse.org/jetty/stable-7/xref/org/eclipse/jetty/server/handler/ContextHandlerCollection.html" class="external text">Context Handler Collection</a> uses the longest prefix of the request URI (the contextPath) to select a specific context.  The following example combines the previous two examples in a single Jetty server:
-</p>
-<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="java source-java"><pre class="de1"><span class="kw1">public</span> <span class="kw1">class</span> ManyContexts
+<span class="br0">}</span></pre>
+                </div>
+              </div>
+              <h2>
+                <span class="mw-headline" id="Configuring_a_Context_Handler_Collection">Configuring a Context Handler Collection</span>
+              </h2>
+              <p>
+                A
+                <a class="external text" href="http://download.eclipse.org/jetty/stable-7/xref/org/eclipse/jetty/server/handler/ContextHandlerCollection.html" rel="nofollow">Context Handler Collection</a>
+                uses the longest prefix of the request URI (the contextPath) to select a specific context.  The following example combines the previous two examples in a single Jetty server:
+              </p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="java source-java">
+                  <pre class="de1" xml:space="preserve"><span class="kw1">public</span> <span class="kw1">class</span> ManyContexts
 <span class="br0">{</span>
     <span class="kw1">public</span> <span class="kw1">static</span> <span class="kw4">void</span> main<span class="br0">(</span><span class="kw3">String</span><span class="br0">[</span><span class="br0">]</span> args<span class="br0">)</span> <span class="kw1">throws</span> <span class="kw3">Exception</span>
     <span class="br0">{</span>
@@ -453,12 +692,15 @@ Jetty has a slogan, "Don't deploy your application in Jetty, deploy Jetty in you
         server.<span class="me1">start</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
         server.<span class="me1">join</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
     <span class="br0">}</span>
-<span class="br0">}</span></pre></div></div>
-<h2><span class="mw-headline" id="Embedding_JSP">Embedding JSP</span></h2>
-<p>Embedding JSP support can be a bit confusing if you look at the Jars under the lib/jsp directory in the jetty distribution.  This is because we have to ship from Eclipse with the JSP bundles that are marked up as OSGi bundles, which you cannot directly download from Maven Central.  There are dependencies available in Maven Central that work because they were the actual source for the OSGi bundles themselves.  The OSGi bundles are simply these Maven Central artifacts decomposed into a few extra bundles.
-</p><p>An example of what you can use follows:
-</p>
-<pre>[INFO] org.eclipse.jetty:jetty-jsp-2.1:jar:7.2.2-SNAPSHOT
+<span class="br0">}</span></pre>
+                </div>
+              </div>
+              <h2>
+                <span class="mw-headline" id="Embedding_JSP">Embedding JSP</span>
+              </h2>
+              <p>Embedding JSP support can be a bit confusing if you look at the Jars under the lib/jsp directory in the jetty distribution.  This is because we have to ship from Eclipse with the JSP bundles that are marked up as OSGi bundles, which you cannot directly download from Maven Central.  There are dependencies available in Maven Central that work because they were the actual source for the OSGi bundles themselves.  The OSGi bundles are simply these Maven Central artifacts decomposed into a few extra bundles.</p>
+              <p>An example of what you can use follows:</p>
+              <pre xml:space="preserve">[INFO] org.eclipse.jetty:jetty-jsp-2.1:jar:7.2.2-SNAPSHOT
 [INFO] +- org.eclipse.jetty:jetty-util:jar:7.2.2-SNAPSHOT:provided
 [INFO] +- org.mortbay.jetty:jsp-2.1-glassfish:jar:2.1.v20100127:provided
 [INFO] |  +- org.eclipse.jdt.core.compiler:ecj:jar:3.5.1:provided
@@ -466,16 +708,14 @@ Jetty has a slogan, "Don't deploy your application in Jetty, deploy Jetty in you
 [INFO] |  \- ant:ant:jar:1.6.5:provided
 [INFO] \- javax.servlet:servlet-api:jar:2.5:provided
 </pre>
-<p>You should be able to depend on one of the embedding aggregates that we provide to get these dependencies without too much trouble.  
-</p><p><a href="http://repo2.maven.org/maven2/org/eclipse/jetty/aggregate" rel="nofollow" class="external free">http://repo2.maven.org/maven2/org/eclipse/jetty/aggregate</a>
-</p>
-
-</div>
-
-                    <div id="catlinks" class="catlinks"><div class="mw-normal-catlinks" id="mw-normal-catlinks"><a title="Special:Categories" href="https://wiki.eclipse.org/Special:Categories">Categories</a>: <ul><li><a title="Category:Jetty" href="https://wiki.eclipse.org/Category:Jetty">Jetty</a></li><li><a title="Category:Jetty Tutorial" href="https://wiki.eclipse.org/Category:Jetty_Tutorial">Jetty Tutorial</a></li></ul></div></div>
-                                  </div>
-              </div>
+              <p>You should be able to depend on one of the embedding aggregates that we provide to get these dependencies without too much trouble.</p>
+              <p>
+                <a class="external free" href="http://repo2.maven.org/maven2/org/eclipse/jetty/aggregate" rel="nofollow">http://repo2.maven.org/maven2/org/eclipse/jetty/aggregate</a>
+              </p>
             </div>
           </div>
-</body>
+        </div>
+      </div>
+    </div>
+  </body>
 </html>

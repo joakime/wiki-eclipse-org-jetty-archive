@@ -1,69 +1,141 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
-<head>
+  <head>
     <title>Jetty WTP Plugin</title>
-    <link rel="stylesheet" media="screen, print" href="wiki-style.css"/>
-</head>
-<body>
-<div id="mainContent" class="col-md-20">
-                      <ul class="nav nav-tabs noprint hidden-print" role="tablist">
-                       <li class="active" id="ca-nstab-main"><a accesskey="c" title="View the content page [c]" tabindex="-1" href="jetty-monitor.html">Page</a></li>
-                        <li id="ca-talk" class="new"><a tabindex="-1" title="Discussion about the content page [t]" accesskey="t" href="edit">Discussion</a></li>
-                        <li id="ca-viewsource"><a tabindex="-1" title="This page is protected.&#10;You can view its source [e]" accesskey="e" href="edit">View source</a></li>
-                        <li id="ca-history" class="collapsible"><a tabindex="-1" title="Past revisions of this page [h]" accesskey="h" href="edit">History</a></li>
-                      </ul>            <div class="tab-content background-white">
-              <div class="tab-pane active" id="tab-pane-main-page-content">
-
-                
-                <h1 id="firstHeading" class="firstHeading page-header">
-                  <span dir="auto">Jetty/Reference/jetty-monitor</span>
-                </h1>
-                <div id="main-page-content">
-
-                  <div class="alert alert-small alert-warning" id="contentSub"><span class="subpages">&lt; <a title="Jetty" href="../../Jetty.html">Jetty</a>‎ | <a href="../Reference.html" title="Jetty/Reference">Reference</a></span></div>
-
-                  
-                  
-                  <div dir="ltr" class="mw-content-ltr" lang="en" id="mw-content-text"><p><br/>
-</p><p><br/>
-</p>
-<div class="toc" id="toc"><div id="toctitle"><h2>Contents</h2></div>
-<ul>
-<li class="toclevel-1"><a href="jetty-monitor.html#Introduction"><span class="tocnumber">1</span> <span class="toctext">Introduction</span></a></li>
-<li class="toclevel-1"><a href="jetty-monitor.html#Enabling_Jetty_Monitor"><span class="tocnumber">2</span> <span class="toctext">Enabling Jetty Monitor</span></a>
-<ul>
-<li class="toclevel-2"><a href="jetty-monitor.html#Configuring_the_In-process_Monitor"><span class="tocnumber">2.1</span> <span class="toctext">Configuring the In-process Monitor</span></a></li>
-<li class="toclevel-2"><a href="jetty-monitor.html#Starting_the_In-process_Monitor"><span class="tocnumber">2.2</span> <span class="toctext">Starting the In-process Monitor</span></a></li>
-<li class="toclevel-2"><a href="jetty-monitor.html#Configuring_the_Standalone_Monitor"><span class="tocnumber">2.3</span> <span class="toctext">Configuring the Standalone Monitor</span></a></li>
-<li class="toclevel-2"><a href="jetty-monitor.html#Starting_Standalone_Application_Monitor"><span class="tocnumber">2.4</span> <span class="toctext">Starting Standalone Application Monitor</span></a></li>
-</ul>
-</li>
-<li class="toclevel-1"><a href="jetty-monitor.html#Thread_Monitor"><span class="tocnumber">3</span> <span class="toctext">Thread Monitor</span></a></li>
-<li class="toclevel-1"><a href="jetty-monitor.html#Additional_Resources"><span class="tocnumber">4</span> <span class="toctext">Additional Resources</span></a></li>
-</ul>
-</div>
-
-<h2><span class="mw-headline" id="Introduction">Introduction</span></h2>
-<p>Jetty-monitor module enables developers and system administrators to monitor Jetty-based servers. 
-</p>
-<ul><li> It can run either inside a Jetty process or as a standalone Java application. </li>
-<li> You can use it to monitor both regular and embedded Jetty servers. </li></ul>
-<p>Jetty-monitor is a consumer of Jetty JMX integration, allowing it to access MBeans that supply statistical and runtime information about Jetty components and web applications, as well as Java Virtual Machine itself. You can configure it to execute actions if trigger condition(s) that you specify in MBean attribute value(s) are satisfied, as well as to call notifier(s) when it executes such actions. Currently, we provide only one action that calls the configured notifiers, and only logging and console output notifiers out of the box, but you can easily add custom actions and notifiers.
-</p><p>Jetty-monitor includes an integration with <a class="external text" href="http://www.java-monitor.com" rel="nofollow">Java-monitor</a> service via a custom action. This integration enables posting the data about the server to a Java-monitor account, and using it to monitor the server remotely, as well as gathering information about server performance and outages.
-</p>
-<h2><span id="Enabling_Jetty_Monitor" class="mw-headline">Enabling Jetty Monitor</span></h2>
-<p>To use the monitor module, the jetty-monitor jar must be on the classpath and the jetty-monitor.xml file should be included as a configuration file. If using <a title="Jetty/Feature/Start.jar" href="../Feature/Start.jar.html">start.jar</a> this can be achieved by adding "monitor" to the OPTIONS either on the command line:
-</p>
-<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="bash source-bash"><pre class="de1">java <span class="re5">-jar</span> start.jar <span class="re2">OPTIONS</span>=monitor etc<span class="sy0">/</span>jetty-monitor.xml</pre></div></div>
-<p>or in start.ini:
-</p>
-<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="text source-text"><pre class="de1">OPTIONS=Server,jsp,jmx,resources,websocket,ext,monitor
-etc/jetty-monitor.xml</pre></div></div>
-<p>Jetty monitor also makes use of jetty-jmx, so it must also be <a href="../Tutorial/JMX.html" title="Jetty/Tutorial/JMX">enabled and configured</a>.
-</p>
-<h3><span id="Configuring_the_In-process_Monitor" class="mw-headline">Configuring the In-process Monitor</span></h3>
-<p>You can configure Jetty-monitor using the standard <tt>jetty.xml</tt> configuration file <a href="jetty.xml syntax.html" title="Jetty/Reference/jetty.xml syntax">syntax</a>. The following is an example of the jetty-monitor configuration file for the in-process monitor. It creates a monitor action (SimpleAction) that executes when the number of idle threads in Jetty's main thread pool is less than or equal to four, or greater than seven. When this action executes, it invokes a console notifier that outputs the message to the console.
-</p>
-<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="xml source-xml"><pre class="de1"><span class="sc3"><span class="re1">&lt;?xml</span> <span class="re0">version</span>=<span class="st0">"1.0"</span> <span class="re0">encoding</span>=<span class="st0">"UTF-8"</span><span class="re2">?&gt;</span></span>
+    <link href="wiki-style.css" media="screen, print" rel="stylesheet" />
+  </head>
+  <body>
+    <div class="col-md-20" id="mainContent">
+      <div class="tab-content background-white">
+        <div class="tab-pane active" id="tab-pane-main-page-content">
+          <h1 class="firstHeading page-header" id="firstHeading">
+            <span dir="auto">Jetty/Reference/jetty-monitor</span>
+          </h1>
+          <div id="main-page-content">
+            <div class="alert alert-small alert-warning" id="contentSub">
+              <span class="subpages">
+                &lt;
+                <a href="../../Jetty.html" title="Jetty">Jetty</a>
+                 |
+                <a href="../Reference.html" title="Jetty/Reference">Reference</a>
+              </span>
+            </div>
+            <div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="en">
+              <p>
+                <br />
+              </p>
+              <p>
+                <br />
+              </p>
+              <div class="toc" id="toc">
+                <div id="toctitle">
+                  <h2>Contents</h2>
+                </div>
+                <ul>
+                  <li class="toclevel-1">
+                    <a href="jetty-monitor.html#Introduction">
+                      <span class="tocnumber">1</span>
+                      <span class="toctext">Introduction</span>
+                    </a>
+                  </li>
+                  <li class="toclevel-1">
+                    <a href="jetty-monitor.html#Enabling_Jetty_Monitor">
+                      <span class="tocnumber">2</span>
+                      <span class="toctext">Enabling Jetty Monitor</span>
+                    </a>
+                    <ul>
+                      <li class="toclevel-2">
+                        <a href="jetty-monitor.html#Configuring_the_In-process_Monitor">
+                          <span class="tocnumber">2.1</span>
+                          <span class="toctext">Configuring the In-process Monitor</span>
+                        </a>
+                      </li>
+                      <li class="toclevel-2">
+                        <a href="jetty-monitor.html#Starting_the_In-process_Monitor">
+                          <span class="tocnumber">2.2</span>
+                          <span class="toctext">Starting the In-process Monitor</span>
+                        </a>
+                      </li>
+                      <li class="toclevel-2">
+                        <a href="jetty-monitor.html#Configuring_the_Standalone_Monitor">
+                          <span class="tocnumber">2.3</span>
+                          <span class="toctext">Configuring the Standalone Monitor</span>
+                        </a>
+                      </li>
+                      <li class="toclevel-2">
+                        <a href="jetty-monitor.html#Starting_Standalone_Application_Monitor">
+                          <span class="tocnumber">2.4</span>
+                          <span class="toctext">Starting Standalone Application Monitor</span>
+                        </a>
+                      </li>
+                    </ul>
+                  </li>
+                  <li class="toclevel-1">
+                    <a href="jetty-monitor.html#Thread_Monitor">
+                      <span class="tocnumber">3</span>
+                      <span class="toctext">Thread Monitor</span>
+                    </a>
+                  </li>
+                  <li class="toclevel-1">
+                    <a href="jetty-monitor.html#Additional_Resources">
+                      <span class="tocnumber">4</span>
+                      <span class="toctext">Additional Resources</span>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+              <h2>
+                <span class="mw-headline" id="Introduction">Introduction</span>
+              </h2>
+              <p>Jetty-monitor module enables developers and system administrators to monitor Jetty-based servers.</p>
+              <ul>
+                <li>It can run either inside a Jetty process or as a standalone Java application.</li>
+                <li>You can use it to monitor both regular and embedded Jetty servers.</li>
+              </ul>
+              <p>Jetty-monitor is a consumer of Jetty JMX integration, allowing it to access MBeans that supply statistical and runtime information about Jetty components and web applications, as well as Java Virtual Machine itself. You can configure it to execute actions if trigger condition(s) that you specify in MBean attribute value(s) are satisfied, as well as to call notifier(s) when it executes such actions. Currently, we provide only one action that calls the configured notifiers, and only logging and console output notifiers out of the box, but you can easily add custom actions and notifiers.</p>
+              <p>
+                Jetty-monitor includes an integration with
+                <a class="external text" href="http://www.java-monitor.com" rel="nofollow">Java-monitor</a>
+                service via a custom action. This integration enables posting the data about the server to a Java-monitor account, and using it to monitor the server remotely, as well as gathering information about server performance and outages.
+              </p>
+              <h2>
+                <span class="mw-headline" id="Enabling_Jetty_Monitor">Enabling Jetty Monitor</span>
+              </h2>
+              <p>
+                To use the monitor module, the jetty-monitor jar must be on the classpath and the jetty-monitor.xml file should be included as a configuration file. If using
+                <a href="../Feature/Start.jar.html" title="Jetty/Feature/Start.jar">start.jar</a>
+                this can be achieved by adding "monitor" to the OPTIONS either on the command line:
+              </p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="bash source-bash">
+                  <pre class="de1" xml:space="preserve">java <span class="re5">-jar</span> start.jar <span class="re2">OPTIONS</span>=monitor etc<span class="sy0">/</span>jetty-monitor.xml</pre>
+                </div>
+              </div>
+              <p>or in start.ini:</p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="text source-text">
+                  <pre class="de1" xml:space="preserve">OPTIONS=Server,jsp,jmx,resources,websocket,ext,monitor
+etc/jetty-monitor.xml</pre>
+                </div>
+              </div>
+              <p>
+                Jetty monitor also makes use of jetty-jmx, so it must also be
+                <a href="../Tutorial/JMX.html" title="Jetty/Tutorial/JMX">enabled and configured</a>
+                .
+              </p>
+              <h3>
+                <span class="mw-headline" id="Configuring_the_In-process_Monitor">Configuring the In-process Monitor</span>
+              </h3>
+              <p>
+                You can configure Jetty-monitor using the standard
+                <tt>jetty.xml</tt>
+                configuration file
+                <a href="jetty.xml syntax.html" title="Jetty/Reference/jetty.xml syntax">syntax</a>
+                . The following is an example of the jetty-monitor configuration file for the in-process monitor. It creates a monitor action (SimpleAction) that executes when the number of idle threads in Jetty's main thread pool is less than or equal to four, or greater than seven. When this action executes, it invokes a console notifier that outputs the message to the console.
+              </p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="xml source-xml">
+                  <pre class="de1" xml:space="preserve"><span class="sc3"><span class="re1">&lt;?xml</span> <span class="re0">version</span>=<span class="st0">"1.0"</span> <span class="re0">encoding</span>=<span class="st0">"UTF-8"</span><span class="re2">?&gt;</span></span>
 <span class="sc0">&lt;!DOCTYPE Configure PUBLIC "-//Jetty//Configure//EN" "http://www.eclipse.org/jetty/configure.dtd"&gt;</span>
  
 <span class="sc3"><span class="re1">&lt;Configure</span> <span class="re0">id</span>=<span class="st0">"Monitor"</span> <span class="re0">class</span>=<span class="st0">"org.mortbay.jetty.monitor.JMXMonitor"</span><span class="re2">&gt;</span></span>
@@ -109,15 +181,29 @@ etc/jetty-monitor.xml</pre></div></div>
       <span class="sc3"><span class="re1">&lt;/Array<span class="re2">&gt;</span></span></span>
     <span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
   <span class="sc3"><span class="re1">&lt;/Call<span class="re2">&gt;</span></span></span>
-<span class="sc3"><span class="re1">&lt;/Configure<span class="re2">&gt;</span></span></span></pre></div></div>
-<h3><span id="Starting_the_In-process_Monitor" class="mw-headline">Starting the In-process Monitor</span></h3>
-<p>To use jetty-monitor inside the Jetty server process, add it to the server classpath by copying it into <code>{jetty.home}/lib/ext</code> directory. To enable jetty-monitor for your server, you can either specify the jetty-monitor configuration file on the command line as follows, or add the name of this file to the end of the start.ini configuration file.
-</p>
-<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="bash source-bash"><pre class="de1">java <span class="re5">-jar</span> start.jar <span class="sy0">&lt;</span>mymonitor.xml<span class="sy0">&gt;</span></pre></div></div>
-<h3><span class="mw-headline" id="Configuring_the_Standalone_Monitor">Configuring the Standalone Monitor</span></h3>
-<p>The configuration file for the standalone jetty-monitor uses the same format as the in-process monitor does. For jetty-monitor to be able to connect to the Jetty server you want it to monitor, the configuration file must specify the URL for the remote JMX connector as follows:
-</p>
-<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="xml source-xml"><pre class="de1"><span class="sc3"><span class="re1">&lt;?xml</span> <span class="re0">version</span>=<span class="st0">"1.0"</span> <span class="re0">encoding</span>=<span class="st0">"UTF-8"</span><span class="re2">?&gt;</span></span>
+<span class="sc3"><span class="re1">&lt;/Configure<span class="re2">&gt;</span></span></span></pre>
+                </div>
+              </div>
+              <h3>
+                <span class="mw-headline" id="Starting_the_In-process_Monitor">Starting the In-process Monitor</span>
+              </h3>
+              <p>
+                To use jetty-monitor inside the Jetty server process, add it to the server classpath by copying it into
+                <code>{jetty.home}/lib/ext</code>
+                directory. To enable jetty-monitor for your server, you can either specify the jetty-monitor configuration file on the command line as follows, or add the name of this file to the end of the start.ini configuration file.
+              </p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="bash source-bash">
+                  <pre class="de1" xml:space="preserve">java <span class="re5">-jar</span> start.jar <span class="sy0">&lt;</span>mymonitor.xml<span class="sy0">&gt;</span></pre>
+                </div>
+              </div>
+              <h3>
+                <span class="mw-headline" id="Configuring_the_Standalone_Monitor">Configuring the Standalone Monitor</span>
+              </h3>
+              <p>The configuration file for the standalone jetty-monitor uses the same format as the in-process monitor does. For jetty-monitor to be able to connect to the Jetty server you want it to monitor, the configuration file must specify the URL for the remote JMX connector as follows:</p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="xml source-xml">
+                  <pre class="de1" xml:space="preserve"><span class="sc3"><span class="re1">&lt;?xml</span> <span class="re0">version</span>=<span class="st0">"1.0"</span> <span class="re0">encoding</span>=<span class="st0">"UTF-8"</span><span class="re2">?&gt;</span></span>
 <span class="sc0">&lt;!DOCTYPE Configure PUBLIC "-//Jetty//Configure//EN" "http://www.eclipse.org/jetty/configure.dtd"&gt;</span>
  
 <span class="sc3"><span class="re1">&lt;Configure</span> <span class="re0">id</span>=<span class="st0">"Monitor"</span> <span class="re0">class</span>=<span class="st0">"org.mortbay.jetty.monitor.JMXMonitor"</span><span class="re2">&gt;</span></span>
@@ -125,17 +211,29 @@ etc/jetty-monitor.xml</pre></div></div>
     <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>service:jmx:rmi://localhost/jndi/rmi://localhost:1099/jettyjmx<span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
   <span class="sc3"><span class="re1">&lt;/Call<span class="re2">&gt;</span></span></span>
   ...
-<span class="sc3"><span class="re1">&lt;/Configure<span class="re2">&gt;</span></span></span></pre></div></div>
-<h3><span class="mw-headline" id="Starting_Standalone_Application_Monitor">Starting Standalone Application Monitor</span></h3>
-<p>To start jetty-monitor as a standalone application, run the following command from the command line. You must specify
-</p>
-<ul><li> The jetty-monitor configuration file.</li>
-<li> The URL for the remote connector.</li></ul>
-<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="bash source-bash"><pre class="de1">java <span class="re5">-cp</span> jetty-all-server-<span class="br0">[</span>version<span class="br0">]</span>.jar <span class="re5">-jar</span> jetty-monitor-<span class="br0">[</span>version<span class="br0">]</span>.jar org.eclipse.jetty.monitor.JMXMonitor <span class="sy0">&lt;</span>monitor.xml<span class="sy0">&gt;</span></pre></div></div>
-<h2><span id="Thread_Monitor" class="mw-headline">Thread Monitor</span></h2>
-<p>The jetty-monitor package also provides the org.eclipse.jetty.monitor.ThreadMonitor class, which can monitor threads for excessive CPU usage and spinning in situ.   The default jetty-monitor.xml file is normally setup to contain a ThreadMonitor like:
-</p>
-<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="xml source-xml"><pre class="de1"><span class="sc3"><span class="re1">&lt;?xml</span> <span class="re0">version</span>=<span class="st0">"1.0"</span><span class="re2">?&gt;</span></span>
+<span class="sc3"><span class="re1">&lt;/Configure<span class="re2">&gt;</span></span></span></pre>
+                </div>
+              </div>
+              <h3>
+                <span class="mw-headline" id="Starting_Standalone_Application_Monitor">Starting Standalone Application Monitor</span>
+              </h3>
+              <p>To start jetty-monitor as a standalone application, run the following command from the command line. You must specify</p>
+              <ul>
+                <li>The jetty-monitor configuration file.</li>
+                <li>The URL for the remote connector.</li>
+              </ul>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="bash source-bash">
+                  <pre class="de1" xml:space="preserve">java <span class="re5">-cp</span> jetty-all-server-<span class="br0">[</span>version<span class="br0">]</span>.jar <span class="re5">-jar</span> jetty-monitor-<span class="br0">[</span>version<span class="br0">]</span>.jar org.eclipse.jetty.monitor.JMXMonitor <span class="sy0">&lt;</span>monitor.xml<span class="sy0">&gt;</span></pre>
+                </div>
+              </div>
+              <h2>
+                <span class="mw-headline" id="Thread_Monitor">Thread Monitor</span>
+              </h2>
+              <p>The jetty-monitor package also provides the org.eclipse.jetty.monitor.ThreadMonitor class, which can monitor threads for excessive CPU usage and spinning in situ.   The default jetty-monitor.xml file is normally setup to contain a ThreadMonitor like:</p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="xml source-xml">
+                  <pre class="de1" xml:space="preserve"><span class="sc3"><span class="re1">&lt;?xml</span> <span class="re0">version</span>=<span class="st0">"1.0"</span><span class="re2">?&gt;</span></span>
 <span class="sc0">&lt;!DOCTYPE Configure PUBLIC "-//Jetty//Configure//EN" "http://www.eclipse.org/jetty/configure.dtd"&gt;</span>
 <span class="sc3"><span class="re1">&lt;Configure</span> <span class="re0">id</span>=<span class="st0">"Server"</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.server.Server"</span><span class="re2">&gt;</span></span>
   <span class="sc-1">&lt;!-- Create Thread Monitor, and add to the Server as a lifecycle --&gt;</span>
@@ -158,18 +256,26 @@ etc/jetty-monitor.xml</pre></div></div>
       <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span>
     <span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
   <span class="sc3"><span class="re1">&lt;/Call<span class="re2">&gt;</span></span></span>
-<span class="sc3"><span class="re1">&lt;/Configure<span class="re2">&gt;</span></span></span></pre></div></div>
-<h2><span id="Additional_Resources" class="mw-headline">Additional Resources</span></h2>
-<p>See <a title="Jetty/Tutorial/JMX" href="../Tutorial/JMX.html">Jetty JMX tutorial</a> for instructions on how to configure Jetty JMX integration.
-</p><p>See jetty.xml <a href="jetty.xml syntax.html" title="Jetty/Reference/jetty.xml syntax">syntax reference</a>  for more information on configuration file syntax.
-</p>
-
-</div>
-
-                    <div class="catlinks" id="catlinks"><div class="mw-normal-catlinks" id="mw-normal-catlinks"><a href="https://wiki.eclipse.org/Special:Categories" title="Special:Categories">Categories</a>: <ul><li><a href="https://wiki.eclipse.org/Category:Jetty" title="Category:Jetty">Jetty</a></li><li><a title="Category:Jetty Reference" href="https://wiki.eclipse.org/Category:Jetty_Reference">Jetty Reference</a></li></ul></div></div>
-                                  </div>
+<span class="sc3"><span class="re1">&lt;/Configure<span class="re2">&gt;</span></span></span></pre>
+                </div>
               </div>
+              <h2>
+                <span class="mw-headline" id="Additional_Resources">Additional Resources</span>
+              </h2>
+              <p>
+                See
+                <a href="../Tutorial/JMX.html" title="Jetty/Tutorial/JMX">Jetty JMX tutorial</a>
+                for instructions on how to configure Jetty JMX integration.
+              </p>
+              <p>
+                See jetty.xml
+                <a href="jetty.xml syntax.html" title="Jetty/Reference/jetty.xml syntax">syntax reference</a>
+                for more information on configuration file syntax.
+              </p>
             </div>
           </div>
-</body>
+        </div>
+      </div>
+    </div>
+  </body>
 </html>

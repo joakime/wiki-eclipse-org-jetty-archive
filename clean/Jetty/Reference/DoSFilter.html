@@ -1,124 +1,186 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
-<head>
+  <head>
     <title>Jetty WTP Plugin</title>
-    <link rel="stylesheet" media="screen, print" href="wiki-style.css"/>
-</head>
-<body>
-<div class="col-md-20" id="mainContent">
-                      <ul class="nav nav-tabs noprint hidden-print" role="tablist">
-                       <li id="ca-nstab-main" class="active"><a href="DoSFilter.html" accesskey="c" tabindex="-1" title="View the content page [c]">Page</a></li>
-                        <li class="new" id="ca-talk"><a tabindex="-1" title="Discussion about the content page [t]" href="edit" accesskey="t">Discussion</a></li>
-                        <li id="ca-viewsource"><a href="edit" accesskey="e" title="This page is protected.&#10;You can view its source [e]" tabindex="-1">View source</a></li>
-                        <li id="ca-history" class="collapsible"><a accesskey="h" href="edit" title="Past revisions of this page [h]" tabindex="-1">History</a></li>
-                      </ul>            <div class="tab-content background-white">
-              <div id="tab-pane-main-page-content" class="tab-pane active">
-
-                
-                <h1 class="firstHeading page-header" id="firstHeading">
-                  <span dir="auto">Jetty/Reference/DoSFilter</span>
-                </h1>
-                <div id="main-page-content">
-
-                  <div id="contentSub" class="alert alert-small alert-warning"><span class="subpages">&lt; <a href="../../Jetty.html" title="Jetty">Jetty</a>‎ | <a href="../Reference.html" title="Jetty/Reference">Reference</a></span></div>
-
-                  
-                  
-                  <div id="mw-content-text" class="mw-content-ltr" lang="en" dir="ltr"><p><br/>
-</p><p><br/>
-</p>
-<div id="toc" class="toc"><div id="toctitle"><h2>Contents</h2></div>
-<ul>
-<li class="toclevel-1"><a href="DoSFilter.html#Introduction"><span class="tocnumber">1</span> <span class="toctext">Introduction</span></a></li>
-<li class="toclevel-1"><a href="DoSFilter.html#Using_the_DoS_Filter"><span class="tocnumber">2</span> <span class="toctext">Using the DoS Filter</span></a>
-<ul>
-<li class="toclevel-2"><a href="DoSFilter.html#Required_JARs"><span class="tocnumber">2.1</span> <span class="toctext">Required JARs</span></a></li>
-<li class="toclevel-2"><a href="DoSFilter.html#Sample_Configuration"><span class="tocnumber">2.2</span> <span class="toctext">Sample Configuration</span></a></li>
-<li class="toclevel-2"><a href="DoSFilter.html#Configuring_DoS_Filter_Parameters"><span class="tocnumber">2.3</span> <span class="toctext">Configuring DoS Filter Parameters</span></a></li>
-</ul>
-</li>
-</ul>
-</div>
-
-<h2><span class="mw-headline" id="Introduction">Introduction</span></h2>
-<div style="background-color: #f9f6b7; border: 1px solid #c4c295; color: black; padding: 5px; margin: 1ex 0; min-height: 35px; padding-left: 45px; font-size: 150%; color: white; background-color: #FF8888; padding: 50px" class="messagebox">
-<div style="float: left; margin-left: -40px;"><a href="https://wiki.eclipse.org/File:Warning2.png" class="image"><img height="35" alt="Warning2.png" src="../../images/3/37/Warning2.png" width="35"/></a></div>
-<div>Jetty 7 and Jetty 8 are now EOL (End of Life)<br/>
-<p><br/>
-<br/>
-<br/>
-THIS IS NOT THE DOCUMENTATION YOU ARE LOOKING FOR!!!!!<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-All development and stable releases are being performed with Jetty 9 and Jetty 10.<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-This <b>wiki is now officially out of date</b> and all content has been moved to the <a href="http://www.eclipse.org/jetty/documentation" class="external text" rel="nofollow">Jetty Documentation Hub</a><br/> 
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-</p>
-Direct Link to updated documentation: <a rel="nofollow" href="http://www.eclipse.org/jetty/documentation/current/dos-filter.html" class="external free">http://www.eclipse.org/jetty/documentation/current/dos-filter.html</a></div>
-</div>
-<p><br/>
-The Denial of Service (DoS) filter limits exposure to request flooding, whether malicious, or as a result of a misconfigured client. The DoS filter keeps track of the number of requests from a connection per second. If the requests exceed the limit, Jetty rejects, delays, or throttles the request, and sends a warning message. The filter works on the assumption that the attacker might be written in simple blocking style, so by suspending requests you are hopefully consuming the attacker's resources. The DoS filter is related to the QoS filter, using <a title="Jetty/Feature/Continuations" href="../Feature/Continuations.html#Introduction">Continuations</a> to prioritize requests and avoid thread starvation.
-</p>
-<h2><span class="mw-headline" id="Using_the_DoS_Filter">Using the DoS Filter</span></h2>
-<p>Jetty places throttled requests in a priority queue, giving priority first to authenticated users and users with an HttpSession, then to connections identified by their IP addresses. Connections with no way to identify them have lowest priority. To uniquely identify authenticated users, you should implement the The <a rel="nofollow" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/servlets/DoSFilter.html#extractUserId(javax.servlet.ServletRequest)" class="external text">extractUserId(ServletRequest request)</a> function.
-</p>
-<h3><span class="mw-headline" id="Required_JARs">Required JARs</span></h3>
-<p>To use the DoS Filter, these JAR files must be available in WEB-INF/lib:
-</p>
-<ul><li> $JETTY_HOME/lib/ext/jetty-util.jar</li>
-<li> $JETTY_HOME/lib/ext/jetty-servlets.jar–contains DoSFilter</li></ul>
-<h3><span class="mw-headline" id="Sample_Configuration">Sample Configuration</span></h3>
-<p>Place the configuration in a webapp's web.xml or <a rel="nofollow" href="http://wiki.eclipse.org/Jetty/Reference/jetty-web.xml" class="external text">jetty-web.xml</a>. The default configuration allows 25 requests per connection at a time, servicing more important requests first, and queuing up the rest. This example allow 30 requests at a time:
-</p>
-<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="xml source-xml"><pre class="de1"> <span class="sc3"><span class="re1">&lt;filter<span class="re2">&gt;</span></span></span>
+    <link href="wiki-style.css" media="screen, print" rel="stylesheet" />
+  </head>
+  <body>
+    <div class="col-md-20" id="mainContent">
+      <div class="tab-content background-white">
+        <div class="tab-pane active" id="tab-pane-main-page-content">
+          <h1 class="firstHeading page-header" id="firstHeading">
+            <span dir="auto">Jetty/Reference/DoSFilter</span>
+          </h1>
+          <div id="main-page-content">
+            <div class="alert alert-small alert-warning" id="contentSub">
+              <span class="subpages">
+                &lt;
+                <a href="../../Jetty.html" title="Jetty">Jetty</a>
+                 |
+                <a href="../Reference.html" title="Jetty/Reference">Reference</a>
+              </span>
+            </div>
+            <div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="en">
+              <p>
+                <br />
+              </p>
+              <p>
+                <br />
+              </p>
+              <div class="toc" id="toc">
+                <div id="toctitle">
+                  <h2>Contents</h2>
+                </div>
+                <ul>
+                  <li class="toclevel-1">
+                    <a href="DoSFilter.html#Introduction">
+                      <span class="tocnumber">1</span>
+                      <span class="toctext">Introduction</span>
+                    </a>
+                  </li>
+                  <li class="toclevel-1">
+                    <a href="DoSFilter.html#Using_the_DoS_Filter">
+                      <span class="tocnumber">2</span>
+                      <span class="toctext">Using the DoS Filter</span>
+                    </a>
+                    <ul>
+                      <li class="toclevel-2">
+                        <a href="DoSFilter.html#Required_JARs">
+                          <span class="tocnumber">2.1</span>
+                          <span class="toctext">Required JARs</span>
+                        </a>
+                      </li>
+                      <li class="toclevel-2">
+                        <a href="DoSFilter.html#Sample_Configuration">
+                          <span class="tocnumber">2.2</span>
+                          <span class="toctext">Sample Configuration</span>
+                        </a>
+                      </li>
+                      <li class="toclevel-2">
+                        <a href="DoSFilter.html#Configuring_DoS_Filter_Parameters">
+                          <span class="tocnumber">2.3</span>
+                          <span class="toctext">Configuring DoS Filter Parameters</span>
+                        </a>
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </div>
+              <h2>
+                <span class="mw-headline" id="Introduction">Introduction</span>
+              </h2>
+              <p>
+                <br />
+                The Denial of Service (DoS) filter limits exposure to request flooding, whether malicious, or as a result of a misconfigured client. The DoS filter keeps track of the number of requests from a connection per second. If the requests exceed the limit, Jetty rejects, delays, or throttles the request, and sends a warning message. The filter works on the assumption that the attacker might be written in simple blocking style, so by suspending requests you are hopefully consuming the attacker's resources. The DoS filter is related to the QoS filter, using
+                <a href="../Feature/Continuations.html#Introduction" title="Jetty/Feature/Continuations">Continuations</a>
+                to prioritize requests and avoid thread starvation.
+              </p>
+              <h2>
+                <span class="mw-headline" id="Using_the_DoS_Filter">Using the DoS Filter</span>
+              </h2>
+              <p>
+                Jetty places throttled requests in a priority queue, giving priority first to authenticated users and users with an HttpSession, then to connections identified by their IP addresses. Connections with no way to identify them have lowest priority. To uniquely identify authenticated users, you should implement the The
+                <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/servlets/DoSFilter.html#extractUserId(javax.servlet.ServletRequest)" rel="nofollow">extractUserId(ServletRequest request)</a>
+                function.
+              </p>
+              <h3>
+                <span class="mw-headline" id="Required_JARs">Required JARs</span>
+              </h3>
+              <p>To use the DoS Filter, these JAR files must be available in WEB-INF/lib:</p>
+              <ul>
+                <li>$JETTY_HOME/lib/ext/jetty-util.jar</li>
+                <li>$JETTY_HOME/lib/ext/jetty-servlets.jar–contains DoSFilter</li>
+              </ul>
+              <h3>
+                <span class="mw-headline" id="Sample_Configuration">Sample Configuration</span>
+              </h3>
+              <p>
+                Place the configuration in a webapp's web.xml or
+                <a class="external text" href="http://wiki.eclipse.org/Jetty/Reference/jetty-web.xml" rel="nofollow">jetty-web.xml</a>
+                . The default configuration allows 25 requests per connection at a time, servicing more important requests first, and queuing up the rest. This example allow 30 requests at a time:
+              </p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="xml source-xml">
+                  <pre class="de1" xml:space="preserve"> <span class="sc3"><span class="re1">&lt;filter<span class="re2">&gt;</span></span></span>
    <span class="sc3"><span class="re1">&lt;filter-name<span class="re2">&gt;</span></span></span>DoSFilter<span class="sc3"><span class="re1">&lt;/filter-name<span class="re2">&gt;</span></span></span>
    <span class="sc3"><span class="re1">&lt;filter-class<span class="re2">&gt;</span></span></span>org.eclipse.jetty.servlets.DoSFilter<span class="sc3"><span class="re1">&lt;/filter-class<span class="re2">&gt;</span></span></span>
    <span class="sc3"><span class="re1">&lt;init-param<span class="re2">&gt;</span></span></span>
      <span class="sc3"><span class="re1">&lt;param-name<span class="re2">&gt;</span></span></span>maxRequestsPerSec<span class="sc3"><span class="re1">&lt;/param-name<span class="re2">&gt;</span></span></span>
      <span class="sc3"><span class="re1">&lt;param-value<span class="re2">&gt;</span></span></span>30<span class="sc3"><span class="re1">&lt;/param-value<span class="re2">&gt;</span></span></span>
    <span class="sc3"><span class="re1">&lt;/init-param<span class="re2">&gt;</span></span></span>
- <span class="sc3"><span class="re1">&lt;/filter<span class="re2">&gt;</span></span></span></pre></div></div>
-<h3><span id="Configuring_DoS_Filter_Parameters" class="mw-headline">Configuring DoS Filter Parameters</span></h3>
-<p>The following init parameters control the behavior of the filter:
-</p>
-<ul><li> <tt>maxRequestsPerSec</tt>–Maximum number of requests from a connection per second. Requests in excess of this are first delayed, then throttled. Default is 25.</li>
-<li> <tt>delayMs</tt>–Delay imposed on all requests over the rate limit, before they are considered at all: 
-<ul><li> 100 (ms) = Default</li>
-<li> -1 = Reject request</li>
-<li> 0 = No delay</li>
-<li> any other value = Delay in ms</li></ul></li>
-<li> <tt>maxWaitMs</tt>–Length of time, in ms, to blocking wait for the throttle <a rel="nofollow" href="http://download.oracle.com/javase/1.5.0/docs/api/java/util/concurrent/Semaphore.html" class="external text">semaphore</a>. Default is 50 ms.</li>
-<li> <tt>throttledRequests</tt>–Number of requests over the rate limit able to be considered at once. Default is 5.</li>
-<li> <tt>throttleMs</tt>–Length of time, in ms, to async wait for <a href="http://download.oracle.com/javase/1.5.0/docs/api/java/util/concurrent/Semaphore.html" class="external text" rel="nofollow">semaphore</a>. Default is 30000L.</li>
-<li> <tt>maxRequestMs</tt>–Length of time, in ms, to allow the request to run. Default is 30000L.</li>
-<li> <tt>maxIdleTrackerMs</tt>–Length of time, in ms, to keep track of request rates for a connection, before deciding that the user has gone away, and discarding it. Default is 30000L.</li>
-<li> <tt>insertHeaders</tt>–If true, insert the DoSFilter headers into the response. Defaults to true.</li>
-<li> <tt>trackSessions</tt>–If true, usage rate is tracked by session if a session exists. Defaults to true.</li>
-<li> <tt>remotePort</tt>–If true and session tracking is not used, then rate is tracked by IP+port (effectively connection). Defaults to false.</li>
-<li> <tt>ipWhitelist</tt>–A comma-separated list of IP addresses that will not be rate limited.</li>
-<li> <tt>managedAttr</tt>–If set to true, then this servlet is set as a <a href="http://download.oracle.com/javaee/5/api/javax/servlet/ServletContext.html" class="external text" rel="nofollow">ServletContext</a> attribute with the filter name as the attribute name. This allows a context external mechanism (for example,  JMX via ContextHandler.MANAGED_ATTRIBUTES) to manage the configuration of the filter.</li></ul>
-
-
-</div>
-
-                    <div class="catlinks" id="catlinks"><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a title="Special:Categories" href="https://wiki.eclipse.org/Special:Categories">Categories</a>: <ul><li><a title="Category:Jetty" href="https://wiki.eclipse.org/Category:Jetty">Jetty</a></li><li><a href="https://wiki.eclipse.org/Category:Jetty_Reference" title="Category:Jetty Reference">Jetty Reference</a></li></ul></div></div>
-                                  </div>
+ <span class="sc3"><span class="re1">&lt;/filter<span class="re2">&gt;</span></span></span></pre>
+                </div>
               </div>
+              <h3>
+                <span class="mw-headline" id="Configuring_DoS_Filter_Parameters">Configuring DoS Filter Parameters</span>
+              </h3>
+              <p>The following init parameters control the behavior of the filter:</p>
+              <ul>
+                <li>
+                  <tt>maxRequestsPerSec</tt>
+                  –Maximum number of requests from a connection per second. Requests in excess of this are first delayed, then throttled. Default is 25.
+                </li>
+                <li>
+                  <tt>delayMs</tt>
+                  –Delay imposed on all requests over the rate limit, before they are considered at all:
+                  <ul>
+                    <li>100 (ms) = Default</li>
+                    <li>-1 = Reject request</li>
+                    <li>0 = No delay</li>
+                    <li>any other value = Delay in ms</li>
+                  </ul>
+                </li>
+                <li>
+                  <tt>maxWaitMs</tt>
+                  –Length of time, in ms, to blocking wait for the throttle
+                  <a class="external text" href="http://download.oracle.com/javase/1.5.0/docs/api/java/util/concurrent/Semaphore.html" rel="nofollow">semaphore</a>
+                  . Default is 50 ms.
+                </li>
+                <li>
+                  <tt>throttledRequests</tt>
+                  –Number of requests over the rate limit able to be considered at once. Default is 5.
+                </li>
+                <li>
+                  <tt>throttleMs</tt>
+                  –Length of time, in ms, to async wait for
+                  <a class="external text" href="http://download.oracle.com/javase/1.5.0/docs/api/java/util/concurrent/Semaphore.html" rel="nofollow">semaphore</a>
+                  . Default is 30000L.
+                </li>
+                <li>
+                  <tt>maxRequestMs</tt>
+                  –Length of time, in ms, to allow the request to run. Default is 30000L.
+                </li>
+                <li>
+                  <tt>maxIdleTrackerMs</tt>
+                  –Length of time, in ms, to keep track of request rates for a connection, before deciding that the user has gone away, and discarding it. Default is 30000L.
+                </li>
+                <li>
+                  <tt>insertHeaders</tt>
+                  –If true, insert the DoSFilter headers into the response. Defaults to true.
+                </li>
+                <li>
+                  <tt>trackSessions</tt>
+                  –If true, usage rate is tracked by session if a session exists. Defaults to true.
+                </li>
+                <li>
+                  <tt>remotePort</tt>
+                  –If true and session tracking is not used, then rate is tracked by IP+port (effectively connection). Defaults to false.
+                </li>
+                <li>
+                  <tt>ipWhitelist</tt>
+                  –A comma-separated list of IP addresses that will not be rate limited.
+                </li>
+                <li>
+                  <tt>managedAttr</tt>
+                  –If set to true, then this servlet is set as a
+                  <a class="external text" href="http://download.oracle.com/javaee/5/api/javax/servlet/ServletContext.html" rel="nofollow">ServletContext</a>
+                  attribute with the filter name as the attribute name. This allows a context external mechanism (for example,  JMX via ContextHandler.MANAGED_ATTRIBUTES) to manage the configuration of the filter.
+                </li>
+              </ul>
             </div>
           </div>
-</body>
+        </div>
+      </div>
+    </div>
+  </body>
 </html>

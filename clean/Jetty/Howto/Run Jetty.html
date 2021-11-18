@@ -1,143 +1,238 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
-<head>
+  <head>
     <title>Jetty WTP Plugin</title>
-    <link rel="stylesheet" media="screen, print" href="wiki-style.css"/>
-</head>
-<body>
-<div id="mainContent" class="col-md-20">
-                                 <div class="tab-content background-white">
-              <div id="tab-pane-main-page-content" class="tab-pane active">
-
-                
-                <h1 class="firstHeading page-header" id="firstHeading">
-                  <span dir="auto">Jetty/Howto/Run Jetty</span>
-                </h1>
-                <div id="main-page-content">
-
-                  <div id="contentSub" class="alert alert-small alert-warning"><span class="subpages">&lt; <a href="../../Jetty.html" title="Jetty">Jetty</a>‎ | <a title="Jetty/Howto" href="../Howto.html">Howto</a></span></div>
-
-                  
-                  
-                  <div id="mw-content-text" lang="en" class="mw-content-ltr" dir="ltr"><p><br/>
-</p><p><br/>
-</p>
-<div class="toc" id="toc"><div id="toctitle"><h2>Contents</h2></div>
-<ul>
-<li class="toclevel-1"><a href="Run Jetty.html#Introduction"><span class="tocnumber">1</span> <span class="toctext">Introduction</span></a></li>
-<li class="toclevel-1"><a href="Run Jetty.html#Steps"><span class="tocnumber">2</span> <span class="toctext">Steps</span></a>
-<ul>
-<li class="toclevel-2"><a href="Run Jetty.html#Standalone_Startup"><span class="tocnumber">2.1</span> <span class="toctext">Standalone Startup</span></a>
-<ul>
-<li class="toclevel-3"><a href="Run Jetty.html#Using_the_Start.jar"><span class="tocnumber">2.1.1</span> <span class="toctext">Using the Start.jar</span></a></li>
-<li class="toclevel-3"><a href="Run Jetty.html#More_start.jar_examples"><span class="tocnumber">2.1.2</span> <span class="toctext">More start.jar examples</span></a></li>
-</ul>
-</li>
-<li class="toclevel-2"><a href="Run Jetty.html#Alternative_Startup_Techniques"><span class="tocnumber">2.2</span> <span class="toctext">Alternative Startup Techniques</span></a>
-<ul>
-<li class="toclevel-3"><a href="Run Jetty.html#Embedded_Startup"><span class="tocnumber">2.2.1</span> <span class="toctext">Embedded Startup</span></a></li>
-<li class="toclevel-3"><a href="Run Jetty.html#Eclipse_Startup"><span class="tocnumber">2.2.2</span> <span class="toctext">Eclipse Startup</span></a></li>
-<li class="toclevel-3"><a href="Run Jetty.html#Jetty_Maven_Plugin"><span class="tocnumber">2.2.3</span> <span class="toctext">Jetty Maven Plugin</span></a></li>
-<li class="toclevel-3"><a href="Run Jetty.html#Jetty_Ant_Plugin"><span class="tocnumber">2.2.4</span> <span class="toctext">Jetty Ant Plugin</span></a></li>
-<li class="toclevel-3"><a href="Run Jetty.html#Jetty_Runner"><span class="tocnumber">2.2.5</span> <span class="toctext">Jetty Runner</span></a></li>
-<li class="toclevel-3"><a href="Run Jetty.html#JUnit_Startup"><span class="tocnumber">2.2.6</span> <span class="toctext">JUnit Startup</span></a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</div>
-
-<h2><span id="Introduction" class="mw-headline">Introduction</span></h2>
-<div style="background-color: #f9f6b7; border: 1px solid #c4c295; color: black; padding: 5px; margin: 1ex 0; min-height: 35px; padding-left: 45px; font-size: 150%; color: white; background-color: #FF8888; padding: 50px" class="messagebox">
-<div style="float: left; margin-left: -40px;"><a class="image" href="https://wiki.eclipse.org/File:Warning2.png"><img alt="Warning2.png" width="35" src="../../images/3/37/Warning2.png" height="35"/></a></div>
-<div>Jetty 7 and Jetty 8 are now EOL (End of Life)<br/>
-<p><br/>
-<br/>
-<br/>
-THIS IS NOT THE DOCUMENTATION YOU ARE LOOKING FOR!!!!!<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-All development and stable releases are being performed with Jetty 9 and Jetty 10.<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-This <b>wiki is now officially out of date</b> and all content has been moved to the <a href="http://www.eclipse.org/jetty/documentation" class="external text" rel="nofollow">Jetty Documentation Hub</a><br/> 
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-</p>
-Direct Link to updated documentation: <a rel="nofollow" href="http://www.eclipse.org/jetty/documentation/current/quickstart-running-jetty.html" class="external free">http://www.eclipse.org/jetty/documentation/current/quickstart-running-jetty.html</a></div>
-</div>
-<p><br/>
-This howto covers how to start up Jetty as standalone, and links to pages which cover alternative methods of startup.
-</p><p><br/>
-</p>
-<h2><span id="Steps" class="mw-headline">Steps</span></h2>
-<h3><span id="Standalone_Startup" class="mw-headline">Standalone Startup</span></h3>
-<h4><span class="mw-headline" id="Using_the_Start.jar">Using the Start.jar</span></h4>
-<p>The easiest way to start Jetty, is to use the start.jar that comes with the distribution.
-</p>
-<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="bash source-bash"><pre class="de1">java <span class="re5">-jar</span> start.jar</pre></div></div>
-<p>The default options may be specified in the start.ini file, or if that is not present, they are defined in the start.config file that is within the start.jar.
-</p><p>To see the command line options for start.jar and help text for start.jar use:
-</p>
-<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="bash source-bash"><pre class="de1">java <span class="re5">-jar</span> start.jar <span class="re5">--help</span></pre></div></div>
-<p>For a full description of start.jar features see <a href="../Feature/Start.jar.html" title="Jetty/Feature/Start.jar">Jetty Start.jar Feature Guide</a>.
-</p>
-<h4><span class="mw-headline" id="More_start.jar_examples">More start.jar examples</span></h4>
-<p>To run jetty with all options enabled:
-</p>
-<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="bash source-bash"><pre class="de1"> 
-java <span class="re5">-jar</span> start.jar <span class="re2">OPTIONS</span>=All</pre></div></div>
-<p>To run with JSP support (if available)
-</p>
-<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="bash source-bash"><pre class="de1"> 
-java <span class="re5">-jar</span> start.jar <span class="re2">OPTIONS</span>=Server,jsp</pre></div></div>
-<p>To run with JMX support
-</p>
-<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="bash source-bash"><pre class="de1"> 
-java <span class="re5">-jar</span> start.jar <span class="re2">OPTIONS</span>=Server,jmx etc<span class="sy0">/</span>jetty-jmx.xml etc<span class="sy0">/</span>jetty.xml</pre></div></div>
-<p>To run with JSP &amp; JMX support
-</p>
-<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="bash source-bash"><pre class="de1"> 
-java <span class="re5">-jar</span> start.jar <span class="re2">OPTIONS</span>=Server,jsp,jmx etc<span class="sy0">/</span>jetty-jmx.xml etc<span class="sy0">/</span>jetty.xml</pre></div></div>
-<p><br/>
-</p>
-<h3><span class="mw-headline" id="Alternative_Startup_Techniques">Alternative Startup Techniques</span></h3>
-<h4><span id="Embedded_Startup" class="mw-headline">Embedded Startup</span></h4>
-<p>Jetty can be configured and started as an embedded webapp server from within another Java program. See <a href="../Tutorial/Embedding Jetty.html" title="Jetty/Tutorial/Embedding Jetty">Embedding Jetty Tutoral</a> for more details.   Once you have a main that runs Jetty, it is very easy to run this from your IDE, debugger and/or profiler.
-</p>
-<h4><span id="Eclipse_Startup" class="mw-headline">Eclipse Startup</span></h4>
-<p>Jetty can be started up from within Eclipse using a variety of techniques; see <a title="Jetty/Howto/Use Jetty with Eclipse" href="https://wiki.eclipse.org/Jetty/Howto/Use_Jetty_with_Eclipse">How to Use Jetty with Eclipse IDE</a> for details.
-</p>
-<h4><span class="mw-headline" id="Jetty_Maven_Plugin">Jetty Maven Plugin</span></h4>
-<p>You can run jetty directly on your maven webapp project - without even needing to assemble it into a war - see <a title="Jetty/Feature/Jetty Maven Plugin" href="../Feature/Jetty Maven Plugin.html"> The Jetty Maven Plugin</a> for details.
-</p>
-<h4><span id="Jetty_Ant_Plugin" class="mw-headline">Jetty Ant Plugin</span></h4>
-<p>You can run jetty directly on your ant webapp project - see <a title="Jetty/Howto/Use Jetty with Ant" href="Use Jetty with Ant.html">The Jetty Ant Plugin</a> for details.
-</p>
-<h4><span id="Jetty_Runner" class="mw-headline">Jetty Runner</span></h4>
-<p>You can run jetty from a single jar file on one or more webapps and contexts using the <a href="Using Jetty Runner.html" title="Jetty/Howto/Using Jetty Runner">Jetty Runner Jar</a>.
-</p>
-<h4><span id="JUnit_Startup" class="mw-headline">JUnit Startup</span></h4>
-
-
-</div>
-
-                    <div class="catlinks" id="catlinks"><div class="mw-normal-catlinks" id="mw-normal-catlinks"><a title="Special:Categories" href="https://wiki.eclipse.org/Special:Categories">Categories</a>: <ul><li><a href="https://wiki.eclipse.org/Category:Jetty" title="Category:Jetty">Jetty</a></li><li><a href="https://wiki.eclipse.org/Category:Jetty_Howto" title="Category:Jetty Howto">Jetty Howto</a></li></ul></div></div>
-                                  </div>
+    <link href="wiki-style.css" media="screen, print" rel="stylesheet" />
+  </head>
+  <body>
+    <div class="col-md-20" id="mainContent">
+      <div class="tab-content background-white">
+        <div class="tab-pane active" id="tab-pane-main-page-content">
+          <h1 class="firstHeading page-header" id="firstHeading">
+            <span dir="auto">Jetty/Howto/Run Jetty</span>
+          </h1>
+          <div id="main-page-content">
+            <div class="alert alert-small alert-warning" id="contentSub">
+              <span class="subpages">
+                &lt;
+                <a href="../../Jetty.html" title="Jetty">Jetty</a>
+                 |
+                <a href="../Howto.html" title="Jetty/Howto">Howto</a>
+              </span>
+            </div>
+            <div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="en">
+              <p>
+                <br />
+              </p>
+              <p>
+                <br />
+              </p>
+              <div class="toc" id="toc">
+                <div id="toctitle">
+                  <h2>Contents</h2>
+                </div>
+                <ul>
+                  <li class="toclevel-1">
+                    <a href="Run Jetty.html#Introduction">
+                      <span class="tocnumber">1</span>
+                      <span class="toctext">Introduction</span>
+                    </a>
+                  </li>
+                  <li class="toclevel-1">
+                    <a href="Run Jetty.html#Steps">
+                      <span class="tocnumber">2</span>
+                      <span class="toctext">Steps</span>
+                    </a>
+                    <ul>
+                      <li class="toclevel-2">
+                        <a href="Run Jetty.html#Standalone_Startup">
+                          <span class="tocnumber">2.1</span>
+                          <span class="toctext">Standalone Startup</span>
+                        </a>
+                        <ul>
+                          <li class="toclevel-3">
+                            <a href="Run Jetty.html#Using_the_Start.jar">
+                              <span class="tocnumber">2.1.1</span>
+                              <span class="toctext">Using the Start.jar</span>
+                            </a>
+                          </li>
+                          <li class="toclevel-3">
+                            <a href="Run Jetty.html#More_start.jar_examples">
+                              <span class="tocnumber">2.1.2</span>
+                              <span class="toctext">More start.jar examples</span>
+                            </a>
+                          </li>
+                        </ul>
+                      </li>
+                      <li class="toclevel-2">
+                        <a href="Run Jetty.html#Alternative_Startup_Techniques">
+                          <span class="tocnumber">2.2</span>
+                          <span class="toctext">Alternative Startup Techniques</span>
+                        </a>
+                        <ul>
+                          <li class="toclevel-3">
+                            <a href="Run Jetty.html#Embedded_Startup">
+                              <span class="tocnumber">2.2.1</span>
+                              <span class="toctext">Embedded Startup</span>
+                            </a>
+                          </li>
+                          <li class="toclevel-3">
+                            <a href="Run Jetty.html#Eclipse_Startup">
+                              <span class="tocnumber">2.2.2</span>
+                              <span class="toctext">Eclipse Startup</span>
+                            </a>
+                          </li>
+                          <li class="toclevel-3">
+                            <a href="Run Jetty.html#Jetty_Maven_Plugin">
+                              <span class="tocnumber">2.2.3</span>
+                              <span class="toctext">Jetty Maven Plugin</span>
+                            </a>
+                          </li>
+                          <li class="toclevel-3">
+                            <a href="Run Jetty.html#Jetty_Ant_Plugin">
+                              <span class="tocnumber">2.2.4</span>
+                              <span class="toctext">Jetty Ant Plugin</span>
+                            </a>
+                          </li>
+                          <li class="toclevel-3">
+                            <a href="Run Jetty.html#Jetty_Runner">
+                              <span class="tocnumber">2.2.5</span>
+                              <span class="toctext">Jetty Runner</span>
+                            </a>
+                          </li>
+                          <li class="toclevel-3">
+                            <a href="Run Jetty.html#JUnit_Startup">
+                              <span class="tocnumber">2.2.6</span>
+                              <span class="toctext">JUnit Startup</span>
+                            </a>
+                          </li>
+                        </ul>
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
               </div>
+              <h2>
+                <span class="mw-headline" id="Introduction">Introduction</span>
+              </h2>
+              <p>
+                <br />
+                This howto covers how to start up Jetty as standalone, and links to pages which cover alternative methods of startup.
+              </p>
+              <p>
+                <br />
+              </p>
+              <h2>
+                <span class="mw-headline" id="Steps">Steps</span>
+              </h2>
+              <h3>
+                <span class="mw-headline" id="Standalone_Startup">Standalone Startup</span>
+              </h3>
+              <h4>
+                <span class="mw-headline" id="Using_the_Start.jar">Using the Start.jar</span>
+              </h4>
+              <p>The easiest way to start Jetty, is to use the start.jar that comes with the distribution.</p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="bash source-bash">
+                  <pre class="de1" xml:space="preserve">java <span class="re5">-jar</span> start.jar</pre>
+                </div>
+              </div>
+              <p>The default options may be specified in the start.ini file, or if that is not present, they are defined in the start.config file that is within the start.jar.</p>
+              <p>To see the command line options for start.jar and help text for start.jar use:</p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="bash source-bash">
+                  <pre class="de1" xml:space="preserve">java <span class="re5">-jar</span> start.jar <span class="re5">--help</span></pre>
+                </div>
+              </div>
+              <p>
+                For a full description of start.jar features see
+                <a href="../Feature/Start.jar.html" title="Jetty/Feature/Start.jar">Jetty Start.jar Feature Guide</a>
+                .
+              </p>
+              <h4>
+                <span class="mw-headline" id="More_start.jar_examples">More start.jar examples</span>
+              </h4>
+              <p>To run jetty with all options enabled:</p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="bash source-bash">
+                  <pre class="de1" xml:space="preserve"> 
+java <span class="re5">-jar</span> start.jar <span class="re2">OPTIONS</span>=All</pre>
+                </div>
+              </div>
+              <p>To run with JSP support (if available)</p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="bash source-bash">
+                  <pre class="de1" xml:space="preserve"> 
+java <span class="re5">-jar</span> start.jar <span class="re2">OPTIONS</span>=Server,jsp</pre>
+                </div>
+              </div>
+              <p>To run with JMX support</p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="bash source-bash">
+                  <pre class="de1" xml:space="preserve"> 
+java <span class="re5">-jar</span> start.jar <span class="re2">OPTIONS</span>=Server,jmx etc<span class="sy0">/</span>jetty-jmx.xml etc<span class="sy0">/</span>jetty.xml</pre>
+                </div>
+              </div>
+              <p>To run with JSP &amp; JMX support</p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="bash source-bash">
+                  <pre class="de1" xml:space="preserve"> 
+java <span class="re5">-jar</span> start.jar <span class="re2">OPTIONS</span>=Server,jsp,jmx etc<span class="sy0">/</span>jetty-jmx.xml etc<span class="sy0">/</span>jetty.xml</pre>
+                </div>
+              </div>
+              <p>
+                <br />
+              </p>
+              <h3>
+                <span class="mw-headline" id="Alternative_Startup_Techniques">Alternative Startup Techniques</span>
+              </h3>
+              <h4>
+                <span class="mw-headline" id="Embedded_Startup">Embedded Startup</span>
+              </h4>
+              <p>
+                Jetty can be configured and started as an embedded webapp server from within another Java program. See
+                <a href="../Tutorial/Embedding Jetty.html" title="Jetty/Tutorial/Embedding Jetty">Embedding Jetty Tutoral</a>
+                for more details.   Once you have a main that runs Jetty, it is very easy to run this from your IDE, debugger and/or profiler.
+              </p>
+              <h4>
+                <span class="mw-headline" id="Eclipse_Startup">Eclipse Startup</span>
+              </h4>
+              <p>
+                Jetty can be started up from within Eclipse using a variety of techniques; see
+                <a href="https://wiki.eclipse.org/Jetty/Howto/Use_Jetty_with_Eclipse" title="Jetty/Howto/Use Jetty with Eclipse">How to Use Jetty with Eclipse IDE</a>
+                for details.
+              </p>
+              <h4>
+                <span class="mw-headline" id="Jetty_Maven_Plugin">Jetty Maven Plugin</span>
+              </h4>
+              <p>
+                You can run jetty directly on your maven webapp project - without even needing to assemble it into a war - see
+                <a href="../Feature/Jetty Maven Plugin.html" title="Jetty/Feature/Jetty Maven Plugin">The Jetty Maven Plugin</a>
+                for details.
+              </p>
+              <h4>
+                <span class="mw-headline" id="Jetty_Ant_Plugin">Jetty Ant Plugin</span>
+              </h4>
+              <p>
+                You can run jetty directly on your ant webapp project - see
+                <a href="Use Jetty with Ant.html" title="Jetty/Howto/Use Jetty with Ant">The Jetty Ant Plugin</a>
+                for details.
+              </p>
+              <h4>
+                <span class="mw-headline" id="Jetty_Runner">Jetty Runner</span>
+              </h4>
+              <p>
+                You can run jetty from a single jar file on one or more webapps and contexts using the
+                <a href="Using Jetty Runner.html" title="Jetty/Howto/Using Jetty Runner">Jetty Runner Jar</a>
+                .
+              </p>
+              <h4>
+                <span class="mw-headline" id="JUnit_Startup">JUnit Startup</span>
+              </h4>
             </div>
           </div>
-</body>
+        </div>
+      </div>
+    </div>
+  </body>
 </html>

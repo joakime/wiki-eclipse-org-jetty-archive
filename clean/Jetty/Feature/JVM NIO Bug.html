@@ -1,84 +1,167 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
-<head>
+  <head>
     <title>Jetty WTP Plugin</title>
-    <link rel="stylesheet" media="screen, print" href="wiki-style.css"/>
-</head>
-<body>
-<div class="col-md-20" id="mainContent">
-                             <div class="tab-content background-white">
-              <div class="tab-pane active" id="tab-pane-main-page-content">
-
-                
-                <h1 class="firstHeading page-header" id="firstHeading">
-                  <span dir="auto">Jetty/Feature/JVM NIO Bug</span>
-                </h1>
-                <div id="main-page-content">
-
-                  <div id="contentSub" class="alert alert-small alert-warning"><span class="subpages">&lt; <a title="Jetty" href="../../Jetty.html">Jetty</a>‎ | <a title="Jetty/Feature" href="../Feature.html">Feature</a></span></div>
-
-                  
-                  
-                  <div lang="en" class="mw-content-ltr" dir="ltr" id="mw-content-text"><p><br/>
-</p><p><br/>
-</p>
-<div id="toc" class="toc"><div id="toctitle"><h2>Contents</h2></div>
-<ul>
-<li class="toclevel-1"><a href="JVM NIO Bug.html#Introduction"><span class="tocnumber">1</span> <span class="toctext">Introduction</span></a></li>
-<li class="toclevel-1"><a href="JVM NIO Bug.html#Feature"><span class="tocnumber">2</span> <span class="toctext">Feature</span></a></li>
-<li class="toclevel-1"><a href="JVM NIO Bug.html#Triggering_Work_Arounds"><span class="tocnumber">3</span> <span class="toctext">Triggering Work Arounds</span></a></li>
-<li class="toclevel-1"><a href="JVM NIO Bug.html#Cancelling_Keys"><span class="tocnumber">4</span> <span class="toctext">Cancelling Keys</span></a></li>
-<li class="toclevel-1"><a href="JVM NIO Bug.html#Recreating_Selector"><span class="tocnumber">5</span> <span class="toctext">Recreating Selector</span></a></li>
-<li class="toclevel-1"><a href="JVM NIO Bug.html#Injecting_Delay"><span class="tocnumber">6</span> <span class="toctext">Injecting Delay</span></a></li>
-<li class="toclevel-1"><a href="JVM NIO Bug.html#Busy_key"><span class="tocnumber">7</span> <span class="toctext">Busy key</span></a></li>
-<li class="toclevel-1"><a href="JVM NIO Bug.html#Busy_selector"><span class="tocnumber">8</span> <span class="toctext">Busy selector</span></a></li>
-</ul>
-</div>
-
-<h2><span id="Introduction" class="mw-headline">Introduction</span></h2>
-<div style="background-color: #f9f6b7; border: 1px solid #c4c295; color: black; padding: 5px; margin: 1ex 0; min-height: 35px; padding-left: 45px;" class="messagebox">
-<div style="float: left; margin-left: -40px;"><a href="https://wiki.eclipse.org/File:Warning2.png" class="image"><img width="35" height="35" alt="Warning2.png" src="../../images/3/37/Warning2.png"/></a></div>
-<div>Support for this feature has been dropped with Jetty 9.<br/>If you feel this should be brought back please file a bug. </div>
-</div>
-<p><br/>
-The Sun JVM contains several NIO bugs that appear to mostly affect Linux servers:
-</p>
-<ul><li> <a href="http://bugs.sun.com/bugdatabase/view_bug.do?bug_id=6403933" class="external text" rel="nofollow">6403933</a></li>
-<li> <a rel="nofollow" href="http://bugs.sun.com/view_bug.do?bug_id=6693490" class="external text">6693490</a></li></ul>
-<p>Java 7 should fix these bugs. In the meantime, Jetty includes several work arounds that deal with these problems. When Jetty employs these work arounds, you see messages in your logs like the following:
-</p>
-<pre>  JVM BUG(s) - cancelled keys 16 times
+    <link href="wiki-style.css" media="screen, print" rel="stylesheet" />
+  </head>
+  <body>
+    <div class="col-md-20" id="mainContent">
+      <div class="tab-content background-white">
+        <div class="tab-pane active" id="tab-pane-main-page-content">
+          <h1 class="firstHeading page-header" id="firstHeading">
+            <span dir="auto">Jetty/Feature/JVM NIO Bug</span>
+          </h1>
+          <div id="main-page-content">
+            <div class="alert alert-small alert-warning" id="contentSub">
+              <span class="subpages">
+                &lt;
+                <a href="../../Jetty.html" title="Jetty">Jetty</a>
+                 |
+                <a href="../Feature.html" title="Jetty/Feature">Feature</a>
+              </span>
+            </div>
+            <div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="en">
+              <p>
+                <br />
+              </p>
+              <p>
+                <br />
+              </p>
+              <div class="toc" id="toc">
+                <div id="toctitle">
+                  <h2>Contents</h2>
+                </div>
+                <ul>
+                  <li class="toclevel-1">
+                    <a href="JVM NIO Bug.html#Introduction">
+                      <span class="tocnumber">1</span>
+                      <span class="toctext">Introduction</span>
+                    </a>
+                  </li>
+                  <li class="toclevel-1">
+                    <a href="JVM NIO Bug.html#Feature">
+                      <span class="tocnumber">2</span>
+                      <span class="toctext">Feature</span>
+                    </a>
+                  </li>
+                  <li class="toclevel-1">
+                    <a href="JVM NIO Bug.html#Triggering_Work_Arounds">
+                      <span class="tocnumber">3</span>
+                      <span class="toctext">Triggering Work Arounds</span>
+                    </a>
+                  </li>
+                  <li class="toclevel-1">
+                    <a href="JVM NIO Bug.html#Cancelling_Keys">
+                      <span class="tocnumber">4</span>
+                      <span class="toctext">Cancelling Keys</span>
+                    </a>
+                  </li>
+                  <li class="toclevel-1">
+                    <a href="JVM NIO Bug.html#Recreating_Selector">
+                      <span class="tocnumber">5</span>
+                      <span class="toctext">Recreating Selector</span>
+                    </a>
+                  </li>
+                  <li class="toclevel-1">
+                    <a href="JVM NIO Bug.html#Injecting_Delay">
+                      <span class="tocnumber">6</span>
+                      <span class="toctext">Injecting Delay</span>
+                    </a>
+                  </li>
+                  <li class="toclevel-1">
+                    <a href="JVM NIO Bug.html#Busy_key">
+                      <span class="tocnumber">7</span>
+                      <span class="toctext">Busy key</span>
+                    </a>
+                  </li>
+                  <li class="toclevel-1">
+                    <a href="JVM NIO Bug.html#Busy_selector">
+                      <span class="tocnumber">8</span>
+                      <span class="toctext">Busy selector</span>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+              <h2>
+                <span class="mw-headline" id="Introduction">Introduction</span>
+              </h2>
+              <p>
+                <br />
+                The Sun JVM contains several NIO bugs that appear to mostly affect Linux servers:
+              </p>
+              <ul>
+                <li>
+                  <a class="external text" href="http://bugs.sun.com/bugdatabase/view_bug.do?bug_id=6403933" rel="nofollow">6403933</a>
+                </li>
+                <li>
+                  <a class="external text" href="http://bugs.sun.com/view_bug.do?bug_id=6693490" rel="nofollow">6693490</a>
+                </li>
+              </ul>
+              <p>Java 7 should fix these bugs. In the meantime, Jetty includes several work arounds that deal with these problems. When Jetty employs these work arounds, you see messages in your logs like the following:</p>
+              <pre xml:space="preserve">  JVM BUG(s) - cancelled keys 16 times
   JVM BUG(s) - recreating selector 4 times, cancelled keys 32 times
   JVM BUG(s) - injecting delay 8 times
 </pre>
-<h2><span id="Feature" class="mw-headline">Feature</span></h2>
-<h2><span class="mw-headline" id="Triggering_Work_Arounds">Triggering Work Arounds</span></h2>
-<p>The workarounds trigger whenever the NIO SelectSet returns from a select with zero keys selected, and before the expected timeout. The simple fixes (cancelling keys) always apply. Jetty attempts the more draconian fixes  only if the number of triggers exceeds a threshhold within a set time period. Use the following system parameters to set these values:
-</p>
-<ul><li> <tt>org.mortbay.io.nio.JVMBUG_THRESHHOLD</tt>, defaults to 512 and is the number of zero select returns that must be exceeded in a period.</li>
-<li> <tt>org.mortbay.io.nio.MONITOR_PERIOD</tt> defaults to 1000 and is the period over which the threshhold applies.</li></ul>
-<h2><span class="mw-headline" id="Cancelling_Keys">Cancelling Keys</span></h2>
-<p>Jetty does not remove dispatch connections from the select set, as this is an expensive operation. Instead, Jetty sets the interested operations to zero, so the registered key should be ignored. However this is one of the conditions that triggers the JVM bugs, so if Jetty sees the selector returning with no keys selected, it cancels all keys with 0 interested operations.
-</p>
-<h2><span class="mw-headline" id="Recreating_Selector">Recreating Selector</span></h2>
-<p>If cancelling keys does not avoid the JVM bugs,  when the <tt>JVMBUG_THRESHOLD</tt> is reached, Jetty discards the entire select set and creates a new one.
-</p>
-<h2><span class="mw-headline" id="Injecting_Delay">Injecting Delay</span></h2>
-<p>In some circumstances, even a newly created select set quickly suffers from the same problems.  If Jetty detects that the <tt>JVMBUG_THREASHOLD</tt> has been exceeded, it reacts by inserting pauses in the selecting thread. The<tt>org.mortbay.io.nio.BUSY_PAUSE</tt> system parameter controls the duration of the pause; it defaults to 50ms.
-</p><p>The pause allows the acceptor thread to stop calling select in a busy loop, and allows the dispatched threads to proceed with handling any selected connections.  At 50ms, the worst case is that this delay adds 25ms latency to a request.  However, in practise these problems only occur on busy servers with jobs in excess of the available CPUs, so this 25ms is probably not much in excess of an expected scheduling delay.
-</p>
-<h2><span class="mw-headline" id="Busy_key">Busy key</span></h2>
-<p>If a single select key is repeatedly selected as the only active key, this can indicate a problem with that connection.  If you set the system parameter <tt>org.mortbay.io.nio.BUSY_KEY</tt> to a positive number, Jetty closes the connection if the key is selected in excess of the busy key value in any one period. The default is -1.  
-</p>
-<h2><span id="Busy_selector" class="mw-headline">Busy selector</span></h2>
-<p>As a final catch all measure, the Jetty selector puts a maximum limit on the number of selects per second per selector.  You set this value in the <tt>org.mortbay.io.nio.MAX_SELECTS</tt> system parameter; it defaults to 15000. If this value is exceeded in a monitor period, Jetty injects delays into the select loop.
-</p>
-
-</div>
-
-                    <div id="catlinks" class="catlinks"><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a title="Special:Categories" href="https://wiki.eclipse.org/Special:Categories">Categories</a>: <ul><li><a title="Category:Jetty" href="https://wiki.eclipse.org/Category:Jetty">Jetty</a></li><li><a title="Category:Jetty Feature" href="https://wiki.eclipse.org/Category:Jetty_Feature">Jetty Feature</a></li></ul></div></div>
-                                  </div>
-              </div>
+              <h2>
+                <span class="mw-headline" id="Feature">Feature</span>
+              </h2>
+              <h2>
+                <span class="mw-headline" id="Triggering_Work_Arounds">Triggering Work Arounds</span>
+              </h2>
+              <p>The workarounds trigger whenever the NIO SelectSet returns from a select with zero keys selected, and before the expected timeout. The simple fixes (cancelling keys) always apply. Jetty attempts the more draconian fixes  only if the number of triggers exceeds a threshhold within a set time period. Use the following system parameters to set these values:</p>
+              <ul>
+                <li>
+                  <tt>org.mortbay.io.nio.JVMBUG_THRESHHOLD</tt>
+                  , defaults to 512 and is the number of zero select returns that must be exceeded in a period.
+                </li>
+                <li>
+                  <tt>org.mortbay.io.nio.MONITOR_PERIOD</tt>
+                  defaults to 1000 and is the period over which the threshhold applies.
+                </li>
+              </ul>
+              <h2>
+                <span class="mw-headline" id="Cancelling_Keys">Cancelling Keys</span>
+              </h2>
+              <p>Jetty does not remove dispatch connections from the select set, as this is an expensive operation. Instead, Jetty sets the interested operations to zero, so the registered key should be ignored. However this is one of the conditions that triggers the JVM bugs, so if Jetty sees the selector returning with no keys selected, it cancels all keys with 0 interested operations.</p>
+              <h2>
+                <span class="mw-headline" id="Recreating_Selector">Recreating Selector</span>
+              </h2>
+              <p>
+                If cancelling keys does not avoid the JVM bugs,  when the
+                <tt>JVMBUG_THRESHOLD</tt>
+                is reached, Jetty discards the entire select set and creates a new one.
+              </p>
+              <h2>
+                <span class="mw-headline" id="Injecting_Delay">Injecting Delay</span>
+              </h2>
+              <p>
+                In some circumstances, even a newly created select set quickly suffers from the same problems.  If Jetty detects that the
+                <tt>JVMBUG_THREASHOLD</tt>
+                has been exceeded, it reacts by inserting pauses in the selecting thread. The
+                <tt>org.mortbay.io.nio.BUSY_PAUSE</tt>
+                system parameter controls the duration of the pause; it defaults to 50ms.
+              </p>
+              <p>The pause allows the acceptor thread to stop calling select in a busy loop, and allows the dispatched threads to proceed with handling any selected connections.  At 50ms, the worst case is that this delay adds 25ms latency to a request.  However, in practise these problems only occur on busy servers with jobs in excess of the available CPUs, so this 25ms is probably not much in excess of an expected scheduling delay.</p>
+              <h2>
+                <span class="mw-headline" id="Busy_key">Busy key</span>
+              </h2>
+              <p>
+                If a single select key is repeatedly selected as the only active key, this can indicate a problem with that connection.  If you set the system parameter
+                <tt>org.mortbay.io.nio.BUSY_KEY</tt>
+                to a positive number, Jetty closes the connection if the key is selected in excess of the busy key value in any one period. The default is -1.
+              </p>
+              <h2>
+                <span class="mw-headline" id="Busy_selector">Busy selector</span>
+              </h2>
+              <p>
+                As a final catch all measure, the Jetty selector puts a maximum limit on the number of selects per second per selector.  You set this value in the
+                <tt>org.mortbay.io.nio.MAX_SELECTS</tt>
+                system parameter; it defaults to 15000. If this value is exceeded in a monitor period, Jetty injects delays into the select loop.
+              </p>
             </div>
           </div>
-</body>
+        </div>
+      </div>
+    </div>
+  </body>
 </html>

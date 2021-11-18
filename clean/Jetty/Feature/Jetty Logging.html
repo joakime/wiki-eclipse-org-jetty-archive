@@ -1,170 +1,309 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
-<head>
+  <head>
     <title>Jetty WTP Plugin</title>
-    <link rel="stylesheet" media="screen, print" href="wiki-style.css"/>
-</head>
-<body>
-<div id="mainContent" class="col-md-20">
-                                <div class="tab-content background-white">
-              <div id="tab-pane-main-page-content" class="tab-pane active">
-
-                
-                <h1 class="firstHeading page-header" id="firstHeading">
-                  <span dir="auto">Jetty/Feature/Jetty Logging</span>
-                </h1>
-                <div id="main-page-content">
-
-                  <div class="alert alert-small alert-warning" id="contentSub"><span class="subpages">&lt; <a href="../../Jetty.html" title="Jetty">Jetty</a>‎ | <a title="Jetty/Feature" href="../Feature.html">Feature</a></span></div>
-
-                  
-                  
-                  <div class="mw-content-ltr" dir="ltr" lang="en" id="mw-content-text"><p><br/>
-</p><p><br/>
-</p>
-<div class="toc" id="toc"><div id="toctitle"><h2>Contents</h2></div>
-<ul>
-<li class="toclevel-1"><a href="Jetty Logging.html#Introduction"><span class="tocnumber">1</span> <span class="toctext">Introduction</span></a></li>
-<li class="toclevel-1"><a href="Jetty Logging.html#Selecting_the_Log_Framework"><span class="tocnumber">2</span> <span class="toctext">Selecting the Log Framework</span></a></li>
-<li class="toclevel-1 tocsection-2"><a href="Jetty Logging.html#Configuring_Jetty_StdErrLog"><span class="tocnumber">3</span> <span class="toctext">Configuring Jetty StdErrLog</span></a>
-<ul>
-<li class="toclevel-2 tocsection-3"><a href="Jetty Logging.html#Changing_log_level_in_resources.2Fjetty-logging.properties"><span class="tocnumber">3.1</span> <span class="toctext">Changing log level in resources/jetty-logging.properties</span></a></li>
-<li class="toclevel-2 tocsection-4"><a href="Jetty Logging.html#Changing_log_level_in_etc.2Fjetty.xml"><span class="tocnumber">3.2</span> <span class="toctext">Changing log level in etc/jetty.xml</span></a></li>
-<li class="toclevel-2 tocsection-5"><a href="Jetty Logging.html#Using_etc.2Fjetty-logging.xml"><span class="tocnumber">3.3</span> <span class="toctext">Using etc/jetty-logging.xml</span></a></li>
-<li class="toclevel-2 tocsection-6"><a href="Jetty Logging.html#Request_Logging"><span class="tocnumber">3.4</span> <span class="toctext">Request Logging</span></a></li>
-</ul>
-</li>
-</ul>
-</div>
-
-<h2><span id="Introduction" class="mw-headline">Introduction</span></h2>
-<div style="background-color: #f9f6b7; border: 1px solid #c4c295; color: black; padding: 5px; margin: 1ex 0; min-height: 35px; padding-left: 45px; font-size: 150%; color: white; background-color: #FF8888; padding: 50px" class="messagebox">
-<div style="float: left; margin-left: -40px;"><a href="https://wiki.eclipse.org/File:Warning2.png" class="image"><img src="../../images/3/37/Warning2.png" alt="Warning2.png" width="35" height="35"/></a></div>
-<div>Jetty 7 and Jetty 8 are now EOL (End of Life)<br/>
-<p><br/>
-<br/>
-<br/>
-THIS IS NOT THE DOCUMENTATION YOU ARE LOOKING FOR!!!!!<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-All development and stable releases are being performed with Jetty 9 and Jetty 10.<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-This <b>wiki is now officially out of date</b> and all content has been moved to the <a href="http://www.eclipse.org/jetty/documentation" rel="nofollow" class="external text">Jetty Documentation Hub</a><br/> 
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-</p>
-Direct Link to updated documentation: <a rel="nofollow" class="external free" href="http://www.eclipse.org/jetty/documentation/current/configuring-logging.html">http://www.eclipse.org/jetty/documentation/current/configuring-logging.html</a></div>
-</div>
-<p><br/>
-Jetty provides logging via its own <code>org.eclipse.jetty.util.log.Logger</code> layer, and does not natively use any existing Java logging framework.
-</p><p>All logging events, produced via the Jetty logging layer, will have a name, a level, and a message.
-</p><p>The name being a FQCN (fully qualified class name) similar to how all existing Java logging frameworks operate.  
-</p><p>Jetty logging, however, has a slightly different set of levels that it uses internally.
-</p>
-<ul><li> WARN - this is used for events considered serious enough to inform and log, but not fatal.</li>
-<li> INFO - informational events</li>
-<li> DEBUG - debugging events (very noisy)</li>
-<li> IGNORE - exception events that can be safely ignored, but might prove useful for some people.  (Note: this level might be reported as level DEBUG under some Java logging frameworks configurations, but will retain the 'ignore' phrase somewhere in the logging )</li></ul>
-<p>Also note, there is no FATAL or SEVERE events produced by jetty logging.
-</p>
-<h2><span class="mw-headline" id="Selecting_the_Log_Framework">Selecting the Log Framework</span></h2>
-<p>The Jetty logging layer is configured via the <code>org.eclipse.jetty.util.log.Log</code> class and follows <a class="external text" rel="nofollow" href="http://git.eclipse.org/c/jetty/org.eclipse.jetty.project.git/tree/jetty-util/src/main/java/org/eclipse/jetty/util/log/Log.java">these rules</a>.
-</p>
-<ol><li> Load Properties
-<ol><li> First from a Classpath Resource called <code>jetty-logging.properties</code> (if found)</li>
-<li> Then from the <code>System.getProperties()</code></li></ol></li>
-<li> Determine the Log implementation.
-<ol><li> If property <code>org.eclipse.jetty.util.log.class</code> is defined, load the class it defines as the Logger implementation from the server classpath</li>
-<li> If the class <code>org.slf4j.Logger</code> exists in server classpath, then the jetty implementation becomes <code>org.eclipse.jetty.util.log.Slf4jLog</code></li>
-<li> If no logger implementation specified, then default to <code>org.eclipse.jetty.util.log.StdErrLog</code></li></ol></li></ol>
-<p>Note: that you can create your own custom logging by providing an implementation of the <a href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/util/log/Logger.html" class="external text" rel="nofollow">Jetty Logger API</a>.  For an example of a custom Logger, see <a href="http://git.eclipse.org/c/jetty/org.eclipse.jetty.project.git/tree/jetty-util/src/main/java/org/eclipse/jetty/util/log/JavaUtilLog.java" rel="nofollow" class="external free">http://git.eclipse.org/c/jetty/org.eclipse.jetty.project.git/tree/jetty-util/src/main/java/org/eclipse/jetty/util/log/JavaUtilLog.java</a>
-</p>
-<h2><span id="Configuring_Jetty_StdErrLog" class="mw-headline">Configuring Jetty StdErrLog</span></h2>
-<p>If the default Jetty logger is selected, then further System properties may be used to control what event levels are logged and what is the format of those logs.
-</p>
-<table class="jetty-table">
-
-<tbody><tr>
-<th scope="col" width="300"> Logging Property
-</th>
-<th scope="col" width="600"> Description
-</th></tr>
-<tr>
-<td> <tt>&lt;name&gt;.LEVEL=&lt;level&gt;</tt>
-</td>
-<td> Sets the logging level for all logger within the <tt>name</tt> specified to the level, which can be (in increasing order of restriction) ALL,DEBUG,INFO,WARN,OFF.  The name (or hierarchy) can be a specific fully qualified class or a package namespace, for example, -Dorg.eclipse.jetty.http.LEVEL=DEBUG  would be a package namespace approach to turn all loggers in the jetty HTTP package to DEBUG level, and -Dorg.eclipse.jetty.io.ChanelEndPoint.LEVEL=ALL  would turn on all logging events for the specific class, including DEBUG, INFO, WARN (and even special internally ignored exception casses).  If a Logging level is specified by more than one system property, then the most specific one is used.
-</td></tr>
-<tr>
-<td> <tt>&lt;name&gt;.SOURCE=&lt;boolean&gt;</tt>
-</td>
-<td> Logger specific, attempt to print the java source file name and line number where the logging event originated from. <br/>Name must be a fully qualified class name (package name hierarchy is not supported by this configurable)  <br/>Warning: this is a slow operation and will have an impact on performance! <br/>Default: false
-</td></tr>
-<tr>
-<td> <tt>&lt;name&gt;.STACKS=&lt;boolean&gt;</tt>
-</td>
-<td> Logger specific, control the display of stacktraces.<br/>Name must be a fully qualified class name (package name hierarchy is not supported by this configurable)<br/> Default: true
-</td></tr>
-<tr>
-<td> <tt>org.eclipse.jetty.util.log.IGNORED=&lt;boolean&gt;</tt>
-</td>
-<td> If set to true, then exceptions that have been recorded as ignored with the LOG.ignore(throwable) API will be logged with a full stack trace. Otherwise ignored exceptions are either not logged, or logged in summary if the level is debug.
-</td></tr>
-<tr>
-<td> <tt>org.eclipse.jetty.util.log.stderr.SOURCE=&lt;boolean&gt;</tt>
-</td>
-<td> Special Global Configuration, attempt to print the java source file name and line number where the logging event originated from. <br/>Default: false
-</td></tr>
-<tr>
-<td> <tt>org.eclipse.jetty.util.log.stderr.LONG=&lt;boolean&gt;</tt>
-</td>
-<td> Special Global Configuration, when true, output logging events to STDERR using long form, fully qualified class names.  when false, use abbreviated package names <br/>Default: false
-</td></tr>
-<tr>
-<td> <tt>org.eclipse.jetty.util.log.DEBUG</tt>,  <tt>org.eclipse.jetty.util.log.stderr.DEBUG</tt>, <tt>DEBUG</tt> (deprecated)
-</td>
-<td> These are deprecated properties that are ignored with a warning if used.
-</td></tr>
-</tbody></table>
-<h3><span id="Changing_log_level_in_resources.2Fjetty-logging.properties" class="mw-headline">Changing log level in <tt>resources/jetty-logging.properties</tt></span></h3>
-<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="robots source-robots"><pre class="de1"><span class="co1"># Setup logging implementation</span>
+    <link href="wiki-style.css" media="screen, print" rel="stylesheet" />
+  </head>
+  <body>
+    <div class="col-md-20" id="mainContent">
+      <div class="tab-content background-white">
+        <div class="tab-pane active" id="tab-pane-main-page-content">
+          <h1 class="firstHeading page-header" id="firstHeading">
+            <span dir="auto">Jetty/Feature/Jetty Logging</span>
+          </h1>
+          <div id="main-page-content">
+            <div class="alert alert-small alert-warning" id="contentSub">
+              <span class="subpages">
+                &lt;
+                <a href="../../Jetty.html" title="Jetty">Jetty</a>
+                 |
+                <a href="../Feature.html" title="Jetty/Feature">Feature</a>
+              </span>
+            </div>
+            <div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="en">
+              <p>
+                <br />
+              </p>
+              <p>
+                <br />
+              </p>
+              <div class="toc" id="toc">
+                <div id="toctitle">
+                  <h2>Contents</h2>
+                </div>
+                <ul>
+                  <li class="toclevel-1">
+                    <a href="Jetty Logging.html#Introduction">
+                      <span class="tocnumber">1</span>
+                      <span class="toctext">Introduction</span>
+                    </a>
+                  </li>
+                  <li class="toclevel-1">
+                    <a href="Jetty Logging.html#Selecting_the_Log_Framework">
+                      <span class="tocnumber">2</span>
+                      <span class="toctext">Selecting the Log Framework</span>
+                    </a>
+                  </li>
+                  <li class="toclevel-1 tocsection-2">
+                    <a href="Jetty Logging.html#Configuring_Jetty_StdErrLog">
+                      <span class="tocnumber">3</span>
+                      <span class="toctext">Configuring Jetty StdErrLog</span>
+                    </a>
+                    <ul>
+                      <li class="toclevel-2 tocsection-3">
+                        <a href="Jetty Logging.html#Changing_log_level_in_resources.2Fjetty-logging.properties">
+                          <span class="tocnumber">3.1</span>
+                          <span class="toctext">Changing log level in resources/jetty-logging.properties</span>
+                        </a>
+                      </li>
+                      <li class="toclevel-2 tocsection-4">
+                        <a href="Jetty Logging.html#Changing_log_level_in_etc.2Fjetty.xml">
+                          <span class="tocnumber">3.2</span>
+                          <span class="toctext">Changing log level in etc/jetty.xml</span>
+                        </a>
+                      </li>
+                      <li class="toclevel-2 tocsection-5">
+                        <a href="Jetty Logging.html#Using_etc.2Fjetty-logging.xml">
+                          <span class="tocnumber">3.3</span>
+                          <span class="toctext">Using etc/jetty-logging.xml</span>
+                        </a>
+                      </li>
+                      <li class="toclevel-2 tocsection-6">
+                        <a href="Jetty Logging.html#Request_Logging">
+                          <span class="tocnumber">3.4</span>
+                          <span class="toctext">Request Logging</span>
+                        </a>
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </div>
+              <h2>
+                <span class="mw-headline" id="Introduction">Introduction</span>
+              </h2>
+              <p>
+                <br />
+                Jetty provides logging via its own
+                <code>org.eclipse.jetty.util.log.Logger</code>
+                layer, and does not natively use any existing Java logging framework.
+              </p>
+              <p>All logging events, produced via the Jetty logging layer, will have a name, a level, and a message.</p>
+              <p>The name being a FQCN (fully qualified class name) similar to how all existing Java logging frameworks operate.</p>
+              <p>Jetty logging, however, has a slightly different set of levels that it uses internally.</p>
+              <ul>
+                <li>WARN - this is used for events considered serious enough to inform and log, but not fatal.</li>
+                <li>INFO - informational events</li>
+                <li>DEBUG - debugging events (very noisy)</li>
+                <li>IGNORE - exception events that can be safely ignored, but might prove useful for some people.  (Note: this level might be reported as level DEBUG under some Java logging frameworks configurations, but will retain the 'ignore' phrase somewhere in the logging )</li>
+              </ul>
+              <p>Also note, there is no FATAL or SEVERE events produced by jetty logging.</p>
+              <h2>
+                <span class="mw-headline" id="Selecting_the_Log_Framework">Selecting the Log Framework</span>
+              </h2>
+              <p>
+                The Jetty logging layer is configured via the
+                <code>org.eclipse.jetty.util.log.Log</code>
+                class and follows
+                <a class="external text" href="http://git.eclipse.org/c/jetty/org.eclipse.jetty.project.git/tree/jetty-util/src/main/java/org/eclipse/jetty/util/log/Log.java" rel="nofollow">these rules</a>
+                .
+              </p>
+              <ol>
+                <li>
+                  Load Properties
+                  <ol>
+                    <li>
+                      First from a Classpath Resource called
+                      <code>jetty-logging.properties</code>
+                      (if found)
+                    </li>
+                    <li>
+                      Then from the
+                      <code>System.getProperties()</code>
+                    </li>
+                  </ol>
+                </li>
+                <li>
+                  Determine the Log implementation.
+                  <ol>
+                    <li>
+                      If property
+                      <code>org.eclipse.jetty.util.log.class</code>
+                      is defined, load the class it defines as the Logger implementation from the server classpath
+                    </li>
+                    <li>
+                      If the class
+                      <code>org.slf4j.Logger</code>
+                      exists in server classpath, then the jetty implementation becomes
+                      <code>org.eclipse.jetty.util.log.Slf4jLog</code>
+                    </li>
+                    <li>
+                      If no logger implementation specified, then default to
+                      <code>org.eclipse.jetty.util.log.StdErrLog</code>
+                    </li>
+                  </ol>
+                </li>
+              </ol>
+              <p>
+                Note: that you can create your own custom logging by providing an implementation of the
+                <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/util/log/Logger.html" rel="nofollow">Jetty Logger API</a>
+                .  For an example of a custom Logger, see
+                <a class="external free" href="http://git.eclipse.org/c/jetty/org.eclipse.jetty.project.git/tree/jetty-util/src/main/java/org/eclipse/jetty/util/log/JavaUtilLog.java" rel="nofollow">http://git.eclipse.org/c/jetty/org.eclipse.jetty.project.git/tree/jetty-util/src/main/java/org/eclipse/jetty/util/log/JavaUtilLog.java</a>
+              </p>
+              <h2>
+                <span class="mw-headline" id="Configuring_Jetty_StdErrLog">Configuring Jetty StdErrLog</span>
+              </h2>
+              <p>If the default Jetty logger is selected, then further System properties may be used to control what event levels are logged and what is the format of those logs.</p>
+              <table class="jetty-table">
+                <tbody>
+                  <tr>
+                    <th scope="col" width="300">Logging Property</th>
+                    <th scope="col" width="600">Description</th>
+                  </tr>
+                  <tr>
+                    <td>
+                      <tt>&lt;name&gt;.LEVEL=&lt;level&gt;</tt>
+                    </td>
+                    <td>
+                      Sets the logging level for all logger within the
+                      <tt>name</tt>
+                      specified to the level, which can be (in increasing order of restriction) ALL,DEBUG,INFO,WARN,OFF.  The name (or hierarchy) can be a specific fully qualified class or a package namespace, for example, -Dorg.eclipse.jetty.http.LEVEL=DEBUG  would be a package namespace approach to turn all loggers in the jetty HTTP package to DEBUG level, and -Dorg.eclipse.jetty.io.ChanelEndPoint.LEVEL=ALL  would turn on all logging events for the specific class, including DEBUG, INFO, WARN (and even special internally ignored exception casses).  If a Logging level is specified by more than one system property, then the most specific one is used.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <tt>&lt;name&gt;.SOURCE=&lt;boolean&gt;</tt>
+                    </td>
+                    <td>
+                      Logger specific, attempt to print the java source file name and line number where the logging event originated from.
+                      <br />
+                      Name must be a fully qualified class name (package name hierarchy is not supported by this configurable)
+                      <br />
+                      Warning: this is a slow operation and will have an impact on performance!
+                      <br />
+                      Default: false
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <tt>&lt;name&gt;.STACKS=&lt;boolean&gt;</tt>
+                    </td>
+                    <td>
+                      Logger specific, control the display of stacktraces.
+                      <br />
+                      Name must be a fully qualified class name (package name hierarchy is not supported by this configurable)
+                      <br />
+                      Default: true
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <tt>org.eclipse.jetty.util.log.IGNORED=&lt;boolean&gt;</tt>
+                    </td>
+                    <td>If set to true, then exceptions that have been recorded as ignored with the LOG.ignore(throwable) API will be logged with a full stack trace. Otherwise ignored exceptions are either not logged, or logged in summary if the level is debug.</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <tt>org.eclipse.jetty.util.log.stderr.SOURCE=&lt;boolean&gt;</tt>
+                    </td>
+                    <td>
+                      Special Global Configuration, attempt to print the java source file name and line number where the logging event originated from.
+                      <br />
+                      Default: false
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <tt>org.eclipse.jetty.util.log.stderr.LONG=&lt;boolean&gt;</tt>
+                    </td>
+                    <td>
+                      Special Global Configuration, when true, output logging events to STDERR using long form, fully qualified class names.  when false, use abbreviated package names
+                      <br />
+                      Default: false
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <tt>org.eclipse.jetty.util.log.DEBUG</tt>
+                      ,
+                      <tt>org.eclipse.jetty.util.log.stderr.DEBUG</tt>
+                      ,
+                      <tt>DEBUG</tt>
+                      (deprecated)
+                    </td>
+                    <td>These are deprecated properties that are ignored with a warning if used.</td>
+                  </tr>
+                </tbody>
+              </table>
+              <h3>
+                <span class="mw-headline" id="Changing_log_level_in_resources.2Fjetty-logging.properties">
+                  Changing log level in
+                  <tt>resources/jetty-logging.properties</tt>
+                </span>
+              </h3>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="robots source-robots">
+                  <pre class="de1" xml:space="preserve"><span class="co1"># Setup logging implementation</span>
 org.eclipse.jetty.util.log.class=org.eclipse.jetty.util.log.StdErrLog
 org.eclipse.jetty.LEVEL=INFO
 <span class="co1"># Make websocket more verbose for testing</span>
-org.eclipse.jetty.websocket.LEVEL=DEBUG</pre></div></div>
-<h3><span id="Changing_log_level_in_etc.2Fjetty.xml" class="mw-headline">Changing log level in <tt>etc/jetty.xml</tt></span></h3>
-<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="xml source-xml"><pre class="de1"><span class="sc3"><span class="re1">&lt;Call</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.util.log.Log"</span> <span class="re0">name</span>=<span class="st0">"getRootLogger"</span><span class="re2">&gt;</span></span>
+org.eclipse.jetty.websocket.LEVEL=DEBUG</pre>
+                </div>
+              </div>
+              <h3>
+                <span class="mw-headline" id="Changing_log_level_in_etc.2Fjetty.xml">
+                  Changing log level in
+                  <tt>etc/jetty.xml</tt>
+                </span>
+              </h3>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="xml source-xml">
+                  <pre class="de1" xml:space="preserve"><span class="sc3"><span class="re1">&lt;Call</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.util.log.Log"</span> <span class="re0">name</span>=<span class="st0">"getRootLogger"</span><span class="re2">&gt;</span></span>
   <span class="sc3"><span class="re1">&lt;Call</span> <span class="re0">name</span>=<span class="st0">"setDebugEnabled"</span><span class="re2">&gt;</span></span>
     <span class="sc3"><span class="re1">&lt;Arg</span> <span class="re0">type</span>=<span class="st0">"boolean"</span><span class="re2">&gt;</span></span>true<span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
   <span class="sc3"><span class="re1">&lt;/Call<span class="re2">&gt;</span></span></span>
-<span class="sc3"><span class="re1">&lt;/Call<span class="re2">&gt;</span></span></span></pre></div></div>
-<h3><span id="Using_etc.2Fjetty-logging.xml" class="mw-headline">Using <tt>etc/jetty-logging.xml</tt></span></h3>
-<p>You can use <tt>etc/jetty-logging.xml</tt> to take all <tt>System.out</tt> and <tt>System.err</tt> output (from any source) and route it to a rolling log file. To do so, include <tt>etc/jetty-logging.xml</tt> on Jetty startup.
-</p>
-<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="bash source-bash"><pre class="de1">java <span class="re5">-jar</span> start.jar etc<span class="sy0">/</span>jetty-logging.xml</pre></div></div>
-<h3><span id="Request_Logging" class="mw-headline">Request Logging</span></h3>
-<p>Request logging (AKA access logging), refers to the logging of each request handled by the server. This is a different logging mechanism and in jetty is provided with an implementation of the well-established NCSA log file format. This log file format is standardized so that other tooling can use the information for other reasons. 
-</p><p>To enable access logging with Jetty, include the <tt>etc/jetty-requestlog.xml</tt> on Jetty startup.
-</p><p>See <a title="Jetty/Tutorial/RequestLog" href="../Tutorial/RequestLog.html"> Jetty Request Logs</a> for more information.
-</p>
-
-</div>
-
-                    <div id="catlinks" class="catlinks"><div class="mw-normal-catlinks" id="mw-normal-catlinks"><a href="https://wiki.eclipse.org/Special:Categories" title="Special:Categories">Categories</a>: <ul><li><a href="https://wiki.eclipse.org/Category:Jetty" title="Category:Jetty">Jetty</a></li><li><a title="Category:Jetty Reference" href="https://wiki.eclipse.org/Category:Jetty_Reference">Jetty Reference</a></li></ul></div></div>
-                                  </div>
+<span class="sc3"><span class="re1">&lt;/Call<span class="re2">&gt;</span></span></span></pre>
+                </div>
               </div>
+              <h3>
+                <span class="mw-headline" id="Using_etc.2Fjetty-logging.xml">
+                  Using
+                  <tt>etc/jetty-logging.xml</tt>
+                </span>
+              </h3>
+              <p>
+                You can use
+                <tt>etc/jetty-logging.xml</tt>
+                to take all
+                <tt>System.out</tt>
+                and
+                <tt>System.err</tt>
+                output (from any source) and route it to a rolling log file. To do so, include
+                <tt>etc/jetty-logging.xml</tt>
+                on Jetty startup.
+              </p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="bash source-bash">
+                  <pre class="de1" xml:space="preserve">java <span class="re5">-jar</span> start.jar etc<span class="sy0">/</span>jetty-logging.xml</pre>
+                </div>
+              </div>
+              <h3>
+                <span class="mw-headline" id="Request_Logging">Request Logging</span>
+              </h3>
+              <p>Request logging (AKA access logging), refers to the logging of each request handled by the server. This is a different logging mechanism and in jetty is provided with an implementation of the well-established NCSA log file format. This log file format is standardized so that other tooling can use the information for other reasons.</p>
+              <p>
+                To enable access logging with Jetty, include the
+                <tt>etc/jetty-requestlog.xml</tt>
+                on Jetty startup.
+              </p>
+              <p>
+                See
+                <a href="../Tutorial/RequestLog.html" title="Jetty/Tutorial/RequestLog">Jetty Request Logs</a>
+                for more information.
+              </p>
             </div>
           </div>
-</body>
+        </div>
+      </div>
+    </div>
+  </body>
 </html>

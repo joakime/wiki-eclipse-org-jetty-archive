@@ -1,49 +1,98 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
-<head>
+  <head>
     <title>Jetty WTP Plugin</title>
-    <link rel="stylesheet" media="screen, print" href="wiki-style.css"/>
-</head>
-<body>
-<div id="mainContent" class="col-md-20">
-                               <div class="tab-content background-white">
-              <div class="tab-pane active" id="tab-pane-main-page-content">
-
-                
-                <h1 class="firstHeading page-header" id="firstHeading">
-                  <span dir="auto">Jetty/Tutorial/Realms</span>
-                </h1>
-                <div id="main-page-content">
-
-                  <div class="alert alert-small alert-warning" id="contentSub"><span class="subpages">&lt; <a href="../../Jetty.html" title="Jetty">Jetty</a>‎ | <a title="Jetty/Tutorial" href="../Tutorial.html">Tutorial</a></span></div>
-
-                  
-                  
-                  <div class="mw-content-ltr" id="mw-content-text" lang="en" dir="ltr"><p><br/>
-</p><p><br/>
-</p>
-<div id="toc" class="toc"><div id="toctitle"><h2>Contents</h2></div>
-<ul>
-<li class="toclevel-1"><a href="Realms.html#Introduction"><span class="tocnumber">1</span> <span class="toctext">Introduction</span></a></li>
-<li class="toclevel-1"><a href="Realms.html#Details"><span class="tocnumber">2</span> <span class="toctext">Details</span></a>
-<ul>
-<li class="toclevel-2"><a href="Realms.html#HashLoginService"><span class="tocnumber">2.1</span> <span class="toctext">HashLoginService</span></a></li>
-<li class="toclevel-2"><a href="Realms.html#JDBCLoginService"><span class="tocnumber">2.2</span> <span class="toctext">JDBCLoginService</span></a></li>
-</ul>
-</li>
-<li class="toclevel-1"><a href="Realms.html#Assigning_Realms"><span class="tocnumber">3</span> <span class="toctext">Assigning Realms</span></a></li>
-<li class="toclevel-1"><a href="Realms.html#Additional_Resources"><span class="tocnumber">4</span> <span class="toctext">Additional Resources</span></a></li>
-</ul>
-</div>
-
-<h2><span id="Introduction" class="mw-headline">Introduction</span></h2>
-<p>This tutorial describes how to configure security realms to provide authentication and access control for web applications running in Jetty. A realm has a unique name, and is composed of a set of users. Each user has authentication information (for example, a password) and a set of roles associated with him/herself. You can configure one or many different realms depending on your needs. 
-</p>
-<ul><li> Configure a single realm to share common security information across all of your web applications. </li>
-<li> Configure distinct realms to partition your security information webapp by webapp.</li></ul>
-<h2><span id="Details" class="mw-headline">Details</span></h2>
-<p>A realm–known as a LoginService–is available to all web applications on a Server instance if you define it in a Jetty configuration file, for example $JETTY_HOME/etc/jetty.xml. Here's an example of defining an in-memory type of LoginService called the <i>HashLoginService</i> (note in Jetty 6 this was called the <i>HashUserRealm</i>):
-</p>
-<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="xml source-xml"><pre class="de1"><span class="sc3"><span class="re1">&lt;Configure</span> <span class="re0">id</span>=<span class="st0">"Server"</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.server.Server"</span><span class="re2">&gt;</span></span>
+    <link href="wiki-style.css" media="screen, print" rel="stylesheet" />
+  </head>
+  <body>
+    <div class="col-md-20" id="mainContent">
+      <div class="tab-content background-white">
+        <div class="tab-pane active" id="tab-pane-main-page-content">
+          <h1 class="firstHeading page-header" id="firstHeading">
+            <span dir="auto">Jetty/Tutorial/Realms</span>
+          </h1>
+          <div id="main-page-content">
+            <div class="alert alert-small alert-warning" id="contentSub">
+              <span class="subpages">
+                &lt;
+                <a href="../../Jetty.html" title="Jetty">Jetty</a>
+                 |
+                <a href="../Tutorial.html" title="Jetty/Tutorial">Tutorial</a>
+              </span>
+            </div>
+            <div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="en">
+              <p>
+                <br />
+              </p>
+              <p>
+                <br />
+              </p>
+              <div class="toc" id="toc">
+                <div id="toctitle">
+                  <h2>Contents</h2>
+                </div>
+                <ul>
+                  <li class="toclevel-1">
+                    <a href="Realms.html#Introduction">
+                      <span class="tocnumber">1</span>
+                      <span class="toctext">Introduction</span>
+                    </a>
+                  </li>
+                  <li class="toclevel-1">
+                    <a href="Realms.html#Details">
+                      <span class="tocnumber">2</span>
+                      <span class="toctext">Details</span>
+                    </a>
+                    <ul>
+                      <li class="toclevel-2">
+                        <a href="Realms.html#HashLoginService">
+                          <span class="tocnumber">2.1</span>
+                          <span class="toctext">HashLoginService</span>
+                        </a>
+                      </li>
+                      <li class="toclevel-2">
+                        <a href="Realms.html#JDBCLoginService">
+                          <span class="tocnumber">2.2</span>
+                          <span class="toctext">JDBCLoginService</span>
+                        </a>
+                      </li>
+                    </ul>
+                  </li>
+                  <li class="toclevel-1">
+                    <a href="Realms.html#Assigning_Realms">
+                      <span class="tocnumber">3</span>
+                      <span class="toctext">Assigning Realms</span>
+                    </a>
+                  </li>
+                  <li class="toclevel-1">
+                    <a href="Realms.html#Additional_Resources">
+                      <span class="tocnumber">4</span>
+                      <span class="toctext">Additional Resources</span>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+              <h2>
+                <span class="mw-headline" id="Introduction">Introduction</span>
+              </h2>
+              <p>This tutorial describes how to configure security realms to provide authentication and access control for web applications running in Jetty. A realm has a unique name, and is composed of a set of users. Each user has authentication information (for example, a password) and a set of roles associated with him/herself. You can configure one or many different realms depending on your needs.</p>
+              <ul>
+                <li>Configure a single realm to share common security information across all of your web applications.</li>
+                <li>Configure distinct realms to partition your security information webapp by webapp.</li>
+              </ul>
+              <h2>
+                <span class="mw-headline" id="Details">Details</span>
+              </h2>
+              <p>
+                A realm–known as a LoginService–is available to all web applications on a Server instance if you define it in a Jetty configuration file, for example $JETTY_HOME/etc/jetty.xml. Here's an example of defining an in-memory type of LoginService called the
+                <i>HashLoginService</i>
+                (note in Jetty 6 this was called the
+                <i>HashUserRealm</i>
+                ):
+              </p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="xml source-xml">
+                  <pre class="de1" xml:space="preserve"><span class="sc3"><span class="re1">&lt;Configure</span> <span class="re0">id</span>=<span class="st0">"Server"</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.server.Server"</span><span class="re2">&gt;</span></span>
  
     <span class="sc3"><span class="re1">&lt;Call</span> <span class="re0">name</span>=<span class="st0">"addBean"</span><span class="re2">&gt;</span></span>
       <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>
@@ -56,11 +105,14 @@
     <span class="sc3"><span class="re1">&lt;/Call<span class="re2">&gt;</span></span></span>
  
  
-<span class="sc3"><span class="re1">&lt;/Configure<span class="re2">&gt;</span></span></span></pre></div></div>
-<p>Alternatively, you can define a LoginService for just a single web application in a context file. Here's how to define the same HashLoginService, but inside
-a context xml file instead of a configuration file:
-</p>
-<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="xml source-xml"><pre class="de1"><span class="sc3"><span class="re1">&lt;Configure</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.webapp.WebAppContext"</span><span class="re2">&gt;</span></span>
+<span class="sc3"><span class="re1">&lt;/Configure<span class="re2">&gt;</span></span></span></pre>
+                </div>
+              </div>
+              <p>Alternatively, you can define a LoginService for just a single web application in a context file. Here's how to define the same HashLoginService, but inside
+a context xml file instead of a configuration file:</p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="xml source-xml">
+                  <pre class="de1" xml:space="preserve"><span class="sc3"><span class="re1">&lt;Configure</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.webapp.WebAppContext"</span><span class="re2">&gt;</span></span>
   <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"contextPath"</span><span class="re2">&gt;</span></span>/test<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
   <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"war"</span><span class="re2">&gt;</span><span class="re1">&lt;SystemProperty</span> <span class="re0">name</span>=<span class="st0">"jetty.home"</span> <span class="re0">default</span>=<span class="st0">"."</span><span class="re2">/&gt;</span></span>/webapps/test<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
  
@@ -73,46 +125,66 @@ a context xml file instead of a configuration file:
     <span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
   <span class="sc3"><span class="re1">&lt;/Get<span class="re2">&gt;</span></span></span>
  
-<span class="sc3"><span class="re1">&lt;/Configure<span class="re2">&gt;</span></span></span></pre></div></div>
-<p>Jetty provides a number of different LoginService types from which you can choose.
-</p>
-<h3><span id="HashLoginService" class="mw-headline">HashLoginService</span></h3>
-<p>This LoginService is a simple realm whose authentication and authorization information is stored in a properties file. Each line in the file contains a username, a password, and zero or more role assignments. The format is:
-</p>
-<pre>username: password[,rolename ...]
+<span class="sc3"><span class="re1">&lt;/Configure<span class="re2">&gt;</span></span></span></pre>
+                </div>
+              </div>
+              <p>Jetty provides a number of different LoginService types from which you can choose.</p>
+              <h3>
+                <span class="mw-headline" id="HashLoginService">HashLoginService</span>
+              </h3>
+              <p>This LoginService is a simple realm whose authentication and authorization information is stored in a properties file. Each line in the file contains a username, a password, and zero or more role assignments. The format is:</p>
+              <pre xml:space="preserve">username: password[,rolename ...]
 </pre>
-<p>where:
-</p>
-<ul><li> <b>username</b> is the user's unique identity;</li>
-<li> <b>password</b> is the user's (possibly obfuscated or MD5 encrypted) password;</li>
-<li> <b>rolename</b> is the user's role.</li></ul>
-<p>For example:
-</p>
-<pre>admin: CRYPT:ad1ks..kc.1Ug,server-administrator,content-administrator,admin
+              <p>where:</p>
+              <ul>
+                <li>
+                  <b>username</b>
+                  is the user's unique identity;
+                </li>
+                <li>
+                  <b>password</b>
+                  is the user's (possibly obfuscated or MD5 encrypted) password;
+                </li>
+                <li>
+                  <b>rolename</b>
+                  is the user's role.
+                </li>
+              </ul>
+              <p>For example:</p>
+              <pre xml:space="preserve">admin: CRYPT:ad1ks..kc.1Ug,server-administrator,content-administrator,admin
 other: OBF:1xmk1w261u9r1w1c1xmq
 guest: guest,read-only
 </pre>
-<p>You configure the HashLoginService with a name and a reference to the location of the properties file:
-</p>
-<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="xml source-xml"><pre class="de1"><span class="sc3"><span class="re1">&lt;Item<span class="re2">&gt;</span></span></span>
+              <p>You configure the HashLoginService with a name and a reference to the location of the properties file:</p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="xml source-xml">
+                  <pre class="de1" xml:space="preserve"><span class="sc3"><span class="re1">&lt;Item<span class="re2">&gt;</span></span></span>
   <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.security.HashLoginService"</span><span class="re2">&gt;</span></span>
      <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"name"</span><span class="re2">&gt;</span></span>Test Realm<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
     <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"config"</span><span class="re2">&gt;</span><span class="re1">&lt;SystemProperty</span> <span class="re0">name</span>=<span class="st0">"jetty.home"</span> <span class="re0">default</span>=<span class="st0">"."</span><span class="re2">/&gt;</span></span>/etc/realm.properties<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
   <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span>
-<span class="sc3"><span class="re1">&lt;/Item<span class="re2">&gt;</span></span></span></pre></div></div>
-<p>You can also configure it to check the properties file regularly for changes and reload when changes
-are detected. The reloadInterval is in seconds:
-</p>
-<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="xml source-xml"><pre class="de1">  <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.security.HashLoginService"</span><span class="re2">&gt;</span></span>
+<span class="sc3"><span class="re1">&lt;/Item<span class="re2">&gt;</span></span></span></pre>
+                </div>
+              </div>
+              <p>You can also configure it to check the properties file regularly for changes and reload when changes
+are detected. The reloadInterval is in seconds:</p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="xml source-xml">
+                  <pre class="de1" xml:space="preserve">  <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.security.HashLoginService"</span><span class="re2">&gt;</span></span>
     <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"name"</span><span class="re2">&gt;</span></span>Test Realm<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
     <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"config"</span><span class="re2">&gt;</span><span class="re1">&lt;SystemProperty</span> <span class="re0">name</span>=<span class="st0">"jetty.home"</span> <span class="re0">default</span>=<span class="st0">"."</span><span class="re2">/&gt;</span></span>/etc/realm.properties<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
     <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"reloadInterval"</span><span class="re2">&gt;</span></span>5<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
     <span class="sc3"><span class="re1">&lt;Call</span> <span class="re0">name</span>=<span class="st0">"start"</span><span class="re2">&gt;</span><span class="re1">&lt;/Call<span class="re2">&gt;</span></span></span>
-  <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span></pre></div></div>
-<h3><span id="JDBCLoginService" class="mw-headline">JDBCLoginService</span></h3>
-<p>In this implementation, authentication and role information is stored in a database accessed via JDBC. A properties file defines the JDBC connection and database table information. Here is an example of a properties file for this realm implementation:
-</p>
-<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="ini source-ini"><pre class="de1"><span class="re1">jdbcdriver</span> <span class="sy0">=</span><span class="re2"> org.gjt.mm.mysql.Driver</span>
+  <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span></pre>
+                </div>
+              </div>
+              <h3>
+                <span class="mw-headline" id="JDBCLoginService">JDBCLoginService</span>
+              </h3>
+              <p>In this implementation, authentication and role information is stored in a database accessed via JDBC. A properties file defines the JDBC connection and database table information. Here is an example of a properties file for this realm implementation:</p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="ini source-ini">
+                  <pre class="de1" xml:space="preserve"><span class="re1">jdbcdriver</span> <span class="sy0">=</span><span class="re2"> org.gjt.mm.mysql.Driver</span>
 <span class="re1">url</span> <span class="sy0">=</span><span class="re2"> jdbc:mysql://localhost/jetty</span>
 <span class="re1">username</span> <span class="sy0">=</span><span class="re2"> jetty</span>
 <span class="re1">password</span> <span class="sy0">=</span><span class="re2"> jetty</span>
@@ -126,54 +198,115 @@ are detected. The reloadInterval is in seconds:
 <span class="re1">userroletable</span> <span class="sy0">=</span><span class="re2"> user_roles</span>
 <span class="re1">userroletableuserkey</span> <span class="sy0">=</span><span class="re2"> user_id</span>
 <span class="re1">userroletablerolekey</span> <span class="sy0">=</span><span class="re2"> role_id</span>
-<span class="re1">cachetime</span> <span class="sy0">=</span><span class="re2"> 300</span></pre></div></div>
-<p>The format of the database tables is (pseudo-sql):
-</p>
-<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="sql source-sql"><pre class="de1">users
+<span class="re1">cachetime</span> <span class="sy0">=</span><span class="re2"> 300</span></pre>
+                </div>
+              </div>
+              <p>The format of the database tables is (pseudo-sql):</p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="sql source-sql">
+                  <pre class="de1" xml:space="preserve">users
 <span class="br0">(</span>
   id <span class="kw1">INTEGER</span> <span class="kw1">PRIMARY</span> <span class="kw1">KEY</span><span class="sy0">,</span>
   username <span class="kw1">VARCHAR</span><span class="br0">(</span><span class="nu0">100</span><span class="br0">)</span> <span class="kw1">NOT</span> <span class="kw1">NULL</span> <span class="kw1">UNIQUE</span> <span class="kw1">KEY</span><span class="sy0">,</span>
   pwd <span class="kw1">VARCHAR</span><span class="br0">(</span><span class="nu0">50</span><span class="br0">)</span> <span class="kw1">NOT</span> <span class="kw1">NULL</span>
-<span class="br0">)</span>;</pre></div></div>
-<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="sql source-sql"><pre class="de1">user_roles
+<span class="br0">)</span>;</pre>
+                </div>
+              </div>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="sql source-sql">
+                  <pre class="de1" xml:space="preserve">user_roles
 <span class="br0">(</span>
   user_id <span class="kw1">INTEGER</span> <span class="kw1">NOT</span> <span class="kw1">NULL</span><span class="sy0">,</span>
   role_id <span class="kw1">INTEGER</span> <span class="kw1">NOT</span> <span class="kw1">NULL</span><span class="sy0">,</span>
   <span class="kw1">UNIQUE</span> <span class="kw1">KEY</span> <span class="br0">(</span>user_id<span class="sy0">,</span> role_id<span class="br0">)</span><span class="sy0">,</span>
   <span class="kw1">INDEX</span><span class="br0">(</span>user_id<span class="br0">)</span>
-<span class="br0">)</span>;</pre></div></div>
-<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="sql source-sql"><pre class="de1">roles
+<span class="br0">)</span>;</pre>
+                </div>
+              </div>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="sql source-sql">
+                  <pre class="de1" xml:space="preserve">roles
 <span class="br0">(</span>
   id <span class="kw1">INTEGER</span> <span class="kw1">PRIMARY</span> <span class="kw1">KEY</span><span class="sy0">,</span>
   <span class="kw1">ROLE</span> <span class="kw1">VARCHAR</span><span class="br0">(</span><span class="nu0">100</span><span class="br0">)</span> <span class="kw1">NOT</span> <span class="kw1">NULL</span> <span class="kw1">UNIQUE</span> <span class="kw1">KEY</span>
-<span class="br0">)</span>;</pre></div></div>
-<p>Where:
-</p>
-<ul><li> <b>users</b> is a table containing one entry for every user consisting of:
-<ul><li> <b>id</b>–the unique identity of a user</li>
-<li> <b>user</b>–the name of the user</li>
-<li> <b>pwd</b>–the user's password (possibily obfuscated or MD5 encrypted)</li></ul></li></ul>
-<ul><li> <b>user-roles</b> is a table containing one row for every role granted to a user:
-<ul><li> <b>user_id</b>–the unique identity of the user</li>
-<li> <b>role_id</b>–the role for a user</li></ul></li></ul>
-<ul><li> <b>roles</b> is a a table containing one role for every role in the system:
-<ul><li> <b>id</b>–the unique identifier of a role</li>
-<li> <b>role</b>–a human-readable name for a role</li></ul></li></ul>
-<p>If you want to use obfuscated, MD5 hashed or encrypted passwords the 'pwd' column of the 'users' table must be large enough to hold the obfuscated, hashed or encrypted password text plus the appropriate prefix.
-</p><p>You define a JDBCLoginService with the name of the realm and the location of the properties file describing the database:
-</p>
-<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="xml source-xml"><pre class="de1"><span class="sc3"><span class="re1">&lt;New</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.security.JDBCLoginService"</span><span class="re2">&gt;</span></span>
+<span class="br0">)</span>;</pre>
+                </div>
+              </div>
+              <p>Where:</p>
+              <ul>
+                <li>
+                  <b>users</b>
+                  is a table containing one entry for every user consisting of:
+                  <ul>
+                    <li>
+                      <b>id</b>
+                      –the unique identity of a user
+                    </li>
+                    <li>
+                      <b>user</b>
+                      –the name of the user
+                    </li>
+                    <li>
+                      <b>pwd</b>
+                      –the user's password (possibily obfuscated or MD5 encrypted)
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+              <ul>
+                <li>
+                  <b>user-roles</b>
+                  is a table containing one row for every role granted to a user:
+                  <ul>
+                    <li>
+                      <b>user_id</b>
+                      –the unique identity of the user
+                    </li>
+                    <li>
+                      <b>role_id</b>
+                      –the role for a user
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+              <ul>
+                <li>
+                  <b>roles</b>
+                  is a a table containing one role for every role in the system:
+                  <ul>
+                    <li>
+                      <b>id</b>
+                      –the unique identifier of a role
+                    </li>
+                    <li>
+                      <b>role</b>
+                      –a human-readable name for a role
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+              <p>If you want to use obfuscated, MD5 hashed or encrypted passwords the 'pwd' column of the 'users' table must be large enough to hold the obfuscated, hashed or encrypted password text plus the appropriate prefix.</p>
+              <p>You define a JDBCLoginService with the name of the realm and the location of the properties file describing the database:</p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="xml source-xml">
+                  <pre class="de1" xml:space="preserve"><span class="sc3"><span class="re1">&lt;New</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.security.JDBCLoginService"</span><span class="re2">&gt;</span></span>
   <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"name"</span><span class="re2">&gt;</span></span>Test JDBC Realm<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
   <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"config"</span><span class="re2">&gt;</span></span>etc/jdbcRealm.properties<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
-<span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span></pre></div></div>
-<h2><span class="mw-headline" id="Assigning_Realms">Assigning Realms</span></h2>
-<p>You need to explicitly tell a context which realm (LoginService) to use if you have defined more than one in the Server. 
-</p>
-<ol><li> Configure realms on the server.</li>
-<li> Give the SecurityHandler for a context either the name of the realm you want to use, or give it the actual LoginService.</li></ol>
-<p>For example:
-</p>
-<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="xml source-xml"><pre class="de1"><span class="sc3"><span class="re1">&lt;Configure</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.webapp.WebAppContext"</span><span class="re2">&gt;</span></span>
+<span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span></pre>
+                </div>
+              </div>
+              <h2>
+                <span class="mw-headline" id="Assigning_Realms">Assigning Realms</span>
+              </h2>
+              <p>You need to explicitly tell a context which realm (LoginService) to use if you have defined more than one in the Server.</p>
+              <ol>
+                <li>Configure realms on the server.</li>
+                <li>Give the SecurityHandler for a context either the name of the realm you want to use, or give it the actual LoginService.</li>
+              </ol>
+              <p>For example:</p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="xml source-xml">
+                  <pre class="de1" xml:space="preserve"><span class="sc3"><span class="re1">&lt;Configure</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.webapp.WebAppContext"</span><span class="re2">&gt;</span></span>
  <span class="sc3"><span class="re1">&lt;Get</span> <span class="re0">name</span>=<span class="st0">"securityHandler"</span><span class="re2">&gt;</span></span>
    <span class="sc-1">&lt;!-- Either: --&gt;</span>
    <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"loginService"</span><span class="re2">&gt;</span></span>
@@ -185,17 +318,21 @@ are detected. The reloadInterval is in seconds:
    <span class="sc-1">&lt;!-- or if you defined a LoginService called "Test Realm" in jetty.xml : --&gt;</span>
    <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"realmName"</span><span class="re2">&gt;</span></span>Test Realm<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
  
- <span class="sc3"><span class="re1">&lt;/Get<span class="re2">&gt;</span></span></span></pre></div></div>
-<h2><span class="mw-headline" id="Additional_Resources">Additional Resources</span></h2>
-<p>See <a href="JAAS.html" title="Jetty/Tutorial/JAAS">Java Authentication and Authorization Service (JAAS)</a> tutorial for additional information about configuring security realms.
-</p>
-
-</div>
-
-                    <div id="catlinks" class="catlinks"><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a title="Special:Categories" href="https://wiki.eclipse.org/Special:Categories">Categories</a>: <ul><li><a href="https://wiki.eclipse.org/Category:Jetty" title="Category:Jetty">Jetty</a></li><li><a title="Category:Jetty Tutorial" href="https://wiki.eclipse.org/Category:Jetty_Tutorial">Jetty Tutorial</a></li></ul></div></div>
-                                  </div>
+ <span class="sc3"><span class="re1">&lt;/Get<span class="re2">&gt;</span></span></span></pre>
+                </div>
               </div>
+              <h2>
+                <span class="mw-headline" id="Additional_Resources">Additional Resources</span>
+              </h2>
+              <p>
+                See
+                <a href="JAAS.html" title="Jetty/Tutorial/JAAS">Java Authentication and Authorization Service (JAAS)</a>
+                tutorial for additional information about configuring security realms.
+              </p>
             </div>
           </div>
-</body>
+        </div>
+      </div>
+    </div>
+  </body>
 </html>

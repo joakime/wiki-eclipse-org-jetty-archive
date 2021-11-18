@@ -1,106 +1,135 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
-<head>
+  <head>
     <title>Jetty WTP Plugin</title>
-    <link rel="stylesheet" media="screen, print" href="wiki-style.css"/>
-</head>
-<body>
-<div class="col-md-20" id="mainContent">
-                      <ul class="nav nav-tabs noprint hidden-print" role="tablist">
-                       <li id="ca-nstab-main" class="active"><a title="View the content page [c]" accesskey="c" href="Sifting Logs with Logback.html" tabindex="-1">Page</a></li>
-                        <li class="new" id="ca-talk"><a accesskey="t" title="Discussion about the content page [t]" href="edit" tabindex="-1">Discussion</a></li>
-                        <li id="ca-viewsource"><a tabindex="-1" href="edit" title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></li>
-                        <li class="collapsible" id="ca-history"><a tabindex="-1" href="edit" title="Past revisions of this page [h]" accesskey="h">History</a></li>
-                      </ul>            <div class="tab-content background-white">
-              <div class="tab-pane active" id="tab-pane-main-page-content">
-
-                
-                <h1 class="firstHeading page-header" id="firstHeading">
-                  <span dir="auto">Jetty/Tutorial/Sifting Logs with Logback</span>
-                </h1>
-                <div id="main-page-content">
-
-                  <div id="contentSub" class="alert alert-small alert-warning"><span class="subpages">&lt; <a title="Jetty" href="../../Jetty.html">Jetty</a>‎ | <a title="Jetty/Tutorial" href="../Tutorial.html">Tutorial</a></span></div>
-
-                  
-                  
-                  <div dir="ltr" id="mw-content-text" lang="en" class="mw-content-ltr"><p><br/>
-</p><p><br/>
-</p>
-<div id="toc" class="toc"><div id="toctitle"><h2>Contents</h2></div>
-<ul>
-<li class="toclevel-1"><a href="Sifting Logs with Logback.html#Introduction"><span class="tocnumber">1</span> <span class="toctext">Introduction</span></a>
-<ul>
-<li class="toclevel-2"><a href="Sifting Logs with Logback.html#Modules"><span class="tocnumber">1.1</span> <span class="toctext">Modules</span></a></li>
-</ul>
-</li>
-<li class="toclevel-1"><a href="Sifting Logs with Logback.html#Details"><span class="tocnumber">2</span> <span class="toctext">Details</span></a>
-<ul>
-<li class="toclevel-2"><a href="Sifting Logs with Logback.html#Configuring_Basic_Logback_for_Jetty"><span class="tocnumber">2.1</span> <span class="toctext">Configuring Basic Logback for Jetty</span></a></li>
-<li class="toclevel-2"><a href="Sifting Logs with Logback.html#Using_Logback_to_Sift_Logs_via_Hostname"><span class="tocnumber">2.2</span> <span class="toctext">Using Logback to Sift Logs via Hostname</span></a></li>
-</ul>
-</li>
-</ul>
-</div>
-
-<h2><span class="mw-headline" id="Introduction">Introduction</span></h2>
-<div class="messagebox" style="background-color: #f9f6b7; border: 1px solid #c4c295; color: black; padding: 5px; margin: 1ex 0; min-height: 35px; padding-left: 45px; font-size: 150%; color: white; background-color: #FF8888; padding: 50px">
-<div style="float: left; margin-left: -40px;"><a class="image" href="https://wiki.eclipse.org/File:Warning2.png"><img src="../../images/3/37/Warning2.png" width="35" height="35" alt="Warning2.png"/></a></div>
-<div>Jetty 7 and Jetty 8 are now EOL (End of Life)<br/>
-<p><br/>
-<br/>
-<br/>
-THIS IS NOT THE DOCUMENTATION YOU ARE LOOKING FOR!!!!!<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-All development and stable releases are being performed with Jetty 9 and Jetty 10.<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-This <b>wiki is now officially out of date</b> and all content has been moved to the <a class="external text" href="http://www.eclipse.org/jetty/documentation" rel="nofollow">Jetty Documentation Hub</a><br/> 
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-</p>
-Direct Link to updated documentation: <a href="http://www.eclipse.org/jetty/documentation/current/configuring-logging.html" rel="nofollow" class="external free">http://www.eclipse.org/jetty/documentation/current/configuring-logging.html</a></div>
-</div>
-<p><br/>
-This page describes how to create log files at the server level and name them based on an arbitrary context. You do this with SLF4J + Logback + Jetty Webapp Logging in the mix. Find example projects for this feature at github:<br/><a class="external free" href="https://github.com/jetty-project/jetty-and-logback-example" rel="nofollow">https://github.com/jetty-project/jetty-and-logback-example</a>
-</p>
-<h3><span id="Modules" class="mw-headline">Modules</span></h3>
-<dl><dt> /jetty-distro-with-logback-basic/</dt>
-<dd> Configures the jetty distribution with logback enabled at the server level with an example logback configuration.</dd>
-<dt> /jetty-distro-with-logback-sifting/</dt>
-<dd> Configures the jetty distribution with logback, centralized webapp logging, an MDC handler, and a sample logback configuration that performs sifting based  on the incoming Host header on the requests.</dd>
-<dt> /jetty-slf4j-mdc-handler/</dt>
-<dd> Provides the SLF4J MDC key/value pairs that Jetty needs to perform the sample sifting.</dd>
-<dt> /jetty-slf4j-test-webapp/</dt>
-<dd> A sample webapp+servlet that accepts arbitrary values on a form POST and logs them via SLF4J, so that you can see the results of this example.</dd></dl>
-<h2><span id="Details" class="mw-headline">Details</span></h2>
-<h3><span id="Configuring_Basic_Logback_for_Jetty" class="mw-headline">Configuring Basic Logback for Jetty</span></h3>
-<div class="messagebox" style="background-color: #def3fe; border: 1px solid #c5d7e0; color: black; padding: 5px; margin: 1ex 0; min-height: 35px; padding-left: 45px;">
-<div style="float: left; margin-left: -40px;"><a class="image" href="https://wiki.eclipse.org/File:Idea.png"><img src="../../images/a/a4/Idea.png" width="35" height="35" alt="Idea.png"/></a></div>
-<div><b>Important</b><br/>See the <code>/jetty-distro-with-logback-basic/</code> for a Maven project that builds this configuration. Notice that the output directory<code> /jetty-distro-with-logback-basic/target/jetty-distro/</code> is where Maven builds it.</div>
-</div>
-<p><br/>
-To configure basic logback for Jetty:
-</p>
-<ol><li> Unpack your Jetty 7.x or 8.x distribution zip of choice.<br/> This example uses 7.4.5.v20110725.</li>
-<li> Install the slf4j and logback jars into <code>${jetty.home}/lib/logging/.</code>
-<ul><li> <a class="external text" href="http://search.maven.org/#browse%7C-784682263" rel="nofollow">slf4j-api-1.6.1.jar</a></li>
-<li> <a rel="nofollow" href="http://search.maven.org/#browse%7C-1948538962" class="external text">logback-classic-0.9.29.jar</a></li>
-<li> <a class="external text" href="http://search.maven.org/#browse%7C-7494467053" rel="nofollow">logback-core-0.9.29.jar</a></li></ul></li>
-<li> Configure <a href="https://github.com/jetty-project/jetty-and-logback-example/blob/master/jetty-distro-with-logback-basic/src/main/config/start.ini" rel="nofollow" class="external text">${jetty.home}/start.ini</a> to add the lib/logging directory into the server classpath.  </li></ol>
-<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="xml source-xml"><pre class="de1">===========================================================
+    <link href="wiki-style.css" media="screen, print" rel="stylesheet" />
+  </head>
+  <body>
+    <div class="col-md-20" id="mainContent">
+      <div class="tab-content background-white">
+        <div class="tab-pane active" id="tab-pane-main-page-content">
+          <h1 class="firstHeading page-header" id="firstHeading">
+            <span dir="auto">Jetty/Tutorial/Sifting Logs with Logback</span>
+          </h1>
+          <div id="main-page-content">
+            <div class="alert alert-small alert-warning" id="contentSub">
+              <span class="subpages">
+                &lt;
+                <a href="../../Jetty.html" title="Jetty">Jetty</a>
+                 |
+                <a href="../Tutorial.html" title="Jetty/Tutorial">Tutorial</a>
+              </span>
+            </div>
+            <div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="en">
+              <p>
+                <br />
+              </p>
+              <p>
+                <br />
+              </p>
+              <div class="toc" id="toc">
+                <div id="toctitle">
+                  <h2>Contents</h2>
+                </div>
+                <ul>
+                  <li class="toclevel-1">
+                    <a href="Sifting Logs with Logback.html#Introduction">
+                      <span class="tocnumber">1</span>
+                      <span class="toctext">Introduction</span>
+                    </a>
+                    <ul>
+                      <li class="toclevel-2">
+                        <a href="Sifting Logs with Logback.html#Modules">
+                          <span class="tocnumber">1.1</span>
+                          <span class="toctext">Modules</span>
+                        </a>
+                      </li>
+                    </ul>
+                  </li>
+                  <li class="toclevel-1">
+                    <a href="Sifting Logs with Logback.html#Details">
+                      <span class="tocnumber">2</span>
+                      <span class="toctext">Details</span>
+                    </a>
+                    <ul>
+                      <li class="toclevel-2">
+                        <a href="Sifting Logs with Logback.html#Configuring_Basic_Logback_for_Jetty">
+                          <span class="tocnumber">2.1</span>
+                          <span class="toctext">Configuring Basic Logback for Jetty</span>
+                        </a>
+                      </li>
+                      <li class="toclevel-2">
+                        <a href="Sifting Logs with Logback.html#Using_Logback_to_Sift_Logs_via_Hostname">
+                          <span class="tocnumber">2.2</span>
+                          <span class="toctext">Using Logback to Sift Logs via Hostname</span>
+                        </a>
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </div>
+              <h2>
+                <span class="mw-headline" id="Introduction">Introduction</span>
+              </h2>
+              <p>
+                <br />
+                This page describes how to create log files at the server level and name them based on an arbitrary context. You do this with SLF4J + Logback + Jetty Webapp Logging in the mix. Find example projects for this feature at github:
+                <br />
+                <a class="external free" href="https://github.com/jetty-project/jetty-and-logback-example" rel="nofollow">https://github.com/jetty-project/jetty-and-logback-example</a>
+              </p>
+              <h3>
+                <span class="mw-headline" id="Modules">Modules</span>
+              </h3>
+              <dl>
+                <dt>/jetty-distro-with-logback-basic/</dt>
+                <dd>Configures the jetty distribution with logback enabled at the server level with an example logback configuration.</dd>
+                <dt>/jetty-distro-with-logback-sifting/</dt>
+                <dd>Configures the jetty distribution with logback, centralized webapp logging, an MDC handler, and a sample logback configuration that performs sifting based  on the incoming Host header on the requests.</dd>
+                <dt>/jetty-slf4j-mdc-handler/</dt>
+                <dd>Provides the SLF4J MDC key/value pairs that Jetty needs to perform the sample sifting.</dd>
+                <dt>/jetty-slf4j-test-webapp/</dt>
+                <dd>A sample webapp+servlet that accepts arbitrary values on a form POST and logs them via SLF4J, so that you can see the results of this example.</dd>
+              </dl>
+              <h2>
+                <span class="mw-headline" id="Details">Details</span>
+              </h2>
+              <h3>
+                <span class="mw-headline" id="Configuring_Basic_Logback_for_Jetty">Configuring Basic Logback for Jetty</span>
+              </h3>
+              <p>
+                <br />
+                To configure basic logback for Jetty:
+              </p>
+              <ol>
+                <li>
+                  Unpack your Jetty 7.x or 8.x distribution zip of choice.
+                  <br />
+                  This example uses 7.4.5.v20110725.
+                </li>
+                <li>
+                  Install the slf4j and logback jars into
+                  <code>${jetty.home}/lib/logging/.</code>
+                  <ul>
+                    <li>
+                      <a class="external text" href="http://search.maven.org/#browse%7C-784682263" rel="nofollow">slf4j-api-1.6.1.jar</a>
+                    </li>
+                    <li>
+                      <a class="external text" href="http://search.maven.org/#browse%7C-1948538962" rel="nofollow">logback-classic-0.9.29.jar</a>
+                    </li>
+                    <li>
+                      <a class="external text" href="http://search.maven.org/#browse%7C-7494467053" rel="nofollow">logback-core-0.9.29.jar</a>
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  Configure
+                  <a class="external text" href="https://github.com/jetty-project/jetty-and-logback-example/blob/master/jetty-distro-with-logback-basic/src/main/config/start.ini" rel="nofollow">${jetty.home}/start.ini</a>
+                  to add the lib/logging directory into the server classpath.
+                </li>
+              </ol>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="xml source-xml">
+                  <pre class="de1" xml:space="preserve">===========================================================
 # Start classpath OPTIONS.
 # These control what classes are on the classpath
 # for a full listing do
@@ -120,9 +149,19 @@ etc/jetty-deploy.xml
 etc/jetty-webapps.xml
 etc/jetty-contexts.xml
 etc/jetty-testrealm.xml
-#===========================================================</pre></div></div>
-<ol start="4"> <li> Create a <a rel="nofollow" href="https://github.com/jetty-project/jetty-and-logback-example/blob/master/jetty-distro-with-logback-basic/src/main/config/resources/logback.xml" class="external text">${jetty.home}/resources/logback.xml</a> file with the configuration you want. </li></ol> 
-<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="xml source-xml"><pre class="de1"><span class="sc3"><span class="re1">&lt;?xml</span> <span class="re0">version</span>=<span class="st0">"1.0"</span> <span class="re0">encoding</span>=<span class="st0">"UTF-8"</span><span class="re2">?&gt;</span></span>
+#===========================================================</pre>
+                </div>
+              </div>
+              <ol start="4">
+                <li>
+                  Create a
+                  <a class="external text" href="https://github.com/jetty-project/jetty-and-logback-example/blob/master/jetty-distro-with-logback-basic/src/main/config/resources/logback.xml" rel="nofollow">${jetty.home}/resources/logback.xml</a>
+                  file with the configuration you want.
+                </li>
+              </ol>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="xml source-xml">
+                  <pre class="de1" xml:space="preserve"><span class="sc3"><span class="re1">&lt;?xml</span> <span class="re0">version</span>=<span class="st0">"1.0"</span> <span class="re0">encoding</span>=<span class="st0">"UTF-8"</span><span class="re2">?&gt;</span></span>
 <span class="sc-1">&lt;!--</span>
 <span class="sc-1">  Example LOGBACK Configuration File</span>
  
@@ -157,40 +196,124 @@ etc/jetty-testrealm.xml
     <span class="sc3"><span class="re1">&lt;appender-ref</span> <span class="re0">ref</span>=<span class="st0">"STDOUT"</span> <span class="re2">/&gt;</span></span>
     <span class="sc3"><span class="re1">&lt;appender-ref</span> <span class="re0">ref</span>=<span class="st0">"FILE"</span> <span class="re2">/&gt;</span></span>
   <span class="sc3"><span class="re1">&lt;/root<span class="re2">&gt;</span></span></span>
-<span class="sc3"><span class="re1">&lt;/configuration<span class="re2">&gt;</span></span></span></pre></div></div>
-<p>That’s it, now you have (in the following order):
-</p>
-<ol><li> Jetty configured to use SLF4J<br/> (via <code>slf4j-api.jar</code> in the classpath on Jetty startup).</li>
-<li> SLF4J configured to use Logback<br/> (via <code>logback-core.jar</code> in the classpath at Jetty startup).</li>
-<li> Logback configured to produce output to:
-<ul><li> <code>${jetty.home}/logs/jetty.log</code> (with daily rolling).</li>
-<li> and STDOUT console.</li></ul></li></ol>
-<p>Now start Jetty.
-</p>
-<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="java source-java"><pre class="de1">$ java <span class="sy0">-</span>jar start.<span class="me1">jar</span></pre></div></div>
-<p>Notice that SLF4J handles the log events Jetty  produces, while Logback  writes those events to the STDOUT console and <code>logs/jetty.log</code> file.
-</p>
-<h3><span id="Using_Logback_to_Sift_Logs_via_Hostname" class="mw-headline">Using Logback to Sift Logs via Hostname</span></h3>
-<p>Here is a more complex example: 
-</p>
-<ul><li> You have several virtual hosts, or a variety of DNS hostnames for the Jetty instance that is running. </li>
-<li> You want Jetty to capture the logging events your webapps produce into uniquely named log files according to the hostname that the request came in on.</li></ul>
-<p>This is possible with Logback, SLF4J and jetty WebappContextClassloader.
-</p><p>See the <code>/jetty-distro-with-logback-sifting/</code> project example from the github project listed above for a buildable configuration of the following:
-</p>
-<ol><li> Unpack your Jetty 7.x or 8.x distribution zip of choice. This example uses 7.4.5.v20110725.</li>
-<li> Install the slf4j and logback jars into <code>${jetty.home}/lib/logging/</code>.
-<ul><li> <a rel="nofollow" href="http://search.maven.org/#browse%7C-784682263" class="external text">slf4j-api-1.6.1.jar</a></li>
-<li> <a class="external text" href="http://search.maven.org/#browse%7C-1948538962" rel="nofollow">logback-classic-0.9.29.jar</a></li>
-<li> <a class="external text" rel="nofollow" href="http://search.maven.org/#browse%7C-749446705">logback-core-0.9.29.jar</a></li>
-<li> <a class="external text" rel="nofollow" href="http://search.maven.org/#browse%7C1693692108">jetty-webapp-logging.jar</a> (be sure you match your jetty version)</li>
-<li> <a rel="nofollow" href="https://github.com/jetty-project/jetty-and-logback-example/tree/master/jetty-slf4j-mdc-handler" class="external text">jetty-slf4j-mdc-handler.jar</a> -- from Github example project. Steps to compile to JAR
-<ol><li> Clone or <a class="external text" href="https://github.com/jetty-project/jetty-and-logback-example/archive/master.zip" rel="nofollow">download as ZIP</a> and unpack somewhere</li>
-<li> Go to <tt>jetty-slf4j-mdc-handler/</tt> subfolder</li>
-<li> Run <tt>mvn package</tt> (needs <a class="external text" rel="nofollow" href="http://maven.apache.org">Maven</a>, indeed)</li>
-<li> Get compiled JAR <tt>jetty-slf4j-mdc-handler-1.0-SNAPSHOT</tt> from <tt>jetty-slf4j-mdc-handler/target/</tt>.</li></ol></li></ul></li>
-<li> Configure <a href="https://github.com/jetty-project/jetty-and-logback-example/blob/master/jetty-distro-with-logback-sifting/src/main/config/start.ini" rel="nofollow" class="external text">${jetty.home}/start.ini</a> to add the <code>lib/logging</code> directory into the server classpath.  </li></ol>
-<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="xml source-xml"><pre class="de1">#===========================================================
+<span class="sc3"><span class="re1">&lt;/configuration<span class="re2">&gt;</span></span></span></pre>
+                </div>
+              </div>
+              <p>That’s it, now you have (in the following order):</p>
+              <ol>
+                <li>
+                  Jetty configured to use SLF4J
+                  <br />
+                  (via
+                  <code>slf4j-api.jar</code>
+                  in the classpath on Jetty startup).
+                </li>
+                <li>
+                  SLF4J configured to use Logback
+                  <br />
+                  (via
+                  <code>logback-core.jar</code>
+                  in the classpath at Jetty startup).
+                </li>
+                <li>
+                  Logback configured to produce output to:
+                  <ul>
+                    <li>
+                      <code>${jetty.home}/logs/jetty.log</code>
+                      (with daily rolling).
+                    </li>
+                    <li>and STDOUT console.</li>
+                  </ul>
+                </li>
+              </ol>
+              <p>Now start Jetty.</p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="java source-java">
+                  <pre class="de1" xml:space="preserve">$ java <span class="sy0">-</span>jar start.<span class="me1">jar</span></pre>
+                </div>
+              </div>
+              <p>
+                Notice that SLF4J handles the log events Jetty  produces, while Logback  writes those events to the STDOUT console and
+                <code>logs/jetty.log</code>
+                file.
+              </p>
+              <h3>
+                <span class="mw-headline" id="Using_Logback_to_Sift_Logs_via_Hostname">Using Logback to Sift Logs via Hostname</span>
+              </h3>
+              <p>Here is a more complex example:</p>
+              <ul>
+                <li>You have several virtual hosts, or a variety of DNS hostnames for the Jetty instance that is running.</li>
+                <li>You want Jetty to capture the logging events your webapps produce into uniquely named log files according to the hostname that the request came in on.</li>
+              </ul>
+              <p>This is possible with Logback, SLF4J and jetty WebappContextClassloader.</p>
+              <p>
+                See the
+                <code>/jetty-distro-with-logback-sifting/</code>
+                project example from the github project listed above for a buildable configuration of the following:
+              </p>
+              <ol>
+                <li>Unpack your Jetty 7.x or 8.x distribution zip of choice. This example uses 7.4.5.v20110725.</li>
+                <li>
+                  Install the slf4j and logback jars into
+                  <code>${jetty.home}/lib/logging/</code>
+                  .
+                  <ul>
+                    <li>
+                      <a class="external text" href="http://search.maven.org/#browse%7C-784682263" rel="nofollow">slf4j-api-1.6.1.jar</a>
+                    </li>
+                    <li>
+                      <a class="external text" href="http://search.maven.org/#browse%7C-1948538962" rel="nofollow">logback-classic-0.9.29.jar</a>
+                    </li>
+                    <li>
+                      <a class="external text" href="http://search.maven.org/#browse%7C-749446705" rel="nofollow">logback-core-0.9.29.jar</a>
+                    </li>
+                    <li>
+                      <a class="external text" href="http://search.maven.org/#browse%7C1693692108" rel="nofollow">jetty-webapp-logging.jar</a>
+                      (be sure you match your jetty version)
+                    </li>
+                    <li>
+                      <a class="external text" href="https://github.com/jetty-project/jetty-and-logback-example/tree/master/jetty-slf4j-mdc-handler" rel="nofollow">jetty-slf4j-mdc-handler.jar</a>
+                      -- from Github example project. Steps to compile to JAR
+                      <ol>
+                        <li>
+                          Clone or
+                          <a class="external text" href="https://github.com/jetty-project/jetty-and-logback-example/archive/master.zip" rel="nofollow">download as ZIP</a>
+                          and unpack somewhere
+                        </li>
+                        <li>
+                          Go to
+                          <tt>jetty-slf4j-mdc-handler/</tt>
+                          subfolder
+                        </li>
+                        <li>
+                          Run
+                          <tt>mvn package</tt>
+                          (needs
+                          <a class="external text" href="http://maven.apache.org" rel="nofollow">Maven</a>
+                          , indeed)
+                        </li>
+                        <li>
+                          Get compiled JAR
+                          <tt>jetty-slf4j-mdc-handler-1.0-SNAPSHOT</tt>
+                          from
+                          <tt>jetty-slf4j-mdc-handler/target/</tt>
+                          .
+                        </li>
+                      </ol>
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  Configure
+                  <a class="external text" href="https://github.com/jetty-project/jetty-and-logback-example/blob/master/jetty-distro-with-logback-sifting/src/main/config/start.ini" rel="nofollow">${jetty.home}/start.ini</a>
+                  to add the
+                  <code>lib/logging</code>
+                  directory into the server classpath.
+                </li>
+              </ol>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="xml source-xml">
+                  <pre class="de1" xml:space="preserve">#===========================================================
 # Start classpath OPTIONS.
 # These control what classes are on the classpath
 # for a full listing do
@@ -212,15 +335,36 @@ etc/jetty-webapps.xml
 etc/jetty-contexts.xml
 etc/jetty-webapp-logging.xml
 etc/jetty-testrealm.xml
-#===========================================================</pre></div></div>
-<p>The key entries here are the addition of the <code>logging</code> OPTION to load the classes in <code>${jetty.home}/lib/logging</code> into the jetty server classpath, and the two new configuration files:
-</p>
-<dl><dt> <a rel="nofollow" href="https://github.com/jetty-project/jetty-and-logback-example/blob/master/jetty-distro-with-logback-sifting/src/main/config/etc/jetty-mdc-handler.xml" class="external text">etc/jetty-mdc-handler.xml</a></dt>
-<dd> Adds wraps the MDCHandler found in jetty-slf4j-mdc-handler around all of the handlers in Jetty Server.</dd>
-<dt> <a class="external text" href="http://git.codehaus.org/gitweb.cgi?p=jetty-project.git;a=blob;f=jetty-webapp-logging/src/main/config/etc/jetty-webapp-logging.xml;h=f69d9b540986b7c24a58de8c366844c717c0df20;hb=HEAD" rel="nofollow">etc/jetty-webapp-logging.xml</a></dt>
-<dd> Adds a DeploymentManager lifecycle handler that configures the created Webapp’s Classloaders to deny acccess to any webapp (WAR) file contained logger implementations in favor of using the ones that exist on the server classpath. This is a concept known as Centralized Webapp Logging.</dd></dl>
-<ol start="4"> <li> Create a <a class="external text" rel="nofollow" href="https://github.com/jetty-project/jetty-and-logback-example/blob/master/jetty-distro-with-logback-sifting/src/main/config/resources/logback.xml">${jetty.home}/resources/logback.xml</a> file with the configuration you want. </li></ol> 
-<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="xml source-xml"><pre class="de1"><span class="sc3"><span class="re1">&lt;?xml</span> <span class="re0">version</span>=<span class="st0">"1.0"</span> <span class="re0">encoding</span>=<span class="st0">"UTF-8"</span><span class="re2">?&gt;</span></span>
+#===========================================================</pre>
+                </div>
+              </div>
+              <p>
+                The key entries here are the addition of the
+                <code>logging</code>
+                OPTION to load the classes in
+                <code>${jetty.home}/lib/logging</code>
+                into the jetty server classpath, and the two new configuration files:
+              </p>
+              <dl>
+                <dt>
+                  <a class="external text" href="https://github.com/jetty-project/jetty-and-logback-example/blob/master/jetty-distro-with-logback-sifting/src/main/config/etc/jetty-mdc-handler.xml" rel="nofollow">etc/jetty-mdc-handler.xml</a>
+                </dt>
+                <dd>Adds wraps the MDCHandler found in jetty-slf4j-mdc-handler around all of the handlers in Jetty Server.</dd>
+                <dt>
+                  <a class="external text" href="http://git.codehaus.org/gitweb.cgi?p=jetty-project.git;a=blob;f=jetty-webapp-logging/src/main/config/etc/jetty-webapp-logging.xml;h=f69d9b540986b7c24a58de8c366844c717c0df20;hb=HEAD" rel="nofollow">etc/jetty-webapp-logging.xml</a>
+                </dt>
+                <dd>Adds a DeploymentManager lifecycle handler that configures the created Webapp’s Classloaders to deny acccess to any webapp (WAR) file contained logger implementations in favor of using the ones that exist on the server classpath. This is a concept known as Centralized Webapp Logging.</dd>
+              </dl>
+              <ol start="4">
+                <li>
+                  Create a
+                  <a class="external text" href="https://github.com/jetty-project/jetty-and-logback-example/blob/master/jetty-distro-with-logback-sifting/src/main/config/resources/logback.xml" rel="nofollow">${jetty.home}/resources/logback.xml</a>
+                  file with the configuration you want.
+                </li>
+              </ol>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="xml source-xml">
+                  <pre class="de1" xml:space="preserve"><span class="sc3"><span class="re1">&lt;?xml</span> <span class="re0">version</span>=<span class="st0">"1.0"</span> <span class="re0">encoding</span>=<span class="st0">"UTF-8"</span><span class="re2">?&gt;</span></span>
 <span class="sc-1">&lt;!--</span>
 <span class="sc-1">    Example LOGBACK Configuration File</span>
  
@@ -266,51 +410,109 @@ etc/jetty-testrealm.xml
     <span class="sc3"><span class="re1">&lt;appender-ref</span> <span class="re0">ref</span>=<span class="st0">"STDOUT"</span> <span class="re2">/&gt;</span></span>
     <span class="sc3"><span class="re1">&lt;appender-ref</span> <span class="re0">ref</span>=<span class="st0">"SIFT"</span> <span class="re2">/&gt;</span></span>
   <span class="sc3"><span class="re1">&lt;/root<span class="re2">&gt;</span></span></span>
-<span class="sc3"><span class="re1">&lt;/configuration<span class="re2">&gt;</span></span></span></pre></div></div>
-<p>That’s it, now you have (in the following order):
-</p>
-<ol><li> Jetty configured to use SLF4J<br/> (via <code>slf4j-api.jar</code> in the classpath on Jetty startup).</li>
-<li> Jetty is configured to modify incoming Webapp’s classloaders to favor server logging classes over the webapp’s own logging classes.<br/> (Centralized Webapp Logging).</li>
-<li> SLF4J configured to use Logback<br/> (via <code>logback-core.jar</code> in the classpath at Jetty startup).</li>
-<li> Logback configured to produce output to:
-<ul><li> <code>${jetty.home}/logs/jetty-${host}.log</code> (with daily rolling)  and using “unknown” for log events that don’t originate from a request.</li>
-<li> and STDOUT console.</li></ul></li></ol>
-<p>Now start Jetty.
-</p>
-<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="java source-java"><pre class="de1">$ java <span class="sy0">-</span>jar start.<span class="me1">jar</span></pre></div></div>
-<p><br/>
-<br/>
-<a class="image" href="https://wiki.eclipse.org/File:Example-start-jetty.png"><img width="769" height="550" alt="Example-start-jetty.png" src="../../images/b/b8/Example-start-jetty.png"/></a>
-<br/>
-<br/>
-</p>
-<ol start="6."> <li> If you have started the distribution the example configuration produces, you can use the provided /slf4j-tests/ context to experiment with this.
-Use the default URL of <a href="http://localhost:8080/slf4j-tests/" rel="nofollow" class="external text">http://localhost:8080/slf4j-tests/</a>.</li></ol>
-<p><br/>
-<br/>
-<a href="https://wiki.eclipse.org/File:Example-form.png" class="image"><img src="../../images/c/cf/Example-form.png" alt="Example-form.png" width="769" height="550"/></a>
-<br/>
-<br/>
-</p>
-<ol start="7"> <li> Now try a few more URLs for the same Jetty instance.</li></ol>
-<p><br/>
-</p>
-<ul><li> <a class="external free" rel="nofollow" href="http://127.0.0.1:8080/slf4j-tests/">http://127.0.0.1:8080/slf4j-tests/</a></li>
-<li> <a href="http://127.0.1.1:8080/slf4j-tests/" rel="nofollow" class="external free">http://127.0.1.1:8080/slf4j-tests/</a></li>
-<li> <a class="external free" rel="nofollow" href="http://your">http://your</a> development machine:8080/slf4j-tests/ (lapetus is the name of our development machine)</li>
-<li> <a rel="nofollow" href="http://your" class="external free">http://your</a> development machine.local:8080/slf4j-tests/</li></ul>
-<p>You should now have a few different log files in your <code>${jetty.home}/logs/</code> directory.
-<br/>
-<br/>
-<a class="image" href="https://wiki.eclipse.org/File:Example-logs-sifted.png"><img src="../../images/2/23/Example-logs-sifted.png" alt="Example-logs-sifted.png" width="769" height="276"/></a>
-</p>
-
-</div>
-
-                    <div class="catlinks" id="catlinks"><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="https://wiki.eclipse.org/Special:Categories" title="Special:Categories">Categories</a>: <ul><li><a href="https://wiki.eclipse.org/Category:Jetty" title="Category:Jetty">Jetty</a></li><li><a title="Category:Jetty Tutorial" href="https://wiki.eclipse.org/Category:Jetty_Tutorial">Jetty Tutorial</a></li></ul></div></div>
-                                  </div>
+<span class="sc3"><span class="re1">&lt;/configuration<span class="re2">&gt;</span></span></span></pre>
+                </div>
               </div>
+              <p>That’s it, now you have (in the following order):</p>
+              <ol>
+                <li>
+                  Jetty configured to use SLF4J
+                  <br />
+                  (via
+                  <code>slf4j-api.jar</code>
+                  in the classpath on Jetty startup).
+                </li>
+                <li>
+                  Jetty is configured to modify incoming Webapp’s classloaders to favor server logging classes over the webapp’s own logging classes.
+                  <br />
+                  (Centralized Webapp Logging).
+                </li>
+                <li>
+                  SLF4J configured to use Logback
+                  <br />
+                  (via
+                  <code>logback-core.jar</code>
+                  in the classpath at Jetty startup).
+                </li>
+                <li>
+                  Logback configured to produce output to:
+                  <ul>
+                    <li>
+                      <code>${jetty.home}/logs/jetty-${host}.log</code>
+                      (with daily rolling)  and using “unknown” for log events that don’t originate from a request.
+                    </li>
+                    <li>and STDOUT console.</li>
+                  </ul>
+                </li>
+              </ol>
+              <p>Now start Jetty.</p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="java source-java">
+                  <pre class="de1" xml:space="preserve">$ java <span class="sy0">-</span>jar start.<span class="me1">jar</span></pre>
+                </div>
+              </div>
+              <p>
+                <br />
+                <br />
+                <a class="image" href="https://wiki.eclipse.org/File:Example-start-jetty.png">
+                  <img alt="Example-start-jetty.png" height="550" src="../../images/b/b8/Example-start-jetty.png" width="769" />
+                </a>
+                <br />
+                <br />
+              </p>
+              <ol start="6.">
+                <li>
+                  If you have started the distribution the example configuration produces, you can use the provided /slf4j-tests/ context to experiment with this.
+Use the default URL of
+                  <a class="external text" href="http://localhost:8080/slf4j-tests/" rel="nofollow">http://localhost:8080/slf4j-tests/</a>
+                  .
+                </li>
+              </ol>
+              <p>
+                <br />
+                <br />
+                <a class="image" href="https://wiki.eclipse.org/File:Example-form.png">
+                  <img alt="Example-form.png" height="550" src="../../images/c/cf/Example-form.png" width="769" />
+                </a>
+                <br />
+                <br />
+              </p>
+              <ol start="7">
+                <li>Now try a few more URLs for the same Jetty instance.</li>
+              </ol>
+              <p>
+                <br />
+              </p>
+              <ul>
+                <li>
+                  <a class="external free" href="http://127.0.0.1:8080/slf4j-tests/" rel="nofollow">http://127.0.0.1:8080/slf4j-tests/</a>
+                </li>
+                <li>
+                  <a class="external free" href="http://127.0.1.1:8080/slf4j-tests/" rel="nofollow">http://127.0.1.1:8080/slf4j-tests/</a>
+                </li>
+                <li>
+                  <a class="external free" href="http://your" rel="nofollow">http://your</a>
+                  development machine:8080/slf4j-tests/ (lapetus is the name of our development machine)
+                </li>
+                <li>
+                  <a class="external free" href="http://your" rel="nofollow">http://your</a>
+                  development machine.local:8080/slf4j-tests/
+                </li>
+              </ul>
+              <p>
+                You should now have a few different log files in your
+                <code>${jetty.home}/logs/</code>
+                directory.
+                <br />
+                <br />
+                <a class="image" href="https://wiki.eclipse.org/File:Example-logs-sifted.png">
+                  <img alt="Example-logs-sifted.png" height="276" src="../../images/2/23/Example-logs-sifted.png" width="769" />
+                </a>
+              </p>
             </div>
           </div>
-</body>
+        </div>
+      </div>
+    </div>
+  </body>
 </html>

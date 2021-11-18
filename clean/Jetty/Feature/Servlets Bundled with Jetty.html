@@ -1,108 +1,185 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
-<head>
+  <head>
     <title>Jetty WTP Plugin</title>
-    <link rel="stylesheet" media="screen, print" href="wiki-style.css"/>
-</head>
-<body>
-<div id="mainContent" class="col-md-20">
-                              <div class="tab-content background-white">
-              <div class="tab-pane active" id="tab-pane-main-page-content">
-
-                
-                <h1 class="firstHeading page-header" id="firstHeading">
-                  <span dir="auto">Jetty/Feature/Servlets Bundled with Jetty</span>
-                </h1>
-                <div id="main-page-content">
-
-                  <div id="contentSub" class="alert alert-small alert-warning"><span class="subpages">&lt; <a href="../../Jetty.html" title="Jetty">Jetty</a>‎ | <a title="Jetty/Feature" href="../Feature.html">Feature</a></span></div>
-
-                  
-                  
-                  <div class="mw-content-ltr" lang="en" dir="ltr" id="mw-content-text"><p><br/>
-</p><p><br/>
-</p>
-<div class="toc" id="toc"><div id="toctitle"><h2>Contents</h2></div>
-<ul>
-<li class="toclevel-1"><a href="Servlets Bundled with Jetty.html#Introduction"><span class="tocnumber">1</span> <span class="toctext">Introduction</span></a></li>
-<li class="toclevel-1"><a href="Servlets Bundled with Jetty.html#Feature"><span class="tocnumber">2</span> <span class="toctext">Feature</span></a>
-<ul>
-<li class="toclevel-2"><a href="Servlets Bundled with Jetty.html#GzipFilter"><span class="tocnumber">2.1</span> <span class="toctext">GzipFilter</span></a></li>
-<li class="toclevel-2"><a href="Servlets Bundled with Jetty.html#MultiPartFilter"><span class="tocnumber">2.2</span> <span class="toctext">MultiPartFilter</span></a></li>
-<li class="toclevel-2"><a href="Servlets Bundled with Jetty.html#NoJspServlet"><span class="tocnumber">2.3</span> <span class="toctext">NoJspServlet</span></a></li>
-<li class="toclevel-2"><a href="Servlets Bundled with Jetty.html#ProxyServlet"><span class="tocnumber">2.4</span> <span class="toctext">ProxyServlet</span></a></li>
-<li class="toclevel-2"><a href="Servlets Bundled with Jetty.html#QoSFilter"><span class="tocnumber">2.5</span> <span class="toctext">QoSFilter</span></a></li>
-<li class="toclevel-2"><a href="Servlets Bundled with Jetty.html#DoSFilter"><span class="tocnumber">2.6</span> <span class="toctext">DoSFilter</span></a></li>
-<li class="toclevel-2"><a href="Servlets Bundled with Jetty.html#WelcomeFilter"><span class="tocnumber">2.7</span> <span class="toctext">WelcomeFilter</span></a></li>
-<li class="toclevel-2"><a href="Servlets Bundled with Jetty.html#DefaultServlet"><span class="tocnumber">2.8</span> <span class="toctext">DefaultServlet</span></a></li>
-<li class="toclevel-2"><a href="Servlets Bundled with Jetty.html#CGI"><span class="tocnumber">2.9</span> <span class="toctext">CGI</span></a></li>
-</ul>
-</li>
-</ul>
-</div>
-
-<h2><span class="mw-headline" id="Introduction">Introduction</span></h2>
-<div class="messagebox" style="background-color: #f9f6b7; border: 1px solid #c4c295; color: black; padding: 5px; margin: 1ex 0; min-height: 35px; padding-left: 45px; font-size: 150%; color: white; background-color: #FF8888; padding: 50px">
-<div style="float: left; margin-left: -40px;"><a href="https://wiki.eclipse.org/File:Warning2.png" class="image"><img height="35" alt="Warning2.png" src="../../images/3/37/Warning2.png" width="35"/></a></div>
-<div>Jetty 7 and Jetty 8 are now EOL (End of Life)<br/>
-<p><br/>
-<br/>
-<br/>
-THIS IS NOT THE DOCUMENTATION YOU ARE LOOKING FOR!!!!!<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-All development and stable releases are being performed with Jetty 9 and Jetty 10.<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-This <b>wiki is now officially out of date</b> and all content has been moved to the <a rel="nofollow" href="http://www.eclipse.org/jetty/documentation" class="external text">Jetty Documentation Hub</a><br/> 
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-</p>
-Direct Link to updated documentation: <a class="external free" rel="nofollow" href="http://www.eclipse.org/jetty/documentation/current/advanced-extras.html">http://www.eclipse.org/jetty/documentation/current/advanced-extras.html</a></div>
-</div>
-<p><br/>
-Jetty ships with a bundle of servlets that interact with the key classes. Most are in the org.eclipse.jetty.servlets package. These servlets are among the principle elements of Jetty as a component-based infrastructure that holds and runs J2EE applications. As described below, they play a major role in running and maintaining the Jetty server. For more information, see <a class="external text" rel="nofollow" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/servlets/package-summary.html">Servlets javadoc</a> for the package.
-</p>
-<h2><span class="mw-headline" id="Feature">Feature</span></h2>
-<h3><span id="GzipFilter" class="mw-headline">GzipFilter</span></h3>
-<p>The Jetty GzipFilter is a compression filter that you can apply to almost any dynamic resource (servlet). It fixes many of the bugs in commonly available compression filters–for example, it handles all ways to set content length. We have tested it with Jetty continuations and suspending requests.
-Some user-agents might be excluded from compression to avoid common browser bugs (yes, this means IE!). See <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/servlets/GzipFilter.html" rel="nofollow">GzipFilter javadoc</a>.
-</p>
-<h3><span id="MultiPartFilter" class="mw-headline">MultiPartFilter</span></h3>
-<p>The MultiPartFilter class implements the Filter interface that the web container calls. It acts as a decoder of the mulitpart/form-data stream that an HTML form sends using a file input item. It stores any files an HTML form sends to a temporary location. It also adds a file object to the request, which acts as an attribute. Other values are available through the usual getParameter API, and the setCharacterEncoding mechanism is respected when converting bytes to strings. See <a class="external text" rel="nofollow" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/servlets/MultiPartFilter.html">MultiPartFilter javadoc</a>.
-</p>
-<h3><span class="mw-headline" id="NoJspServlet">NoJspServlet</span></h3>
-<p>This NoJsp servlet extends the abstract class HttpServlet; it displays the code 500 error message "JSP support not configured." See <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/servlet/NoJspServlet.html" rel="nofollow">NojspServlet javadoc</a>.
-</p>
-<h3><span id="ProxyServlet" class="mw-headline">ProxyServlet</span></h3>
-<p>ProxyServlet is an experimental effort that implements the Servlet interface. It acts as an authorized servlet on behalf on another running servlet. It is not a substitute for the running servlet, but provides a mirror for the service. See <a href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/servlets/ProxyServlet.html" rel="nofollow" class="external text">ProxyServlet javadoc</a>.
-</p>
-<h3><span id="QoSFilter" class="mw-headline">QoSFilter</span></h3>
-<p>The Quality of Service Filter limits the number of active requests to the number set by the "maxRequests" init parameter (default 10). If more requests than the set value are received, they are suspended and placed in priority queues. The getPriority(ServletRequest) method determines priorities, which are a value between zero and the value in the "maxPriority" init parameter (default 10), with higher values having higher priority.
-</p><p>This filter prevents wasting threads waiting for slow/limited resources such as a JDBC connection pool. It avoids consuming all of a container's thread pool. It also uses a priority system when resuming waiting requests. For example, consider a filter with a maxRequest limit slightly smaller than the container's thread pool, and a high priority allocated to admin users. Regardless of load, admin users are always able to access the web application. A semaphore polices the maxRequest limit, and the filter waits briefly while attempting to acquire the semaphore. Th "waitMS" init parameter controls waiting, avoiding the expense of a suspend if the semaphore is quickly available. If the system cannot obtain the semaphore, the request is suspended for the default suspend period of the container or the value set in the "suspendMs" init parameter. See <a href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/servlets/QoSFilter.html" rel="nofollow" class="external text">QoSFilter javadoc</a>.
-</p>
-<h3><span class="mw-headline" id="DoSFilter">DoSFilter</span></h3>
-<p>This has been replaced by the QoSFilter.
-</p>
-<h3><span class="mw-headline" id="WelcomeFilter">WelcomeFilter</span></h3>
-<p>The WelcomeFilter is another servlet that also implements the Filter interface. It forwards any servlets to the necessary welcome display of an application when serviced. See <a rel="nofollow" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/servlets/WelcomeFilter.html" class="external text">WelcomeFilter javadoc</a>.
-</p>
-<h3><span class="mw-headline" id="DefaultServlet">DefaultServlet</span></h3>
-<p>The DefaultServlet implements the ResourceFactory interface and extends the HttpServlet abstract class. It is usually mapped to / and provides handling for static content, OPTION and TRACE methods for the context. The MOVE method is allowed if PUT and DELETE are allowed. See <a rel="nofollow" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/servlet/DefaultServlet.html" class="external text">DefaultServlet javadoc</a>.
-</p><p>Jetty supports the following initParameters:
-</p>
-<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="text source-text"><pre class="de1">acceptRanges–If true, range requests and responses are supported.
+    <link href="wiki-style.css" media="screen, print" rel="stylesheet" />
+  </head>
+  <body>
+    <div class="col-md-20" id="mainContent">
+      <div class="tab-content background-white">
+        <div class="tab-pane active" id="tab-pane-main-page-content">
+          <h1 class="firstHeading page-header" id="firstHeading">
+            <span dir="auto">Jetty/Feature/Servlets Bundled with Jetty</span>
+          </h1>
+          <div id="main-page-content">
+            <div class="alert alert-small alert-warning" id="contentSub">
+              <span class="subpages">
+                &lt;
+                <a href="../../Jetty.html" title="Jetty">Jetty</a>
+                 |
+                <a href="../Feature.html" title="Jetty/Feature">Feature</a>
+              </span>
+            </div>
+            <div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="en">
+              <p>
+                <br />
+              </p>
+              <p>
+                <br />
+              </p>
+              <div class="toc" id="toc">
+                <div id="toctitle">
+                  <h2>Contents</h2>
+                </div>
+                <ul>
+                  <li class="toclevel-1">
+                    <a href="Servlets Bundled with Jetty.html#Introduction">
+                      <span class="tocnumber">1</span>
+                      <span class="toctext">Introduction</span>
+                    </a>
+                  </li>
+                  <li class="toclevel-1">
+                    <a href="Servlets Bundled with Jetty.html#Feature">
+                      <span class="tocnumber">2</span>
+                      <span class="toctext">Feature</span>
+                    </a>
+                    <ul>
+                      <li class="toclevel-2">
+                        <a href="Servlets Bundled with Jetty.html#GzipFilter">
+                          <span class="tocnumber">2.1</span>
+                          <span class="toctext">GzipFilter</span>
+                        </a>
+                      </li>
+                      <li class="toclevel-2">
+                        <a href="Servlets Bundled with Jetty.html#MultiPartFilter">
+                          <span class="tocnumber">2.2</span>
+                          <span class="toctext">MultiPartFilter</span>
+                        </a>
+                      </li>
+                      <li class="toclevel-2">
+                        <a href="Servlets Bundled with Jetty.html#NoJspServlet">
+                          <span class="tocnumber">2.3</span>
+                          <span class="toctext">NoJspServlet</span>
+                        </a>
+                      </li>
+                      <li class="toclevel-2">
+                        <a href="Servlets Bundled with Jetty.html#ProxyServlet">
+                          <span class="tocnumber">2.4</span>
+                          <span class="toctext">ProxyServlet</span>
+                        </a>
+                      </li>
+                      <li class="toclevel-2">
+                        <a href="Servlets Bundled with Jetty.html#QoSFilter">
+                          <span class="tocnumber">2.5</span>
+                          <span class="toctext">QoSFilter</span>
+                        </a>
+                      </li>
+                      <li class="toclevel-2">
+                        <a href="Servlets Bundled with Jetty.html#DoSFilter">
+                          <span class="tocnumber">2.6</span>
+                          <span class="toctext">DoSFilter</span>
+                        </a>
+                      </li>
+                      <li class="toclevel-2">
+                        <a href="Servlets Bundled with Jetty.html#WelcomeFilter">
+                          <span class="tocnumber">2.7</span>
+                          <span class="toctext">WelcomeFilter</span>
+                        </a>
+                      </li>
+                      <li class="toclevel-2">
+                        <a href="Servlets Bundled with Jetty.html#DefaultServlet">
+                          <span class="tocnumber">2.8</span>
+                          <span class="toctext">DefaultServlet</span>
+                        </a>
+                      </li>
+                      <li class="toclevel-2">
+                        <a href="Servlets Bundled with Jetty.html#CGI">
+                          <span class="tocnumber">2.9</span>
+                          <span class="toctext">CGI</span>
+                        </a>
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </div>
+              <h2>
+                <span class="mw-headline" id="Introduction">Introduction</span>
+              </h2>
+              <p>
+                <br />
+                Jetty ships with a bundle of servlets that interact with the key classes. Most are in the org.eclipse.jetty.servlets package. These servlets are among the principle elements of Jetty as a component-based infrastructure that holds and runs J2EE applications. As described below, they play a major role in running and maintaining the Jetty server. For more information, see
+                <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/servlets/package-summary.html" rel="nofollow">Servlets javadoc</a>
+                for the package.
+              </p>
+              <h2>
+                <span class="mw-headline" id="Feature">Feature</span>
+              </h2>
+              <h3>
+                <span class="mw-headline" id="GzipFilter">GzipFilter</span>
+              </h3>
+              <p>
+                The Jetty GzipFilter is a compression filter that you can apply to almost any dynamic resource (servlet). It fixes many of the bugs in commonly available compression filters–for example, it handles all ways to set content length. We have tested it with Jetty continuations and suspending requests.
+Some user-agents might be excluded from compression to avoid common browser bugs (yes, this means IE!). See
+                <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/servlets/GzipFilter.html" rel="nofollow">GzipFilter javadoc</a>
+                .
+              </p>
+              <h3>
+                <span class="mw-headline" id="MultiPartFilter">MultiPartFilter</span>
+              </h3>
+              <p>
+                The MultiPartFilter class implements the Filter interface that the web container calls. It acts as a decoder of the mulitpart/form-data stream that an HTML form sends using a file input item. It stores any files an HTML form sends to a temporary location. It also adds a file object to the request, which acts as an attribute. Other values are available through the usual getParameter API, and the setCharacterEncoding mechanism is respected when converting bytes to strings. See
+                <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/servlets/MultiPartFilter.html" rel="nofollow">MultiPartFilter javadoc</a>
+                .
+              </p>
+              <h3>
+                <span class="mw-headline" id="NoJspServlet">NoJspServlet</span>
+              </h3>
+              <p>
+                This NoJsp servlet extends the abstract class HttpServlet; it displays the code 500 error message "JSP support not configured." See
+                <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/servlet/NoJspServlet.html" rel="nofollow">NojspServlet javadoc</a>
+                .
+              </p>
+              <h3>
+                <span class="mw-headline" id="ProxyServlet">ProxyServlet</span>
+              </h3>
+              <p>
+                ProxyServlet is an experimental effort that implements the Servlet interface. It acts as an authorized servlet on behalf on another running servlet. It is not a substitute for the running servlet, but provides a mirror for the service. See
+                <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/servlets/ProxyServlet.html" rel="nofollow">ProxyServlet javadoc</a>
+                .
+              </p>
+              <h3>
+                <span class="mw-headline" id="QoSFilter">QoSFilter</span>
+              </h3>
+              <p>The Quality of Service Filter limits the number of active requests to the number set by the "maxRequests" init parameter (default 10). If more requests than the set value are received, they are suspended and placed in priority queues. The getPriority(ServletRequest) method determines priorities, which are a value between zero and the value in the "maxPriority" init parameter (default 10), with higher values having higher priority.</p>
+              <p>
+                This filter prevents wasting threads waiting for slow/limited resources such as a JDBC connection pool. It avoids consuming all of a container's thread pool. It also uses a priority system when resuming waiting requests. For example, consider a filter with a maxRequest limit slightly smaller than the container's thread pool, and a high priority allocated to admin users. Regardless of load, admin users are always able to access the web application. A semaphore polices the maxRequest limit, and the filter waits briefly while attempting to acquire the semaphore. Th "waitMS" init parameter controls waiting, avoiding the expense of a suspend if the semaphore is quickly available. If the system cannot obtain the semaphore, the request is suspended for the default suspend period of the container or the value set in the "suspendMs" init parameter. See
+                <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/servlets/QoSFilter.html" rel="nofollow">QoSFilter javadoc</a>
+                .
+              </p>
+              <h3>
+                <span class="mw-headline" id="DoSFilter">DoSFilter</span>
+              </h3>
+              <p>This has been replaced by the QoSFilter.</p>
+              <h3>
+                <span class="mw-headline" id="WelcomeFilter">WelcomeFilter</span>
+              </h3>
+              <p>
+                The WelcomeFilter is another servlet that also implements the Filter interface. It forwards any servlets to the necessary welcome display of an application when serviced. See
+                <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/servlets/WelcomeFilter.html" rel="nofollow">WelcomeFilter javadoc</a>
+                .
+              </p>
+              <h3>
+                <span class="mw-headline" id="DefaultServlet">DefaultServlet</span>
+              </h3>
+              <p>
+                The DefaultServlet implements the ResourceFactory interface and extends the HttpServlet abstract class. It is usually mapped to / and provides handling for static content, OPTION and TRACE methods for the context. The MOVE method is allowed if PUT and DELETE are allowed. See
+                <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/servlet/DefaultServlet.html" rel="nofollow">DefaultServlet javadoc</a>
+                .
+              </p>
+              <p>Jetty supports the following initParameters:</p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="text source-text">
+                  <pre class="de1" xml:space="preserve">acceptRanges–If true, range requests and responses are supported.
 dirAllowed–If true, directory listings are returned if no welcome file is found. 
   Otherwise 403 Forbidden displays.
 redirectWelcome–If true, welcome files are redirected rather that forwarded.
@@ -116,24 +193,31 @@ maxCachedFileSize–Maximum size of a file to cache.
 maxCachedFiles–Maximum number of files to cache.
 useFileMappedBuffer–If set to true, mapped file buffer serves static content when using 
   NIO connector. Setting this value to false means that a direct buffer is used instead of a mapped file buffer. 
-  By default, this is set to true.</pre></div></div>
-<h3><span id="CGI" class="mw-headline">CGI</span></h3>
-<p>The CGI servlet class extends the abstract HttpServlet class. When the init parameter is called, the cgi bin directory is set with the cgibinResourceBase. Otherwise, it defaults to the resource base of the context. See  <a class="external text" rel="nofollow" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/servlets/CGI.html">CGI javadoc</a>.
-</p><p>The cgi bin uses three parameters:
-</p>
-<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="text source-text"><pre class="de1">commandPrefix–The init parameter obtained when there is a prefix set to all commands directed to the method exec.
+  By default, this is set to true.</pre>
+                </div>
+              </div>
+              <h3>
+                <span class="mw-headline" id="CGI">CGI</span>
+              </h3>
+              <p>
+                The CGI servlet class extends the abstract HttpServlet class. When the init parameter is called, the cgi bin directory is set with the cgibinResourceBase. Otherwise, it defaults to the resource base of the context. See
+                <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/servlets/CGI.html" rel="nofollow">CGI javadoc</a>
+                .
+              </p>
+              <p>The cgi bin uses three parameters:</p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="text source-text">
+                  <pre class="de1" xml:space="preserve">commandPrefix–The init parameter obtained when there is a prefix set to all commands directed to the method exec.
 Path–An init parameter passed to the exec environment as a PATH. This must be run unpacked 
   somewhere in the filesystem.
 ENV_ –An init parameter that points to an environment variable with the name stripped of the
-  leading ENV_ and using the init parameter value.</pre></div></div>
-
-
-</div>
-
-                    <div id="catlinks" class="catlinks"><div class="mw-normal-catlinks" id="mw-normal-catlinks"><a href="https://wiki.eclipse.org/Special:Categories" title="Special:Categories">Categories</a>: <ul><li><a href="https://wiki.eclipse.org/Category:Jetty" title="Category:Jetty">Jetty</a></li><li><a href="https://wiki.eclipse.org/Category:Jetty_Feature" title="Category:Jetty Feature">Jetty Feature</a></li></ul></div></div>
-                                  </div>
+  leading ENV_ and using the init parameter value.</pre>
+                </div>
               </div>
             </div>
           </div>
-</body>
+        </div>
+      </div>
+    </div>
+  </body>
 </html>

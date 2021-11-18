@@ -1,271 +1,104 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
-<head>
+  <head>
     <title>Jetty WTP Plugin</title>
-    <link rel="stylesheet" media="screen, print" href="wiki-style.css"/>
-</head>
-<body>
-<div class="col-md-20" id="mainContent">
-                      <ul class="nav nav-tabs noprint hidden-print" role="tablist">
-                       <li class="active" id="ca-nstab-main"><a title="View the content page [c]" href="Use Jetty with Ant.html" tabindex="-1" accesskey="c">Page</a></li>
-                        <li class="new" id="ca-talk"><a href="edit" title="Discussion about the content page [t]" tabindex="-1" accesskey="t">Discussion</a></li>
-                        <li id="ca-viewsource"><a accesskey="e" tabindex="-1" href="edit" title="This page is protected.&#10;You can view its source [e]">View source</a></li>
-                        <li class="collapsible" id="ca-history"><a tabindex="-1" title="Past revisions of this page [h]" href="edit" accesskey="h">History</a></li>
-                      </ul>            <div class="tab-content background-white">
-              <div id="tab-pane-main-page-content" class="tab-pane active">
-
-                
-                <h1 id="firstHeading" class="firstHeading page-header">
-                  <span dir="auto">Jetty/Howto/Use Jetty with Ant</span>
-                </h1>
-                <div id="main-page-content">
-
-                  <div id="contentSub" class="alert alert-small alert-warning"><span class="subpages">&lt; <a href="../../Jetty.html" title="Jetty">Jetty</a>‎ | <a href="../Howto.html" title="Jetty/Howto">Howto</a></span></div>
-
-                  
-                  
-                  <div lang="en" id="mw-content-text" dir="ltr" class="mw-content-ltr"><p><br/>
-</p><p><br/>
-</p>
-<div class="toc" id="toc"><div id="toctitle"><h2>Contents</h2></div>
-<ul>
-<li class="toclevel-1"><a href="Use Jetty with Ant.html#Introduction"><span class="tocnumber">1</span> <span class="toctext">Introduction</span></a></li>
-<li class="toclevel-1 tocsection-1"><a href="Use Jetty with Ant.html#Preparation"><span class="tocnumber">2</span> <span class="toctext">Preparation</span></a></li>
-<li class="toclevel-1 tocsection-2"><a href="Use Jetty with Ant.html#Preparing_the_build.xml_file"><span class="tocnumber">3</span> <span class="toctext">Preparing the build.xml file</span></a></li>
-<li class="toclevel-1 tocsection-3"><a href="Use Jetty with Ant.html#Starting_Jetty_via_Ant"><span class="tocnumber">4</span> <span class="toctext">Starting Jetty via Ant</span></a></li>
-<li class="toclevel-1 tocsection-4"><a href="Use Jetty with Ant.html#Deploying_web_applications"><span class="tocnumber">5</span> <span class="toctext">Deploying web applications</span></a>
-<ul>
-<li class="toclevel-2 tocsection-5"><a href="Use Jetty with Ant.html#A_Special_Note_on_Using_JSPs_with_JSTL_Or_Other_Taglibs"><span class="tocnumber">5.1</span> <span class="toctext">A Special Note on Using JSPs with JSTL Or Other Taglibs</span></a></li>
-</ul>
-</li>
-<li class="toclevel-1 tocsection-6"><a href="Use Jetty with Ant.html#Plugin_syntax"><span class="tocnumber">6</span> <span class="toctext">Plugin syntax</span></a>
-<ul>
-<li class="toclevel-2 tocsection-7"><a href="Use Jetty with Ant.html#There_are_many_ways_to_configure_jetty_tasks:"><span class="tocnumber">6.1</span> <span class="toctext">There are many ways to configure jetty tasks:</span></a></li>
-<li class="toclevel-2 tocsection-8"><a href="Use Jetty with Ant.html#There_are_also_many_ways_to_configure_web_applications_with_webapp_tag:"><span class="tocnumber">6.2</span> <span class="toctext">There are also many ways to configure web applications with webapp tag:</span></a></li>
-</ul>
-</li>
-</ul>
-</div>
-
-<h2><span id="Introduction" class="mw-headline">Introduction</span></h2>
-<div style="background-color: #f9f6b7; border: 1px solid #c4c295; color: black; padding: 5px; margin: 1ex 0; min-height: 35px; padding-left: 45px; font-size: 150%; color: white; background-color: #FF8888; padding: 50px" class="messagebox">
-<div style="float: left; margin-left: -40px;"><a class="image" href="https://wiki.eclipse.org/File:Warning2.png"><img alt="Warning2.png" height="35" width="35" src="../../images/3/37/Warning2.png"/></a></div>
-<div>Jetty 7 and Jetty 8 are now EOL (End of Life)<br/>
-<p><br/>
-<br/>
-<br/>
-THIS IS NOT THE DOCUMENTATION YOU ARE LOOKING FOR!!!!!<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-All development and stable releases are being performed with Jetty 9 and Jetty 10.<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-This <b>wiki is now officially out of date</b> and all content has been moved to the <a class="external text" rel="nofollow" href="http://www.eclipse.org/jetty/documentation">Jetty Documentation Hub</a><br/> 
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-</p>
-
-</div>
-<p><br/>
-The Ant Jetty plugin is in the <a class="external text" rel="nofollow" href="http://git.codehaus.org/gitweb.cgi?p=jetty-project.git;a=summary">codehouse trunk</a> in the <tt>jetty-ant</tt> module. This plugin makes it possible to start a Jetty web server directly from the Ant build script, and, to embed the Jetty web server inside your build process. Its purpose is to provide almost the same functionality as the Jetty plugin for Maven: dynamic application reloading, working directly on web application sources, and a tight integration with the build system.
-</p>
-<h2><span class="mw-headline" id="Preparation">Preparation</span></h2>
-<p>You will need a <a href="http://download.eclipse.org/jetty/" rel="nofollow" class="external text">jetty distribution</a> and the <a href="http://repo1.maven.org/maven2/org/mortbay/jetty/jetty-ant/" rel="nofollow" class="external text">jetty-ant jar</a> in order to set up your project for ant to run jetty:
-</p>
-<ol><li> Get a <a rel="nofollow" href="http://download.eclipse.org/jetty/" class="external text">jetty distribution</a> and unpack it the local filesystem </li>
-<li> Get the <a href="http://repo1.maven.org/maven2/org/mortbay/jetty/jetty-ant/" rel="nofollow" class="external text">jetty-ant jar</a> </li>
-<li> Make a directory in your project called <tt>jetty-lib/</tt></li>
-<li> Copy all of the jars in your jetty distribution's <tt>lib</tt> directory, and all its subdirectories, into your new <tt>jetty-lib</tt> dir. When copying the jars, DON'T preserve the jetty distro's <tt>lib</tt> dir hierarchy - all the jars should be directly inside your <tt>jetty-lib</tt> dir.</li>
-<li> Also copy the <a class="external text" href="http://repo1.maven.org/maven2/org/mortbay/jetty/jetty-ant/" rel="nofollow">jetty-ant jar</a>  you downloaded earlier into the <tt>jetty-lib</tt> dir.</li>
-<li> Make a directory in your project called <tt>jetty-temp</tt></li></ol>
-<p>Now you're ready to edit or create your Ant build.xml file.
-</p>
-<h2><span class="mw-headline" id="Preparing_the_build.xml_file">Preparing the <tt>build.xml file</tt></span></h2>
-<p>Let's start with an empty <tt>build.xml</tt>: 
-</p>
-<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="xml source-xml"><pre class="de1"><span class="sc3"><span class="re1">&lt;project</span> <span class="re0">name</span>=<span class="st0">"Jetty-Ant integration test"</span> <span class="re0">basedir</span>=<span class="st0">"."</span><span class="re2">&gt;</span></span>
-<span class="sc3"><span class="re1">&lt;/project<span class="re2">&gt;</span></span></span></pre></div></div>
-<p>Then, you must define a <tt>jetty</tt> task: 
-</p>
-<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="xml source-xml"><pre class="de1"><span class="sc3"><span class="re1">&lt;project</span> <span class="re0">name</span>=<span class="st0">"Jetty-Ant integration test"</span> <span class="re0">basedir</span>=<span class="st0">"."</span><span class="re2">&gt;</span></span>
-  <span class="sc3"><span class="re1">&lt;path</span> <span class="re0">id</span>=<span class="st0">"jetty.plugin.classpath"</span><span class="re2">&gt;</span></span>
-     <span class="sc3"><span class="re1">&lt;fileset</span> <span class="re0">dir</span>=<span class="st0">"jetty-lib"</span> <span class="re0">includes</span>=<span class="st0">"*.jar"</span><span class="re2">/&gt;</span></span>
-  <span class="sc3"><span class="re1">&lt;/path<span class="re2">&gt;</span></span></span>
-  <span class="sc3"><span class="re1">&lt;taskdef</span> <span class="re0">classpathref</span>=<span class="st0">"jetty.plugin.classpath"</span> <span class="re0">resource</span>=<span class="st0">"tasks.properties"</span> <span class="re0">loaderref</span>=<span class="st0">"jetty.loader"</span> <span class="re2">/&gt;</span></span>
-<span class="sc3"><span class="re1">&lt;/project<span class="re2">&gt;</span></span></span></pre></div></div>
-<p>Now you are ready to add a new target with Jetty container declaration:
-</p>
-<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="xml source-xml"><pre class="de1"><span class="sc3"><span class="re1">&lt;project</span> <span class="re0">name</span>=<span class="st0">"Jetty-Ant integration test"</span> <span class="re0">basedir</span>=<span class="st0">"."</span><span class="re2">&gt;</span></span>
-  <span class="sc3"><span class="re1">&lt;path</span> <span class="re0">id</span>=<span class="st0">"jetty.plugin.classpath"</span><span class="re2">&gt;</span></span>
-    <span class="sc3"><span class="re1">&lt;fileset</span> <span class="re0">dir</span>=<span class="st0">"jetty-lib"</span> <span class="re0">includes</span>=<span class="st0">"*.jar"</span><span class="re2">/&gt;</span></span>
-  <span class="sc3"><span class="re1">&lt;/path<span class="re2">&gt;</span></span></span>
-  <span class="sc3"><span class="re1">&lt;taskdef</span> <span class="re0">classpathref</span>=<span class="st0">"jetty.plugin.classpath"</span> <span class="re0">resource</span>=<span class="st0">"tasks.properties"</span> <span class="re0">loaderref</span>=<span class="st0">"jetty.loader"</span> <span class="re2">/&gt;</span></span>
- 
-  <span class="sc3"><span class="re1">&lt;target</span> <span class="re0">name</span>=<span class="st0">"jetty.run"</span><span class="re2">&gt;</span></span>
-    <span class="sc3"><span class="re1">&lt;jetty</span> <span class="re2">/&gt;</span></span>
-  <span class="sc3"><span class="re1">&lt;/target<span class="re2">&gt;</span></span></span>
-<span class="sc3"><span class="re1">&lt;/project<span class="re2">&gt;</span></span></span></pre></div></div>
-<p>This is the minimal configuration need. You can now start jetty.
-</p>
-<h2><span class="mw-headline" id="Starting_Jetty_via_Ant">Starting Jetty via Ant</span></h2>
-<p>At the command line do:
-</p><p><tt>
-ant jetty.run
-</tt>
-</p>
-<h2><span class="mw-headline" id="Deploying_web_applications">Deploying web applications</span></h2>
-<p>To add web applications to the Jetty web server, now put extra <tt>webapp</tt> tags inside <tt>jetty</tt> tag. Notice, that a <tt>tempDirectory</tt> attribute has been added to the <tt>jetty</tt> task to specify where temporary files are stored. 
-</p>
-<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="xml source-xml"><pre class="de1"> 
-<span class="sc3"><span class="re1">&lt;project</span> <span class="re0">name</span>=<span class="st0">"Jetty-Ant integration test"</span> <span class="re0">basedir</span>=<span class="st0">"."</span><span class="re2">&gt;</span></span>
-  <span class="sc3"><span class="re1">&lt;path</span> <span class="re0">id</span>=<span class="st0">"jetty.plugin.classpath"</span><span class="re2">&gt;</span></span>
-    <span class="sc3"><span class="re1">&lt;fileset</span> <span class="re0">dir</span>=<span class="st0">"jetty-lib"</span> <span class="re0">includes</span>=<span class="st0">"*.jar"</span><span class="re2">/&gt;</span></span>
-  <span class="sc3"><span class="re1">&lt;/path<span class="re2">&gt;</span></span></span>
-  <span class="sc3"><span class="re1">&lt;taskdef</span> <span class="re0">classpathref</span>=<span class="st0">"jetty.plugin.classpath"</span> <span class="re0">resource</span>=<span class="st0">"tasks.properties"</span> <span class="re0">loaderref</span>=<span class="st0">"jetty.loader"</span> <span class="re2">/&gt;</span></span>
- 
-  <span class="sc3"><span class="re1">&lt;target</span> <span class="re0">name</span>=<span class="st0">"jetty.run"</span><span class="re2">&gt;</span></span>
-    <span class="sc3"><span class="re1">&lt;jetty</span> <span class="re0">tempDirectory</span>=<span class="st0">"jetty-temp"</span><span class="re2">&gt;</span></span>
-      <span class="sc3"><span class="re1">&lt;webApp</span> <span class="re0">name</span>=<span class="st0">"webapp1"</span> <span class="re0">warfile</span>=<span class="st0">"webapp1.war"</span> <span class="re0">contextpath</span>=<span class="st0">"/webapp1"</span> <span class="re2">/&gt;</span></span>
-    <span class="sc3"><span class="re1">&lt;/jetty<span class="re2">&gt;</span></span></span>
-  <span class="sc3"><span class="re1">&lt;/target<span class="re2">&gt;</span></span></span>
-<span class="sc3"><span class="re1">&lt;/project<span class="re2">&gt;</span></span></span></pre></div></div>
-<p>You can put many <tt>webapp</tt> tags inside <tt>jetty</tt> tag, thus deploying many web applications simultaneously.
-</p>
-<h3><span class="mw-headline" id="A_Special_Note_on_Using_JSPs_with_JSTL_Or_Other_Taglibs">A Special Note on Using JSPs with JSTL Or Other Taglibs</span></h3>
-<p>If your webapp uses a taglib that should be found on the container classpath (such as JSTL) you will need to pass in some extra information to the webapp to tell jetty which container jars can contain the taglibs. This is defined as a set of jar name patterns. 
-</p><p>If you are using JSTL, and are using the jars provided by the standard jetty distribution, the JSTL taglibs are located in the jar named something like <tt>org.apache.taglibs.standard.glassfish_1.2.0.xxxx.jar</tt> (where xxx is replaced by a specific version number).
-</p><p>The following pattern defines all jars that contain the string "jsp-api" or "jsp" or "taglibs" as jars that will be searched at runtime for taglibs:
-</p><p><tt>.*/.*jsp-api-[^/]*\.jar$|.*/.*jsp-[^/]*\.jar$|.*/.*taglibs[^/]*\.jar$</tt>
-</p><p><br/>
-This pattern should be added to your &lt;webApp/&gt; declaration as the value of a context attribute named <tt>org.eclipse.jetty.server.webapp.ContainerIncludeJarPattern</tt>. Here's how the modified build.xml file looks now:
-</p>
-<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="xml source-xml"><pre class="de1"> 
-<span class="sc3"><span class="re1">&lt;project</span> <span class="re0">name</span>=<span class="st0">"Jetty-Ant integration test"</span> <span class="re0">basedir</span>=<span class="st0">"."</span><span class="re2">&gt;</span></span>
-  <span class="sc3"><span class="re1">&lt;path</span> <span class="re0">id</span>=<span class="st0">"jetty.plugin.classpath"</span><span class="re2">&gt;</span></span>
-    <span class="sc3"><span class="re1">&lt;fileset</span> <span class="re0">dir</span>=<span class="st0">"jetty-lib"</span> <span class="re0">includes</span>=<span class="st0">"*.jar"</span><span class="re2">/&gt;</span></span>
-  <span class="sc3"><span class="re1">&lt;/path<span class="re2">&gt;</span></span></span>
-  <span class="sc3"><span class="re1">&lt;taskdef</span> <span class="re0">classpathref</span>=<span class="st0">"jetty.plugin.classpath"</span> <span class="re0">resource</span>=<span class="st0">"tasks.properties"</span> <span class="re0">loaderref</span>=<span class="st0">"jetty.loader"</span> <span class="re2">/&gt;</span></span>
- 
-  <span class="sc3"><span class="re1">&lt;target</span> <span class="re0">name</span>=<span class="st0">"jetty.run"</span><span class="re2">&gt;</span></span>
-    <span class="sc3"><span class="re1">&lt;jetty</span> <span class="re0">tempDirectory</span>=<span class="st0">"jetty-temp"</span><span class="re2">&gt;</span></span>
-      <span class="sc3"><span class="re1">&lt;webApp</span> <span class="re0">name</span>=<span class="st0">"webapp1"</span> <span class="re0">warfile</span>=<span class="st0">"webapp1.war"</span> <span class="re0">contextpath</span>=<span class="st0">"/webapp1"</span><span class="re2">&gt;</span></span>
-        <span class="sc3"><span class="re1">&lt;attributes<span class="re2">&gt;</span></span></span>
-          <span class="sc3"><span class="re1">&lt;attribute</span> <span class="re0">name</span>=<span class="st0">"org.eclipse.jetty.server.webapp.ContainerIncludeJarPattern"</span> <span class="re0">value</span>=<span class="st0">".*/.*jsp-api-[^/]*\.jar$|.*/.*jsp-[^/]*\.jar$|.*/.*taglibs[^/]*\.jar$"</span><span class="re2">/&gt;</span></span>
-        <span class="sc3"><span class="re1">&lt;/attributes<span class="re2">&gt;</span></span></span>
-      <span class="sc3"><span class="re1">&lt;/webApp<span class="re2">&gt;</span></span></span>
-    <span class="sc3"><span class="re1">&lt;/jetty<span class="re2">&gt;</span></span></span>
-  <span class="sc3"><span class="re1">&lt;/target<span class="re2">&gt;</span></span></span>
-<span class="sc3"><span class="re1">&lt;/project<span class="re2">&gt;</span></span></span></pre></div></div>
-<h2><span id="Plugin_syntax" class="mw-headline">Plugin syntax</span></h2>
-<h4><span id="There_are_many_ways_to_configure_jetty_tasks:" class="mw-headline">There are many ways to configure <tt>jetty</tt> tasks:</span></h4>
-<ul><li> <tt>tempDirectory</tt>–specifies the Jetty temporary web directory: </li></ul>
-<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="xml source-xml"><pre class="de1"> <span class="sc3"><span class="re1">&lt;jetty</span> <span class="re0">tempDirectory</span>=<span class="st0">"jetty-temp"</span> <span class="re2">/&gt;</span></span></pre></div></div>
-<ul><li> <tt>requestLog</tt>–defines a request logger: </li></ul>
-<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="xml source-xml"><pre class="de1"> 
- <span class="sc3"><span class="re1">&lt;jetty</span> ... <span class="re0">requestLog</span>=<span class="st0">"your.fancy.request.logger"</span><span class="re2">/&gt;</span></span></pre></div></div>
-<ul><li> <tt>jettyXml</tt>–applies additional configuration via a standard <tt>jetty.xml</tt> file: </li></ul>
-<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="xml source-xml"><pre class="de1"> 
- <span class="sc3"><span class="re1">&lt;jetty</span> ... <span class="re0">jettyXml</span>=<span class="st0">"path/to/jetty.xml"</span><span class="re2">/&gt;</span></span></pre></div></div>
-<ul><li> <tt>systemProperties</tt>–adds system properties when starting Jetty: </li></ul>
-<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="xml source-xml"><pre class="de1"> 
- <span class="sc3"><span class="re1">&lt;jetty</span> ...<span class="re2">&gt;</span></span>
-   <span class="sc3"><span class="re1">&lt;systemProperties<span class="re2">&gt;</span></span></span>
-     <span class="sc3"><span class="re1">&lt;systemProperty</span> <span class="re0">name</span>=<span class="st0">"jetty.status"</span> <span class="re0">value</span>=<span class="st0">"Jetty Rocks!"</span><span class="re2">/&gt;</span></span>
-   <span class="sc3"><span class="re1">&lt;/systemProperties<span class="re2">&gt;</span></span></span>
- <span class="sc3"><span class="re1">&lt;/jetty<span class="re2">&gt;</span></span></span></pre></div></div>
-<ul><li> <tt>connectors</tt>–defines Jetty connectors: </li></ul>
-<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="xml source-xml"><pre class="de1"> 
- <span class="sc3"><span class="re1">&lt;typedef</span> <span class="re0">name</span>=<span class="st0">"selectChannelConnector"</span> <span class="re0">classname</span>=<span class="st0">"org.eclipse.jetty.nio.SelectChannelConnector"</span></span>
-<span class="sc3">                            <span class="re0">classpathref</span>=<span class="st0">"jetty.plugin.classpath"</span> <span class="re0">loaderref</span>=<span class="st0">"jetty.loader"</span> <span class="re2">/&gt;</span></span>
- ...
- <span class="sc3"><span class="re1">&lt;jetty</span> ...<span class="re2">&gt;</span></span>
-   <span class="sc3"><span class="re1">&lt;connectors<span class="re2">&gt;</span></span></span>
-     <span class="sc3"><span class="re1">&lt;selectChannelConnector</span> <span class="re0">port</span>=<span class="st0">"8090"</span> <span class="re2">/&gt;</span></span>
-   <span class="sc3"><span class="re1">&lt;/connectors<span class="re2">&gt;</span></span></span>
- <span class="sc3"><span class="re1">&lt;/jetty<span class="re2">&gt;</span></span></span></pre></div></div> 
-<ul><li> <tt>loginServices</tt> - adds authentication via user "realms": </li></ul>
-<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="xml source-xml"><pre class="de1">&gt; 
- <span class="sc3"><span class="re1">&lt;typedef</span> <span class="re0">name</span>=<span class="st0">"hashLoginService"</span> <span class="re0">classname</span>=<span class="st0">"org.eclipse.jetty.security.HashLoginService"</span></span>
-<span class="sc3">                  <span class="re0">classpathref</span>=<span class="st0">"jetty.plugin.classpath"</span> <span class="re0">loaderref</span>=<span class="st0">"jetty.loader"</span> <span class="re2">/&gt;</span></span>
- ...
- <span class="sc3"><span class="re1">&lt;jetty</span> ...<span class="re2">&gt;</span></span>
-   <span class="sc3"><span class="re1">&lt;loginServices<span class="re2">&gt;</span></span></span>
-     <span class="sc3"><span class="re1">&lt;hashLoginService</span> <span class="re0">name</span>=<span class="st0">"realm1"</span> <span class="re0">config</span>=<span class="st0">"path/to/realm/config"</span> <span class="re2">/&gt;</span></span>
-   <span class="sc3"><span class="re1">&lt;/loginServices<span class="re2">&gt;</span></span></span>
- <span class="sc3"><span class="re1">&lt;/jetty<span class="re2">&gt;</span></span></span></pre></div></div>
-<h4><span class="mw-headline" id="There_are_also_many_ways_to_configure_web_applications_with_webapp_tag:">There are also many ways to configure web applications with <tt>webapp</tt> tag:</span></h4>
-<ul><li> <tt>name</tt>–name of a web application, which is used by <tt>DefaultServlet</tt> to display application description: </li></ul>
-<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="xml source-xml"><pre class="de1"> 
- <span class="sc3"><span class="re1">&lt;jetty</span> ...<span class="re2">&gt;</span></span>
-   <span class="sc3"><span class="re1">&lt;webapp</span> <span class="re0">name</span>=<span class="st0">"name"</span> ...<span class="re2">/&gt;</span></span>
- <span class="sc3"><span class="re1">&lt;/jetty<span class="re2">&gt;</span></span></span></pre></div></div>
-<ul><li> <tt>warfile</tt>–path to .war file or a directory with web application contents: </li></ul>
-<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="xml source-xml"><pre class="de1"> 
- <span class="sc3"><span class="re1">&lt;jetty</span> ...<span class="re2">&gt;</span></span>
-   <span class="sc3"><span class="re1">&lt;webapp</span> <span class="re0">warfile</span>=<span class="st0">"/path/to/war/file/or/web/application/contents"</span> ...<span class="re2">/&gt;</span></span>
- <span class="sc3"><span class="re1">&lt;/jetty<span class="re2">&gt;</span></span></span></pre></div></div>
-<ul><li> <tt>contextPath</tt>–a context path a particular web application will be deployed to, and thus where it will be accessible (http://localhost:8080/webapp in this case): </li></ul>
-<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="xml source-xml"><pre class="de1"> 
- <span class="sc3"><span class="re1">&lt;jetty</span> ...<span class="re2">&gt;</span></span>
-   <span class="sc3"><span class="re1">&lt;webapp</span> <span class="re0">contextPath</span>=<span class="st0">"/webapp"</span> ...<span class="re2">/&gt;</span></span>
- <span class="sc3"><span class="re1">&lt;/jetty<span class="re2">&gt;</span></span></span></pre></div></div>
-<ul><li> <tt>jettyEnvXml</tt>–path to <a href="../Reference/jetty-env.xml.html" title="Jetty/Reference/jetty-env.xml">jettyEnv.xml file with JNDI resource declarations</a>:</li></ul>
-<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="xml source-xml"><pre class="de1"> 
- <span class="sc3"><span class="re1">&lt;jetty</span> ...<span class="re2">&gt;</span></span>
-   <span class="sc3"><span class="re1">&lt;webapp</span> <span class="re0">jettyEnvXml</span>=<span class="st0">"/path/to/jettyEnv.xml"</span> ...<span class="re2">/&gt;</span></span>
- <span class="sc3"><span class="re1">&lt;/jetty<span class="re2">&gt;</span></span></span></pre></div></div>
-<ul><li> <tt>webXml</tt>–path to <tt>web.xml</tt> file. If not specified, the default (<tt>location-of-war-file/WEB-INF/web.xml</tt>) location is used: </li></ul>
-<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="xml source-xml"><pre class="de1"> 
- <span class="sc3"><span class="re1">&lt;jetty</span> ...<span class="re2">&gt;</span></span>
-   <span class="sc3"><span class="re1">&lt;webapp</span> <span class="re0">webXmlFile</span>=<span class="st0">"/path/to/web/xml"</span> ...<span class="re2">/&gt;</span></span>
- <span class="sc3"><span class="re1">&lt;/jetty<span class="re2">&gt;</span></span></span></pre></div></div>
-<ul><li> <tt>scanTargets</tt> and <tt>scanIntervalSeconds</tt>–points to special files/folders that need to be scanned, and specifies scanner interval in seconds. If any of the files changes, the web application is automatically reloaded. You can adjust interval and scanned files per web application.</li></ul>
-<div class="messagebox" style="background-color: #def3fe; border: 1px solid #c5d7e0; color: black; padding: 5px; margin: 1ex 0; min-height: 35px; padding-left: 45px;">
-<div style="float: left; margin-left: -40px;"><a class="image" href="https://wiki.eclipse.org/File:Note.png"><img alt="Note.png" height="35" width="35" src="../../images/c/cc/Note.png"/></a></div>
-<div><b>All files included with &lt;classes/&gt; or &lt;lib/&gt; tags are <i>automatically</i> scanned for changes if you provide <tt>scanIntervalSeconds</tt> parameter in the <tt>&lt;jetty/&gt;</tt> tag. There's no need to add them using the <tt>&lt;scanTargets/&gt;</tt> section.</b><br/></div>
-</div>
-<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="xml source-xml"><pre class="de1"> <span class="sc3"><span class="re1">&lt;jetty</span> ...<span class="re2">&gt;</span></span>
-   <span class="sc3"><span class="re1">&lt;webapp</span> ... <span class="re0">scanIntervalSeconds</span>=<span class="st0">"5"</span><span class="re2">&gt;</span></span>
-     <span class="sc3"><span class="re1">&lt;scanTargets</span> <span class="re0">dir</span>=<span class="st0">"path/to/included/resources"</span><span class="re2">&gt;</span></span>
-       <span class="sc3"><span class="re1">&lt;include</span> <span class="re0">name</span>=<span class="st0">"filename/patterns"</span> <span class="re2">/&gt;</span></span>
-     <span class="sc3"><span class="re1">&lt;/scanTargets<span class="re2">&gt;</span></span></span>
-   <span class="sc3"><span class="re1">&lt;/webapp<span class="re2">&gt;</span></span></span>
- <span class="sc3"><span class="re1">&lt;/jetty<span class="re2">&gt;</span></span></span></pre></div></div>
-<ul><li> <tt>lib</tt>–specifies which libraries need be included for a particular web application (treated as files inside WEB-INF/lib folder). Multiple <tt>lib</tt> tags are allowed. </li></ul>
-<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="xml source-xml"><pre class="de1"> 
- <span class="sc3"><span class="re1">&lt;jetty</span> ...<span class="re2">&gt;</span></span>
-   <span class="sc3"><span class="re1">&lt;webapp</span> ...<span class="re2">&gt;</span></span>
-     <span class="sc3"><span class="re1">&lt;lib</span> <span class="re0">dir</span>=<span class="st0">"path/to/jar/folder"</span> <span class="re0">includes</span>=<span class="st0">"*.jar"</span> <span class="re0">excludes</span>=<span class="st0">"not-needed.jar"</span> <span class="re2">/&gt;</span></span>
-   <span class="sc3"><span class="re1">&lt;/webapp<span class="re2">&gt;</span></span></span>
- <span class="sc3"><span class="re1">&lt;/jetty<span class="re2">&gt;</span></span></span></pre></div></div>
-<ul><li> <tt>classes</tt>–specifies which folder contains web application classes (treated as <tt>WEB-INF/classes</tt> folder). Multiple <tt>classes</tt> tags are allowed. </li></ul>
-<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="xml source-xml"><pre class="de1"> 
- <span class="sc3"><span class="re1">&lt;jetty</span> ...<span class="re2">&gt;</span></span>
-   <span class="sc3"><span class="re1">&lt;webapp</span> ...<span class="re2">&gt;</span></span>
-     <span class="sc3"><span class="re1">&lt;classes</span> <span class="re0">dir</span>=<span class="st0">"path/to/classes/folder"</span> <span class="re0">includes</span>=<span class="st0">"*.class"</span> <span class="re2">/&gt;</span></span>
-   <span class="sc3"><span class="re1">&lt;/webapp<span class="re2">&gt;</span></span></span>
- <span class="sc3"><span class="re1">&lt;/jetty<span class="re2">&gt;</span></span></span></pre></div></div>
-<ul><li> <tt>connectors</tt>–specifies additional web application connectors</li></ul>
-
-
-</div>
-
-                    <div id="catlinks" class="catlinks"><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a title="Special:Categories" href="https://wiki.eclipse.org/Special:Categories">Categories</a>: <ul><li><a title="Category:Jetty" href="https://wiki.eclipse.org/Category:Jetty">Jetty</a></li><li><a href="https://wiki.eclipse.org/Category:Jetty_Howto" title="Category:Jetty Howto">Jetty Howto</a></li></ul></div></div>
-                                  </div>
+    <link href="wiki-style.css" media="screen, print" rel="stylesheet" />
+  </head>
+  <body>
+    <div class="col-md-20" id="mainContent">
+      <div class="tab-content background-white">
+        <div class="tab-pane active" id="tab-pane-main-page-content">
+          <h1 class="firstHeading page-header" id="firstHeading">
+            <span dir="auto">Jetty/Howto/Use Jetty with Ant</span>
+          </h1>
+          <div id="main-page-content">
+            <div class="alert alert-small alert-warning" id="contentSub">
+              <span class="subpages">
+                &lt;
+                <a href="../../Jetty.html" title="Jetty">Jetty</a>
+                 |
+                <a href="../Howto.html" title="Jetty/Howto">Howto</a>
+              </span>
+            </div>
+            <div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="en">
+              <p>
+                <br />
+              </p>
+              <p>
+                <br />
+              </p>
+              <div class="toc" id="toc">
+                <div id="toctitle">
+                  <h2>Contents</h2>
+                </div>
+                <ul>
+                  <li class="toclevel-1">
+                    <a href="Use Jetty with Ant.html#Introduction">
+                      <span class="tocnumber">1</span>
+                      <span class="toctext">Introduction</span>
+                    </a>
+                  </li>
+                  <li class="toclevel-1 tocsection-1">
+                    <a href="Use Jetty with Ant.html#Preparation">
+                      <span class="tocnumber">2</span>
+                      <span class="toctext">Preparation</span>
+                    </a>
+                  </li>
+                  <li class="toclevel-1 tocsection-2">
+                    <a href="Use Jetty with Ant.html#Preparing_the_build.xml_file">
+                      <span class="tocnumber">3</span>
+                      <span class="toctext">Preparing the build.xml file</span>
+                    </a>
+                  </li>
+                  <li class="toclevel-1 tocsection-3">
+                    <a href="Use Jetty with Ant.html#Starting_Jetty_via_Ant">
+                      <span class="tocnumber">4</span>
+                      <span class="toctext">Starting Jetty via Ant</span>
+                    </a>
+                  </li>
+                  <li class="toclevel-1 tocsection-4">
+                    <a href="Use Jetty with Ant.html#Deploying_web_applications">
+                      <span class="tocnumber">5</span>
+                      <span class="toctext">Deploying web applications</span>
+                    </a>
+                    <ul>
+                      <li class="toclevel-2 tocsection-5">
+                        <a href="Use Jetty with Ant.html#A_Special_Note_on_Using_JSPs_with_JSTL_Or_Other_Taglibs">
+                          <span class="tocnumber">5.1</span>
+                          <span class="toctext">A Special Note on Using JSPs with JSTL Or Other Taglibs</span>
+                        </a>
+                      </li>
+                    </ul>
+                  </li>
+                  <li class="toclevel-1 tocsection-6">
+                    <a href="Use Jetty with Ant.html#Plugin_syntax">
+                      <span class="tocnumber">6</span>
+                      <span class="toctext">Plugin syntax</span>
+                    </a>
+                    <ul>
+                      <li class="toclevel-2 tocsection-7">
+                        <a href="Use Jetty with Ant.html#There_are_many_ways_to_configure_jetty_tasks:">
+                          <span class="tocnumber">6.1</span>
+                          <span class="toctext">There are many ways to configure jetty tasks:</span>
+                        </a>
+                      </li>
+                      <li class="toclevel-2 tocsection-8">
+                        <a href="Use Jetty with Ant.html#There_are_also_many_ways_to_configure_web_applications_with_webapp_tag:">
+                          <span class="tocnumber">6.2</span>
+                          <span class="toctext">There are also many ways to configure web applications with webapp tag:</span>
+                        </a>
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
               </div>
+              <h2>
+                <span class="mw-headline" id="Introduction">Introduction</span>
+              </h2>
             </div>
           </div>
-</div>
-</body>
+        </div>
+      </div>
+    </div>
+  </body>
 </html>

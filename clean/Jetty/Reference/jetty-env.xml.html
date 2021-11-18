@@ -1,65 +1,133 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
-<head>
+  <head>
     <title>Jetty WTP Plugin</title>
-    <link rel="stylesheet" media="screen, print" href="wiki-style.css"/>
-</head>
-<body>
-<div class="col-md-20" id="mainContent">
-                      <ul class="nav nav-tabs noprint hidden-print" role="tablist">
-                       <li class="active" id="ca-nstab-main"><a accesskey="c" title="View the content page [c]" tabindex="-1" href="jetty-env.xml.html">Page</a></li>
-                        <li id="ca-talk" class="new"><a href="edit" accesskey="t" title="Discussion about the content page [t]" tabindex="-1">Discussion</a></li>
-                        <li id="ca-viewsource"><a tabindex="-1" title="This page is protected.&#10;You can view its source [e]" accesskey="e" href="edit">View source</a></li>
-                        <li id="ca-history" class="collapsible"><a tabindex="-1" title="Past revisions of this page [h]" accesskey="h" href="edit">History</a></li>
-                      </ul>            <div class="tab-content background-white">
-              <div class="tab-pane active" id="tab-pane-main-page-content">
-
-                
-                <h1 class="firstHeading page-header" id="firstHeading">
-                  <span dir="auto">Jetty/Reference/jetty-env.xml</span>
-                </h1>
-                <div id="main-page-content">
-
-                  <div class="alert alert-small alert-warning" id="contentSub"><span class="subpages">&lt; <a href="../../Jetty.html" title="Jetty">Jetty</a>‎ | <a href="../Reference.html" title="Jetty/Reference">Reference</a></span></div>
-
-                  
-                  
-                  <div id="mw-content-text" dir="ltr" class="mw-content-ltr" lang="en"><p><br/>
-</p><p><br/>
-</p>
-<div id="toc" class="toc"><div id="toctitle"><h2>Contents</h2></div>
-<ul>
-<li class="toclevel-1"><a href="jetty-env.xml.html#Introduction"><span class="tocnumber">1</span> <span class="toctext">Introduction</span></a></li>
-<li class="toclevel-1"><a href="jetty-env.xml.html#Root_Element"><span class="tocnumber">2</span> <span class="toctext">Root Element</span></a></li>
-<li class="toclevel-1"><a href="jetty-env.xml.html#Using_jetty-env.xml"><span class="tocnumber">3</span> <span class="toctext">Using jetty-env.xml</span></a></li>
-<li class="toclevel-1"><a href="jetty-env.xml.html#Example"><span class="tocnumber">4</span> <span class="toctext">Example</span></a></li>
-<li class="toclevel-1"><a href="jetty-env.xml.html#Additional_Resources"><span class="tocnumber">5</span> <span class="toctext">Additional Resources</span></a></li>
-</ul>
-</div>
-
-<h2><span id="Introduction" class="mw-headline">Introduction</span></h2>
-<p><tt>jetty-env.xml</tt> is an optional Jetty file that configures JNDI resources for an individual webapp. The format of <tt>jetty-web.xml</tt> is the same as <tt><a title="Jetty/Reference/jetty.xml" href="jetty.xml.html">jetty.xml</a></tt>–it is an XML mapping of the Jetty API.
-</p><p>When Jetty deploys a web application, it automatically looks for a file called <tt>WEB-INF/jetty-env.xml</tt> within the web application (or WAR), and sets up the webapp naming environment so that naming references in the <tt>WEB-INF/web.xml</tt> file can be resolved from the information provided in the <tt>WEB-INF/jetty-env.xml</tt> and <a href="jetty.xml.html" title="Jetty/Reference/jetty.xml">jetty.xml</a> files. You define global naming resources on the server via <tt>jetty.xml</tt>.
-</p>
-<h2><span id="Root_Element" class="mw-headline">Root Element</span></h2>
-<p>Jetty applies <tt>jetty-env.xml</tt> on a per-webapp basis, and configures an instance of org.eclipse.jetty.webapp.WebAppContext. 
-</p>
-<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="xml source-xml"><pre class="de1"><span class="sc3"><span class="re1">&lt;?xml</span> <span class="re0">version</span>=<span class="st0">"1.0"</span>  <span class="re0">encoding</span>=<span class="st0">"ISO-8859-1"</span><span class="re2">?&gt;</span></span>
+    <link href="wiki-style.css" media="screen, print" rel="stylesheet" />
+  </head>
+  <body>
+    <div class="col-md-20" id="mainContent">
+      <div class="tab-content background-white">
+        <div class="tab-pane active" id="tab-pane-main-page-content">
+          <h1 class="firstHeading page-header" id="firstHeading">
+            <span dir="auto">Jetty/Reference/jetty-env.xml</span>
+          </h1>
+          <div id="main-page-content">
+            <div class="alert alert-small alert-warning" id="contentSub">
+              <span class="subpages">
+                &lt;
+                <a href="../../Jetty.html" title="Jetty">Jetty</a>
+                 |
+                <a href="../Reference.html" title="Jetty/Reference">Reference</a>
+              </span>
+            </div>
+            <div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="en">
+              <p>
+                <br />
+              </p>
+              <p>
+                <br />
+              </p>
+              <div class="toc" id="toc">
+                <div id="toctitle">
+                  <h2>Contents</h2>
+                </div>
+                <ul>
+                  <li class="toclevel-1">
+                    <a href="jetty-env.xml.html#Introduction">
+                      <span class="tocnumber">1</span>
+                      <span class="toctext">Introduction</span>
+                    </a>
+                  </li>
+                  <li class="toclevel-1">
+                    <a href="jetty-env.xml.html#Root_Element">
+                      <span class="tocnumber">2</span>
+                      <span class="toctext">Root Element</span>
+                    </a>
+                  </li>
+                  <li class="toclevel-1">
+                    <a href="jetty-env.xml.html#Using_jetty-env.xml">
+                      <span class="tocnumber">3</span>
+                      <span class="toctext">Using jetty-env.xml</span>
+                    </a>
+                  </li>
+                  <li class="toclevel-1">
+                    <a href="jetty-env.xml.html#Example">
+                      <span class="tocnumber">4</span>
+                      <span class="toctext">Example</span>
+                    </a>
+                  </li>
+                  <li class="toclevel-1">
+                    <a href="jetty-env.xml.html#Additional_Resources">
+                      <span class="tocnumber">5</span>
+                      <span class="toctext">Additional Resources</span>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+              <h2>
+                <span class="mw-headline" id="Introduction">Introduction</span>
+              </h2>
+              <p>
+                <tt>jetty-env.xml</tt>
+                is an optional Jetty file that configures JNDI resources for an individual webapp. The format of
+                <tt>jetty-web.xml</tt>
+                is the same as
+                <tt>
+                  <a href="jetty.xml.html" title="Jetty/Reference/jetty.xml">jetty.xml</a>
+                </tt>
+                –it is an XML mapping of the Jetty API.
+              </p>
+              <p>
+                When Jetty deploys a web application, it automatically looks for a file called
+                <tt>WEB-INF/jetty-env.xml</tt>
+                within the web application (or WAR), and sets up the webapp naming environment so that naming references in the
+                <tt>WEB-INF/web.xml</tt>
+                file can be resolved from the information provided in the
+                <tt>WEB-INF/jetty-env.xml</tt>
+                and
+                <a href="jetty.xml.html" title="Jetty/Reference/jetty.xml">jetty.xml</a>
+                files. You define global naming resources on the server via
+                <tt>jetty.xml</tt>
+                .
+              </p>
+              <h2>
+                <span class="mw-headline" id="Root_Element">Root Element</span>
+              </h2>
+              <p>
+                Jetty applies
+                <tt>jetty-env.xml</tt>
+                on a per-webapp basis, and configures an instance of org.eclipse.jetty.webapp.WebAppContext.
+              </p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="xml source-xml">
+                  <pre class="de1" xml:space="preserve"><span class="sc3"><span class="re1">&lt;?xml</span> <span class="re0">version</span>=<span class="st0">"1.0"</span>  <span class="re0">encoding</span>=<span class="st0">"ISO-8859-1"</span><span class="re2">?&gt;</span></span>
 <span class="sc0">&lt;!DOCTYPE Configure PUBLIC "-//Mort Bay Consulting//DTD Configure//EN" "http://www.eclipse.org/jetty/configure.dtd"&gt;</span>
  
 <span class="sc3"><span class="re1">&lt;Configure</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.webapp.WebAppContext"</span><span class="re2">&gt;</span></span>
  ..
-<span class="sc3"><span class="re1">&lt;/Configure<span class="re2">&gt;</span></span></span></pre></div></div>
-<div style="background-color: #f9f6b7; border: 1px solid #c4c295; color: black; padding: 5px; margin: 1ex 0; min-height: 35px; padding-left: 45px;" class="messagebox">
-<div style="float: left; margin-left: -40px;"><a class="image" href="https://wiki.eclipse.org/File:Stop.png"><img src="../../images/f/f9/Stop.png" height="35" alt="Stop.png" width="35"/></a></div>
-<div><b>Make sure you are applying the configuration to an instance of the proper class.</b><br/><tt>jetty-env.xml</tt> configures an instance of WebAppContext, and not an instance of Server.</div>
-</div>
-<p><br/>
-</p>
-<h2><span id="Using_jetty-env.xml" class="mw-headline">Using <tt>jetty-env.xml</tt></span></h2>
-<p>Place the <tt>jetty-env.xml</tt> file in your web application's WEB-INF folder. 
-</p>
-<h2><span class="mw-headline" id="Example">Example</span></h2>
-<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="xml source-xml"><pre class="de1"> <span class="sc3"><span class="re1">&lt;?xml</span> <span class="re0">version</span>=<span class="st0">"1.0"</span><span class="re2">?&gt;</span></span>
+<span class="sc3"><span class="re1">&lt;/Configure<span class="re2">&gt;</span></span></span></pre>
+                </div>
+              </div>
+              <p>
+                <br />
+              </p>
+              <h2>
+                <span class="mw-headline" id="Using_jetty-env.xml">
+                  Using
+                  <tt>jetty-env.xml</tt>
+                </span>
+              </h2>
+              <p>
+                Place the
+                <tt>jetty-env.xml</tt>
+                file in your web application's WEB-INF folder.
+              </p>
+              <h2>
+                <span class="mw-headline" id="Example">Example</span>
+              </h2>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="xml source-xml">
+                  <pre class="de1" xml:space="preserve"> <span class="sc3"><span class="re1">&lt;?xml</span> <span class="re0">version</span>=<span class="st0">"1.0"</span><span class="re2">?&gt;</span></span>
  <span class="sc0">&lt;!DOCTYPE Configure PUBLIC "-//Mort Bay Consulting//DTD Configure//EN" "http://jetty.mortbay.org/configure.dtd"&gt;</span>
  
  <span class="sc3"><span class="re1">&lt;Configure</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.webapp.WebAppContext"</span><span class="re2">&gt;</span></span>
@@ -90,18 +158,26 @@
      <span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
    <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span>
  
- <span class="sc3"><span class="re1">&lt;/Configure<span class="re2">&gt;</span></span></span></pre></div></div>
-<h2><span class="mw-headline" id="Additional_Resources">Additional Resources</span></h2>
-<ul><li> <a href="jetty.xml syntax.html" title="Jetty/Reference/jetty.xml syntax">jetty.xml Syntax Reference</a>–in-depth reference for Jetty-specific configuration XML syntax</li>
-<li> <a href="jetty.xml.html" title="Jetty/Reference/jetty.xml">jetty.xml</a>–configuration file for configuring the entire server</li></ul>
-
-
-</div>
-
-                    <div id="catlinks" class="catlinks"><div class="mw-normal-catlinks" id="mw-normal-catlinks"><a title="Special:Categories" href="https://wiki.eclipse.org/Special:Categories">Categories</a>: <ul><li><a title="Category:Jetty" href="https://wiki.eclipse.org/Category:Jetty">Jetty</a></li><li><a title="Category:Jetty Reference" href="https://wiki.eclipse.org/Category:Jetty_Reference">Jetty Reference</a></li></ul></div></div>
-                                  </div>
+ <span class="sc3"><span class="re1">&lt;/Configure<span class="re2">&gt;</span></span></span></pre>
+                </div>
               </div>
+              <h2>
+                <span class="mw-headline" id="Additional_Resources">Additional Resources</span>
+              </h2>
+              <ul>
+                <li>
+                  <a href="jetty.xml syntax.html" title="Jetty/Reference/jetty.xml syntax">jetty.xml Syntax Reference</a>
+                  –in-depth reference for Jetty-specific configuration XML syntax
+                </li>
+                <li>
+                  <a href="jetty.xml.html" title="Jetty/Reference/jetty.xml">jetty.xml</a>
+                  –configuration file for configuring the entire server
+                </li>
+              </ul>
             </div>
           </div>
-</body>
+        </div>
+      </div>
+    </div>
+  </body>
 </html>

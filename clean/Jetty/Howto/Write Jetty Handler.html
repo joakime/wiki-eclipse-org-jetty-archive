@@ -1,147 +1,239 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
-<head>
+  <head>
     <title>Jetty WTP Plugin</title>
-    <link rel="stylesheet" media="screen, print" href="wiki-style.css"/>
-</head>
-<body>
-<div class="col-md-20" id="mainContent">
-                                <div class="tab-content background-white">
-              <div id="tab-pane-main-page-content" class="tab-pane active">
-
-                
-                <h1 id="firstHeading" class="firstHeading page-header">
-                  <span dir="auto">Jetty/Howto/Write Jetty Handler</span>
-                </h1>
-                <div id="main-page-content">
-
-                  <div class="alert alert-small alert-warning" id="contentSub"><span class="subpages">&lt; <a title="Jetty" href="../../Jetty.html">Jetty</a>‎ | <a title="Jetty/Howto" href="../Howto.html">Howto</a></span></div>
-
-                  
-                  
-                  <div id="mw-content-text" class="mw-content-ltr" lang="en" dir="ltr"><p><br/>
-</p><p><br/>
-</p>
-<div id="toc" class="toc"><div id="toctitle"><h2>Contents</h2></div>
-<ul>
-<li class="toclevel-1"><a href="Write Jetty Handler.html#Introduction"><span class="tocnumber">1</span> <span class="toctext">Introduction</span></a></li>
-<li class="toclevel-1 tocsection-1"><a href="Write Jetty Handler.html#The_Handler_API"><span class="tocnumber">2</span> <span class="toctext">The Handler API</span></a>
-<ul>
-<li class="toclevel-2 tocsection-2"><a href="Write Jetty Handler.html#The_target"><span class="tocnumber">2.1</span> <span class="toctext">The target</span></a></li>
-<li class="toclevel-2 tocsection-3"><a href="Write Jetty Handler.html#The_Request_and_Response"><span class="tocnumber">2.2</span> <span class="toctext">The Request and Response</span></a></li>
-<li class="toclevel-2 tocsection-4"><a href="Write Jetty Handler.html#The_dispatch"><span class="tocnumber">2.3</span> <span class="toctext">The dispatch</span></a></li>
-</ul>
-</li>
-<li class="toclevel-1 tocsection-5"><a href="Write Jetty Handler.html#Handling_Requests"><span class="tocnumber">3</span> <span class="toctext">Handling Requests</span></a>
-<ul>
-<li class="toclevel-2 tocsection-6"><a href="Write Jetty Handler.html#Generating_a_Response"><span class="tocnumber">3.1</span> <span class="toctext">Generating a Response</span></a></li>
-<li class="toclevel-2 tocsection-7"><a href="Write Jetty Handler.html#Filtering_the_Request_and.2For_Response"><span class="tocnumber">3.2</span> <span class="toctext">Filtering the Request and/or Response</span></a></li>
-<li class="toclevel-2 tocsection-8"><a href="Write Jetty Handler.html#Passing_the_Request_and_Response_to_another_handler"><span class="tocnumber">3.3</span> <span class="toctext">Passing the Request and Response to another handler</span></a></li>
-</ul>
-</li>
-<li class="toclevel-1 tocsection-9"><a href="Write Jetty Handler.html#More_About_Handlers"><span class="tocnumber">4</span> <span class="toctext">More About Handlers</span></a></li>
-</ul>
-</div>
-
-<h2><span id="Introduction" class="mw-headline">Introduction</span></h2>
-<div style="background-color: #f9f6b7; border: 1px solid #c4c295; color: black; padding: 5px; margin: 1ex 0; min-height: 35px; padding-left: 45px; font-size: 150%; color: white; background-color: #FF8888; padding: 50px" class="messagebox">
-<div style="float: left; margin-left: -40px;"><a href="https://wiki.eclipse.org/File:Warning2.png" class="image"><img src="../../images/3/37/Warning2.png" width="35" alt="Warning2.png" height="35"/></a></div>
-<div>Jetty 7 and Jetty 8 are now EOL (End of Life)<br/>
-<p><br/>
-<br/>
-<br/>
-THIS IS NOT THE DOCUMENTATION YOU ARE LOOKING FOR!!!!!<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-All development and stable releases are being performed with Jetty 9 and Jetty 10.<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-This <b>wiki is now officially out of date</b> and all content has been moved to the <a href="http://www.eclipse.org/jetty/documentation" class="external text" rel="nofollow">Jetty Documentation Hub</a><br/> 
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-</p>
-Direct Link to updated documentation: <a rel="nofollow" class="external free" href="http://www.eclipse.org/jetty/documentation/current/writing-custom-handlers.html">http://www.eclipse.org/jetty/documentation/current/writing-custom-handlers.html</a></div>
-</div>
-<p><br/>
-The Handler is the Jetty component that deals with received requests. 
-</p><p>Many users of Jetty will not ever need to write a Jetty Handler, but instead will simply use the <a rel="nofollow" href="http://download.eclipse.org/jetty/stable-7/xref/org/eclipse/jetty/servlet/package-summary.html" class="external text">Servlet API.</a> The existing Jetty handlers for context, security, sessions and servlets can be reused without the need for extension. However, some users might have special requirements or footprint concerns that prohibit the use of the full servlet API. For them implementing a Jetty handler is a straight forward way to provide dynamic web content with a minimum of fuss.
-</p><p>See also the <a rel="nofollow" href="http://wiki.eclipse.org/Jetty/Reference/Jetty_Architecture" class="external text">Jetty Architecture</a> page to understand more about Handlers vs. Servlets.
-</p><p><br/>
-</p>
-<h2><span id="The_Handler_API" class="mw-headline">The Handler API</span></h2>
-<p>The <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/server/Handler.html" rel="nofollow">Handler</a> interface provides Jetty's core of content generation or manipulation. Classes that implement this interface are used to coordinate requests, filter requests and generate content.
-</p><p>The core API of the Handler interface is
-</p>
-<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="java source-java"><pre class="de1"><span class="kw1">public</span> <span class="kw4">void</span> handle<span class="br0">(</span><span class="kw3">String</span> target, <span class="kw3">Request</span> baseRequest, HttpServletRequest request, HttpServletResponse response<span class="br0">)</span>
-    <span class="kw1">throws</span> <span class="kw3">IOException</span>, ServletException</pre></div></div>
-<p>An implementation of this method can handle a request, pass the request onto another handler (or servlet), or it can modify and/or wrap the request and then pass it on. This gives three styles of handler: 
-</p><p>Coordinating Handlers - Handlers that route requests to other handlers (HandlerCollection, ContextHandlerCollection)
+    <link href="wiki-style.css" media="screen, print" rel="stylesheet" />
+  </head>
+  <body>
+    <div class="col-md-20" id="mainContent">
+      <div class="tab-content background-white">
+        <div class="tab-pane active" id="tab-pane-main-page-content">
+          <h1 class="firstHeading page-header" id="firstHeading">
+            <span dir="auto">Jetty/Howto/Write Jetty Handler</span>
+          </h1>
+          <div id="main-page-content">
+            <div class="alert alert-small alert-warning" id="contentSub">
+              <span class="subpages">
+                &lt;
+                <a href="../../Jetty.html" title="Jetty">Jetty</a>
+                 |
+                <a href="../Howto.html" title="Jetty/Howto">Howto</a>
+              </span>
+            </div>
+            <div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="en">
+              <p>
+                <br />
+              </p>
+              <p>
+                <br />
+              </p>
+              <div class="toc" id="toc">
+                <div id="toctitle">
+                  <h2>Contents</h2>
+                </div>
+                <ul>
+                  <li class="toclevel-1">
+                    <a href="Write Jetty Handler.html#Introduction">
+                      <span class="tocnumber">1</span>
+                      <span class="toctext">Introduction</span>
+                    </a>
+                  </li>
+                  <li class="toclevel-1 tocsection-1">
+                    <a href="Write Jetty Handler.html#The_Handler_API">
+                      <span class="tocnumber">2</span>
+                      <span class="toctext">The Handler API</span>
+                    </a>
+                    <ul>
+                      <li class="toclevel-2 tocsection-2">
+                        <a href="Write Jetty Handler.html#The_target">
+                          <span class="tocnumber">2.1</span>
+                          <span class="toctext">The target</span>
+                        </a>
+                      </li>
+                      <li class="toclevel-2 tocsection-3">
+                        <a href="Write Jetty Handler.html#The_Request_and_Response">
+                          <span class="tocnumber">2.2</span>
+                          <span class="toctext">The Request and Response</span>
+                        </a>
+                      </li>
+                      <li class="toclevel-2 tocsection-4">
+                        <a href="Write Jetty Handler.html#The_dispatch">
+                          <span class="tocnumber">2.3</span>
+                          <span class="toctext">The dispatch</span>
+                        </a>
+                      </li>
+                    </ul>
+                  </li>
+                  <li class="toclevel-1 tocsection-5">
+                    <a href="Write Jetty Handler.html#Handling_Requests">
+                      <span class="tocnumber">3</span>
+                      <span class="toctext">Handling Requests</span>
+                    </a>
+                    <ul>
+                      <li class="toclevel-2 tocsection-6">
+                        <a href="Write Jetty Handler.html#Generating_a_Response">
+                          <span class="tocnumber">3.1</span>
+                          <span class="toctext">Generating a Response</span>
+                        </a>
+                      </li>
+                      <li class="toclevel-2 tocsection-7">
+                        <a href="Write Jetty Handler.html#Filtering_the_Request_and.2For_Response">
+                          <span class="tocnumber">3.2</span>
+                          <span class="toctext">Filtering the Request and/or Response</span>
+                        </a>
+                      </li>
+                      <li class="toclevel-2 tocsection-8">
+                        <a href="Write Jetty Handler.html#Passing_the_Request_and_Response_to_another_handler">
+                          <span class="tocnumber">3.3</span>
+                          <span class="toctext">Passing the Request and Response to another handler</span>
+                        </a>
+                      </li>
+                    </ul>
+                  </li>
+                  <li class="toclevel-1 tocsection-9">
+                    <a href="Write Jetty Handler.html#More_About_Handlers">
+                      <span class="tocnumber">4</span>
+                      <span class="toctext">More About Handlers</span>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+              <h2>
+                <span class="mw-headline" id="Introduction">Introduction</span>
+              </h2>
+              <p>
+                <br />
+                The Handler is the Jetty component that deals with received requests.
+              </p>
+              <p>
+                Many users of Jetty will not ever need to write a Jetty Handler, but instead will simply use the
+                <a class="external text" href="http://download.eclipse.org/jetty/stable-7/xref/org/eclipse/jetty/servlet/package-summary.html" rel="nofollow">Servlet API.</a>
+                The existing Jetty handlers for context, security, sessions and servlets can be reused without the need for extension. However, some users might have special requirements or footprint concerns that prohibit the use of the full servlet API. For them implementing a Jetty handler is a straight forward way to provide dynamic web content with a minimum of fuss.
+              </p>
+              <p>
+                See also the
+                <a class="external text" href="http://wiki.eclipse.org/Jetty/Reference/Jetty_Architecture" rel="nofollow">Jetty Architecture</a>
+                page to understand more about Handlers vs. Servlets.
+              </p>
+              <p>
+                <br />
+              </p>
+              <h2>
+                <span class="mw-headline" id="The_Handler_API">The Handler API</span>
+              </h2>
+              <p>
+                The
+                <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/server/Handler.html" rel="nofollow">Handler</a>
+                interface provides Jetty's core of content generation or manipulation. Classes that implement this interface are used to coordinate requests, filter requests and generate content.
+              </p>
+              <p>The core API of the Handler interface is</p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="java source-java">
+                  <pre class="de1" xml:space="preserve"><span class="kw1">public</span> <span class="kw4">void</span> handle<span class="br0">(</span><span class="kw3">String</span> target, <span class="kw3">Request</span> baseRequest, HttpServletRequest request, HttpServletResponse response<span class="br0">)</span>
+    <span class="kw1">throws</span> <span class="kw3">IOException</span>, ServletException</pre>
+                </div>
+              </div>
+              <p>An implementation of this method can handle a request, pass the request onto another handler (or servlet), or it can modify and/or wrap the request and then pass it on. This gives three styles of handler:</p>
+              <p>Coordinating Handlers - Handlers that route requests to other handlers (HandlerCollection, ContextHandlerCollection)
 Filtering Handlers - Handlers that augment a request and pass it on to other handlers (HandlerWrapper, ContextHandler, SessionHandler)
-Generating Handlers - Handlers that produce content (ResourceHandler and ServletHandler)
-</p>
-<h3><span class="mw-headline" id="The_target">The target</span></h3>
-<p>The target of a handler is an identifier for the resource that should handle the passed request. This is normally the URI that is parsed from an HTTP Request. However, in two key circumstances the target may differ from the URI of the passed request:
-</p>
-<ol><li> If the request has been dispatched to a named resource, such as a named servlet, then the target is the name of that resource.</li>
-<li> If the request is being made by a call to <a href="http://download.oracle.com/docs/cd/E17477_01/javaee/5/api/javax/servlet/RequestDispatcher.html" class="external text" rel="nofollow">Request Dispatcher</a>, then the target is the URI of the included resource and will be different to the URI of the actual request.</li></ol>
-<h3><span id="The_Request_and_Response" class="mw-headline">The Request and Response</span></h3>
-<p>The request and response objects used in the signature of the handle method are <a rel="nofollow" href="http://download.oracle.com/docs/cd/E17477_01/javaee/5/api/javax/servlet/http/HttpServletRequest.html" class="external text">Servlet Request</a> and <a href="http://download.oracle.com/docs/cd/E17477_01/javaee/5/api/javax/servlet/http/HttpServletResponse.html" class="external text" rel="nofollow">Servlet Response</a>. These are the standard APIs and are moderately restricted in what can be done to the request and response. More often than not, access to the jetty implementations of these classes is required: <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/server/Request.html" rel="nofollow">Request</a> and <a rel="nofollow" class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/server/Response.html">Response</a>. However, as the request and response may be wrapped by handlers, filters and servlets, it is not possible to pass the implementation directly. The following mantra retrieves the core implementation objects from under any wrappers:
-</p>
-<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="java source-java"><pre class="de1"><span class="kw3">Request</span> base_request <span class="sy0">=</span> request <span class="kw1">instanceof</span> <span class="kw3">Request</span> <span class="sy0">?</span> <span class="br0">(</span><span class="kw3">Request</span><span class="br0">)</span>request <span class="sy0">:</span> HttpConnection.<span class="me1">getCurrentConnection</span><span class="br0">(</span><span class="br0">)</span>.<span class="me1">getRequest</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
-Response base_response <span class="sy0">=</span> response <span class="kw1">instanceof</span> Response <span class="sy0">?</span> <span class="br0">(</span>Response<span class="br0">)</span>response <span class="sy0">:</span> HttpConnection.<span class="me1">getCurrentConnection</span><span class="br0">(</span><span class="br0">)</span>.<span class="me1">getResponse</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span></pre></div></div>
-<p>Note that if the handler passes the request on to another handler, it should use the<br/> request/response objects passed in and not the base objects. This is to preserve any wrapping done by up stream handlers.
-</p>
-<h3><span class="mw-headline" id="The_dispatch">The dispatch</span></h3>
-<p>The dispatch argument indicates the state of the handling of the call and may be:
-</p>
-<ul><li> REQUEST == 1 - An original request received from a connector.</li>
-<li> FORWARD == 2 - A request being forwarded by a RequestDispatcher</li>
-<li> INCLUDE == 4 - A request being included by a RequestDispatcher</li>
-<li> ERROR == 8 - A request being forwarded to a error handler by the container.</li></ul>
-<p>These mostly have significance for servlet and related handlers. For example, the security handler only applies authentication and authorization to REQUEST dispatches.
-</p>
-<h2><span id="Handling_Requests" class="mw-headline">Handling Requests</span></h2>
-<p>A Handler may handle a request by:
-</p>
-<h3><span id="Generating_a_Response" class="mw-headline">Generating a Response</span></h3>
-<p>The <a rel="nofollow" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/embedded/OneHandler.html" class="external text">OneHandler</a> embedded example shows how a simple handler can generate a response.
-</p><p>The normal servlet response API can be used and will typically set some status, content headers and then write out the content:
-</p>
-<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="java source-java"><pre class="de1"> 
+Generating Handlers - Handlers that produce content (ResourceHandler and ServletHandler)</p>
+              <h3>
+                <span class="mw-headline" id="The_target">The target</span>
+              </h3>
+              <p>The target of a handler is an identifier for the resource that should handle the passed request. This is normally the URI that is parsed from an HTTP Request. However, in two key circumstances the target may differ from the URI of the passed request:</p>
+              <ol>
+                <li>If the request has been dispatched to a named resource, such as a named servlet, then the target is the name of that resource.</li>
+                <li>
+                  If the request is being made by a call to
+                  <a class="external text" href="http://download.oracle.com/docs/cd/E17477_01/javaee/5/api/javax/servlet/RequestDispatcher.html" rel="nofollow">Request Dispatcher</a>
+                  , then the target is the URI of the included resource and will be different to the URI of the actual request.
+                </li>
+              </ol>
+              <h3>
+                <span class="mw-headline" id="The_Request_and_Response">The Request and Response</span>
+              </h3>
+              <p>
+                The request and response objects used in the signature of the handle method are
+                <a class="external text" href="http://download.oracle.com/docs/cd/E17477_01/javaee/5/api/javax/servlet/http/HttpServletRequest.html" rel="nofollow">Servlet Request</a>
+                and
+                <a class="external text" href="http://download.oracle.com/docs/cd/E17477_01/javaee/5/api/javax/servlet/http/HttpServletResponse.html" rel="nofollow">Servlet Response</a>
+                . These are the standard APIs and are moderately restricted in what can be done to the request and response. More often than not, access to the jetty implementations of these classes is required:
+                <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/server/Request.html" rel="nofollow">Request</a>
+                and
+                <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/server/Response.html" rel="nofollow">Response</a>
+                . However, as the request and response may be wrapped by handlers, filters and servlets, it is not possible to pass the implementation directly. The following mantra retrieves the core implementation objects from under any wrappers:
+              </p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="java source-java">
+                  <pre class="de1" xml:space="preserve"><span class="kw3">Request</span> base_request <span class="sy0">=</span> request <span class="kw1">instanceof</span> <span class="kw3">Request</span> <span class="sy0">?</span> <span class="br0">(</span><span class="kw3">Request</span><span class="br0">)</span>request <span class="sy0">:</span> HttpConnection.<span class="me1">getCurrentConnection</span><span class="br0">(</span><span class="br0">)</span>.<span class="me1">getRequest</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
+Response base_response <span class="sy0">=</span> response <span class="kw1">instanceof</span> Response <span class="sy0">?</span> <span class="br0">(</span>Response<span class="br0">)</span>response <span class="sy0">:</span> HttpConnection.<span class="me1">getCurrentConnection</span><span class="br0">(</span><span class="br0">)</span>.<span class="me1">getResponse</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span></pre>
+                </div>
+              </div>
+              <p>
+                Note that if the handler passes the request on to another handler, it should use the
+                <br />
+                request/response objects passed in and not the base objects. This is to preserve any wrapping done by up stream handlers.
+              </p>
+              <h3>
+                <span class="mw-headline" id="The_dispatch">The dispatch</span>
+              </h3>
+              <p>The dispatch argument indicates the state of the handling of the call and may be:</p>
+              <ul>
+                <li>REQUEST == 1 - An original request received from a connector.</li>
+                <li>FORWARD == 2 - A request being forwarded by a RequestDispatcher</li>
+                <li>INCLUDE == 4 - A request being included by a RequestDispatcher</li>
+                <li>ERROR == 8 - A request being forwarded to a error handler by the container.</li>
+              </ul>
+              <p>These mostly have significance for servlet and related handlers. For example, the security handler only applies authentication and authorization to REQUEST dispatches.</p>
+              <h2>
+                <span class="mw-headline" id="Handling_Requests">Handling Requests</span>
+              </h2>
+              <p>A Handler may handle a request by:</p>
+              <h3>
+                <span class="mw-headline" id="Generating_a_Response">Generating a Response</span>
+              </h3>
+              <p>
+                The
+                <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/embedded/OneHandler.html" rel="nofollow">OneHandler</a>
+                embedded example shows how a simple handler can generate a response.
+              </p>
+              <p>The normal servlet response API can be used and will typically set some status, content headers and then write out the content:</p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="java source-java">
+                  <pre class="de1" xml:space="preserve"> 
  response.<span class="me1">setContentType</span><span class="br0">(</span><span class="st0">"text/html"</span><span class="br0">)</span><span class="sy0">;</span>
  response.<span class="me1">setStatus</span><span class="br0">(</span>HttpServletResponse.<span class="me1">SC_OK</span><span class="br0">)</span><span class="sy0">;</span>
- response.<span class="me1">getWriter</span><span class="br0">(</span><span class="br0">)</span>.<span class="me1">println</span><span class="br0">(</span><span class="st0">"&lt;h1&gt;Hello OneHandler&lt;/h1&gt;"</span><span class="br0">)</span><span class="sy0">;</span></pre></div></div>
-<p>It is also very important that a handler indicate that it has completed handling the request and that the request should not be passed to other handlers:
-</p>
-<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="java source-java"><pre class="de1"> 
+ response.<span class="me1">getWriter</span><span class="br0">(</span><span class="br0">)</span>.<span class="me1">println</span><span class="br0">(</span><span class="st0">"&lt;h1&gt;Hello OneHandler&lt;/h1&gt;"</span><span class="br0">)</span><span class="sy0">;</span></pre>
+                </div>
+              </div>
+              <p>It is also very important that a handler indicate that it has completed handling the request and that the request should not be passed to other handlers:</p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="java source-java">
+                  <pre class="de1" xml:space="preserve"> 
  <span class="kw3">Request</span> base_request <span class="sy0">=</span> <span class="br0">(</span>request <span class="kw1">instanceof</span> <span class="kw3">Request</span><span class="br0">)</span> <span class="sy0">?</span> <span class="br0">(</span><span class="kw3">Request</span><span class="br0">)</span>request<span class="sy0">:</span>HttpConnection.<span class="me1">getCurrentConnection</span><span class="br0">(</span><span class="br0">)</span>.<span class="me1">getRequest</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
- base_request.<span class="me1">setHandled</span><span class="br0">(</span><span class="kw2">true</span><span class="br0">)</span><span class="sy0">;</span></pre></div></div>
-<h3><span id="Filtering_the_Request_and.2For_Response" class="mw-headline">Filtering the Request and/or Response</span></h3>
-<p>Once the base request or response object is obtained, you can modify it. Typically you would make modifications to accomplish:
-</p>
-<ul><li> breaking the URI into contextPath, servletPath and pathInfo components</li>
-<li> associating a resource base with a request for static content.</li>
-<li> associating a session with a request</li>
-<li> associating a security principal with a request</li>
-<li> changing the URI and paths during a request dispatch forward to another resource.</li></ul>
-<p>You can also update the context of the request:
-</p>
-<ul><li> Setting the current threads context classloader</li>
-<li> Setting thread locals to identify the current ServletContext.</li></ul>
-<p>Typically a modified request is passed to another handler and then the modifications are undone in a finally block afterwards:
-</p>
-<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="java source-java"><pre class="de1"> 
+ base_request.<span class="me1">setHandled</span><span class="br0">(</span><span class="kw2">true</span><span class="br0">)</span><span class="sy0">;</span></pre>
+                </div>
+              </div>
+              <h3>
+                <span class="mw-headline" id="Filtering_the_Request_and.2For_Response">Filtering the Request and/or Response</span>
+              </h3>
+              <p>Once the base request or response object is obtained, you can modify it. Typically you would make modifications to accomplish:</p>
+              <ul>
+                <li>breaking the URI into contextPath, servletPath and pathInfo components</li>
+                <li>associating a resource base with a request for static content.</li>
+                <li>associating a session with a request</li>
+                <li>associating a security principal with a request</li>
+                <li>changing the URI and paths during a request dispatch forward to another resource.</li>
+              </ul>
+              <p>You can also update the context of the request:</p>
+              <ul>
+                <li>Setting the current threads context classloader</li>
+                <li>Setting thread locals to identify the current ServletContext.</li>
+              </ul>
+              <p>Typically a modified request is passed to another handler and then the modifications are undone in a finally block afterwards:</p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="java source-java">
+                  <pre class="de1" xml:space="preserve"> 
  <span class="kw1">try</span>
  <span class="br0">{</span>
     base_request.<span class="me1">setSession</span><span class="br0">(</span>a_session<span class="br0">)</span><span class="sy0">;</span>
@@ -150,26 +242,54 @@ Response base_response <span class="sy0">=</span> response <span class="kw1">ins
  <span class="kw1">finally</span>
  <span class="br0">{</span>
     base_request.<span class="me1">setSession</span><span class="br0">(</span>old_session<span class="br0">)</span><span class="sy0">;</span>
- <span class="br0">}</span></pre></div></div>
-<p>The classes that implement the <a href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/server/handler/HandlerWrapper.html" class="external text" rel="nofollow">HandlerWrapper</a> class are typically handler filters of this style.
-</p>
-<h3><span id="Passing_the_Request_and_Response_to_another_handler" class="mw-headline">Passing the Request and Response to another handler</span></h3>
-<p>A handler might simply inspect the request and use the target, request URI or other information to select another handler to pass the request to. These handlers typically implement the <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/server/HandlerContainer.html" rel="nofollow">HandlerContainer</a> interface.
-</p><p>Examples include:
-</p>
-<ul><li> <a rel="nofollow" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/server/handler/HandlerCollection.html" class="external text">Class Handler Collection</a> - A collection of handlers, where each handler is called regardless of the state of the request. This is typically used to pass a request to a <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/server/handler/ContextHandlerCollection.html" rel="nofollow">ContextHandlerCollection</a> and then the a <a rel="nofollow" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/server/handler/RequestLogHandler.html" class="external text">RequestLogHandler</a></li>
-<li> <a rel="nofollow" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/server/handler/HandlerList.html" class="external text">HandlerList</a> - A list of handlers which are called in turn until the request state is set as handled.</li>
-<li> <a rel="nofollow" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/server/handler/ContextHandlerCollection.html" class="external text">ContextHandlerCollection</a> - collection of Handlers of which one is selected by best match for the context path.</li></ul>
-<h2><span id="More_About_Handlers" class="mw-headline">More About Handlers</span></h2>
-<p>See <a href="http://download.eclipse.org/jetty/stable-7/xref/" class="external text" rel="nofollow">Jetty 7 Latest Source XRef</a> and <a rel="nofollow" class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/">Jetty 7 Latest JavaDoc</a> for detailed information on each Jetty handler.
-</p>
-
-</div>
-
-                    <div class="catlinks" id="catlinks"><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a title="Special:Categories" href="https://wiki.eclipse.org/Special:Categories">Categories</a>: <ul><li><a title="Category:Jetty" href="https://wiki.eclipse.org/Category:Jetty">Jetty</a></li><li><a title="Category:Jetty Howto" href="https://wiki.eclipse.org/Category:Jetty_Howto">Jetty Howto</a></li></ul></div></div>
-                                  </div>
+ <span class="br0">}</span></pre>
+                </div>
               </div>
+              <p>
+                The classes that implement the
+                <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/server/handler/HandlerWrapper.html" rel="nofollow">HandlerWrapper</a>
+                class are typically handler filters of this style.
+              </p>
+              <h3>
+                <span class="mw-headline" id="Passing_the_Request_and_Response_to_another_handler">Passing the Request and Response to another handler</span>
+              </h3>
+              <p>
+                A handler might simply inspect the request and use the target, request URI or other information to select another handler to pass the request to. These handlers typically implement the
+                <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/server/HandlerContainer.html" rel="nofollow">HandlerContainer</a>
+                interface.
+              </p>
+              <p>Examples include:</p>
+              <ul>
+                <li>
+                  <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/server/handler/HandlerCollection.html" rel="nofollow">Class Handler Collection</a>
+                  - A collection of handlers, where each handler is called regardless of the state of the request. This is typically used to pass a request to a
+                  <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/server/handler/ContextHandlerCollection.html" rel="nofollow">ContextHandlerCollection</a>
+                  and then the a
+                  <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/server/handler/RequestLogHandler.html" rel="nofollow">RequestLogHandler</a>
+                </li>
+                <li>
+                  <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/server/handler/HandlerList.html" rel="nofollow">HandlerList</a>
+                  - A list of handlers which are called in turn until the request state is set as handled.
+                </li>
+                <li>
+                  <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/server/handler/ContextHandlerCollection.html" rel="nofollow">ContextHandlerCollection</a>
+                  - collection of Handlers of which one is selected by best match for the context path.
+                </li>
+              </ul>
+              <h2>
+                <span class="mw-headline" id="More_About_Handlers">More About Handlers</span>
+              </h2>
+              <p>
+                See
+                <a class="external text" href="http://download.eclipse.org/jetty/stable-7/xref/" rel="nofollow">Jetty 7 Latest Source XRef</a>
+                and
+                <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/" rel="nofollow">Jetty 7 Latest JavaDoc</a>
+                for detailed information on each Jetty handler.
+              </p>
             </div>
           </div>
-</body>
+        </div>
+      </div>
+    </div>
+  </body>
 </html>

@@ -1,218 +1,37 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
-<head>
+  <head>
     <title>Jetty WTP Plugin</title>
-    <link rel="stylesheet" media="screen, print" href="wiki-style.css"/>
-</head>
-<body>
-<div id="mainContent" class="col-md-20">
-                                  <div class="tab-content background-white">
-              <div id="tab-pane-main-page-content" class="tab-pane active">
-
-                
-                <h1 id="firstHeading" class="firstHeading page-header">
-                  <span dir="auto">Jetty/Contributor Release Testing Check List</span>
-                </h1>
-                <div id="main-page-content">
-
-                  <div class="alert alert-small alert-warning" id="contentSub"><span class="subpages">&lt; <a href="../Jetty.html" title="Jetty">Jetty</a></span></div>
-
-                  
-                  
-                  <div id="mw-content-text" class="mw-content-ltr" lang="en" dir="ltr"><p><br/>
-</p><p><br/>
-</p>
-<h2><span class="mw-headline" id="Testing_a_Jetty_Release">Testing a Jetty Release</span></h2>
-<div style="background-color: #f9f6b7; border: 1px solid #c4c295; color: black; padding: 5px; margin: 1ex 0; min-height: 35px; padding-left: 45px; font-size: 150%; color: white; background-color: #FF8888; padding: 50px" class="messagebox">
-<div style="float: left; margin-left: -40px;"><a class="image" href="https://wiki.eclipse.org/File:Warning2.png"><img height="35" src="../images/3/37/Warning2.png" width="35" alt="Warning2.png"/></a></div>
-<div>Jetty 7 and Jetty 8 are now EOL (End of Life)<br/>
-<p><br/>
-<br/>
-<br/>
-THIS IS NOT THE DOCUMENTATION YOU ARE LOOKING FOR!!!!!<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-All development and stable releases are being performed with Jetty 9 and Jetty 10.<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-This <b>wiki is now officially out of date</b> and all content has been moved to the <a rel="nofollow" class="external text" href="http://www.eclipse.org/jetty/documentation">Jetty Documentation Hub</a><br/> 
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-</p>
-
-</div>
-<p><br/>
-To test a Jetty release, complete the following steps for each release you want to test:
-</p>
-<ol>
-<li> Download the staged release:
-</li>For Jetty 7:
-<pre>wget <a rel="nofollow" class="external free" href="https://oss.sonatype.org/content/repositories/jetty-">https://oss.sonatype.org/content/repositories/jetty-</a>[reponumber]/org/eclipse/jetty/jetty-distribution/[jetty-version]/ jetty-distribution-7.[jetty-minor-version].tar.gz
-</pre>
-<p>For Jetty 8:
-</p>
-<pre>wget <a rel="nofollow" href="https://oss.sonatype.org/content/repositories/jetty-" class="external free">https://oss.sonatype.org/content/repositories/jetty-</a>[reponumber]/org/eclipse/jetty/jetty-distribution/[jetty-version]/jetty-distribution-8.[jetty-minor-version].tar.gz
-</pre>
-<li> Extract to a directory of your choice.</li>
-<li>Start jetty:
-</li>
-<pre>cd [installdir] ; java -jar start.jar OPTIONS=rewrite etc/jetty-rewrite.xml etc/jetty-ssl.xml
-</pre>
-<li>If there are no exceptions, proceed. Otherwise, investigate.
-</li><li>Open http://localhost:8080/ in your favourite browser.
-</li>You should see the <tt>test.war</tt> webapp.
-<li>Go through ALL the tests and verify that everything works as expected.
-</li><li>Verify that hot deployment works.
-</li>
-<pre>touch [pathToJettyDistribution]/contexts/test.xml
-</pre>
-<li>Verify that <tt>test.war</tt> gets redeployed in <tt>STDOUT</tt>.
-
-<h3><span class="mw-headline" id="Testing_CometD">Testing CometD</span></h3>
-<ol>
-<li> Clone CometD.
-</li>
-<pre>clone <a href="git://github.com/cometd/cometd.git" class="external free" rel="nofollow">git://github.com/cometd/cometd.git</a>
-git clone <a href="git://github.com/cometd/cometd.git" class="external free" rel="nofollow">git://github.com/cometd/cometd.git</a>
-</pre>
-<li> Edit <tt>pom.xml</tt> and update <tt>jetty-version</tt> and repository URL to match the current staged release.
-</li>
-<pre>   &lt;properties&gt;
-       &lt;project.build.sourceEncoding&gt;UTF-8&lt;/project.build.sourceEncoding&gt;
-       &lt;jetty-version&gt;7.6.2.v20120308&lt;/jetty-version&gt;
-       &lt;jetty-plugin-version&gt;${jetty-version}&lt;/jetty-plugin-version&gt;
-       &lt;slf4j-version&gt;1.6.4&lt;/slf4j-version&gt;
-       &lt;spring-version&gt;3.1.0.RELEASE&lt;/spring-version&gt;
-   &lt;/properties&gt;
-   &lt;repositories&gt;
-   &lt;repository&gt;
-     &lt;id&gt;Jetty Staging&lt;/id&gt;
-     &lt;url&gt;<a rel="nofollow" href="https://oss.sonatype.org/content/repositories/jetty-988/" class="external free">https://oss.sonatype.org/content/repositories/jetty-988/</a>&lt;/url&gt;
-   &lt;/repository&gt;
- &lt;/repositories&gt;
-</pre>
-<li> Build Cometd:
-</li>
-<pre>mvn clean install
-</pre>
-<li>Be patient.
-</li><li>Run the loadtest as it is described here: <a rel="nofollow" href="http://cometd.org/documentation/2.x/howtos/loadtesting" class="external free">http://cometd.org/documentation/2.x/howtos/loadtesting</a>. Keep the default values, but make sure that you raise the clients setting to 1000. Run the loadtest until <i>JIT compilation time</i> is close to a value of zero (about 10k calls).
-</li><li>Make sure that the performance results are reasonably fast. On a MacBook Pro i7 2.6ghz dualcore produces the following:
-<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="bash source-bash"><pre class="de1"> ========================================
-Statistics Started at Fri Mar 09 <span class="nu0">13</span>:<span class="nu0">44</span>:<span class="nu0">35</span> CET <span class="nu0">2012</span>
-Operative System: Mac OS X 10.7.3 amd64
-JVM : Oracle Corporation Java HotSpot<span class="br0">(</span>TM<span class="br0">)</span> <span class="nu0">64</span>-Bit Server VM runtime <span class="nu0">23.0</span>-b16 1.7.0_04-ea-b14
-Processors: <span class="nu0">4</span>
-System Memory: <span class="nu0">99.583336</span><span class="sy0">%</span> used of <span class="nu0">30.0</span> GiB
-Used Heap Size: <span class="nu0">36.490677</span> MiB
-Max Heap Size: <span class="nu0">1920.0</span> MiB
-Young Generation Heap Size: <span class="nu0">896.0</span> MiB
-- - - - - - - - - - - - - - - - - - - -
-Testing <span class="nu0">1000</span> clients <span class="kw1">in</span> <span class="nu0">100</span> rooms, <span class="nu0">10</span> rooms<span class="sy0">/</span>client
-Sending <span class="nu0">1000</span> batches of 10x50 bytes messages every <span class="nu0">10000</span> µs
-<span class="br0">[</span>GC <span class="br0">[</span>PSYoungGen: 786432K-<span class="sy0">&gt;</span>8736K<span class="br0">(</span>917504K<span class="br0">)</span><span class="br0">]</span> 823650K-<span class="sy0">&gt;</span>45954K<span class="br0">(</span>1966080K<span class="br0">)</span>, <span class="nu0">0.0309940</span> secs<span class="br0">]</span> <span class="br0">[</span>Times: <span class="re2">user</span>=<span class="nu0">0.09</span> <span class="re2">sys</span>=<span class="nu0">0.00</span>, <span class="re2">real</span>=<span class="nu0">0.03</span> secs<span class="br0">]</span>
-<span class="br0">[</span>GC <span class="br0">[</span>PSYoungGen: 795168K-<span class="sy0">&gt;</span>11424K<span class="br0">(</span>917504K<span class="br0">)</span><span class="br0">]</span> 832386K-<span class="sy0">&gt;</span>48642K<span class="br0">(</span>1966080K<span class="br0">)</span>, <span class="nu0">0.0513360</span> secs<span class="br0">]</span> <span class="br0">[</span>Times: <span class="re2">user</span>=<span class="nu0">0.13</span> <span class="re2">sys</span>=<span class="nu0">0.00</span>, <span class="re2">real</span>=<span class="nu0">0.05</span> secs<span class="br0">]</span>
-<span class="br0">[</span>GC <span class="br0">[</span>PSYoungGen: 797856K-<span class="sy0">&gt;</span>14560K<span class="br0">(</span>917504K<span class="br0">)</span><span class="br0">]</span> 835074K-<span class="sy0">&gt;</span>51778K<span class="br0">(</span>1966080K<span class="br0">)</span>, <span class="nu0">0.0432940</span> secs<span class="br0">]</span> <span class="br0">[</span>Times: <span class="re2">user</span>=<span class="nu0">0.12</span> <span class="re2">sys</span>=<span class="nu0">0.00</span>, <span class="re2">real</span>=<span class="nu0">0.05</span> secs<span class="br0">]</span>
-<span class="br0">[</span>GC <span class="br0">[</span>PSYoungGen: 800992K-<span class="sy0">&gt;</span>15680K<span class="br0">(</span>917504K<span class="br0">)</span><span class="br0">]</span> 838210K-<span class="sy0">&gt;</span>52898K<span class="br0">(</span>1966080K<span class="br0">)</span>, <span class="nu0">0.0491200</span> secs<span class="br0">]</span> <span class="br0">[</span>Times: <span class="re2">user</span>=<span class="nu0">0.14</span> <span class="re2">sys</span>=<span class="nu0">0.00</span>, <span class="re2">real</span>=<span class="nu0">0.05</span> secs<span class="br0">]</span>
-<span class="br0">[</span>GC <span class="br0">[</span>PSYoungGen: 802112K-<span class="sy0">&gt;</span>17568K<span class="br0">(</span>917504K<span class="br0">)</span><span class="br0">]</span> 839330K-<span class="sy0">&gt;</span>54786K<span class="br0">(</span>1966080K<span class="br0">)</span>, <span class="nu0">0.0484950</span> secs<span class="br0">]</span> <span class="br0">[</span>Times: <span class="re2">user</span>=<span class="nu0">0.14</span> <span class="re2">sys</span>=<span class="nu0">0.00</span>, <span class="re2">real</span>=<span class="nu0">0.05</span> secs<span class="br0">]</span>
-<span class="br0">[</span>GC <span class="br0">[</span>PSYoungGen: 804000K-<span class="sy0">&gt;</span>17600K<span class="br0">(</span>917504K<span class="br0">)</span><span class="br0">]</span> 841218K-<span class="sy0">&gt;</span>54818K<span class="br0">(</span>1966080K<span class="br0">)</span>, <span class="nu0">0.0456460</span> secs<span class="br0">]</span> <span class="br0">[</span>Times: <span class="re2">user</span>=<span class="nu0">0.14</span> <span class="re2">sys</span>=<span class="nu0">0.01</span>, <span class="re2">real</span>=<span class="nu0">0.05</span> secs<span class="br0">]</span>
-<span class="br0">[</span>GC <span class="br0">[</span>PSYoungGen: 804032K-<span class="sy0">&gt;</span>19488K<span class="br0">(</span>917504K<span class="br0">)</span><span class="br0">]</span> 841250K-<span class="sy0">&gt;</span>56706K<span class="br0">(</span>1966080K<span class="br0">)</span>, <span class="nu0">0.0542000</span> secs<span class="br0">]</span> <span class="br0">[</span>Times: <span class="re2">user</span>=<span class="nu0">0.15</span> <span class="re2">sys</span>=<span class="nu0">0.00</span>, <span class="re2">real</span>=<span class="nu0">0.05</span> secs<span class="br0">]</span>
-<span class="br0">[</span>GC <span class="br0">[</span>PSYoungGen: 805920K-<span class="sy0">&gt;</span>20224K<span class="br0">(</span>917504K<span class="br0">)</span><span class="br0">]</span> 843138K-<span class="sy0">&gt;</span>57442K<span class="br0">(</span>1966080K<span class="br0">)</span>, <span class="nu0">0.0486350</span> secs<span class="br0">]</span> <span class="br0">[</span>Times: <span class="re2">user</span>=<span class="nu0">0.16</span> <span class="re2">sys</span>=<span class="nu0">0.00</span>, <span class="re2">real</span>=<span class="nu0">0.05</span> secs<span class="br0">]</span>
-<span class="br0">[</span>GC <span class="br0">[</span>PSYoungGen: 806656K-<span class="sy0">&gt;</span>20192K<span class="br0">(</span>917504K<span class="br0">)</span><span class="br0">]</span> 843874K-<span class="sy0">&gt;</span>57410K<span class="br0">(</span>1966080K<span class="br0">)</span>, <span class="nu0">0.0566690</span> secs<span class="br0">]</span> <span class="br0">[</span>Times: <span class="re2">user</span>=<span class="nu0">0.15</span> <span class="re2">sys</span>=<span class="nu0">0.00</span>, <span class="re2">real</span>=<span class="nu0">0.06</span> secs<span class="br0">]</span>
-<span class="br0">[</span>GC <span class="br0">[</span>PSYoungGen: 806624K-<span class="sy0">&gt;</span>21152K<span class="br0">(</span>917504K<span class="br0">)</span><span class="br0">]</span> 843842K-<span class="sy0">&gt;</span>58370K<span class="br0">(</span>1966080K<span class="br0">)</span>, <span class="nu0">0.0536740</span> secs<span class="br0">]</span> <span class="br0">[</span>Times: <span class="re2">user</span>=<span class="nu0">0.16</span> <span class="re2">sys</span>=<span class="nu0">0.00</span>, <span class="re2">real</span>=<span class="nu0">0.06</span> secs<span class="br0">]</span>
-<span class="br0">[</span>GC <span class="br0">[</span>PSYoungGen: 807584K-<span class="sy0">&gt;</span>21088K<span class="br0">(</span>917504K<span class="br0">)</span><span class="br0">]</span> 844802K-<span class="sy0">&gt;</span>58306K<span class="br0">(</span>1966080K<span class="br0">)</span>, <span class="nu0">0.0576060</span> secs<span class="br0">]</span> <span class="br0">[</span>Times: <span class="re2">user</span>=<span class="nu0">0.18</span> <span class="re2">sys</span>=<span class="nu0">0.00</span>, <span class="re2">real</span>=<span class="nu0">0.06</span> secs<span class="br0">]</span>
-<span class="br0">[</span>GC <span class="br0">[</span>PSYoungGen: 807520K-<span class="sy0">&gt;</span>22080K<span class="br0">(</span>917504K<span class="br0">)</span><span class="br0">]</span> 844738K-<span class="sy0">&gt;</span>59298K<span class="br0">(</span>1966080K<span class="br0">)</span>, <span class="nu0">0.0663300</span> secs<span class="br0">]</span> <span class="br0">[</span>Times: <span class="re2">user</span>=<span class="nu0">0.19</span> <span class="re2">sys</span>=<span class="nu0">0.01</span>, <span class="re2">real</span>=<span class="nu0">0.06</span> secs<span class="br0">]</span>
-- - - - - - - - - - - - - - - - - - - -
-Statistics Ended at Fri Mar 09 <span class="nu0">13</span>:<span class="nu0">45</span>:<span class="nu0">21</span> CET <span class="nu0">2012</span>
-Elapsed time: <span class="nu0">45826</span> ms
-    Time <span class="kw1">in</span> JIT compilation: <span class="nu0">52</span> ms
-    Time <span class="kw1">in</span> Young Generation GC: <span class="nu0">606</span> ms <span class="br0">(</span><span class="nu0">12</span> collections<span class="br0">)</span>
-    Time <span class="kw1">in</span> Old Generation GC: <span class="nu0">0</span> ms <span class="br0">(</span><span class="nu0">0</span> collections<span class="br0">)</span>
-Garbage Generated <span class="kw1">in</span> Young Generation: <span class="nu0">9036.513</span> MiB
-Garbage Generated <span class="kw1">in</span> Survivor Generation: <span class="nu0">21.65625</span> MiB
-Garbage Generated <span class="kw1">in</span> Old Generation: <span class="nu0">0.0</span> MiB
-Average CPU Load: <span class="nu0">156.54865</span><span class="sy0">/</span><span class="nu0">400</span>
-<span class="re5">----------------------------------------</span>
- 
-Outgoing: Elapsed = <span class="nu0">45820</span> ms <span class="sy0">|</span> Rate = <span class="nu0">218</span> messages<span class="sy0">/</span>s - <span class="nu0">21</span> requests<span class="sy0">/</span>s - ~<span class="nu0">0.083</span> Mib<span class="sy0">/</span>s
-Waiting <span class="kw1">for</span> messages to arrive <span class="nu0">996960</span><span class="sy0">/</span><span class="nu0">999045</span>
-All messages arrived <span class="nu0">999045</span><span class="sy0">/</span><span class="nu0">999045</span>
-Messages - Success<span class="sy0">/</span>Expected = <span class="nu0">999045</span><span class="sy0">/</span><span class="nu0">999045</span>
-Incoming - Elapsed = <span class="nu0">45945</span> ms <span class="sy0">|</span> Rate = <span class="nu0">21743</span> messages<span class="sy0">/</span>s - <span class="nu0">9496</span> responses<span class="sy0">/</span>s<span class="br0">(</span><span class="nu0">43.68</span><span class="sy0">%</span><span class="br0">)</span> - ~<span class="nu0">8.295</span> Mib<span class="sy0">/</span>s
-Messages - Wall Latency Distribution Curve <span class="br0">(</span>X axis: Frequency, Y axis: Latency<span class="br0">)</span>:
- <span class="sy0">@</span>                    _  <span class="nu0">24</span> ms <span class="br0">(</span><span class="nu0">8765</span>, <span class="nu0">0.88</span><span class="sy0">%</span><span class="br0">)</span>
-       <span class="sy0">@</span>              _  <span class="nu0">45</span> ms <span class="br0">(</span><span class="nu0">58952</span>, <span class="nu0">5.90</span><span class="sy0">%</span><span class="br0">)</span>
-          <span class="sy0">@</span>           _  <span class="nu0">67</span> ms <span class="br0">(</span><span class="nu0">87065</span>, <span class="nu0">8.71</span><span class="sy0">%</span><span class="br0">)</span>
-             <span class="sy0">@</span>        _  <span class="nu0">88</span> ms <span class="br0">(</span><span class="nu0">113786</span>, <span class="nu0">11.39</span><span class="sy0">%</span><span class="br0">)</span>
-                   <span class="sy0">@</span>  _  <span class="nu0">109</span> ms <span class="br0">(</span><span class="nu0">167426</span>, <span class="nu0">16.76</span><span class="sy0">%</span><span class="br0">)</span>
-                   <span class="sy0">@</span>  _  <span class="nu0">131</span> ms <span class="br0">(</span><span class="nu0">176163</span>, <span class="nu0">17.63</span><span class="sy0">%</span><span class="br0">)</span> ^<span class="nu0">50</span><span class="sy0">%</span>
-              <span class="sy0">@</span>       _  <span class="nu0">152</span> ms <span class="br0">(</span><span class="nu0">123182</span>, <span class="nu0">12.33</span><span class="sy0">%</span><span class="br0">)</span>
-          <span class="sy0">@</span>           _  <span class="nu0">174</span> ms <span class="br0">(</span><span class="nu0">90918</span>, <span class="nu0">9.10</span><span class="sy0">%</span><span class="br0">)</span>
-        <span class="sy0">@</span>             _  <span class="nu0">195</span> ms <span class="br0">(</span><span class="nu0">67209</span>, <span class="nu0">6.73</span><span class="sy0">%</span><span class="br0">)</span> ^<span class="nu0">85</span><span class="sy0">%</span>
-     <span class="sy0">@</span>                _  <span class="nu0">216</span> ms <span class="br0">(</span><span class="nu0">46989</span>, <span class="nu0">4.70</span><span class="sy0">%</span><span class="br0">)</span>
-   <span class="sy0">@</span>                  _  <span class="nu0">238</span> ms <span class="br0">(</span><span class="nu0">24975</span>, <span class="nu0">2.50</span><span class="sy0">%</span><span class="br0">)</span> ^<span class="nu0">95</span><span class="sy0">%</span>
-  <span class="sy0">@</span>                   _  <span class="nu0">259</span> ms <span class="br0">(</span><span class="nu0">16509</span>, <span class="nu0">1.65</span><span class="sy0">%</span><span class="br0">)</span>
- <span class="sy0">@</span>                    _  <span class="nu0">281</span> ms <span class="br0">(</span><span class="nu0">8454</span>, <span class="nu0">0.85</span><span class="sy0">%</span><span class="br0">)</span> ^<span class="nu0">99</span><span class="sy0">%</span>
-<span class="sy0">@</span>                     _  <span class="nu0">302</span> ms <span class="br0">(</span><span class="nu0">4324</span>, <span class="nu0">0.43</span><span class="sy0">%</span><span class="br0">)</span>
-<span class="sy0">@</span>                     _  <span class="nu0">323</span> ms <span class="br0">(</span><span class="nu0">2955</span>, <span class="nu0">0.30</span><span class="sy0">%</span><span class="br0">)</span>
-<span class="sy0">@</span>                     _  <span class="nu0">345</span> ms <span class="br0">(</span><span class="nu0">957</span>, <span class="nu0">0.10</span><span class="sy0">%</span><span class="br0">)</span> ^<span class="nu0">99.9</span><span class="sy0">%</span>
-<span class="sy0">@</span>                     _  <span class="nu0">366</span> ms <span class="br0">(</span><span class="nu0">204</span>, <span class="nu0">0.02</span><span class="sy0">%</span><span class="br0">)</span>
-<span class="sy0">@</span>                     _  <span class="nu0">388</span> ms <span class="br0">(</span><span class="nu0">144</span>, <span class="nu0">0.01</span><span class="sy0">%</span><span class="br0">)</span>
-<span class="sy0">@</span>                     _  <span class="nu0">409</span> ms <span class="br0">(</span><span class="nu0">25</span>, <span class="nu0">0.00</span><span class="sy0">%</span><span class="br0">)</span>
-<span class="sy0">@</span>                     _  <span class="nu0">430</span> ms <span class="br0">(</span><span class="nu0">43</span>, <span class="nu0">0.00</span><span class="sy0">%</span><span class="br0">)</span>
-Messages - Wall Latency 50th<span class="sy0">%/</span>99th<span class="sy0">%</span> = <span class="nu0">117</span><span class="sy0">/</span><span class="nu0">275</span> ms
-Messages - Wall Latency Min<span class="sy0">/</span>Ave<span class="sy0">/</span>Max = <span class="nu0">2</span><span class="sy0">/</span><span class="nu0">123</span><span class="sy0">/</span><span class="nu0">430</span> ms
-Messages - Network Latency Min<span class="sy0">/</span>Ave<span class="sy0">/</span>Max = <span class="nu0">1</span><span class="sy0">/</span><span class="nu0">114</span><span class="sy0">/</span><span class="nu0">417</span> ms
-Thread Pool - Concurrent Threads max = <span class="nu0">239</span> <span class="sy0">|</span> Queue Size max = <span class="nu0">1002</span> <span class="sy0">|</span> Queue Latency avg<span class="sy0">/</span>max = <span class="nu0">12</span><span class="sy0">/</span><span class="nu0">101</span> ms</pre></div></div>
-</li><li> Deploy <tt>cometd.war</tt> to the <tt>webapps</tt> directory of the jetty-distribution tested above.
-</li>
-<pre>cp cometd-demo/target/cometd-demo-[version].war [pathToJetty]/jetty-distribution-[jetty-version]/webapps/
-</pre>
-<li>Start jetty and make sure there are no exceptions.
-</li>
-<pre>cd [pathToJetty] &amp;&amp; java -jar start.jar
-</pre>
-<li>Go through all pages of the demo and test them: 
-</li>
-<pre><a rel="nofollow" href="http://localhost:8080/cometd-demo-2.4.1-SNAPSHOT/" class="external free">http://localhost:8080/cometd-demo-2.4.1-SNAPSHOT/</a>
-</pre>
-<p>If all tests are green, you are done!
-</p>
-
-
-
-</ol>
-</li>
-
-
-</ol>
-
-
-</div>
-
-                      <div id="catlinks" class="catlinks">
-                          <div class="mw-normal-catlinks" id="mw-normal-catlinks">
-                              <a href="https://wiki.eclipse.org/Special:Categories" title="Special:Categories">Category</a>:
-                              <ul>
-                                  <li><a title="Category:Jetty" href="https://wiki.eclipse.org/Category:Jetty">Jetty</a></li>
-                              </ul>
-                          </div>
-                      </div>
-                                  </div>
-              </div>
+    <link href="wiki-style.css" media="screen, print" rel="stylesheet" />
+  </head>
+  <body>
+    <div class="col-md-20" id="mainContent">
+      <div class="tab-content background-white">
+        <div class="tab-pane active" id="tab-pane-main-page-content">
+          <h1 class="firstHeading page-header" id="firstHeading">
+            <span dir="auto">Jetty/Contributor Release Testing Check List</span>
+          </h1>
+          <div id="main-page-content">
+            <div class="alert alert-small alert-warning" id="contentSub">
+              <span class="subpages">
+                &lt;
+                <a href="../Jetty.html" title="Jetty">Jetty</a>
+              </span>
+            </div>
+            <div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="en">
+              <p>
+                <br />
+              </p>
+              <p>
+                <br />
+              </p>
+              <h2>
+                <span class="mw-headline" id="Testing_a_Jetty_Release">Testing a Jetty Release</span>
+              </h2>
             </div>
           </div>
-</div>
-</body>
+        </div>
+      </div>
+    </div>
+  </body>
 </html>

@@ -1,113 +1,203 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
-<head>
+  <head>
     <title>Jetty WTP Plugin</title>
-    <link rel="stylesheet" media="screen, print" href="wiki-style.css"/>
-</head>
-<body>
-<div id="mainContent" class="col-md-20">
-                      <ul class="nav nav-tabs noprint hidden-print" role="tablist">
-                       <li class="active" id="ca-nstab-main"><a title="View the content page [c]" accesskey="c" href="Deploy Web Applications.html" tabindex="-1">Page</a></li>
-                        <li class="new" id="ca-talk"><a title="Discussion about the content page [t]" accesskey="t" href="edit" tabindex="-1">Discussion</a></li>
-                        <li id="ca-viewsource"><a tabindex="-1" href="edit" accesskey="e" title="This page is protected.&#10;You can view its source [e]">View source</a></li>
-                        <li class="collapsible" id="ca-history"><a accesskey="h" href="edit" tabindex="-1" title="Past revisions of this page [h]">History</a></li>
-                      </ul>            <div class="tab-content background-white">
-              <div id="tab-pane-main-page-content" class="tab-pane active">
-
-                
-                <h1 class="firstHeading page-header" id="firstHeading">
-                  <span dir="auto">Jetty/Howto/Deploy Web Applications</span>
-                </h1>
-                <div id="main-page-content">
-
-                  <div class="alert alert-small alert-warning" id="contentSub"><span class="subpages">&lt; <a title="Jetty" href="../../Jetty.html">Jetty</a>‎ | <a title="Jetty/Howto" href="../Howto.html">Howto</a></span></div>
-
-                  
-                  
-                  <div dir="ltr" lang="en" class="mw-content-ltr" id="mw-content-text"><p><br/>
-</p><p><br/>
-</p>
-<div id="toc" class="toc"><div id="toctitle"><h2>Contents</h2></div>
-<ul>
-<li class="toclevel-1"><a href="Deploy Web Applications.html#Introduction"><span class="tocnumber">1</span> <span class="toctext">Introduction</span></a></li>
-<li class="toclevel-1 tocsection-1"><a href="Deploy Web Applications.html#Deploying_Webapps"><span class="tocnumber">2</span> <span class="toctext">Deploying Webapps</span></a></li>
-<li class="toclevel-1 tocsection-2"><a href="Deploy Web Applications.html#Deploying_Contexts"><span class="tocnumber">3</span> <span class="toctext">Deploying Contexts</span></a></li>
-<li class="toclevel-1 tocsection-3"><a href="Deploy Web Applications.html#Jetty_Maven_Plugin"><span class="tocnumber">4</span> <span class="toctext">Jetty Maven Plugin</span></a></li>
-<li class="toclevel-1 tocsection-4"><a href="Deploy Web Applications.html#OSGi_web_application_bundle"><span class="tocnumber">5</span> <span class="toctext">OSGi web application bundle</span></a></li>
-<li class="toclevel-1 tocsection-5"><a href="Deploy Web Applications.html#Using_Embedded_Jetty"><span class="tocnumber">6</span> <span class="toctext">Using Embedded Jetty</span></a></li>
-</ul>
-</div>
-
-<h2><span id="Introduction" class="mw-headline">Introduction</span></h2>
-<div class="messagebox" style="background-color: #f9f6b7; border: 1px solid #c4c295; color: black; padding: 5px; margin: 1ex 0; min-height: 35px; padding-left: 45px; font-size: 150%; color: white; background-color: #FF8888; padding: 50px">
-<div style="float: left; margin-left: -40px;"><a href="https://wiki.eclipse.org/File:Warning2.png" class="image"><img height="35" src="../../images/3/37/Warning2.png" alt="Warning2.png" width="35"/></a></div>
-<div>Jetty 7 and Jetty 8 are now EOL (End of Life)<br/>
-<p><br/>
-<br/>
-<br/>
-THIS IS NOT THE DOCUMENTATION YOU ARE LOOKING FOR!!!!!<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-All development and stable releases are being performed with Jetty 9 and Jetty 10.<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-This <b>wiki is now officially out of date</b> and all content has been moved to the <a href="http://www.eclipse.org/jetty/documentation" class="external text" rel="nofollow">Jetty Documentation Hub</a><br/> 
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-</p>
-Direct Link to updated documentation: <a href="http://www.eclipse.org/jetty/documentation/current/configuring-deployment.html" class="external free" rel="nofollow">http://www.eclipse.org/jetty/documentation/current/configuring-deployment.html</a></div>
-</div>
-<p><br/>
-Jetty can deploy web applications as WAR files (packed or unpacked), as provided or with overridden configuration, and with static or hot deployment.
-</p>
-<h2><span id="Deploying_Webapps" class="mw-headline">Deploying Webapps</span></h2>
-<p>Jetty scans its <tt>$JETTY_HOME/webapps</tt> directory at startup for web applications to deploy:
-</p>
-<ul><li> It deploys the file <tt>foo.war</tt>  as a webapp at context <tt>/foo</tt>.</li>
-<li> It deploys the directory <tt>foo/</tt>  at context <tt>/foo</tt>. If the directory has a <tt>WEB-INF</tt> subdirectory, Jetty treats it as a servlet webapp, otherwise Jetty serves it only as static content.</li>
-<li> If both a <tt>foo.war</tt> and a <tt>foo/</tt> directory exist, Jetty uses the one with the most recent last-modified date.</li>
-<li> If the webapp is called <tt>root.war</tt> or the directory is called <tt>root/</tt> then Jetty deploys it at the / context.</li>
-<li> If the <tt>contextXmlDir</tt> option is used and a <tt>foo.xml</tt> file exists in that dir, the WebAppProvider defers to the Contexts Provider for actual webapp deployment.</li></ul>
-<p>Formerly the <a rel="nofollow" class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/deploy/WebAppDeployer.html">WebAppDeployer</a> class controlled webapp deployment.  With Jetty version 7.0.2 and later, the <a rel="nofollow" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/deploy/providers/WebAppProvider.html" class="external text">WebAppProvider</a> of the <a rel="nofollow" class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/deploy/DeploymentManager.html">DeploymentManager</a> controls web app deployment..
-</p><p>See also older (but mostly relevant) <a rel="nofollow" href="http://docs.codehaus.org/display/JETTY/WebAppDeployer" class="external text">Jetty-6 WebAppDeployer</a> documentation.
-</p>
-<h2><span id="Deploying_Contexts" class="mw-headline">Deploying Contexts</span></h2>
-<p>Jetty scans the <tt>$JETTY_HOME/contexts</tt> directory at runtime for <tt>context.xml</tt> files that describe either:
-</p>
-<ul><li> a standard WAR file (or directory), plus additional configuration.</li>
-<li> a custom Jetty context.</li></ul>
-<p>Formerly the <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/deploy/ContextDeployer.html" rel="nofollow">ContextDeployer</a> class contolled contexts deployment.  With Jetty version 7.0.2 and later, the <a href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/deploy/providers/ContextProvider.html" class="external text" rel="nofollow">ContextProvider</a> of the <a rel="nofollow" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/deploy/DeploymentManager.html" class="external text">DeploymentManager</a> controls contexts deployment.
-</p><p>See also older (but mostly relevant) <a class="external text" href="http://docs.codehaus.org/display/JETTY/ContextDeployer" rel="nofollow">Jetty-6 ContextDeployer</a> documentation.
-</p>
-<h2><span class="mw-headline" id="Jetty_Maven_Plugin">Jetty Maven Plugin</span></h2>
-<p>If you develop your web application as a Maven project, you can deploy it in Jetty with <tt>mvn jetty:run</tt> using the <a href="../Feature/Jetty Maven Plugin.html" title="Jetty/Feature/Jetty Maven Plugin">Jetty Maven Plugin</a>.
-</p><p>Maven lets you build your web applications by overlaying on other template web applications 
-(for example, <a href="http://cometd.org/documentation/howtos/primer" class="external text" rel="nofollow">Cometd</a>) and manages the transitive dependencies needed to populate WEB-INF/lib.
-</p>
-<h2><span class="mw-headline" id="OSGi_web_application_bundle">OSGi web application bundle</span></h2>
-<p>TBD
-</p>
-<h2><span id="Using_Embedded_Jetty" class="mw-headline">Using Embedded Jetty</span></h2>
-<p>You can also deploy web applications into embedded Jetty, either via direct configuration or via configuration of a deployer.   For an example see the <a title="Jetty/Tutorial/Embedding Jetty" href="../Tutorial/Embedding Jetty.html">Embedding Jetty Tutorial</a>.
-</p>
-
-</div>
-
-                    <div class="catlinks" id="catlinks"><div class="mw-normal-catlinks" id="mw-normal-catlinks"><a href="https://wiki.eclipse.org/Special:Categories" title="Special:Categories">Categories</a>: <ul><li><a title="Category:Jetty" href="https://wiki.eclipse.org/Category:Jetty">Jetty</a></li><li><a title="Category:Jetty Howto" href="https://wiki.eclipse.org/Category:Jetty_Howto">Jetty Howto</a></li></ul></div></div>
-                                  </div>
+    <link href="wiki-style.css" media="screen, print" rel="stylesheet" />
+  </head>
+  <body>
+    <div class="col-md-20" id="mainContent">
+      <div class="tab-content background-white">
+        <div class="tab-pane active" id="tab-pane-main-page-content">
+          <h1 class="firstHeading page-header" id="firstHeading">
+            <span dir="auto">Jetty/Howto/Deploy Web Applications</span>
+          </h1>
+          <div id="main-page-content">
+            <div class="alert alert-small alert-warning" id="contentSub">
+              <span class="subpages">
+                &lt;
+                <a href="../../Jetty.html" title="Jetty">Jetty</a>
+                 |
+                <a href="../Howto.html" title="Jetty/Howto">Howto</a>
+              </span>
+            </div>
+            <div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="en">
+              <p>
+                <br />
+              </p>
+              <p>
+                <br />
+              </p>
+              <div class="toc" id="toc">
+                <div id="toctitle">
+                  <h2>Contents</h2>
+                </div>
+                <ul>
+                  <li class="toclevel-1">
+                    <a href="Deploy Web Applications.html#Introduction">
+                      <span class="tocnumber">1</span>
+                      <span class="toctext">Introduction</span>
+                    </a>
+                  </li>
+                  <li class="toclevel-1 tocsection-1">
+                    <a href="Deploy Web Applications.html#Deploying_Webapps">
+                      <span class="tocnumber">2</span>
+                      <span class="toctext">Deploying Webapps</span>
+                    </a>
+                  </li>
+                  <li class="toclevel-1 tocsection-2">
+                    <a href="Deploy Web Applications.html#Deploying_Contexts">
+                      <span class="tocnumber">3</span>
+                      <span class="toctext">Deploying Contexts</span>
+                    </a>
+                  </li>
+                  <li class="toclevel-1 tocsection-3">
+                    <a href="Deploy Web Applications.html#Jetty_Maven_Plugin">
+                      <span class="tocnumber">4</span>
+                      <span class="toctext">Jetty Maven Plugin</span>
+                    </a>
+                  </li>
+                  <li class="toclevel-1 tocsection-4">
+                    <a href="Deploy Web Applications.html#OSGi_web_application_bundle">
+                      <span class="tocnumber">5</span>
+                      <span class="toctext">OSGi web application bundle</span>
+                    </a>
+                  </li>
+                  <li class="toclevel-1 tocsection-5">
+                    <a href="Deploy Web Applications.html#Using_Embedded_Jetty">
+                      <span class="tocnumber">6</span>
+                      <span class="toctext">Using Embedded Jetty</span>
+                    </a>
+                  </li>
+                </ul>
               </div>
+              <h2>
+                <span class="mw-headline" id="Introduction">Introduction</span>
+              </h2>
+              <p>
+                <br />
+                Jetty can deploy web applications as WAR files (packed or unpacked), as provided or with overridden configuration, and with static or hot deployment.
+              </p>
+              <h2>
+                <span class="mw-headline" id="Deploying_Webapps">Deploying Webapps</span>
+              </h2>
+              <p>
+                Jetty scans its
+                <tt>$JETTY_HOME/webapps</tt>
+                directory at startup for web applications to deploy:
+              </p>
+              <ul>
+                <li>
+                  It deploys the file
+                  <tt>foo.war</tt>
+                  as a webapp at context
+                  <tt>/foo</tt>
+                  .
+                </li>
+                <li>
+                  It deploys the directory
+                  <tt>foo/</tt>
+                  at context
+                  <tt>/foo</tt>
+                  . If the directory has a
+                  <tt>WEB-INF</tt>
+                  subdirectory, Jetty treats it as a servlet webapp, otherwise Jetty serves it only as static content.
+                </li>
+                <li>
+                  If both a
+                  <tt>foo.war</tt>
+                  and a
+                  <tt>foo/</tt>
+                  directory exist, Jetty uses the one with the most recent last-modified date.
+                </li>
+                <li>
+                  If the webapp is called
+                  <tt>root.war</tt>
+                  or the directory is called
+                  <tt>root/</tt>
+                  then Jetty deploys it at the / context.
+                </li>
+                <li>
+                  If the
+                  <tt>contextXmlDir</tt>
+                  option is used and a
+                  <tt>foo.xml</tt>
+                  file exists in that dir, the WebAppProvider defers to the Contexts Provider for actual webapp deployment.
+                </li>
+              </ul>
+              <p>
+                Formerly the
+                <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/deploy/WebAppDeployer.html" rel="nofollow">WebAppDeployer</a>
+                class controlled webapp deployment.  With Jetty version 7.0.2 and later, the
+                <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/deploy/providers/WebAppProvider.html" rel="nofollow">WebAppProvider</a>
+                of the
+                <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/deploy/DeploymentManager.html" rel="nofollow">DeploymentManager</a>
+                controls web app deployment..
+              </p>
+              <p>
+                See also older (but mostly relevant)
+                <a class="external text" href="http://docs.codehaus.org/display/JETTY/WebAppDeployer" rel="nofollow">Jetty-6 WebAppDeployer</a>
+                documentation.
+              </p>
+              <h2>
+                <span class="mw-headline" id="Deploying_Contexts">Deploying Contexts</span>
+              </h2>
+              <p>
+                Jetty scans the
+                <tt>$JETTY_HOME/contexts</tt>
+                directory at runtime for
+                <tt>context.xml</tt>
+                files that describe either:
+              </p>
+              <ul>
+                <li>a standard WAR file (or directory), plus additional configuration.</li>
+                <li>a custom Jetty context.</li>
+              </ul>
+              <p>
+                Formerly the
+                <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/deploy/ContextDeployer.html" rel="nofollow">ContextDeployer</a>
+                class contolled contexts deployment.  With Jetty version 7.0.2 and later, the
+                <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/deploy/providers/ContextProvider.html" rel="nofollow">ContextProvider</a>
+                of the
+                <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/deploy/DeploymentManager.html" rel="nofollow">DeploymentManager</a>
+                controls contexts deployment.
+              </p>
+              <p>
+                See also older (but mostly relevant)
+                <a class="external text" href="http://docs.codehaus.org/display/JETTY/ContextDeployer" rel="nofollow">Jetty-6 ContextDeployer</a>
+                documentation.
+              </p>
+              <h2>
+                <span class="mw-headline" id="Jetty_Maven_Plugin">Jetty Maven Plugin</span>
+              </h2>
+              <p>
+                If you develop your web application as a Maven project, you can deploy it in Jetty with
+                <tt>mvn jetty:run</tt>
+                using the
+                <a href="../Feature/Jetty Maven Plugin.html" title="Jetty/Feature/Jetty Maven Plugin">Jetty Maven Plugin</a>
+                .
+              </p>
+              <p>
+                Maven lets you build your web applications by overlaying on other template web applications 
+(for example,
+                <a class="external text" href="http://cometd.org/documentation/howtos/primer" rel="nofollow">Cometd</a>
+                ) and manages the transitive dependencies needed to populate WEB-INF/lib.
+              </p>
+              <h2>
+                <span class="mw-headline" id="OSGi_web_application_bundle">OSGi web application bundle</span>
+              </h2>
+              <p>TBD</p>
+              <h2>
+                <span class="mw-headline" id="Using_Embedded_Jetty">Using Embedded Jetty</span>
+              </h2>
+              <p>
+                You can also deploy web applications into embedded Jetty, either via direct configuration or via configuration of a deployer.   For an example see the
+                <a href="../Tutorial/Embedding Jetty.html" title="Jetty/Tutorial/Embedding Jetty">Embedding Jetty Tutorial</a>
+                .
+              </p>
             </div>
           </div>
-</body>
+        </div>
+      </div>
+    </div>
+  </body>
 </html>

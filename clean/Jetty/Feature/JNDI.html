@@ -1,133 +1,249 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
-<head>
+  <head>
     <title>Jetty WTP Plugin</title>
-    <link rel="stylesheet" media="screen, print" href="wiki-style.css"/>
-</head>
-<body>
-<div id="mainContent" class="col-md-20">
-                                 <div class="tab-content background-white">
-              <div id="tab-pane-main-page-content" class="tab-pane active">
-
-                
-                <h1 id="firstHeading" class="firstHeading page-header">
-                  <span dir="auto">Jetty/Feature/JNDI</span>
-                </h1>
-                <div id="main-page-content">
-
-                  <div class="alert alert-small alert-warning" id="contentSub"><span class="subpages">&lt; <a href="../../Jetty.html" title="Jetty">Jetty</a>‎ | <a href="../Feature.html" title="Jetty/Feature">Feature</a></span></div>
-
-                  
-                  
-                  <div class="mw-content-ltr" id="mw-content-text" dir="ltr" lang="en"><p><br/>
-</p><p><br/>
-</p>
-<div id="toc" class="toc"><div id="toctitle"><h2>Contents</h2></div>
-<ul>
-<li class="toclevel-1"><a href="JNDI.html#Introduction"><span class="tocnumber">1</span> <span class="toctext">Introduction</span></a></li>
-<li class="toclevel-1"><a href="JNDI.html#Feature"><span class="tocnumber">2</span> <span class="toctext">Feature</span></a></li>
-<li class="toclevel-1"><a href="JNDI.html#Enabling_JNDI"><span class="tocnumber">3</span> <span class="toctext">Enabling JNDI</span></a>
-<ul>
-<li class="toclevel-2"><a href="JNDI.html#Quick_Setup"><span class="tocnumber">3.1</span> <span class="toctext">Quick Setup</span></a></li>
-<li class="toclevel-2"><a href="JNDI.html#Detailed_Setup"><span class="tocnumber">3.2</span> <span class="toctext">Detailed Setup</span></a>
-<ul>
-<li class="toclevel-3"><a href="JNDI.html#Setting_up_the_list_of_Configurations"><span class="tocnumber">3.2.1</span> <span class="toctext">Setting up the list of Configurations</span></a></li>
-<li class="toclevel-3"><a href="JNDI.html#Applying_JNDI_to_a_Single_Web_App"><span class="tocnumber">3.2.2</span> <span class="toctext">Applying JNDI to a Single Web App</span></a></li>
-<li class="toclevel-3"><a href="JNDI.html#Adding_JNDI_Implementation_Jars_to_the_Jetty_Classpath"><span class="tocnumber">3.2.3</span> <span class="toctext">Adding JNDI Implementation Jars to the Jetty Classpath</span></a></li>
-</ul>
-</li>
-<li class="toclevel-2"><a href="JNDI.html#Example_Webapps"><span class="tocnumber">3.3</span> <span class="toctext">Example Webapps</span></a></li>
-</ul>
-</li>
-<li class="toclevel-1"><a href="JNDI.html#Using_JNDI"><span class="tocnumber">4</span> <span class="toctext">Using JNDI</span></a>
-<ul>
-<li class="toclevel-2"><a href="JNDI.html#Binding_Objects_into_Jetty_JNDI"><span class="tocnumber">4.1</span> <span class="toctext">Binding Objects into Jetty JNDI</span></a>
-<ul>
-<li class="toclevel-3"><a href="JNDI.html#Defining_Naming_Entries"><span class="tocnumber">4.1.1</span> <span class="toctext">Defining Naming Entries</span></a></li>
-<li class="toclevel-3"><a href="JNDI.html#Configuring_env-entries"><span class="tocnumber">4.1.2</span> <span class="toctext">Configuring env-entries</span></a></li>
-<li class="toclevel-3"><a href="JNDI.html#Configuring_resource-refs_and_resource-env-refs"><span class="tocnumber">4.1.3</span> <span class="toctext">Configuring resource-refs and resource-env-refs</span></a></li>
-<li class="toclevel-3"><a href="JNDI.html#Configuring_DataSources"><span class="tocnumber">4.1.4</span> <span class="toctext">Configuring DataSources</span></a></li>
-<li class="toclevel-3"><a href="JNDI.html#Configuring_JMS_Queues.2C_Topics_and_ConnectionFactories"><span class="tocnumber">4.1.5</span> <span class="toctext">Configuring JMS Queues, Topics and ConnectionFactories</span></a></li>
-<li class="toclevel-3"><a href="JNDI.html#Configuring_Mail"><span class="tocnumber">4.1.6</span> <span class="toctext">Configuring Mail</span></a></li>
-<li class="toclevel-3"><a href="JNDI.html#Configuring_XA_Transactions"><span class="tocnumber">4.1.7</span> <span class="toctext">Configuring XA Transactions</span></a></li>
-<li class="toclevel-3"><a href="JNDI.html#Configuring_Links"><span class="tocnumber">4.1.8</span> <span class="toctext">Configuring Links</span></a></li>
-<li class="toclevel-3"><a href="JNDI.html#Using_JNDI_without_a_web.xml"><span class="tocnumber">4.1.9</span> <span class="toctext">Using JNDI without a web.xml</span></a>
-<ul>
-<li class="toclevel-4"><a href="JNDI.html#With_WEB-INF.2Fjetty-env.xml_file"><span class="tocnumber">4.1.9.1</span> <span class="toctext">With WEB-INF/jetty-env.xml file</span></a></li>
-<li class="toclevel-4"><a href="JNDI.html#With_jetty_xml_file_and_WEB-INF.2Fjetty-env.xml_file"><span class="tocnumber">4.1.9.2</span> <span class="toctext">With jetty xml file and WEB-INF/jetty-env.xml file</span></a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toclevel-2"><a href="JNDI.html#Setting_JNDI_Entries_as_Global_or_Scoped"><span class="tocnumber">4.2</span> <span class="toctext">Setting JNDI Entries as Global or Scoped</span></a></li>
-</ul>
-</li>
-</ul>
-</div>
-
-<h2><span id="Introduction" class="mw-headline">Introduction</span></h2>
-<div class="messagebox" style="background-color: #f9f6b7; border: 1px solid #c4c295; color: black; padding: 5px; margin: 1ex 0; min-height: 35px; padding-left: 45px; font-size: 150%; color: white; background-color: #FF8888; padding: 50px">
-<div style="float: left; margin-left: -40px;"><a href="https://wiki.eclipse.org/File:Warning2.png" class="image"><img src="../../images/3/37/Warning2.png" height="35" width="35" alt="Warning2.png"/></a></div>
-<div>Jetty 7 and Jetty 8 are now EOL (End of Life)<br/>
-<p><br/>
-<br/>
-<br/>
-THIS IS NOT THE DOCUMENTATION YOU ARE LOOKING FOR!!!!!<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-All development and stable releases are being performed with Jetty 9 and Jetty 10.<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-This <b>wiki is now officially out of date</b> and all content has been moved to the <a href="http://www.eclipse.org/jetty/documentation" class="external text" rel="nofollow">Jetty Documentation Hub</a><br/> 
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-</p>
-Direct Link to updated documentation: <a rel="nofollow" href="http://www.eclipse.org/jetty/documentation/current/jndi.html" class="external free">http://www.eclipse.org/jetty/documentation/current/jndi.html</a></div>
-</div>
-<p><br/>
-Jetty supports <code>java:comp/env</code> lookups in web apps. This is an optional feature and you need to do some setup. However, if you are using the <a class="external text" href="http://repo1.maven.org/maven2/org/mortbay/jetty/jetty-hightide" rel="nofollow">Hightide</a> distribution of Jetty, this feature is already fully enabled, so you can skip any setup steps, and just read the sections on how to put objects into Jetty's JNDI so that you can retrieve them at runtime.
-</p>
-<h2><span class="mw-headline" id="Feature">Feature</span></h2>
-<h2><span id="Enabling_JNDI" class="mw-headline">Enabling JNDI</span></h2>
-<div style="background-color: #def3fe; border: 1px solid #c5d7e0; color: black; padding: 5px; margin: 1ex 0; min-height: 35px; padding-left: 45px;" class="messagebox">
-<div style="float: left; margin-left: -40px;"><a class="image" href="https://wiki.eclipse.org/File:Note.png"><img src="../../images/c/cc/Note.png" height="35" width="35" alt="Note.png"/></a></div>
-<div><b>Note:</b><br/>Skip this step if you are using the <a class="external text" href="http://repo1.maven.org/maven1/org/mortbay/jetty/jetty-hightide" rel="nofollow">Hightide</a> distribution of Jetty, because JNDI is automatically enabled.</div>
-</div>
-<p><br/>
-</p>
-<h3><span class="mw-headline" id="Quick_Setup">Quick Setup</span></h3>
-<p>If you are using the standard distribution of jetty, and want to enable JNDI for all your webapps, then read this section. If you would like more information, see the Detailed Setup section.
-</p><p>Step1:
-Edit the $JETTY_HOME/start.ini file.
-</p><p>Step2:
-Modify the Server OPTIONS to include "plus", eg:
-</p>
-<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="bash source-bash"><pre class="de1"><span class="re2">OPTIONS</span>=Server,jsp,jmx,resources,websocket,ext,plus</pre></div></div>
-<p>Step3:
-Near the bottom of the file, in the section on Configuration files, add the following line after <i>etc/jetty.xml</i>:
-</p>
-<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="bash source-bash"><pre class="de1">etc<span class="sy0">/</span>jetty-plus.xml</pre></div></div>
-<p>Step4:
-Save the file.
-</p><p>You can now start jetty and use JNDI with your webapps. See below for information on how to add entries to the JNDI environment that can be looked up within webapps.
-</p>
-<h3><span id="Detailed_Setup" class="mw-headline">Detailed Setup</span></h3>
-<h5><span class="mw-headline" id="Setting_up_the_list_of_Configurations">Setting up the list of Configurations</span></h5>
-<p>When deploying a webapp, jetty has an extensible list of <a rel="nofollow" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/webapp/Configuration.html" class="external text">Configurations</a> that are applied to the webapp in a specific order. These Configurations do things like parse web.xml, set up the classpath for the webapp, parse WEB-INF/jetty-web.xml.
-</p><p>To use JNDI with jetty, you need a couple of extra Configurations that do things like reading WEB-INF/jetty-env.xml, setting up a java:comp/env context, and hooking up JNDI entries from the environment into your web app. The listing below shows the 2 extra Configurations in the correct order they must be defined:
-</p>
-<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="xml source-xml"><pre class="de1"><span class="sc3"><span class="re1">&lt;Array</span> <span class="re0">id</span>=<span class="st0">"plusConfig"</span> <span class="re0">type</span>=<span class="st0">"java.lang.String"</span><span class="re2">&gt;</span></span>
+    <link href="wiki-style.css" media="screen, print" rel="stylesheet" />
+  </head>
+  <body>
+    <div class="col-md-20" id="mainContent">
+      <div class="tab-content background-white">
+        <div class="tab-pane active" id="tab-pane-main-page-content">
+          <h1 class="firstHeading page-header" id="firstHeading">
+            <span dir="auto">Jetty/Feature/JNDI</span>
+          </h1>
+          <div id="main-page-content">
+            <div class="alert alert-small alert-warning" id="contentSub">
+              <span class="subpages">
+                &lt;
+                <a href="../../Jetty.html" title="Jetty">Jetty</a>
+                 |
+                <a href="../Feature.html" title="Jetty/Feature">Feature</a>
+              </span>
+            </div>
+            <div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="en">
+              <p>
+                <br />
+              </p>
+              <p>
+                <br />
+              </p>
+              <div class="toc" id="toc">
+                <div id="toctitle">
+                  <h2>Contents</h2>
+                </div>
+                <ul>
+                  <li class="toclevel-1">
+                    <a href="JNDI.html#Introduction">
+                      <span class="tocnumber">1</span>
+                      <span class="toctext">Introduction</span>
+                    </a>
+                  </li>
+                  <li class="toclevel-1">
+                    <a href="JNDI.html#Feature">
+                      <span class="tocnumber">2</span>
+                      <span class="toctext">Feature</span>
+                    </a>
+                  </li>
+                  <li class="toclevel-1">
+                    <a href="JNDI.html#Enabling_JNDI">
+                      <span class="tocnumber">3</span>
+                      <span class="toctext">Enabling JNDI</span>
+                    </a>
+                    <ul>
+                      <li class="toclevel-2">
+                        <a href="JNDI.html#Quick_Setup">
+                          <span class="tocnumber">3.1</span>
+                          <span class="toctext">Quick Setup</span>
+                        </a>
+                      </li>
+                      <li class="toclevel-2">
+                        <a href="JNDI.html#Detailed_Setup">
+                          <span class="tocnumber">3.2</span>
+                          <span class="toctext">Detailed Setup</span>
+                        </a>
+                        <ul>
+                          <li class="toclevel-3">
+                            <a href="JNDI.html#Setting_up_the_list_of_Configurations">
+                              <span class="tocnumber">3.2.1</span>
+                              <span class="toctext">Setting up the list of Configurations</span>
+                            </a>
+                          </li>
+                          <li class="toclevel-3">
+                            <a href="JNDI.html#Applying_JNDI_to_a_Single_Web_App">
+                              <span class="tocnumber">3.2.2</span>
+                              <span class="toctext">Applying JNDI to a Single Web App</span>
+                            </a>
+                          </li>
+                          <li class="toclevel-3">
+                            <a href="JNDI.html#Adding_JNDI_Implementation_Jars_to_the_Jetty_Classpath">
+                              <span class="tocnumber">3.2.3</span>
+                              <span class="toctext">Adding JNDI Implementation Jars to the Jetty Classpath</span>
+                            </a>
+                          </li>
+                        </ul>
+                      </li>
+                      <li class="toclevel-2">
+                        <a href="JNDI.html#Example_Webapps">
+                          <span class="tocnumber">3.3</span>
+                          <span class="toctext">Example Webapps</span>
+                        </a>
+                      </li>
+                    </ul>
+                  </li>
+                  <li class="toclevel-1">
+                    <a href="JNDI.html#Using_JNDI">
+                      <span class="tocnumber">4</span>
+                      <span class="toctext">Using JNDI</span>
+                    </a>
+                    <ul>
+                      <li class="toclevel-2">
+                        <a href="JNDI.html#Binding_Objects_into_Jetty_JNDI">
+                          <span class="tocnumber">4.1</span>
+                          <span class="toctext">Binding Objects into Jetty JNDI</span>
+                        </a>
+                        <ul>
+                          <li class="toclevel-3">
+                            <a href="JNDI.html#Defining_Naming_Entries">
+                              <span class="tocnumber">4.1.1</span>
+                              <span class="toctext">Defining Naming Entries</span>
+                            </a>
+                          </li>
+                          <li class="toclevel-3">
+                            <a href="JNDI.html#Configuring_env-entries">
+                              <span class="tocnumber">4.1.2</span>
+                              <span class="toctext">Configuring env-entries</span>
+                            </a>
+                          </li>
+                          <li class="toclevel-3">
+                            <a href="JNDI.html#Configuring_resource-refs_and_resource-env-refs">
+                              <span class="tocnumber">4.1.3</span>
+                              <span class="toctext">Configuring resource-refs and resource-env-refs</span>
+                            </a>
+                          </li>
+                          <li class="toclevel-3">
+                            <a href="JNDI.html#Configuring_DataSources">
+                              <span class="tocnumber">4.1.4</span>
+                              <span class="toctext">Configuring DataSources</span>
+                            </a>
+                          </li>
+                          <li class="toclevel-3">
+                            <a href="JNDI.html#Configuring_JMS_Queues.2C_Topics_and_ConnectionFactories">
+                              <span class="tocnumber">4.1.5</span>
+                              <span class="toctext">Configuring JMS Queues, Topics and ConnectionFactories</span>
+                            </a>
+                          </li>
+                          <li class="toclevel-3">
+                            <a href="JNDI.html#Configuring_Mail">
+                              <span class="tocnumber">4.1.6</span>
+                              <span class="toctext">Configuring Mail</span>
+                            </a>
+                          </li>
+                          <li class="toclevel-3">
+                            <a href="JNDI.html#Configuring_XA_Transactions">
+                              <span class="tocnumber">4.1.7</span>
+                              <span class="toctext">Configuring XA Transactions</span>
+                            </a>
+                          </li>
+                          <li class="toclevel-3">
+                            <a href="JNDI.html#Configuring_Links">
+                              <span class="tocnumber">4.1.8</span>
+                              <span class="toctext">Configuring Links</span>
+                            </a>
+                          </li>
+                          <li class="toclevel-3">
+                            <a href="JNDI.html#Using_JNDI_without_a_web.xml">
+                              <span class="tocnumber">4.1.9</span>
+                              <span class="toctext">Using JNDI without a web.xml</span>
+                            </a>
+                            <ul>
+                              <li class="toclevel-4">
+                                <a href="JNDI.html#With_WEB-INF.2Fjetty-env.xml_file">
+                                  <span class="tocnumber">4.1.9.1</span>
+                                  <span class="toctext">With WEB-INF/jetty-env.xml file</span>
+                                </a>
+                              </li>
+                              <li class="toclevel-4">
+                                <a href="JNDI.html#With_jetty_xml_file_and_WEB-INF.2Fjetty-env.xml_file">
+                                  <span class="tocnumber">4.1.9.2</span>
+                                  <span class="toctext">With jetty xml file and WEB-INF/jetty-env.xml file</span>
+                                </a>
+                              </li>
+                            </ul>
+                          </li>
+                        </ul>
+                      </li>
+                      <li class="toclevel-2">
+                        <a href="JNDI.html#Setting_JNDI_Entries_as_Global_or_Scoped">
+                          <span class="tocnumber">4.2</span>
+                          <span class="toctext">Setting JNDI Entries as Global or Scoped</span>
+                        </a>
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </div>
+              <h2>
+                <span class="mw-headline" id="Introduction">Introduction</span>
+              </h2>
+              <p>
+                <br />
+                Jetty supports
+                <code>java:comp/env</code>
+                lookups in web apps. This is an optional feature and you need to do some setup. However, if you are using the
+                <a class="external text" href="http://repo1.maven.org/maven2/org/mortbay/jetty/jetty-hightide" rel="nofollow">Hightide</a>
+                distribution of Jetty, this feature is already fully enabled, so you can skip any setup steps, and just read the sections on how to put objects into Jetty's JNDI so that you can retrieve them at runtime.
+              </p>
+              <h2>
+                <span class="mw-headline" id="Feature">Feature</span>
+              </h2>
+              <h2>
+                <span class="mw-headline" id="Enabling_JNDI">Enabling JNDI</span>
+              </h2>
+              <p>
+                <br />
+              </p>
+              <h3>
+                <span class="mw-headline" id="Quick_Setup">Quick Setup</span>
+              </h3>
+              <p>If you are using the standard distribution of jetty, and want to enable JNDI for all your webapps, then read this section. If you would like more information, see the Detailed Setup section.</p>
+              <p>Step1:
+Edit the $JETTY_HOME/start.ini file.</p>
+              <p>Step2:
+Modify the Server OPTIONS to include "plus", eg:</p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="bash source-bash">
+                  <pre class="de1" xml:space="preserve"><span class="re2">OPTIONS</span>=Server,jsp,jmx,resources,websocket,ext,plus</pre>
+                </div>
+              </div>
+              <p>
+                Step3:
+Near the bottom of the file, in the section on Configuration files, add the following line after
+                <i>etc/jetty.xml</i>
+                :
+              </p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="bash source-bash">
+                  <pre class="de1" xml:space="preserve">etc<span class="sy0">/</span>jetty-plus.xml</pre>
+                </div>
+              </div>
+              <p>Step4:
+Save the file.</p>
+              <p>You can now start jetty and use JNDI with your webapps. See below for information on how to add entries to the JNDI environment that can be looked up within webapps.</p>
+              <h3>
+                <span class="mw-headline" id="Detailed_Setup">Detailed Setup</span>
+              </h3>
+              <h5>
+                <span class="mw-headline" id="Setting_up_the_list_of_Configurations">Setting up the list of Configurations</span>
+              </h5>
+              <p>
+                When deploying a webapp, jetty has an extensible list of
+                <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/webapp/Configuration.html" rel="nofollow">Configurations</a>
+                that are applied to the webapp in a specific order. These Configurations do things like parse web.xml, set up the classpath for the webapp, parse WEB-INF/jetty-web.xml.
+              </p>
+              <p>To use JNDI with jetty, you need a couple of extra Configurations that do things like reading WEB-INF/jetty-env.xml, setting up a java:comp/env context, and hooking up JNDI entries from the environment into your web app. The listing below shows the 2 extra Configurations in the correct order they must be defined:</p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="xml source-xml">
+                  <pre class="de1" xml:space="preserve"><span class="sc3"><span class="re1">&lt;Array</span> <span class="re0">id</span>=<span class="st0">"plusConfig"</span> <span class="re0">type</span>=<span class="st0">"java.lang.String"</span><span class="re2">&gt;</span></span>
   <span class="sc3"><span class="re1">&lt;Item<span class="re2">&gt;</span></span></span>org.eclipse.jetty.webapp.WebInfConfiguration<span class="sc3"><span class="re1">&lt;/Item<span class="re2">&gt;</span></span></span>
   <span class="sc3"><span class="re1">&lt;Item<span class="re2">&gt;</span></span></span>org.eclipse.jetty.webapp.WebXmlConfiguration<span class="sc3"><span class="re1">&lt;/Item<span class="re2">&gt;</span></span></span>
   <span class="sc3"><span class="re1">&lt;Item<span class="re2">&gt;</span></span></span>org.eclipse.jetty.webapp.MetaInfConfiguration<span class="sc3"><span class="re1">&lt;/Item<span class="re2">&gt;</span></span></span>
@@ -136,19 +252,38 @@ Save the file.
   <span class="sc3"><span class="re1">&lt;Item<span class="re2">&gt;</span></span></span>org.eclipse.jetty.plus.webapp.PlusConfiguration<span class="sc3"><span class="re1">&lt;/Item<span class="re2">&gt;</span></span></span>    <span class="sc-1">&lt;!-- add for jndi --&gt;</span>
   <span class="sc3"><span class="re1">&lt;Item<span class="re2">&gt;</span></span></span>org.eclipse.jetty.webapp.JettyWebXmlConfiguration<span class="sc3"><span class="re1">&lt;/Item<span class="re2">&gt;</span></span></span>
   <span class="sc3"><span class="re1">&lt;Item<span class="re2">&gt;</span></span></span>org.eclipse.jetty.webapp.TagLibConfiguration<span class="sc3"><span class="re1">&lt;/Item<span class="re2">&gt;</span></span></span>  <span class="sc-1">&lt;!-- not needed for jetty-8 --&gt;</span>
-<span class="sc3"><span class="re1">&lt;/Array<span class="re2">&gt;</span></span></span></pre></div></div>
-<p>This augmented list of Configurations for JNDI is predefined for you in the <code>etc/jetty-plus.xml</code> file. 
-</p><p>To have jetty use <code>etc/jetty-plus.xml</code> and therefore enable JNDI for all webapps, edit the <code>$JETTY_HOME/start.ini file</code>, and add the following line in the Configuration section near the bottom of the file:
-</p>
-<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="bash source-bash"><pre class="de1">etc<span class="sy0">/</span>jetty-plus.xml</pre></div></div>
-<p>Now skip down to the section on Adding JNDI Implementation Jars to the Jetty Classpath. 
-</p><p>If you only want to use JNDI with specific web apps, then read on.
-</p><p><br/>
-</p>
-<h5><span id="Applying_JNDI_to_a_Single_Web_App" class="mw-headline">Applying JNDI to a Single Web App</span></h5>
-<p>If you only have a few webapps that you want to use with JNDI, you can apply the augmented list of Configurations specifically to those webapps. To do that, create a context XML file for each web app, and set up the Configuration classes. Here's an example of how that would look:
-</p>
-<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="xml source-xml"><pre class="de1"><span class="sc3"><span class="re1">&lt;Configure</span> <span class="re0">id</span>=<span class="st0">'wac'</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.webapp.WebAppContext"</span><span class="re2">&gt;</span></span>
+<span class="sc3"><span class="re1">&lt;/Array<span class="re2">&gt;</span></span></span></pre>
+                </div>
+              </div>
+              <p>
+                This augmented list of Configurations for JNDI is predefined for you in the
+                <code>etc/jetty-plus.xml</code>
+                file.
+              </p>
+              <p>
+                To have jetty use
+                <code>etc/jetty-plus.xml</code>
+                and therefore enable JNDI for all webapps, edit the
+                <code>$JETTY_HOME/start.ini file</code>
+                , and add the following line in the Configuration section near the bottom of the file:
+              </p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="bash source-bash">
+                  <pre class="de1" xml:space="preserve">etc<span class="sy0">/</span>jetty-plus.xml</pre>
+                </div>
+              </div>
+              <p>Now skip down to the section on Adding JNDI Implementation Jars to the Jetty Classpath.</p>
+              <p>If you only want to use JNDI with specific web apps, then read on.</p>
+              <p>
+                <br />
+              </p>
+              <h5>
+                <span class="mw-headline" id="Applying_JNDI_to_a_Single_Web_App">Applying JNDI to a Single Web App</span>
+              </h5>
+              <p>If you only have a few webapps that you want to use with JNDI, you can apply the augmented list of Configurations specifically to those webapps. To do that, create a context XML file for each web app, and set up the Configuration classes. Here's an example of how that would look:</p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="xml source-xml">
+                  <pre class="de1" xml:space="preserve"><span class="sc3"><span class="re1">&lt;Configure</span> <span class="re0">id</span>=<span class="st0">'wac'</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.webapp.WebAppContext"</span><span class="re2">&gt;</span></span>
  
   <span class="sc3"><span class="re1">&lt;Array</span> <span class="re0">id</span>=<span class="st0">"plusConfig"</span> <span class="re0">type</span>=<span class="st0">"java.lang.String"</span><span class="re2">&gt;</span></span>
     <span class="sc3"><span class="re1">&lt;Item<span class="re2">&gt;</span></span></span>org.eclipse.jetty.webapp.WebInfConfiguration<span class="sc3"><span class="re1">&lt;/Item<span class="re2">&gt;</span></span></span>
@@ -164,113 +299,362 @@ Save the file.
   <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"war"</span><span class="re2">&gt;</span><span class="re1">&lt;SystemProperty</span> <span class="re0">name</span>=<span class="st0">"jetty.home"</span> <span class="re0">default</span>=<span class="st0">"."</span><span class="re2">/&gt;</span></span>/webapps/my-cool-webapp<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
   <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"configurationClasses"</span><span class="re2">&gt;</span><span class="re1">&lt;Ref</span> <span class="re0">refid</span>=<span class="st0">"plusConfig"</span><span class="re2">/&gt;</span><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
  
-<span class="sc3"><span class="re1">&lt;/Configure<span class="re2">&gt;</span></span></span></pre></div></div>
-<p>Now you're ready for the next step, which is to put the JNDI jars onto jetty's classpath, described in Adding JNDI Implementation Jars to the Jetty Classpath.
-</p><p><br/>
-</p>
-<h5><span class="mw-headline" id="Adding_JNDI_Implementation_Jars_to_the_Jetty_Classpath">Adding JNDI Implementation Jars to the Jetty Classpath</span></h5>
-<p>Now that you have the JNDI configuration for the web app(s) set up, you need to ensure that the JNDI implementation Jars are on Jetty's classpath. These jars are optional, so won't be there by default. You add these into the classpath by using startup time OPTIONS.
-</p><p>One way to do this is to supply it on the command line like so:
-</p>
-<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="bash source-bash"><pre class="de1">java <span class="re5">-jar</span> start.jar <span class="re2">OPTIONS</span>=plus</pre></div></div>
-<p>Another, and more permanent, way of doing this is to edit the <code>$JETTY_HOME/start.ini</code> file and modify the OPTIONS section to include "plus":
-</p><p><br/>
-</p>
-<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="bash source-bash"><pre class="de1"><span class="re2">OPTIONS</span>=Server,jsp,jmx,resources,websocket,ext,plus</pre></div></div>
-<h3><span id="Example_Webapps" class="mw-headline">Example Webapps</span></h3>
-<p>The <a class="external text" href="http://repo1.maven.org/maven1/org/mortbay/jetty/jetty-hightide" rel="nofollow">Hightide</a> distribution of jetty contains an example webapp to show you how to setup and access JNDI. When running the unmodified hightide distribution, it is available at <a class="external free" href="http://localhost:8080/test-jndi/" rel="nofollow">http://localhost:8080/test-jndi/</a>
-</p><p>The source for this webapp can be found on jetty @ codehaus: 
-</p><p>jetty-7: <a class="external free" href="http://git.codehaus.org/gitweb.cgi?p=jetty-project.git;a=tree;f=test-wars/test-jndi-webapp;h=52f283b8dbc3c9e86a4575e80c06a9cbea9816df;hb=refs/heads/master" rel="nofollow">http://git.codehaus.org/gitweb.cgi?p=jetty-project.git;a=tree;f=test-wars/test-jndi-webapp;h=52f283b8dbc3c9e86a4575e80c06a9cbea9816df;hb=refs/heads/master</a> 
-</p><p>jetty-8: <a rel="nofollow" href="http://git.codehaus.org/gitweb.cgi?p=jetty-project.git;a=tree;f=test-wars/test-jndi-webapp;h=be7ff6136bfdbc348f3072e3bb0af8ed79b05ac0;hb=refs/heads/jetty-8" class="external free">http://git.codehaus.org/gitweb.cgi?p=jetty-project.git;a=tree;f=test-wars/test-jndi-webapp;h=be7ff6136bfdbc348f3072e3bb0af8ed79b05ac0;hb=refs/heads/jetty-8</a>
-</p><p><br/>
-</p>
-<h2><span id="Using_JNDI" class="mw-headline">Using JNDI</span></h2>
-<p>You can now configure naming resources to reference in a <code>web.xml</code> file and access from within the <code>java:comp/env</code> naming environment of the web app during execution. Specifically, you can configure support for the following <code>web.xml</code> elements:
-</p>
-<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="xml source-xml"><pre class="de1"><span class="sc3"><span class="re1">&lt;env-entry</span><span class="re2">/&gt;</span></span>
+<span class="sc3"><span class="re1">&lt;/Configure<span class="re2">&gt;</span></span></span></pre>
+                </div>
+              </div>
+              <p>Now you're ready for the next step, which is to put the JNDI jars onto jetty's classpath, described in Adding JNDI Implementation Jars to the Jetty Classpath.</p>
+              <p>
+                <br />
+              </p>
+              <h5>
+                <span class="mw-headline" id="Adding_JNDI_Implementation_Jars_to_the_Jetty_Classpath">Adding JNDI Implementation Jars to the Jetty Classpath</span>
+              </h5>
+              <p>Now that you have the JNDI configuration for the web app(s) set up, you need to ensure that the JNDI implementation Jars are on Jetty's classpath. These jars are optional, so won't be there by default. You add these into the classpath by using startup time OPTIONS.</p>
+              <p>One way to do this is to supply it on the command line like so:</p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="bash source-bash">
+                  <pre class="de1" xml:space="preserve">java <span class="re5">-jar</span> start.jar <span class="re2">OPTIONS</span>=plus</pre>
+                </div>
+              </div>
+              <p>
+                Another, and more permanent, way of doing this is to edit the
+                <code>$JETTY_HOME/start.ini</code>
+                file and modify the OPTIONS section to include "plus":
+              </p>
+              <p>
+                <br />
+              </p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="bash source-bash">
+                  <pre class="de1" xml:space="preserve"><span class="re2">OPTIONS</span>=Server,jsp,jmx,resources,websocket,ext,plus</pre>
+                </div>
+              </div>
+              <h3>
+                <span class="mw-headline" id="Example_Webapps">Example Webapps</span>
+              </h3>
+              <p>
+                The
+                <a class="external text" href="http://repo1.maven.org/maven1/org/mortbay/jetty/jetty-hightide" rel="nofollow">Hightide</a>
+                distribution of jetty contains an example webapp to show you how to setup and access JNDI. When running the unmodified hightide distribution, it is available at
+                <a class="external free" href="http://localhost:8080/test-jndi/" rel="nofollow">http://localhost:8080/test-jndi/</a>
+              </p>
+              <p>The source for this webapp can be found on jetty @ codehaus:</p>
+              <p>
+                jetty-7:
+                <a class="external free" href="http://git.codehaus.org/gitweb.cgi?p=jetty-project.git;a=tree;f=test-wars/test-jndi-webapp;h=52f283b8dbc3c9e86a4575e80c06a9cbea9816df;hb=refs/heads/master" rel="nofollow">http://git.codehaus.org/gitweb.cgi?p=jetty-project.git;a=tree;f=test-wars/test-jndi-webapp;h=52f283b8dbc3c9e86a4575e80c06a9cbea9816df;hb=refs/heads/master</a>
+              </p>
+              <p>
+                jetty-8:
+                <a class="external free" href="http://git.codehaus.org/gitweb.cgi?p=jetty-project.git;a=tree;f=test-wars/test-jndi-webapp;h=be7ff6136bfdbc348f3072e3bb0af8ed79b05ac0;hb=refs/heads/jetty-8" rel="nofollow">http://git.codehaus.org/gitweb.cgi?p=jetty-project.git;a=tree;f=test-wars/test-jndi-webapp;h=be7ff6136bfdbc348f3072e3bb0af8ed79b05ac0;hb=refs/heads/jetty-8</a>
+              </p>
+              <p>
+                <br />
+              </p>
+              <h2>
+                <span class="mw-headline" id="Using_JNDI">Using JNDI</span>
+              </h2>
+              <p>
+                You can now configure naming resources to reference in a
+                <code>web.xml</code>
+                file and access from within the
+                <code>java:comp/env</code>
+                naming environment of the web app during execution. Specifically, you can configure support for the following
+                <code>web.xml</code>
+                elements:
+              </p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="xml source-xml">
+                  <pre class="de1" xml:space="preserve"><span class="sc3"><span class="re1">&lt;env-entry</span><span class="re2">/&gt;</span></span>
 <span class="sc3"><span class="re1">&lt;resource-ref</span><span class="re2">/&gt;</span></span>
-<span class="sc3"><span class="re1">&lt;resource-env-ref</span><span class="re2">/&gt;</span></span></pre></div></div>
-<p><a href="JNDI.html#Configuring_env-entries">Configuring env-entries</a> shows you how to set up overrides for <code>&lt;env-entry&gt;</code> elements in <code>web.xml</code>. <a href="JNDI.html#Configuring_resource-refs_and_resource-env-refs">Configuring resource-refs and resource-env-refs</a> discusses how to configure support resources such as <code>javax.sql.DataSource</code>.
-</p><p>You can also plug a JTA <code>javax.transaction.UserTransaction</code> implementation into Jetty so that web apps can lookup <code>java:comp/UserTransaction</code> to obtain a distributed transaction manager. See <a href="JNDI.html#Configuring_XA_Transactions">Configuring XA Transactions</a>.
-</p><p>You can define your naming resources with three scopes:
-</p>
-<ol><li> jvm scope–the name is unique within the JVM.</li>
-<li> server scope–the name is unique to the Server instance.</li>
-<li> webapp scope–the name is unique to the WebAppContext instance.</li></ol>
-<p>The section <a href="JNDI.html#Setting_JNDI_Entries_as_Global_or_Scoped">Setting JNDI Entries as Global or Scoped to a web app</a> explains <i>scoping</i>, and shows you how to use it. Essentially, scoping ensures that JNDI bindings from one web app do not interfere with the JNDI bindings of another–unless of course you want them to.
-</p><p><br/>
-</p>
-<h3><span class="mw-headline" id="Binding_Objects_into_Jetty_JNDI">Binding Objects into Jetty JNDI</span></h3>
-<p>You can bind four types of object into Jetty JNDI:
-</p>
-<ul><li> An ordinary POJO instance.</li>
-<li> A <a rel="nofollow" class="external text" href="http://java.sun.com/j2se/1.5.0/docs/api/javax/naming/Reference.html">java.naming.Reference</a> instance.</li>
-<li> An object instance that implements the <a href="http://java.sun.com/j2se/1.5.0/docs/api/javax/naming/Referenceable.html" class="external text" rel="nofollow">java.naming.Referenceable</a> interface.</li>
-<li> A link between a name as referenced in <code>web.xml</code> and as referenced in the environment.</li></ul>
-<p>The binding for all of these object types follows the same pattern:
-</p>
-<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="xml source-xml"><pre class="de1"><span class="sc3"><span class="re1">&lt;New</span> <span class="re0">class</span>=type of naming entry<span class="re2">&gt;</span></span>
+<span class="sc3"><span class="re1">&lt;resource-env-ref</span><span class="re2">/&gt;</span></span></pre>
+                </div>
+              </div>
+              <p>
+                <a href="JNDI.html#Configuring_env-entries">Configuring env-entries</a>
+                shows you how to set up overrides for
+                <code>&lt;env-entry&gt;</code>
+                elements in
+                <code>web.xml</code>
+                .
+                <a href="JNDI.html#Configuring_resource-refs_and_resource-env-refs">Configuring resource-refs and resource-env-refs</a>
+                discusses how to configure support resources such as
+                <code>javax.sql.DataSource</code>
+                .
+              </p>
+              <p>
+                You can also plug a JTA
+                <code>javax.transaction.UserTransaction</code>
+                implementation into Jetty so that web apps can lookup
+                <code>java:comp/UserTransaction</code>
+                to obtain a distributed transaction manager. See
+                <a href="JNDI.html#Configuring_XA_Transactions">Configuring XA Transactions</a>
+                .
+              </p>
+              <p>You can define your naming resources with three scopes:</p>
+              <ol>
+                <li>jvm scope–the name is unique within the JVM.</li>
+                <li>server scope–the name is unique to the Server instance.</li>
+                <li>webapp scope–the name is unique to the WebAppContext instance.</li>
+              </ol>
+              <p>
+                The section
+                <a href="JNDI.html#Setting_JNDI_Entries_as_Global_or_Scoped">Setting JNDI Entries as Global or Scoped to a web app</a>
+                explains
+                <i>scoping</i>
+                , and shows you how to use it. Essentially, scoping ensures that JNDI bindings from one web app do not interfere with the JNDI bindings of another–unless of course you want them to.
+              </p>
+              <p>
+                <br />
+              </p>
+              <h3>
+                <span class="mw-headline" id="Binding_Objects_into_Jetty_JNDI">Binding Objects into Jetty JNDI</span>
+              </h3>
+              <p>You can bind four types of object into Jetty JNDI:</p>
+              <ul>
+                <li>An ordinary POJO instance.</li>
+                <li>
+                  A
+                  <a class="external text" href="http://java.sun.com/j2se/1.5.0/docs/api/javax/naming/Reference.html" rel="nofollow">java.naming.Reference</a>
+                  instance.
+                </li>
+                <li>
+                  An object instance that implements the
+                  <a class="external text" href="http://java.sun.com/j2se/1.5.0/docs/api/javax/naming/Referenceable.html" rel="nofollow">java.naming.Referenceable</a>
+                  interface.
+                </li>
+                <li>
+                  A link between a name as referenced in
+                  <code>web.xml</code>
+                  and as referenced in the environment.
+                </li>
+              </ul>
+              <p>The binding for all of these object types follows the same pattern:</p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="xml source-xml">
+                  <pre class="de1" xml:space="preserve"><span class="sc3"><span class="re1">&lt;New</span> <span class="re0">class</span>=type of naming entry<span class="re2">&gt;</span></span>
   <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>scope<span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
   <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>name to bind as<span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
   <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>the object to bind<span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
-<span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span></pre></div></div>
-<h4><span class="mw-headline" id="Defining_Naming_Entries">Defining Naming Entries</span></h4>
-<p>The <code>type of naming entry</code> can be:
-</p>
-<ul><li> <code>"org.eclipse.jetty.plus.jndi.EnvEntry"</code> for &lt;env-entry&gt;s.</li>
-<li> <code>"org.eclipse.jetty.plus.jndi.Resource"</code> for all other type of resources.</li>
-<li> <code>"org.eclipse.jetty.plus.jndi.Transaction"</code> for a JTA manager. For detailed information, see the <a href="JNDI.html#Configuring_XA_Transactions">Configuring XA Transactions</a> section.</li>
-<li> <code>"org.eclipse.jetty.plus.jndi.Link"</code> for link between a <code>web.xml</code> resource name and a NamingEntry. For more information, see the <a href="JNDI.html#Configuring_Links">Configuring Links</a> section.</li></ul>
-<p>You can define naming entries in three places:
-</p>
-<ol><li> <code>jetty.xml</code></li>
-<li> <code>WEB-INF/jetty-env.xml</code></li>
-<li> context xml file</li></ol>
-<p>Naming entries defined in a <code>jetty.xml</code> file are scoped at either the JVM level or the Server level. Naming entries in a <code>jetty-env.xml</code> file are scoped to the web app in which the file resides. While you can enter JVM or Server scopes if you choose, we do not recommend doing so. In most cases you define all naming entries that you want visible to a particular Server instance, or to the JVM as a whole in a <code>jetty.xml</code> file. Entries in a context xml file are scoped at the level of the web app to which they apply, although once again, you can supply a less strict scoping level of Server or JVM if you choose.
-</p>
-<h4><span class="mw-headline" id="Configuring_env-entries">Configuring env-entries</span></h4>
-<p>Sometimes it is useful to pass configuration information to a web app at runtime that you either cannot or cannot conveniently code into a <code>web.xml</code> <code>&lt;env-entry&gt;</code>. In such cases, you can use <code>org.eclipse.jetty.plus.jndi.EnvEntry</code>, and even override an entry of the same name in <code>web.xml</code>.
-</p>
-<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="xml source-xml"><pre class="de1"><span class="sc3"><span class="re1">&lt;New</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.plus.jndi.EnvEntry"</span><span class="re2">&gt;</span></span>
+<span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span></pre>
+                </div>
+              </div>
+              <h4>
+                <span class="mw-headline" id="Defining_Naming_Entries">Defining Naming Entries</span>
+              </h4>
+              <p>
+                The
+                <code>type of naming entry</code>
+                can be:
+              </p>
+              <ul>
+                <li>
+                  <code>"org.eclipse.jetty.plus.jndi.EnvEntry"</code>
+                  for &lt;env-entry&gt;s.
+                </li>
+                <li>
+                  <code>"org.eclipse.jetty.plus.jndi.Resource"</code>
+                  for all other type of resources.
+                </li>
+                <li>
+                  <code>"org.eclipse.jetty.plus.jndi.Transaction"</code>
+                  for a JTA manager. For detailed information, see the
+                  <a href="JNDI.html#Configuring_XA_Transactions">Configuring XA Transactions</a>
+                  section.
+                </li>
+                <li>
+                  <code>"org.eclipse.jetty.plus.jndi.Link"</code>
+                  for link between a
+                  <code>web.xml</code>
+                  resource name and a NamingEntry. For more information, see the
+                  <a href="JNDI.html#Configuring_Links">Configuring Links</a>
+                  section.
+                </li>
+              </ul>
+              <p>You can define naming entries in three places:</p>
+              <ol>
+                <li>
+                  <code>jetty.xml</code>
+                </li>
+                <li>
+                  <code>WEB-INF/jetty-env.xml</code>
+                </li>
+                <li>context xml file</li>
+              </ol>
+              <p>
+                Naming entries defined in a
+                <code>jetty.xml</code>
+                file are scoped at either the JVM level or the Server level. Naming entries in a
+                <code>jetty-env.xml</code>
+                file are scoped to the web app in which the file resides. While you can enter JVM or Server scopes if you choose, we do not recommend doing so. In most cases you define all naming entries that you want visible to a particular Server instance, or to the JVM as a whole in a
+                <code>jetty.xml</code>
+                file. Entries in a context xml file are scoped at the level of the web app to which they apply, although once again, you can supply a less strict scoping level of Server or JVM if you choose.
+              </p>
+              <h4>
+                <span class="mw-headline" id="Configuring_env-entries">Configuring env-entries</span>
+              </h4>
+              <p>
+                Sometimes it is useful to pass configuration information to a web app at runtime that you either cannot or cannot conveniently code into a
+                <code>web.xml</code>
+                <code>&lt;env-entry&gt;</code>
+                . In such cases, you can use
+                <code>org.eclipse.jetty.plus.jndi.EnvEntry</code>
+                , and even override an entry of the same name in
+                <code>web.xml</code>
+                .
+              </p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="xml source-xml">
+                  <pre class="de1" xml:space="preserve"><span class="sc3"><span class="re1">&lt;New</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.plus.jndi.EnvEntry"</span><span class="re2">&gt;</span></span>
   <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
   <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>mySpecialValue<span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
   <span class="sc3"><span class="re1">&lt;Arg</span> <span class="re0">type</span>=<span class="st0">"java.lang.Integer"</span><span class="re2">&gt;</span></span>4000<span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
   <span class="sc3"><span class="re1">&lt;Arg</span> <span class="re0">type</span>=<span class="st0">"boolean"</span><span class="re2">&gt;</span></span>true<span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
-<span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span></pre></div></div>
-<p>This example defines a virtual <code> env-entry </code> called <code>mySpecialValue</code> with value <code>4000</code> that is unique within the whole JVM. It is put into JNDI at <code>java:comp/env/mySpecialValue</code> for _every_ web app deployed. Moreover, the boolean argument indicates that this value overrides an <code>env-entry</code> of the same name in <code>web.xml</code>. If you don't want to override, then omit this argument, or set it to <code>false</code>.
-</p><p>See <a href="JNDI.html#Setting_JNDI_Entries_as_Global_or_Scoped">Setting JNDI Entries as Global or Scoped</a> for information on other scopes.
-</p><p>The Servlet Specification allows binding only the following object types to an <code>env-entry</code>:
-</p>
-<ul><li> java.lang.String</li>
-<li> java.lang.Integer</li>
-<li> java.lang.Float</li>
-<li> java.lang.Double</li>
-<li> java.lang.Long</li>
-<li> java.lang.Short</li>
-<li> java.lang.Character</li>
-<li> java.lang.Byte</li>
-<li> java.lang.Boolean</li></ul>
-<p>However, Jetty is a little more flexible and allows you to also bind custom POJOs, <a href="http://java.sun.com/j2se/1.5.0/docs/api/javax/naming/Reference.html" class="external text" rel="nofollow">javax.naming.References</a> and <a rel="nofollow" href="http://java.sun.com/j2se/1.5.0/docs/api/javax/naming/Referenceable.html" class="external text">javax.naming.Referenceables</a>. Be aware that if you take advantage of this feature, your web application is *not portable*.
-</p><p>To use the <code>env-entry</code> configured above, use code in your servlet/filter/etc., such as:
-</p>
-<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="java source-java"><pre class="de1"><span class="kw1">import</span> <span class="co2">javax.naming.InitialContext</span><span class="sy0">;</span>
+<span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span></pre>
+                </div>
+              </div>
+              <p>
+                This example defines a virtual
+                <code>env-entry</code>
+                called
+                <code>mySpecialValue</code>
+                with value
+                <code>4000</code>
+                that is unique within the whole JVM. It is put into JNDI at
+                <code>java:comp/env/mySpecialValue</code>
+                for _every_ web app deployed. Moreover, the boolean argument indicates that this value overrides an
+                <code>env-entry</code>
+                of the same name in
+                <code>web.xml</code>
+                . If you don't want to override, then omit this argument, or set it to
+                <code>false</code>
+                .
+              </p>
+              <p>
+                See
+                <a href="JNDI.html#Setting_JNDI_Entries_as_Global_or_Scoped">Setting JNDI Entries as Global or Scoped</a>
+                for information on other scopes.
+              </p>
+              <p>
+                The Servlet Specification allows binding only the following object types to an
+                <code>env-entry</code>
+                :
+              </p>
+              <ul>
+                <li>java.lang.String</li>
+                <li>java.lang.Integer</li>
+                <li>java.lang.Float</li>
+                <li>java.lang.Double</li>
+                <li>java.lang.Long</li>
+                <li>java.lang.Short</li>
+                <li>java.lang.Character</li>
+                <li>java.lang.Byte</li>
+                <li>java.lang.Boolean</li>
+              </ul>
+              <p>
+                However, Jetty is a little more flexible and allows you to also bind custom POJOs,
+                <a class="external text" href="http://java.sun.com/j2se/1.5.0/docs/api/javax/naming/Reference.html" rel="nofollow">javax.naming.References</a>
+                and
+                <a class="external text" href="http://java.sun.com/j2se/1.5.0/docs/api/javax/naming/Referenceable.html" rel="nofollow">javax.naming.Referenceables</a>
+                . Be aware that if you take advantage of this feature, your web application is *not portable*.
+              </p>
+              <p>
+                To use the
+                <code>env-entry</code>
+                configured above, use code in your servlet/filter/etc., such as:
+              </p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="java source-java">
+                  <pre class="de1" xml:space="preserve"><span class="kw1">import</span> <span class="co2">javax.naming.InitialContext</span><span class="sy0">;</span>
  
 <span class="kw3">InitialContext</span> ic <span class="sy0">=</span> <span class="kw1">new</span> <span class="kw3">InitialContext</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
-<span class="kw3">Integer</span> mySpecialValue <span class="sy0">=</span> <span class="br0">(</span><span class="kw3">Integer</span><span class="br0">)</span>ic.<span class="me1">lookup</span><span class="br0">(</span><span class="st0">"java:comp/env/mySpecialValue"</span><span class="br0">)</span><span class="sy0">;</span></pre></div></div>
-<h4><span id="Configuring_resource-refs_and_resource-env-refs" class="mw-headline">Configuring resource-refs and resource-env-refs</span></h4>
-<p>You can configure any type of resource that you want to refer to in a <code>web.xml</code> file as a <code>&lt;resource-ref&gt;</code> or <code>&lt;resource-env-ref&gt;</code>, using the <code>org.eclipse.jetty.plus.jndi.Resource</code> type of naming entry. You provide the scope, the name of the object (relative to <code>java:comp/env</code>) and a POJO instance or a  <code>javax.naming.Reference</code> instance or <code>javax.naming.Referenceable</code> instance.
-</p><p>The <a rel="nofollow" href="http://jcp.org/aboutJava/communityprocess/pr/jsr244/index.html" class="external text">J2EE Specification</a> recommends that DataSources be stored in <code>java:comp/env/jdbc</code>, JMS connection factories under <code>java:comp/env/jms</code>, JavaMail connection factories under <code>java:comp/env/mail</code> and URL connection factories under <code>java:comp/env/url</code>. For example:
-</p>
-<table>
-<tbody><tr><td>Resource Type</td><td> </td><td>Name in <code>jetty.xml</code></td><td> </td><td>Environment Lookup</td></tr>
-<tr><td>javax.sql.DataSource</td><td> </td><td>jdbc/myDB</td><td> </td><td>java:comp/env/jdbc/myDB</td></tr>
-<tr><td>javax.jms.QueueConnectionFactory</td><td> </td><td>jms/myQueue</td><td> </td><td>java:comp/env/jms/myQueue</td></tr>
-<tr><td>javax.mail.Session</td><td> </td><td>mail/myMailService</td><td> </td><td>java:comp/env/mail/myMailService</td></tr>
-</tbody></table>
-<h4><span class="mw-headline" id="Configuring_DataSources">Configuring DataSources</span></h4>
-<p>Here is an example of configuring a <code>javax.sql.DataSource</code>. Jetty can use any DataSource implementation available on its classpath. In this example, the DataSource is from the <a rel="nofollow" class="external text" href="http://db.apache.org/derby">Derby</a> relational database, but you can use any implementation of a <code>javax.sql.DataSource</code>. This example, configures it as scoped to a web app with the id of <i>wac</i>:
-</p>
-<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="xml source-xml"><pre class="de1"><span class="sc3"><span class="re1">&lt;Configure</span> <span class="re0">id</span>=<span class="st0">'wac'</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.webapp.WebAppContext"</span><span class="re2">&gt;</span></span>
+<span class="kw3">Integer</span> mySpecialValue <span class="sy0">=</span> <span class="br0">(</span><span class="kw3">Integer</span><span class="br0">)</span>ic.<span class="me1">lookup</span><span class="br0">(</span><span class="st0">"java:comp/env/mySpecialValue"</span><span class="br0">)</span><span class="sy0">;</span></pre>
+                </div>
+              </div>
+              <h4>
+                <span class="mw-headline" id="Configuring_resource-refs_and_resource-env-refs">Configuring resource-refs and resource-env-refs</span>
+              </h4>
+              <p>
+                You can configure any type of resource that you want to refer to in a
+                <code>web.xml</code>
+                file as a
+                <code>&lt;resource-ref&gt;</code>
+                or
+                <code>&lt;resource-env-ref&gt;</code>
+                , using the
+                <code>org.eclipse.jetty.plus.jndi.Resource</code>
+                type of naming entry. You provide the scope, the name of the object (relative to
+                <code>java:comp/env</code>
+                ) and a POJO instance or a
+                <code>javax.naming.Reference</code>
+                instance or
+                <code>javax.naming.Referenceable</code>
+                instance.
+              </p>
+              <p>
+                The
+                <a class="external text" href="http://jcp.org/aboutJava/communityprocess/pr/jsr244/index.html" rel="nofollow">J2EE Specification</a>
+                recommends that DataSources be stored in
+                <code>java:comp/env/jdbc</code>
+                , JMS connection factories under
+                <code>java:comp/env/jms</code>
+                , JavaMail connection factories under
+                <code>java:comp/env/mail</code>
+                and URL connection factories under
+                <code>java:comp/env/url</code>
+                . For example:
+              </p>
+              <table>
+                <tbody>
+                  <tr>
+                    <td>Resource Type</td>
+                    <td> </td>
+                    <td>
+                      Name in
+                      <code>jetty.xml</code>
+                    </td>
+                    <td> </td>
+                    <td>Environment Lookup</td>
+                  </tr>
+                  <tr>
+                    <td>javax.sql.DataSource</td>
+                    <td> </td>
+                    <td>jdbc/myDB</td>
+                    <td> </td>
+                    <td>java:comp/env/jdbc/myDB</td>
+                  </tr>
+                  <tr>
+                    <td>javax.jms.QueueConnectionFactory</td>
+                    <td> </td>
+                    <td>jms/myQueue</td>
+                    <td> </td>
+                    <td>java:comp/env/jms/myQueue</td>
+                  </tr>
+                  <tr>
+                    <td>javax.mail.Session</td>
+                    <td> </td>
+                    <td>mail/myMailService</td>
+                    <td> </td>
+                    <td>java:comp/env/mail/myMailService</td>
+                  </tr>
+                </tbody>
+              </table>
+              <h4>
+                <span class="mw-headline" id="Configuring_DataSources">Configuring DataSources</span>
+              </h4>
+              <p>
+                Here is an example of configuring a
+                <code>javax.sql.DataSource</code>
+                . Jetty can use any DataSource implementation available on its classpath. In this example, the DataSource is from the
+                <a class="external text" href="http://db.apache.org/derby" rel="nofollow">Derby</a>
+                relational database, but you can use any implementation of a
+                <code>javax.sql.DataSource</code>
+                . This example, configures it as scoped to a web app with the id of
+                <i>wac</i>
+                :
+              </p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="xml source-xml">
+                  <pre class="de1" xml:space="preserve"><span class="sc3"><span class="re1">&lt;Configure</span> <span class="re0">id</span>=<span class="st0">'wac'</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.webapp.WebAppContext"</span><span class="re2">&gt;</span></span>
 ...
 <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">id</span>=<span class="st0">"myds"</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.plus.jndi.Resource"</span><span class="re2">&gt;</span></span>
   <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span><span class="re1">&lt;Ref</span> <span class="re0">refid</span>=<span class="st0">"wac"</span><span class="re2">/&gt;</span><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
@@ -282,32 +666,58 @@ Save the file.
     <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span>
   <span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
 <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span>
-<span class="sc3"><span class="re1">&lt;/Configure<span class="re2">&gt;</span></span></span></pre></div></div>
-<p>The code above creates an instance of <code>org.apache.derby.jdbc.EmbeddedDataSource</code>, calls the two setter methods <code>setDatabaseName("test");</code> and <code>setCreateDatabase("create");</code> and binds it into the JNDI scope for the web app. If you have the appropriate <code>&lt;resource-ref&gt;</code> setup in your <code>web.xml</code>, then it is available from application lookups as <code>java:comp/env/jdbc/myds</code>.
-</p><p>Here's an example web.xml declaration for the datasource above:
-</p>
-<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="xml source-xml"><pre class="de1">  <span class="sc3"><span class="re1">&lt;resource-ref<span class="re2">&gt;</span></span></span>
+<span class="sc3"><span class="re1">&lt;/Configure<span class="re2">&gt;</span></span></span></pre>
+                </div>
+              </div>
+              <p>
+                The code above creates an instance of
+                <code>org.apache.derby.jdbc.EmbeddedDataSource</code>
+                , calls the two setter methods
+                <code>setDatabaseName("test");</code>
+                and
+                <code>setCreateDatabase("create");</code>
+                and binds it into the JNDI scope for the web app. If you have the appropriate
+                <code>&lt;resource-ref&gt;</code>
+                setup in your
+                <code>web.xml</code>
+                , then it is available from application lookups as
+                <code>java:comp/env/jdbc/myds</code>
+                .
+              </p>
+              <p>Here's an example web.xml declaration for the datasource above:</p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="xml source-xml">
+                  <pre class="de1" xml:space="preserve">  <span class="sc3"><span class="re1">&lt;resource-ref<span class="re2">&gt;</span></span></span>
     <span class="sc3"><span class="re1">&lt;res-ref-name<span class="re2">&gt;</span></span></span>jdbc/myds<span class="sc3"><span class="re1">&lt;/res-ref-name<span class="re2">&gt;</span></span></span>
     <span class="sc3"><span class="re1">&lt;res-type<span class="re2">&gt;</span></span></span>javax.sql.DataSource<span class="sc3"><span class="re1">&lt;/res-type<span class="re2">&gt;</span></span></span>
     <span class="sc3"><span class="re1">&lt;res-auth<span class="re2">&gt;</span></span></span>Container<span class="sc3"><span class="re1">&lt;/res-auth<span class="re2">&gt;</span></span></span>
-  <span class="sc3"><span class="re1">&lt;/resource-ref<span class="re2">&gt;</span></span></span></pre></div></div>
-<p>To lookup your DataSource in your servlet/filter/etc.:
-</p>
-<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="java source-java"><pre class="de1"><span class="kw1">import</span> <span class="co2">javax.naming.InitialContext</span><span class="sy0">;</span>
+  <span class="sc3"><span class="re1">&lt;/resource-ref<span class="re2">&gt;</span></span></span></pre>
+                </div>
+              </div>
+              <p>To lookup your DataSource in your servlet/filter/etc.:</p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="java source-java">
+                  <pre class="de1" xml:space="preserve"><span class="kw1">import</span> <span class="co2">javax.naming.InitialContext</span><span class="sy0">;</span>
 <span class="kw1">import</span> <span class="co2">javax.sql.DataSource</span><span class="sy0">;</span>
  
 <span class="kw3">InitialContext</span> ic <span class="sy0">=</span> <span class="kw1">new</span> <span class="kw3">InitialContext</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
-DataSource myDS <span class="sy0">=</span> <span class="br0">(</span>DataSource<span class="br0">)</span>ic.<span class="me1">lookup</span><span class="br0">(</span><span class="st0">"java:comp/env/jdbc/myds"</span><span class="br0">)</span><span class="sy0">;</span></pre></div></div>
-<div class="messagebox" style="background-color: #def3fe; border: 1px solid #c5d7e0; color: black; padding: 5px; margin: 1ex 0; min-height: 35px; padding-left: 45px;">
-<div style="float: left; margin-left: -40px;"><a href="https://wiki.eclipse.org/File:Note.png" class="image"><img src="../../images/c/cc/Note.png" height="35" width="35" alt="Note.png"/></a></div>
-<div><b>Careful!</b><br/>When configuring Resources, ensure that the type of object you configure matches the type of object you expect to look up in <code>java:comp/env</code>. For database connection factories, this means that the object you register as a Resource *must* implement the <code>javax.sql.DataSource</code> interface.</div>
-</div>
-<p><br/>
-</p>
-<h4><span class="mw-headline" id="Configuring_JMS_Queues.2C_Topics_and_ConnectionFactories">Configuring JMS Queues, Topics and ConnectionFactories</span></h4>
-<p>Jetty can bind any implementation of the JMS destinations and connection factories. You just need to ensure the implementation Jars are available on Jetty's classpath. Here is an example of binding an <a href="http://activemq.apache.org/" class="external text" rel="nofollow">ActiveMQ</a> in JVM connection factory:
-</p>
-<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="xml source-xml"><pre class="de1"><span class="sc3"><span class="re1">&lt;Configure</span> <span class="re0">id</span>=<span class="st0">'wac'</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.webapp.WebAppContext"</span><span class="re2">&gt;</span></span>
+DataSource myDS <span class="sy0">=</span> <span class="br0">(</span>DataSource<span class="br0">)</span>ic.<span class="me1">lookup</span><span class="br0">(</span><span class="st0">"java:comp/env/jdbc/myds"</span><span class="br0">)</span><span class="sy0">;</span></pre>
+                </div>
+              </div>
+              <p>
+                <br />
+              </p>
+              <h4>
+                <span class="mw-headline" id="Configuring_JMS_Queues.2C_Topics_and_ConnectionFactories">Configuring JMS Queues, Topics and ConnectionFactories</span>
+              </h4>
+              <p>
+                Jetty can bind any implementation of the JMS destinations and connection factories. You just need to ensure the implementation Jars are available on Jetty's classpath. Here is an example of binding an
+                <a class="external text" href="http://activemq.apache.org/" rel="nofollow">ActiveMQ</a>
+                in JVM connection factory:
+              </p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="xml source-xml">
+                  <pre class="de1" xml:space="preserve"><span class="sc3"><span class="re1">&lt;Configure</span> <span class="re0">id</span>=<span class="st0">'wac'</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.webapp.WebAppContext"</span><span class="re2">&gt;</span></span>
 ...
 <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">id</span>=<span class="st0">"cf"</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.plus.jndi.Resource"</span><span class="re2">&gt;</span></span>
   <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span><span class="re1">&lt;Ref</span> <span class="re0">refid</span>=<span class="st0">'wac'</span><span class="re2">/&gt;</span><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
@@ -318,13 +728,23 @@ DataSource myDS <span class="sy0">=</span> <span class="br0">(</span>DataSource<
     <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span>
   <span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
 <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span>
-<span class="sc3"><span class="re1">&lt;/Configure<span class="re2">&gt;</span></span></span></pre></div></div>
-<p>For more information, see <a rel="nofollow" href="http://activemq.apache.org/" class="external text">ActiveMQ</a> and Jetty <a class="new" href="edit" title="Integrating with ActiveMQ (page does not exist)">Integrating with ActiveMQ</a>.
-</p>
-<h4><span id="Configuring_Mail" class="mw-headline">Configuring Mail</span></h4>
-<p>Jetty also provides infrastructure for access to javax.mail.Sessions from within an application:
-</p>
-<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="xml source-xml"><pre class="de1"><span class="sc3"><span class="re1">&lt;Configure</span> <span class="re0">id</span>=<span class="st0">'wac'</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.webapp.WebAppContext"</span><span class="re2">&gt;</span></span>
+<span class="sc3"><span class="re1">&lt;/Configure<span class="re2">&gt;</span></span></span></pre>
+                </div>
+              </div>
+              <p>
+                For more information, see
+                <a class="external text" href="http://activemq.apache.org/" rel="nofollow">ActiveMQ</a>
+                and Jetty
+                <a class="new" href="edit" title="Integrating with ActiveMQ (page does not exist)">Integrating with ActiveMQ</a>
+                .
+              </p>
+              <h4>
+                <span class="mw-headline" id="Configuring_Mail">Configuring Mail</span>
+              </h4>
+              <p>Jetty also provides infrastructure for access to javax.mail.Sessions from within an application:</p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="xml source-xml">
+                  <pre class="de1" xml:space="preserve"><span class="sc3"><span class="re1">&lt;Configure</span> <span class="re0">id</span>=<span class="st0">'wac'</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.webapp.WebAppContext"</span><span class="re2">&gt;</span></span>
 ...
 <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">id</span>=<span class="st0">"mail"</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.plus.jndi.Resource"</span><span class="re2">&gt;</span></span>
      <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span><span class="re1">&lt;Ref</span> <span class="re0">refid</span>=<span class="st0">"wac"</span><span class="re2">/&gt;</span><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
@@ -343,28 +763,72 @@ DataSource myDS <span class="sy0">=</span> <span class="br0">(</span>DataSource<
        <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span>
      <span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
 <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span>
-<span class="sc3"><span class="re1">&lt;/Configure<span class="re2">&gt;</span></span></span></pre></div></div>
-<p>The setup above creates an instance of the <code>org.eclipse.jetty.jndi.factories.MailSessionReference</code> class, calls its setter methods <code>setUser("fred");</code>, <code>setPassword("OBF:1xmk1w261z0f1w1c1xmq");</code> to set up the authentication for the mail system, and populates a set of Properties, setting them on the MailSessionReference instance. The result is that an application can look up <code>java:comp/env/mail/Session</code> at runtime and obtain access to a <code>javax.mail.Session</code> that has the necessary configuration to permit it to send email via SMTP.
-</p><p>{tip}
-You can set the password to be plain text, or use Jetty's <a href="../Howto/Secure Passwords.html" title="Jetty/Howto/Secure Passwords">password obfuscation</a> mechanism to make the config file more secure from prying eyes. But you cannot use the other Jetty encryption mechanisms of MD5 and Crypt because then the original password cannot be recovered, which is necessary for the mail system.
+<span class="sc3"><span class="re1">&lt;/Configure<span class="re2">&gt;</span></span></span></pre>
+                </div>
+              </div>
+              <p>
+                The setup above creates an instance of the
+                <code>org.eclipse.jetty.jndi.factories.MailSessionReference</code>
+                class, calls its setter methods
+                <code>setUser("fred");</code>
+                ,
+                <code>setPassword("OBF:1xmk1w261z0f1w1c1xmq");</code>
+                to set up the authentication for the mail system, and populates a set of Properties, setting them on the MailSessionReference instance. The result is that an application can look up
+                <code>java:comp/env/mail/Session</code>
+                at runtime and obtain access to a
+                <code>javax.mail.Session</code>
+                that has the necessary configuration to permit it to send email via SMTP.
+              </p>
+              <p>
+                {tip}
+You can set the password to be plain text, or use Jetty's
+                <a href="../Howto/Secure Passwords.html" title="Jetty/Howto/Secure Passwords">password obfuscation</a>
+                mechanism to make the config file more secure from prying eyes. But you cannot use the other Jetty encryption mechanisms of MD5 and Crypt because then the original password cannot be recovered, which is necessary for the mail system.
 {tip}
-</p>
-<h4><span class="mw-headline" id="Configuring_XA_Transactions">Configuring XA Transactions</span></h4>
-<p>If you want to perform distributed transactions with your resources, you need a <i>transaction manager</i> that supports the JTA interfaces that you can look up as <code>java:comp/UserTransaction</code> in your web app. Jetty does not ship with one as standard, but you can plug in the one you prefer. You can configure a transaction manager using the <code>org.eclipse.jetty.plus.jndi.Transaction</code> object in a Jetty config file. The following example configures the <a class="external text" href="http://www.atomikos.com" rel="nofollow">Atomikos</a> transaction manager:
-</p>
-<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="xml source-xml"><pre class="de1"><span class="sc3"><span class="re1">&lt;New</span> <span class="re0">id</span>=<span class="st0">"tx"</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.plus.jndi.Transaction"</span><span class="re2">&gt;</span></span>
+              </p>
+              <h4>
+                <span class="mw-headline" id="Configuring_XA_Transactions">Configuring XA Transactions</span>
+              </h4>
+              <p>
+                If you want to perform distributed transactions with your resources, you need a
+                <i>transaction manager</i>
+                that supports the JTA interfaces that you can look up as
+                <code>java:comp/UserTransaction</code>
+                in your web app. Jetty does not ship with one as standard, but you can plug in the one you prefer. You can configure a transaction manager using the
+                <code>org.eclipse.jetty.plus.jndi.Transaction</code>
+                object in a Jetty config file. The following example configures the
+                <a class="external text" href="http://www.atomikos.com" rel="nofollow">Atomikos</a>
+                transaction manager:
+              </p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="xml source-xml">
+                  <pre class="de1" xml:space="preserve"><span class="sc3"><span class="re1">&lt;New</span> <span class="re0">id</span>=<span class="st0">"tx"</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.plus.jndi.Transaction"</span><span class="re2">&gt;</span></span>
   <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>
     <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">class</span>=<span class="st0">"com.atomikos.icatch.jta.UserTransactionImp"</span><span class="re2">/&gt;</span></span>
   <span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
-<span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span></pre></div></div>
-<p>Alternatively, you can use the [http:repo1.maven.org/maven1/org/mortbay/jetty/jetty-hightide/ Hightide] distribution of jetty instead, which comes with the <a rel="nofollow" class="external text" href="http://www.atomikos.com">Atomikos</a> transaction system pre-configured.
-</p><p><br/>
-</p>
-<h4><span class="mw-headline" id="Configuring_Links">Configuring Links</span></h4>
-<p>The name you set for your NamingEntry should be the same name you use for it in <code>web.xml</code>. For example:
-</p><p>In a context xml file:
-</p>
-<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="xml source-xml"><pre class="de1"><span class="sc3"><span class="re1">&lt;Configure</span> <span class="re0">id</span>=<span class="st0">'wac'</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.webapp.WebAppContext"</span><span class="re2">&gt;</span></span>
+<span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span></pre>
+                </div>
+              </div>
+              <p>
+                Alternatively, you can use the [http:repo1.maven.org/maven1/org/mortbay/jetty/jetty-hightide/ Hightide] distribution of jetty instead, which comes with the
+                <a class="external text" href="http://www.atomikos.com" rel="nofollow">Atomikos</a>
+                transaction system pre-configured.
+              </p>
+              <p>
+                <br />
+              </p>
+              <h4>
+                <span class="mw-headline" id="Configuring_Links">Configuring Links</span>
+              </h4>
+              <p>
+                The name you set for your NamingEntry should be the same name you use for it in
+                <code>web.xml</code>
+                . For example:
+              </p>
+              <p>In a context xml file:</p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="xml source-xml">
+                  <pre class="de1" xml:space="preserve"><span class="sc3"><span class="re1">&lt;Configure</span> <span class="re0">id</span>=<span class="st0">'wac'</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.webapp.WebAppContext"</span><span class="re2">&gt;</span></span>
 ...
 <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">id</span>=<span class="st0">"myds"</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.plus.jndi.Resource"</span><span class="re2">&gt;</span></span>
   <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span><span class="re1">&lt;Ref</span> <span class="re0">refid</span>=<span class="st0">"wac"</span><span class="re2">/&gt;</span><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
@@ -376,10 +840,17 @@ You can set the password to be plain text, or use Jetty's <a href="../Howto/Secu
     <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span>
   <span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
 <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span>
-<span class="sc3"><span class="re1">&lt;/Configure<span class="re2">&gt;</span></span></span></pre></div></div>
-<p>and in <code>web.xml</code>:
-</p>
-<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="xml source-xml"><pre class="de1">  <span class="sc3"><span class="re1">&lt;resource-ref<span class="re2">&gt;</span></span></span>
+<span class="sc3"><span class="re1">&lt;/Configure<span class="re2">&gt;</span></span></span></pre>
+                </div>
+              </div>
+              <p>
+                and in
+                <code>web.xml</code>
+                :
+              </p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="xml source-xml">
+                  <pre class="de1" xml:space="preserve">  <span class="sc3"><span class="re1">&lt;resource-ref<span class="re2">&gt;</span></span></span>
     <span class="sc3"><span class="re1">&lt;res-ref-name<span class="re2">&gt;</span></span></span>jdbc/mydatasource<span class="sc3"><span class="re1">&lt;/res-ref-name<span class="re2">&gt;</span></span></span>
     <span class="sc3"><span class="re1">&lt;res-type<span class="re2">&gt;</span></span></span>javax.sql.DataSource<span class="sc3"><span class="re1">&lt;/res-type<span class="re2">&gt;</span></span></span>
     <span class="sc3"><span class="re1">&lt;res-auth<span class="re2">&gt;</span></span></span>Container<span class="sc3"><span class="re1">&lt;/res-auth<span class="re2">&gt;</span></span></span>
@@ -387,11 +858,26 @@ You can set the password to be plain text, or use Jetty's <a href="../Howto/Secu
       <span class="sc3"><span class="re1">&lt;injection-target-class<span class="re2">&gt;</span></span></span>com.acme.JNDITest<span class="sc3"><span class="re1">&lt;/injection-target-class<span class="re2">&gt;</span></span></span>
       <span class="sc3"><span class="re1">&lt;injection-target-name<span class="re2">&gt;</span></span></span>myDatasource<span class="sc3"><span class="re1">&lt;/injection-target-name<span class="re2">&gt;</span></span></span>
     <span class="sc3"><span class="re1">&lt;/injection-target<span class="re2">&gt;</span></span></span>
-  <span class="sc3"><span class="re1">&lt;/resource-ref<span class="re2">&gt;</span></span></span></pre></div></div>
-<p>You can refer to it in <code>web.xml</code> by a different name, and link it to the name in your <code>org.eclipse.jetty.plus.jndi.Resource</code> by using an <code>org.eclipse.jetty.plus.jndi.Link</code> type of NamingEntry. For the example above, you can refer to the <code>jdbc/mydatasource</code> resource as <code>jdbc/mydatasource1</code> as follows:
-</p><p>In a context xml file:
-</p>
-<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="xml source-xml"><pre class="de1"><span class="sc3"><span class="re1">&lt;Configure</span> <span class="re0">id</span>=<span class="st0">'wac'</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.webapp.WebAppContext"</span><span class="re2">&gt;</span></span>
+  <span class="sc3"><span class="re1">&lt;/resource-ref<span class="re2">&gt;</span></span></span></pre>
+                </div>
+              </div>
+              <p>
+                You can refer to it in
+                <code>web.xml</code>
+                by a different name, and link it to the name in your
+                <code>org.eclipse.jetty.plus.jndi.Resource</code>
+                by using an
+                <code>org.eclipse.jetty.plus.jndi.Link</code>
+                type of NamingEntry. For the example above, you can refer to the
+                <code>jdbc/mydatasource</code>
+                resource as
+                <code>jdbc/mydatasource1</code>
+                as follows:
+              </p>
+              <p>In a context xml file:</p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="xml source-xml">
+                  <pre class="de1" xml:space="preserve"><span class="sc3"><span class="re1">&lt;Configure</span> <span class="re0">id</span>=<span class="st0">'wac'</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.webapp.WebAppContext"</span><span class="re2">&gt;</span></span>
 ...
 <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">id</span>=<span class="st0">"myds"</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.plus.jndi.Resource"</span><span class="re2">&gt;</span></span>
   <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span><span class="re1">&lt;Ref</span> <span class="re0">refid</span>=<span class="st0">"wac"</span><span class="re2">/&gt;</span><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
@@ -403,17 +889,31 @@ You can set the password to be plain text, or use Jetty's <a href="../Howto/Secu
     <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span>
   <span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
 <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span>
-<span class="sc3"><span class="re1">&lt;/Configure<span class="re2">&gt;</span></span></span></pre></div></div>
-<p>in a <code>jetty-env.xml</code> file:
-</p>
-<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="xml source-xml"><pre class="de1">  <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">id</span>=<span class="st0">"map1"</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.plus.jndi.Link"</span><span class="re2">&gt;</span></span>
+<span class="sc3"><span class="re1">&lt;/Configure<span class="re2">&gt;</span></span></span></pre>
+                </div>
+              </div>
+              <p>
+                in a
+                <code>jetty-env.xml</code>
+                file:
+              </p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="xml source-xml">
+                  <pre class="de1" xml:space="preserve">  <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">id</span>=<span class="st0">"map1"</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.plus.jndi.Link"</span><span class="re2">&gt;</span></span>
     <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span><span class="re1">&lt;Ref</span> <span class="re0">refid</span>=<span class="st0">'wac'</span><span class="re2">/&gt;</span><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
     <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>jdbc/mydatasource1<span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span> <span class="sc-1">&lt;!-- name in web.xml --&gt;</span>
     <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>jdbc/mydatasource<span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>  <span class="sc-1">&lt;!-- name in container environment --&gt;</span>
-  <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span></pre></div></div>
-<p>and in <code>web.xml</code>:
-</p>
-<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="xml source-xml"><pre class="de1">  <span class="sc3"><span class="re1">&lt;resource-ref<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span></pre>
+                </div>
+              </div>
+              <p>
+                and in
+                <code>web.xml</code>
+                :
+              </p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="xml source-xml">
+                  <pre class="de1" xml:space="preserve">  <span class="sc3"><span class="re1">&lt;resource-ref<span class="re2">&gt;</span></span></span>
     <span class="sc3"><span class="re1">&lt;res-ref-name<span class="re2">&gt;</span></span></span>jdbc/mydatasource1<span class="sc3"><span class="re1">&lt;/res-ref-name<span class="re2">&gt;</span></span></span>
     <span class="sc3"><span class="re1">&lt;res-type<span class="re2">&gt;</span></span></span>javax.sql.DataSource<span class="sc3"><span class="re1">&lt;/res-type<span class="re2">&gt;</span></span></span>
     <span class="sc3"><span class="re1">&lt;res-auth<span class="re2">&gt;</span></span></span>Container<span class="sc3"><span class="re1">&lt;/res-auth<span class="re2">&gt;</span></span></span>
@@ -421,17 +921,26 @@ You can set the password to be plain text, or use Jetty's <a href="../Howto/Secu
       <span class="sc3"><span class="re1">&lt;injection-target-class<span class="re2">&gt;</span></span></span>com.acme.JNDITest<span class="sc3"><span class="re1">&lt;/injection-target-class<span class="re2">&gt;</span></span></span>
       <span class="sc3"><span class="re1">&lt;injection-target-name<span class="re2">&gt;</span></span></span>myDatasource<span class="sc3"><span class="re1">&lt;/injection-target-name<span class="re2">&gt;</span></span></span>
     <span class="sc3"><span class="re1">&lt;/injection-target<span class="re2">&gt;</span></span></span>
-  <span class="sc3"><span class="re1">&lt;/resource-ref<span class="re2">&gt;</span></span></span></pre></div></div>
-<p>This can be useful when you cannot change <code>web.xml</code> but need to link it to a resource in your deployment environment.
-</p>
-<h4><span class="mw-headline" id="Using_JNDI_without_a_web.xml">Using JNDI without a web.xml</span></h4>
-<p>Usually, you define your naming entries in a WEB-INF/jetty-env.xml file or a $JETTY_HOME/etc file (or programmatically) and then link them into your webapp's java:comp/env namespace via entries in WEB-INF/web.xml.
-</p><p>However, as WEB-INF/web.xml files are not required for a valid webapp, you can use some xml (or code) to do the linking. Here's how.
-</p>
-<h5><span id="With_WEB-INF.2Fjetty-env.xml_file" class="mw-headline">With WEB-INF/jetty-env.xml file</span></h5>
-<p>If you have defined your naming entry in a WEB-INF/jetty-env.xml file, you can simply bind it into your webapp's java:comp/env namespace by adding a single line:
-</p>
-<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="xml source-xml"><pre class="de1">  <span class="sc3"><span class="re1">&lt;New</span>  <span class="re0">id</span>=<span class="st0">"jdbc/myds"</span>  <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.plus.jndi.Resource"</span><span class="re2">&gt;</span></span>
+  <span class="sc3"><span class="re1">&lt;/resource-ref<span class="re2">&gt;</span></span></span></pre>
+                </div>
+              </div>
+              <p>
+                This can be useful when you cannot change
+                <code>web.xml</code>
+                but need to link it to a resource in your deployment environment.
+              </p>
+              <h4>
+                <span class="mw-headline" id="Using_JNDI_without_a_web.xml">Using JNDI without a web.xml</span>
+              </h4>
+              <p>Usually, you define your naming entries in a WEB-INF/jetty-env.xml file or a $JETTY_HOME/etc file (or programmatically) and then link them into your webapp's java:comp/env namespace via entries in WEB-INF/web.xml.</p>
+              <p>However, as WEB-INF/web.xml files are not required for a valid webapp, you can use some xml (or code) to do the linking. Here's how.</p>
+              <h5>
+                <span class="mw-headline" id="With_WEB-INF.2Fjetty-env.xml_file">With WEB-INF/jetty-env.xml file</span>
+              </h5>
+              <p>If you have defined your naming entry in a WEB-INF/jetty-env.xml file, you can simply bind it into your webapp's java:comp/env namespace by adding a single line:</p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="xml source-xml">
+                  <pre class="de1" xml:space="preserve">  <span class="sc3"><span class="re1">&lt;New</span>  <span class="re0">id</span>=<span class="st0">"jdbc/myds"</span>  <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.plus.jndi.Resource"</span><span class="re2">&gt;</span></span>
      <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
      <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>jdbc/myds<span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
      <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>
@@ -444,14 +953,20 @@ You can set the password to be plain text, or use Jetty's <a href="../Howto/Secu
      <span class="sc3"><span class="re1">&lt;Call</span> <span class="re0">name</span>=<span class="st0">"bindToENC"</span><span class="re2">&gt;</span></span>
         <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>jdbc/myfoo<span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>  <span class="sc-1">&lt;!-- binds jdbc/myds to java:comp/env/jdbc/myfoo for this webapp --&gt;</span>
     <span class="sc3"><span class="re1">&lt;/Call<span class="re2">&gt;</span></span></span>
-  <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span></pre></div></div>
-<p><br/>
-</p>
-<h5><span class="mw-headline" id="With_jetty_xml_file_and_WEB-INF.2Fjetty-env.xml_file">With jetty xml file and WEB-INF/jetty-env.xml file</span></h5>
-<p>If you have defined your naming entries in xml files in jetty's etc/ directory, you can bind them into your webapp's namespace by using a WEB-INF/jetty-env.xml file to do the linking.
-</p><p>Assume the following naming entry is in $JETTY_HOME/etc/jetty-myjndi.xml:
-</p>
-<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="xml source-xml"><pre class="de1">  <span class="sc3"><span class="re1">&lt;New</span>  <span class="re0">id</span>=<span class="st0">"jdbc/myds"</span>  <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.plus.jndi.Resource"</span><span class="re2">&gt;</span></span>
+  <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span></pre>
+                </div>
+              </div>
+              <p>
+                <br />
+              </p>
+              <h5>
+                <span class="mw-headline" id="With_jetty_xml_file_and_WEB-INF.2Fjetty-env.xml_file">With jetty xml file and WEB-INF/jetty-env.xml file</span>
+              </h5>
+              <p>If you have defined your naming entries in xml files in jetty's etc/ directory, you can bind them into your webapp's namespace by using a WEB-INF/jetty-env.xml file to do the linking.</p>
+              <p>Assume the following naming entry is in $JETTY_HOME/etc/jetty-myjndi.xml:</p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="xml source-xml">
+                  <pre class="de1" xml:space="preserve">  <span class="sc3"><span class="re1">&lt;New</span>  <span class="re0">id</span>=<span class="st0">"jdbc/myds"</span>  <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.plus.jndi.Resource"</span><span class="re2">&gt;</span></span>
      <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
      <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>jdbc/myds<span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
      <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>
@@ -461,24 +976,43 @@ You can set the password to be plain text, or use Jetty's <a href="../Howto/Secu
          <span class="sc3"><span class="re1">&lt;Set</span>  <span class="re0">name</span>=<span class="st0">"Password"</span><span class="re2">&gt;</span></span>sillyness<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
        <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span>
      <span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
-  <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span></pre></div></div>
-<p><br/>
-Then you can link jdbc/myds into your webapp's namespace as java:comp/env/jdbc/myfoo by using a WEB-INF/jetty-env.xml file:
-</p>
-<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="xml source-xml"><pre class="de1">   <span class="sc3"><span class="re1">&lt;Call</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.plus.jndi.NamingEntryUtil"</span> <span class="re0">name</span>=<span class="st0">"bindToENC"</span><span class="re2">&gt;</span></span>
+  <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span></pre>
+                </div>
+              </div>
+              <p>
+                <br />
+                Then you can link jdbc/myds into your webapp's namespace as java:comp/env/jdbc/myfoo by using a WEB-INF/jetty-env.xml file:
+              </p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="xml source-xml">
+                  <pre class="de1" xml:space="preserve">   <span class="sc3"><span class="re1">&lt;Call</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.plus.jndi.NamingEntryUtil"</span> <span class="re0">name</span>=<span class="st0">"bindToENC"</span><span class="re2">&gt;</span></span>
        <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>    <span class="sc-1">&lt;!-- scope of naming entry, ie same as first argument to your naming entry definition, in this case, null --&gt;</span>
        <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>jdbc/myfoo<span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
        <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>jdbc/myds<span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
-   <span class="sc3"><span class="re1">&lt;/Call<span class="re2">&gt;</span></span></span></pre></div></div>
-<p>Note that you *must* use a WEB-INF/jetty-env.xml file to call the "bindToENC" method and *not* a context xml file, as the latter is not interpreted at the correct phase of the webapp's deployment to have the java:comp/env namespace created.
-</p><p><br/>
-</p>
-<h3><span class="mw-headline" id="Setting_JNDI_Entries_as_Global_or_Scoped">Setting JNDI Entries as Global or Scoped</span></h3>
-<p>As previously stated, you can control the visibility of your JNDI naming entries within your JVM, Server and WebAppContext instances. Naming entries at the _jvm scope_ are visible by any application code, and are available to bind to <code>java:comp/env</code>. Naming entries at the _Server scope_ do not interfere with entries of the same name in a different Server instance, and are available to bind to <code>java:comp/env</code> of any web apps deployed to that Server instance. Finally, the most specific scope are entries at the _webapp scope_. An entry of this type is only available to bind to <code>java:comp/env</code> of the web app in which it is defined.
-</p><p>The first parameter to the NamingEntry controls the scope.
-</p><p>The jvm scope is represented by a null parameter:
-</p>
-<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="xml source-xml"><pre class="de1"><span class="sc3"><span class="re1">&lt;New</span> <span class="re0">id</span>=<span class="st0">"cf"</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.plus.jndi.Resource"</span><span class="re2">&gt;</span></span>
+   <span class="sc3"><span class="re1">&lt;/Call<span class="re2">&gt;</span></span></span></pre>
+                </div>
+              </div>
+              <p>Note that you *must* use a WEB-INF/jetty-env.xml file to call the "bindToENC" method and *not* a context xml file, as the latter is not interpreted at the correct phase of the webapp's deployment to have the java:comp/env namespace created.</p>
+              <p>
+                <br />
+              </p>
+              <h3>
+                <span class="mw-headline" id="Setting_JNDI_Entries_as_Global_or_Scoped">Setting JNDI Entries as Global or Scoped</span>
+              </h3>
+              <p>
+                As previously stated, you can control the visibility of your JNDI naming entries within your JVM, Server and WebAppContext instances. Naming entries at the _jvm scope_ are visible by any application code, and are available to bind to
+                <code>java:comp/env</code>
+                . Naming entries at the _Server scope_ do not interfere with entries of the same name in a different Server instance, and are available to bind to
+                <code>java:comp/env</code>
+                of any web apps deployed to that Server instance. Finally, the most specific scope are entries at the _webapp scope_. An entry of this type is only available to bind to
+                <code>java:comp/env</code>
+                of the web app in which it is defined.
+              </p>
+              <p>The first parameter to the NamingEntry controls the scope.</p>
+              <p>The jvm scope is represented by a null parameter:</p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="xml source-xml">
+                  <pre class="de1" xml:space="preserve"><span class="sc3"><span class="re1">&lt;New</span> <span class="re0">id</span>=<span class="st0">"cf"</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.plus.jndi.Resource"</span><span class="re2">&gt;</span></span>
   <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
   <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>jms/connectionFactory<span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
   <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>
@@ -486,10 +1020,13 @@ Then you can link jdbc/myds into your webapp's namespace as java:comp/env/jdbc/m
        <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>vm://localhost?broker.persistent=false<span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
     <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span>
   <span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
-<span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span></pre></div></div>
-<p>The Server scope is represented by referencing the related Server object:
-</p>
-<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="xml source-xml"><pre class="de1"><span class="sc3"><span class="re1">&lt;Configure</span> <span class="re0">id</span>=<span class="st0">"Server"</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.Server"</span><span class="re2">&gt;</span></span>
+<span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span></pre>
+                </div>
+              </div>
+              <p>The Server scope is represented by referencing the related Server object:</p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="xml source-xml">
+                  <pre class="de1" xml:space="preserve"><span class="sc3"><span class="re1">&lt;Configure</span> <span class="re0">id</span>=<span class="st0">"Server"</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.Server"</span><span class="re2">&gt;</span></span>
 ...
 <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">id</span>=<span class="st0">"cf"</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.plus.jndi.Resource"</span><span class="re2">&gt;</span></span>
   <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span><span class="re1">&lt;Ref</span> <span class="re0">refid</span>=<span class="st0">"Server"</span><span class="re2">/&gt;</span><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
@@ -500,10 +1037,13 @@ Then you can link jdbc/myds into your webapp's namespace as java:comp/env/jdbc/m
     <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span>
   <span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
 <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span>
-<span class="sc3"><span class="re1">&lt;/Configure<span class="re2">&gt;</span></span></span></pre></div></div>
-<p>The webapp scope is represented by referencing the related WebAppContext object:
-</p>
-<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="xml source-xml"><pre class="de1"><span class="sc3"><span class="re1">&lt;Configure</span> <span class="re0">id</span>=<span class="st0">'wac'</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.webapp.WebAppContext"</span><span class="re2">&gt;</span></span>
+<span class="sc3"><span class="re1">&lt;/Configure<span class="re2">&gt;</span></span></span></pre>
+                </div>
+              </div>
+              <p>The webapp scope is represented by referencing the related WebAppContext object:</p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="xml source-xml">
+                  <pre class="de1" xml:space="preserve"><span class="sc3"><span class="re1">&lt;Configure</span> <span class="re0">id</span>=<span class="st0">'wac'</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.webapp.WebAppContext"</span><span class="re2">&gt;</span></span>
 ...
 <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">id</span>=<span class="st0">"cf"</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.plus.jndi.Resource"</span><span class="re2">&gt;</span></span>
   <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span><span class="re1">&lt;Ref</span> <span class="re0">refid</span>=<span class="st0">'wac'</span><span class="re2">/&gt;</span><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
@@ -514,21 +1054,24 @@ Then you can link jdbc/myds into your webapp's namespace as java:comp/env/jdbc/m
     <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span>
   <span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
 <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span>
-<span class="sc3"><span class="re1">&lt;/Configure<span class="re2">&gt;</span></span></span></pre></div></div>
-<p>As you can see, the most natural configuration files in which to declare naming entries of each scope are:
-</p>
-<ul><li> <code>etc/jetty.xml</code>–jvm or Server scope</li>
-<li> <code>WEB-INF/jetty-env.xml</code> or a context xml file–webapp scope</li></ul>
-
-
-</div>
-
-                    <div class="catlinks" id="catlinks">
-                        <li><a title="Category:Jetty Feature" href="https://wiki.eclipse.org/Category:Jetty_Feature">Jetty Feature</a></li>
-                        </div>
+<span class="sc3"><span class="re1">&lt;/Configure<span class="re2">&gt;</span></span></span></pre>
                 </div>
-                                  </div>
               </div>
+              <p>As you can see, the most natural configuration files in which to declare naming entries of each scope are:</p>
+              <ul>
+                <li>
+                  <code>etc/jetty.xml</code>
+                  –jvm or Server scope
+                </li>
+                <li>
+                  <code>WEB-INF/jetty-env.xml</code>
+                  or a context xml file–webapp scope
+                </li>
+              </ul>
+            </div>
           </div>
-</body>
+        </div>
+      </div>
+    </div>
+  </body>
 </html>

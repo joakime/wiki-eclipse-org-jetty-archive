@@ -1,106 +1,124 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
-<head>
+  <head>
     <title>Jetty WTP Plugin</title>
-    <link rel="stylesheet" media="screen, print" href="wiki-style.css"/>
-</head>
-<body>
-<div class="col-md-20" id="mainContent">
-                      <ul class="nav nav-tabs noprint hidden-print" role="tablist">
-                       <li class="active" id="ca-nstab-main"><a href="Configure Form Size.html" accesskey="c" tabindex="-1" title="View the content page [c]">Page</a></li>
-                        <li id="ca-talk" class="new"><a accesskey="t" tabindex="-1" title="Discussion about the content page [t]" href="edit">Discussion</a></li>
-                        <li id="ca-viewsource"><a href="edit" accesskey="e" tabindex="-1" title="This page is protected.&#10;You can view its source [e]">View source</a></li>
-                        <li id="ca-history" class="collapsible"><a title="Past revisions of this page [h]" tabindex="-1" accesskey="h" href="edit">History</a></li>
-                      </ul>            <div class="tab-content background-white">
-              <div id="tab-pane-main-page-content" class="tab-pane active">
-
-                
-                <h1 id="firstHeading" class="firstHeading page-header">
-                  <span dir="auto">Jetty/Howto/Configure Form Size</span>
-                </h1>
-                <div id="main-page-content">
-
-                  <div class="alert alert-small alert-warning" id="contentSub"><span class="subpages">&lt; <a title="Jetty" href="../../Jetty.html">Jetty</a>‎ | <a href="../Howto.html" title="Jetty/Howto">Howto</a></span></div>
-
-                  
-                  
-                  <div lang="en" id="mw-content-text" dir="ltr" class="mw-content-ltr"><p><br/>
-</p><p><br/>
-</p>
-<div id="toc" class="toc"><div id="toctitle"><h2>Contents</h2></div>
-<ul>
-<li class="toclevel-1"><a href="Configure Form Size.html#Introduction"><span class="tocnumber">1</span> <span class="toctext">Introduction</span></a></li>
-<li class="toclevel-1"><a href="Configure Form Size.html#Changing_the_Maximum_Form_Size_for_a_Single_Webapp"><span class="tocnumber">2</span> <span class="toctext">Changing the Maximum Form Size for a Single Webapp</span></a></li>
-<li class="toclevel-1"><a href="Configure Form Size.html#Changing_the_Maximum_Form_Size_for_All_Apps_on_a_Server"><span class="tocnumber">3</span> <span class="toctext">Changing the Maximum Form Size for All Apps on a Server</span></a></li>
-<li class="toclevel-1"><a href="Configure Form Size.html#Changing_the_Maximum_Form_Size_for_All_Apps_in_the_JVM"><span class="tocnumber">4</span> <span class="toctext">Changing the Maximum Form Size for All Apps in the JVM</span></a></li>
-</ul>
-</div>
-
-<h2><span class="mw-headline" id="Introduction">Introduction</span></h2>
-<div style="background-color: #f9f6b7; border: 1px solid #c4c295; color: black; padding: 5px; margin: 1ex 0; min-height: 35px; padding-left: 45px; font-size: 150%; color: white; background-color: #FF8888; padding: 50px" class="messagebox">
-<div style="float: left; margin-left: -40px;"><a href="https://wiki.eclipse.org/File:Warning2.png" class="image"><img width="35" height="35" src="../../images/3/37/Warning2.png" alt="Warning2.png"/></a></div>
-<div>Jetty 7 and Jetty 8 are now EOL (End of Life)<br/>
-<p><br/>
-<br/>
-<br/>
-THIS IS NOT THE DOCUMENTATION YOU ARE LOOKING FOR!!!!!<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-All development and stable releases are being performed with Jetty 9 and Jetty 10.<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-This <b>wiki is now officially out of date</b> and all content has been moved to the <a class="external text" href="http://www.eclipse.org/jetty/documentation" rel="nofollow">Jetty Documentation Hub</a><br/> 
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-</p>
-Direct Link to updated documentation: <a href="http://www.eclipse.org/jetty/documentation/current/setting-form-size.html" class="external free" rel="nofollow">http://www.eclipse.org/jetty/documentation/current/setting-form-size.html</a></div>
-</div>
-<p><br/>
-Jetty limits the amount of data that can post back from a browser or other client to the server. This helps protect the server against denial of service attacks by malicious clients sending huge amounts of data. The default maximum size Jetty permits is 200000 bytes. You can change this default for a particular webapp, for all webapps on a particular Server instance, or all webapps within the same JVM.
-</p>
-<h2><span id="Changing_the_Maximum_Form_Size_for_a_Single_Webapp" class="mw-headline">Changing the Maximum Form Size for a Single Webapp</span></h2>
-<p>The method to invoke is:
-</p>
-<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="java source-java"><pre class="de1">ContextHandler.<span class="me1">setMaxFormContentSize</span><span class="br0">(</span><span class="kw4">int</span> maxSize<span class="br0">)</span><span class="sy0">;</span></pre></div></div>
-<p>You can do this either in a <a title="Jetty/Feature/ContextDeployer" class="mw-redirect" href="https://wiki.eclipse.org/Jetty/Feature/ContextDeployer">context XML deployment descriptor</a> external to the webapp, or in a <a href="../Reference/jetty-web.xml.html" title="Jetty/Reference/jetty-web.xml"><tt>jetty-web.xml</tt> file</a> in the webapp's <tt>WEB-INF</tt> directory.
-</p><p>In either case the syntax of the XML file is the same:
-</p>
-<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="xml source-xml"><pre class="de1"><span class="sc3"><span class="re1">&lt;Configure</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.webapp.WebAppContext"</span><span class="re2">&gt;</span></span>
+    <link href="wiki-style.css" media="screen, print" rel="stylesheet" />
+  </head>
+  <body>
+    <div class="col-md-20" id="mainContent">
+      <div class="tab-content background-white">
+        <div class="tab-pane active" id="tab-pane-main-page-content">
+          <h1 class="firstHeading page-header" id="firstHeading">
+            <span dir="auto">Jetty/Howto/Configure Form Size</span>
+          </h1>
+          <div id="main-page-content">
+            <div class="alert alert-small alert-warning" id="contentSub">
+              <span class="subpages">
+                &lt;
+                <a href="../../Jetty.html" title="Jetty">Jetty</a>
+                 |
+                <a href="../Howto.html" title="Jetty/Howto">Howto</a>
+              </span>
+            </div>
+            <div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="en">
+              <p>
+                <br />
+              </p>
+              <p>
+                <br />
+              </p>
+              <div class="toc" id="toc">
+                <div id="toctitle">
+                  <h2>Contents</h2>
+                </div>
+                <ul>
+                  <li class="toclevel-1">
+                    <a href="Configure Form Size.html#Introduction">
+                      <span class="tocnumber">1</span>
+                      <span class="toctext">Introduction</span>
+                    </a>
+                  </li>
+                  <li class="toclevel-1">
+                    <a href="Configure Form Size.html#Changing_the_Maximum_Form_Size_for_a_Single_Webapp">
+                      <span class="tocnumber">2</span>
+                      <span class="toctext">Changing the Maximum Form Size for a Single Webapp</span>
+                    </a>
+                  </li>
+                  <li class="toclevel-1">
+                    <a href="Configure Form Size.html#Changing_the_Maximum_Form_Size_for_All_Apps_on_a_Server">
+                      <span class="tocnumber">3</span>
+                      <span class="toctext">Changing the Maximum Form Size for All Apps on a Server</span>
+                    </a>
+                  </li>
+                  <li class="toclevel-1">
+                    <a href="Configure Form Size.html#Changing_the_Maximum_Form_Size_for_All_Apps_in_the_JVM">
+                      <span class="tocnumber">4</span>
+                      <span class="toctext">Changing the Maximum Form Size for All Apps in the JVM</span>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+              <h2>
+                <span class="mw-headline" id="Introduction">Introduction</span>
+              </h2>
+              <p>
+                <br />
+                Jetty limits the amount of data that can post back from a browser or other client to the server. This helps protect the server against denial of service attacks by malicious clients sending huge amounts of data. The default maximum size Jetty permits is 200000 bytes. You can change this default for a particular webapp, for all webapps on a particular Server instance, or all webapps within the same JVM.
+              </p>
+              <h2>
+                <span class="mw-headline" id="Changing_the_Maximum_Form_Size_for_a_Single_Webapp">Changing the Maximum Form Size for a Single Webapp</span>
+              </h2>
+              <p>The method to invoke is:</p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="java source-java">
+                  <pre class="de1" xml:space="preserve">ContextHandler.<span class="me1">setMaxFormContentSize</span><span class="br0">(</span><span class="kw4">int</span> maxSize<span class="br0">)</span><span class="sy0">;</span></pre>
+                </div>
+              </div>
+              <p>
+                You can do this either in a
+                <a class="mw-redirect" href="https://wiki.eclipse.org/Jetty/Feature/ContextDeployer" title="Jetty/Feature/ContextDeployer">context XML deployment descriptor</a>
+                external to the webapp, or in a
+                <a href="../Reference/jetty-web.xml.html" title="Jetty/Reference/jetty-web.xml">
+                  <tt>jetty-web.xml</tt>
+                  file
+                </a>
+                in the webapp's
+                <tt>WEB-INF</tt>
+                directory.
+              </p>
+              <p>In either case the syntax of the XML file is the same:</p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="xml source-xml">
+                  <pre class="de1" xml:space="preserve"><span class="sc3"><span class="re1">&lt;Configure</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.webapp.WebAppContext"</span><span class="re2">&gt;</span></span>
   <span class="sc-1">&lt;!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - --&gt;</span>
   <span class="sc-1">&lt;!-- Max Form Size                                                   --&gt;</span>
   <span class="sc-1">&lt;!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - --&gt;</span>
   <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"maxFormContentSize"</span><span class="re2">&gt;</span></span>200000<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
-<span class="sc3"><span class="re1">&lt;/Configure<span class="re2">&gt;</span></span></span></pre></div></div>
-<h2><span class="mw-headline" id="Changing_the_Maximum_Form_Size_for_All_Apps_on_a_Server">Changing the Maximum Form Size for All Apps on a Server</span></h2>
-<p>Set an attribute on the Server instance for which you want to modify the maximum form content size:
-</p>
-<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="xml source-xml"><pre class="de1"><span class="sc3"><span class="re1">&lt;configure</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.server.Server"</span><span class="re2">&gt;</span></span>
+<span class="sc3"><span class="re1">&lt;/Configure<span class="re2">&gt;</span></span></span></pre>
+                </div>
+              </div>
+              <h2>
+                <span class="mw-headline" id="Changing_the_Maximum_Form_Size_for_All_Apps_on_a_Server">Changing the Maximum Form Size for All Apps on a Server</span>
+              </h2>
+              <p>Set an attribute on the Server instance for which you want to modify the maximum form content size:</p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="xml source-xml">
+                  <pre class="de1" xml:space="preserve"><span class="sc3"><span class="re1">&lt;configure</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.server.Server"</span><span class="re2">&gt;</span></span>
       <span class="sc3"><span class="re1">&lt;Call</span> <span class="re0">name</span>=<span class="st0">"setAttribute"</span><span class="re2">&gt;</span></span>
       <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>org.eclipse.jetty.server.Request.maxFormContentSize<span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
       <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>200000<span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
     <span class="sc3"><span class="re1">&lt;/Call<span class="re2">&gt;</span></span></span>
-<span class="sc3"><span class="re1">&lt;/configure<span class="re2">&gt;</span></span></span></pre></div></div>
-<h2><span id="Changing_the_Maximum_Form_Size_for_All_Apps_in_the_JVM" class="mw-headline">Changing the Maximum Form Size for All Apps in the JVM</span></h2>
-<p>Use the system property "org.eclipse.jetty.server.Request.maxFormContentSize".
-</p>
-
-</div>
-
-                    <div class="catlinks" id="catlinks"><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="https://wiki.eclipse.org/Special:Categories" title="Special:Categories">Categories</a>: <ul><li><a href="https://wiki.eclipse.org/Category:Jetty" title="Category:Jetty">Jetty</a></li><li><a href="https://wiki.eclipse.org/Category:Jetty_Howto" title="Category:Jetty Howto">Jetty Howto</a></li></ul></div></div>
-                                  </div>
+<span class="sc3"><span class="re1">&lt;/configure<span class="re2">&gt;</span></span></span></pre>
+                </div>
               </div>
+              <h2>
+                <span class="mw-headline" id="Changing_the_Maximum_Form_Size_for_All_Apps_in_the_JVM">Changing the Maximum Form Size for All Apps in the JVM</span>
+              </h2>
+              <p>Use the system property "org.eclipse.jetty.server.Request.maxFormContentSize".</p>
             </div>
           </div>
-</body>
+        </div>
+      </div>
+    </div>
+  </body>
 </html>

@@ -1,128 +1,188 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
-<head>
+  <head>
     <title>Jetty WTP Plugin</title>
-    <link rel="stylesheet" media="screen, print" href="wiki-style.css"/>
-</head>
-<body>
-<div class="col-md-20" id="mainContent">
-                      <ul class="nav nav-tabs noprint hidden-print" role="tablist">
-                       <li class="active" id="ca-nstab-main"><a title="View the content page [c]" href="Releasing.html" accesskey="c" tabindex="-1">Page</a></li>
-                        <li id="ca-talk" class="new"><a title="Discussion about the content page [t]" tabindex="-1" accesskey="t" href="edit">Discussion</a></li>
-                        <li id="ca-viewsource"><a title="This page is protected.&#10;You can view its source [e]" accesskey="e" tabindex="-1" href="edit">View source</a></li>
-                        <li id="ca-history" class="collapsible"><a accesskey="h" tabindex="-1" href="edit" title="Past revisions of this page [h]">History</a></li>
-                      </ul>            <div class="tab-content background-white">
-              <div class="tab-pane active" id="tab-pane-main-page-content">
-
-                
-                <h1 class="firstHeading page-header" id="firstHeading">
-                  <span dir="auto">Jetty/Contributor/Releasing</span>
-                </h1>
-                <div id="main-page-content">
-
-                  <div id="contentSub" class="alert alert-small alert-warning"><span class="subpages">&lt; <a href="../../Jetty.html" title="Jetty">Jetty</a>‎ | <a href="../Contributor.html" title="Jetty/Contributor">Contributor</a></span></div>
-
-                  
-                  
-                  <div class="mw-content-ltr" id="mw-content-text" lang="en" dir="ltr"><p><br/>
-</p>
-<div style="background-color: #f9f6b7; border: 1px solid #c4c295; color: black; padding: 5px; margin: 1ex 0; min-height: 35px; padding-left: 45px; font-size: 150%; color: white; background-color: #FF8888; padding: 50px" class="messagebox">
-<div style="float: left; margin-left: -40px;"><a class="image" href="https://wiki.eclipse.org/File:Warning2.png"><img height="35" alt="Warning2.png" src="../../images/3/37/Warning2.png" width="35"/></a></div>
-<div>Jetty 7 and Jetty 8 are now EOL (End of Life)<br/>
-<p><br/>
-<br/>
-<br/>
-THIS IS NOT THE DOCUMENTATION YOU ARE LOOKING FOR!!!!!<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-All development and stable releases are being performed with Jetty 9 and Jetty 10.<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-This <b>wiki is now officially out of date</b> and all content has been moved to the <a href="http://www.eclipse.org/jetty/documentation" class="external text" rel="nofollow">Jetty Documentation Hub</a><br/> 
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-</p>
-Direct Link to updated documentation: <a href="http://www.eclipse.org/jetty/documentation/current/releasing-jetty.html" class="external free" rel="nofollow">http://www.eclipse.org/jetty/documentation/current/releasing-jetty.html</a></div>
-</div>
-<p><br/>
-The Jetty project uses Apache Maven to build and release its software artifacts.  This terminology is oft confused with the release process of projects within Eclipse so we are endeavoring to bridge these differences.  We are still working out the process for releasing Jetty in the Eclipse definition of the word; this will be documented once we are there.
-</p><p><br/>
-</p>
-<div class="toc" id="toc"><div id="toctitle"><h2>Contents</h2></div>
-<ul>
-<li class="toclevel-1 tocsection-1"><a href="Releasing.html#Update_Eclipse_Project_Plan"><span class="tocnumber">1</span> <span class="toctext">Update Eclipse Project Plan</span></a></li>
-<li class="toclevel-1 tocsection-2"><a href="Releasing.html#Releasing_Artifacts"><span class="tocnumber">2</span> <span class="toctext">Releasing Artifacts</span></a></li>
-<li class="toclevel-1 tocsection-3"><a href="Releasing.html#Building_and_Deploying_Aggregate_Docs"><span class="tocnumber">3</span> <span class="toctext">Building and Deploying Aggregate Docs</span></a></li>
-<li class="toclevel-1 tocsection-4"><a href="Releasing.html#Deploying_distribution_files_to_download.eclipse.org"><span class="tocnumber">4</span> <span class="toctext">Deploying distribution files to download.eclipse.org</span></a></li>
-<li class="toclevel-1 tocsection-5"><a href="Releasing.html#Do_a_Codehaus_release_ASAP"><span class="tocnumber">5</span> <span class="toctext">Do a Codehaus release ASAP</span></a></li>
-<li class="toclevel-1 tocsection-6"><a href="Releasing.html#DO_SOME_MANUAL_TESTING"><span class="tocnumber">6</span> <span class="toctext">DO SOME MANUAL TESTING</span></a></li>
-<li class="toclevel-1 tocsection-7"><a href="Releasing.html#Updating_the_stable_links"><span class="tocnumber">7</span> <span class="toctext">Updating the stable links</span></a></li>
-<li class="toclevel-1 tocsection-8"><a href="Releasing.html#Updating_the_Eclipse_websites_downloads_page"><span class="tocnumber">8</span> <span class="toctext">Updating the Eclipse websites downloads page</span></a>
-<ul>
-<li class="toclevel-2 tocsection-9"><a href="Releasing.html#Set_up_in_Eclipse"><span class="tocnumber">8.1</span> <span class="toctext">Set up in Eclipse</span></a></li>
-<li class="toclevel-2 tocsection-10"><a href="Releasing.html#Preview_locally_.28optional.29"><span class="tocnumber">8.2</span> <span class="toctext">Preview locally (optional)</span></a></li>
-</ul>
-</li>
-<li class="toclevel-1 tocsection-11"><a href="Releasing.html#Adding_a_Link_to_the_Index_on_the_Wiki"><span class="tocnumber">9</span> <span class="toctext">Adding a Link to the Index on the Wiki</span></a></li>
-</ul>
-</div>
-
-<h2><span id="Update_Eclipse_Project_Plan" class="mw-headline">Update Eclipse Project Plan</span></h2>
-<p>Do this in the git admin repository before any release.  The file is jetty-project-plan.xml in the org.eclipse.jetty.admin.git repository.
-</p>
-<h2><span id="Releasing_Artifacts" class="mw-headline">Releasing Artifacts</span></h2>
-<pre><a title="Jetty/Release Process" class="mw-redirect" href="https://wiki.eclipse.org/Jetty/Release_Process">Step by Step Release Process</a> 
+    <link href="wiki-style.css" media="screen, print" rel="stylesheet" />
+  </head>
+  <body>
+    <div class="col-md-20" id="mainContent">
+      <div class="tab-content background-white">
+        <div class="tab-pane active" id="tab-pane-main-page-content">
+          <h1 class="firstHeading page-header" id="firstHeading">
+            <span dir="auto">Jetty/Contributor/Releasing</span>
+          </h1>
+          <div id="main-page-content">
+            <div class="alert alert-small alert-warning" id="contentSub">
+              <span class="subpages">
+                &lt;
+                <a href="../../Jetty.html" title="Jetty">Jetty</a>
+                 |
+                <a href="../Contributor.html" title="Jetty/Contributor">Contributor</a>
+              </span>
+            </div>
+            <div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="en">
+              <p>
+                <br />
+              </p>
+              <p>
+                <br />
+                The Jetty project uses Apache Maven to build and release its software artifacts.  This terminology is oft confused with the release process of projects within Eclipse so we are endeavoring to bridge these differences.  We are still working out the process for releasing Jetty in the Eclipse definition of the word; this will be documented once we are there.
+              </p>
+              <p>
+                <br />
+              </p>
+              <div class="toc" id="toc">
+                <div id="toctitle">
+                  <h2>Contents</h2>
+                </div>
+                <ul>
+                  <li class="toclevel-1 tocsection-1">
+                    <a href="Releasing.html#Update_Eclipse_Project_Plan">
+                      <span class="tocnumber">1</span>
+                      <span class="toctext">Update Eclipse Project Plan</span>
+                    </a>
+                  </li>
+                  <li class="toclevel-1 tocsection-2">
+                    <a href="Releasing.html#Releasing_Artifacts">
+                      <span class="tocnumber">2</span>
+                      <span class="toctext">Releasing Artifacts</span>
+                    </a>
+                  </li>
+                  <li class="toclevel-1 tocsection-3">
+                    <a href="Releasing.html#Building_and_Deploying_Aggregate_Docs">
+                      <span class="tocnumber">3</span>
+                      <span class="toctext">Building and Deploying Aggregate Docs</span>
+                    </a>
+                  </li>
+                  <li class="toclevel-1 tocsection-4">
+                    <a href="Releasing.html#Deploying_distribution_files_to_download.eclipse.org">
+                      <span class="tocnumber">4</span>
+                      <span class="toctext">Deploying distribution files to download.eclipse.org</span>
+                    </a>
+                  </li>
+                  <li class="toclevel-1 tocsection-5">
+                    <a href="Releasing.html#Do_a_Codehaus_release_ASAP">
+                      <span class="tocnumber">5</span>
+                      <span class="toctext">Do a Codehaus release ASAP</span>
+                    </a>
+                  </li>
+                  <li class="toclevel-1 tocsection-6">
+                    <a href="Releasing.html#DO_SOME_MANUAL_TESTING">
+                      <span class="tocnumber">6</span>
+                      <span class="toctext">DO SOME MANUAL TESTING</span>
+                    </a>
+                  </li>
+                  <li class="toclevel-1 tocsection-7">
+                    <a href="Releasing.html#Updating_the_stable_links">
+                      <span class="tocnumber">7</span>
+                      <span class="toctext">Updating the stable links</span>
+                    </a>
+                  </li>
+                  <li class="toclevel-1 tocsection-8">
+                    <a href="Releasing.html#Updating_the_Eclipse_websites_downloads_page">
+                      <span class="tocnumber">8</span>
+                      <span class="toctext">Updating the Eclipse websites downloads page</span>
+                    </a>
+                    <ul>
+                      <li class="toclevel-2 tocsection-9">
+                        <a href="Releasing.html#Set_up_in_Eclipse">
+                          <span class="tocnumber">8.1</span>
+                          <span class="toctext">Set up in Eclipse</span>
+                        </a>
+                      </li>
+                      <li class="toclevel-2 tocsection-10">
+                        <a href="Releasing.html#Preview_locally_.28optional.29">
+                          <span class="tocnumber">8.2</span>
+                          <span class="toctext">Preview locally (optional)</span>
+                        </a>
+                      </li>
+                    </ul>
+                  </li>
+                  <li class="toclevel-1 tocsection-11">
+                    <a href="Releasing.html#Adding_a_Link_to_the_Index_on_the_Wiki">
+                      <span class="tocnumber">9</span>
+                      <span class="toctext">Adding a Link to the Index on the Wiki</span>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+              <h2>
+                <span class="mw-headline" id="Update_Eclipse_Project_Plan">Update Eclipse Project Plan</span>
+              </h2>
+              <p>Do this in the git admin repository before any release.  The file is jetty-project-plan.xml in the org.eclipse.jetty.admin.git repository.</p>
+              <h2>
+                <span class="mw-headline" id="Releasing_Artifacts">Releasing Artifacts</span>
+              </h2>
+              <pre xml:space="preserve"><a class="mw-redirect" href="https://wiki.eclipse.org/Jetty/Release_Process" title="Jetty/Release Process">Step by Step Release Process</a> 
 </pre>
-<p><br/>
-The released artifacts will be staged to oss.sonatype.org where they await promotion when they will be released to the maven central repository.  More on this later.
-</p>
-<h2><span class="mw-headline" id="Building_and_Deploying_Aggregate_Docs">Building and Deploying Aggregate Docs</span></h2>
-<p>Define the <i>jetty.eclipse.website</i> server entry in your <i>.m2/settings.xml</i> file.  You'll need to have access to the dev.eclipse.org machine to perform these actions.  If you don't know if you have access to this then you probably don't and will need to ask a project leader for help.
-</p><p>To build and deploy the aggregate javadoc and jxr bits:
-</p>
-<pre>cd target/checkout
+              <p>
+                <br />
+                The released artifacts will be staged to oss.sonatype.org where they await promotion when they will be released to the maven central repository.  More on this later.
+              </p>
+              <h2>
+                <span class="mw-headline" id="Building_and_Deploying_Aggregate_Docs">Building and Deploying Aggregate Docs</span>
+              </h2>
+              <p>
+                Define the
+                <i>jetty.eclipse.website</i>
+                server entry in your
+                <i>.m2/settings.xml</i>
+                file.  You'll need to have access to the dev.eclipse.org machine to perform these actions.  If you don't know if you have access to this then you probably don't and will need to ask a project leader for help.
+              </p>
+              <p>To build and deploy the aggregate javadoc and jxr bits:</p>
+              <pre xml:space="preserve">cd target/checkout
 mvn -Paggregate-site javadoc:aggregate jxr:jxr
 mvn -N site:deploy
 </pre>
-<p>This will generate the aggregate docs and deploy them to the <i>/home/www/jetty/&lt;project version&gt;/jetty-project</i> directory on <i>download.eclipse.org</i>.  The last step is to ssh to that machine and adjust the placement of the apidocs and xref directories to remove the jetty-project folder from the url so that we maintain a clean and consistent api url scheme.
-</p>
-<pre>ssh $COMMITTER_ID@dev.eclipse.org
+              <p>
+                This will generate the aggregate docs and deploy them to the
+                <i>/home/www/jetty/&lt;project version&gt;/jetty-project</i>
+                directory on
+                <i>download.eclipse.org</i>
+                .  The last step is to ssh to that machine and adjust the placement of the apidocs and xref directories to remove the jetty-project folder from the url so that we maintain a clean and consistent api url scheme.
+              </p>
+              <pre xml:space="preserve">ssh $COMMITTER_ID@dev.eclipse.org
 cd /home/data/httpd/download.eclipse.org/jetty/&lt;VERSION&gt;
 mv jetty-project/apidocs .
 mv jetty-project/xref .
 rmdir jetty-project
 </pre>
-<p>End result should be api documents accessible from <i>http://download.eclipse.org/jetty/&lt;project version&gt;/api-docs</i> and <i>http://download.eclipse.org/jetty/&lt;project version&gt;/xref</i>
-</p>
-<h2><span class="mw-headline" id="Deploying_distribution_files_to_download.eclipse.org">Deploying distribution files to download.eclipse.org</span></h2>
-<ul><li> download the files in <i>http://repo2.maven.org/maven2/org/eclipse/jetty/jetty-distribution/VERSION</i> into a directory called 'dist':</li></ul>
-<pre>   mkdir /tmp/dist
+              <p>
+                End result should be api documents accessible from
+                <i>http://download.eclipse.org/jetty/&lt;project version&gt;/api-docs</i>
+                and
+                <i>http://download.eclipse.org/jetty/&lt;project version&gt;/xref</i>
+              </p>
+              <h2>
+                <span class="mw-headline" id="Deploying_distribution_files_to_download.eclipse.org">Deploying distribution files to download.eclipse.org</span>
+              </h2>
+              <ul>
+                <li>
+                  download the files in
+                  <i>http://repo2.maven.org/maven2/org/eclipse/jetty/jetty-distribution/VERSION</i>
+                  into a directory called 'dist':
+                </li>
+              </ul>
+              <pre xml:space="preserve">   mkdir /tmp/dist
    cd /tmp/dist
-   wget -nd -nH -r -l1 <a rel="nofollow" class="external free" href="https://oss.sonatype.org/content/groups/jetty-with-staging/org/eclipse/jetty/jetty-distribution/">https://oss.sonatype.org/content/groups/jetty-with-staging/org/eclipse/jetty/jetty-distribution/</a>&lt;VERSION&gt;
+   wget -nd -nH -r -l1 <a class="external free" href="https://oss.sonatype.org/content/groups/jetty-with-staging/org/eclipse/jetty/jetty-distribution/" rel="nofollow">https://oss.sonatype.org/content/groups/jetty-with-staging/org/eclipse/jetty/jetty-distribution/</a>&lt;VERSION&gt;
    rm Sonatype-content.css* index.html
    cd ..
    scp -r dist &lt;user&gt;@dev.eclipse.org:/home/data/httpd/download.eclipse.org/jetty&lt;VERSION&gt;
 </pre>
-<ul><li> </li>
-<li> update website links</li></ul>
-<h2><span id="Do_a_Codehaus_release_ASAP" class="mw-headline">Do a Codehaus release ASAP</span></h2>
-<p>Make sure a codehaus release is built and staged before the jetty release is promoted.
-</p>
-<h2><span id="DO_SOME_MANUAL_TESTING" class="mw-headline">DO SOME MANUAL TESTING</span></h2>
-<p>Test jetty, hightide and the plugin.  A good test line to run is:
-</p>
-<pre> java -Dcom.sun.management.jmxremote -jar start.jar \
+              <ul>
+                <li />
+                <li>update website links</li>
+              </ul>
+              <h2>
+                <span class="mw-headline" id="Do_a_Codehaus_release_ASAP">Do a Codehaus release ASAP</span>
+              </h2>
+              <p>Make sure a codehaus release is built and staged before the jetty release is promoted.</p>
+              <h2>
+                <span class="mw-headline" id="DO_SOME_MANUAL_TESTING">DO SOME MANUAL TESTING</span>
+              </h2>
+              <p>Test jetty, hightide and the plugin.  A good test line to run is:</p>
+              <pre xml:space="preserve"> java -Dcom.sun.management.jmxremote -jar start.jar \
  OPTIONS=ajp,rewrite \
  --pre=etc/jetty-jmx.xml \
  --pre=etc/jetty-logging.xml \
@@ -135,74 +195,96 @@ rmdir jetty-project
  etc/jetty-ssl.xml \
  etc/jetty-stats.xml
 </pre>
-<h2><span class="mw-headline" id="Updating_the_stable_links">Updating the stable links</span></h2>
-<p>Since we are not allowed to have symbolic links on the download site we have to log into the machine manually and remove the previous stable directory and 'cp -r &lt;full_version&gt; stable-&lt;major_version&gt;' to get it updated.  Maintaining the conventions we use on the site will allow all 'stable' links to be stable and not needed to update to the latest major Jetty build version. For example, to update 9.0.0.M5 as the stable version for the 9 series do:
-</p>
-<pre>ssh &lt;user&gt;@build.eclipse.org
+              <h2>
+                <span class="mw-headline" id="Updating_the_stable_links">Updating the stable links</span>
+              </h2>
+              <p>Since we are not allowed to have symbolic links on the download site we have to log into the machine manually and remove the previous stable directory and 'cp -r &lt;full_version&gt; stable-&lt;major_version&gt;' to get it updated.  Maintaining the conventions we use on the site will allow all 'stable' links to be stable and not needed to update to the latest major Jetty build version. For example, to update 9.0.0.M5 as the stable version for the 9 series do:</p>
+              <pre xml:space="preserve">ssh &lt;user&gt;@build.eclipse.org
 cd downloads
 rm -fr stable-9
 cp -r 9.0.0.M5 stable-9
 ./index.sh
 </pre>
-<p><br/>
-</p>
-<h2><span id="Updating_the_Eclipse_websites_downloads_page" class="mw-headline">Updating the Eclipse websites downloads page</span></h2>
-<p>The Eclipse website is in CVS, viewable from <a href="http://dev.eclipse.org/viewcvs/index.cgi/www/jetty/?root=Eclipse_Website" class="external free" rel="nofollow">http://dev.eclipse.org/viewcvs/index.cgi/www/jetty/?root=Eclipse_Website</a>. Access details are:
-</p>
-<div class="narrow-list">
-<dl><dt> Host </dt>
-<dd> dev.eclipse.org</dd>
-<dt> Repository Path </dt>
-<dd> /cvsroot/org.eclipse</dd>
-<dt> User </dt>
-<dd> (committer username)</dd>
-<dt> Password </dt>
-<dd> (committer password)</dd>
-<dt> Connection Type </dt>
-<dd> extssh</dd>
-<dt> Module </dt>
-<dd> www/jetty</dd></dl>
-</div>
-<p>Any commits you make will automatically show up live after a few minutes.
-</p>
-<h3><span id="Set_up_in_Eclipse" class="mw-headline">Set up in Eclipse</span></h3>
-<ol><li> import projects from CVS</li>
-<li> create a new repository location</li>
-<li> use an existing module (www/jetty)</li></ol>
-<p>Then you can simply edit the page, and commit your changes.
-</p>
-<h3><span id="Preview_locally_.28optional.29" class="mw-headline">Preview locally (optional)</span></h3>
-<p>If you want to be able to preview your changes locally, you need to have Apache running, and check out an additional module, eclipse.org-common:
-</p>
-<div class="narrow-list">
-<dl><dt> Host </dt>
-<dd> dev.eclipse.org</dd>
-<dt> Repository Path </dt>
-<dd>  /cvsroot/technology</dd>
-<dt> User </dt>
-<dd>	anonymous</dd>
-<dt> Password </dt>
-<dd>	(leave blank)</dd>
-<dt> Connection Type </dt>
-<dd>	pserver </dd>
-<dt> Module </dt>
-<dd> org.eclipse.phoenix/eclipse.org-common</dd></dl>
-</div>
-<ol><li> cd /var/www</li>
-<li> ln -s /path/to/eclipse.org-common eclipse.org-common</li>
-<li> ln -s /path/to/www/jetty jetty</li></ol>
-<p>Then you'll be able to see the website on <a href="http://localhost/jetty" class="external free" rel="nofollow">http://localhost/jetty</a>, pre-commits.
-</p>
-<h2><span class="mw-headline" id="Adding_a_Link_to_the_Index_on_the_Wiki">Adding a Link to the Index on the Wiki</span></h2>
-<p>Update <a href="../Reference/Index of Generated Release Documents.html" title="Jetty/Reference/Index of Generated Release Documents">Jetty/Reference/Index of Generated Release Documents</a>; add the newest version to the top of the page. Use the <a title="Template:Jetty Release Document" href="https://wiki.eclipse.org/Template:Jetty_Release_Document">Jetty Release Document template</a>
-</p>
-
-</div>
-
-                    <div class="catlinks" id="catlinks"><div class="mw-normal-catlinks" id="mw-normal-catlinks"><a href="https://wiki.eclipse.org/Special:Categories" title="Special:Categories">Categories</a>: <ul><li><a href="https://wiki.eclipse.org/Category:Jetty" title="Category:Jetty">Jetty</a></li><li><a title="Category:Jetty Contributor" href="https://wiki.eclipse.org/Category:Jetty_Contributor">Jetty Contributor</a></li></ul></div></div>
-                                  </div>
+              <p>
+                <br />
+              </p>
+              <h2>
+                <span class="mw-headline" id="Updating_the_Eclipse_websites_downloads_page">Updating the Eclipse websites downloads page</span>
+              </h2>
+              <p>
+                The Eclipse website is in CVS, viewable from
+                <a class="external free" href="http://dev.eclipse.org/viewcvs/index.cgi/www/jetty/?root=Eclipse_Website" rel="nofollow">http://dev.eclipse.org/viewcvs/index.cgi/www/jetty/?root=Eclipse_Website</a>
+                . Access details are:
+              </p>
+              <div class="narrow-list">
+                <dl>
+                  <dt>Host </dt>
+                  <dd>dev.eclipse.org</dd>
+                  <dt>Repository Path </dt>
+                  <dd>/cvsroot/org.eclipse</dd>
+                  <dt>User </dt>
+                  <dd>(committer username)</dd>
+                  <dt>Password </dt>
+                  <dd>(committer password)</dd>
+                  <dt>Connection Type </dt>
+                  <dd>extssh</dd>
+                  <dt>Module </dt>
+                  <dd>www/jetty</dd>
+                </dl>
               </div>
+              <p>Any commits you make will automatically show up live after a few minutes.</p>
+              <h3>
+                <span class="mw-headline" id="Set_up_in_Eclipse">Set up in Eclipse</span>
+              </h3>
+              <ol>
+                <li>import projects from CVS</li>
+                <li>create a new repository location</li>
+                <li>use an existing module (www/jetty)</li>
+              </ol>
+              <p>Then you can simply edit the page, and commit your changes.</p>
+              <h3>
+                <span class="mw-headline" id="Preview_locally_.28optional.29">Preview locally (optional)</span>
+              </h3>
+              <p>If you want to be able to preview your changes locally, you need to have Apache running, and check out an additional module, eclipse.org-common:</p>
+              <div class="narrow-list">
+                <dl>
+                  <dt>Host </dt>
+                  <dd>dev.eclipse.org</dd>
+                  <dt>Repository Path </dt>
+                  <dd>/cvsroot/technology</dd>
+                  <dt>User </dt>
+                  <dd>anonymous</dd>
+                  <dt>Password </dt>
+                  <dd>(leave blank)</dd>
+                  <dt>Connection Type </dt>
+                  <dd>pserver</dd>
+                  <dt>Module </dt>
+                  <dd>org.eclipse.phoenix/eclipse.org-common</dd>
+                </dl>
+              </div>
+              <ol>
+                <li>cd /var/www</li>
+                <li>ln -s /path/to/eclipse.org-common eclipse.org-common</li>
+                <li>ln -s /path/to/www/jetty jetty</li>
+              </ol>
+              <p>
+                Then you'll be able to see the website on
+                <a class="external free" href="http://localhost/jetty" rel="nofollow">http://localhost/jetty</a>
+                , pre-commits.
+              </p>
+              <h2>
+                <span class="mw-headline" id="Adding_a_Link_to_the_Index_on_the_Wiki">Adding a Link to the Index on the Wiki</span>
+              </h2>
+              <p>
+                Update
+                <a href="../Reference/Index of Generated Release Documents.html" title="Jetty/Reference/Index of Generated Release Documents">Jetty/Reference/Index of Generated Release Documents</a>
+                ; add the newest version to the top of the page. Use the
+                <a href="https://wiki.eclipse.org/Template:Jetty_Release_Document" title="Template:Jetty Release Document">Jetty Release Document template</a>
+              </p>
             </div>
           </div>
-</body>
+        </div>
+      </div>
+    </div>
+  </body>
 </html>

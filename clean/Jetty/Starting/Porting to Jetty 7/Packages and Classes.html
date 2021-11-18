@@ -1,752 +1,660 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
-<head>
+  <head>
     <title>Jetty WTP Plugin</title>
-    <link rel="stylesheet" media="screen, print" href="wiki-style.css"/>
-</head>
-<body>
-<div id="mainContent" class="col-md-20">
-                                 <div class="tab-content background-white">
-              <div id="tab-pane-main-page-content" class="tab-pane active">
-
-                
-                <h1 class="firstHeading page-header" id="firstHeading">
-                  <span dir="auto">Jetty/Starting/Porting to Jetty 7/Packages and Classes</span>
-                </h1>
-                <div id="main-page-content">
-
-                  <div class="alert alert-small alert-warning" id="contentSub"><span class="subpages">&lt; <a href="../../../Jetty.html" title="Jetty">Jetty</a>‎ | <a title="Jetty/Starting" href="../../Starting.html">Starting</a>‎ | <a href="../Porting to Jetty 7.html" title="Jetty/Starting/Porting to Jetty 7">Porting to Jetty 7</a></span></div>
-
-                  
-                  
-                  <div dir="ltr" class="mw-content-ltr" lang="en" id="mw-content-text"><p><br/>
-</p><p><br/>
-</p>
-<div class="messagebox" style="background-color: #f9f6b7; border: 1px solid #c4c295; color: black; padding: 5px; margin: 1ex 0; min-height: 35px; padding-left: 45px; font-size: 150%; color: white; background-color: #FF8888; padding: 50px">
-<div style="float: left; margin-left: -40px;"><a class="image" href="https://wiki.eclipse.org/File:Warning2.png"><img src="../../../images/3/37/Warning2.png" alt="Warning2.png" width="35" height="35"/></a></div>
-<div>Jetty 7 and Jetty 8 are now EOL (End of Life)<br/>
-<p><br/>
-<br/>
-<br/>
-THIS IS NOT THE DOCUMENTATION YOU ARE LOOKING FOR!!!!!<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-All development and stable releases are being performed with Jetty 9 and Jetty 10.<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-This <b>wiki is now officially out of date</b> and all content has been moved to the <a class="external text" rel="nofollow" href="http://www.eclipse.org/jetty/documentation">Jetty Documentation Hub</a><br/> 
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-</p>
-Direct Link to updated documentation:  Unavailable</div>
-</div>
-<p><br/>
-</p>
-<h2><span class="mw-headline" id="Overview_of_changes">Overview of changes</span></h2>
-<table class="jetty-table">
-<caption> Quick guide to renamed packages and classes. (Covers most, but not all, cases)
-</caption>
-<tbody><tr>
-<th> Jetty 6
-</th>
-<th> Matching in Jetty 7
-</th>
-<th> Similar in Jetty 7
-</th></tr>
-<tr>
-<td> org.mortbay.(jetty).* </td>
-<td> org.eclipse.jetty.* </td>
-<td>
-</td></tr>
-<tr>
-<td> packages under modules/util - org.mortbay.util.*, org.mortbay.log, org.mortbay.component, org.mortbay.thread, org.mortbay.resource
-</td>
-<td> org.eclipse.jetty.util.*, org.eclipse.jetty.util.log, org.eclipse.jetty.util.component, etc
-</td></tr>
-<tr>
-<td> org.mortbay.jetty.security.UserRealm
-<p>org.mortbay.jetty.security.HashUserRealm
-</p>
-</td>
-<td>
-</td>
-<td> org.eclipse.jetty.security.LoginService
-<p>org.eclipse.jetty.security.HashLoginService
-</p>
-</td></tr>
-<tr>
-<td> org.mortbay.jetty.servlet.Context </td>
-<td> org.eclipse.jetty.servlet.ServletContextHandler </td>
-<td>
-</td></tr>
-<tr>
-<td> org.mortbay.util.ajax.Continuation
-<p>org.mortbay.util.ajax.ContinuationSupport
-</p>
-</td>
-<td> org.eclipse.jetty.continuation.Continuation
-<p>org.eclipse.jetty.continuation.ContinuationSupport
-</p>
-</td>
-<td>
-</td></tr></tbody></table>
-<table class="jetty-table">
-<caption> Other refactoring changes to watch out for when moving to Jetty 7
-</caption>
-<tbody><tr>
-<th> Type of change
-</th>
-<th> Jetty 6
-</th>
-<th> Jetty 7
-</th></tr>
-<tr>
-<td> Maven plugin artifact id
-</td>
-<td> maven-jetty-plugin
-</td>
-<td> jetty-maven-plugin
-</td></tr>
-<tr>
-<td> Split up server JAR
-</td>
-<td> jetty.jar
-</td>
-<td> jetty-server.jar, jetty-deploy.jar, jetty-io.jar, jetty-security.jar, jetty-servlet.jar, jetty-servlets.jar, jetty-webapp.jar, jetty-xml.jar
-</td></tr>
-<tr>
-<td> Removed unused module
-</td>
-<td> jetty-html.jar
-</td>
-<td> ~
-</td></tr>
-<tr>
-<td> Renamed JAR
-</td>
-<td> jetty-rewrite-handler.jar
-</td>
-<td> jetty-rewrite.jar
-</td></tr>
-<tr>
-<td> Renamed JAR
-</td>
-<td> jetty-management.jar
-</td>
-<td> jetty-jmx.jar
-</td></tr>
-<tr>
-<td> New Continuation JAR
-</td>
-<td> from jetty-util.jar
-</td>
-<td> jetty-continuation.jar
-</td></tr>
-<tr>
-<td> Removed class
-</td>
-<td> org.mortbay.jetty.plus.jaas.callback.DefaultCallbackHandler
-</td>
-<td> Inner class in JAASLoginService
-</td></tr></tbody></table>
-<p><br/>
-</p><p><br/>
-</p>
-<h2><span class="mw-headline" id="Full_List_of_Packages_and_Classes">Full List of Packages and Classes</span></h2>
-<p>For reference, a list of how the packages and class names have been changed. For those package names provided with no further comment, assume that all files from that package in Jetty 6 were moved to the corresponding package in Jetty 7. However, some packages were split up across different modules; for these we list the class names, or note briefly which files were moved.
-</p>
-<table class="jetty-table">
-<caption> Artifact: org.eclipse.jetty:jetty-util
-</caption>
-<tbody><tr>
-<th> New Package
-</th>
-<th> Previous Package
-</th>
-<th> Previous Artifact
-</th></tr>
-<tr>
-<td> org.eclipse.jetty.util.log
-</td>
-<td> org.mortbay.log
-</td>
-<td> modules/util
-</td></tr>
-<tr>
-<td> org.eclipse.jetty.util
-</td>
-<td> org.mortbay.util
-</td>
-<td> modules/util
-</td></tr>
-<tr>
-<td> org.eclipse.jetty.util.ajax
-</td>
-<td> org.mortbay.util.ajax (<i><b>JSON</b></i>)
-</td>
-<td> modules/util
-</td></tr>
-<tr>
-<td> org.eclipse.jetty.util.component
-</td>
-<td> org.mortbay.component
-</td>
-<td> modules/util
-</td></tr>
-<tr>
-<td> org.eclipse.jetty.util.thread
-</td>
-<td> org.mortbay.thread
-</td>
-<td> modules/util
-</td></tr>
-<tr>
-<td> org.eclipse.jetty.util.thread
-</td>
-<td> org.mortbay.thread.concurrent
-</td>
-<td> extras/threadpool
-</td></tr>
-<tr>
-<td> org.eclipse.jetty.util.resource
-</td>
-<td> org.mortbay.resource
-</td>
-<td> modules/jetty
-</td></tr></tbody></table>
-<table class="jetty-table">
-<caption> Artifact: org.eclipse.jetty:jetty-xml
-</caption>
-<tbody><tr>
-<th> New Package
-</th>
-<th> Previous Package
-</th>
-<th> Previous Artifact
-</th></tr>
-<tr>
-<td> org.eclipse.jetty.xml
-</td>
-<td> org.mortbay.xml
-</td>
-<td> modules/jetty
-</td></tr></tbody></table>
-<table class="jetty-table">
-<caption> Artifact: org.eclipse.jetty:jetty-io
-</caption>
-<tbody><tr>
-<th> New Package
-</th>
-<th> Previous Package
-</th>
-<th> Previous Artifact
-</th></tr>
-<tr>
-<td> org.eclipse.jetty.io
-</td>
-<td> org.mortbay.io
-</td>
-<td> modules/jetty
-</td></tr>
-<tr>
-<td> org.eclipse.jetty.io.bio
-</td>
-<td> org.mortbay.io.bio
-</td>
-<td> modules/jetty
-</td></tr>
-<tr>
-<td> org.eclipse.jetty.io.nio
-</td>
-<td> org.mortbay.io.nio
-</td>
-<td> modules/jetty
-</td></tr>
-<tr>
-<td> org.eclipse.jetty.http
-</td>
-<td> org.mortbay.jetty
-<p>(parser/generator)
-</p>
-</td>
-<td> modules/jetty
-</td></tr></tbody></table>
-<table class="jetty-table">
-<caption> Artifact: org.eclipse.jetty:jetty-server
-</caption>
-<tbody><tr>
-<th> New Package
-</th>
-<th> Previous Package
-</th>
-<th> Previous Artifact
-</th></tr>
-<tr>
-<td> org.eclipse.jetty.server
-</td>
-<td> org.mortbay.jetty
-<p>(most of the original server files)
-</p>
-</td>
-<td> modules/jetty
-</td></tr>
-<tr>
-<td> org.eclipse.jetty.server.handler
-</td>
-<td> org.mortbay.jetty.handler
-</td>
-<td> modules/jetty
-</td></tr>
-<tr>
-<td> org.eclipse.jetty.server.bio
-</td>
-<td> org.mortbay.jetty.bio
-</td>
-<td> modules/jetty
-</td></tr>
-<tr>
-<td> org.eclipse.jetty.server.nio
-</td>
-<td> org.mortbay.jetty.nio
-</td>
-<td> modules/jetty
-</td></tr>
-<tr>
-<td> org.eclipse.jetty.servlet.session
-</td>
-<td> org.mortbay.jetty.servlet (<i><b>session-related</b></i>)
-</td>
-<td> modules/jetty
-</td></tr>
-<tr>
-<td> org.eclipse.jetty.server.ssl
-</td>
-<td> org.mortbay.jetty.security (<i><b>ssl</b></i>)
-</td>
-<td> modules/jetty
-</td></tr></tbody></table>
-<table class="jetty-table">
-<caption> Artifact: org.eclipse.jetty:jetty-servlet
-</caption>
-<tbody><tr>
-<th> New Package
-</th>
-<th> Previous Package
-</th>
-<th> Previous Artifact
-</th></tr>
-<tr>
-<td> org.eclipse.jetty.servlet
-</td>
-<td> org.mortbay.jetty.servlet (<i><b>servlet-handling</b></i>)
-</td>
-<td> modules/jetty
-</td></tr></tbody></table>
-<table class="jetty-table">
-<caption> Artifact: org.eclipse.jetty:jetty-webapp
-</caption>
-<tbody><tr>
-<th> New Package
-</th>
-<th> Previous Package
-</th>
-<th> Previous Artifact
-</th></tr>
-<tr>
-<td> org.eclipse.jetty.webapp
-</td>
-<td> org.mortbay.jetty.webapp
-</td>
-<td> modules/jetty
-</td></tr></tbody></table>
-<table class="jetty-table">
-<caption> Artifact: org.eclipse.jetty:jetty-deploy
-</caption>
-<tbody><tr>
-<th> New Package
-</th>
-<th> Previous Package
-</th>
-<th> Previous Artifact
-</th></tr>
-<tr>
-<td> org.eclipse.jetty.deploy
-</td>
-<td> org.mortbay.jetty.deployer
-</td>
-<td> modules/jetty
-</td></tr></tbody></table>
-<table class="jetty-table">
-<caption> Artifact: org.eclipse.jetty:jetty-security
-</caption>
-<tbody><tr>
-<th> New Package
-</th>
-<th> Previous Package
-</th>
-<th> Previous Artifact
-</th></tr>
-<tr>
-<td> org.eclipse.jetty.security
-</td>
-<td> org.mortbay.jetty.security (<i><b>misc</b></i>)
-</td>
-<td> modules/jetty
-</td></tr>
-<tr>
-<td> org.eclipse.jetty.security.authentication
-</td>
-<td> org.mortbay.jetty.security (<i><b>authentication</b></i>)
-</td>
-<td> modules/jetty
-</td></tr></tbody></table>
-<table class="jetty-table">
-<caption> Artifact: org.eclipse.jetty:jetty-client
-</caption>
-<tbody><tr>
-<th> New Package
-</th>
-<th> Previous Package
-</th>
-<th> Previous Artifact
-</th></tr>
-<tr>
-<td> org.eclipse.jetty.client
-</td>
-<td> org.mortbay.jetty.client
-</td>
-<td> extras/client
-</td></tr>
-<tr>
-<td> org.eclipse.jetty.client.webdav
-</td>
-<td> org.mortbay.jetty.client.webdav
-</td>
-<td> extras/client
-</td></tr>
-<tr>
-<td> org.eclipse.jetty.client.security
-</td>
-<td> org.mortbay.jetty.client.security
-</td>
-<td> extras/client
-</td></tr></tbody></table>
-<table class="jetty-table">
-<caption> Artifact: org.eclipse.jetty:jetty-ajp
-</caption>
-<tbody><tr>
-<th> New Package
-</th>
-<th> Previous Package
-</th>
-<th> Previous Artifact
-</th></tr>
-<tr>
-<td> org.eclipse.jetty.ajp
-</td>
-<td> org.mortbay.jetty.ajp
-</td>
-<td> extras/ajp
-</td></tr></tbody></table>
-<table class="jetty-table">
-<caption> Artifact: org.eclipse.jetty:jetty-jmx
-</caption>
-<tbody><tr>
-<th> New Package
-</th>
-<th> Previous Package
-</th>
-<th> Previous Artifact
-</th></tr>
-<tr>
-<td> org.eclipse.jetty.jmx
-</td>
-<td> org.mortbay.management
-</td>
-<td> modules/management
-</td></tr>
-<tr>
-<td> org.eclipse.jetty.webapp.jmx
-</td>
-<td> org.mortbay.jetty.webapp.management
-</td>
-<td> modules/management
-</td></tr>
-<tr>
-<td> org.eclipse.jetty.servlet.jmx
-</td>
-<td> org.mortbay.jetty.servlet.management
-</td>
-<td> modules/management
-</td></tr>
-<tr>
-<td> org.eclipse.jetty.server.jmx
-</td>
-<td> org.mortbay.jetty.management
-</td>
-<td> modules/management
-</td></tr>
-<tr>
-<td> org.eclipse.jetty.handler.jmx
-</td>
-<td> org.mortbay.jetty.handler.management
-</td>
-<td> modules/management
-</td></tr></tbody></table>
-<table class="jetty-table">
-<caption> Artifact: org.eclipse.jetty:start
-</caption>
-<tbody><tr>
-<th> New Package
-</th>
-<th> Previous Package
-</th>
-<th> Previous Artifact
-</th></tr>
-<tr>
-<td> org.eclipse.jetty.start
-</td>
-<td> org.mortbay.start
-</td>
-<td> modules/start
-</td></tr></tbody></table>
-<table class="jetty-table">
-<caption> Artifact: org.eclipse.jetty:jetty-servlets
-</caption>
-<tbody><tr>
-<th> New Package
-</th>
-<th> Previous Package
-</th>
-<th> Previous Artifact
-</th></tr>
-<tr>
-<td> org.eclipse.jetty.servlets
-</td>
-<td> org.mortbay.servlet
-</td>
-<td> modules/util
-<p>modules/util5
-</p>
-</td></tr>
-<tr>
-<td> org.eclipse.jetty.servlets
-</td>
-<td> org.mortbay.servlet.jetty
-</td>
-<td> modules/jetty
-</td></tr>
-<tr>
-<td> <i><b>org.eclipse.jetty.servlets.ProxyServlet</b></i>
-</td>
-<td> org.mortbay.proxy.AsyncProxyServlet
-</td>
-<td> extras/client
-</td></tr></tbody></table>
-<table class="jetty-table">
-<caption> Artifact: org.eclipse.jetty:jetty-jndi
-</caption>
-<tbody><tr>
-<th> New Package
-</th>
-<th> Previous Package
-</th>
-<th> Previous Artifact
-</th></tr>
-<tr>
-<td> org.eclipse.jetty.jndi.local
-</td>
-<td> org.mortbay.naming.local
-</td>
-<td> modules/naming
-</td></tr>
-<tr>
-<td> org.eclipse.jetty.jndi.java
-</td>
-<td> org.mortbay.naming.java
-</td>
-<td> modules/naming
-</td></tr>
-<tr>
-<td> org.eclipse.jetty.jndi.factories
-</td>
-<td> org.mortbay.naming.factories
-</td>
-<td> modules/naming
-</td></tr>
-<tr>
-<td> org.eclipse.jetty.jndi
-</td>
-<td> org.mortbay.naming
-</td>
-<td> modules/naming
-</td></tr></tbody></table>
-<table class="jetty-table">
-<caption> Artifact: org.eclipse.jetty:jetty-plus
-</caption>
-<tbody><tr>
-<th> New Package
-</th>
-<th> Previous Package
-</th>
-<th> Previous Artifact
-</th></tr>
-<tr>
-<td> org.eclipse.jetty.plus.jaas.spi
-</td>
-<td> org.mortbay.jetty.plus.jaas.spi
-</td>
-<td> modules/plus
-</td></tr>
-<tr>
-<td> org.eclipse.jetty.plus.jaas.callback
-</td>
-<td> org.mortbay.jetty.plus.jaas.callback
-</td>
-<td> modules/plus
-</td></tr>
-<tr>
-<td> org.eclipse.jetty.plus.jaas
-</td>
-<td> org.mortbay.jetty.plus.jaas
-</td>
-<td> modules/plus
-</td></tr>
-<tr>
-<td> org.eclipse.jetty.plus.webapp
-</td>
-<td> org.mortbay.jetty.plus.webapp
-</td>
-<td> modules/plus
-</td></tr>
-<tr>
-<td> org.eclipse.jetty.plus.servlet
-</td>
-<td> org.mortbay.jetty.plus.servlet
-</td>
-<td> modules/plus
-</td></tr>
-<tr>
-<td> org.eclipse.jetty.plus.jndi
-</td>
-<td> org.mortbay.jetty.plus.naming
-</td>
-<td> modules/plus
-</td></tr>
-<tr>
-<td> org.eclipse.jetty.plus.annotation
-</td>
-<td> org.mortbay.jetty.plus.annotation
-</td>
-<td> modules/plus
-</td></tr></tbody></table>
-<table class="jetty-table">
-<caption> Artifact: org.eclipse.jetty:jetty-annotations
-</caption>
-<tbody><tr>
-<th> New Package
-</th>
-<th> Previous Package
-</th>
-<th> Previous Artifact
-</th></tr>
-<tr>
-<td> org.eclipse.jetty.annotations
-</td>
-<td> org.mortbay.jetty.annotations
-</td>
-<td> modules/annotations
-</td></tr></tbody></table>
-<table class="jetty-table">
-<caption> Artifact: org.eclipse.jetty:test-jetty-servlet
-</caption>
-<tbody><tr>
-<th> New Package
-</th>
-<th> Previous Package
-</th>
-<th> Previous Artifact
-</th></tr>
-<tr>
-<td> org.eclipse.jetty.testing
-</td>
-<td> org.mortbay.jetty.testing
-</td>
-<td> extras/servlet-tester
-</td></tr></tbody></table>
-<table class="jetty-table">
-<caption> Artifact: org.eclipse.jetty:jetty-continuation
-</caption>
-<tbody><tr>
-<th> New Package
-</th>
-<th> Previous Package
-</th>
-<th> Previous Artifact
-</th></tr>
-<tr>
-<td> org.eclipse.jetty.continuation
-</td>
-<td> org.mortbay.util.ajax (<i><b>continuation</b></i>)
-</td>
-<td> modules/util
-</td></tr></tbody></table>
-<table class="jetty-table">
-<caption> Artifact: org.eclipse.jetty:jetty-html
-</caption>
-<tbody><tr>
-<th> New Package
-</th>
-<th> Previous Package
-</th>
-<th> Previous Artifact
-</th></tr>
-<tr>
-<td> ~
-</td>
-<td> org.mortbay.html
-</td>
-<td> modules/html
-</td></tr></tbody></table>
-<table class="jetty-table">
-<caption> Artifact: org.eclipse.jetty:jetty-rewrite
-</caption>
-<tbody><tr>
-<th> New Package
-</th>
-<th> Previous Package
-</th>
-<th> Previous Artifact
-</th></tr>
-<tr>
-<td> org.eclipse.jetty.rewrite.handler
-</td>
-<td> org.mortbay.jetty.handler.rewrite
-</td>
-<td> contrib/jetty-rewrite-handler
-</td></tr></tbody></table>
-
-
-</div>
-
-                    <div class="catlinks" id="catlinks">
-                        <li><a title="Category:Jetty Porting" href="https://wiki.eclipse.org/Category:Jetty_Porting">Jetty Porting</a></li>
-                        <li><a href="https://wiki.eclipse.org/Category:Jetty_Starting" title="Category:Jetty Starting">Jetty Starting</a></li>
-                        </div>
-                </div>
-                                  </div>
-              </div>
+    <link href="wiki-style.css" media="screen, print" rel="stylesheet" />
+  </head>
+  <body>
+    <div class="col-md-20" id="mainContent">
+      <div class="tab-content background-white">
+        <div class="tab-pane active" id="tab-pane-main-page-content">
+          <h1 class="firstHeading page-header" id="firstHeading">
+            <span dir="auto">Jetty/Starting/Porting to Jetty 7/Packages and Classes</span>
+          </h1>
+          <div id="main-page-content">
+            <div class="alert alert-small alert-warning" id="contentSub">
+              <span class="subpages">
+                &lt;
+                <a href="../../../Jetty.html" title="Jetty">Jetty</a>
+                 |
+                <a href="../../Starting.html" title="Jetty/Starting">Starting</a>
+                 |
+                <a href="../Porting to Jetty 7.html" title="Jetty/Starting/Porting to Jetty 7">Porting to Jetty 7</a>
+              </span>
+            </div>
+            <div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="en">
+              <p>
+                <br />
+              </p>
+              <p>
+                <br />
+              </p>
+              <p>
+                <br />
+              </p>
+              <h2>
+                <span class="mw-headline" id="Overview_of_changes">Overview of changes</span>
+              </h2>
+              <table class="jetty-table">
+                <caption>Quick guide to renamed packages and classes. (Covers most, but not all, cases)</caption>
+                <tbody>
+                  <tr>
+                    <th>Jetty 6</th>
+                    <th>Matching in Jetty 7</th>
+                    <th>Similar in Jetty 7</th>
+                  </tr>
+                  <tr>
+                    <td>org.mortbay.(jetty).*</td>
+                    <td>org.eclipse.jetty.*</td>
+                    <td />
+                  </tr>
+                  <tr>
+                    <td>packages under modules/util - org.mortbay.util.*, org.mortbay.log, org.mortbay.component, org.mortbay.thread, org.mortbay.resource</td>
+                    <td>org.eclipse.jetty.util.*, org.eclipse.jetty.util.log, org.eclipse.jetty.util.component, etc</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      org.mortbay.jetty.security.UserRealm
+                      <p>org.mortbay.jetty.security.HashUserRealm</p>
+                    </td>
+                    <td />
+                    <td>
+                      org.eclipse.jetty.security.LoginService
+                      <p>org.eclipse.jetty.security.HashLoginService</p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>org.mortbay.jetty.servlet.Context</td>
+                    <td>org.eclipse.jetty.servlet.ServletContextHandler</td>
+                    <td />
+                  </tr>
+                  <tr>
+                    <td>
+                      org.mortbay.util.ajax.Continuation
+                      <p>org.mortbay.util.ajax.ContinuationSupport</p>
+                    </td>
+                    <td>
+                      org.eclipse.jetty.continuation.Continuation
+                      <p>org.eclipse.jetty.continuation.ContinuationSupport</p>
+                    </td>
+                    <td />
+                  </tr>
+                </tbody>
+              </table>
+              <table class="jetty-table">
+                <caption>Other refactoring changes to watch out for when moving to Jetty 7</caption>
+                <tbody>
+                  <tr>
+                    <th>Type of change</th>
+                    <th>Jetty 6</th>
+                    <th>Jetty 7</th>
+                  </tr>
+                  <tr>
+                    <td>Maven plugin artifact id</td>
+                    <td>maven-jetty-plugin</td>
+                    <td>jetty-maven-plugin</td>
+                  </tr>
+                  <tr>
+                    <td>Split up server JAR</td>
+                    <td>jetty.jar</td>
+                    <td>jetty-server.jar, jetty-deploy.jar, jetty-io.jar, jetty-security.jar, jetty-servlet.jar, jetty-servlets.jar, jetty-webapp.jar, jetty-xml.jar</td>
+                  </tr>
+                  <tr>
+                    <td>Removed unused module</td>
+                    <td>jetty-html.jar</td>
+                    <td>~</td>
+                  </tr>
+                  <tr>
+                    <td>Renamed JAR</td>
+                    <td>jetty-rewrite-handler.jar</td>
+                    <td>jetty-rewrite.jar</td>
+                  </tr>
+                  <tr>
+                    <td>Renamed JAR</td>
+                    <td>jetty-management.jar</td>
+                    <td>jetty-jmx.jar</td>
+                  </tr>
+                  <tr>
+                    <td>New Continuation JAR</td>
+                    <td>from jetty-util.jar</td>
+                    <td>jetty-continuation.jar</td>
+                  </tr>
+                  <tr>
+                    <td>Removed class</td>
+                    <td>org.mortbay.jetty.plus.jaas.callback.DefaultCallbackHandler</td>
+                    <td>Inner class in JAASLoginService</td>
+                  </tr>
+                </tbody>
+              </table>
+              <p>
+                <br />
+              </p>
+              <p>
+                <br />
+              </p>
+              <h2>
+                <span class="mw-headline" id="Full_List_of_Packages_and_Classes">Full List of Packages and Classes</span>
+              </h2>
+              <p>For reference, a list of how the packages and class names have been changed. For those package names provided with no further comment, assume that all files from that package in Jetty 6 were moved to the corresponding package in Jetty 7. However, some packages were split up across different modules; for these we list the class names, or note briefly which files were moved.</p>
+              <table class="jetty-table">
+                <caption>Artifact: org.eclipse.jetty:jetty-util</caption>
+                <tbody>
+                  <tr>
+                    <th>New Package</th>
+                    <th>Previous Package</th>
+                    <th>Previous Artifact</th>
+                  </tr>
+                  <tr>
+                    <td>org.eclipse.jetty.util.log</td>
+                    <td>org.mortbay.log</td>
+                    <td>modules/util</td>
+                  </tr>
+                  <tr>
+                    <td>org.eclipse.jetty.util</td>
+                    <td>org.mortbay.util</td>
+                    <td>modules/util</td>
+                  </tr>
+                  <tr>
+                    <td>org.eclipse.jetty.util.ajax</td>
+                    <td>
+                      org.mortbay.util.ajax (
+                      <i>
+                        <b>JSON</b>
+                      </i>
+                      )
+                    </td>
+                    <td>modules/util</td>
+                  </tr>
+                  <tr>
+                    <td>org.eclipse.jetty.util.component</td>
+                    <td>org.mortbay.component</td>
+                    <td>modules/util</td>
+                  </tr>
+                  <tr>
+                    <td>org.eclipse.jetty.util.thread</td>
+                    <td>org.mortbay.thread</td>
+                    <td>modules/util</td>
+                  </tr>
+                  <tr>
+                    <td>org.eclipse.jetty.util.thread</td>
+                    <td>org.mortbay.thread.concurrent</td>
+                    <td>extras/threadpool</td>
+                  </tr>
+                  <tr>
+                    <td>org.eclipse.jetty.util.resource</td>
+                    <td>org.mortbay.resource</td>
+                    <td>modules/jetty</td>
+                  </tr>
+                </tbody>
+              </table>
+              <table class="jetty-table">
+                <caption>Artifact: org.eclipse.jetty:jetty-xml</caption>
+                <tbody>
+                  <tr>
+                    <th>New Package</th>
+                    <th>Previous Package</th>
+                    <th>Previous Artifact</th>
+                  </tr>
+                  <tr>
+                    <td>org.eclipse.jetty.xml</td>
+                    <td>org.mortbay.xml</td>
+                    <td>modules/jetty</td>
+                  </tr>
+                </tbody>
+              </table>
+              <table class="jetty-table">
+                <caption>Artifact: org.eclipse.jetty:jetty-io</caption>
+                <tbody>
+                  <tr>
+                    <th>New Package</th>
+                    <th>Previous Package</th>
+                    <th>Previous Artifact</th>
+                  </tr>
+                  <tr>
+                    <td>org.eclipse.jetty.io</td>
+                    <td>org.mortbay.io</td>
+                    <td>modules/jetty</td>
+                  </tr>
+                  <tr>
+                    <td>org.eclipse.jetty.io.bio</td>
+                    <td>org.mortbay.io.bio</td>
+                    <td>modules/jetty</td>
+                  </tr>
+                  <tr>
+                    <td>org.eclipse.jetty.io.nio</td>
+                    <td>org.mortbay.io.nio</td>
+                    <td>modules/jetty</td>
+                  </tr>
+                  <tr>
+                    <td>org.eclipse.jetty.http</td>
+                    <td>
+                      org.mortbay.jetty
+                      <p>(parser/generator)</p>
+                    </td>
+                    <td>modules/jetty</td>
+                  </tr>
+                </tbody>
+              </table>
+              <table class="jetty-table">
+                <caption>Artifact: org.eclipse.jetty:jetty-server</caption>
+                <tbody>
+                  <tr>
+                    <th>New Package</th>
+                    <th>Previous Package</th>
+                    <th>Previous Artifact</th>
+                  </tr>
+                  <tr>
+                    <td>org.eclipse.jetty.server</td>
+                    <td>
+                      org.mortbay.jetty
+                      <p>(most of the original server files)</p>
+                    </td>
+                    <td>modules/jetty</td>
+                  </tr>
+                  <tr>
+                    <td>org.eclipse.jetty.server.handler</td>
+                    <td>org.mortbay.jetty.handler</td>
+                    <td>modules/jetty</td>
+                  </tr>
+                  <tr>
+                    <td>org.eclipse.jetty.server.bio</td>
+                    <td>org.mortbay.jetty.bio</td>
+                    <td>modules/jetty</td>
+                  </tr>
+                  <tr>
+                    <td>org.eclipse.jetty.server.nio</td>
+                    <td>org.mortbay.jetty.nio</td>
+                    <td>modules/jetty</td>
+                  </tr>
+                  <tr>
+                    <td>org.eclipse.jetty.servlet.session</td>
+                    <td>
+                      org.mortbay.jetty.servlet (
+                      <i>
+                        <b>session-related</b>
+                      </i>
+                      )
+                    </td>
+                    <td>modules/jetty</td>
+                  </tr>
+                  <tr>
+                    <td>org.eclipse.jetty.server.ssl</td>
+                    <td>
+                      org.mortbay.jetty.security (
+                      <i>
+                        <b>ssl</b>
+                      </i>
+                      )
+                    </td>
+                    <td>modules/jetty</td>
+                  </tr>
+                </tbody>
+              </table>
+              <table class="jetty-table">
+                <caption>Artifact: org.eclipse.jetty:jetty-servlet</caption>
+                <tbody>
+                  <tr>
+                    <th>New Package</th>
+                    <th>Previous Package</th>
+                    <th>Previous Artifact</th>
+                  </tr>
+                  <tr>
+                    <td>org.eclipse.jetty.servlet</td>
+                    <td>
+                      org.mortbay.jetty.servlet (
+                      <i>
+                        <b>servlet-handling</b>
+                      </i>
+                      )
+                    </td>
+                    <td>modules/jetty</td>
+                  </tr>
+                </tbody>
+              </table>
+              <table class="jetty-table">
+                <caption>Artifact: org.eclipse.jetty:jetty-webapp</caption>
+                <tbody>
+                  <tr>
+                    <th>New Package</th>
+                    <th>Previous Package</th>
+                    <th>Previous Artifact</th>
+                  </tr>
+                  <tr>
+                    <td>org.eclipse.jetty.webapp</td>
+                    <td>org.mortbay.jetty.webapp</td>
+                    <td>modules/jetty</td>
+                  </tr>
+                </tbody>
+              </table>
+              <table class="jetty-table">
+                <caption>Artifact: org.eclipse.jetty:jetty-deploy</caption>
+                <tbody>
+                  <tr>
+                    <th>New Package</th>
+                    <th>Previous Package</th>
+                    <th>Previous Artifact</th>
+                  </tr>
+                  <tr>
+                    <td>org.eclipse.jetty.deploy</td>
+                    <td>org.mortbay.jetty.deployer</td>
+                    <td>modules/jetty</td>
+                  </tr>
+                </tbody>
+              </table>
+              <table class="jetty-table">
+                <caption>Artifact: org.eclipse.jetty:jetty-security</caption>
+                <tbody>
+                  <tr>
+                    <th>New Package</th>
+                    <th>Previous Package</th>
+                    <th>Previous Artifact</th>
+                  </tr>
+                  <tr>
+                    <td>org.eclipse.jetty.security</td>
+                    <td>
+                      org.mortbay.jetty.security (
+                      <i>
+                        <b>misc</b>
+                      </i>
+                      )
+                    </td>
+                    <td>modules/jetty</td>
+                  </tr>
+                  <tr>
+                    <td>org.eclipse.jetty.security.authentication</td>
+                    <td>
+                      org.mortbay.jetty.security (
+                      <i>
+                        <b>authentication</b>
+                      </i>
+                      )
+                    </td>
+                    <td>modules/jetty</td>
+                  </tr>
+                </tbody>
+              </table>
+              <table class="jetty-table">
+                <caption>Artifact: org.eclipse.jetty:jetty-client</caption>
+                <tbody>
+                  <tr>
+                    <th>New Package</th>
+                    <th>Previous Package</th>
+                    <th>Previous Artifact</th>
+                  </tr>
+                  <tr>
+                    <td>org.eclipse.jetty.client</td>
+                    <td>org.mortbay.jetty.client</td>
+                    <td>extras/client</td>
+                  </tr>
+                  <tr>
+                    <td>org.eclipse.jetty.client.webdav</td>
+                    <td>org.mortbay.jetty.client.webdav</td>
+                    <td>extras/client</td>
+                  </tr>
+                  <tr>
+                    <td>org.eclipse.jetty.client.security</td>
+                    <td>org.mortbay.jetty.client.security</td>
+                    <td>extras/client</td>
+                  </tr>
+                </tbody>
+              </table>
+              <table class="jetty-table">
+                <caption>Artifact: org.eclipse.jetty:jetty-ajp</caption>
+                <tbody>
+                  <tr>
+                    <th>New Package</th>
+                    <th>Previous Package</th>
+                    <th>Previous Artifact</th>
+                  </tr>
+                  <tr>
+                    <td>org.eclipse.jetty.ajp</td>
+                    <td>org.mortbay.jetty.ajp</td>
+                    <td>extras/ajp</td>
+                  </tr>
+                </tbody>
+              </table>
+              <table class="jetty-table">
+                <caption>Artifact: org.eclipse.jetty:jetty-jmx</caption>
+                <tbody>
+                  <tr>
+                    <th>New Package</th>
+                    <th>Previous Package</th>
+                    <th>Previous Artifact</th>
+                  </tr>
+                  <tr>
+                    <td>org.eclipse.jetty.jmx</td>
+                    <td>org.mortbay.management</td>
+                    <td>modules/management</td>
+                  </tr>
+                  <tr>
+                    <td>org.eclipse.jetty.webapp.jmx</td>
+                    <td>org.mortbay.jetty.webapp.management</td>
+                    <td>modules/management</td>
+                  </tr>
+                  <tr>
+                    <td>org.eclipse.jetty.servlet.jmx</td>
+                    <td>org.mortbay.jetty.servlet.management</td>
+                    <td>modules/management</td>
+                  </tr>
+                  <tr>
+                    <td>org.eclipse.jetty.server.jmx</td>
+                    <td>org.mortbay.jetty.management</td>
+                    <td>modules/management</td>
+                  </tr>
+                  <tr>
+                    <td>org.eclipse.jetty.handler.jmx</td>
+                    <td>org.mortbay.jetty.handler.management</td>
+                    <td>modules/management</td>
+                  </tr>
+                </tbody>
+              </table>
+              <table class="jetty-table">
+                <caption>Artifact: org.eclipse.jetty:start</caption>
+                <tbody>
+                  <tr>
+                    <th>New Package</th>
+                    <th>Previous Package</th>
+                    <th>Previous Artifact</th>
+                  </tr>
+                  <tr>
+                    <td>org.eclipse.jetty.start</td>
+                    <td>org.mortbay.start</td>
+                    <td>modules/start</td>
+                  </tr>
+                </tbody>
+              </table>
+              <table class="jetty-table">
+                <caption>Artifact: org.eclipse.jetty:jetty-servlets</caption>
+                <tbody>
+                  <tr>
+                    <th>New Package</th>
+                    <th>Previous Package</th>
+                    <th>Previous Artifact</th>
+                  </tr>
+                  <tr>
+                    <td>org.eclipse.jetty.servlets</td>
+                    <td>org.mortbay.servlet</td>
+                    <td>
+                      modules/util
+                      <p>modules/util5</p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>org.eclipse.jetty.servlets</td>
+                    <td>org.mortbay.servlet.jetty</td>
+                    <td>modules/jetty</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <i>
+                        <b>org.eclipse.jetty.servlets.ProxyServlet</b>
+                      </i>
+                    </td>
+                    <td>org.mortbay.proxy.AsyncProxyServlet</td>
+                    <td>extras/client</td>
+                  </tr>
+                </tbody>
+              </table>
+              <table class="jetty-table">
+                <caption>Artifact: org.eclipse.jetty:jetty-jndi</caption>
+                <tbody>
+                  <tr>
+                    <th>New Package</th>
+                    <th>Previous Package</th>
+                    <th>Previous Artifact</th>
+                  </tr>
+                  <tr>
+                    <td>org.eclipse.jetty.jndi.local</td>
+                    <td>org.mortbay.naming.local</td>
+                    <td>modules/naming</td>
+                  </tr>
+                  <tr>
+                    <td>org.eclipse.jetty.jndi.java</td>
+                    <td>org.mortbay.naming.java</td>
+                    <td>modules/naming</td>
+                  </tr>
+                  <tr>
+                    <td>org.eclipse.jetty.jndi.factories</td>
+                    <td>org.mortbay.naming.factories</td>
+                    <td>modules/naming</td>
+                  </tr>
+                  <tr>
+                    <td>org.eclipse.jetty.jndi</td>
+                    <td>org.mortbay.naming</td>
+                    <td>modules/naming</td>
+                  </tr>
+                </tbody>
+              </table>
+              <table class="jetty-table">
+                <caption>Artifact: org.eclipse.jetty:jetty-plus</caption>
+                <tbody>
+                  <tr>
+                    <th>New Package</th>
+                    <th>Previous Package</th>
+                    <th>Previous Artifact</th>
+                  </tr>
+                  <tr>
+                    <td>org.eclipse.jetty.plus.jaas.spi</td>
+                    <td>org.mortbay.jetty.plus.jaas.spi</td>
+                    <td>modules/plus</td>
+                  </tr>
+                  <tr>
+                    <td>org.eclipse.jetty.plus.jaas.callback</td>
+                    <td>org.mortbay.jetty.plus.jaas.callback</td>
+                    <td>modules/plus</td>
+                  </tr>
+                  <tr>
+                    <td>org.eclipse.jetty.plus.jaas</td>
+                    <td>org.mortbay.jetty.plus.jaas</td>
+                    <td>modules/plus</td>
+                  </tr>
+                  <tr>
+                    <td>org.eclipse.jetty.plus.webapp</td>
+                    <td>org.mortbay.jetty.plus.webapp</td>
+                    <td>modules/plus</td>
+                  </tr>
+                  <tr>
+                    <td>org.eclipse.jetty.plus.servlet</td>
+                    <td>org.mortbay.jetty.plus.servlet</td>
+                    <td>modules/plus</td>
+                  </tr>
+                  <tr>
+                    <td>org.eclipse.jetty.plus.jndi</td>
+                    <td>org.mortbay.jetty.plus.naming</td>
+                    <td>modules/plus</td>
+                  </tr>
+                  <tr>
+                    <td>org.eclipse.jetty.plus.annotation</td>
+                    <td>org.mortbay.jetty.plus.annotation</td>
+                    <td>modules/plus</td>
+                  </tr>
+                </tbody>
+              </table>
+              <table class="jetty-table">
+                <caption>Artifact: org.eclipse.jetty:jetty-annotations</caption>
+                <tbody>
+                  <tr>
+                    <th>New Package</th>
+                    <th>Previous Package</th>
+                    <th>Previous Artifact</th>
+                  </tr>
+                  <tr>
+                    <td>org.eclipse.jetty.annotations</td>
+                    <td>org.mortbay.jetty.annotations</td>
+                    <td>modules/annotations</td>
+                  </tr>
+                </tbody>
+              </table>
+              <table class="jetty-table">
+                <caption>Artifact: org.eclipse.jetty:test-jetty-servlet</caption>
+                <tbody>
+                  <tr>
+                    <th>New Package</th>
+                    <th>Previous Package</th>
+                    <th>Previous Artifact</th>
+                  </tr>
+                  <tr>
+                    <td>org.eclipse.jetty.testing</td>
+                    <td>org.mortbay.jetty.testing</td>
+                    <td>extras/servlet-tester</td>
+                  </tr>
+                </tbody>
+              </table>
+              <table class="jetty-table">
+                <caption>Artifact: org.eclipse.jetty:jetty-continuation</caption>
+                <tbody>
+                  <tr>
+                    <th>New Package</th>
+                    <th>Previous Package</th>
+                    <th>Previous Artifact</th>
+                  </tr>
+                  <tr>
+                    <td>org.eclipse.jetty.continuation</td>
+                    <td>
+                      org.mortbay.util.ajax (
+                      <i>
+                        <b>continuation</b>
+                      </i>
+                      )
+                    </td>
+                    <td>modules/util</td>
+                  </tr>
+                </tbody>
+              </table>
+              <table class="jetty-table">
+                <caption>Artifact: org.eclipse.jetty:jetty-html</caption>
+                <tbody>
+                  <tr>
+                    <th>New Package</th>
+                    <th>Previous Package</th>
+                    <th>Previous Artifact</th>
+                  </tr>
+                  <tr>
+                    <td>~</td>
+                    <td>org.mortbay.html</td>
+                    <td>modules/html</td>
+                  </tr>
+                </tbody>
+              </table>
+              <table class="jetty-table">
+                <caption>Artifact: org.eclipse.jetty:jetty-rewrite</caption>
+                <tbody>
+                  <tr>
+                    <th>New Package</th>
+                    <th>Previous Package</th>
+                    <th>Previous Artifact</th>
+                  </tr>
+                  <tr>
+                    <td>org.eclipse.jetty.rewrite.handler</td>
+                    <td>org.mortbay.jetty.handler.rewrite</td>
+                    <td>contrib/jetty-rewrite-handler</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
-</body>
+        </div>
+      </div>
+    </div>
+  </body>
 </html>

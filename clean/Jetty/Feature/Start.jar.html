@@ -1,90 +1,148 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
-<head>
+  <head>
     <title>Jetty WTP Plugin</title>
-    <link rel="stylesheet" media="screen, print" href="wiki-style.css"/>
-</head>
-<body>
-<div class="col-md-20" id="mainContent">
-                                <div class="tab-content background-white">
-              <div id="tab-pane-main-page-content" class="tab-pane active">
-
-                
-                <h1 class="firstHeading page-header" id="firstHeading">
-                  <span dir="auto">Jetty/Feature/Start.jar</span>
-                </h1>
-                <div id="main-page-content">
-
-                  <div id="contentSub" class="alert alert-small alert-warning"><span class="subpages">&lt; <a href="../../Jetty.html" title="Jetty">Jetty</a>‎ | <a title="Jetty/Feature" href="../Feature.html">Feature</a></span></div>
-
-                  
-                  
-                  <div dir="ltr" lang="en" class="mw-content-ltr" id="mw-content-text"><p><br/>
-</p><p><br/>
-</p>
-<div class="toc" id="toc"><div id="toctitle"><h2>Contents</h2></div>
-<ul>
-<li class="toclevel-1"><a href="Start.jar.html#Introduction"><span class="tocnumber">1</span> <span class="toctext">Introduction</span></a></li>
-<li class="toclevel-1"><a href="Start.jar.html#Feature"><span class="tocnumber">2</span> <span class="toctext">Feature</span></a></li>
-<li class="toclevel-1"><a href="Start.jar.html#Building_the_Environment"><span class="tocnumber">3</span> <span class="toctext">Building the Environment</span></a></li>
-<li class="toclevel-1"><a href="Start.jar.html#Building_the_Classpath"><span class="tocnumber">4</span> <span class="toctext">Building the Classpath</span></a>
-<ul>
-<li class="toclevel-2"><a href="Start.jar.html#Setting_OPTIONS"><span class="tocnumber">4.1</span> <span class="toctext">Setting OPTIONS</span></a></li>
-</ul>
-</li>
-<li class="toclevel-1"><a href="Start.jar.html#Building_the_Arguments"><span class="tocnumber">5</span> <span class="toctext">Building the Arguments</span></a></li>
-<li class="toclevel-1"><a href="Start.jar.html#Running_the_Main"><span class="tocnumber">6</span> <span class="toctext">Running the Main</span></a></li>
-<li class="toclevel-1"><a href="Start.jar.html#Setting_Defaults:_start.ini"><span class="tocnumber">7</span> <span class="toctext">Setting Defaults: start.ini</span></a></li>
-</ul>
-</div>
-
-<h2><span class="mw-headline" id="Introduction">Introduction</span></h2>
-<div style="background-color: #f9f6b7; border: 1px solid #c4c295; color: black; padding: 5px; margin: 1ex 0; min-height: 35px; padding-left: 45px; font-size: 150%; color: white; background-color: #FF8888; padding: 50px" class="messagebox">
-<div style="float: left; margin-left: -40px;"><a href="https://wiki.eclipse.org/File:Warning2.png" class="image"><img alt="Warning2.png" src="../../images/3/37/Warning2.png" width="35" height="35"/></a></div>
-<div>Jetty 7 and Jetty 8 are now EOL (End of Life)<br/>
-<p><br/>
-<br/>
-<br/>
-THIS IS NOT THE DOCUMENTATION YOU ARE LOOKING FOR!!!!!<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-All development and stable releases are being performed with Jetty 9 and Jetty 10.<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-This <b>wiki is now officially out of date</b> and all content has been moved to the <a class="external text" href="http://www.eclipse.org/jetty/documentation" rel="nofollow">Jetty Documentation Hub</a><br/> 
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-</p>
-Direct Link to updated documentation: <a rel="nofollow" class="external free" href="http://www.eclipse.org/jetty/documentation/current/advanced-jetty-start.html">http://www.eclipse.org/jetty/documentation/current/advanced-jetty-start.html</a></div>
-</div>
-<p><br/>
-Jetty is just a Java program that you can run like any other Java program once you set up a classpath. For example, you can run the SimplestServer from the <a href="../Tutorial/Embedding Jetty.html" title="Jetty/Tutorial/Embedding Jetty">Embedding Jetty Tutorial</a> as follows:
-</p>
-<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="bash source-bash"><pre class="de1">java <span class="re5">-cp</span> <span class="re1">$JETTY_CLASSPATH</span> org.eclipse.jetty.embedded.SimplestServer</pre></div></div>
-<p>Similarly, if you configure your server with <a title="Jetty/Reference/jetty.xml syntax" href="../Reference/jetty.xml syntax.html"><tt>jetty.xml</tt></a> rather than a Java main, you can run the server with:
-</p>
-<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="bash source-bash"><pre class="de1">java <span class="re5">-cp</span> <span class="re1">$JETTY_CLASSPATH</span> org.eclipse.jetty.xml.XmlConfiguration etc<span class="sy0">/</span>jetty.xml</pre></div></div>
-<p>The difficult part of both these examples is knowing what must be on the JETTY_CLASSPATH.  The Jetty server comes in over 46 Jars, so working out exactly which Jars you need can be difficult. If you develop with Maven, these Jar dependencies can be managed for you, but you still need to set up a classpath when running from the command line.
-</p><p>The <tt>start.jar</tt> mechanism is an executable Jar file that builds a class path and then executes your main program. It is a generic mechanism that you can use with any Java program. A <a href="http://git.eclipse.org/c/jetty/org.eclipse.jetty.project.git/plain/jetty-start/src/main/resources/org/eclipse/jetty/start/start.config" class="external text" rel="nofollow"><tt>start.config</tt></a> file controls its behaviour.  The standard <tt>start.jar</tt> comes with a <tt>start.config</tt> file for Jetty, so that you can start Jetty with:
-</p>
-<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="bash source-bash"><pre class="de1">java <span class="re5">-jar</span> start.jar</pre></div></div>
-<p>You can see the effective command line <tt>start.jar</tt> generates by providing the --dry-run parameter:
-</p>
-<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="bash source-bash"><pre class="de1">java <span class="re5">-jar</span> start.jar <span class="re5">--dry-run</span></pre></div></div>
-<p>which for the default case generates:
-</p>
-<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="text source-text"><pre class="de1">/usr/lib/jvm/java-1.5.0-sun-1.5.0.19/jre/bin/java \
+    <link href="wiki-style.css" media="screen, print" rel="stylesheet" />
+  </head>
+  <body>
+    <div class="col-md-20" id="mainContent">
+      <div class="tab-content background-white">
+        <div class="tab-pane active" id="tab-pane-main-page-content">
+          <h1 class="firstHeading page-header" id="firstHeading">
+            <span dir="auto">Jetty/Feature/Start.jar</span>
+          </h1>
+          <div id="main-page-content">
+            <div class="alert alert-small alert-warning" id="contentSub">
+              <span class="subpages">
+                &lt;
+                <a href="../../Jetty.html" title="Jetty">Jetty</a>
+                 |
+                <a href="../Feature.html" title="Jetty/Feature">Feature</a>
+              </span>
+            </div>
+            <div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="en">
+              <p>
+                <br />
+              </p>
+              <p>
+                <br />
+              </p>
+              <div class="toc" id="toc">
+                <div id="toctitle">
+                  <h2>Contents</h2>
+                </div>
+                <ul>
+                  <li class="toclevel-1">
+                    <a href="Start.jar.html#Introduction">
+                      <span class="tocnumber">1</span>
+                      <span class="toctext">Introduction</span>
+                    </a>
+                  </li>
+                  <li class="toclevel-1">
+                    <a href="Start.jar.html#Feature">
+                      <span class="tocnumber">2</span>
+                      <span class="toctext">Feature</span>
+                    </a>
+                  </li>
+                  <li class="toclevel-1">
+                    <a href="Start.jar.html#Building_the_Environment">
+                      <span class="tocnumber">3</span>
+                      <span class="toctext">Building the Environment</span>
+                    </a>
+                  </li>
+                  <li class="toclevel-1">
+                    <a href="Start.jar.html#Building_the_Classpath">
+                      <span class="tocnumber">4</span>
+                      <span class="toctext">Building the Classpath</span>
+                    </a>
+                    <ul>
+                      <li class="toclevel-2">
+                        <a href="Start.jar.html#Setting_OPTIONS">
+                          <span class="tocnumber">4.1</span>
+                          <span class="toctext">Setting OPTIONS</span>
+                        </a>
+                      </li>
+                    </ul>
+                  </li>
+                  <li class="toclevel-1">
+                    <a href="Start.jar.html#Building_the_Arguments">
+                      <span class="tocnumber">5</span>
+                      <span class="toctext">Building the Arguments</span>
+                    </a>
+                  </li>
+                  <li class="toclevel-1">
+                    <a href="Start.jar.html#Running_the_Main">
+                      <span class="tocnumber">6</span>
+                      <span class="toctext">Running the Main</span>
+                    </a>
+                  </li>
+                  <li class="toclevel-1">
+                    <a href="Start.jar.html#Setting_Defaults:_start.ini">
+                      <span class="tocnumber">7</span>
+                      <span class="toctext">Setting Defaults: start.ini</span>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+              <h2>
+                <span class="mw-headline" id="Introduction">Introduction</span>
+              </h2>
+              <p>
+                <br />
+                Jetty is just a Java program that you can run like any other Java program once you set up a classpath. For example, you can run the SimplestServer from the
+                <a href="../Tutorial/Embedding Jetty.html" title="Jetty/Tutorial/Embedding Jetty">Embedding Jetty Tutorial</a>
+                as follows:
+              </p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="bash source-bash">
+                  <pre class="de1" xml:space="preserve">java <span class="re5">-cp</span> <span class="re1">$JETTY_CLASSPATH</span> org.eclipse.jetty.embedded.SimplestServer</pre>
+                </div>
+              </div>
+              <p>
+                Similarly, if you configure your server with
+                <a href="../Reference/jetty.xml syntax.html" title="Jetty/Reference/jetty.xml syntax">
+                  <tt>jetty.xml</tt>
+                </a>
+                rather than a Java main, you can run the server with:
+              </p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="bash source-bash">
+                  <pre class="de1" xml:space="preserve">java <span class="re5">-cp</span> <span class="re1">$JETTY_CLASSPATH</span> org.eclipse.jetty.xml.XmlConfiguration etc<span class="sy0">/</span>jetty.xml</pre>
+                </div>
+              </div>
+              <p>The difficult part of both these examples is knowing what must be on the JETTY_CLASSPATH.  The Jetty server comes in over 46 Jars, so working out exactly which Jars you need can be difficult. If you develop with Maven, these Jar dependencies can be managed for you, but you still need to set up a classpath when running from the command line.</p>
+              <p>
+                The
+                <tt>start.jar</tt>
+                mechanism is an executable Jar file that builds a class path and then executes your main program. It is a generic mechanism that you can use with any Java program. A
+                <a class="external text" href="http://git.eclipse.org/c/jetty/org.eclipse.jetty.project.git/plain/jetty-start/src/main/resources/org/eclipse/jetty/start/start.config" rel="nofollow">
+                  <tt>start.config</tt>
+                </a>
+                file controls its behaviour.  The standard
+                <tt>start.jar</tt>
+                comes with a
+                <tt>start.config</tt>
+                file for Jetty, so that you can start Jetty with:
+              </p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="bash source-bash">
+                  <pre class="de1" xml:space="preserve">java <span class="re5">-jar</span> start.jar</pre>
+                </div>
+              </div>
+              <p>
+                You can see the effective command line
+                <tt>start.jar</tt>
+                generates by providing the --dry-run parameter:
+              </p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="bash source-bash">
+                  <pre class="de1" xml:space="preserve">java <span class="re5">-jar</span> start.jar <span class="re5">--dry-run</span></pre>
+                </div>
+              </div>
+              <p>which for the default case generates:</p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="text source-text">
+                  <pre class="de1" xml:space="preserve">/usr/lib/jvm/java-1.5.0-sun-1.5.0.19/jre/bin/java \
 -Djetty.home=/home/gregw/src/jetty-7.0.0/jetty-distribution/target/distribution \
 -cp /home/gregw/src/jetty-7.0.0/jetty-distribution/target/distribution/resources:\
 /home/gregw/src/jetty-7.0.0/jetty-distribution/target/distribution/lib/jetty-xml-7.0.0.RC6-SNAPSHOT.jar:\
@@ -100,22 +158,71 @@ Jetty is just a Java program that you can run like any other Java program once y
 /home/gregw/src/jetty-7.0.0/jetty-distribution/target/distribution/lib/jetty-util-7.0.0.RC6-SNAPSHOT.jar:\
 /home/gregw/src/jetty-7.0.0/jetty-distribution/target/distribution/lib/jetty-io-7.0.0.RC6-SNAPSHOT.jar \
 org.eclipse.jetty.xml.XmlConfiguration \
-/home/gregw/src/jetty-7.0.0/jetty-distribution/target/distribution/etc/jetty.xml</pre></div></div>
-<h2><span id="Feature" class="mw-headline">Feature</span></h2>
-<h2><span class="mw-headline" id="Building_the_Environment">Building the Environment</span></h2>
-<p>The <tt>start.jar</tt> builds an environment of Java system properties and start properties that parameterize the start mechanism and the execution of the program. In a <a class="external text" href="http://git.eclipse.org/c/jetty/org.eclipse.jetty.project.git/plain/jetty-start/src/main/resources/org/eclipse/jetty/start/start.config" rel="nofollow"><tt>start.config</tt></a>, the string <tt>${name}</tt> is expanded to a start property and <tt>$(name)</tt> is expanded to either a start property or a system property.  
-</p><p>The main property set by the default <tt>start.config</tt> is <tt>jetty.home</tt>, which is assumed to be the directory in which <tt>start.jar</tt> is deployed.  If the <tt>jetty.home</tt> is not set with a <tt>-Djetty.home</tt>, then ".", ".." and some well known directories are searched for <tt>start.jar</tt>.
-</p><p>The <tt>$(version)</tt> property is also determined by examining the manifest of the <tt>start.jar</tt>.
-</p>
-<h2><span class="mw-headline" id="Building_the_Classpath">Building the Classpath</span></h2>
-<p>The default <tt>start.config</tt> assumes that all the Jetty Jars are in a directory tree under <tt>${jetty.home}/lib</tt>.  The following Jars are put on all classpaths built by the default start.config:
-</p>
-<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="text source-text"><pre class="de1"> 
+/home/gregw/src/jetty-7.0.0/jetty-distribution/target/distribution/etc/jetty.xml</pre>
+                </div>
+              </div>
+              <h2>
+                <span class="mw-headline" id="Feature">Feature</span>
+              </h2>
+              <h2>
+                <span class="mw-headline" id="Building_the_Environment">Building the Environment</span>
+              </h2>
+              <p>
+                The
+                <tt>start.jar</tt>
+                builds an environment of Java system properties and start properties that parameterize the start mechanism and the execution of the program. In a
+                <a class="external text" href="http://git.eclipse.org/c/jetty/org.eclipse.jetty.project.git/plain/jetty-start/src/main/resources/org/eclipse/jetty/start/start.config" rel="nofollow">
+                  <tt>start.config</tt>
+                </a>
+                , the string
+                <tt>${name}</tt>
+                is expanded to a start property and
+                <tt>$(name)</tt>
+                is expanded to either a start property or a system property.
+              </p>
+              <p>
+                The main property set by the default
+                <tt>start.config</tt>
+                is
+                <tt>jetty.home</tt>
+                , which is assumed to be the directory in which
+                <tt>start.jar</tt>
+                is deployed.  If the
+                <tt>jetty.home</tt>
+                is not set with a
+                <tt>-Djetty.home</tt>
+                , then ".", ".." and some well known directories are searched for
+                <tt>start.jar</tt>
+                .
+              </p>
+              <p>
+                The
+                <tt>$(version)</tt>
+                property is also determined by examining the manifest of the
+                <tt>start.jar</tt>
+                .
+              </p>
+              <h2>
+                <span class="mw-headline" id="Building_the_Classpath">Building the Classpath</span>
+              </h2>
+              <p>
+                The default
+                <tt>start.config</tt>
+                assumes that all the Jetty Jars are in a directory tree under
+                <tt>${jetty.home}/lib</tt>
+                .  The following Jars are put on all classpaths built by the default start.config:
+              </p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="text source-text">
+                  <pre class="de1" xml:space="preserve"> 
 $(jetty.home)/lib/jetty-util-$(version).jar
-$(jetty.home)/lib/jetty-io-$(version).jar</pre></div></div>
-<p>If you don't specify any OPTIONS, the following entries are also added by default:
-</p>
-<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="text source-text"><pre class="de1"> 
+$(jetty.home)/lib/jetty-io-$(version).jar</pre>
+                </div>
+              </div>
+              <p>If you don't specify any OPTIONS, the following entries are also added by default:</p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="text source-text">
+                  <pre class="de1" xml:space="preserve"> 
 $(jetty.home)/resources/
 $(jetty.home)/lib/jetty-xml-$(version).jar  
 $(jetty.home)/lib/servlet-api-2.5.jar    
@@ -127,48 +234,133 @@ $(jetty.home)/lib/jetty-servlet-$(version).jar
 $(jetty.home)/lib/jetty-webapp-$(version).jar   
 $(jetty.home)/lib/jetty-deploy-$(version).jar  
 $(jetty.home)/lib/jetty-servlets-$(version).jar 
-$(jetty.home)/lib/ext/*.jar</pre></div></div>
-<p>This is sufficient to run most standard web applications.
-</p><p>If the system property <tt>${path}</tt> is defined, it is treated as a classpath string and prepended to the generated classpath. If the system property <tt>${lib}</tt> is defined, it is treated as a directory of Jars and all Jars discovered are prepended to the generated classpath.
-</p>
-<h3><span class="mw-headline" id="Setting_OPTIONS">Setting OPTIONS</span></h3>
-<p>You can specify options to the <tt>start.jar</tt> to change the default Jars added to the classpath:
-</p>
-<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="bash source-bash"><pre class="de1">java <span class="re5">-jar</span> start.jar <span class="re2">OPTIONS</span>=Server,jmx,ajp,setuid</pre></div></div>
-<p>To list the options available, use: 
-</p>
-<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="bash source-bash"><pre class="de1">java <span class="re5">-jar</span> start.jar <span class="re5">--help</span></pre></div></div>
-<p>If you specify an option, the default Jars listed above are not added to the classpath.
-</p><p>Three types of options are available:
-</p>
-<ul><li> <b>Convenience Options</b>–By convention, options starting with a capital letter are convenience options that include many other options. For example the "Server" option includes all the options commonly needed to run a server: xml,server,security,servlet,webapp,deploy and servlets options; while the option "server" contains just the Jars for the core HTTP server. "All" is the other convenience option.</li>
-<li> <b>Known module options</b>–The main known Jetty modules each have an option predefined to select their required Jars. Known options include xml, server, security, servlet, webapp, deploy, serlvets, rewrite, jmx, ajp, jndi, annotations, setuid, policy and client.</li>
-<li> <b>Discovered options</b>–Directories within <tt>${jetty.home}/lib</tt> can be discovered as options. The "lib/ext", "lib/jsp" and "lib/jta" are directories that can be discovered as an options.</li></ul>
-<p><br/>
-</p>
-<h2><span id="Building_the_Arguments" class="mw-headline">Building the Arguments</span></h2>
-<p>The jetty <a href="http://git.eclipse.org/c/jetty/org.eclipse.jetty.project.git/plain/jetty-start/src/main/resources/org/eclipse/jetty/start/start.config" class="external text" rel="nofollow"><tt>start.config</tt></a> file lists has <tt>etc/jetty.xml</tt> as the default command line argument, which in the default case is the name of the configuration file passed to the XmlConfiguration main. If you need additional configuration files, you must list all the configuration files on the command line along with the options required for the classpath. For example, the following runs Jetty with JMX and AJP connector:
-</p>
-<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="bash source-bash"><pre class="de1">java <span class="re5">-jar</span> start.jar <span class="re2">OPTIONS</span>=Server,jmx,ajp etc<span class="sy0">/</span>jetty-jmx.xml etc<span class="sy0">/</span>jetty.xml etc<span class="sy0">/</span>jetty-ajp.xml</pre></div></div>
-<p>Use the <tt>--help</tt> parameter to list the available XML configuration files.
-</p>
-<h2><span class="mw-headline" id="Running_the_Main">Running the Main</span></h2>
-<p>The jetty <tt>start.config</tt> has <tt>org.eclipse.jetty.xml.XmlConfiguration</tt> as the main class to run.  You can replace it with another class by setting the <tt>start.class</tt> system property.
-</p><p><br/>
-</p>
-<h2><span id="Setting_Defaults:_start.ini" class="mw-headline">Setting Defaults: start.ini</span></h2>
-<p>If the file <tt>start.ini</tt> exists in the same directory as <tt>start.jar</tt>, it is read and every non-comment line is treated as a command line argument.  The following <tt>start.ini</tt> sets the options and default configuration files for using the server with JMX and SSL:
-</p>
-<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="bash source-bash"><pre class="de1"><span class="co0">#===========================================================</span>
+$(jetty.home)/lib/ext/*.jar</pre>
+                </div>
+              </div>
+              <p>This is sufficient to run most standard web applications.</p>
+              <p>
+                If the system property
+                <tt>${path}</tt>
+                is defined, it is treated as a classpath string and prepended to the generated classpath. If the system property
+                <tt>${lib}</tt>
+                is defined, it is treated as a directory of Jars and all Jars discovered are prepended to the generated classpath.
+              </p>
+              <h3>
+                <span class="mw-headline" id="Setting_OPTIONS">Setting OPTIONS</span>
+              </h3>
+              <p>
+                You can specify options to the
+                <tt>start.jar</tt>
+                to change the default Jars added to the classpath:
+              </p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="bash source-bash">
+                  <pre class="de1" xml:space="preserve">java <span class="re5">-jar</span> start.jar <span class="re2">OPTIONS</span>=Server,jmx,ajp,setuid</pre>
+                </div>
+              </div>
+              <p>To list the options available, use:</p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="bash source-bash">
+                  <pre class="de1" xml:space="preserve">java <span class="re5">-jar</span> start.jar <span class="re5">--help</span></pre>
+                </div>
+              </div>
+              <p>If you specify an option, the default Jars listed above are not added to the classpath.</p>
+              <p>Three types of options are available:</p>
+              <ul>
+                <li>
+                  <b>Convenience Options</b>
+                  –By convention, options starting with a capital letter are convenience options that include many other options. For example the "Server" option includes all the options commonly needed to run a server: xml,server,security,servlet,webapp,deploy and servlets options; while the option "server" contains just the Jars for the core HTTP server. "All" is the other convenience option.
+                </li>
+                <li>
+                  <b>Known module options</b>
+                  –The main known Jetty modules each have an option predefined to select their required Jars. Known options include xml, server, security, servlet, webapp, deploy, serlvets, rewrite, jmx, ajp, jndi, annotations, setuid, policy and client.
+                </li>
+                <li>
+                  <b>Discovered options</b>
+                  –Directories within
+                  <tt>${jetty.home}/lib</tt>
+                  can be discovered as options. The "lib/ext", "lib/jsp" and "lib/jta" are directories that can be discovered as an options.
+                </li>
+              </ul>
+              <p>
+                <br />
+              </p>
+              <h2>
+                <span class="mw-headline" id="Building_the_Arguments">Building the Arguments</span>
+              </h2>
+              <p>
+                The jetty
+                <a class="external text" href="http://git.eclipse.org/c/jetty/org.eclipse.jetty.project.git/plain/jetty-start/src/main/resources/org/eclipse/jetty/start/start.config" rel="nofollow">
+                  <tt>start.config</tt>
+                </a>
+                file lists has
+                <tt>etc/jetty.xml</tt>
+                as the default command line argument, which in the default case is the name of the configuration file passed to the XmlConfiguration main. If you need additional configuration files, you must list all the configuration files on the command line along with the options required for the classpath. For example, the following runs Jetty with JMX and AJP connector:
+              </p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="bash source-bash">
+                  <pre class="de1" xml:space="preserve">java <span class="re5">-jar</span> start.jar <span class="re2">OPTIONS</span>=Server,jmx,ajp etc<span class="sy0">/</span>jetty-jmx.xml etc<span class="sy0">/</span>jetty.xml etc<span class="sy0">/</span>jetty-ajp.xml</pre>
+                </div>
+              </div>
+              <p>
+                Use the
+                <tt>--help</tt>
+                parameter to list the available XML configuration files.
+              </p>
+              <h2>
+                <span class="mw-headline" id="Running_the_Main">Running the Main</span>
+              </h2>
+              <p>
+                The jetty
+                <tt>start.config</tt>
+                has
+                <tt>org.eclipse.jetty.xml.XmlConfiguration</tt>
+                as the main class to run.  You can replace it with another class by setting the
+                <tt>start.class</tt>
+                system property.
+              </p>
+              <p>
+                <br />
+              </p>
+              <h2>
+                <span class="mw-headline" id="Setting_Defaults:_start.ini">Setting Defaults: start.ini</span>
+              </h2>
+              <p>
+                If the file
+                <tt>start.ini</tt>
+                exists in the same directory as
+                <tt>start.jar</tt>
+                , it is read and every non-comment line is treated as a command line argument.  The following
+                <tt>start.ini</tt>
+                sets the options and default configuration files for using the server with JMX and SSL:
+              </p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="bash source-bash">
+                  <pre class="de1" xml:space="preserve"><span class="co0">#===========================================================</span>
 <span class="co0"># Jetty start.jar arguments</span>
 <span class="co0">#-----------------------------------------------------------</span>
 <span class="re2">OPTIONS</span>=Server,jmx,resources
 etc<span class="sy0">/</span>jetty-jmx.xml
 etc<span class="sy0">/</span>jetty.xml
-etc<span class="sy0">/</span>jetty-ssl.xml</pre></div></div>
-<p>As well as normal <tt>start.jar</tt> arguments, it is possible to put JVM arguments in a <tt>start.ini</tt>.  However, because these cannot affect the JVM that is running <tt>start.jar</tt>, you should provide the <tt>--exec</tt> option so that a new JVM is spawned with the arguments.  The following <tt>start.ini</tt> example sets the JVM heap memory and enables remote JMX management:
-</p>
-<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="bash source-bash"><pre class="de1"><span class="co0">#===========================================================</span>
+etc<span class="sy0">/</span>jetty-ssl.xml</pre>
+                </div>
+              </div>
+              <p>
+                As well as normal
+                <tt>start.jar</tt>
+                arguments, it is possible to put JVM arguments in a
+                <tt>start.ini</tt>
+                .  However, because these cannot affect the JVM that is running
+                <tt>start.jar</tt>
+                , you should provide the
+                <tt>--exec</tt>
+                option so that a new JVM is spawned with the arguments.  The following
+                <tt>start.ini</tt>
+                example sets the JVM heap memory and enables remote JMX management:
+              </p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="bash source-bash">
+                  <pre class="de1" xml:space="preserve"><span class="co0">#===========================================================</span>
 <span class="co0"># Jetty start.jar arguments</span>
 <span class="co0">#-----------------------------------------------------------</span>
 <span class="re5">--exec</span>
@@ -177,15 +369,13 @@ etc<span class="sy0">/</span>jetty-ssl.xml</pre></div></div>
 <span class="re2">OPTIONS</span>=Server,jmx,resources
 etc<span class="sy0">/</span>jetty-jmx.xml
 etc<span class="sy0">/</span>jetty.xml
-etc<span class="sy0">/</span>jetty-ssl.xml</pre></div></div>
-
-
-</div>
-
-                    <div class="catlinks" id="catlinks"><div class="mw-normal-catlinks" id="mw-normal-catlinks"><a title="Special:Categories" href="https://wiki.eclipse.org/Special:Categories">Categories</a>: <ul><li><a href="https://wiki.eclipse.org/Category:Jetty" title="Category:Jetty">Jetty</a></li><li><a title="Category:Jetty Feature" href="https://wiki.eclipse.org/Category:Jetty_Feature">Jetty Feature</a></li></ul></div></div>
-                                  </div>
+etc<span class="sy0">/</span>jetty-ssl.xml</pre>
+                </div>
               </div>
             </div>
           </div>
-</body>
+        </div>
+      </div>
+    </div>
+  </body>
 </html>

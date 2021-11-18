@@ -1,72 +1,185 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
-<head>
+  <head>
     <title>Jetty WTP Plugin</title>
-    <link rel="stylesheet" media="screen, print" href="wiki-style.css"/>
-</head>
-<body>
-<div id="mainContent" class="col-md-20">
-                      <ul class="nav nav-tabs noprint hidden-print" role="tablist">
-                       <li class="active" id="ca-nstab-main"><a href="Troubleshooting.html" tabindex="-1" accesskey="c" title="View the content page [c]">Page</a></li>
-                        <li class="new" id="ca-talk"><a tabindex="-1" accesskey="t" title="Discussion about the content page [t]" href="edit">Discussion</a></li>
-                        <li id="ca-viewsource"><a tabindex="-1" title="This page is protected.&#10;You can view its source [e]" accesskey="e" href="edit">View source</a></li>
-                        <li class="collapsible" id="ca-history"><a href="edit" accesskey="h" title="Past revisions of this page [h]" tabindex="-1">History</a></li>
-                      </ul>            <div class="tab-content background-white">
-              <div class="tab-pane active" id="tab-pane-main-page-content">
-
-                
-                <h1 class="firstHeading page-header" id="firstHeading">
-                  <span dir="auto">Jetty/Troubleshooting</span>
-                </h1>
-                <div id="main-page-content">
-
-                  <div id="contentSub" class="alert alert-small alert-warning"><span class="subpages">&lt; <a title="Jetty" href="../Jetty.html">Jetty</a></span></div>
-
-                  
-                  
-                  <div class="mw-content-ltr" id="mw-content-text" dir="ltr" lang="en"><p><br/>
-</p><p><br/>
-</p>
-<div class="toc" id="toc"><div id="toctitle"><h2>Contents</h2></div>
-<ul>
-<li class="toclevel-1 tocsection-1"><a href="Troubleshooting.html#Big_Problems"><span class="tocnumber">1</span> <span class="toctext">Big Problems</span></a>
-<ul>
-<li class="toclevel-2"><a href="Troubleshooting.html#What_about_locked_files_on_Windows.3F"><span class="tocnumber">1.1</span> <span class="toctext">What about locked files on Windows?</span></a></li>
-<li class="toclevel-2"><a href="Troubleshooting.html#Why_isn.27t_my_application.2Fservlet.2Fcontent_served.3F"><span class="tocnumber">1.2</span> <span class="toctext">Why isn't my application/servlet/content served?</span></a></li>
-<li class="toclevel-2"><a href="Troubleshooting.html#Jetty_has_locked_up.3F"><span class="tocnumber">1.3</span> <span class="toctext">Jetty has locked up?</span></a></li>
-<li class="toclevel-2"><a href="Troubleshooting.html#JSP_support_not_configured.3F"><span class="tocnumber">1.4</span> <span class="toctext">JSP support not configured?</span></a></li>
-<li class="toclevel-2"><a href="Troubleshooting.html#Why_does_StressTest.java_fail_on_Mac_OS.3F"><span class="tocnumber">1.5</span> <span class="toctext">Why does StressTest.java fail on Mac OS?</span></a></li>
-</ul>
-</li>
-<li class="toclevel-1 tocsection-2"><a href="Troubleshooting.html#Logs_and_Warnings"><span class="tocnumber">2</span> <span class="toctext">Logs and Warnings</span></a>
-<ul>
-<li class="toclevel-2"><a href="Troubleshooting.html#Why_do_I_get_JVM_Bugs_reported.3F"><span class="tocnumber">2.1</span> <span class="toctext">Why do I get JVM Bugs reported?</span></a></li>
-<li class="toclevel-2"><a href="Troubleshooting.html#Why_do_I_get_a_.22Save_could_not_be_completed.22_error_in_Eclipse_whenever_I_try_to_save_a_file_while_Jetty_is_running.3F"><span class="tocnumber">2.2</span> <span class="toctext">Why do I get a "Save could not be completed" error in Eclipse whenever I try to save a file while Jetty is running?</span></a></li>
-</ul>
-</li>
-</ul>
-</div>
-
-<h2><span id="Big_Problems" class="mw-headline">Big Problems</span></h2>
-<h3><span class="mw-headline" id="What_about_locked_files_on_Windows.3F"><a href="https://wiki.eclipse.org/File:Question_Mark.png" class="image"><img alt="Question Mark.png" height="40" width="40" src="../images/6/60/Question_Mark.png"/></a> What about locked files on Windows?</span></h3>
-<div style="border: 1px solid #BBF; border-radius: 5px; padding: 10px; -moz-border-radius:10px;">Easy! read this! <a rel="nofollow" class="external free" href="http://wiki.eclipse.org/Jetty/Howto/Deal_with_Locked_Windows_Files">http://wiki.eclipse.org/Jetty/Howto/Deal_with_Locked_Windows_Files</a></div>
-<p><br/>
-</p>
-<h3><span class="mw-headline" id="Why_isn.27t_my_application.2Fservlet.2Fcontent_served.3F"><a href="https://wiki.eclipse.org/File:Question_Mark.png" class="image"><img src="../images/6/60/Question_Mark.png" height="40" width="40" alt="Question Mark.png"/></a> Why isn't my application/servlet/content served?</span></h3>
-<div style="border: 1px solid #BBF; border-radius: 5px; padding: 10px; -moz-border-radius:10px;">To diagnose the problem:
-<ul><li> If you think your application is running, but you get a 404 response, make sure that you have correctly <a href="Howto/SetContextPath.html" title="Jetty/Howto/SetContextPath">set the context path</a>.</li></ul>
-<ul><li> If you click a link to access the application, make sure you don't have a relative URL problem.  Remember that a link to foo/bar on a page at /myapp/page goes to /myapp/foo/bar.  If you want it to go to /myapp/page/foo/bar, make sure the browser is redirected from /myapp/page to /myapp/page/.</li></ul>
-<ul><li> If you still cannot get your content, look in the requestlog to see the exact URL that is being requested.</li></ul>
-<ul><li> If you receive a 503 Unavailable response, an exception occurred while deploying the web application. Check the log for details.</li></ul></div>
-<p><br/>
-</p>
-<h3><span id="Jetty_has_locked_up.3F" class="mw-headline"><a class="image" href="https://wiki.eclipse.org/File:Question_Mark.png"><img alt="Question Mark.png" width="40" height="40" src="../images/6/60/Question_Mark.png"/></a> Jetty has locked up?</span></h3>
-<div style="border: 1px solid #BBF; border-radius: 5px; padding: 10px; -moz-border-radius:10px;">If your requests are not getting any responses, a frequent description of the problem is that "Jetty locked up." To diagnose such problems, it is very important to work out exactly what has locked up.
-<ul><li> You can test whether the JVM has locked up completely by trying to use a tool like Jconsole or jvisualvm to attach to the process. </li></ul>
-<ul><li><ul><li> If you cannot attach to the process, it is likely something has gone wrong with the JVM and/or the operating system rather than Jetty itself.</li></ul></li></ul>
-<ul><li><ul><li> If you can attach to the JVM with Jconsole and/or jvisualvm, look to see how many threads are allocated and what tasks they are doing.  A frequent cause of lockups is a slow database so that all the threads in the thread pool end up waiting for a JDBC connection from the connection pool.</li></ul></li></ul>
-<ul><li> You can test whether Jetty is completely locked up by trying some simple requests to see if they get a response. Opening <a href="http://thehost.com/favicon.icon" rel="nofollow" class="external free">http://thehost.com/favicon.icon</a> or some other image directly is often a good way to see if Jetty is still running.  If it is, try some simple requests within the application that use minimal features (no authentication, no database, for example) and see if any of those requests work.</li></ul>
-<ul><li> Finally, you can use telnet as a fake HTTP client to see if Jetty is accepting connections.  If you telnet to the port (80 or 8080) and you see a "Connected to www.example.com" message, Jetty is still accepting connections. Next try typing a request like "OPTION * HTTP/1.0" and press <b>Enter</b> twice to see if you get an HTTP response:</li></ul>
-   <pre>   # telnet blogs.webtide.com 80
+    <link href="wiki-style.css" media="screen, print" rel="stylesheet" />
+  </head>
+  <body>
+    <div class="col-md-20" id="mainContent">
+      <div class="tab-content background-white">
+        <div class="tab-pane active" id="tab-pane-main-page-content">
+          <h1 class="firstHeading page-header" id="firstHeading">
+            <span dir="auto">Jetty/Troubleshooting</span>
+          </h1>
+          <div id="main-page-content">
+            <div class="alert alert-small alert-warning" id="contentSub">
+              <span class="subpages">
+                &lt;
+                <a href="../Jetty.html" title="Jetty">Jetty</a>
+              </span>
+            </div>
+            <div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="en">
+              <p>
+                <br />
+              </p>
+              <p>
+                <br />
+              </p>
+              <div class="toc" id="toc">
+                <div id="toctitle">
+                  <h2>Contents</h2>
+                </div>
+                <ul>
+                  <li class="toclevel-1 tocsection-1">
+                    <a href="Troubleshooting.html#Big_Problems">
+                      <span class="tocnumber">1</span>
+                      <span class="toctext">Big Problems</span>
+                    </a>
+                    <ul>
+                      <li class="toclevel-2">
+                        <a href="Troubleshooting.html#What_about_locked_files_on_Windows.3F">
+                          <span class="tocnumber">1.1</span>
+                          <span class="toctext">What about locked files on Windows?</span>
+                        </a>
+                      </li>
+                      <li class="toclevel-2">
+                        <a href="Troubleshooting.html#Why_isn.27t_my_application.2Fservlet.2Fcontent_served.3F">
+                          <span class="tocnumber">1.2</span>
+                          <span class="toctext">Why isn't my application/servlet/content served?</span>
+                        </a>
+                      </li>
+                      <li class="toclevel-2">
+                        <a href="Troubleshooting.html#Jetty_has_locked_up.3F">
+                          <span class="tocnumber">1.3</span>
+                          <span class="toctext">Jetty has locked up?</span>
+                        </a>
+                      </li>
+                      <li class="toclevel-2">
+                        <a href="Troubleshooting.html#JSP_support_not_configured.3F">
+                          <span class="tocnumber">1.4</span>
+                          <span class="toctext">JSP support not configured?</span>
+                        </a>
+                      </li>
+                      <li class="toclevel-2">
+                        <a href="Troubleshooting.html#Why_does_StressTest.java_fail_on_Mac_OS.3F">
+                          <span class="tocnumber">1.5</span>
+                          <span class="toctext">Why does StressTest.java fail on Mac OS?</span>
+                        </a>
+                      </li>
+                    </ul>
+                  </li>
+                  <li class="toclevel-1 tocsection-2">
+                    <a href="Troubleshooting.html#Logs_and_Warnings">
+                      <span class="tocnumber">2</span>
+                      <span class="toctext">Logs and Warnings</span>
+                    </a>
+                    <ul>
+                      <li class="toclevel-2">
+                        <a href="Troubleshooting.html#Why_do_I_get_JVM_Bugs_reported.3F">
+                          <span class="tocnumber">2.1</span>
+                          <span class="toctext">Why do I get JVM Bugs reported?</span>
+                        </a>
+                      </li>
+                      <li class="toclevel-2">
+                        <a href="Troubleshooting.html#Why_do_I_get_a_.22Save_could_not_be_completed.22_error_in_Eclipse_whenever_I_try_to_save_a_file_while_Jetty_is_running.3F">
+                          <span class="tocnumber">2.2</span>
+                          <span class="toctext">Why do I get a "Save could not be completed" error in Eclipse whenever I try to save a file while Jetty is running?</span>
+                        </a>
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </div>
+              <h2>
+                <span class="mw-headline" id="Big_Problems">Big Problems</span>
+              </h2>
+              <h3>
+                <span class="mw-headline" id="What_about_locked_files_on_Windows.3F">
+                  <a class="image" href="https://wiki.eclipse.org/File:Question_Mark.png">
+                    <img alt="Question Mark.png" height="40" src="../images/6/60/Question_Mark.png" width="40" />
+                  </a>
+                  What about locked files on Windows?
+                </span>
+              </h3>
+              <div style="border: 1px solid #BBF; border-radius: 5px; padding: 10px; -moz-border-radius:10px;">
+                Easy! read this!
+                <a class="external free" href="http://wiki.eclipse.org/Jetty/Howto/Deal_with_Locked_Windows_Files" rel="nofollow">http://wiki.eclipse.org/Jetty/Howto/Deal_with_Locked_Windows_Files</a>
+              </div>
+              <p>
+                <br />
+              </p>
+              <h3>
+                <span class="mw-headline" id="Why_isn.27t_my_application.2Fservlet.2Fcontent_served.3F">
+                  <a class="image" href="https://wiki.eclipse.org/File:Question_Mark.png">
+                    <img alt="Question Mark.png" height="40" src="../images/6/60/Question_Mark.png" width="40" />
+                  </a>
+                  Why isn't my application/servlet/content served?
+                </span>
+              </h3>
+              <div style="border: 1px solid #BBF; border-radius: 5px; padding: 10px; -moz-border-radius:10px;">
+                To diagnose the problem:
+                <ul>
+                  <li>
+                    If you think your application is running, but you get a 404 response, make sure that you have correctly
+                    <a href="Howto/SetContextPath.html" title="Jetty/Howto/SetContextPath">set the context path</a>
+                    .
+                  </li>
+                </ul>
+                <ul>
+                  <li>If you click a link to access the application, make sure you don't have a relative URL problem.  Remember that a link to foo/bar on a page at /myapp/page goes to /myapp/foo/bar.  If you want it to go to /myapp/page/foo/bar, make sure the browser is redirected from /myapp/page to /myapp/page/.</li>
+                </ul>
+                <ul>
+                  <li>If you still cannot get your content, look in the requestlog to see the exact URL that is being requested.</li>
+                </ul>
+                <ul>
+                  <li>If you receive a 503 Unavailable response, an exception occurred while deploying the web application. Check the log for details.</li>
+                </ul>
+              </div>
+              <p>
+                <br />
+              </p>
+              <h3>
+                <span class="mw-headline" id="Jetty_has_locked_up.3F">
+                  <a class="image" href="https://wiki.eclipse.org/File:Question_Mark.png">
+                    <img alt="Question Mark.png" height="40" src="../images/6/60/Question_Mark.png" width="40" />
+                  </a>
+                  Jetty has locked up?
+                </span>
+              </h3>
+              <div style="border: 1px solid #BBF; border-radius: 5px; padding: 10px; -moz-border-radius:10px;">
+                If your requests are not getting any responses, a frequent description of the problem is that "Jetty locked up." To diagnose such problems, it is very important to work out exactly what has locked up.
+                <ul>
+                  <li>You can test whether the JVM has locked up completely by trying to use a tool like Jconsole or jvisualvm to attach to the process.</li>
+                </ul>
+                <ul>
+                  <li>
+                    <ul>
+                      <li>If you cannot attach to the process, it is likely something has gone wrong with the JVM and/or the operating system rather than Jetty itself.</li>
+                    </ul>
+                  </li>
+                </ul>
+                <ul>
+                  <li>
+                    <ul>
+                      <li>If you can attach to the JVM with Jconsole and/or jvisualvm, look to see how many threads are allocated and what tasks they are doing.  A frequent cause of lockups is a slow database so that all the threads in the thread pool end up waiting for a JDBC connection from the connection pool.</li>
+                    </ul>
+                  </li>
+                </ul>
+                <ul>
+                  <li>
+                    You can test whether Jetty is completely locked up by trying some simple requests to see if they get a response. Opening
+                    <a class="external free" href="http://thehost.com/favicon.icon" rel="nofollow">http://thehost.com/favicon.icon</a>
+                    or some other image directly is often a good way to see if Jetty is still running.  If it is, try some simple requests within the application that use minimal features (no authentication, no database, for example) and see if any of those requests work.
+                  </li>
+                </ul>
+                <ul>
+                  <li>
+                    Finally, you can use telnet as a fake HTTP client to see if Jetty is accepting connections.  If you telnet to the port (80 or 8080) and you see a "Connected to www.example.com" message, Jetty is still accepting connections. Next try typing a request like "OPTION * HTTP/1.0" and press
+                    <b>Enter</b>
+                    twice to see if you get an HTTP response:
+                  </li>
+                </ul>
+                <pre xml:space="preserve">   # telnet blogs.webtide.com 80
    Trying 72.32.76.94...
    Connected to blogs.webtide.com.
    Escape character is '^]'.
@@ -77,49 +190,104 @@
    Content-Length: 1287
    Server: Jetty(7.0.0.v20091005)
    </pre>
-<p>Check that the <i>Server</i> in the response field is Jetty (and not a load balancer, etc.).
-</p>
-Doing tests like these helps narrow down exactly which component has locked up.   Getting a thread dump (with jstack or ctl-\ or jvisualvm) is also invaluable to diagnose what the threads are doing.</div>
-<p><br/>
-</p><p><br/>
-</p>
-<h3><span id="JSP_support_not_configured.3F" class="mw-headline"><a href="https://wiki.eclipse.org/File:Question_Mark.png" class="image"><img alt="Question Mark.png" width="40" height="40" src="../images/6/60/Question_Mark.png"/></a> JSP support not configured?</span></h3>
-<div style="border: 1px solid #BBF; border-radius: 5px; padding: 10px; -moz-border-radius:10px;">JSP is an option for Jetty.  You must specify the JSP option for the <a title="Jetty/Howto/Run Jetty" href="Howto/Run Jetty.html">start.jar command line</a>. (As of Jetty 7.1.x, the jetty@eclipse download includes the JSP Jars.)
-<p>If JSP is incorrectly configured, each context started produces an error message like: 
-</p>
-<pre>INFO::NO JSP Support for /, did not find org.apache.jasper.servlet.JspServlet
+                <p>
+                  Check that the
+                  <i>Server</i>
+                  in the response field is Jetty (and not a load balancer, etc.).
+                </p>
+                Doing tests like these helps narrow down exactly which component has locked up.   Getting a thread dump (with jstack or ctl-\ or jvisualvm) is also invaluable to diagnose what the threads are doing.
+              </div>
+              <p>
+                <br />
+              </p>
+              <p>
+                <br />
+              </p>
+              <h3>
+                <span class="mw-headline" id="JSP_support_not_configured.3F">
+                  <a class="image" href="https://wiki.eclipse.org/File:Question_Mark.png">
+                    <img alt="Question Mark.png" height="40" src="../images/6/60/Question_Mark.png" width="40" />
+                  </a>
+                  JSP support not configured?
+                </span>
+              </h3>
+              <div style="border: 1px solid #BBF; border-radius: 5px; padding: 10px; -moz-border-radius:10px;">
+                JSP is an option for Jetty.  You must specify the JSP option for the
+                <a href="Howto/Run Jetty.html" title="Jetty/Howto/Run Jetty">start.jar command line</a>
+                . (As of Jetty 7.1.x, the jetty@eclipse download includes the JSP Jars.)
+                <p>If JSP is incorrectly configured, each context started produces an error message like:</p>
+                <pre xml:space="preserve">INFO::NO JSP Support for /, did not find org.apache.jasper.servlet.JspServlet
 </pre>
-A request to a JSP generates a 500 response with the message "500 JSP support not configured"</div>
-<p><br/>
-</p>
-<h3><span id="Why_does_StressTest.java_fail_on_Mac_OS.3F" class="mw-headline"><a href="https://wiki.eclipse.org/File:Question_Mark.png" class="image"><img src="../images/6/60/Question_Mark.png" alt="Question Mark.png" height="40" width="40"/></a> Why does StressTest.java fail on Mac OS?</span></h3>
-<div style="border: 1px solid #BBF; border-radius: 5px; padding: 10px; -moz-border-radius:10px;">StressTest in jetty-server might fail on Mac OS X due to an insufficient port range. Most operating systems have a limit of 65535 available TCP/IP ports.
-<p>Read the following wikipedia entry for details:
-</p><p><a href="http://en.wikipedia.org/wiki/Ephemeral_port" rel="nofollow" class="external free">http://en.wikipedia.org/wiki/Ephemeral_port</a>
-</p><p>[...]The IANA suggests 49152 to 65535 as "dynamic and/or private ports.[...]
-</p><p>[...]Many Linux kernels use 32768 to 61000.[...]
-</p><p>We have fixed the test code to make it run successfully on Mac OS. If it nonetheless fails on your Mac OS, raise the port range by executing the following two commands in a terminal:
-</p>
-<pre>sudo sysctl -w net.inet.ip.portrange.first=32768
+                A request to a JSP generates a 500 response with the message "500 JSP support not configured"
+              </div>
+              <p>
+                <br />
+              </p>
+              <h3>
+                <span class="mw-headline" id="Why_does_StressTest.java_fail_on_Mac_OS.3F">
+                  <a class="image" href="https://wiki.eclipse.org/File:Question_Mark.png">
+                    <img alt="Question Mark.png" height="40" src="../images/6/60/Question_Mark.png" width="40" />
+                  </a>
+                  Why does StressTest.java fail on Mac OS?
+                </span>
+              </h3>
+              <div style="border: 1px solid #BBF; border-radius: 5px; padding: 10px; -moz-border-radius:10px;">
+                StressTest in jetty-server might fail on Mac OS X due to an insufficient port range. Most operating systems have a limit of 65535 available TCP/IP ports.
+                <p>Read the following wikipedia entry for details:</p>
+                <p>
+                  <a class="external free" href="http://en.wikipedia.org/wiki/Ephemeral_port" rel="nofollow">http://en.wikipedia.org/wiki/Ephemeral_port</a>
+                </p>
+                <p>[...]The IANA suggests 49152 to 65535 as "dynamic and/or private ports.[...]</p>
+                <p>[...]Many Linux kernels use 32768 to 61000.[...]</p>
+                <p>We have fixed the test code to make it run successfully on Mac OS. If it nonetheless fails on your Mac OS, raise the port range by executing the following two commands in a terminal:</p>
+                <pre xml:space="preserve">sudo sysctl -w net.inet.ip.portrange.first=32768
 sudo sysctl -w net.inet.ip.portrange.hifirst=32768
 </pre>
-It seems that Apple raised the limits for Mac OS Lion, so on Lion it should work from scratch. If not, apply the <tt>sysctl</tt> commands and retry.</div>
-<h2><span class="mw-headline" id="Logs_and_Warnings">Logs and Warnings</span></h2>
-<h3><span id="Why_do_I_get_JVM_Bugs_reported.3F" class="mw-headline"><a href="https://wiki.eclipse.org/File:Question_Mark.png" class="image"><img alt="Question Mark.png" width="40" height="40" src="../images/6/60/Question_Mark.png"/></a> Why do I get JVM Bugs reported?</span></h3>
-<div style="border: 1px solid #BBF; border-radius: 5px; padding: 10px; -moz-border-radius:10px;">Yes! 
-There are several NIO bugs in the JVM (especially for Linux) that are not fixed in the 1.6.x series. Jetty has implemented a number of <a href="Feature/JVM NIO Bug.html" title="Jetty/Feature/JVM NIO Bug">JVM NIO Bug work arounds</a> that keep a Jetty server working efficiently in the presence of these problems.</div>
-<p><br/>
-</p>
-<h3><span class="mw-headline" id="Why_do_I_get_a_.22Save_could_not_be_completed.22_error_in_Eclipse_whenever_I_try_to_save_a_file_while_Jetty_is_running.3F"><a class="image" href="https://wiki.eclipse.org/File:Question_Mark.png"><img height="40" width="40" alt="Question Mark.png" src="../images/6/60/Question_Mark.png"/></a> Why do I get a "Save could not be completed" error in Eclipse whenever I try to save a file while Jetty is running?</span></h3>
-<div style="border: 1px solid #BBF; border-radius: 5px; padding: 10px; -moz-border-radius:10px;">This is a limitation of Windows -- having a file open in one process means that you can't write to that same file with another process. Since Jetty has mapped the file to its cache, which prevents the file from being edited, you need to turn off caching to work around the problem. You can turn off caching in the default servlet by setting <code>&lt;useFileMappedBuffer&gt;</code> to <code>false</code> in <a title="Jetty/Reference/webdefault.xml" href="Reference/webdefault.xml.html">webdefault.xml</a>.</div>
-
-
-</div>
-
-                    <div class="catlinks" id="catlinks"><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a title="Special:Categories" href="https://wiki.eclipse.org/Special:Categories">Categories</a>: <ul><li><a title="Category:Jetty" href="https://wiki.eclipse.org/Category:Jetty">Jetty</a></li><li><a title="Category:Jetty FAQ" href="https://wiki.eclipse.org/Category:Jetty_FAQ">Jetty FAQ</a></li><li><a href="https://wiki.eclipse.org/Category:Draft_Documentation" title="Category:Draft Documentation">Draft Documentation</a></li></ul></div></div>
-                                  </div>
+                It seems that Apple raised the limits for Mac OS Lion, so on Lion it should work from scratch. If not, apply the
+                <tt>sysctl</tt>
+                commands and retry.
+              </div>
+              <h2>
+                <span class="mw-headline" id="Logs_and_Warnings">Logs and Warnings</span>
+              </h2>
+              <h3>
+                <span class="mw-headline" id="Why_do_I_get_JVM_Bugs_reported.3F">
+                  <a class="image" href="https://wiki.eclipse.org/File:Question_Mark.png">
+                    <img alt="Question Mark.png" height="40" src="../images/6/60/Question_Mark.png" width="40" />
+                  </a>
+                  Why do I get JVM Bugs reported?
+                </span>
+              </h3>
+              <div style="border: 1px solid #BBF; border-radius: 5px; padding: 10px; -moz-border-radius:10px;">
+                Yes! 
+There are several NIO bugs in the JVM (especially for Linux) that are not fixed in the 1.6.x series. Jetty has implemented a number of
+                <a href="Feature/JVM NIO Bug.html" title="Jetty/Feature/JVM NIO Bug">JVM NIO Bug work arounds</a>
+                that keep a Jetty server working efficiently in the presence of these problems.
+              </div>
+              <p>
+                <br />
+              </p>
+              <h3>
+                <span class="mw-headline" id="Why_do_I_get_a_.22Save_could_not_be_completed.22_error_in_Eclipse_whenever_I_try_to_save_a_file_while_Jetty_is_running.3F">
+                  <a class="image" href="https://wiki.eclipse.org/File:Question_Mark.png">
+                    <img alt="Question Mark.png" height="40" src="../images/6/60/Question_Mark.png" width="40" />
+                  </a>
+                  Why do I get a "Save could not be completed" error in Eclipse whenever I try to save a file while Jetty is running?
+                </span>
+              </h3>
+              <div style="border: 1px solid #BBF; border-radius: 5px; padding: 10px; -moz-border-radius:10px;">
+                This is a limitation of Windows -- having a file open in one process means that you can't write to that same file with another process. Since Jetty has mapped the file to its cache, which prevents the file from being edited, you need to turn off caching to work around the problem. You can turn off caching in the default servlet by setting
+                <code>&lt;useFileMappedBuffer&gt;</code>
+                to
+                <code>false</code>
+                in
+                <a href="Reference/webdefault.xml.html" title="Jetty/Reference/webdefault.xml">webdefault.xml</a>
+                .
               </div>
             </div>
           </div>
-</body>
+        </div>
+      </div>
+    </div>
+  </body>
 </html>

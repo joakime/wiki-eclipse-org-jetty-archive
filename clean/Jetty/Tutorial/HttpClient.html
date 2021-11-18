@@ -1,111 +1,159 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
-<head>
+  <head>
     <title>Jetty WTP Plugin</title>
-    <link rel="stylesheet" media="screen, print" href="wiki-style.css"/>
-</head>
-<body>
-<div id="mainContent" class="col-md-20">
-                      <ul class="nav nav-tabs noprint hidden-print" role="tablist">
-                       <li id="ca-nstab-main" class="active"><a title="View the content page [c]" accesskey="c" href="HttpClient.html" tabindex="-1">Page</a></li>
-                        <li id="ca-talk" class="new"><a tabindex="-1" accesskey="t" href="edit" title="Discussion about the content page [t]">Discussion</a></li>
-                        <li id="ca-viewsource"><a tabindex="-1" accesskey="e" href="edit" title="This page is protected.&#10;You can view its source [e]">View source</a></li>
-                        <li class="collapsible" id="ca-history"><a title="Past revisions of this page [h]" accesskey="h" href="edit" tabindex="-1">History</a></li>
-                      </ul>            <div class="tab-content background-white">
-              <div id="tab-pane-main-page-content" class="tab-pane active">
-
-                
-                <h1 id="firstHeading" class="firstHeading page-header">
-                  <span dir="auto">Jetty/Tutorial/HttpClient</span>
-                </h1>
-                <div id="main-page-content">
-
-                  <div id="contentSub" class="alert alert-small alert-warning"><span class="subpages">&lt; <a href="../../Jetty.html" title="Jetty">Jetty</a>‎ | <a href="../Tutorial.html" title="Jetty/Tutorial">Tutorial</a></span></div>
-
-                  
-                  
-                  <div id="mw-content-text" class="mw-content-ltr" dir="ltr" lang="en"><p><br/>
-</p><p><br/>
-</p>
-<div id="toc" class="toc"><div id="toctitle"><h2>Contents</h2></div>
-<ul>
-<li class="toclevel-1"><a href="HttpClient.html#Introduction"><span class="tocnumber">1</span> <span class="toctext">Introduction</span></a></li>
-<li class="toclevel-1"><a href="HttpClient.html#Details"><span class="tocnumber">2</span> <span class="toctext">Details</span></a></li>
-<li class="toclevel-1"><a href="HttpClient.html#HttpClient_Setup"><span class="tocnumber">3</span> <span class="toctext">HttpClient Setup</span></a></li>
-<li class="toclevel-1"><a href="HttpClient.html#Asynchronous_Exchanges"><span class="tocnumber">4</span> <span class="toctext">Asynchronous Exchanges</span></a></li>
-<li class="toclevel-1"><a href="HttpClient.html#Controlling_the_Exchange_Progress"><span class="tocnumber">5</span> <span class="toctext">Controlling the Exchange Progress</span></a></li>
-<li class="toclevel-1"><a href="HttpClient.html#Synchronous_Exchanges"><span class="tocnumber">6</span> <span class="toctext">Synchronous Exchanges</span></a></li>
-<li class="toclevel-1 tocsection-5"><a href="HttpClient.html#SSL_Connections"><span class="tocnumber">7</span> <span class="toctext">SSL Connections</span></a></li>
-</ul>
-</div>
-
-<h2><span id="Introduction" class="mw-headline">Introduction</span></h2>
-<div class="messagebox" style="background-color: #f9f6b7; border: 1px solid #c4c295; color: black; padding: 5px; margin: 1ex 0; min-height: 35px; padding-left: 45px; font-size: 150%; color: white; background-color: #FF8888; padding: 50px">
-<div style="float: left; margin-left: -40px;"><a href="https://wiki.eclipse.org/File:Warning2.png" class="image"><img src="../../images/3/37/Warning2.png" alt="Warning2.png" width="35" height="35"/></a></div>
-<div>Jetty 7 and Jetty 8 are now EOL (End of Life)<br/>
-<p><br/>
-<br/>
-<br/>
-THIS IS NOT THE DOCUMENTATION YOU ARE LOOKING FOR!!!!!<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-All development and stable releases are being performed with Jetty 9 and Jetty 10.<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-This <b>wiki is now officially out of date</b> and all content has been moved to the <a class="external text" href="http://www.eclipse.org/jetty/documentation" rel="nofollow">Jetty Documentation Hub</a><br/> 
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-</p>
-Direct Link to updated documentation: <a href="http://www.eclipse.org/jetty/documentation/current/http-client-api.html" rel="nofollow" class="external free">http://www.eclipse.org/jetty/documentation/current/http-client-api.html</a></div>
-</div>
-<p><br/>
-HttpClient is the Jetty component that allows to make requests and interpret responses to HTTP servers.
-</p><p>This tutorial takes you through the steps necessary to use the HttpClient in the most effective way.
-</p>
-<h2><span id="Details" class="mw-headline">Details</span></h2>
-<p>The HttpClient is by its nature asynchronous. This means that the code that sends the request does not wait for the response to arrive before continuing.
-Instead, the request is sent concurrently to your code, and the response is interpreted also concurrently with your code.
-</p><p>The HttpClient API offers you <i>callbacks</i> to interact with the request-response lifecycle. 
+    <link href="wiki-style.css" media="screen, print" rel="stylesheet" />
+  </head>
+  <body>
+    <div class="col-md-20" id="mainContent">
+      <div class="tab-content background-white">
+        <div class="tab-pane active" id="tab-pane-main-page-content">
+          <h1 class="firstHeading page-header" id="firstHeading">
+            <span dir="auto">Jetty/Tutorial/HttpClient</span>
+          </h1>
+          <div id="main-page-content">
+            <div class="alert alert-small alert-warning" id="contentSub">
+              <span class="subpages">
+                &lt;
+                <a href="../../Jetty.html" title="Jetty">Jetty</a>
+                 |
+                <a href="../Tutorial.html" title="Jetty/Tutorial">Tutorial</a>
+              </span>
+            </div>
+            <div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="en">
+              <p>
+                <br />
+              </p>
+              <p>
+                <br />
+              </p>
+              <div class="toc" id="toc">
+                <div id="toctitle">
+                  <h2>Contents</h2>
+                </div>
+                <ul>
+                  <li class="toclevel-1">
+                    <a href="HttpClient.html#Introduction">
+                      <span class="tocnumber">1</span>
+                      <span class="toctext">Introduction</span>
+                    </a>
+                  </li>
+                  <li class="toclevel-1">
+                    <a href="HttpClient.html#Details">
+                      <span class="tocnumber">2</span>
+                      <span class="toctext">Details</span>
+                    </a>
+                  </li>
+                  <li class="toclevel-1">
+                    <a href="HttpClient.html#HttpClient_Setup">
+                      <span class="tocnumber">3</span>
+                      <span class="toctext">HttpClient Setup</span>
+                    </a>
+                  </li>
+                  <li class="toclevel-1">
+                    <a href="HttpClient.html#Asynchronous_Exchanges">
+                      <span class="tocnumber">4</span>
+                      <span class="toctext">Asynchronous Exchanges</span>
+                    </a>
+                  </li>
+                  <li class="toclevel-1">
+                    <a href="HttpClient.html#Controlling_the_Exchange_Progress">
+                      <span class="tocnumber">5</span>
+                      <span class="toctext">Controlling the Exchange Progress</span>
+                    </a>
+                  </li>
+                  <li class="toclevel-1">
+                    <a href="HttpClient.html#Synchronous_Exchanges">
+                      <span class="tocnumber">6</span>
+                      <span class="toctext">Synchronous Exchanges</span>
+                    </a>
+                  </li>
+                  <li class="toclevel-1 tocsection-5">
+                    <a href="HttpClient.html#SSL_Connections">
+                      <span class="tocnumber">7</span>
+                      <span class="toctext">SSL Connections</span>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+              <h2>
+                <span class="mw-headline" id="Introduction">Introduction</span>
+              </h2>
+              <p>
+                <br />
+                HttpClient is the Jetty component that allows to make requests and interpret responses to HTTP servers.
+              </p>
+              <p>This tutorial takes you through the steps necessary to use the HttpClient in the most effective way.</p>
+              <h2>
+                <span class="mw-headline" id="Details">Details</span>
+              </h2>
+              <p>The HttpClient is by its nature asynchronous. This means that the code that sends the request does not wait for the response to arrive before continuing.
+Instead, the request is sent concurrently to your code, and the response is interpreted also concurrently with your code.</p>
+              <p>
+                The HttpClient API offers you
+                <i>callbacks</i>
+                to interact with the request-response lifecycle. 
 These callbacks will be called by the HttpClient implementation to allow further actions to be performed during each request-response event.
-</p><p>A request-response unit is called <i>exchange</i>, and represent the exchange of information with the HTTP server.
-</p><p>There are two main classes in the HttpClient API:
-</p>
-<ul><li> <tt><a href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/client/HttpClient.html" rel="nofollow" class="external text">org.eclipse.jetty.client.HttpClient</a></tt>, which manages the thread pooling, the proxy setting, the authentication settings, the connector type (blocking or non-blocking), the SSL settings and the timeouts. <tt>HttpClient</tt> manages the configuration that does not depend on a particular exchange.</li>
-<li> <tt><a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/client/HttpExchange.html" rel="nofollow">org.eclipse.jetty.client.HttpExchange</a></tt>, which is the base class that you normally have to subclass that represent the exchange with the HTTP server, and manages HTTP method, the request URI, HTTP headers, request content, HTTP response code, HTTP response headers and response content.</li></ul>
-<h2><span class="mw-headline" id="HttpClient_Setup">HttpClient Setup</span></h2>
-<p>Before exchanging requests/responses with the HTTP server, you need to setup the HttpClient and then start it:
-</p>
-<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="java source-java"><pre class="de1">HttpClient client <span class="sy0">=</span> <span class="kw1">new</span> HttpClient<span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
+              </p>
+              <p>
+                A request-response unit is called
+                <i>exchange</i>
+                , and represent the exchange of information with the HTTP server.
+              </p>
+              <p>There are two main classes in the HttpClient API:</p>
+              <ul>
+                <li>
+                  <tt>
+                    <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/client/HttpClient.html" rel="nofollow">org.eclipse.jetty.client.HttpClient</a>
+                  </tt>
+                  , which manages the thread pooling, the proxy setting, the authentication settings, the connector type (blocking or non-blocking), the SSL settings and the timeouts.
+                  <tt>HttpClient</tt>
+                  manages the configuration that does not depend on a particular exchange.
+                </li>
+                <li>
+                  <tt>
+                    <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/client/HttpExchange.html" rel="nofollow">org.eclipse.jetty.client.HttpExchange</a>
+                  </tt>
+                  , which is the base class that you normally have to subclass that represent the exchange with the HTTP server, and manages HTTP method, the request URI, HTTP headers, request content, HTTP response code, HTTP response headers and response content.
+                </li>
+              </ul>
+              <h2>
+                <span class="mw-headline" id="HttpClient_Setup">HttpClient Setup</span>
+              </h2>
+              <p>Before exchanging requests/responses with the HTTP server, you need to setup the HttpClient and then start it:</p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="java source-java">
+                  <pre class="de1" xml:space="preserve">HttpClient client <span class="sy0">=</span> <span class="kw1">new</span> HttpClient<span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
 client.<span class="me1">setConnectorType</span><span class="br0">(</span>HttpClient.<span class="me1">CONNECTOR_SELECT_CHANNEL</span><span class="br0">)</span><span class="sy0">;</span>
-client.<span class="me1">start</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span></pre></div></div>
-<p>You can also choose to setup the maximum number of connections per address (connections are pooled up to that maximum number), or to specify the thread pool, or the timeout:
-</p>
-<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="java source-java"><pre class="de1">HttpClient client <span class="sy0">=</span> <span class="kw1">new</span> HttpClient<span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
+client.<span class="me1">start</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span></pre>
+                </div>
+              </div>
+              <p>You can also choose to setup the maximum number of connections per address (connections are pooled up to that maximum number), or to specify the thread pool, or the timeout:</p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="java source-java">
+                  <pre class="de1" xml:space="preserve">HttpClient client <span class="sy0">=</span> <span class="kw1">new</span> HttpClient<span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
 client.<span class="me1">setConnectorType</span><span class="br0">(</span>HttpClient.<span class="me1">CONNECTOR_SELECT_CHANNEL</span><span class="br0">)</span><span class="sy0">;</span>
 client.<span class="me1">setMaxConnectionsPerAddress</span><span class="br0">(</span><span class="nu0">200</span><span class="br0">)</span><span class="sy0">;</span> <span class="co1">// max 200 concurrent connections to every address</span>
 client.<span class="me1">setThreadPool</span><span class="br0">(</span><span class="kw1">new</span> QueuedThreadPool<span class="br0">(</span><span class="nu0">250</span><span class="br0">)</span><span class="br0">)</span><span class="sy0">;</span> <span class="co1">// max 250 threads</span>
 client.<span class="me1">setTimeout</span><span class="br0">(</span><span class="nu0">30000</span><span class="br0">)</span><span class="sy0">;</span> <span class="co1">// 30 seconds timeout; if no server reply, the request expires</span>
-client.<span class="me1">start</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span></pre></div></div>
-<p>Remember to configure the HttpClient before starting it, or the settings will not have effect.
-</p><p>Since HttpClient does not have any settings related to a particular address, it can be used to exchange requests/responses with several HTTP servers.
-You normally need one HttpClient instance for all your needs, even if you plan to connect to multiple HTTP servers.
-</p>
-<h2><span id="Asynchronous_Exchanges" class="mw-headline">Asynchronous Exchanges</span></h2>
-<p>Once the HttpClient has been setup, exchanges may be initiated by using the <tt>HttpClient.send(HttpExchange exchange)</tt> method.
-</p><p>The exchange must be configured with two mandatory fields: the address to connect to, and the request URI, or equivalently with an absolute URL:
-</p>
-<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="java source-java"><pre class="de1">HttpExchange exchange <span class="sy0">=</span> <span class="kw1">new</span> HttpExchange<span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
+client.<span class="me1">start</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span></pre>
+                </div>
+              </div>
+              <p>Remember to configure the HttpClient before starting it, or the settings will not have effect.</p>
+              <p>Since HttpClient does not have any settings related to a particular address, it can be used to exchange requests/responses with several HTTP servers.
+You normally need one HttpClient instance for all your needs, even if you plan to connect to multiple HTTP servers.</p>
+              <h2>
+                <span class="mw-headline" id="Asynchronous_Exchanges">Asynchronous Exchanges</span>
+              </h2>
+              <p>
+                Once the HttpClient has been setup, exchanges may be initiated by using the
+                <tt>HttpClient.send(HttpExchange exchange)</tt>
+                method.
+              </p>
+              <p>The exchange must be configured with two mandatory fields: the address to connect to, and the request URI, or equivalently with an absolute URL:</p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="java source-java">
+                  <pre class="de1" xml:space="preserve">HttpExchange exchange <span class="sy0">=</span> <span class="kw1">new</span> HttpExchange<span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
  
 <span class="co1">// Optionally set the HTTP method</span>
 exchange.<span class="me1">setMethod</span><span class="br0">(</span><span class="st0">"POST"</span><span class="br0">)</span><span class="sy0">;</span>
@@ -117,32 +165,99 @@ exchange.<span class="me1">setURL</span><span class="br0">(</span><span class="s
  
 client.<span class="me1">send</span><span class="br0">(</span>exchange<span class="br0">)</span><span class="sy0">;</span>
  
-<span class="kw3">System</span>.<span class="me1">out</span>.<span class="me1">println</span><span class="br0">(</span><span class="st0">"Exchange sent"</span><span class="br0">)</span><span class="sy0">;</span></pre></div></div>
-<p>The most important thing to remember is that the <tt>send()</tt> method returns immediately after dispatching the exchange to a thread pool for execution, so the <tt>System.out</tt> is executed immediately after the <tt>send()</tt> method. It may be well true that the <tt>System.out</tt> is executed well before the exchange is actually executed, as well as it may be well true that the <tt>System.out</tt> is executed after the exchange is completely executed (when even the request has been received).
-</p><p>Beware of not assuming anything about the status of the exchange just because you called <tt>send()</tt>.
-</p>
-<h2><span class="mw-headline" id="Controlling_the_Exchange_Progress">Controlling the Exchange Progress</span></h2>
-<p>Because we used the HttpExchange class directly, without subclassing it, we have neither control nor notifications about the status of the exchange.
-The <tt>HttpExchange</tt> class exposes the following callback methods to be overridden to be notified of the status of the exchange:
-</p>
-<ul><li> <tt>onRequestCommitted()</tt>, called when the request line and the request headers have been sent to the HTTP server.</li>
-<li> <tt>onRequestComplete()</tt>, called when the request content has been sent to the HTTP server.</li>
-<li> <tt>onResponseStatus(Buffer httpVersion, int statusCode, Buffer statusMessage)</tt>, called when the response line has been processed; the three parameters hold, respectively, the HTTP version string (e.g. "HTTP/1.1"), the response status code (e.g. 200) and the response status message (e.g. "OK").</li>
-<li> <tt>onResponseHeader(Buffer name, Buffer value)</tt>, called for each response header that has been processed; the parameters hold the name of the header (e.g. "Content-Length") and the value of the header (e.g. "16384").</li>
-<li> <tt>onResponseHeaderComplete()</tt>, called when all response headers have been processed.</li>
-<li> <tt>onResponseContent(Buffer content)</tt>, called multiple times for each chunk of the response content; the parameter holds the chunk of the content that has been received.</li>
-<li> <tt>onResponseComplete()</tt>, called when the response content has been completely received.</li></ul>
-<p>Additionally four more methods can be overridden to be notified of non-normal conditions:
-</p>
-<ul><li> <tt>onConnectionFailed(Throwable x)</tt>, called when it is not possible to connect to the address specified in the exchange; the parameter holds the exception received while trying to connect.</li>
-<li> <tt>onException(Throwable x)</tt>, called when a connection was possible, but an error happened later; the parameter holds the exception happened.</li>
-<li> <tt>onExpire()</tt>, called when the server did not respond before the timeout configured in the HttpClient.</li>
-<li> <tt>onRetry()</tt>, called when the exchange is resent (e.g. after an attempt to authenticate with no credentials).</li></ul>
-<p>You can of course extend HttpExchange directly, but it's probably best to use Jetty's built-in class <tt>org.eclipse.jetty.client.ContentExchange</tt>.
+<span class="kw3">System</span>.<span class="me1">out</span>.<span class="me1">println</span><span class="br0">(</span><span class="st0">"Exchange sent"</span><span class="br0">)</span><span class="sy0">;</span></pre>
+                </div>
+              </div>
+              <p>
+                The most important thing to remember is that the
+                <tt>send()</tt>
+                method returns immediately after dispatching the exchange to a thread pool for execution, so the
+                <tt>System.out</tt>
+                is executed immediately after the
+                <tt>send()</tt>
+                method. It may be well true that the
+                <tt>System.out</tt>
+                is executed well before the exchange is actually executed, as well as it may be well true that the
+                <tt>System.out</tt>
+                is executed after the exchange is completely executed (when even the request has been received).
+              </p>
+              <p>
+                Beware of not assuming anything about the status of the exchange just because you called
+                <tt>send()</tt>
+                .
+              </p>
+              <h2>
+                <span class="mw-headline" id="Controlling_the_Exchange_Progress">Controlling the Exchange Progress</span>
+              </h2>
+              <p>
+                Because we used the HttpExchange class directly, without subclassing it, we have neither control nor notifications about the status of the exchange.
+The
+                <tt>HttpExchange</tt>
+                class exposes the following callback methods to be overridden to be notified of the status of the exchange:
+              </p>
+              <ul>
+                <li>
+                  <tt>onRequestCommitted()</tt>
+                  , called when the request line and the request headers have been sent to the HTTP server.
+                </li>
+                <li>
+                  <tt>onRequestComplete()</tt>
+                  , called when the request content has been sent to the HTTP server.
+                </li>
+                <li>
+                  <tt>onResponseStatus(Buffer httpVersion, int statusCode, Buffer statusMessage)</tt>
+                  , called when the response line has been processed; the three parameters hold, respectively, the HTTP version string (e.g. "HTTP/1.1"), the response status code (e.g. 200) and the response status message (e.g. "OK").
+                </li>
+                <li>
+                  <tt>onResponseHeader(Buffer name, Buffer value)</tt>
+                  , called for each response header that has been processed; the parameters hold the name of the header (e.g. "Content-Length") and the value of the header (e.g. "16384").
+                </li>
+                <li>
+                  <tt>onResponseHeaderComplete()</tt>
+                  , called when all response headers have been processed.
+                </li>
+                <li>
+                  <tt>onResponseContent(Buffer content)</tt>
+                  , called multiple times for each chunk of the response content; the parameter holds the chunk of the content that has been received.
+                </li>
+                <li>
+                  <tt>onResponseComplete()</tt>
+                  , called when the response content has been completely received.
+                </li>
+              </ul>
+              <p>Additionally four more methods can be overridden to be notified of non-normal conditions:</p>
+              <ul>
+                <li>
+                  <tt>onConnectionFailed(Throwable x)</tt>
+                  , called when it is not possible to connect to the address specified in the exchange; the parameter holds the exception received while trying to connect.
+                </li>
+                <li>
+                  <tt>onException(Throwable x)</tt>
+                  , called when a connection was possible, but an error happened later; the parameter holds the exception happened.
+                </li>
+                <li>
+                  <tt>onExpire()</tt>
+                  , called when the server did not respond before the timeout configured in the HttpClient.
+                </li>
+                <li>
+                  <tt>onRetry()</tt>
+                  , called when the exchange is resent (e.g. after an attempt to authenticate with no credentials).
+                </li>
+              </ul>
+              <p>
+                You can of course extend HttpExchange directly, but it's probably best to use Jetty's built-in class
+                <tt>org.eclipse.jetty.client.ContentExchange</tt>
+                .
 This class overrides most of the callback methods above to allow easy retrieval of the response status code, response headers and response body.
-</p><p>Most of the times, you want to override <tt>onResponseComplete()</tt> to allow your business logic to read the response information (e.g. response status code or response body) and perform additional operations:
-</p>
-<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="java source-java"><pre class="de1">ContentExchange exchange <span class="sy0">=</span> <span class="kw1">new</span> ContentExchange<span class="br0">(</span><span class="kw2">true</span><span class="br0">)</span>
+              </p>
+              <p>
+                Most of the times, you want to override
+                <tt>onResponseComplete()</tt>
+                to allow your business logic to read the response information (e.g. response status code or response body) and perform additional operations:
+              </p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="java source-java">
+                  <pre class="de1" xml:space="preserve">ContentExchange exchange <span class="sy0">=</span> <span class="kw1">new</span> ContentExchange<span class="br0">(</span><span class="kw2">true</span><span class="br0">)</span>
 <span class="br0">{</span>
     <span class="kw1">protected</span> <span class="kw4">void</span> onResponseComplete<span class="br0">(</span><span class="br0">)</span> <span class="kw1">throws</span> <span class="kw3">IOException</span>
     <span class="br0">{</span>
@@ -152,12 +267,21 @@ This class overrides most of the callback methods above to allow easy retrieval 
         <span class="kw1">else</span>
             handleError<span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
     <span class="br0">}</span>
-<span class="br0">}</span><span class="sy0">;</span></pre></div></div>
-<h2><span id="Synchronous_Exchanges" class="mw-headline">Synchronous Exchanges</span></h2>
-<p>While asynchronous exchanges offer the most in term of performances, sometimes it is necessary to perform a synchronous exchange without the hassle of overriding methods to be notified of response completion.
-This is possible by using the <tt>HttpExchange.waitForDone()</tt> method:
-</p>
-<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="java source-java"><pre class="de1">HttpClient client <span class="sy0">=</span> <span class="kw1">new</span> HttpClient<span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
+<span class="br0">}</span><span class="sy0">;</span></pre>
+                </div>
+              </div>
+              <h2>
+                <span class="mw-headline" id="Synchronous_Exchanges">Synchronous Exchanges</span>
+              </h2>
+              <p>
+                While asynchronous exchanges offer the most in term of performances, sometimes it is necessary to perform a synchronous exchange without the hassle of overriding methods to be notified of response completion.
+This is possible by using the
+                <tt>HttpExchange.waitForDone()</tt>
+                method:
+              </p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="java source-java">
+                  <pre class="de1" xml:space="preserve">HttpClient client <span class="sy0">=</span> <span class="kw1">new</span> HttpClient<span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
 client.<span class="me1">start</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
  
 ContentExchange exchange <span class="sy0">=</span> <span class="kw1">new</span> ContentExchange<span class="br0">(</span><span class="kw2">true</span><span class="br0">)</span><span class="sy0">;</span>
@@ -173,19 +297,28 @@ client.<span class="me1">send</span><span class="br0">(</span>exchange<span clas
 <span class="kw1">else</span> <span class="kw1">if</span> <span class="br0">(</span>exchangeState <span class="sy0">==</span> HttpExchange.<span class="me1">STATUS_EXCEPTED</span><span class="br0">)</span>
     handleError<span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
 <span class="kw1">else</span> <span class="kw1">if</span> <span class="br0">(</span>exchangeState <span class="sy0">==</span> HttpExchange.<span class="me1">STATUS_EXPIRED</span><span class="br0">)</span>
-    handleSlowServer<span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span></pre></div></div>
-<p>The <tt>waitForDone()</tt> method waits until the exchange state is in a "final" state, which could be that the exchange terminated successfully, or an exception was thrown or it expired.
-</p>
-<h2><span id="SSL_Connections" class="mw-headline">SSL Connections</span></h2>
-<p>In order to configure HttpClient to validate SSL certificates and/or to supply a client certificate to the server, follow the instructions in <a href="../Reference/SSL Connectors.html" title="Jetty/Reference/SSL Connectors"> SSL Connectors Reference</a> to configure a <a rel="nofollow" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/http/ssl/SslContextFactory.html" class="external text">SslContextFactory</a> object and pass it as a parameter to the HttpClient's constructor.
-</p>
-
-</div>
-
-                    <div class="catlinks" id="catlinks"><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a title="Special:Categories" href="https://wiki.eclipse.org/Special:Categories">Categories</a>: <ul><li><a title="Category:Jetty" href="https://wiki.eclipse.org/Category:Jetty">Jetty</a></li><li><a title="Category:Jetty Tutorial" href="https://wiki.eclipse.org/Category:Jetty_Tutorial">Jetty Tutorial</a></li></ul></div></div>
-                                  </div>
+    handleSlowServer<span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span></pre>
+                </div>
               </div>
+              <p>
+                The
+                <tt>waitForDone()</tt>
+                method waits until the exchange state is in a "final" state, which could be that the exchange terminated successfully, or an exception was thrown or it expired.
+              </p>
+              <h2>
+                <span class="mw-headline" id="SSL_Connections">SSL Connections</span>
+              </h2>
+              <p>
+                In order to configure HttpClient to validate SSL certificates and/or to supply a client certificate to the server, follow the instructions in
+                <a href="../Reference/SSL Connectors.html" title="Jetty/Reference/SSL Connectors">SSL Connectors Reference</a>
+                to configure a
+                <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/http/ssl/SslContextFactory.html" rel="nofollow">SslContextFactory</a>
+                object and pass it as a parameter to the HttpClient's constructor.
+              </p>
             </div>
           </div>
-</body>
+        </div>
+      </div>
+    </div>
+  </body>
 </html>

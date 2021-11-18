@@ -1,175 +1,139 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
-<head>
+  <head>
     <title>Jetty WTP Plugin</title>
-    <link rel="stylesheet" media="screen, print" href="wiki-style.css"/>
-</head>
-<body>
-<div class="col-md-20" id="mainContent">
-                      <ul class="nav nav-tabs noprint hidden-print" role="tablist">
-                       <li id="ca-nstab-main" class="active"><a tabindex="-1" title="View the content page [c]" href="Jetty-OSGi SDK.html" accesskey="c">Page</a></li>
-                        <li id="ca-talk" class="new"><a accesskey="t" tabindex="-1" href="edit" title="Discussion about the content page [t]">Discussion</a></li>
-                        <li id="ca-viewsource"><a accesskey="e" tabindex="-1" href="edit" title="This page is protected.&#10;You can view its source [e]">View source</a></li>
-                        <li id="ca-history" class="collapsible"><a href="edit" title="Past revisions of this page [h]" tabindex="-1" accesskey="h">History</a></li>
-                      </ul>            <div class="tab-content background-white">
-              <div id="tab-pane-main-page-content" class="tab-pane active">
-
-                
-                <h1 id="firstHeading" class="firstHeading page-header">
-                  <span dir="auto">Jetty/Tutorial/Jetty-OSGi SDK</span>
-                </h1>
-                <div id="main-page-content">
-
-                  <div id="contentSub" class="alert alert-small alert-warning"><span class="subpages">&lt; <a title="Jetty" href="../../Jetty.html">Jetty</a>‎ | <a href="../Tutorial.html" title="Jetty/Tutorial">Tutorial</a></span></div>
-
-                  
-                  
-                  <div id="mw-content-text" dir="ltr" class="mw-content-ltr" lang="en"><p><br/>
-</p><p><br/>
-</p>
-<div class="toc" id="toc"><div id="toctitle"><h2>Contents</h2></div>
-<ul>
-<li class="toclevel-1"><a href="Jetty-OSGi SDK.html#Introduction"><span class="tocnumber">1</span> <span class="toctext">Introduction</span></a></li>
-<li class="toclevel-1"><a href="Jetty-OSGi SDK.html#Details"><span class="tocnumber">2</span> <span class="toctext">Details</span></a></li>
-<li class="toclevel-1"><a href="Jetty-OSGi SDK.html#Configure_a_Target_Platform_and_run_a_simple_Test_Unit_with_PDE"><span class="tocnumber">3</span> <span class="toctext">Configure a Target Platform and run a simple Test Unit with PDE</span></a>
-<ul>
-<li class="toclevel-2"><a href="Jetty-OSGi SDK.html#Target_Platform_with_JUnit_Support"><span class="tocnumber">3.1</span> <span class="toctext">Target Platform with JUnit Support</span></a></li>
-<li class="toclevel-2"><a href="Jetty-OSGi SDK.html#OSGi_bundle_with_a_test_unit"><span class="tocnumber">3.2</span> <span class="toctext">OSGi bundle with a test unit</span></a></li>
-</ul>
-</li>
-<li class="toclevel-1"><a href="Jetty-OSGi SDK.html#Setup_Jetty_and_a_first_Web-bundle"><span class="tocnumber">4</span> <span class="toctext">Setup Jetty and a first Web-bundle</span></a>
-<ul>
-<li class="toclevel-2"><a href="Jetty-OSGi SDK.html#Setup_Jetty_Target_Component"><span class="tocnumber">4.1</span> <span class="toctext">Setup Jetty Target Component</span></a></li>
-<li class="toclevel-2"><a href="Jetty-OSGi SDK.html#Create_a_first_web-bundle"><span class="tocnumber">4.2</span> <span class="toctext">Create a first web-bundle</span></a></li>
-<li class="toclevel-2"><a href="Jetty-OSGi SDK.html#Launch_configuration"><span class="tocnumber">4.3</span> <span class="toctext">Launch configuration</span></a></li>
-<li class="toclevel-2"><a href="Jetty-OSGi SDK.html#Notes:_where_is_the_jetty_server_configured"><span class="tocnumber">4.4</span> <span class="toctext">Notes: where is the jetty server configured</span></a></li>
-</ul>
-</li>
-<li class="toclevel-1"><a href="Jetty-OSGi SDK.html#Automated_test_for_the_servlet"><span class="tocnumber">5</span> <span class="toctext">Automated test for the servlet</span></a></li>
-<li class="toclevel-1"><a href="Jetty-OSGi SDK.html#EclipseRT_Jetty_Starter_Kit"><span class="tocnumber">6</span> <span class="toctext">EclipseRT Jetty Starter Kit</span></a></li>
-<li class="toclevel-1"><a href="Jetty-OSGi SDK.html#Additional_Resources"><span class="tocnumber">7</span> <span class="toctext">Additional Resources</span></a></li>
-</ul>
-</div>
-
-<h2><span id="Introduction" class="mw-headline">Introduction</span></h2>
-<div style="background-color: #f9f6b7; border: 1px solid #c4c295; color: black; padding: 5px; margin: 1ex 0; min-height: 35px; padding-left: 45px; font-size: 150%; color: white; background-color: #FF8888; padding: 50px" class="messagebox">
-<div style="float: left; margin-left: -40px;"><a href="https://wiki.eclipse.org/File:Warning2.png" class="image"><img height="35" width="35" src="../../images/3/37/Warning2.png" alt="Warning2.png"/></a></div>
-<div>Jetty 7 and Jetty 8 are now EOL (End of Life)<br/>
-<p><br/>
-<br/>
-<br/>
-THIS IS NOT THE DOCUMENTATION YOU ARE LOOKING FOR!!!!!<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-All development and stable releases are being performed with Jetty 9 and Jetty 10.<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-This <b>wiki is now officially out of date</b> and all content has been moved to the <a class="external text" href="http://www.eclipse.org/jetty/documentation" rel="nofollow">Jetty Documentation Hub</a><br/> 
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-</p>
-
-</div>
-<p><br/>
-Jetty-OSGi is a packaging of jetty where jetty is run as an OSGi bundle. It supports the deployment of traditional J2EE web-applications and also web-bundles where the web application is contained in a bundle.
-</p>
-<h2><span id="Details" class="mw-headline">Details</span></h2>
-<p>This tutorial introduces the development and testing of web-bundles in PDE using Target Platforms.
-<a title="Jetty/Tutorial/EclipseRT-Jetty-Starter-Kit" href="EclipseRT-Jetty-Starter-Kit.html">EclipseRT Jetty Starter Kit</a> describes the runtime distribution.
-It also describes how to develop against such a runtime with PDE.
-</p>
-<h2><span id="Configure_a_Target_Platform_and_run_a_simple_Test_Unit_with_PDE" class="mw-headline">Configure a Target Platform and run a simple Test Unit with PDE</span></h2>
-<p>We will provision a new Target Platform and develop a simple bundle that executes a Testunit.
-A Target Platform defines the OSGi environment in which your bundles are compiled and debugged.
-</p>
-<h3><span class="mw-headline" id="Target_Platform_with_JUnit_Support">Target Platform with JUnit Support</span></h3>
-<p>Launch Eclipse-SDK-3.6.
-Define a new Target Platform "EclipseRT-Tutorial"
-Open the Preferences and choose the node "Plugins-Development/Target Platform"
-Click on "Add..." and choose the option "Nothing:" start with an empty Target Platform"
-</p>
-<div class="center"><div class="floatnone"><a class="image" href="https://wiki.eclipse.org/File:01-JOT-new-target-platform.png" title="Create a new OSGi Project"><img width="693" src="../../images/3/38/01-JOT-new-target-platform.png" height="590" alt="Create a new OSGi Project"/></a></div></div>
-<ul><li> Name the Target Platform "EclipseRT Tutorial"</li>
-<li> Click on Next and choose "Add..." then "Select Software Site"</li></ul>
-<div class="center"><div class="floatnone"><a class="image" href="https://wiki.eclipse.org/File:02-JOT-add-software-site.png" title="Name it"><img src="../../images/f/f6/02-JOT-add-software-site.png" width="719" height="695" alt="Name it"/></a></div></div>
-<ul><li> Select the "Helios" download site as the source of the features to install in the Target Platform</li>
-<li> Look for the category "Eclipse RT Target Platform" and select the PDE JUnit Support feature. Click on Finish.</li></ul>
-<p>(Currently use: <a href="http://download.eclipse.org/jetty/7.1.3.v20100526/repository/" rel="nofollow" class="external free">http://download.eclipse.org/jetty/7.1.3.v20100526/repository/</a>)
-</p>
-<div class="center"><div class="floatnone"><a class="image" title="Select the JUnit Support Feature" href="https://wiki.eclipse.org/File:03-JOT-RT-PDE-JUnit-Support.png"><img width="640" src="../../images/3/3e/03-JOT-RT-PDE-JUnit-Support.png" height="565" alt="Select the JUnit Support Feature"/></a></div></div>
-<p><br/>
-</p>
-<ul><li> Select the new Target Platform as the active platform.</li></ul>
-<div class="center"><div class="floatnone"><a class="image" title="Activate the Target Platform" href="https://wiki.eclipse.org/File:05-JOT-RT-PDE-JUnit-Support-Activate.png"><img width="629" src="../../images/a/a2/05-JOT-RT-PDE-JUnit-Support-Activate.png" height="552" alt="Activate the Target Platform"/></a></div></div>
-<h3><span class="mw-headline" id="OSGi_bundle_with_a_test_unit">OSGi bundle with a test unit</span></h3>
-<ul><li> Create a new OSGI Bundle project: "New Project.../Plugin-Project"</li>
-<li> Name the project "org.eclipse.jetty.rt.example.test"</li>
-<li> Choose a pure OSGi bundle.</li></ul>
-<div class="center"><div class="floatnone"><a href="https://wiki.eclipse.org/File:07-JOT-RT-New-Plugin-Project.png" title="Activate the Target Platform" class="image"><img width="527" src="../../images/3/3a/07-JOT-RT-New-Plugin-Project.png" height="547" alt="Activate the Target Platform"/></a></div></div>
-<p><br/>
-</p>
-<ul><li> Generate a bundle activator.</li>
-<li> Click on Finish.</li></ul>
-<div class="center"><div class="floatnone"><a title="Activate the Target Platform" href="https://wiki.eclipse.org/File:08-JOT-RT-New-Plugin-Project.png" class="image"><img alt="Activate the Target Platform" height="545" src="../../images/0/0a/08-JOT-RT-New-Plugin-Project.png" width="524"/></a></div></div>
-<p><br/>
-</p>
-<ul><li> Open the META-INF/MANIFEST.MF editor and on the tab "Overview, select the checkbox "Activate this plugin when one of its classes is loaded"</li></ul>
-<div class="center"><div class="floatnone"><a class="image" href="https://wiki.eclipse.org/File:11-JOT-Lazy-Activation-Policy.png" title="Lazy Activation policy"><img width="605" src="../../images/e/ee/11-JOT-Lazy-Activation-Policy.png" height="327" alt="Lazy Activation policy"/></a></div></div>
-<p><br/>
-</p>
-<ul><li> Open the META-INF/MANIFEST.MF editor and choose the tab "dependencies"</li>
-<li> In the "Imported packages" section, click on "Add..." and select the package "org.junit"</li></ul>
-<div class="center"><div class="floatnone"><a title="Lazy Activation policy" href="https://wiki.eclipse.org/File:09-JOT-Import-JUnit.png" class="image"><img src="../../images/f/fa/09-JOT-Import-JUnit.png" width="911" height="703" alt="Lazy Activation policy"/></a></div></div>
-<p><br/>
-</p>
-<ul><li> Create a new class ActivatorTest</li>
-<li> Make a method that will be run by JUnit to test that the activator is started:</li></ul>
-<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="java source-java"><pre class="de1"><span class="kw1">package</span> <span class="co2">org.eclipse.jetty.rt.example.test</span><span class="sy0">;</span>
- 
-<span class="kw1">import</span> <span class="co2">org.junit.Assert</span><span class="sy0">;</span>
-<span class="kw1">import</span> <span class="co2">org.junit.Test</span><span class="sy0">;</span>
- 
-<span class="co3">/**
- * Tests that the activator was indeed loaded
- */</span>
-<span class="kw1">public</span> <span class="kw1">class</span> ActivatorTest <span class="br0">{</span>
-	@Test <span class="kw1">public</span> <span class="kw4">void</span> testActivator<span class="br0">(</span><span class="br0">)</span> <span class="kw1">throws</span> <span class="kw3">Exception</span> <span class="br0">{</span>
-		<span class="kw1">Assert</span>.<span class="me1">assertNotNull</span><span class="br0">(</span><span class="st0">"The activator was not started"</span>, <span class="kw3">Activator</span>.<span class="me1">getContext</span><span class="br0">(</span><span class="br0">)</span><span class="br0">)</span><span class="sy0">;</span>
-	<span class="br0">}</span>	
-<span class="br0">}</span></pre></div></div>
-<ul><li> Right-click on the Activator-Test Class and choose "Run as .../JUnit Plugin Test"</li>
-<li> The test should pass</li></ul>
-<div class="center"><div class="floatnone"><a title="Lazy Activation policy" href="https://wiki.eclipse.org/File:12-JOT-Run-Testunit.png" class="image"><img height="765" width="1027" src="../../images/f/fd/12-JOT-Run-Testunit.png" alt="Lazy Activation policy"/></a></div></div>
-<p><a title="Org.eclipse.rt.example.test-1.0.0.qualifier.zip" href="https://wiki.eclipse.org/images/f/f8/Org.eclipse.rt.example.test-1.0.0.qualifier.zip" class="internal">Archive for this project</a>
-</p>
-<h2><span id="Setup_Jetty_and_a_first_Web-bundle" class="mw-headline">Setup Jetty and a first Web-bundle</span></h2>
-<h3><span class="mw-headline" id="Setup_Jetty_Target_Component">Setup Jetty Target Component</span></h3>
-<ul><li> Choose Preferences and Edit the "EclipseRT Tutorial" target platform definition</li>
-<li> Select the Helios site and choose "Edit"</li>
-<li> Add the "Jetty Target Component" feature to the list of features provisioned</li></ul>
-<div class="center"><div class="floatnone"><a title="Lazy Activation policy" href="https://wiki.eclipse.org/File:13-JOT-Target-Platform-add-jetty.png" class="image"><img alt="Lazy Activation policy" src="../../images/9/93/13-JOT-Target-Platform-add-jetty.png" width="721" height="764"/></a></div></div>
-<h3><span class="mw-headline" id="Create_a_first_web-bundle">Create a first web-bundle</span></h3>
-<p>Create a new OSGi bundle. Name it "org.eclipse.jetty.example.webapp"
-</p><p>If you have installed the Jetty tooling feature, click next until you can choose a template. Everything will be generated.
-</p><p>If you are creating the bundle with the jetty template you will need to add to the MANIFEST.MF:
-</p>
-<ul><li> The import-package: <div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="text source-text"><pre class="de1">Import-Package: javax.servlet;version="2.5.0",</pre></div></div></li></ul>
- javax.servlet.http;version="2.5.0"</div></div>
-<ul><li> A new line that defines the context path for the web-application: <div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="text source-text"><pre class="de1">Web-ContextPath: /test</pre></div></div></li></ul>
-<p>It should look like this:
-</p>
-<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="text source-text"><pre class="de1">Manifest-Version: 1.0
+    <link href="wiki-style.css" media="screen, print" rel="stylesheet" />
+  </head>
+  <body>
+    <div class="col-md-20" id="mainContent">
+      <div class="tab-content background-white">
+        <div class="tab-pane active" id="tab-pane-main-page-content">
+          <h1 class="firstHeading page-header" id="firstHeading">
+            <span dir="auto">Jetty/Tutorial/Jetty-OSGi SDK</span>
+          </h1>
+          <div id="main-page-content">
+            <div class="alert alert-small alert-warning" id="contentSub">
+              <span class="subpages">
+                &lt;
+                <a href="../../Jetty.html" title="Jetty">Jetty</a>
+                 |
+                <a href="../Tutorial.html" title="Jetty/Tutorial">Tutorial</a>
+              </span>
+            </div>
+            <div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="en">
+              <p>
+                <br />
+              </p>
+              <p>
+                <br />
+              </p>
+              <div class="toc" id="toc">
+                <div id="toctitle">
+                  <h2>Contents</h2>
+                </div>
+                <ul>
+                  <li class="toclevel-1">
+                    <a href="Jetty-OSGi SDK.html#Introduction">
+                      <span class="tocnumber">1</span>
+                      <span class="toctext">Introduction</span>
+                    </a>
+                  </li>
+                  <li class="toclevel-1">
+                    <a href="Jetty-OSGi SDK.html#Details">
+                      <span class="tocnumber">2</span>
+                      <span class="toctext">Details</span>
+                    </a>
+                  </li>
+                  <li class="toclevel-1">
+                    <a href="Jetty-OSGi SDK.html#Configure_a_Target_Platform_and_run_a_simple_Test_Unit_with_PDE">
+                      <span class="tocnumber">3</span>
+                      <span class="toctext">Configure a Target Platform and run a simple Test Unit with PDE</span>
+                    </a>
+                    <ul>
+                      <li class="toclevel-2">
+                        <a href="Jetty-OSGi SDK.html#Target_Platform_with_JUnit_Support">
+                          <span class="tocnumber">3.1</span>
+                          <span class="toctext">Target Platform with JUnit Support</span>
+                        </a>
+                      </li>
+                      <li class="toclevel-2">
+                        <a href="Jetty-OSGi SDK.html#OSGi_bundle_with_a_test_unit">
+                          <span class="tocnumber">3.2</span>
+                          <span class="toctext">OSGi bundle with a test unit</span>
+                        </a>
+                      </li>
+                    </ul>
+                  </li>
+                  <li class="toclevel-1">
+                    <a href="Jetty-OSGi SDK.html#Setup_Jetty_and_a_first_Web-bundle">
+                      <span class="tocnumber">4</span>
+                      <span class="toctext">Setup Jetty and a first Web-bundle</span>
+                    </a>
+                    <ul>
+                      <li class="toclevel-2">
+                        <a href="Jetty-OSGi SDK.html#Setup_Jetty_Target_Component">
+                          <span class="tocnumber">4.1</span>
+                          <span class="toctext">Setup Jetty Target Component</span>
+                        </a>
+                      </li>
+                      <li class="toclevel-2">
+                        <a href="Jetty-OSGi SDK.html#Create_a_first_web-bundle">
+                          <span class="tocnumber">4.2</span>
+                          <span class="toctext">Create a first web-bundle</span>
+                        </a>
+                      </li>
+                      <li class="toclevel-2">
+                        <a href="Jetty-OSGi SDK.html#Launch_configuration">
+                          <span class="tocnumber">4.3</span>
+                          <span class="toctext">Launch configuration</span>
+                        </a>
+                      </li>
+                      <li class="toclevel-2">
+                        <a href="Jetty-OSGi SDK.html#Notes:_where_is_the_jetty_server_configured">
+                          <span class="tocnumber">4.4</span>
+                          <span class="toctext">Notes: where is the jetty server configured</span>
+                        </a>
+                      </li>
+                    </ul>
+                  </li>
+                  <li class="toclevel-1">
+                    <a href="Jetty-OSGi SDK.html#Automated_test_for_the_servlet">
+                      <span class="tocnumber">5</span>
+                      <span class="toctext">Automated test for the servlet</span>
+                    </a>
+                  </li>
+                  <li class="toclevel-1">
+                    <a href="Jetty-OSGi SDK.html#EclipseRT_Jetty_Starter_Kit">
+                      <span class="tocnumber">6</span>
+                      <span class="toctext">EclipseRT Jetty Starter Kit</span>
+                    </a>
+                  </li>
+                  <li class="toclevel-1">
+                    <a href="Jetty-OSGi SDK.html#Additional_Resources">
+                      <span class="tocnumber">7</span>
+                      <span class="toctext">Additional Resources</span>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+              <h2>
+                <span class="mw-headline" id="Introduction">Introduction</span>
+              </h2>
+            </div>
+            <ul>
+              <li>
+                A new line that defines the context path for the web-application:
+                <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                  <div class="text source-text">
+                    <pre class="de1" xml:space="preserve">Web-ContextPath: /test</pre>
+                  </div>
+                </div>
+              </li>
+            </ul>
+            <p>It should look like this:</p>
+            <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+              <div class="text source-text">
+                <pre class="de1" xml:space="preserve">Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Webapp
 Bundle-SymbolicName: org.eclipse.jetty.example.webapp
@@ -179,11 +143,16 @@ Import-Package: org.osgi.framework;version="1.3.0",
  javax.servlet;version="2.5.0",
  javax.servlet.http;version="2.5.0"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
-Web-ContextPath: /test</pre></div></div>
-<ul><li> Now create a new file WEB-INF/web.xml at the root of the project.</li></ul>
-<p>And define a simple servlet-mapping:
-</p>
-<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="xml source-xml"><pre class="de1"><span class="sc3"><span class="re1">&lt;?xml</span> <span class="re0">version</span>=<span class="st0">"1.0"</span> <span class="re0">encoding</span>=<span class="st0">"ISO-8859-1"</span><span class="re2">?&gt;</span></span>
+Web-ContextPath: /test</pre>
+              </div>
+            </div>
+            <ul>
+              <li>Now create a new file WEB-INF/web.xml at the root of the project.</li>
+            </ul>
+            <p>And define a simple servlet-mapping:</p>
+            <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+              <div class="xml source-xml">
+                <pre class="de1" xml:space="preserve"><span class="sc3"><span class="re1">&lt;?xml</span> <span class="re0">version</span>=<span class="st0">"1.0"</span> <span class="re0">encoding</span>=<span class="st0">"ISO-8859-1"</span><span class="re2">?&gt;</span></span>
 <span class="sc3"><span class="re1">&lt;web-app</span></span>
 <span class="sc3">   <span class="re0">xmlns</span>=<span class="st0">"http://java.sun.com/xml/ns/javaee"</span></span>
 <span class="sc3">   <span class="re0">xmlns:xsi</span>=<span class="st0">"http://www.w3.org/2001/XMLSchema-instance"</span></span>
@@ -201,9 +170,15 @@ Web-ContextPath: /test</pre></div></div>
         <span class="sc3"><span class="re1">&lt;url-pattern<span class="re2">&gt;</span></span></span>/*<span class="sc3"><span class="re1">&lt;/url-pattern<span class="re2">&gt;</span></span></span>
     <span class="sc3"><span class="re1">&lt;/servlet-mapping<span class="re2">&gt;</span></span></span>
  
-<span class="sc3"><span class="re1">&lt;/web-app<span class="re2">&gt;</span></span></span></pre></div></div>
-<ul><li> Create a org.eclipse.jetty.example.webapp.Servlet class</li></ul>
-<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="java source-java"><pre class="de1"><span class="kw1">package</span> <span class="co2">org.eclipse.jetty.example.webapp</span><span class="sy0">;</span>
+<span class="sc3"><span class="re1">&lt;/web-app<span class="re2">&gt;</span></span></span></pre>
+              </div>
+            </div>
+            <ul>
+              <li>Create a org.eclipse.jetty.example.webapp.Servlet class</li>
+            </ul>
+            <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+              <div class="java source-java">
+                <pre class="de1" xml:space="preserve"><span class="kw1">package</span> <span class="co2">org.eclipse.jetty.example.webapp</span><span class="sy0">;</span>
  
 <span class="kw1">import</span> <span class="co2">java.io.IOException</span><span class="sy0">;</span>
  
@@ -225,13 +200,18 @@ Web-ContextPath: /test</pre></div></div>
 		<span class="kw3">System</span>.<span class="me1">err</span>.<span class="me1">println</span><span class="br0">(</span><span class="st0">"DO GET!"</span><span class="br0">)</span><span class="sy0">;</span>
 		resp.<span class="me1">getWriter</span><span class="br0">(</span><span class="br0">)</span>.<span class="me1">write</span><span class="br0">(</span><span class="st0">"Howdy!"</span><span class="br0">)</span><span class="sy0">;</span>
 	<span class="br0">}</span>
-<span class="br0">}</span></pre></div></div>
-<h3><span class="mw-headline" id="Launch_configuration">Launch configuration</span></h3>
-<p>slf4j/logback are bundled by default.
-Some extra steps are necessary to prevent all logs from appearing on the console.
-</p><p>Create a new file logback.xml at the root of the web-bundle project and paste this configuration:
-</p>
-<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="xml source-xml"><pre class="de1"><span class="sc3"><span class="re1">&lt;?xml</span> <span class="re0">version</span>=<span class="st0">"1.0"</span> <span class="re0">encoding</span>=<span class="st0">"UTF-8"</span> <span class="re2">?&gt;</span></span>
+<span class="br0">}</span></pre>
+              </div>
+            </div>
+            <h3>
+              <span class="mw-headline" id="Launch_configuration">Launch configuration</span>
+            </h3>
+            <p>slf4j/logback are bundled by default.
+Some extra steps are necessary to prevent all logs from appearing on the console.</p>
+            <p>Create a new file logback.xml at the root of the web-bundle project and paste this configuration:</p>
+            <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+              <div class="xml source-xml">
+                <pre class="de1" xml:space="preserve"><span class="sc3"><span class="re1">&lt;?xml</span> <span class="re0">version</span>=<span class="st0">"1.0"</span> <span class="re0">encoding</span>=<span class="st0">"UTF-8"</span> <span class="re2">?&gt;</span></span>
 <span class="sc3"><span class="re1">&lt;configuration<span class="re2">&gt;</span></span></span>
 	<span class="sc3"><span class="re1">&lt;appender</span> <span class="re0">name</span>=<span class="st0">"STDOUT"</span> <span class="re0">class</span>=<span class="st0">"ch.qos.logback.core.ConsoleAppender"</span><span class="re2">&gt;</span></span>
 		<span class="sc3"><span class="re1">&lt;encoder<span class="re2">&gt;</span></span></span>
@@ -242,28 +222,47 @@ Some extra steps are necessary to prevent all logs from appearing on the console
 		<span class="sc3"><span class="re1">&lt;level</span> <span class="re0">value</span>=<span class="st0">"error"</span> <span class="re2">/&gt;</span></span>
 		<span class="sc3"><span class="re1">&lt;appender-ref</span> <span class="re0">ref</span>=<span class="st0">"STDOUT"</span> <span class="re2">/&gt;</span></span>
 	<span class="sc3"><span class="re1">&lt;/root<span class="re2">&gt;</span></span></span>
-<span class="sc3"><span class="re1">&lt;/configuration<span class="re2">&gt;</span></span></span></pre></div></div>
-<p>Now Create a new OSGi launch configuration:
+<span class="sc3"><span class="re1">&lt;/configuration<span class="re2">&gt;</span></span></span></pre>
+              </div>
+            </div>
+            <p>Now Create a new OSGi launch configuration:
 Select the menu "Run/Run Configuration..." and choose the node "OSGi".
-Create a new configuration; choose the "Arguments" tab and add to the VM arguments area:
-</p>
-<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="text source-text"><pre class="de1"> -Dlogback.configurationFile=${workspace_loc:org.eclipse.jetty.example.webapp}/logback.xml</pre></div></div>
-<div class="center"><div class="floatnone"><a title="Lazy Activation policy" href="https://wiki.eclipse.org/File:15-JOT-OSGi-Launch-configuration.png" class="image"><img src="../../images/0/0b/15-JOT-OSGi-Launch-configuration.png" width="847" height="614" alt="Lazy Activation policy"/></a></div></div>
-<p><br/>
-Now click on "Run".
-</p><p>Open a browser and navigate to <a class="external free" rel="nofollow" href="http://localhost:8080/test">http://localhost:8080/test</a>
-It will display "Howdy"
-</p>
-<h3><span id="Notes:_where_is_the_jetty_server_configured" class="mw-headline">Notes: where is the jetty server configured</span></h3>
-<p>jetty-osgi looks for ${jetty.home}/etc/jetty.xml for its configuration.
+Create a new configuration; choose the "Arguments" tab and add to the VM arguments area:</p>
+            <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+              <div class="text source-text">
+                <pre class="de1" xml:space="preserve"> -Dlogback.configurationFile=${workspace_loc:org.eclipse.jetty.example.webapp}/logback.xml</pre>
+              </div>
+            </div>
+            <div class="center">
+              <div class="floatnone">
+                <a class="image" href="https://wiki.eclipse.org/File:15-JOT-OSGi-Launch-configuration.png" title="Lazy Activation policy">
+                  <img alt="Lazy Activation policy" height="614" src="../../images/0/0b/15-JOT-OSGi-Launch-configuration.png" width="847" />
+                </a>
+              </div>
+            </div>
+            <p>
+              <br />
+              Now click on "Run".
+            </p>
+            <p>
+              Open a browser and navigate to
+              <a class="external free" href="http://localhost:8080/test" rel="nofollow">http://localhost:8080/test</a>
+              It will display "Howdy"
+            </p>
+            <h3>
+              <span class="mw-headline" id="Notes:_where_is_the_jetty_server_configured">Notes: where is the jetty server configured</span>
+            </h3>
+            <p>jetty-osgi looks for ${jetty.home}/etc/jetty.xml for its configuration.
 When it can't find it defaults to the one embedded inside itself.
-For example: /rt-tutorial-workspace/.metadata/.plugins/org.eclipse.pde.core/.bundle_pool/plugins/org.eclipse.jetty.osgi.boot_7.1.3.v20100526/jettyhome
-</p><p>It is possible to set the system property jetty.home and point it to a different setup or to edit the jetty.xml file located there.
-</p>
-<h2><span id="Automated_test_for_the_servlet" class="mw-headline">Automated test for the servlet</span></h2>
-<p>Add to the test bundle the following imports:
-</p>
-<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="text source-text"><pre class="de1">Manifest-Version: 1.0
+For example: /rt-tutorial-workspace/.metadata/.plugins/org.eclipse.pde.core/.bundle_pool/plugins/org.eclipse.jetty.osgi.boot_7.1.3.v20100526/jettyhome</p>
+            <p>It is possible to set the system property jetty.home and point it to a different setup or to edit the jetty.xml file located there.</p>
+            <h2>
+              <span class="mw-headline" id="Automated_test_for_the_servlet">Automated test for the servlet</span>
+            </h2>
+            <p>Add to the test bundle the following imports:</p>
+            <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+              <div class="text source-text">
+                <pre class="de1" xml:space="preserve">Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Test
 Bundle-SymbolicName: org.eclipse.jetty.rt.example.test
@@ -277,11 +276,16 @@ Import-Package: org.eclipse.jetty,
  org.junit;version="4.8.1",
  org.osgi.framework;version="1.3.0"
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
-Bundle-ActivationPolicy: lazy</pre></div></div>
-<p><br/>
-Create the ServletTest class:
-</p>
-<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="java source-java"><pre class="de1"><span class="kw1">package</span> <span class="co2">org.eclipse.jetty.rt.example.test</span><span class="sy0">;</span>
+Bundle-ActivationPolicy: lazy</pre>
+              </div>
+            </div>
+            <p>
+              <br />
+              Create the ServletTest class:
+            </p>
+            <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+              <div class="java source-java">
+                <pre class="de1" xml:space="preserve"><span class="kw1">package</span> <span class="co2">org.eclipse.jetty.rt.example.test</span><span class="sy0">;</span>
  
 <span class="kw1">import</span> <span class="co2">org.eclipse.jetty.client.*</span><span class="sy0">;</span>
 <span class="kw1">import</span> <span class="co2">org.eclipse.jetty.util.Attributes</span><span class="sy0">;</span>
@@ -365,28 +369,36 @@ Create the ServletTest class:
 		<span class="kw1">Assert</span>.<span class="me1">assertEquals</span><span class="br0">(</span><span class="st0">"Howdy!"</span>, content<span class="br0">)</span><span class="sy0">;</span>
 	<span class="br0">}</span>
  
-<span class="br0">}</span></pre></div></div>
-<p><a class="internal" href="https://wiki.eclipse.org/images/1/19/Org.eclipse.rt.example.webapp-1.0.0.qualifier.zip" title="Org.eclipse.rt.example.webapp-1.0.0.qualifier.zip">Archive of the web-bundle and the webtest bundles</a>
-</p>
-<h2><span id="EclipseRT_Jetty_Starter_Kit" class="mw-headline">EclipseRT Jetty Starter Kit</span></h2>
-<p>EclipseRT Jetty Starter is a downloadable distribution of jetty for production environment.
+<span class="br0">}</span></pre>
+              </div>
+            </div>
+            <p>
+              <a class="internal" href="https://wiki.eclipse.org/images/1/19/Org.eclipse.rt.example.webapp-1.0.0.qualifier.zip" title="Org.eclipse.rt.example.webapp-1.0.0.qualifier.zip">Archive of the web-bundle and the webtest bundles</a>
+            </p>
+            <h2>
+              <span class="mw-headline" id="EclipseRT_Jetty_Starter_Kit">EclipseRT Jetty Starter Kit</span>
+            </h2>
+            <p>EclipseRT Jetty Starter is a downloadable distribution of jetty for production environment.
 It is based on p2 and configured out of the box to be managed by p2. For example to upgrade an installation or install other runtime features, one could use the p2 admin UI or the osgi console where p2 defines the provisioning commands.
-For development purpose the familiar dropins folder is supported.
-</p><p>The Starter Kit is bundled with the platform specific equinox launchers. It can be launched directly in java though.
-PDE supports importing an eclipse installation as a Target Platform.
-</p><p>It is detailed here: <a href="EclipseRT-Jetty-Starter-Kit.html" title="Jetty/Tutorial/EclipseRT-Jetty-Starter-Kit">EclipseRT Jetty Starter Kit</a>
-</p>
-<h2><span class="mw-headline" id="Additional_Resources">Additional Resources</span></h2>
-<p><a title="Jetty/Feature/Jetty OSGi" href="../Feature/Jetty OSGi.html">Jetty-OSGi</a>, <a href="EclipseRT-Jetty-Starter-Kit.html" title="Jetty/Tutorial/EclipseRT-Jetty-Starter-Kit">EclipseRT Jetty Starter Kit</a>, RFC66, PDE
-</p>
-
-</div>
-
-                  <div class="catlinks" id="catlinks">
-                      <li><a class="new" href="edit" title="Category:OSGi (page does not exist)">OSGi</a></li>
-                      </div>
-              </div>
-                                  </div>
-              </div>
-</body>
+For development purpose the familiar dropins folder is supported.</p>
+            <p>The Starter Kit is bundled with the platform specific equinox launchers. It can be launched directly in java though.
+PDE supports importing an eclipse installation as a Target Platform.</p>
+            <p>
+              It is detailed here:
+              <a href="EclipseRT-Jetty-Starter-Kit.html" title="Jetty/Tutorial/EclipseRT-Jetty-Starter-Kit">EclipseRT Jetty Starter Kit</a>
+            </p>
+            <h2>
+              <span class="mw-headline" id="Additional_Resources">Additional Resources</span>
+            </h2>
+            <p>
+              <a href="../Feature/Jetty OSGi.html" title="Jetty/Feature/Jetty OSGi">Jetty-OSGi</a>
+              ,
+              <a href="EclipseRT-Jetty-Starter-Kit.html" title="Jetty/Tutorial/EclipseRT-Jetty-Starter-Kit">EclipseRT Jetty Starter Kit</a>
+              , RFC66, PDE
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
 </html>

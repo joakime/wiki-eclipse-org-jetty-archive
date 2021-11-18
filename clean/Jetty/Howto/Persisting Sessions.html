@@ -1,157 +1,78 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
-<head>
+  <head>
     <title>Jetty WTP Plugin</title>
-    <link rel="stylesheet" media="screen, print" href="wiki-style.css"/>
-</head>
-<body>
-<div class="col-md-20" id="mainContent">
-                                 <div class="tab-content background-white">
-              <div class="tab-pane active" id="tab-pane-main-page-content">
-
-                
-                <h1 class="firstHeading page-header" id="firstHeading">
-                  <span dir="auto">Jetty/Howto/Persisting Sessions</span>
-                </h1>
-                <div id="main-page-content">
-
-                  <div id="contentSub" class="alert alert-small alert-warning"><span class="subpages">&lt; <a title="Jetty" href="../../Jetty.html">Jetty</a>‎ | <a title="Jetty/Howto" href="../Howto.html">Howto</a></span></div>
-
-                  
-                  
-                  <div class="mw-content-ltr" lang="en" id="mw-content-text" dir="ltr"><p><br/>
-</p><p><br/>
-</p>
-<div class="toc" id="toc"><div id="toctitle"><h2>Contents</h2></div>
-<ul>
-<li class="toclevel-1"><a href="Persisting Sessions.html#Introduction"><span class="tocnumber">1</span> <span class="toctext">Introduction</span></a></li>
-<li class="toclevel-1"><a href="Persisting Sessions.html#Enabling_Persistence"><span class="tocnumber">2</span> <span class="toctext">Enabling Persistence</span></a></li>
-<li class="toclevel-1"><a href="Persisting Sessions.html#Delaying_Session_Load"><span class="tocnumber">3</span> <span class="toctext">Delaying Session Load</span></a>
-<ul>
-<li class="toclevel-2"><a href="Persisting Sessions.html#Enabling_Persistence_for_the_Jetty_Maven_Plugin"><span class="tocnumber">3.1</span> <span class="toctext">Enabling Persistence for the Jetty Maven Plugin</span></a></li>
-</ul>
-</li>
-<li class="toclevel-1"><a href="Persisting Sessions.html#Additional_Resources"><span class="tocnumber">4</span> <span class="toctext">Additional Resources</span></a></li>
-</ul>
-</div>
-
-<h2><span id="Introduction" class="mw-headline">Introduction</span></h2>
-<div class="messagebox" style="background-color: #f9f6b7; border: 1px solid #c4c295; color: black; padding: 5px; margin: 1ex 0; min-height: 35px; padding-left: 45px; font-size: 150%; color: white; background-color: #FF8888; padding: 50px">
-<div style="float: left; margin-left: -40px;"><a href="https://wiki.eclipse.org/File:Warning2.png" class="image"><img height="35" alt="Warning2.png" src="../../images/3/37/Warning2.png" width="35"/></a></div>
-<div>Jetty 7 and Jetty 8 are now EOL (End of Life)<br/>
-<p><br/>
-<br/>
-<br/>
-THIS IS NOT THE DOCUMENTATION YOU ARE LOOKING FOR!!!!!<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-All development and stable releases are being performed with Jetty 9 and Jetty 10.<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-This <b>wiki is now officially out of date</b> and all content has been moved to the <a class="external text" href="http://www.eclipse.org/jetty/documentation" rel="nofollow">Jetty Documentation Hub</a><br/> 
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-</p>
-
-</div>
-<p><br/>
-It is sometimes useful to preserve existing Sessions across restarts of Jetty. The <a class="external text" rel="nofollow" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/server/session/HashSessionManager.html">HashSessionManager</a> supports this feature. If you enable persistence, the HashSessionManager saves all existing, valid Sessions to disk before shutdown completes. On restart, Jetty restores the saved Sessions.
-</p>
-<h2><span id="Enabling_Persistence" class="mw-headline">Enabling Persistence</span></h2>
-<p>A SessionManager does just what its name suggests–it manages the lifecycle and state of Sessions on behalf of a webapp. Each webapp must have its own unique SessionManager instance. Enabling persistence is as simple as configuring the HashSessionManager as the SessionManager for a webapp and telling it where on disk to store the sessions:
-</p>
-<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="xml source-xml"><pre class="de1"> 
-<span class="sc3"><span class="re1">&lt;Configure</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.webapp.WebAppContext"</span><span class="re2">&gt;</span></span>
-  .
-  .
-  .
-  <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"sessionHandler"</span><span class="re2">&gt;</span></span>
-    <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.server.session.SessionHandler"</span><span class="re2">&gt;</span></span>
-      <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>
-        <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.server.session.HashSessionManager"</span><span class="re2">&gt;</span></span>
-          <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"storeDirectory"</span><span class="re2">&gt;</span></span>your/chosen/directory/goes/here<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
-        <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span>
-      <span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
-    <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span>
-  <span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
-  .
-  .
-  .
-<span class="sc3"><span class="re1">&lt;/Configure<span class="re2">&gt;</span></span></span></pre></div></div>
-<div style="background-color: #def3fe; border: 1px solid #c5d7e0; color: black; padding: 5px; margin: 1ex 0; min-height: 35px; padding-left: 45px;" class="messagebox">
-<div style="float: left; margin-left: -40px;"><a href="https://wiki.eclipse.org/File:Idea.png" class="image"><img width="35" src="../../images/a/a4/Idea.png" alt="Idea.png" height="35"/></a></div>
-<div><b>Reminder</b><br/>If you want to persist the sessions from multiple webapps:
-<ol><li> Configure a separate HashSessionManager for each.</li>
-<li> Assign to each a different value for <i>storeDirectory</i>.</li></ol></div>
-</div>
-<p><br/>
-The above example uses a configuration file suitable for the <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/deploy/providers/ContextProvider.html" rel="nofollow">ContextProvider</a>, thus you might want to check out the <a title="Jetty/Feature/ContextDeployer" href="https://wiki.eclipse.org/Jetty/Feature/ContextDeployer" class="mw-redirect">Context Provider</a> feature guide.
-</p>
-<h2><span id="Delaying_Session_Load" class="mw-headline">Delaying Session Load</span></h2>
-<p>You might need to ensure that the sessions are loaded AFTER the servlet environment starts up (by default, Jetty eagerly loads sessions as part of the container startup, but before it initializes the servlet environment). For example, the Wicket web framework requires the servlet environment to be available when sessions are activated.
-</p><p>Using <tt>SessionManager.setLazyLoad(true)</tt>, Jetty loads sessions lazily either when it receives the first request for a session, or the session scavenger runs for the first time, whichever happens first. Here's how the configuration looks in XML:
-</p>
-<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="xml source-xml"><pre class="de1"> 
-<span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"sessionHandler"</span><span class="re2">&gt;</span></span>
-  <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.servlet.SessionHandler"</span><span class="re2">&gt;</span></span>
-    <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>
-      <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.servlet.HashSessionManager"</span><span class="re2">&gt;</span></span>
-        <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"lazyLoad"</span><span class="re2">&gt;</span></span>true<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
-      <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span>
-    <span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
-  <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span>
-<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span></pre></div></div>
-<h3><span class="mw-headline" id="Enabling_Persistence_for_the_Jetty_Maven_Plugin">Enabling Persistence for the Jetty Maven Plugin</span></h3>
-<p>To enable session persistence for the Jetty Maven plugin, set up the HashSessionManager in the &lt;configuration&gt; section like so:
-</p>
-<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="xml source-xml"><pre class="de1"> 
-<span class="sc3"><span class="re1">&lt;plugin<span class="re2">&gt;</span></span></span>
-  <span class="sc3"><span class="re1">&lt;groupId<span class="re2">&gt;</span></span></span>org.mortbay.jetty<span class="sc3"><span class="re1">&lt;/groupId<span class="re2">&gt;</span></span></span>
-  <span class="sc3"><span class="re1">&lt;artifactId<span class="re2">&gt;</span></span></span>jetty-maven-plugin<span class="sc3"><span class="re1">&lt;/artifactId<span class="re2">&gt;</span></span></span>
-  <span class="sc3"><span class="re1">&lt;version<span class="re2">&gt;</span></span></span>7.4.3.v20110701<span class="sc3"><span class="re1">&lt;/version<span class="re2">&gt;</span></span></span>
-  <span class="sc3"><span class="re1">&lt;configuration<span class="re2">&gt;</span></span></span>
-    <span class="sc-1">&lt;!-- ... --&gt;</span>
-    <span class="sc3"><span class="re1">&lt;webAppConfig</span> <span class="re0">implementation</span>=<span class="st0">"org.mortbay.jetty.plugin.JettyWebAppContext"</span><span class="re2">&gt;</span></span>
-      <span class="sc3"><span class="re1">&lt;defaultsDescriptor<span class="re2">&gt;</span></span></span>${project.build.outputDirectory}/META-INF/webdefault.xml<span class="sc3"><span class="re1">&lt;/defaultsDescriptor<span class="re2">&gt;</span></span></span>
-      <span class="sc3"><span class="re1">&lt;contextPath<span class="re2">&gt;</span></span></span>${jetty.contextRoot}<span class="sc3"><span class="re1">&lt;/contextPath<span class="re2">&gt;</span></span></span>
-      <span class="sc3"><span class="re1">&lt;sessionHandler</span> <span class="re0">implementation</span>=<span class="st0">"org.eclipse.jetty.server.session.SessionHandler"</span><span class="re2">&gt;</span></span>
-        <span class="sc3"><span class="re1">&lt;sessionManager</span> <span class="re0">implementation</span>=<span class="st0">"org.eclipse.jetty.server.session.HashSessionManager"</span><span class="re2">&gt;</span></span>
-          <span class="sc3"><span class="re1">&lt;storeDirectory<span class="re2">&gt;</span></span></span>${basedir}/target/jetty-sessions<span class="sc3"><span class="re1">&lt;/storeDirectory<span class="re2">&gt;</span></span></span>
-          <span class="sc3"><span class="re1">&lt;idleSavePeriod<span class="re2">&gt;</span></span></span>1<span class="sc3"><span class="re1">&lt;/idleSavePeriod<span class="re2">&gt;</span></span></span>
-        <span class="sc3"><span class="re1">&lt;/sessionManager<span class="re2">&gt;</span></span></span>
-      <span class="sc3"><span class="re1">&lt;/sessionHandler<span class="re2">&gt;</span></span></span>
-    <span class="sc3"><span class="re1">&lt;/webAppConfig<span class="re2">&gt;</span></span></span>
-    <span class="sc-1">&lt;!-- ... --&gt;</span>
-  <span class="sc3"><span class="re1">&lt;/configuration<span class="re2">&gt;</span></span></span>
-<span class="sc3"><span class="re1">&lt;/plugin<span class="re2">&gt;</span></span></span></pre></div></div>
-<p><br/>
-</p><p><br/>
-</p><p><br/>
-</p><p><br/>
-</p><p><br/>
-</p>
-<h2><span class="mw-headline" id="Additional_Resources">Additional Resources</span></h2>
-<p>For more information, see the <a href="../Tutorial/Session Clustering.html" title="Jetty/Tutorial/Session Clustering">Session Clustering</a> tutorial.
-</p>
-
-</div>
-
-                    <div id="catlinks" class="catlinks"><div class="mw-normal-catlinks" id="mw-normal-catlinks"><a href="https://wiki.eclipse.org/Special:Categories" title="Special:Categories">Categories</a>: <ul><li><a href="https://wiki.eclipse.org/Category:Jetty" title="Category:Jetty">Jetty</a></li><li><a title="Category:Jetty Howto" href="https://wiki.eclipse.org/Category:Jetty_Howto">Jetty Howto</a></li></ul></div></div>
-                                  </div>
+    <link href="wiki-style.css" media="screen, print" rel="stylesheet" />
+  </head>
+  <body>
+    <div class="col-md-20" id="mainContent">
+      <div class="tab-content background-white">
+        <div class="tab-pane active" id="tab-pane-main-page-content">
+          <h1 class="firstHeading page-header" id="firstHeading">
+            <span dir="auto">Jetty/Howto/Persisting Sessions</span>
+          </h1>
+          <div id="main-page-content">
+            <div class="alert alert-small alert-warning" id="contentSub">
+              <span class="subpages">
+                &lt;
+                <a href="../../Jetty.html" title="Jetty">Jetty</a>
+                 |
+                <a href="../Howto.html" title="Jetty/Howto">Howto</a>
+              </span>
+            </div>
+            <div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="en">
+              <p>
+                <br />
+              </p>
+              <p>
+                <br />
+              </p>
+              <div class="toc" id="toc">
+                <div id="toctitle">
+                  <h2>Contents</h2>
+                </div>
+                <ul>
+                  <li class="toclevel-1">
+                    <a href="Persisting Sessions.html#Introduction">
+                      <span class="tocnumber">1</span>
+                      <span class="toctext">Introduction</span>
+                    </a>
+                  </li>
+                  <li class="toclevel-1">
+                    <a href="Persisting Sessions.html#Enabling_Persistence">
+                      <span class="tocnumber">2</span>
+                      <span class="toctext">Enabling Persistence</span>
+                    </a>
+                  </li>
+                  <li class="toclevel-1">
+                    <a href="Persisting Sessions.html#Delaying_Session_Load">
+                      <span class="tocnumber">3</span>
+                      <span class="toctext">Delaying Session Load</span>
+                    </a>
+                    <ul>
+                      <li class="toclevel-2">
+                        <a href="Persisting Sessions.html#Enabling_Persistence_for_the_Jetty_Maven_Plugin">
+                          <span class="tocnumber">3.1</span>
+                          <span class="toctext">Enabling Persistence for the Jetty Maven Plugin</span>
+                        </a>
+                      </li>
+                    </ul>
+                  </li>
+                  <li class="toclevel-1">
+                    <a href="Persisting Sessions.html#Additional_Resources">
+                      <span class="tocnumber">4</span>
+                      <span class="toctext">Additional Resources</span>
+                    </a>
+                  </li>
+                </ul>
               </div>
+              <h2>
+                <span class="mw-headline" id="Introduction">Introduction</span>
+              </h2>
             </div>
           </div>
-</div>
-</body>
+        </div>
+      </div>
+    </div>
+  </body>
 </html>

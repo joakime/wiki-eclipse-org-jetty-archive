@@ -1,39 +1,54 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
-<head>
+  <head>
     <title>Jetty WTP Plugin</title>
-    <link rel="stylesheet" media="screen, print" href="wiki-style.css"/>
-</head>
-<body>
-<div id="mainContent" class="col-md-20">
-                      <ul class="nav nav-tabs noprint hidden-print" role="tablist">
-                       <li id="ca-nstab-main" class="active"><a href="Configure Jetty with XBean.html" accesskey="c" tabindex="-1" title="View the content page [c]">Page</a></li>
-                        <li class="new" id="ca-talk"><a title="Discussion about the content page [t]" tabindex="-1" accesskey="t" href="edit">Discussion</a></li>
-                        <li id="ca-viewsource"><a tabindex="-1" title="This page is protected.&#10;You can view its source [e]" href="edit" accesskey="e">View source</a></li>
-                        <li id="ca-history" class="collapsible"><a accesskey="h" href="edit" title="Past revisions of this page [h]" tabindex="-1">History</a></li>
-                      </ul>            <div class="tab-content background-white">
-              <div class="tab-pane active" id="tab-pane-main-page-content">
-
-                
-                <h1 class="firstHeading page-header" id="firstHeading">
-                  <span dir="auto">Jetty/Howto/Configure Jetty with XBean</span>
-                </h1>
-                <div id="main-page-content">
-
-                  <div class="alert alert-small alert-warning" id="contentSub"><span class="subpages">&lt; <a href="../../Jetty.html" title="Jetty">Jetty</a>‎ | <a href="../Howto.html" title="Jetty/Howto">Howto</a></span></div>
-
-                  
-                  
-                  <div class="mw-content-ltr" lang="en" dir="ltr" id="mw-content-text"><p><br/>
-</p><p><br/>
-</p>
-<h2><span id="Introduction" class="mw-headline">Introduction</span></h2>
-<p>Jetty7 supports <a rel="nofollow" class="external text" href="http://xbean.org">XBean</a>. This allows you to use a neat, compact XML format to customize Jetty within an XBean configuration file, along with configuring other Geronimo projects like <a href="http://activemq.org/" rel="nofollow" class="external text">ActiveMQ</a> or <a href="http://servicemix.org" rel="nofollow" class="external text">ServiceMix</a>.
-</p><p><br/>
-</p>
-<h2><span class="mw-headline" id="Configuring_Jetty_in_an_XBean_Configuration_File">Configuring Jetty in an XBean Configuration File</span></h2>
-<p>The following example shows how to configure Jetty inside an XBean configuration file.
-</p>
-<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="xml source-xml"><pre class="de1"> 
+    <link href="wiki-style.css" media="screen, print" rel="stylesheet" />
+  </head>
+  <body>
+    <div class="col-md-20" id="mainContent">
+      <div class="tab-content background-white">
+        <div class="tab-pane active" id="tab-pane-main-page-content">
+          <h1 class="firstHeading page-header" id="firstHeading">
+            <span dir="auto">Jetty/Howto/Configure Jetty with XBean</span>
+          </h1>
+          <div id="main-page-content">
+            <div class="alert alert-small alert-warning" id="contentSub">
+              <span class="subpages">
+                &lt;
+                <a href="../../Jetty.html" title="Jetty">Jetty</a>
+                 |
+                <a href="../Howto.html" title="Jetty/Howto">Howto</a>
+              </span>
+            </div>
+            <div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="en">
+              <p>
+                <br />
+              </p>
+              <p>
+                <br />
+              </p>
+              <h2>
+                <span class="mw-headline" id="Introduction">Introduction</span>
+              </h2>
+              <p>
+                Jetty7 supports
+                <a class="external text" href="http://xbean.org" rel="nofollow">XBean</a>
+                . This allows you to use a neat, compact XML format to customize Jetty within an XBean configuration file, along with configuring other Geronimo projects like
+                <a class="external text" href="http://activemq.org/" rel="nofollow">ActiveMQ</a>
+                or
+                <a class="external text" href="http://servicemix.org" rel="nofollow">ServiceMix</a>
+                .
+              </p>
+              <p>
+                <br />
+              </p>
+              <h2>
+                <span class="mw-headline" id="Configuring_Jetty_in_an_XBean_Configuration_File">Configuring Jetty in an XBean Configuration File</span>
+              </h2>
+              <p>The following example shows how to configure Jetty inside an XBean configuration file.</p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="xml source-xml">
+                  <pre class="de1" xml:space="preserve"> 
  <span class="sc3"><span class="re1">&lt;beans<span class="re2">&gt;</span></span></span>
    <span class="sc3"><span class="re1">&lt;jetty</span> <span class="re0">xmlns</span>=<span class="st0">"http://mortbay.com/schemas/jetty/1.0"</span><span class="re2">&gt;</span></span>
      <span class="sc3"><span class="re1">&lt;connectors<span class="re2">&gt;</span></span></span>
@@ -44,15 +59,13 @@
        <span class="sc3"><span class="re1">&lt;webAppContext</span> <span class="re0">contextPath</span>=<span class="st0">"/"</span> <span class="re0">resourceBase</span>=<span class="st0">"/tmp/webapp"</span> <span class="re0">parentLoaderPriority</span>=<span class="st0">"false"</span> <span class="re2">/&gt;</span></span>
      <span class="sc3"><span class="re1">&lt;/handlers<span class="re2">&gt;</span></span></span>
    <span class="sc3"><span class="re1">&lt;/jetty<span class="re2">&gt;</span></span></span>
- <span class="sc3"><span class="re1">&lt;/beans<span class="re2">&gt;</span></span></span></pre></div></div>
-
-
-</div>
-
-                    <div class="catlinks" id="catlinks"><div class="mw-normal-catlinks" id="mw-normal-catlinks"><a title="Special:Categories" href="https://wiki.eclipse.org/Special:Categories">Categories</a>: <ul><li><a title="Category:Jetty" href="https://wiki.eclipse.org/Category:Jetty">Jetty</a></li><li><a href="https://wiki.eclipse.org/Category:Jetty_Howto" title="Category:Jetty Howto">Jetty Howto</a></li></ul></div></div>
-                                  </div>
+ <span class="sc3"><span class="re1">&lt;/beans<span class="re2">&gt;</span></span></span></pre>
+                </div>
               </div>
             </div>
           </div>
-</body>
+        </div>
+      </div>
+    </div>
+  </body>
 </html>

@@ -1,325 +1,404 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
-<head>
+  <head>
     <title>Jetty WTP Plugin</title>
-    <link rel="stylesheet" media="screen, print" href="wiki-style.css"/>
-</head>
-<body>
-<div class="col-md-20" id="mainContent">
-                                 <div class="tab-content background-white">
-              <div class="tab-pane active" id="tab-pane-main-page-content">
-
-                
-                <h1 class="firstHeading page-header" id="firstHeading">
-                  <span dir="auto">Jetty/Starting/Porting to Jetty 7</span>
-                </h1>
-                <div id="main-page-content">
-
-                  <div id="contentSub" class="alert alert-small alert-warning"><span class="subpages">&lt; <a title="Jetty" href="../../Jetty.html">Jetty</a>‎ | <a title="Jetty/Starting" href="../Starting.html">Starting</a></span></div>
-
-                  
-                  
-                  <div dir="ltr" id="mw-content-text" lang="en" class="mw-content-ltr"><p><br/>
-</p>
-<div id="toc" class="toc"><div id="toctitle"><h2>Contents</h2></div>
-<ul>
-<li class="toclevel-1"><a href="Porting to Jetty 7.html#Introduction"><span class="tocnumber">1</span> <span class="toctext">Introduction</span></a></li>
-<li class="toclevel-1"><a href="Porting to Jetty 7.html#Renaming_of_Packages_and_Classes"><span class="tocnumber">2</span> <span class="toctext">Renaming of Packages and Classes</span></a></li>
-<li class="toclevel-1"><a href="Porting to Jetty 7.html#Architectural_Changes"><span class="tocnumber">3</span> <span class="toctext">Architectural Changes</span></a>
-<ul>
-<li class="toclevel-2"><a href="Porting to Jetty 7.html#Configuration"><span class="tocnumber">3.1</span> <span class="toctext">Configuration</span></a></li>
-<li class="toclevel-2"><a href="Porting to Jetty 7.html#Handlers"><span class="tocnumber">3.2</span> <span class="toctext">Handlers</span></a></li>
-<li class="toclevel-2"><a href="Porting to Jetty 7.html#Startup_Options"><span class="tocnumber">3.3</span> <span class="toctext">Startup Options</span></a></li>
-<li class="toclevel-2"><a href="Porting to Jetty 7.html#Continuations"><span class="tocnumber">3.4</span> <span class="toctext">Continuations</span></a></li>
-</ul>
-</li>
-<li class="toclevel-1"><a href="Porting to Jetty 7.html#Jetty_7_Source_Locations"><span class="tocnumber">4</span> <span class="toctext">Jetty 7 Source Locations</span></a></li>
-<li class="toclevel-1"><a href="Porting to Jetty 7.html#Licenses"><span class="tocnumber">5</span> <span class="toctext">Licenses</span></a></li>
-<li class="toclevel-1"><a href="Porting to Jetty 7.html#Jetty_Version_Comparison_Table"><span class="tocnumber">6</span> <span class="toctext">Jetty Version Comparison Table</span></a></li>
-<li class="toclevel-1"><a href="Porting to Jetty 7.html#Additional_Resources"><span class="tocnumber">7</span> <span class="toctext">Additional Resources</span></a></li>
-</ul>
-</div>
-
-<h2><span class="mw-headline" id="Introduction">Introduction</span></h2>
-<p>The intent of jetty-7 is to allow users to transition to the updated architecture and to access some servlet-3.0 features within a servlet-2.5 container, but without the need to update Java 1.6 or to wait for the final specification.
-</p><p>Jetty 7 is not a drop-in replacement for Jetty 6. While Jetty 7 has very much the same architecture as Jetty 6, there are packaging changes and other minor tweaks between the versions. Also, the Jetty 7 milestones are not as full featured as Jetty 6 in terms of third party integrations being available by default with the distribution bundle. 
-</p><p>If your application adheres to standards, porting to Jetty 7 should simply be a matter of updating your configuration files. However, if your application uses non-standard or Jetty-specific APIs, then additional porting work will be required. This page gives a brief overview of the changes needed to port to Jetty 7.
-</p>
-<h2><span id="Renaming_of_Packages_and_Classes" class="mw-headline">Renaming of Packages and Classes</span></h2>
-<p>The Jetty 7 codebase was moved to the org.eclipse.jetty.* package space and remodularized so that dependencies for client, server and servlet container are more separable. We have written a converter tool to ease the conversion of your application source and configuration files to use the new package space: <a title="Jetty/Howto/Upgrade from Jetty 6 to Jetty 7" href="../Howto/Upgrade from Jetty 6 to Jetty 7.html">How to Upgrade from Jetty 6 to Jetty 7</a>. 
-</p><p><br/>
-</p>
-<table class="jetty-table">
-<caption> Quick guide to renamed packages and classes. (Covers most, but not all, cases)
-</caption>
-<tbody><tr>
-<th> Jetty 6
-</th>
-<th> Matching in Jetty 7
-</th>
-<th> Similar in Jetty 7
-</th></tr>
-<tr>
-<td> org.mortbay.(jetty).* </td>
-<td> org.eclipse.jetty.* </td>
-<td>
-</td></tr>
-<tr>
-<td> packages under modules/util - org.mortbay.util.*, org.mortbay.log, org.mortbay.component, org.mortbay.thread, org.mortbay.resource
-</td>
-<td> org.eclipse.jetty.util.*, org.eclipse.jetty.util.log, org.eclipse.jetty.util.component, etc
-</td></tr>
-<tr>
-<td> org.mortbay.jetty.security.UserRealm
-<p>org.mortbay.jetty.security.HashUserRealm
-</p>
-</td>
-<td>
-</td>
-<td> org.eclipse.jetty.security.LoginService
-<p>org.eclipse.jetty.security.HashLoginService
-</p>
-</td></tr>
-<tr>
-<td> org.mortbay.jetty.servlet.Context </td>
-<td> org.eclipse.jetty.servlet.ServletContextHandler </td>
-<td>
-</td></tr>
-<tr>
-<td> org.mortbay.util.ajax.Continuation
-<p>org.mortbay.util.ajax.ContinuationSupport
-</p>
-</td>
-<td> org.eclipse.jetty.continuation.Continuation
-<p>org.eclipse.jetty.continuation.ContinuationSupport
-</p>
-</td>
-<td>
-</td></tr></tbody></table>
-<table class="jetty-table">
-<caption> Other refactoring changes to watch out for when moving to Jetty 7
-</caption>
-<tbody><tr>
-<th> Type of change
-</th>
-<th> Jetty 6
-</th>
-<th> Jetty 7
-</th></tr>
-<tr>
-<td> Maven plugin artifact id
-</td>
-<td> maven-jetty-plugin
-</td>
-<td> jetty-maven-plugin
-</td></tr>
-<tr>
-<td> Split up server JAR
-</td>
-<td> jetty.jar
-</td>
-<td> jetty-server.jar, jetty-deploy.jar, jetty-io.jar, jetty-security.jar, jetty-servlet.jar, jetty-servlets.jar, jetty-webapp.jar, jetty-xml.jar
-</td></tr>
-<tr>
-<td> Removed unused module
-</td>
-<td> jetty-html.jar
-</td>
-<td> ~
-</td></tr>
-<tr>
-<td> Renamed JAR
-</td>
-<td> jetty-rewrite-handler.jar
-</td>
-<td> jetty-rewrite.jar
-</td></tr>
-<tr>
-<td> Renamed JAR
-</td>
-<td> jetty-management.jar
-</td>
-<td> jetty-jmx.jar
-</td></tr>
-<tr>
-<td> New Continuation JAR
-</td>
-<td> from jetty-util.jar
-</td>
-<td> jetty-continuation.jar
-</td></tr>
-<tr>
-<td> Removed class
-</td>
-<td> org.mortbay.jetty.plus.jaas.callback.DefaultCallbackHandler
-</td>
-<td> Inner class in JAASLoginService
-</td></tr></tbody></table>
-<p><br/>
-</p><p>For a complete list of changes, see <a href="Porting to Jetty 7/Packages and Classes.html" title="Jetty/Starting/Porting to Jetty 7/Packages and Classes">Porting to Jetty 7/Packages and Classes</a>
-</p>
-<h2><span id="Architectural_Changes" class="mw-headline">Architectural Changes</span></h2>
-<h3><span id="Configuration" class="mw-headline">Configuration</span></h3>
-<p>Jetty-7 changed from using <tt>addLifeCycle</tt> to <tt>addBean</tt> for setting up objects like deployers and security. You will need to change the method call in your configuration files when adding a WebAppDeployer, ContextDeployer, LoginService, etc.
-</p>
-<h3><span id="Handlers" class="mw-headline">Handlers</span></h3>
-<h3><span id="Startup_Options" class="mw-headline">Startup Options</span></h3>
-<p>The Jetty startup options have been streamlined, and differ in some respects from the startup options in earlier versions of Jetty.
-</p><p>The more commonly used system properties, such as <tt>jetty.port</tt> and <tt>jetty.home</tt> still work as before:
-</p>
-<pre>java -Djetty.port=8081 -jar start.jar etc/jetty.xml
-</pre>
-<p>The OPTIONS switch, which lets you choose specific modes for running Jetty has been subtly changed and is no longer a system property. Instead of <tt>java -DOPTIONS=default,jsp,... -jar start.jar</tt>, now do:
-</p>
-<pre> java -jar start.jar OPTIONS=default,jsp... etc/jetty.xml
-</pre>
-<p>To set the default value for verbose debug logging use the <tt>org.eclipse.jetty.util.log.DEBUG</tt> system property (note that this is very verbose):
-</p>
-<pre>  java -Dorg.eclipse.jetty.util.log.DEBUG=true -jar start.jar etc/jetty.xml
-</pre>
-<p>To set debugging for specific named debuggers, which will override the default setting, use 
-</p>
-<pre>  java -Dsystem_property_name.DEBUG=true -jar start.jar etc/jetty.xml
-</pre>
-<p>To enable verbose debug logging for only the startup sequence, use this option with start.jar (note that this isn't a system property)
-</p>
-<pre> java -jar start.jar DEBUG=true etc/jetty.xml 
-</pre>
-<p>See <a href="../Howto/Run Jetty.html" title="Jetty/Howto/Run Jetty">How to Run Jetty</a> for more information on running Jetty from the commandline, and <a href="../Reference/Start Options.html" title="Jetty/Reference/Start Options"> Start Options</a> for the complete list of options that are available for Jetty 7.
-</p>
-<h3><span class="mw-headline" id="Continuations">Continuations</span></h3>
-<p>Jetty 7 introduces portable continuations, extending the Continuations API from Jetty 6 to become a general-purpose API that will work asynchronously on any servlet-3.0 container, or with Jetty 6, 7, and 8. Servlet 2.5 containers can also use the jetty-7-style portable continuations, as blocking. Jetty 6 and non-Jetty containers require the ContinuationFilter to be placed in front of your application. Continuations should be considered an application abstraction and portability layer on top of the implementation detail of asynchronous servlets. 
-</p><p>For a comprehensive look of continuations, see the <a title="Jetty/Feature/Continuations" href="../Feature/Continuations.html">Continuations Feature Guide</a>.
-</p>
-<h2><span id="Jetty_7_Source_Locations" class="mw-headline">Jetty 7 Source Locations</span></h2>
-<p>The core Jetty 7 modules have all moved to <a href="http://www.eclipse.org/jetty/" rel="nofollow" class="external text">Eclipse</a>, but some Jetty integrations (e.g., jetty-maven-plugin, terracotta, wadi) and distributions (e.g., deb, rpm, hightide) still remain at codehaus. If you are looking for these, see <a class="external text" rel="nofollow" href="https://svn.codehaus.org/jetty/jetty/branches/jetty-7/">Jetty 7 Integrations and Distributions</a>.
-</p><p>Meanwhile, <a class="external text" rel="nofollow" href="http://svn.cometd.com/trunk/cometd-java/">Jetty's implementation of a Cometd server</a> is no longer bundled with the core modules, but is available at <a class="external text" href="http://cometd.org/" rel="nofollow">cometd.org</a>.
-</p>
-<h2><span class="mw-headline" id="Licenses">Licenses</span></h2>
-<p>Jetty 6 is licensed under the Apache 2.0 License; Jetty 7 is <a rel="nofollow" href="http://eclipse.org/jetty/licenses.php" class="external text">dual licensed under the Apache License 2.0 and Eclipse Public License 1.0</a> and can be distributed under the terms of either license.
-</p>
-<h2><span id="Jetty_Version_Comparison_Table" class="mw-headline">Jetty Version Comparison Table</span></h2>
-<div class="messagebox" style="background-color: #f9f6b7; border: 1px solid #c4c295; color: black; padding: 5px; margin: 1ex 0; min-height: 35px; padding-left: 45px; font-size: 150%; color: white; background-color: #FF8888; padding: 50px">
-<div style="float: left; margin-left: -40px;"><a class="image" href="https://wiki.eclipse.org/File:Warning2.png"><img height="35" src="../../images/3/37/Warning2.png" alt="Warning2.png" width="35"/></a></div>
-<div>Jetty 7 and Jetty 8 are now EOL (End of Life)<br/>
-<p><br/>
-<br/>
-<br/>
-THIS IS NOT THE DOCUMENTATION YOU ARE LOOKING FOR!!!!!<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-All development and stable releases are being performed with Jetty 9 and Jetty 10.<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-This <b>wiki is now officially out of date</b> and all content has been moved to the <a class="external text" rel="nofollow" href="http://www.eclipse.org/jetty/documentation">Jetty Documentation Hub</a><br/> 
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-</p>
-Direct Link to updated documentation: <a class="external free" rel="nofollow" href="http://www.eclipse.org/jetty/documentation/current/what-jetty-version.html">http://www.eclipse.org/jetty/documentation/current/what-jetty-version.html</a></div>
-</div>
-<p><br/>
-</p>
-<table class="gallery">
-
-
-<tbody><tr>
-<th scope="col" width="80"> Version
-</th>
-<th scope="col" width="100"> Servlet
-</th>
-<th scope="col" width="80"> Java
-</th>
-<th width="140" scope="col"> Namespace
-</th>
-<th scope="col" width="150"> Licenses
-</th>
-<th width="140" scope="col"> Site
-</th>
-<th scope="col" width="170"> Status
-</th></tr>
-<tr>
-<td> Jetty 9
-</td>
-<td> Servlet 3.1
-</td>
-<td> Java 1.8
-</td>
-<td> org.eclipse.jetty.*
-</td>
-<td> <a href="http://www.eclipse.org/legal/epl-v10.html" rel="nofollow" class="external text">EPLv1</a> / <a rel="nofollow" href="https://www.apache.org/licenses/LICENSE-2.0.html" class="external text">ASLv2</a>
-</td>
-<td> <a rel="nofollow" href="http://eclipse.org/jetty/" class="external text">Eclipse.org</a>
-</td>
-<td> Stable Release
-</td></tr>
-<tr>
-<td> Jetty 8
-</td>
-<td> Servlet 3.0
-</td>
-<td> Java 1.6
-</td>
-<td> org.eclipse.jetty.*
-</td>
-<td> <a class="external text" href="http://www.eclipse.org/legal/epl-v10.html" rel="nofollow">EPLv1</a> / <a class="external text" rel="nofollow" href="https://www.apache.org/licenses/LICENSE-2.0.html">ASLv2</a>
-</td>
-<td> <a rel="nofollow" href="http://eclipse.org/jetty/" class="external text">Eclipse.org</a>
-</td>
-<td> End of Life / Nov 2014
-</td></tr>
-<tr>
-<td> Jetty 7
-</td>
-<td> Servlet 2.5
-</td>
-<td> Java 1.5
-</td>
-<td> org.eclipse.jetty.*
-</td>
-<td> <a class="external text" rel="nofollow" href="http://www.eclipse.org/legal/epl-v10.html">EPLv1</a> / <a class="external text" href="https://www.apache.org/licenses/LICENSE-2.0.html" rel="nofollow">ASLv2</a>
-</td>
-<td> <a rel="nofollow" href="http://eclipse.org/jetty/" class="external text">Eclipse.org</a>
-</td>
-<td> End of Life / Nov 2014
-</td></tr>
-<tr>
-<td> Jetty 6
-</td>
-<td> Servlet 2.5
-</td>
-<td> Java 1.4
-</td>
-<td> org.mortbay.*
-</td>
-<td> <a href="https://www.apache.org/licenses/LICENSE-2.0.html" rel="nofollow" class="external text">ASLv2</a>
-</td>
-<td> <a class="external text" rel="nofollow" href="http://jetty.codehaus.org/">Codehaus.org</a>
-</td>
-<td> End of Life / Nov 2010
-</td></tr></tbody></table>
-<p>Note: cometd server is not shipped within the Jetty distribution, it can be obtained from the <a rel="nofollow" href="http://cometd.org" class="external text">cometd.org</a> website.
-</p>
-<h2><span class="mw-headline" id="Additional_Resources">Additional Resources</span></h2>
-<ul><li> <a title="Jetty/Starting/Upgrade from Jetty 6 to Jetty 7" href="https://wiki.eclipse.org/Jetty/Starting/Upgrade_from_Jetty_6_to_Jetty_7" class="mw-redirect">Upgrade from Jetty 6 to Jetty 7</a> (conversion tool)</li></ul>
-
-
-</div>
-
-                    <div id="catlinks" class="catlinks"><div class="mw-normal-catlinks" id="mw-normal-catlinks"><a title="Special:Categories" href="https://wiki.eclipse.org/Special:Categories">Categories</a>: <ul><li><a href="https://wiki.eclipse.org/Category:Jetty" title="Category:Jetty">Jetty</a></li><li><a title="Category:Jetty Starting" href="https://wiki.eclipse.org/Category:Jetty_Starting">Jetty Starting</a></li><li><a href="https://wiki.eclipse.org/Category:Draft_Documentation" title="Category:Draft Documentation">Draft Documentation</a></li></ul></div></div>
-                                  </div>
+    <link href="wiki-style.css" media="screen, print" rel="stylesheet" />
+  </head>
+  <body>
+    <div class="col-md-20" id="mainContent">
+      <div class="tab-content background-white">
+        <div class="tab-pane active" id="tab-pane-main-page-content">
+          <h1 class="firstHeading page-header" id="firstHeading">
+            <span dir="auto">Jetty/Starting/Porting to Jetty 7</span>
+          </h1>
+          <div id="main-page-content">
+            <div class="alert alert-small alert-warning" id="contentSub">
+              <span class="subpages">
+                &lt;
+                <a href="../../Jetty.html" title="Jetty">Jetty</a>
+                 |
+                <a href="../Starting.html" title="Jetty/Starting">Starting</a>
+              </span>
+            </div>
+            <div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="en">
+              <p>
+                <br />
+              </p>
+              <div class="toc" id="toc">
+                <div id="toctitle">
+                  <h2>Contents</h2>
+                </div>
+                <ul>
+                  <li class="toclevel-1">
+                    <a href="Porting to Jetty 7.html#Introduction">
+                      <span class="tocnumber">1</span>
+                      <span class="toctext">Introduction</span>
+                    </a>
+                  </li>
+                  <li class="toclevel-1">
+                    <a href="Porting to Jetty 7.html#Renaming_of_Packages_and_Classes">
+                      <span class="tocnumber">2</span>
+                      <span class="toctext">Renaming of Packages and Classes</span>
+                    </a>
+                  </li>
+                  <li class="toclevel-1">
+                    <a href="Porting to Jetty 7.html#Architectural_Changes">
+                      <span class="tocnumber">3</span>
+                      <span class="toctext">Architectural Changes</span>
+                    </a>
+                    <ul>
+                      <li class="toclevel-2">
+                        <a href="Porting to Jetty 7.html#Configuration">
+                          <span class="tocnumber">3.1</span>
+                          <span class="toctext">Configuration</span>
+                        </a>
+                      </li>
+                      <li class="toclevel-2">
+                        <a href="Porting to Jetty 7.html#Handlers">
+                          <span class="tocnumber">3.2</span>
+                          <span class="toctext">Handlers</span>
+                        </a>
+                      </li>
+                      <li class="toclevel-2">
+                        <a href="Porting to Jetty 7.html#Startup_Options">
+                          <span class="tocnumber">3.3</span>
+                          <span class="toctext">Startup Options</span>
+                        </a>
+                      </li>
+                      <li class="toclevel-2">
+                        <a href="Porting to Jetty 7.html#Continuations">
+                          <span class="tocnumber">3.4</span>
+                          <span class="toctext">Continuations</span>
+                        </a>
+                      </li>
+                    </ul>
+                  </li>
+                  <li class="toclevel-1">
+                    <a href="Porting to Jetty 7.html#Jetty_7_Source_Locations">
+                      <span class="tocnumber">4</span>
+                      <span class="toctext">Jetty 7 Source Locations</span>
+                    </a>
+                  </li>
+                  <li class="toclevel-1">
+                    <a href="Porting to Jetty 7.html#Licenses">
+                      <span class="tocnumber">5</span>
+                      <span class="toctext">Licenses</span>
+                    </a>
+                  </li>
+                  <li class="toclevel-1">
+                    <a href="Porting to Jetty 7.html#Jetty_Version_Comparison_Table">
+                      <span class="tocnumber">6</span>
+                      <span class="toctext">Jetty Version Comparison Table</span>
+                    </a>
+                  </li>
+                  <li class="toclevel-1">
+                    <a href="Porting to Jetty 7.html#Additional_Resources">
+                      <span class="tocnumber">7</span>
+                      <span class="toctext">Additional Resources</span>
+                    </a>
+                  </li>
+                </ul>
               </div>
+              <h2>
+                <span class="mw-headline" id="Introduction">Introduction</span>
+              </h2>
+              <p>The intent of jetty-7 is to allow users to transition to the updated architecture and to access some servlet-3.0 features within a servlet-2.5 container, but without the need to update Java 1.6 or to wait for the final specification.</p>
+              <p>Jetty 7 is not a drop-in replacement for Jetty 6. While Jetty 7 has very much the same architecture as Jetty 6, there are packaging changes and other minor tweaks between the versions. Also, the Jetty 7 milestones are not as full featured as Jetty 6 in terms of third party integrations being available by default with the distribution bundle.</p>
+              <p>If your application adheres to standards, porting to Jetty 7 should simply be a matter of updating your configuration files. However, if your application uses non-standard or Jetty-specific APIs, then additional porting work will be required. This page gives a brief overview of the changes needed to port to Jetty 7.</p>
+              <h2>
+                <span class="mw-headline" id="Renaming_of_Packages_and_Classes">Renaming of Packages and Classes</span>
+              </h2>
+              <p>
+                The Jetty 7 codebase was moved to the org.eclipse.jetty.* package space and remodularized so that dependencies for client, server and servlet container are more separable. We have written a converter tool to ease the conversion of your application source and configuration files to use the new package space:
+                <a href="../Howto/Upgrade from Jetty 6 to Jetty 7.html" title="Jetty/Howto/Upgrade from Jetty 6 to Jetty 7">How to Upgrade from Jetty 6 to Jetty 7</a>
+                .
+              </p>
+              <p>
+                <br />
+              </p>
+              <table class="jetty-table">
+                <caption>Quick guide to renamed packages and classes. (Covers most, but not all, cases)</caption>
+                <tbody>
+                  <tr>
+                    <th>Jetty 6</th>
+                    <th>Matching in Jetty 7</th>
+                    <th>Similar in Jetty 7</th>
+                  </tr>
+                  <tr>
+                    <td>org.mortbay.(jetty).*</td>
+                    <td>org.eclipse.jetty.*</td>
+                    <td />
+                  </tr>
+                  <tr>
+                    <td>packages under modules/util - org.mortbay.util.*, org.mortbay.log, org.mortbay.component, org.mortbay.thread, org.mortbay.resource</td>
+                    <td>org.eclipse.jetty.util.*, org.eclipse.jetty.util.log, org.eclipse.jetty.util.component, etc</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      org.mortbay.jetty.security.UserRealm
+                      <p>org.mortbay.jetty.security.HashUserRealm</p>
+                    </td>
+                    <td />
+                    <td>
+                      org.eclipse.jetty.security.LoginService
+                      <p>org.eclipse.jetty.security.HashLoginService</p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>org.mortbay.jetty.servlet.Context</td>
+                    <td>org.eclipse.jetty.servlet.ServletContextHandler</td>
+                    <td />
+                  </tr>
+                  <tr>
+                    <td>
+                      org.mortbay.util.ajax.Continuation
+                      <p>org.mortbay.util.ajax.ContinuationSupport</p>
+                    </td>
+                    <td>
+                      org.eclipse.jetty.continuation.Continuation
+                      <p>org.eclipse.jetty.continuation.ContinuationSupport</p>
+                    </td>
+                    <td />
+                  </tr>
+                </tbody>
+              </table>
+              <table class="jetty-table">
+                <caption>Other refactoring changes to watch out for when moving to Jetty 7</caption>
+                <tbody>
+                  <tr>
+                    <th>Type of change</th>
+                    <th>Jetty 6</th>
+                    <th>Jetty 7</th>
+                  </tr>
+                  <tr>
+                    <td>Maven plugin artifact id</td>
+                    <td>maven-jetty-plugin</td>
+                    <td>jetty-maven-plugin</td>
+                  </tr>
+                  <tr>
+                    <td>Split up server JAR</td>
+                    <td>jetty.jar</td>
+                    <td>jetty-server.jar, jetty-deploy.jar, jetty-io.jar, jetty-security.jar, jetty-servlet.jar, jetty-servlets.jar, jetty-webapp.jar, jetty-xml.jar</td>
+                  </tr>
+                  <tr>
+                    <td>Removed unused module</td>
+                    <td>jetty-html.jar</td>
+                    <td>~</td>
+                  </tr>
+                  <tr>
+                    <td>Renamed JAR</td>
+                    <td>jetty-rewrite-handler.jar</td>
+                    <td>jetty-rewrite.jar</td>
+                  </tr>
+                  <tr>
+                    <td>Renamed JAR</td>
+                    <td>jetty-management.jar</td>
+                    <td>jetty-jmx.jar</td>
+                  </tr>
+                  <tr>
+                    <td>New Continuation JAR</td>
+                    <td>from jetty-util.jar</td>
+                    <td>jetty-continuation.jar</td>
+                  </tr>
+                  <tr>
+                    <td>Removed class</td>
+                    <td>org.mortbay.jetty.plus.jaas.callback.DefaultCallbackHandler</td>
+                    <td>Inner class in JAASLoginService</td>
+                  </tr>
+                </tbody>
+              </table>
+              <p>
+                <br />
+              </p>
+              <p>
+                For a complete list of changes, see
+                <a href="Porting to Jetty 7/Packages and Classes.html" title="Jetty/Starting/Porting to Jetty 7/Packages and Classes">Porting to Jetty 7/Packages and Classes</a>
+              </p>
+              <h2>
+                <span class="mw-headline" id="Architectural_Changes">Architectural Changes</span>
+              </h2>
+              <h3>
+                <span class="mw-headline" id="Configuration">Configuration</span>
+              </h3>
+              <p>
+                Jetty-7 changed from using
+                <tt>addLifeCycle</tt>
+                to
+                <tt>addBean</tt>
+                for setting up objects like deployers and security. You will need to change the method call in your configuration files when adding a WebAppDeployer, ContextDeployer, LoginService, etc.
+              </p>
+              <h3>
+                <span class="mw-headline" id="Handlers">Handlers</span>
+              </h3>
+              <h3>
+                <span class="mw-headline" id="Startup_Options">Startup Options</span>
+              </h3>
+              <p>The Jetty startup options have been streamlined, and differ in some respects from the startup options in earlier versions of Jetty.</p>
+              <p>
+                The more commonly used system properties, such as
+                <tt>jetty.port</tt>
+                and
+                <tt>jetty.home</tt>
+                still work as before:
+              </p>
+              <pre xml:space="preserve">java -Djetty.port=8081 -jar start.jar etc/jetty.xml
+</pre>
+              <p>
+                The OPTIONS switch, which lets you choose specific modes for running Jetty has been subtly changed and is no longer a system property. Instead of
+                <tt>java -DOPTIONS=default,jsp,... -jar start.jar</tt>
+                , now do:
+              </p>
+              <pre xml:space="preserve"> java -jar start.jar OPTIONS=default,jsp... etc/jetty.xml
+</pre>
+              <p>
+                To set the default value for verbose debug logging use the
+                <tt>org.eclipse.jetty.util.log.DEBUG</tt>
+                system property (note that this is very verbose):
+              </p>
+              <pre xml:space="preserve">  java -Dorg.eclipse.jetty.util.log.DEBUG=true -jar start.jar etc/jetty.xml
+</pre>
+              <p>To set debugging for specific named debuggers, which will override the default setting, use</p>
+              <pre xml:space="preserve">  java -Dsystem_property_name.DEBUG=true -jar start.jar etc/jetty.xml
+</pre>
+              <p>To enable verbose debug logging for only the startup sequence, use this option with start.jar (note that this isn't a system property)</p>
+              <pre xml:space="preserve"> java -jar start.jar DEBUG=true etc/jetty.xml 
+</pre>
+              <p>
+                See
+                <a href="../Howto/Run Jetty.html" title="Jetty/Howto/Run Jetty">How to Run Jetty</a>
+                for more information on running Jetty from the commandline, and
+                <a href="../Reference/Start Options.html" title="Jetty/Reference/Start Options">Start Options</a>
+                for the complete list of options that are available for Jetty 7.
+              </p>
+              <h3>
+                <span class="mw-headline" id="Continuations">Continuations</span>
+              </h3>
+              <p>Jetty 7 introduces portable continuations, extending the Continuations API from Jetty 6 to become a general-purpose API that will work asynchronously on any servlet-3.0 container, or with Jetty 6, 7, and 8. Servlet 2.5 containers can also use the jetty-7-style portable continuations, as blocking. Jetty 6 and non-Jetty containers require the ContinuationFilter to be placed in front of your application. Continuations should be considered an application abstraction and portability layer on top of the implementation detail of asynchronous servlets.</p>
+              <p>
+                For a comprehensive look of continuations, see the
+                <a href="../Feature/Continuations.html" title="Jetty/Feature/Continuations">Continuations Feature Guide</a>
+                .
+              </p>
+              <h2>
+                <span class="mw-headline" id="Jetty_7_Source_Locations">Jetty 7 Source Locations</span>
+              </h2>
+              <p>
+                The core Jetty 7 modules have all moved to
+                <a class="external text" href="http://www.eclipse.org/jetty/" rel="nofollow">Eclipse</a>
+                , but some Jetty integrations (e.g., jetty-maven-plugin, terracotta, wadi) and distributions (e.g., deb, rpm, hightide) still remain at codehaus. If you are looking for these, see
+                <a class="external text" href="https://svn.codehaus.org/jetty/jetty/branches/jetty-7/" rel="nofollow">Jetty 7 Integrations and Distributions</a>
+                .
+              </p>
+              <p>
+                Meanwhile,
+                <a class="external text" href="http://svn.cometd.com/trunk/cometd-java/" rel="nofollow">Jetty's implementation of a Cometd server</a>
+                is no longer bundled with the core modules, but is available at
+                <a class="external text" href="http://cometd.org/" rel="nofollow">cometd.org</a>
+                .
+              </p>
+              <h2>
+                <span class="mw-headline" id="Licenses">Licenses</span>
+              </h2>
+              <p>
+                Jetty 6 is licensed under the Apache 2.0 License; Jetty 7 is
+                <a class="external text" href="http://eclipse.org/jetty/licenses.php" rel="nofollow">dual licensed under the Apache License 2.0 and Eclipse Public License 1.0</a>
+                and can be distributed under the terms of either license.
+              </p>
+              <h2>
+                <span class="mw-headline" id="Jetty_Version_Comparison_Table">Jetty Version Comparison Table</span>
+              </h2>
+              <p>
+                <br />
+              </p>
+              <table class="gallery">
+                <tbody>
+                  <tr>
+                    <th scope="col" width="80">Version</th>
+                    <th scope="col" width="100">Servlet</th>
+                    <th scope="col" width="80">Java</th>
+                    <th scope="col" width="140">Namespace</th>
+                    <th scope="col" width="150">Licenses</th>
+                    <th scope="col" width="140">Site</th>
+                    <th scope="col" width="170">Status</th>
+                  </tr>
+                  <tr>
+                    <td>Jetty 9</td>
+                    <td>Servlet 3.1</td>
+                    <td>Java 1.8</td>
+                    <td>org.eclipse.jetty.*</td>
+                    <td>
+                      <a class="external text" href="http://www.eclipse.org/legal/epl-v10.html" rel="nofollow">EPLv1</a>
+                      /
+                      <a class="external text" href="https://www.apache.org/licenses/LICENSE-2.0.html" rel="nofollow">ASLv2</a>
+                    </td>
+                    <td>
+                      <a class="external text" href="http://eclipse.org/jetty/" rel="nofollow">Eclipse.org</a>
+                    </td>
+                    <td>Stable Release</td>
+                  </tr>
+                  <tr>
+                    <td>Jetty 8</td>
+                    <td>Servlet 3.0</td>
+                    <td>Java 1.6</td>
+                    <td>org.eclipse.jetty.*</td>
+                    <td>
+                      <a class="external text" href="http://www.eclipse.org/legal/epl-v10.html" rel="nofollow">EPLv1</a>
+                      /
+                      <a class="external text" href="https://www.apache.org/licenses/LICENSE-2.0.html" rel="nofollow">ASLv2</a>
+                    </td>
+                    <td>
+                      <a class="external text" href="http://eclipse.org/jetty/" rel="nofollow">Eclipse.org</a>
+                    </td>
+                    <td>End of Life / Nov 2014</td>
+                  </tr>
+                  <tr>
+                    <td>Jetty 7</td>
+                    <td>Servlet 2.5</td>
+                    <td>Java 1.5</td>
+                    <td>org.eclipse.jetty.*</td>
+                    <td>
+                      <a class="external text" href="http://www.eclipse.org/legal/epl-v10.html" rel="nofollow">EPLv1</a>
+                      /
+                      <a class="external text" href="https://www.apache.org/licenses/LICENSE-2.0.html" rel="nofollow">ASLv2</a>
+                    </td>
+                    <td>
+                      <a class="external text" href="http://eclipse.org/jetty/" rel="nofollow">Eclipse.org</a>
+                    </td>
+                    <td>End of Life / Nov 2014</td>
+                  </tr>
+                  <tr>
+                    <td>Jetty 6</td>
+                    <td>Servlet 2.5</td>
+                    <td>Java 1.4</td>
+                    <td>org.mortbay.*</td>
+                    <td>
+                      <a class="external text" href="https://www.apache.org/licenses/LICENSE-2.0.html" rel="nofollow">ASLv2</a>
+                    </td>
+                    <td>
+                      <a class="external text" href="http://jetty.codehaus.org/" rel="nofollow">Codehaus.org</a>
+                    </td>
+                    <td>End of Life / Nov 2010</td>
+                  </tr>
+                </tbody>
+              </table>
+              <p>
+                Note: cometd server is not shipped within the Jetty distribution, it can be obtained from the
+                <a class="external text" href="http://cometd.org" rel="nofollow">cometd.org</a>
+                website.
+              </p>
+              <h2>
+                <span class="mw-headline" id="Additional_Resources">Additional Resources</span>
+              </h2>
+              <ul>
+                <li>
+                  <a class="mw-redirect" href="https://wiki.eclipse.org/Jetty/Starting/Upgrade_from_Jetty_6_to_Jetty_7" title="Jetty/Starting/Upgrade from Jetty 6 to Jetty 7">Upgrade from Jetty 6 to Jetty 7</a>
+                  (conversion tool)
+                </li>
+              </ul>
             </div>
           </div>
-</body>
+        </div>
+      </div>
+    </div>
+  </body>
 </html>

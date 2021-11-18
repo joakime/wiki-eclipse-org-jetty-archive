@@ -1,66 +1,70 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
-<head>
+  <head>
     <title>Jetty WTP Plugin</title>
-    <link rel="stylesheet" media="screen, print" href="wiki-style.css"/>
-</head>
-<body>
-<div class="col-md-20" id="mainContent">
-                                <div class="tab-content background-white">
-              <div class="tab-pane active" id="tab-pane-main-page-content">
-
-                
-                <h1 id="firstHeading" class="firstHeading page-header">
-                  <span dir="auto">Jetty/Howto/Secure Termination</span>
-                </h1>
-                <div id="main-page-content">
-
-                  <div class="alert alert-small alert-warning" id="contentSub"><span class="subpages">&lt; <a title="Jetty" href="../../Jetty.html">Jetty</a>‎ | <a title="Jetty/Howto" href="../Howto.html">Howto</a></span></div>
-
-                  
-                  
-                  <div class="mw-content-ltr" id="mw-content-text" lang="en" dir="ltr"><p><br/>
-</p><p><br/>
-</p>
-<h2><span class="mw-headline" id="Introduction">Introduction</span></h2>
-<div class="messagebox" style="background-color: #f9f6b7; border: 1px solid #c4c295; color: black; padding: 5px; margin: 1ex 0; min-height: 35px; padding-left: 45px;">
-<div style="float: left; margin-left: -40px;"><a href="https://wiki.eclipse.org/File:Warning2.png" class="image"><img src="../../images/3/37/Warning2.png" width="35" height="35" alt="Warning2.png"/></a></div>
-<div>Some or all of this content remains to be ported to Jetty 9 <a rel="nofollow" href="http://www.eclipse.org/jetty/documentation/current" class="external text">Documentation</a>.<br/>If you are interested in migrating this content see our <a rel="nofollow" href="http://www.eclipse.org/jetty/documentation/current/contributing-documentation.html" class="external text">contribution guide</a> or <a rel="nofollow" href="http://www.eclipse.org/jetty/documentation/current/community.html" class="external text">contact us</a>.</div>
-</div>
-<p><br/>
-You can start Jetty in a way that will require identification before a termination request is accepted. This can help safeguard against either accidental or malicious terminations.
-</p><p><br/>
-</p>
-<h2><span id="Steps" class="mw-headline">Steps</span></h2>
-<p>In order to protect you Jetty instance from unwanted termination you need to start Jetty with a *STOP.PORT* parameter:
-</p>
-<pre>java -DSTOP.PORT=8079 -jar start.jar
+    <link href="wiki-style.css" media="screen, print" rel="stylesheet" />
+  </head>
+  <body>
+    <div class="col-md-20" id="mainContent">
+      <div class="tab-content background-white">
+        <div class="tab-pane active" id="tab-pane-main-page-content">
+          <h1 class="firstHeading page-header" id="firstHeading">
+            <span dir="auto">Jetty/Howto/Secure Termination</span>
+          </h1>
+          <div id="main-page-content">
+            <div class="alert alert-small alert-warning" id="contentSub">
+              <span class="subpages">
+                &lt;
+                <a href="../../Jetty.html" title="Jetty">Jetty</a>
+                 |
+                <a href="../Howto.html" title="Jetty/Howto">Howto</a>
+              </span>
+            </div>
+            <div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="en">
+              <p>
+                <br />
+              </p>
+              <p>
+                <br />
+              </p>
+              <h2>
+                <span class="mw-headline" id="Introduction">Introduction</span>
+              </h2>
+              <p>
+                <br />
+                You can start Jetty in a way that will require identification before a termination request is accepted. This can help safeguard against either accidental or malicious terminations.
+              </p>
+              <p>
+                <br />
+              </p>
+              <h2>
+                <span class="mw-headline" id="Steps">Steps</span>
+              </h2>
+              <p>In order to protect you Jetty instance from unwanted termination you need to start Jetty with a *STOP.PORT* parameter:</p>
+              <pre xml:space="preserve">java -DSTOP.PORT=8079 -jar start.jar
 </pre>
-<p>The *STOP.PORT* is the number of a port on which Jetty will listen for termination requests. In this case, the port number is 8079. You can then stop jetty either with a <a class="new" href="edit" title="Template:Cntrl-c (page does not exist)">Template:Cntrl-c</a> in the controlling terminal window (unless you have disassociated the Jetty process from a terminal), or by supplying this port number on a stop request from any terminal.
-</p><p>You can also supply a secret key on startup which must also be present on the termination request to enhance security:
-</p>
-<pre>java -DSTOP.PORT=8079 -DSTOP.KEY=mysecret -jar start.jar
+              <p>
+                The *STOP.PORT* is the number of a port on which Jetty will listen for termination requests. In this case, the port number is 8079. You can then stop jetty either with a
+                <a class="new" href="edit" title="Template:Cntrl-c (page does not exist)">Template:Cntrl-c</a>
+                in the controlling terminal window (unless you have disassociated the Jetty process from a terminal), or by supplying this port number on a stop request from any terminal.
+              </p>
+              <p>You can also supply a secret key on startup which must also be present on the termination request to enhance security:</p>
+              <pre xml:space="preserve">java -DSTOP.PORT=8079 -DSTOP.KEY=mysecret -jar start.jar
 </pre>
-<div class="messagebox" style="background-color: #f9f6b7; border: 1px solid #c4c295; color: black; padding: 5px; margin: 1ex 0; min-height: 35px; padding-left: 45px;">
-<div style="float: left; margin-left: -40px;"><a href="https://wiki.eclipse.org/File:Warning2.png" class="image"><img src="../../images/3/37/Warning2.png" width="35" alt="Warning2.png" height="35"/></a></div>
-<div><b>In some operating systems your STOP.KEY may be visible in the process list, allowing other users to connect to the stop port and initiate the stop command. Please consider this before using the STOP.PORT and STOP.KEY in start/stop scripts, for example init.d scripts on linux distributions.</b><br/></div>
-</div>
-<p><br/>
-As a further security measure, you can omit the *STOP.KEY* property on startup, in which case Jetty will generate and print on stdout a random key:
-</p>
-<pre>&gt; java -DSTOP.PORT=8079 -jar start.jar
+              <p>
+                <br />
+                As a further security measure, you can omit the *STOP.KEY* property on startup, in which case Jetty will generate and print on stdout a random key:
+              </p>
+              <pre xml:space="preserve">&gt; java -DSTOP.PORT=8079 -jar start.jar
 -DSTOP.KEY=3xspihnnsse8 
 </pre>
-<p>This key should then be supplied on the termination request:
-</p>
-<pre>java -DSTOP.PORT=8079 -DSTOP.KEY=3xspihnnsse8 -jar start.jar --stop
+              <p>This key should then be supplied on the termination request:</p>
+              <pre xml:space="preserve">java -DSTOP.PORT=8079 -DSTOP.KEY=3xspihnnsse8 -jar start.jar --stop
 </pre>
-
-</div>
-
-                    <div class="catlinks" id="catlinks"><div class="mw-normal-catlinks" id="mw-normal-catlinks"><a href="https://wiki.eclipse.org/Special:Categories" title="Special:Categories">Categories</a>: <ul><li><a title="Category:Jetty" href="https://wiki.eclipse.org/Category:Jetty">Jetty</a></li><li><a title="Category:Jetty Howto" href="https://wiki.eclipse.org/Category:Jetty_Howto">Jetty Howto</a></li></ul></div></div>
-                                  </div>
-              </div>
             </div>
           </div>
-</body>
+        </div>
+      </div>
+    </div>
+  </body>
 </html>

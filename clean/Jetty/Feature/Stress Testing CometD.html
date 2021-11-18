@@ -1,84 +1,192 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
-<head>
+  <head>
     <title>Jetty WTP Plugin</title>
-    <link rel="stylesheet" media="screen, print" href="wiki-style.css"/>
-</head>
-<body>
-<div id="mainContent" class="col-md-20">
-                                <div class="tab-content background-white">
-              <div id="tab-pane-main-page-content" class="tab-pane active">
-
-                
-                <h1 class="firstHeading page-header" id="firstHeading">
-                  <span dir="auto">Jetty/Feature/Stress Testing CometD</span>
-                </h1>
-                <div id="main-page-content">
-
-                  <div class="alert alert-small alert-warning" id="contentSub"><span class="subpages">&lt; <a href="../../Jetty.html" title="Jetty">Jetty</a>‎ | <a href="../Feature.html" title="Jetty/Feature">Feature</a></span></div>
-
-                  
-                  
-                  <div id="mw-content-text" class="mw-content-ltr" lang="en" dir="ltr"><p><br/>
-</p><p><br/>
-</p>
-<div id="toc" class="toc"><div id="toctitle"><h2>Contents</h2></div>
-<ul>
-<li class="toclevel-1"><a href="Stress Testing CometD.html#Introduction"><span class="tocnumber">1</span> <span class="toctext">Introduction</span></a></li>
-<li class="toclevel-1"><a href="Stress Testing CometD.html#Feature"><span class="tocnumber">2</span> <span class="toctext">Feature</span></a></li>
-<li class="toclevel-1"><a href="Stress Testing CometD.html#Configuring.2Ftuning_the_operating_system_of_the_test_client_and_server_machines"><span class="tocnumber">3</span> <span class="toctext">Configuring/tuning the operating system of the test client and server machines</span></a></li>
-<li class="toclevel-1"><a href="Stress Testing CometD.html#Installing.2C_configuring_and_running_CometD"><span class="tocnumber">4</span> <span class="toctext">Installing, configuring and running CometD</span></a></li>
-<li class="toclevel-1"><a href="Stress Testing CometD.html#Installing.2C_configuring_and_running_the_Jetty_server"><span class="tocnumber">5</span> <span class="toctext">Installing, configuring and running the Jetty server</span></a>
-<ul>
-<li class="toclevel-2"><a href="Stress Testing CometD.html#Editing_the_Jetty_configuration_for_CometD_testing"><span class="tocnumber">5.1</span> <span class="toctext">Editing the Jetty configuration for CometD testing</span></a></li>
-</ul>
-</li>
-<li class="toclevel-1"><a href="Stress Testing CometD.html#Running_the_Jetty_Bayeux_test_client"><span class="tocnumber">6</span> <span class="toctext">Running the Jetty Bayeux test client</span></a></li>
-<li class="toclevel-1"><a href="Stress Testing CometD.html#Interpreting_the_results"><span class="tocnumber">7</span> <span class="toctext">Interpreting the results</span></a>
-<ul>
-<li class="toclevel-2"><a href="Stress Testing CometD.html#Testing_load_balancers"><span class="tocnumber">7.1</span> <span class="toctext">Testing load balancers</span></a></li>
-</ul>
-</li>
-</ul>
-</div>
-
-<h2><span class="mw-headline" id="Introduction">Introduction</span></h2>
-<div class="messagebox" style="background-color: #f9f6b7; border: 1px solid #c4c295; color: black; padding: 5px; margin: 1ex 0; min-height: 35px; padding-left: 45px;">
-<div style="float: left; margin-left: -40px;"><a href="https://wiki.eclipse.org/File:Warning2.png" class="image"><img height="35" alt="Warning2.png" src="../../images/3/37/Warning2.png" width="35"/></a></div>
-<div>Some or all of this content remains to be ported to Jetty 9 <a href="http://www.eclipse.org/jetty/documentation/current" class="external text" rel="nofollow">Documentation</a>.<br/>If you are interested in migrating this content see our <a href="http://www.eclipse.org/jetty/documentation/current/contributing-documentation.html" class="external text" rel="nofollow">contribution guide</a> or <a rel="nofollow" class="external text" href="http://www.eclipse.org/jetty/documentation/current/community.html">contact us</a>.</div>
-</div>
-<p><br/>
-These instructions describe how to stress test CometD from Jetty7 running on Unix. The same basic steps apply to Windows or Mac; please feel free to add details and terminology specific to these platforms to this wiki.
-</p><p>The basic steps are:
-</p>
-<ul><li><a href="Stress Testing CometD.html#Configuring.2Ftuning_the_operating_system_of_the_test_client_and_server_machines">Configuring/tuning the operating system of the test client and server machines</a></li></ul>
-<ul><li><a href="Stress Testing CometD.html#Installing.2C_configuring_and_running_the_Jetty_server">Installing, configuring and running the Jetty server</a></li></ul>
-<ul><li><a href="Stress Testing CometD.html#Editing_the_Jetty_configuration_for_CometD_testing">Editing the Jetty configuration for CometD testing</a></li></ul>
-<ul><li><a href="Stress Testing CometD.html#Running_the_Jetty_Bayeux_test_client">Running the Jetty Bayeux test client</a></li></ul>
-<ul><li><a href="Stress Testing CometD.html#Interpreting_the_results">Interpreting the results</a></li></ul>
-<ul><li><a href="Stress Testing CometD.html#Testing_load_balancers">Testing load balancers</a></li></ul>
-<h2><span class="mw-headline" id="Feature">Feature</span></h2>
-<h2><span class="mw-headline" id="Configuring.2Ftuning_the_operating_system_of_the_test_client_and_server_machines">Configuring/tuning the operating system of the test client and server machines</span></h2>
-<p>The operating system must be able to support the number of connections (file descriptors) for the test on both the server machine and the required test client machines.
-</p><p>For a Linux system, change the file descriptor limit in the /etc/security/limit.conf file. Add the following two lines (or change any existing <tt>nofile</tt> lines):
-</p>
-<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="bash source-bash"><pre class="de1"><span class="sy0">*</span> hard nofile <span class="nu0">40000</span>
-<span class="sy0">*</span> hard nofile <span class="nu0">40000</span></pre></div></div>
-<p>You can tune many other values in the server stack; the <a class="external text" rel="nofollow" href="http://knowledgehub.zeus.com/articles/2005/09/02/tuning_zxtm_for_maximum_performance">zeus ZXTM</a> documentation provides a good overview.
-</p>
-<h2><span class="mw-headline" id="Installing.2C_configuring_and_running_CometD">Installing, configuring and running CometD</span></h2>
-<p>The CometD client and server are now in the <a href="http://cometd.org/" class="external text" rel="nofollow">CometD Project at The Dojo Foundation</a>, including downloads and documentation.
-</p>
-<h2><span class="mw-headline" id="Installing.2C_configuring_and_running_the_Jetty_server">Installing, configuring and running the Jetty server</span></h2>
-<p>Jetty installation is easy to accomplish. See <a href="../Starting/Downloads.html" title="Jetty/Starting/Downloads">Downloading Jetty</a>, and <a href="../Howto/Run Jetty.html" title="Jetty/Howto/Run Jetty">How to Run Jetty</a>.
-</p>
-<h3><span id="Editing_the_Jetty_configuration_for_CometD_testing" class="mw-headline">Editing the Jetty configuration for CometD testing</span></h3>
-<p>For the purposes of CometD testing, you need to edit the standard configuration of Jetty (<tt>etc/jetty.xml</tt> to change the connector configuration as follows:
-</p>
-<ul><li> Increase the max idle time.</li>
-<li> Increase the low resources connections.</li></ul>
-<p>The relevant section to update is:
-</p>
-<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="xml source-xml"><pre class="de1"> 
+    <link href="wiki-style.css" media="screen, print" rel="stylesheet" />
+  </head>
+  <body>
+    <div class="col-md-20" id="mainContent">
+      <div class="tab-content background-white">
+        <div class="tab-pane active" id="tab-pane-main-page-content">
+          <h1 class="firstHeading page-header" id="firstHeading">
+            <span dir="auto">Jetty/Feature/Stress Testing CometD</span>
+          </h1>
+          <div id="main-page-content">
+            <div class="alert alert-small alert-warning" id="contentSub">
+              <span class="subpages">
+                &lt;
+                <a href="../../Jetty.html" title="Jetty">Jetty</a>
+                 |
+                <a href="../Feature.html" title="Jetty/Feature">Feature</a>
+              </span>
+            </div>
+            <div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="en">
+              <p>
+                <br />
+              </p>
+              <p>
+                <br />
+              </p>
+              <div class="toc" id="toc">
+                <div id="toctitle">
+                  <h2>Contents</h2>
+                </div>
+                <ul>
+                  <li class="toclevel-1">
+                    <a href="Stress Testing CometD.html#Introduction">
+                      <span class="tocnumber">1</span>
+                      <span class="toctext">Introduction</span>
+                    </a>
+                  </li>
+                  <li class="toclevel-1">
+                    <a href="Stress Testing CometD.html#Feature">
+                      <span class="tocnumber">2</span>
+                      <span class="toctext">Feature</span>
+                    </a>
+                  </li>
+                  <li class="toclevel-1">
+                    <a href="Stress Testing CometD.html#Configuring.2Ftuning_the_operating_system_of_the_test_client_and_server_machines">
+                      <span class="tocnumber">3</span>
+                      <span class="toctext">Configuring/tuning the operating system of the test client and server machines</span>
+                    </a>
+                  </li>
+                  <li class="toclevel-1">
+                    <a href="Stress Testing CometD.html#Installing.2C_configuring_and_running_CometD">
+                      <span class="tocnumber">4</span>
+                      <span class="toctext">Installing, configuring and running CometD</span>
+                    </a>
+                  </li>
+                  <li class="toclevel-1">
+                    <a href="Stress Testing CometD.html#Installing.2C_configuring_and_running_the_Jetty_server">
+                      <span class="tocnumber">5</span>
+                      <span class="toctext">Installing, configuring and running the Jetty server</span>
+                    </a>
+                    <ul>
+                      <li class="toclevel-2">
+                        <a href="Stress Testing CometD.html#Editing_the_Jetty_configuration_for_CometD_testing">
+                          <span class="tocnumber">5.1</span>
+                          <span class="toctext">Editing the Jetty configuration for CometD testing</span>
+                        </a>
+                      </li>
+                    </ul>
+                  </li>
+                  <li class="toclevel-1">
+                    <a href="Stress Testing CometD.html#Running_the_Jetty_Bayeux_test_client">
+                      <span class="tocnumber">6</span>
+                      <span class="toctext">Running the Jetty Bayeux test client</span>
+                    </a>
+                  </li>
+                  <li class="toclevel-1">
+                    <a href="Stress Testing CometD.html#Interpreting_the_results">
+                      <span class="tocnumber">7</span>
+                      <span class="toctext">Interpreting the results</span>
+                    </a>
+                    <ul>
+                      <li class="toclevel-2">
+                        <a href="Stress Testing CometD.html#Testing_load_balancers">
+                          <span class="tocnumber">7.1</span>
+                          <span class="toctext">Testing load balancers</span>
+                        </a>
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </div>
+              <h2>
+                <span class="mw-headline" id="Introduction">Introduction</span>
+              </h2>
+              <p>
+                <br />
+                These instructions describe how to stress test CometD from Jetty7 running on Unix. The same basic steps apply to Windows or Mac; please feel free to add details and terminology specific to these platforms to this wiki.
+              </p>
+              <p>The basic steps are:</p>
+              <ul>
+                <li>
+                  <a href="Stress Testing CometD.html#Configuring.2Ftuning_the_operating_system_of_the_test_client_and_server_machines">Configuring/tuning the operating system of the test client and server machines</a>
+                </li>
+              </ul>
+              <ul>
+                <li>
+                  <a href="Stress Testing CometD.html#Installing.2C_configuring_and_running_the_Jetty_server">Installing, configuring and running the Jetty server</a>
+                </li>
+              </ul>
+              <ul>
+                <li>
+                  <a href="Stress Testing CometD.html#Editing_the_Jetty_configuration_for_CometD_testing">Editing the Jetty configuration for CometD testing</a>
+                </li>
+              </ul>
+              <ul>
+                <li>
+                  <a href="Stress Testing CometD.html#Running_the_Jetty_Bayeux_test_client">Running the Jetty Bayeux test client</a>
+                </li>
+              </ul>
+              <ul>
+                <li>
+                  <a href="Stress Testing CometD.html#Interpreting_the_results">Interpreting the results</a>
+                </li>
+              </ul>
+              <ul>
+                <li>
+                  <a href="Stress Testing CometD.html#Testing_load_balancers">Testing load balancers</a>
+                </li>
+              </ul>
+              <h2>
+                <span class="mw-headline" id="Feature">Feature</span>
+              </h2>
+              <h2>
+                <span class="mw-headline" id="Configuring.2Ftuning_the_operating_system_of_the_test_client_and_server_machines">Configuring/tuning the operating system of the test client and server machines</span>
+              </h2>
+              <p>The operating system must be able to support the number of connections (file descriptors) for the test on both the server machine and the required test client machines.</p>
+              <p>
+                For a Linux system, change the file descriptor limit in the /etc/security/limit.conf file. Add the following two lines (or change any existing
+                <tt>nofile</tt>
+                lines):
+              </p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="bash source-bash">
+                  <pre class="de1" xml:space="preserve"><span class="sy0">*</span> hard nofile <span class="nu0">40000</span>
+<span class="sy0">*</span> hard nofile <span class="nu0">40000</span></pre>
+                </div>
+              </div>
+              <p>
+                You can tune many other values in the server stack; the
+                <a class="external text" href="http://knowledgehub.zeus.com/articles/2005/09/02/tuning_zxtm_for_maximum_performance" rel="nofollow">zeus ZXTM</a>
+                documentation provides a good overview.
+              </p>
+              <h2>
+                <span class="mw-headline" id="Installing.2C_configuring_and_running_CometD">Installing, configuring and running CometD</span>
+              </h2>
+              <p>
+                The CometD client and server are now in the
+                <a class="external text" href="http://cometd.org/" rel="nofollow">CometD Project at The Dojo Foundation</a>
+                , including downloads and documentation.
+              </p>
+              <h2>
+                <span class="mw-headline" id="Installing.2C_configuring_and_running_the_Jetty_server">Installing, configuring and running the Jetty server</span>
+              </h2>
+              <p>
+                Jetty installation is easy to accomplish. See
+                <a href="../Starting/Downloads.html" title="Jetty/Starting/Downloads">Downloading Jetty</a>
+                , and
+                <a href="../Howto/Run Jetty.html" title="Jetty/Howto/Run Jetty">How to Run Jetty</a>
+                .
+              </p>
+              <h3>
+                <span class="mw-headline" id="Editing_the_Jetty_configuration_for_CometD_testing">Editing the Jetty configuration for CometD testing</span>
+              </h3>
+              <p>
+                For the purposes of CometD testing, you need to edit the standard configuration of Jetty (
+                <tt>etc/jetty.xml</tt>
+                to change the connector configuration as follows:
+              </p>
+              <ul>
+                <li>Increase the max idle time.</li>
+                <li>Increase the low resources connections.</li>
+              </ul>
+              <p>The relevant section to update is:</p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="xml source-xml">
+                  <pre class="de1" xml:space="preserve"> 
  <span class="sc3"><span class="re1">&lt;Call</span> <span class="re0">name</span>=<span class="st0">"addConnector"</span><span class="re2">&gt;</span></span>
    <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>
      <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.nio.SelectChannelConnector"</span><span class="re2">&gt;</span></span>
@@ -92,35 +200,39 @@ These instructions describe how to stress test CometD from Jetty7 running on Uni
        <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"lowResourcesMaxIdleTime"</span><span class="re2">&gt;</span></span>5000<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
          <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span>
    <span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
- <span class="sc3"><span class="re1">&lt;/Call<span class="re2">&gt;</span></span></span></pre></div></div>
-<p>To run the server with the additional memory needed for the test, use:
-</p>
-<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="java source-java"><pre class="de1"> 
- java <span class="sy0">-</span>Xmx2048m <span class="sy0">-</span>jar start.<span class="me1">jar</span> etc<span class="sy0">/</span>jetty.<span class="me1">xml</span></pre></div></div>
-<p>You should now be able to point a browser at the server at either:
-</p>
-<ul><li> http://localhost:8080/</li>
-<li> http://yourServerIpAddress:8080/</li></ul>
-<p>Specifically try out the CometD chat room with your browser to confirm that it is working.
-</p>
-<h2><span id="Running_the_Jetty_Bayeux_test_client" class="mw-headline">Running the Jetty Bayeux test client</span></h2>
-<p>The Jetty CometD Bayeux test client generates load simulating users in a chat room. To run the client:
-</p>
-<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="bash source-bash"><pre class="de1"> <span class="kw3">cd</span> <span class="re1">$JETTY_HOME</span><span class="sy0">/</span>contrib<span class="sy0">/</span>cometd<span class="sy0">/</span>client
- bin<span class="sy0">/</span>run.sh</pre></div></div>
-<div class="messagebox" style="background-color: #def3fe; border: 1px solid #c5d7e0; color: black; padding: 5px; margin: 1ex 0; min-height: 35px; padding-left: 45px;">
-<div style="float: left; margin-left: -40px;"><a href="https://wiki.eclipse.org/File:Note.png" class="image"><img height="35" alt="Note.png" src="../../images/c/cc/Note.png" width="35"/></a></div>
-<div><b>Depending on the version you might need to create a lib/cometd directory and put the cometd-api, cometd-java-server and cometd-java-client in it.</b>
-<ul><li> lib/cometd/</li>
-<li> lib/cometd/cometd-api-1.0.beta9.jar</li>
-<li> lib/cometd/cometd-client-6.1.19.jar</li>
-<li> lib/cometd/cometd-server-6.1.19.jar</li></ul>
-<b><br/></b></div>
-</div>
-<p><br/>
-The client has a basic text UI that operates in two phases: 1) global configuration 2) test runs. An example global configuration phase looks like:
-</p>
-<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="bash source-bash"><pre class="de1"> <span class="co0"># bin/run.sh</span>
+ <span class="sc3"><span class="re1">&lt;/Call<span class="re2">&gt;</span></span></span></pre>
+                </div>
+              </div>
+              <p>To run the server with the additional memory needed for the test, use:</p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="java source-java">
+                  <pre class="de1" xml:space="preserve"> 
+ java <span class="sy0">-</span>Xmx2048m <span class="sy0">-</span>jar start.<span class="me1">jar</span> etc<span class="sy0">/</span>jetty.<span class="me1">xml</span></pre>
+                </div>
+              </div>
+              <p>You should now be able to point a browser at the server at either:</p>
+              <ul>
+                <li>http://localhost:8080/</li>
+                <li>http://yourServerIpAddress:8080/</li>
+              </ul>
+              <p>Specifically try out the CometD chat room with your browser to confirm that it is working.</p>
+              <h2>
+                <span class="mw-headline" id="Running_the_Jetty_Bayeux_test_client">Running the Jetty Bayeux test client</span>
+              </h2>
+              <p>The Jetty CometD Bayeux test client generates load simulating users in a chat room. To run the client:</p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="bash source-bash">
+                  <pre class="de1" xml:space="preserve"> <span class="kw3">cd</span> <span class="re1">$JETTY_HOME</span><span class="sy0">/</span>contrib<span class="sy0">/</span>cometd<span class="sy0">/</span>client
+ bin<span class="sy0">/</span>run.sh</pre>
+                </div>
+              </div>
+              <p>
+                <br />
+                The client has a basic text UI that operates in two phases: 1) global configuration 2) test runs. An example global configuration phase looks like:
+              </p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="bash source-bash">
+                  <pre class="de1" xml:space="preserve"> <span class="co0"># bin/run.sh</span>
  <span class="nu0">2008</span>-04-06 <span class="nu0">13</span>:<span class="nu0">43</span>:<span class="nu0">57.545</span>::INFO:  Logging to STDERR via org.eclipse.log.StdErrLog
  server<span class="br0">[</span>localhost<span class="br0">]</span>: 192.126.8.11
  port<span class="br0">[</span><span class="nu0">8080</span><span class="br0">]</span>:
@@ -128,19 +240,48 @@ The client has a basic text UI that operates in two phases: 1) global configurat
  base<span class="br0">[</span><span class="sy0">/</span>chat<span class="sy0">/</span>demo<span class="br0">]</span>:
  rooms <span class="br0">[</span><span class="nu0">100</span><span class="br0">]</span>: <span class="nu0">10</span>
  rooms per client <span class="br0">[</span><span class="nu0">1</span><span class="br0">]</span>:
- max Latency <span class="br0">[</span><span class="nu0">5000</span><span class="br0">]</span>:</pre></div></div>
-<p>Use the Enter key to accept the default value, or enter a new value and then press <tt>Enter</tt>. The parameters and their meaning are:
-</p>
-<ul><li> <i>server</i>–Host name or IP address of the server running Jetty with CometD</li>
-<li> <i>8080</i>–Port (8080 unless you have changed it in jetty.xml)</li>
-<li> <i>context</i>–Context of the web application running CometD (CometD in the test server).</li>
-<li> <i>base</i>–Base Bayeux channel name used for chat room. Normally you would not change this.</li>
-<li> <i>rooms</i>–Number of chat rooms to create. This value combines with the number of users to determine the users per room. If you have 100 rooms and 1000 users, then you will have 10 users per room and every message sent is delivered 10 times. For runs with &gt;10k users, 1000 rooms is a reasonable value.</li>
-<li> <i>rooms per client</i>–Allows a simulated user to subscribe to multiple rooms. However, as these are randomly selected, values greater than 1 mean that the client is unable to accurately predict the number of messages that will be delivered. Leave this at 1 unless you are testing something specific.</li>
-<li> <i>max Latency</i>–Instructs Jetty to abort the test if the latency for delivering a message is greater than this value (in ms).</li></ul>
-<p>After the global configuration, the test client loops through individual tests cycles.¬† Again, press Enter to accept the default value. Two example iterations of the test cycle follow:
-</p>
-<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="bash source-bash"><pre class="de1"> clients <span class="br0">[</span><span class="nu0">100</span><span class="br0">]</span>: <span class="nu0">100</span>
+ max Latency <span class="br0">[</span><span class="nu0">5000</span><span class="br0">]</span>:</pre>
+                </div>
+              </div>
+              <p>
+                Use the Enter key to accept the default value, or enter a new value and then press
+                <tt>Enter</tt>
+                . The parameters and their meaning are:
+              </p>
+              <ul>
+                <li>
+                  <i>server</i>
+                  –Host name or IP address of the server running Jetty with CometD
+                </li>
+                <li>
+                  <i>8080</i>
+                  –Port (8080 unless you have changed it in jetty.xml)
+                </li>
+                <li>
+                  <i>context</i>
+                  –Context of the web application running CometD (CometD in the test server).
+                </li>
+                <li>
+                  <i>base</i>
+                  –Base Bayeux channel name used for chat room. Normally you would not change this.
+                </li>
+                <li>
+                  <i>rooms</i>
+                  –Number of chat rooms to create. This value combines with the number of users to determine the users per room. If you have 100 rooms and 1000 users, then you will have 10 users per room and every message sent is delivered 10 times. For runs with &gt;10k users, 1000 rooms is a reasonable value.
+                </li>
+                <li>
+                  <i>rooms per client</i>
+                  –Allows a simulated user to subscribe to multiple rooms. However, as these are randomly selected, values greater than 1 mean that the client is unable to accurately predict the number of messages that will be delivered. Leave this at 1 unless you are testing something specific.
+                </li>
+                <li>
+                  <i>max Latency</i>
+                  –Instructs Jetty to abort the test if the latency for delivering a message is greater than this value (in ms).
+                </li>
+              </ul>
+              <p>After the global configuration, the test client loops through individual tests cycles.¬† Again, press Enter to accept the default value. Two example iterations of the test cycle follow:</p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="bash source-bash">
+                  <pre class="de1" xml:space="preserve"> clients <span class="br0">[</span><span class="nu0">100</span><span class="br0">]</span>: <span class="nu0">100</span>
  clients = 0010
  clients = 0020
  clients = 0030
@@ -171,45 +312,59 @@ The client has a basic text UI that operates in two phases: 1) global configurat
  
  Got:<span class="nu0">10000</span> of <span class="nu0">10000</span>
  Got <span class="nu0">10000</span> at <span class="nu0">972</span><span class="sy0">/</span>s, latency min<span class="sy0">/</span>ave<span class="sy0">/</span>max =<span class="nu0">3</span><span class="sy0">/</span><span class="nu0">26</span><span class="sy0">/</span>172ms
- <span class="re5">--</span></pre></div></div>
-<p>The parameters that you can set follow:
-</p>
-<ul><li> <i>clients</i>–Number of clients to simulate. The clients are kept from one test iteration to the next, so if the number of clients changes, or an incremental number of new clients are created or destroyed, take that into account here. (Currently reducing clients produces a noisy exception as the connection is retried. You can ignore this exception).</li>
-<li> <i>publish</i>–Number of chat messages to publish for this test. The number of messages received is this number multiplied by the users per chat room (which is the number of clients divided by the global number of rooms).</li>
-<li> <i>publish size</i>–Size in bytes of the chat message to publish.</li>
-<li> <i>pause</i>–A period (in ms) to pause between batches of published messages.</li>
-<li> <i>batch</i>–Size of the batch of published messages to send in a burst.</li></ul>
-<p>While the test is executing, a series of digits outputs to show progress. The digits represent the current average latency in units of 100 ms. For example, 0 represents &lt; 100 ms latency from the time the client published the message to when it was received. And 1 represents a latency &gt;= 100 ms and &lt; 200 ms.
-At the end of the test cycle the summary is printed showing the total messages received, the message rate and the min/ave/max latency.
-</p>
-<h2><span id="Interpreting_the_results" class="mw-headline">Interpreting the results</span></h2>
-<p>Before producing numbers for interpretation, it is important to run a number of trials, which allows the system to "warm up." During the initial runs, the Java JIT compiler optimizes the code and populates object pools with reusable objects. Thus the first runs for a given number of clients is often slower. This can be seen in the test cycle shown above where the average latency initially grew to over 200 ms before it fell back to &lt; 100 ms. The average and maximum latency for the second run were far superior to the first run.
-It is also important to use long runs for producing results for the following reasons:
-</p>
-<ul><li> To reduce any statistical effect of the ramp-up and ramp-down periods.</li>
-<li> To ensure that any resources (for example, queues, memory, file descriptors) that are being used in a non-sustainable way have a chance to max out and cause errors, garbage collections or other adverse affects.</li>
-<li> To include in the results any occasional system hiccups caused by other system events</li></ul>
-<p>Typically it is best to start with short, low-volume test cycles, and to gradually reduce the pause or increase the batch to determine approximate maximum message rates. Then you can extend the test duration by increasing the number of messages published or the number of clients (which also increases the message rate as there are more users per room).
-A normal run should report no exceptions or timeouts. For a single server and single test client with one room per simulated client, the number of messages expected should always be the number received. If the server is running clustered, the messages received reduce by a factor equal to the number of servers. Similarly, if you are using multiple clients, since each test client sees messages published from the other test clients, the number of messages received will exceed the number sent.
-</p>
-<h3><span class="mw-headline" id="Testing_load_balancers">Testing load balancers</span></h3>
-<p>When testing a load balancer, be aware of the following:
-</p>
-<ul><li> Start with a cluster of one so that you can verify that no messages are being lost. Then increase the cluster size. </li>
-<li> You will not have exact message counts, and must adjust according to the number of nodes.</li>
-<li> It is very important that there is affinity, as the Bayeux client ID must be known on the worker node used, and both connections from the same simulated node must arrive at the same worker node. However, the test does not use HTTP sessions, so the balancer must set any cookies used for affinity (the test client handles set cookies).</li></ul>
-<div style="background-color: #def3fe; border: 1px solid #c5d7e0; color: black; padding: 5px; margin: 1ex 0; min-height: 35px; padding-left: 45px;" class="messagebox">
-<div style="float: left; margin-left: -40px;"><a href="https://wiki.eclipse.org/File:Note.png" class="image"><img src="../../images/c/cc/Note.png" width="35" alt="Note.png" height="35"/></a></div>
-<div><b>In reality, IP source hash is a sufficient affinity for Bayeux, but in this test, all clients come from the same IP address. Also note that the real dojo CometD client has good support for migrating to new nodes if affinity fails or the cluster changes. Also a real chat room server implementation would probably be backed by JMS so that multiple nodes would still represent a single chat space.</b><br/></div>
-</div>
-
-
-</div>
-
-                    <div id="catlinks" class="catlinks"><div class="mw-normal-catlinks" id="mw-normal-catlinks"><a title="Special:Categories" href="https://wiki.eclipse.org/Special:Categories">Categories</a>: <ul><li><a href="https://wiki.eclipse.org/Category:Jetty" title="Category:Jetty">Jetty</a></li><li><a title="Category:Jetty Feature" href="https://wiki.eclipse.org/Category:Jetty_Feature">Jetty Feature</a></li></ul></div></div>
-                                  </div>
+ <span class="re5">--</span></pre>
+                </div>
               </div>
+              <p>The parameters that you can set follow:</p>
+              <ul>
+                <li>
+                  <i>clients</i>
+                  –Number of clients to simulate. The clients are kept from one test iteration to the next, so if the number of clients changes, or an incremental number of new clients are created or destroyed, take that into account here. (Currently reducing clients produces a noisy exception as the connection is retried. You can ignore this exception).
+                </li>
+                <li>
+                  <i>publish</i>
+                  –Number of chat messages to publish for this test. The number of messages received is this number multiplied by the users per chat room (which is the number of clients divided by the global number of rooms).
+                </li>
+                <li>
+                  <i>publish size</i>
+                  –Size in bytes of the chat message to publish.
+                </li>
+                <li>
+                  <i>pause</i>
+                  –A period (in ms) to pause between batches of published messages.
+                </li>
+                <li>
+                  <i>batch</i>
+                  –Size of the batch of published messages to send in a burst.
+                </li>
+              </ul>
+              <p>While the test is executing, a series of digits outputs to show progress. The digits represent the current average latency in units of 100 ms. For example, 0 represents &lt; 100 ms latency from the time the client published the message to when it was received. And 1 represents a latency &gt;= 100 ms and &lt; 200 ms.
+At the end of the test cycle the summary is printed showing the total messages received, the message rate and the min/ave/max latency.</p>
+              <h2>
+                <span class="mw-headline" id="Interpreting_the_results">Interpreting the results</span>
+              </h2>
+              <p>Before producing numbers for interpretation, it is important to run a number of trials, which allows the system to "warm up." During the initial runs, the Java JIT compiler optimizes the code and populates object pools with reusable objects. Thus the first runs for a given number of clients is often slower. This can be seen in the test cycle shown above where the average latency initially grew to over 200 ms before it fell back to &lt; 100 ms. The average and maximum latency for the second run were far superior to the first run.
+It is also important to use long runs for producing results for the following reasons:</p>
+              <ul>
+                <li>To reduce any statistical effect of the ramp-up and ramp-down periods.</li>
+                <li>To ensure that any resources (for example, queues, memory, file descriptors) that are being used in a non-sustainable way have a chance to max out and cause errors, garbage collections or other adverse affects.</li>
+                <li>To include in the results any occasional system hiccups caused by other system events</li>
+              </ul>
+              <p>Typically it is best to start with short, low-volume test cycles, and to gradually reduce the pause or increase the batch to determine approximate maximum message rates. Then you can extend the test duration by increasing the number of messages published or the number of clients (which also increases the message rate as there are more users per room).
+A normal run should report no exceptions or timeouts. For a single server and single test client with one room per simulated client, the number of messages expected should always be the number received. If the server is running clustered, the messages received reduce by a factor equal to the number of servers. Similarly, if you are using multiple clients, since each test client sees messages published from the other test clients, the number of messages received will exceed the number sent.</p>
+              <h3>
+                <span class="mw-headline" id="Testing_load_balancers">Testing load balancers</span>
+              </h3>
+              <p>When testing a load balancer, be aware of the following:</p>
+              <ul>
+                <li>Start with a cluster of one so that you can verify that no messages are being lost. Then increase the cluster size.</li>
+                <li>You will not have exact message counts, and must adjust according to the number of nodes.</li>
+                <li>It is very important that there is affinity, as the Bayeux client ID must be known on the worker node used, and both connections from the same simulated node must arrive at the same worker node. However, the test does not use HTTP sessions, so the balancer must set any cookies used for affinity (the test client handles set cookies).</li>
+              </ul>
             </div>
           </div>
-</body>
+        </div>
+      </div>
+    </div>
+  </body>
 </html>

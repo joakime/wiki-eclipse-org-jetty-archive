@@ -1,86 +1,129 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
-<head>
+  <head>
     <title>Jetty WTP Plugin</title>
-    <link rel="stylesheet" media="screen, print" href="wiki-style.css"/>
-</head>
-<body>
-<div id="mainContent" class="col-md-20">
-                                <div class="tab-content background-white">
-              <div class="tab-pane active" id="tab-pane-main-page-content">
-
-                
-                <h1 class="firstHeading page-header" id="firstHeading">
-                  <span dir="auto">Jetty/Reference/override-web.xml</span>
-                </h1>
-                <div id="main-page-content">
-
-                  <div class="alert alert-small alert-warning" id="contentSub"><span class="subpages">&lt; <a href="../../Jetty.html" title="Jetty">Jetty</a>‎ | <a title="Jetty/Reference" href="../Reference.html">Reference</a></span></div>
-
-                  
-                  
-                  <div dir="ltr" class="mw-content-ltr" id="mw-content-text" lang="en"><p><br/>
-</p><p><br/>
-</p>
-<div class="toc" id="toc"><div id="toctitle"><h2>Contents</h2></div>
-<ul>
-<li class="toclevel-1"><a href="override-web.xml.html#Introduction"><span class="tocnumber">1</span> <span class="toctext">Introduction</span></a></li>
-<li class="toclevel-1"><a href="override-web.xml.html#Using_override-web.xml"><span class="tocnumber">2</span> <span class="toctext">Using override-web.xml</span></a>
-<ul>
-<li class="toclevel-2"><a href="override-web.xml.html#Using_the_Jetty_Maven_Plugin"><span class="tocnumber">2.1</span> <span class="toctext">Using the Jetty Maven Plugin</span></a></li>
-</ul>
-</li>
-<li class="toclevel-1"><a href="override-web.xml.html#Additional_Resources"><span class="tocnumber">3</span> <span class="toctext">Additional Resources</span></a></li>
-</ul>
-</div>
-
-<h2><span id="Introduction" class="mw-headline">Introduction</span></h2>
-<div class="messagebox" style="background-color: #f9f6b7; border: 1px solid #c4c295; color: black; padding: 5px; margin: 1ex 0; min-height: 35px; padding-left: 45px; font-size: 150%; color: white; background-color: #FF8888; padding: 50px">
-<div style="float: left; margin-left: -40px;"><a href="https://wiki.eclipse.org/File:Warning2.png" class="image"><img src="../../images/3/37/Warning2.png" width="35" height="35" alt="Warning2.png"/></a></div>
-<div>Jetty 7 and Jetty 8 are now EOL (End of Life)<br/>
-<p><br/>
-<br/>
-<br/>
-THIS IS NOT THE DOCUMENTATION YOU ARE LOOKING FOR!!!!!<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-All development and stable releases are being performed with Jetty 9 and Jetty 10.<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-This <b>wiki is now officially out of date</b> and all content has been moved to the <a rel="nofollow" class="external text" href="http://www.eclipse.org/jetty/documentation">Jetty Documentation Hub</a><br/> 
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-</p>
-Direct Link to updated documentation: <a href="http://www.eclipse.org/jetty/documentation/current/override-web-xml.html" rel="nofollow" class="external free">http://www.eclipse.org/jetty/documentation/current/override-web-xml.html</a></div>
-</div>
-<p><br/>
-To deploy a web application or WAR into different environments, most likely you will need to customize the webapp for compatibility with each environment. The challenge is to do so without changing the webapp itself. You can use a <tt>jetty.xml</tt> file for some of this work since it is not part of the webapp. But there are some changes that <tt>jetty.xml</tt> cannot accomplish, for example, modifications to servlet init-params and context init-params. Using <tt>webdefault.xml</tt> is not an option because Jetty applies <tt>webdefault.xml</tt> to a web application <i>before</i> the application's own <tt>WEB-INF/web.xml</tt>, which means that it cannot override values inside the webapp's <tt>web.xml</tt>.
-</p><p>The solution is <tt>override-web.xml</tt>. It is a <tt>web.xml</tt> file that Jetty applies to a web application <i>after</i> the application's own <tt>WEB-INF/web.xml</tt>, which means that it can override values or add new elements. You define it per-webapp, using the <a class="new" href="edit" title="Jetty/Reference/web.xml syntax (page does not exist)"><tt>web.xml syntax</tt></a>.
-</p>
-<h2><span class="mw-headline" id="Using_override-web.xml">Using <tt>override-web.xml</tt></span></h2>
-<p>You can specify the <tt>override-web.xml</tt> to use for an individual web application, in that webapp's <a title="Jetty/Reference/jetty-web.xml" href="jetty-web.xml.html">jetty-web.xml</a>. 
-</p>
-<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="xml source-xml"><pre class="de1"><span class="sc3"><span class="re1">&lt;Configure</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.webapp.WebAppContext"</span><span class="re2">&gt;</span></span>
+    <link href="wiki-style.css" media="screen, print" rel="stylesheet" />
+  </head>
+  <body>
+    <div class="col-md-20" id="mainContent">
+      <div class="tab-content background-white">
+        <div class="tab-pane active" id="tab-pane-main-page-content">
+          <h1 class="firstHeading page-header" id="firstHeading">
+            <span dir="auto">Jetty/Reference/override-web.xml</span>
+          </h1>
+          <div id="main-page-content">
+            <div class="alert alert-small alert-warning" id="contentSub">
+              <span class="subpages">
+                &lt;
+                <a href="../../Jetty.html" title="Jetty">Jetty</a>
+                 |
+                <a href="../Reference.html" title="Jetty/Reference">Reference</a>
+              </span>
+            </div>
+            <div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="en">
+              <p>
+                <br />
+              </p>
+              <p>
+                <br />
+              </p>
+              <div class="toc" id="toc">
+                <div id="toctitle">
+                  <h2>Contents</h2>
+                </div>
+                <ul>
+                  <li class="toclevel-1">
+                    <a href="override-web.xml.html#Introduction">
+                      <span class="tocnumber">1</span>
+                      <span class="toctext">Introduction</span>
+                    </a>
+                  </li>
+                  <li class="toclevel-1">
+                    <a href="override-web.xml.html#Using_override-web.xml">
+                      <span class="tocnumber">2</span>
+                      <span class="toctext">Using override-web.xml</span>
+                    </a>
+                    <ul>
+                      <li class="toclevel-2">
+                        <a href="override-web.xml.html#Using_the_Jetty_Maven_Plugin">
+                          <span class="tocnumber">2.1</span>
+                          <span class="toctext">Using the Jetty Maven Plugin</span>
+                        </a>
+                      </li>
+                    </ul>
+                  </li>
+                  <li class="toclevel-1">
+                    <a href="override-web.xml.html#Additional_Resources">
+                      <span class="tocnumber">3</span>
+                      <span class="toctext">Additional Resources</span>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+              <h2>
+                <span class="mw-headline" id="Introduction">Introduction</span>
+              </h2>
+              <p>
+                <br />
+                To deploy a web application or WAR into different environments, most likely you will need to customize the webapp for compatibility with each environment. The challenge is to do so without changing the webapp itself. You can use a
+                <tt>jetty.xml</tt>
+                file for some of this work since it is not part of the webapp. But there are some changes that
+                <tt>jetty.xml</tt>
+                cannot accomplish, for example, modifications to servlet init-params and context init-params. Using
+                <tt>webdefault.xml</tt>
+                is not an option because Jetty applies
+                <tt>webdefault.xml</tt>
+                to a web application
+                <i>before</i>
+                the application's own
+                <tt>WEB-INF/web.xml</tt>
+                , which means that it cannot override values inside the webapp's
+                <tt>web.xml</tt>
+                .
+              </p>
+              <p>
+                The solution is
+                <tt>override-web.xml</tt>
+                . It is a
+                <tt>web.xml</tt>
+                file that Jetty applies to a web application
+                <i>after</i>
+                the application's own
+                <tt>WEB-INF/web.xml</tt>
+                , which means that it can override values or add new elements. You define it per-webapp, using the
+                <a class="new" href="edit" title="Jetty/Reference/web.xml syntax (page does not exist)">
+                  <tt>web.xml syntax</tt>
+                </a>
+                .
+              </p>
+              <h2>
+                <span class="mw-headline" id="Using_override-web.xml">
+                  Using
+                  <tt>override-web.xml</tt>
+                </span>
+              </h2>
+              <p>
+                You can specify the
+                <tt>override-web.xml</tt>
+                to use for an individual web application, in that webapp's
+                <a href="jetty-web.xml.html" title="Jetty/Reference/jetty-web.xml">jetty-web.xml</a>
+                .
+              </p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="xml source-xml">
+                  <pre class="de1" xml:space="preserve"><span class="sc3"><span class="re1">&lt;Configure</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.webapp.WebAppContext"</span><span class="re2">&gt;</span></span>
   ...
   <span class="sc-1">&lt;!-- Set up the path to the custom override descriptor, </span>
 <span class="sc-1">  relative to your $(jetty.home) directory or to the current directory --&gt;</span>
   <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"overrideDescriptor"</span><span class="re2">&gt;</span><span class="re1">&lt;SystemProperty</span> <span class="re0">name</span>=<span class="st0">"jetty.home"</span> <span class="re0">default</span>=<span class="st0">"."</span><span class="re2">/&gt;</span></span>/my/path/to/override-web.xml<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
   ...
-<span class="sc3"><span class="re1">&lt;/Configure<span class="re2">&gt;</span></span></span></pre></div></div>
-<p>The equivalent in code is:
-</p>
-<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="java source-java"><pre class="de1"><span class="kw1">import</span> <span class="co2">org.eclipse.jetty.webapp.WebAppContext</span><span class="sy0">;</span>
+<span class="sc3"><span class="re1">&lt;/Configure<span class="re2">&gt;</span></span></span></pre>
+                </div>
+              </div>
+              <p>The equivalent in code is:</p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="java source-java">
+                  <pre class="de1" xml:space="preserve"><span class="kw1">import</span> <span class="co2">org.eclipse.jetty.webapp.WebAppContext</span><span class="sy0">;</span>
  
     ...
  
@@ -88,13 +131,21 @@ To deploy a web application or WAR into different environments, most likely you 
     ...
     <span class="co1">//Set the path to the override descriptor, based on your $(jetty.home) directory</span>
     wac.<span class="me1">setOverrideDescriptor</span><span class="br0">(</span><span class="kw3">System</span>.<span class="me1">getProperty</span><span class="br0">(</span><span class="st0">"jetty.home"</span><span class="br0">)</span><span class="sy0">+</span><span class="st0">"/my/path/to/override-web.xml"</span><span class="br0">)</span><span class="sy0">;</span>
-    ...</pre></div></div>
-<p>Alternatively, use the classloader to get the path to the override descriptor as a resource.
-</p>
-<h3><span class="mw-headline" id="Using_the_Jetty_Maven_Plugin">Using the Jetty Maven Plugin</span></h3>
-<p>Use the <code>&lt;overrideDescriptor&gt;</code> tag as follows:
-</p>
-<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="xml source-xml"><pre class="de1"><span class="sc3"><span class="re1">&lt;project<span class="re2">&gt;</span></span></span>
+    ...</pre>
+                </div>
+              </div>
+              <p>Alternatively, use the classloader to get the path to the override descriptor as a resource.</p>
+              <h3>
+                <span class="mw-headline" id="Using_the_Jetty_Maven_Plugin">Using the Jetty Maven Plugin</span>
+              </h3>
+              <p>
+                Use the
+                <code>&lt;overrideDescriptor&gt;</code>
+                tag as follows:
+              </p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="xml source-xml">
+                  <pre class="de1" xml:space="preserve"><span class="sc3"><span class="re1">&lt;project<span class="re2">&gt;</span></span></span>
     ...
     <span class="sc3"><span class="re1">&lt;plugins<span class="re2">&gt;</span></span></span>
         <span class="sc3"><span class="re1">&lt;plugin<span class="re2">&gt;</span></span></span>
@@ -110,20 +161,26 @@ To deploy a web application or WAR into different environments, most likely you 
         ...
     <span class="sc3"><span class="re1">&lt;/plugins<span class="re2">&gt;</span></span></span>
     ...
-<span class="sc3"><span class="re1">&lt;/project<span class="re2">&gt;</span></span></span></pre></div></div>
-<h2><span id="Additional_Resources" class="mw-headline">Additional Resources</span></h2>
-<ul><li> <a title="Jetty/Reference/web.xml syntax (page does not exist)" class="new" href="edit">web.xml Syntax Reference</a> reference for web.xml files</li>
-<li> <a title="Jetty/Reference/webdefault.xml" href="webdefault.xml.html">webdefault.xml</a> web.xml-formatted file, applied before the webapp's web.xml</li></ul>
-
-
-</div>
-
-                    <div class="catlinks" id="catlinks">
-                        <li><a title="Category:Jetty Reference" href="https://wiki.eclipse.org/Category:Jetty_Reference">Jetty Reference</a></li>
-                        </div>
+<span class="sc3"><span class="re1">&lt;/project<span class="re2">&gt;</span></span></span></pre>
                 </div>
-                                  </div>
               </div>
+              <h2>
+                <span class="mw-headline" id="Additional_Resources">Additional Resources</span>
+              </h2>
+              <ul>
+                <li>
+                  <a class="new" href="edit" title="Jetty/Reference/web.xml syntax (page does not exist)">web.xml Syntax Reference</a>
+                  reference for web.xml files
+                </li>
+                <li>
+                  <a href="webdefault.xml.html" title="Jetty/Reference/webdefault.xml">webdefault.xml</a>
+                  web.xml-formatted file, applied before the webapp's web.xml
+                </li>
+              </ul>
             </div>
-</body>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
 </html>

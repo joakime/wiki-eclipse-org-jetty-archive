@@ -1,96 +1,200 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
-<head>
+  <head>
     <title>Jetty WTP Plugin</title>
-    <link rel="stylesheet" media="screen, print" href="wiki-style.css"/>
-</head>
-<body>
-<div class="col-md-20" id="mainContent">
-                                 <div class="tab-content background-white">
-              <div id="tab-pane-main-page-content" class="tab-pane active">
-
-                
-                <h1 class="firstHeading page-header" id="firstHeading">
-                  <span dir="auto">Jetty/Howto/Develop</span>
-                </h1>
-                <div id="main-page-content">
-
-                  <div class="alert alert-small alert-warning" id="contentSub"><span class="subpages">&lt; <a title="Jetty" href="../../Jetty.html">Jetty</a>‎ | <a href="../Howto.html" title="Jetty/Howto">Howto</a></span></div>
-
-                  
-                  
-                  <div lang="en" class="mw-content-ltr" id="mw-content-text" dir="ltr"><p><br/>
-</p><p><br/>
-</p>
-<div id="toc" class="toc"><div id="toctitle"><h2>Contents</h2></div>
-<ul>
-<li class="toclevel-1"><a href="Develop.html#Introduction"><span class="tocnumber">1</span> <span class="toctext">Introduction</span></a></li>
-<li class="toclevel-1 tocsection-1"><a href="Develop.html#Developing_against_Jetty_APIs"><span class="tocnumber">2</span> <span class="toctext">Developing against Jetty APIs</span></a></li>
-<li class="toclevel-1 tocsection-2"><a href="Develop.html#Standard_Web_Application_Development"><span class="tocnumber">3</span> <span class="toctext">Standard Web Application Development</span></a>
-<ul>
-<li class="toclevel-2 tocsection-3"><a href="Develop.html#Jetty_Maven_Plugin"><span class="tocnumber">3.1</span> <span class="toctext">Jetty Maven Plugin</span></a></li>
-<li class="toclevel-2 tocsection-4"><a href="Develop.html#Ant_Jetty_Plugin"><span class="tocnumber">3.2</span> <span class="toctext">Ant Jetty Plugin</span></a></li>
-<li class="toclevel-2 tocsection-5"><a href="Develop.html#OSGi_Plugin"><span class="tocnumber">3.3</span> <span class="toctext">OSGi Plugin</span></a></li>
-<li class="toclevel-2 tocsection-6"><a href="Develop.html#Eclipse_Web_Tooling"><span class="tocnumber">3.4</span> <span class="toctext">Eclipse Web Tooling</span></a></li>
-<li class="toclevel-2 tocsection-7"><a href="Develop.html#Embedded_Jetty_Main"><span class="tocnumber">3.5</span> <span class="toctext">Embedded Jetty Main</span></a></li>
-</ul>
-</li>
-</ul>
-</div>
-
-<h2><span class="mw-headline" id="Introduction">Introduction</span></h2>
-<div class="messagebox" style="background-color: #f9f6b7; border: 1px solid #c4c295; color: black; padding: 5px; margin: 1ex 0; min-height: 35px; padding-left: 45px;">
-<div style="float: left; margin-left: -40px;"><a href="https://wiki.eclipse.org/File:Warning2.png" class="image"><img width="35" height="35" alt="Warning2.png" src="../../images/3/37/Warning2.png"/></a></div>
-<div>Some or all of this content remains to be ported to Jetty 9 <a rel="nofollow" href="http://www.eclipse.org/jetty/documentation/current" class="external text">Documentation</a>.<br/>If you are interested in migrating this content see our <a class="external text" href="http://www.eclipse.org/jetty/documentation/current/contributing-documentation.html" rel="nofollow">contribution guide</a> or <a class="external text" href="http://www.eclipse.org/jetty/documentation/current/community.html" rel="nofollow">contact us</a>.</div>
-</div>
-<p><br/>
-It is useful to think about Jetty development from two aspects:
-</p>
-<ul><li> <b>Developing against Jetty APIs</b> for either embedded or closely integrated purposes. This style of development requires Jetty Jars on the class path during development and runtime.</li></ul>
-<ul><li> <b>Developing standard web applications</b> that use only standard APIs, but that are deployed in Jetty either for development and/or production.  These web applications might use some Jetty APIs, but only as normal WEB-INF/lib libraries. </li></ul>
-<p><br/>
-</p>
-<h2><span id="Developing_against_Jetty_APIs" class="mw-headline">Developing against Jetty APIs</span></h2>
-<p>Developing against the Jetty API lets you develop both standard web applications and embedded web applications. The basic approach is to install the required <a href="../Reference/Dependencies.html" title="Jetty/Reference/Dependencies">Jetty Jars and dependencies</a> on your class path and then write and run a variation of one of the examples in the <a title="Jetty/Tutorial/Embedding Jetty" href="../Tutorial/Embedding Jetty.html#Web_Application_Context">Embedding Jetty Tutorial</a>.
-</p><p>For more details about setting up your class path, see:
-</p>
-<ul><li>  <a title="Jetty/Tutorial/Jetty HelloWorld" href="../Tutorial/Jetty HelloWorld.html">Jetty HelloWorld Tutorial</a> </li>
-<li>  <a title="Jetty/Tutorial/Jetty and Maven HelloWorld" href="../Tutorial/Jetty and Maven HelloWorld.html">Jetty and Maven HelloWorld Tutorial</a></li></ul>
-<h2><span class="mw-headline" id="Standard_Web_Application_Development">Standard Web Application Development</span></h2>
-<p>To develop a standard web application with Jetty, typically you need only the <code>servlet.jar</code> on the classpath of your IDE and then some way to run a Jetty server just to test the web application as part of a normal development lifecycle:
-</p>
-<h3><span class="mw-headline" id="Jetty_Maven_Plugin">Jetty Maven Plugin</span></h3>
-<p><a rel="nofollow" class="external text" href="http://maven.apache.org/">Apache Maven</a> is a software project management and comprehension tool. Based on the concept of a project object model (POM), Maven can manage a project's build, reporting and documentation from a central piece of information. It is an ideal tool to build a web application project, and such projects can use the <a href="../Feature/Jetty Maven Plugin.html" title="Jetty/Feature/Jetty Maven Plugin">Jetty Maven Plugin</a> to run the web application in development mode.
-</p><p>Typically a build tool needs to assemble a web application into a WAR file, which merges the compiled code, the static content and the deployment descriptor into a zipped file, which you can then deploy in a server.  However, during development, the time it takes to assemble a WAR file can be significant, and the resulting bundle can be hard to develop against as source code changes are not immediately reflected.   
-</p>
-Once you configure the <a title="Jetty/Feature/Jetty Maven Plugin" href="../Feature/Jetty Maven Plugin.html">Jetty Maven Plugin</a> for a project, you can start a Jetty server with the command:<pre>mvn jetty:run</pre>.
-<p>This runs the application directly from its unassembled source components, so that if static content is saved from your IDE's editor, it is immediately visible to the Jetty server. If you save a Java class, your IDE will probably compile it on the fly and the plugin will notice the change and redeploy the web application within seconds.
-</p>
-<h3><span id="Ant_Jetty_Plugin" class="mw-headline">Ant Jetty Plugin</span></h3>
-<p>The Jetty Ant plugin provides an ant target that allows a jetty server to be run from an ant <code>build.xml</code> file. 
-</p><p>This module is available from jetty@codehaus for Jetty-7, but currently the documentation only exists for <a class="external text" href="http://docs.codehaus.org/display/JETTY/Ant+Jetty+Plugin" rel="nofollow">jetty ant with jetty-6</a>.  This documentation mostly holds, except the Jar names need to be updated for <a title="Jetty/Reference/Dependencies" href="../Reference/Dependencies.html">jetty-7 Jars and Dependencies</a>.
-</p><p>TBD
-</p>
-<h3><span id="OSGi_Plugin" class="mw-headline">OSGi Plugin</span></h3>
-<p>TBD
-</p>
-<h3><span class="mw-headline" id="Eclipse_Web_Tooling">Eclipse Web Tooling</span></h3>
-<p>See the Jetty WTP Plugin documentation:
-</p><p><a href="../../Jetty WTP Plugin.html" title="Jetty WTP Plugin">Using the Jetty WTP Plugin</a><br/>
-<a href="../../Jetty WTP Plugin/Jetty WTP Install.html" title="Jetty WTP Plugin/Jetty WTP Install">Installing the Jetty WTP Plugin</a><br/>
-<a title="Jetty WTP Plugin/Jetty WTP External WebApp" href="../../Jetty WTP Plugin/Jetty WTP External WebApp.html">Using the WTP Plugin with an External WebApp</a><br/>
-<a href="../../Jetty WTP Plugin/Jetty WTP Modify ContextPath.html" title="Jetty WTP Plugin/Jetty WTP Modify ContextPath">Modifying the Context Path with the WTP Plugin</a>
-</p>
-<h3><span class="mw-headline" id="Embedded_Jetty_Main">Embedded Jetty Main</span></h3>
-<p>You can write a short Java main to launch your web applications in Jetty directly from your IDE, just as you would run any other Java application.  This allows your IDE's debugger to step through both your application and the server code, and thus allows integrated debugging.
-</p><p>See the <a title="Jetty/Tutorial/Embedding Jetty" href="../Tutorial/Embedding Jetty.html#Web_Application_Context">Embedding Jetty Tutorial</a> for examples of running a webapp from a main.
-</p>
-
-</div>
-
-                    <div id="catlinks" class="catlinks"><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="https://wiki.eclipse.org/Special:Categories" title="Special:Categories">Categories</a>: <ul><li><a href="https://wiki.eclipse.org/Category:Jetty" title="Category:Jetty">Jetty</a></li><li><a title="Category:Jetty Howto" href="https://wiki.eclipse.org/Category:Jetty_Howto">Jetty Howto</a></li></ul></div></div>
-                                  </div>
+    <link href="wiki-style.css" media="screen, print" rel="stylesheet" />
+  </head>
+  <body>
+    <div class="col-md-20" id="mainContent">
+      <div class="tab-content background-white">
+        <div class="tab-pane active" id="tab-pane-main-page-content">
+          <h1 class="firstHeading page-header" id="firstHeading">
+            <span dir="auto">Jetty/Howto/Develop</span>
+          </h1>
+          <div id="main-page-content">
+            <div class="alert alert-small alert-warning" id="contentSub">
+              <span class="subpages">
+                &lt;
+                <a href="../../Jetty.html" title="Jetty">Jetty</a>
+                 |
+                <a href="../Howto.html" title="Jetty/Howto">Howto</a>
+              </span>
+            </div>
+            <div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="en">
+              <p>
+                <br />
+              </p>
+              <p>
+                <br />
+              </p>
+              <div class="toc" id="toc">
+                <div id="toctitle">
+                  <h2>Contents</h2>
+                </div>
+                <ul>
+                  <li class="toclevel-1">
+                    <a href="Develop.html#Introduction">
+                      <span class="tocnumber">1</span>
+                      <span class="toctext">Introduction</span>
+                    </a>
+                  </li>
+                  <li class="toclevel-1 tocsection-1">
+                    <a href="Develop.html#Developing_against_Jetty_APIs">
+                      <span class="tocnumber">2</span>
+                      <span class="toctext">Developing against Jetty APIs</span>
+                    </a>
+                  </li>
+                  <li class="toclevel-1 tocsection-2">
+                    <a href="Develop.html#Standard_Web_Application_Development">
+                      <span class="tocnumber">3</span>
+                      <span class="toctext">Standard Web Application Development</span>
+                    </a>
+                    <ul>
+                      <li class="toclevel-2 tocsection-3">
+                        <a href="Develop.html#Jetty_Maven_Plugin">
+                          <span class="tocnumber">3.1</span>
+                          <span class="toctext">Jetty Maven Plugin</span>
+                        </a>
+                      </li>
+                      <li class="toclevel-2 tocsection-4">
+                        <a href="Develop.html#Ant_Jetty_Plugin">
+                          <span class="tocnumber">3.2</span>
+                          <span class="toctext">Ant Jetty Plugin</span>
+                        </a>
+                      </li>
+                      <li class="toclevel-2 tocsection-5">
+                        <a href="Develop.html#OSGi_Plugin">
+                          <span class="tocnumber">3.3</span>
+                          <span class="toctext">OSGi Plugin</span>
+                        </a>
+                      </li>
+                      <li class="toclevel-2 tocsection-6">
+                        <a href="Develop.html#Eclipse_Web_Tooling">
+                          <span class="tocnumber">3.4</span>
+                          <span class="toctext">Eclipse Web Tooling</span>
+                        </a>
+                      </li>
+                      <li class="toclevel-2 tocsection-7">
+                        <a href="Develop.html#Embedded_Jetty_Main">
+                          <span class="tocnumber">3.5</span>
+                          <span class="toctext">Embedded Jetty Main</span>
+                        </a>
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
               </div>
+              <h2>
+                <span class="mw-headline" id="Introduction">Introduction</span>
+              </h2>
+              <p>
+                <br />
+                It is useful to think about Jetty development from two aspects:
+              </p>
+              <ul>
+                <li>
+                  <b>Developing against Jetty APIs</b>
+                  for either embedded or closely integrated purposes. This style of development requires Jetty Jars on the class path during development and runtime.
+                </li>
+              </ul>
+              <ul>
+                <li>
+                  <b>Developing standard web applications</b>
+                  that use only standard APIs, but that are deployed in Jetty either for development and/or production.  These web applications might use some Jetty APIs, but only as normal WEB-INF/lib libraries.
+                </li>
+              </ul>
+              <p>
+                <br />
+              </p>
+              <h2>
+                <span class="mw-headline" id="Developing_against_Jetty_APIs">Developing against Jetty APIs</span>
+              </h2>
+              <p>
+                Developing against the Jetty API lets you develop both standard web applications and embedded web applications. The basic approach is to install the required
+                <a href="../Reference/Dependencies.html" title="Jetty/Reference/Dependencies">Jetty Jars and dependencies</a>
+                on your class path and then write and run a variation of one of the examples in the
+                <a href="../Tutorial/Embedding Jetty.html#Web_Application_Context" title="Jetty/Tutorial/Embedding Jetty">Embedding Jetty Tutorial</a>
+                .
+              </p>
+              <p>For more details about setting up your class path, see:</p>
+              <ul>
+                <li>
+                  <a href="../Tutorial/Jetty HelloWorld.html" title="Jetty/Tutorial/Jetty HelloWorld">Jetty HelloWorld Tutorial</a>
+                </li>
+                <li>
+                  <a href="../Tutorial/Jetty and Maven HelloWorld.html" title="Jetty/Tutorial/Jetty and Maven HelloWorld">Jetty and Maven HelloWorld Tutorial</a>
+                </li>
+              </ul>
+              <h2>
+                <span class="mw-headline" id="Standard_Web_Application_Development">Standard Web Application Development</span>
+              </h2>
+              <p>
+                To develop a standard web application with Jetty, typically you need only the
+                <code>servlet.jar</code>
+                on the classpath of your IDE and then some way to run a Jetty server just to test the web application as part of a normal development lifecycle:
+              </p>
+              <h3>
+                <span class="mw-headline" id="Jetty_Maven_Plugin">Jetty Maven Plugin</span>
+              </h3>
+              <p>
+                <a class="external text" href="http://maven.apache.org/" rel="nofollow">Apache Maven</a>
+                is a software project management and comprehension tool. Based on the concept of a project object model (POM), Maven can manage a project's build, reporting and documentation from a central piece of information. It is an ideal tool to build a web application project, and such projects can use the
+                <a href="../Feature/Jetty Maven Plugin.html" title="Jetty/Feature/Jetty Maven Plugin">Jetty Maven Plugin</a>
+                to run the web application in development mode.
+              </p>
+              <p>Typically a build tool needs to assemble a web application into a WAR file, which merges the compiled code, the static content and the deployment descriptor into a zipped file, which you can then deploy in a server.  However, during development, the time it takes to assemble a WAR file can be significant, and the resulting bundle can be hard to develop against as source code changes are not immediately reflected.</p>
+              Once you configure the
+              <a href="../Feature/Jetty Maven Plugin.html" title="Jetty/Feature/Jetty Maven Plugin">Jetty Maven Plugin</a>
+              for a project, you can start a Jetty server with the command:
+              <pre xml:space="preserve">mvn jetty:run</pre>
+              .
+              <p>This runs the application directly from its unassembled source components, so that if static content is saved from your IDE's editor, it is immediately visible to the Jetty server. If you save a Java class, your IDE will probably compile it on the fly and the plugin will notice the change and redeploy the web application within seconds.</p>
+              <h3>
+                <span class="mw-headline" id="Ant_Jetty_Plugin">Ant Jetty Plugin</span>
+              </h3>
+              <p>
+                The Jetty Ant plugin provides an ant target that allows a jetty server to be run from an ant
+                <code>build.xml</code>
+                file.
+              </p>
+              <p>
+                This module is available from jetty@codehaus for Jetty-7, but currently the documentation only exists for
+                <a class="external text" href="http://docs.codehaus.org/display/JETTY/Ant+Jetty+Plugin" rel="nofollow">jetty ant with jetty-6</a>
+                .  This documentation mostly holds, except the Jar names need to be updated for
+                <a href="../Reference/Dependencies.html" title="Jetty/Reference/Dependencies">jetty-7 Jars and Dependencies</a>
+                .
+              </p>
+              <p>TBD</p>
+              <h3>
+                <span class="mw-headline" id="OSGi_Plugin">OSGi Plugin</span>
+              </h3>
+              <p>TBD</p>
+              <h3>
+                <span class="mw-headline" id="Eclipse_Web_Tooling">Eclipse Web Tooling</span>
+              </h3>
+              <p>See the Jetty WTP Plugin documentation:</p>
+              <p>
+                <a href="../../Jetty WTP Plugin.html" title="Jetty WTP Plugin">Using the Jetty WTP Plugin</a>
+                <br />
+                <a href="../../Jetty WTP Plugin/Jetty WTP Install.html" title="Jetty WTP Plugin/Jetty WTP Install">Installing the Jetty WTP Plugin</a>
+                <br />
+                <a href="../../Jetty WTP Plugin/Jetty WTP External WebApp.html" title="Jetty WTP Plugin/Jetty WTP External WebApp">Using the WTP Plugin with an External WebApp</a>
+                <br />
+                <a href="../../Jetty WTP Plugin/Jetty WTP Modify ContextPath.html" title="Jetty WTP Plugin/Jetty WTP Modify ContextPath">Modifying the Context Path with the WTP Plugin</a>
+              </p>
+              <h3>
+                <span class="mw-headline" id="Embedded_Jetty_Main">Embedded Jetty Main</span>
+              </h3>
+              <p>You can write a short Java main to launch your web applications in Jetty directly from your IDE, just as you would run any other Java application.  This allows your IDE's debugger to step through both your application and the server code, and thus allows integrated debugging.</p>
+              <p>
+                See the
+                <a href="../Tutorial/Embedding Jetty.html#Web_Application_Context" title="Jetty/Tutorial/Embedding Jetty">Embedding Jetty Tutorial</a>
+                for examples of running a webapp from a main.
+              </p>
             </div>
           </div>
-</body>
+        </div>
+      </div>
+    </div>
+  </body>
 </html>

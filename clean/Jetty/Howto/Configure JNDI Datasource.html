@@ -1,114 +1,175 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
-<head>
+  <head>
     <title>Jetty WTP Plugin</title>
-    <link rel="stylesheet" media="screen, print" href="wiki-style.css"/>
-</head>
-<body>
-<div id="mainContent" class="col-md-20">
-                              <div class="tab-content background-white">
-              <div class="tab-pane active" id="tab-pane-main-page-content">
-
-                
-                <h1 id="firstHeading" class="firstHeading page-header">
-                  <span dir="auto">Jetty/Howto/Configure JNDI Datasource</span>
-                </h1>
-                <div id="main-page-content">
-
-                  <div class="alert alert-small alert-warning" id="contentSub"><span class="subpages">&lt; <a href="../../Jetty.html" title="Jetty">Jetty</a>‎ | <a title="Jetty/Howto" href="../Howto.html">Howto</a></span></div>
-
-                  
-                  
-                  <div lang="en" dir="ltr" id="mw-content-text" class="mw-content-ltr"><p><br/>
-</p><p><br/>
-</p>
-<div class="toc" id="toc"><div id="toctitle"><h2>Contents</h2></div>
-<ul>
-<li class="toclevel-1"><a href="Configure JNDI Datasource.html#Introduction"><span class="tocnumber">1</span> <span class="toctext">Introduction</span></a></li>
-<li class="toclevel-1"><a href="Configure JNDI Datasource.html#Pooling_DataSources"><span class="tocnumber">2</span> <span class="toctext">Pooling DataSources</span></a>
-<ul>
-<li class="toclevel-2"><a href="Configure JNDI Datasource.html#BoneCP"><span class="tocnumber">2.1</span> <span class="toctext">BoneCP</span></a></li>
-<li class="toclevel-2"><a href="Configure JNDI Datasource.html#c3p0"><span class="tocnumber">2.2</span> <span class="toctext">c3p0</span></a></li>
-<li class="toclevel-2"><a href="Configure JNDI Datasource.html#dbcp"><span class="tocnumber">2.3</span> <span class="toctext">dbcp</span></a></li>
-<li class="toclevel-2"><a href="Configure JNDI Datasource.html#Atomikos_3.3.2.2B"><span class="tocnumber">2.4</span> <span class="toctext">Atomikos 3.3.2+</span></a></li>
-</ul>
-</li>
-<li class="toclevel-1"><a href="Configure JNDI Datasource.html#Non-pooling_DataSources"><span class="tocnumber">3</span> <span class="toctext">Non-pooling DataSources</span></a>
-<ul>
-<li class="toclevel-2"><a href="Configure JNDI Datasource.html#MySQL"><span class="tocnumber">3.1</span> <span class="toctext">MySQL</span></a></li>
-<li class="toclevel-2"><a href="Configure JNDI Datasource.html#SQL_Server_2000"><span class="tocnumber">3.2</span> <span class="toctext">SQL Server 2000</span></a></li>
-<li class="toclevel-2"><a href="Configure JNDI Datasource.html#Oracle_9i.2F10g"><span class="tocnumber">3.3</span> <span class="toctext">Oracle 9i/10g</span></a></li>
-<li class="toclevel-2"><a href="Configure JNDI Datasource.html#PostgreSQL"><span class="tocnumber">3.4</span> <span class="toctext">PostgreSQL</span></a></li>
-<li class="toclevel-2"><a href="Configure JNDI Datasource.html#Sybase"><span class="tocnumber">3.5</span> <span class="toctext">Sybase</span></a></li>
-<li class="toclevel-2"><a href="Configure JNDI Datasource.html#DB2"><span class="tocnumber">3.6</span> <span class="toctext">DB2</span></a></li>
-</ul>
-</li>
-</ul>
-</div>
-
-<h2><span id="Introduction" class="mw-headline">Introduction</span></h2>
-<div class="messagebox" style="background-color: #f9f6b7; border: 1px solid #c4c295; color: black; padding: 5px; margin: 1ex 0; min-height: 35px; padding-left: 45px; font-size: 150%; color: white; background-color: #FF8888; padding: 50px">
-<div style="float: left; margin-left: -40px;"><a class="image" href="https://wiki.eclipse.org/File:Warning2.png"><img alt="Warning2.png" src="../../images/3/37/Warning2.png" width="35" height="35"/></a></div>
-<div>Jetty 7 and Jetty 8 are now EOL (End of Life)<br/>
-<p><br/>
-<br/>
-<br/>
-THIS IS NOT THE DOCUMENTATION YOU ARE LOOKING FOR!!!!!<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-All development and stable releases are being performed with Jetty 9 and Jetty 10.<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-This <b>wiki is now officially out of date</b> and all content has been moved to the <a class="external text" rel="nofollow" href="http://www.eclipse.org/jetty/documentation">Jetty Documentation Hub</a><br/> 
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-</p>
-Direct Link to updated documentation: <a href="http://www.eclipse.org/jetty/documentation/current/jndi-datasource-examples.html" rel="nofollow" class="external free">http://www.eclipse.org/jetty/documentation/current/jndi-datasource-examples.html</a></div>
-</div>
-<p><br/>
-This document provides examples of configuring a JNDI datasource for various databases.
-</p>
-<div style="background-color: #def3fe; border: 1px solid #c5d7e0; color: black; padding: 5px; margin: 1ex 0; min-height: 35px; padding-left: 45px;" class="messagebox">
-<div style="float: left; margin-left: -40px;"><a class="image" href="https://wiki.eclipse.org/File:Idea.png"><img src="../../images/a/a4/Idea.png" alt="Idea.png" width="35" height="35"/></a></div>
-<div><b>Tip:</b><br/>Read the generic <a title="Jetty/Feature/JNDI" href="../Feature/JNDI.html">JNDI</a> instructions for background information about configuring datasources.</div>
-</div>
-<p><br/>
-These examples all correspond to a <code>&lt;resource-ref&gt;</code> in <code>web.xml</code>:
-</p>
-<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="xml source-xml"><pre class="de1">  <span class="sc3"><span class="re1">&lt;resource-ref<span class="re2">&gt;</span></span></span>
+    <link href="wiki-style.css" media="screen, print" rel="stylesheet" />
+  </head>
+  <body>
+    <div class="col-md-20" id="mainContent">
+      <div class="tab-content background-white">
+        <div class="tab-pane active" id="tab-pane-main-page-content">
+          <h1 class="firstHeading page-header" id="firstHeading">
+            <span dir="auto">Jetty/Howto/Configure JNDI Datasource</span>
+          </h1>
+          <div id="main-page-content">
+            <div class="alert alert-small alert-warning" id="contentSub">
+              <span class="subpages">
+                &lt;
+                <a href="../../Jetty.html" title="Jetty">Jetty</a>
+                 |
+                <a href="../Howto.html" title="Jetty/Howto">Howto</a>
+              </span>
+            </div>
+            <div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="en">
+              <p>
+                <br />
+              </p>
+              <p>
+                <br />
+              </p>
+              <div class="toc" id="toc">
+                <div id="toctitle">
+                  <h2>Contents</h2>
+                </div>
+                <ul>
+                  <li class="toclevel-1">
+                    <a href="Configure JNDI Datasource.html#Introduction">
+                      <span class="tocnumber">1</span>
+                      <span class="toctext">Introduction</span>
+                    </a>
+                  </li>
+                  <li class="toclevel-1">
+                    <a href="Configure JNDI Datasource.html#Pooling_DataSources">
+                      <span class="tocnumber">2</span>
+                      <span class="toctext">Pooling DataSources</span>
+                    </a>
+                    <ul>
+                      <li class="toclevel-2">
+                        <a href="Configure JNDI Datasource.html#BoneCP">
+                          <span class="tocnumber">2.1</span>
+                          <span class="toctext">BoneCP</span>
+                        </a>
+                      </li>
+                      <li class="toclevel-2">
+                        <a href="Configure JNDI Datasource.html#c3p0">
+                          <span class="tocnumber">2.2</span>
+                          <span class="toctext">c3p0</span>
+                        </a>
+                      </li>
+                      <li class="toclevel-2">
+                        <a href="Configure JNDI Datasource.html#dbcp">
+                          <span class="tocnumber">2.3</span>
+                          <span class="toctext">dbcp</span>
+                        </a>
+                      </li>
+                      <li class="toclevel-2">
+                        <a href="Configure JNDI Datasource.html#Atomikos_3.3.2.2B">
+                          <span class="tocnumber">2.4</span>
+                          <span class="toctext">Atomikos 3.3.2+</span>
+                        </a>
+                      </li>
+                    </ul>
+                  </li>
+                  <li class="toclevel-1">
+                    <a href="Configure JNDI Datasource.html#Non-pooling_DataSources">
+                      <span class="tocnumber">3</span>
+                      <span class="toctext">Non-pooling DataSources</span>
+                    </a>
+                    <ul>
+                      <li class="toclevel-2">
+                        <a href="Configure JNDI Datasource.html#MySQL">
+                          <span class="tocnumber">3.1</span>
+                          <span class="toctext">MySQL</span>
+                        </a>
+                      </li>
+                      <li class="toclevel-2">
+                        <a href="Configure JNDI Datasource.html#SQL_Server_2000">
+                          <span class="tocnumber">3.2</span>
+                          <span class="toctext">SQL Server 2000</span>
+                        </a>
+                      </li>
+                      <li class="toclevel-2">
+                        <a href="Configure JNDI Datasource.html#Oracle_9i.2F10g">
+                          <span class="tocnumber">3.3</span>
+                          <span class="toctext">Oracle 9i/10g</span>
+                        </a>
+                      </li>
+                      <li class="toclevel-2">
+                        <a href="Configure JNDI Datasource.html#PostgreSQL">
+                          <span class="tocnumber">3.4</span>
+                          <span class="toctext">PostgreSQL</span>
+                        </a>
+                      </li>
+                      <li class="toclevel-2">
+                        <a href="Configure JNDI Datasource.html#Sybase">
+                          <span class="tocnumber">3.5</span>
+                          <span class="toctext">Sybase</span>
+                        </a>
+                      </li>
+                      <li class="toclevel-2">
+                        <a href="Configure JNDI Datasource.html#DB2">
+                          <span class="tocnumber">3.6</span>
+                          <span class="toctext">DB2</span>
+                        </a>
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </div>
+              <h2>
+                <span class="mw-headline" id="Introduction">Introduction</span>
+              </h2>
+              <p>
+                <br />
+                This document provides examples of configuring a JNDI datasource for various databases.
+              </p>
+              <p>
+                <br />
+                These examples all correspond to a
+                <code>&lt;resource-ref&gt;</code>
+                in
+                <code>web.xml</code>
+                :
+              </p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="xml source-xml">
+                  <pre class="de1" xml:space="preserve">  <span class="sc3"><span class="re1">&lt;resource-ref<span class="re2">&gt;</span></span></span>
      <span class="sc3"><span class="re1">&lt;description<span class="re2">&gt;</span></span></span>My DataSource Reference<span class="sc3"><span class="re1">&lt;/description<span class="re2">&gt;</span></span></span>
      <span class="sc3"><span class="re1">&lt;res-ref-name<span class="re2">&gt;</span></span></span>jdbc/DSTest<span class="sc3"><span class="re1">&lt;/res-ref-name<span class="re2">&gt;</span></span></span>
      <span class="sc3"><span class="re1">&lt;res-type<span class="re2">&gt;</span></span></span>javax.sql.DataSource<span class="sc3"><span class="re1">&lt;/res-type<span class="re2">&gt;</span></span></span>
      <span class="sc3"><span class="re1">&lt;res-auth<span class="re2">&gt;</span></span></span>Container<span class="sc3"><span class="re1">&lt;/res-auth<span class="re2">&gt;</span></span></span>
-  <span class="sc3"><span class="re1">&lt;/resource-ref<span class="re2">&gt;</span></span></span></pre></div></div>
-<p><br/>
-These examples assume that all of the datasources are declared at the JVM scope, but you can, of course, use other scopes. You can configure all JNDI resources in a <code>jetty.xml</code> file or in a <code>WEB-INF/jetty-env.xml</code> file, or a context XML file. For more information, see <a href="../Feature/JNDI.html" title="Jetty/Feature/JNDI">JNDI</a>.
-</p>
-<div style="background-color: #def3fe; border: 1px solid #c5d7e0; color: black; padding: 5px; margin: 1ex 0; min-height: 35px; padding-left: 45px;" class="messagebox">
-<div style="float: left; margin-left: -40px;"><a href="https://wiki.eclipse.org/File:Idea.png" class="image"><img src="../../images/a/a4/Idea.png" alt="Idea.png" height="35" width="35"/></a></div>
-<div><b>Reminder</b><br/>Be aware that you have to provide jetty with the libraries necessary to instantiate the datasource you have configured by putting the corresponding jar in jetty_home/lib/ext.</div>
-</div>
-<p><br/>
-</p>
-<h2><span id="Pooling_DataSources" class="mw-headline">Pooling DataSources</span></h2>
-<p>Enables connection pooling. Connection pooling lets you reuse an existing connection instead of creating a new connection to the database.This is highly efficient in terms of memory allocation and speed of the request to the database. We highly recommend this option for production environments.
-</p>
-<h3><span id="BoneCP" class="mw-headline">BoneCP</span></h3>
-<p>Connection pooling, available at <a href="http://jolbox.com/index.html?page=http://jolbox.com/download.html" class="external free" rel="nofollow">http://jolbox.com/index.html?page=http://jolbox.com/download.html</a>
-All configuration options for BoneCP are described here: <a class="external free" rel="nofollow" href="http://jolbox.com/bonecp/downloads/site/apidocs/com/jolbox/bonecp/BoneCPDataSource.html">http://jolbox.com/bonecp/downloads/site/apidocs/com/jolbox/bonecp/BoneCPDataSource.html</a>
-</p>
-<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="xml source-xml"><pre class="de1">  <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">id</span>=<span class="st0">"DSTest"</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.plus.jndi.Resource"</span><span class="re2">&gt;</span></span>
+  <span class="sc3"><span class="re1">&lt;/resource-ref<span class="re2">&gt;</span></span></span></pre>
+                </div>
+              </div>
+              <p>
+                <br />
+                These examples assume that all of the datasources are declared at the JVM scope, but you can, of course, use other scopes. You can configure all JNDI resources in a
+                <code>jetty.xml</code>
+                file or in a
+                <code>WEB-INF/jetty-env.xml</code>
+                file, or a context XML file. For more information, see
+                <a href="../Feature/JNDI.html" title="Jetty/Feature/JNDI">JNDI</a>
+                .
+              </p>
+              <p>
+                <br />
+              </p>
+              <h2>
+                <span class="mw-headline" id="Pooling_DataSources">Pooling DataSources</span>
+              </h2>
+              <p>Enables connection pooling. Connection pooling lets you reuse an existing connection instead of creating a new connection to the database.This is highly efficient in terms of memory allocation and speed of the request to the database. We highly recommend this option for production environments.</p>
+              <h3>
+                <span class="mw-headline" id="BoneCP">BoneCP</span>
+              </h3>
+              <p>
+                Connection pooling, available at
+                <a class="external free" href="http://jolbox.com/index.html?page=http://jolbox.com/download.html" rel="nofollow">http://jolbox.com/index.html?page=http://jolbox.com/download.html</a>
+                All configuration options for BoneCP are described here:
+                <a class="external free" href="http://jolbox.com/bonecp/downloads/site/apidocs/com/jolbox/bonecp/BoneCPDataSource.html" rel="nofollow">http://jolbox.com/bonecp/downloads/site/apidocs/com/jolbox/bonecp/BoneCPDataSource.html</a>
+              </p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="xml source-xml">
+                  <pre class="de1" xml:space="preserve">  <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">id</span>=<span class="st0">"DSTest"</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.plus.jndi.Resource"</span><span class="re2">&gt;</span></span>
      <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
      <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>jdbc/DSTest<span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
      <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>
@@ -123,11 +184,19 @@ All configuration options for BoneCP are described here: <a class="external free
          <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"idleConnectionTestPeriod"</span><span class="re2">&gt;</span></span>30<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
       <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span>
     <span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
-  <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span></pre></div></div>
-<h3><span id="c3p0" class="mw-headline">c3p0</span></h3>
-<p>Connection pooling, available at <a rel="nofollow" class="external free" href="http://repo1.maven.org/maven2/c3p0/c3p0/0.9.1.2/c3p0-0.9.1.2.jar">http://repo1.maven.org/maven2/c3p0/c3p0/0.9.1.2/c3p0-0.9.1.2.jar</a>
-</p>
-<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="xml source-xml"><pre class="de1">  <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">id</span>=<span class="st0">"DSTest"</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.plus.jndi.Resource"</span><span class="re2">&gt;</span></span>
+  <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span></pre>
+                </div>
+              </div>
+              <h3>
+                <span class="mw-headline" id="c3p0">c3p0</span>
+              </h3>
+              <p>
+                Connection pooling, available at
+                <a class="external free" href="http://repo1.maven.org/maven2/c3p0/c3p0/0.9.1.2/c3p0-0.9.1.2.jar" rel="nofollow">http://repo1.maven.org/maven2/c3p0/c3p0/0.9.1.2/c3p0-0.9.1.2.jar</a>
+              </p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="xml source-xml">
+                  <pre class="de1" xml:space="preserve">  <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">id</span>=<span class="st0">"DSTest"</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.plus.jndi.Resource"</span><span class="re2">&gt;</span></span>
      <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
      <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>jdbc/DSTest<span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
      <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>
@@ -138,11 +207,19 @@ All configuration options for BoneCP are described here: <a class="external free
          <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"password"</span><span class="re2">&gt;</span></span>jdbc.pass<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
       <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span>
      <span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
-    <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span></pre></div></div>
-<h3><span id="dbcp" class="mw-headline">dbcp</span></h3>
-<p>Connection pooling, available at <a class="external free" rel="nofollow" href="http://repo1.maven.org/maven2/commons-dbcp/commons-dbcp/1.2/commons-dbcp-1.2.jar">http://repo1.maven.org/maven2/commons-dbcp/commons-dbcp/1.2/commons-dbcp-1.2.jar</a>
-</p>
-<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="xml source-xml"><pre class="de1">  <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">id</span>=<span class="st0">"DSTest"</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.plus.jndi.Resource"</span><span class="re2">&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span></pre>
+                </div>
+              </div>
+              <h3>
+                <span class="mw-headline" id="dbcp">dbcp</span>
+              </h3>
+              <p>
+                Connection pooling, available at
+                <a class="external free" href="http://repo1.maven.org/maven2/commons-dbcp/commons-dbcp/1.2/commons-dbcp-1.2.jar" rel="nofollow">http://repo1.maven.org/maven2/commons-dbcp/commons-dbcp/1.2/commons-dbcp-1.2.jar</a>
+              </p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="xml source-xml">
+                  <pre class="de1" xml:space="preserve">  <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">id</span>=<span class="st0">"DSTest"</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.plus.jndi.Resource"</span><span class="re2">&gt;</span></span>
      <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
      <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>jdbc/DSTest<span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
      <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>
@@ -154,13 +231,28 @@ All configuration options for BoneCP are described here: <a class="external free
             <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"validationQuery"</span><span class="re2">&gt;</span></span>SELECT 1<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
          <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span>
      <span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
-    <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span></pre></div></div>
-<p>Note: <i>validationQuery</i> is optional, and works together with the <i>testOnBorrow</i> parameter (which defaults to <i>true</i> but has no effect unless <i>validationQuery</i> is specified) to help ensure that old connections are valid when used.  See <a rel="nofollow" class="external free" href="http://commons.apache.org/dbcp/configuration.html">http://commons.apache.org/dbcp/configuration.html</a>
-</p>
-<h3><span class="mw-headline" id="Atomikos_3.3.2.2B">Atomikos 3.3.2+</span></h3>
-<p>Connection pooling + XA transactions.
-</p>
-<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="xml source-xml"><pre class="de1">   <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">id</span>=<span class="st0">"DSTest"</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.plus.jndi.Resource"</span><span class="re2">&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span></pre>
+                </div>
+              </div>
+              <p>
+                Note:
+                <i>validationQuery</i>
+                is optional, and works together with the
+                <i>testOnBorrow</i>
+                parameter (which defaults to
+                <i>true</i>
+                but has no effect unless
+                <i>validationQuery</i>
+                is specified) to help ensure that old connections are valid when used.  See
+                <a class="external free" href="http://commons.apache.org/dbcp/configuration.html" rel="nofollow">http://commons.apache.org/dbcp/configuration.html</a>
+              </p>
+              <h3>
+                <span class="mw-headline" id="Atomikos_3.3.2.2B">Atomikos 3.3.2+</span>
+              </h3>
+              <p>Connection pooling + XA transactions.</p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="xml source-xml">
+                  <pre class="de1" xml:space="preserve">   <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">id</span>=<span class="st0">"DSTest"</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.plus.jndi.Resource"</span><span class="re2">&gt;</span></span>
       <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
       <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>jdbc/DSTest<span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
       <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>
@@ -185,16 +277,23 @@ All configuration options for BoneCP are described here: <a class="external free
             <span class="sc3"><span class="re1">&lt;/Get<span class="re2">&gt;</span></span></span>
          <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span>
       <span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
-    <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span></pre></div></div>
-<p><br/>
-</p>
-<h2><span class="mw-headline" id="Non-pooling_DataSources">Non-pooling DataSources</span></h2>
-<p>If you are deploying in a production environment, use the Pooling DataSources instead.
-</p>
-<h3><span id="MySQL" class="mw-headline">MySQL</span></h3>
-<p>Implements javax.sql.DataSource, javax.sql.ConnectionPoolDataSource
-</p>
-<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="xml source-xml"><pre class="de1"> 
+    <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span></pre>
+                </div>
+              </div>
+              <p>
+                <br />
+              </p>
+              <h2>
+                <span class="mw-headline" id="Non-pooling_DataSources">Non-pooling DataSources</span>
+              </h2>
+              <p>If you are deploying in a production environment, use the Pooling DataSources instead.</p>
+              <h3>
+                <span class="mw-headline" id="MySQL">MySQL</span>
+              </h3>
+              <p>Implements javax.sql.DataSource, javax.sql.ConnectionPoolDataSource</p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="xml source-xml">
+                  <pre class="de1" xml:space="preserve"> 
   <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">id</span>=<span class="st0">"DSTest"</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.plus.jndi.Resource"</span><span class="re2">&gt;</span></span>
      <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
      <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>jdbc/DSTest<span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
@@ -205,13 +304,19 @@ All configuration options for BoneCP are described here: <a class="external free
            <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"Password"</span><span class="re2">&gt;</span></span>pass<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
         <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span>
      <span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
-    <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span></pre></div></div>
-<p><br/>
-</p>
-<h3><span class="mw-headline" id="SQL_Server_2000">SQL Server 2000</span></h3>
-<p>Implements javax.sql.DataSource, javax.sql.ConnectionPoolDataSource
-</p>
-<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="xml source-xml"><pre class="de1">  <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">id</span>=<span class="st0">"DSTest"</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.plus.jndi.Resource"</span><span class="re2">&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span></pre>
+                </div>
+              </div>
+              <p>
+                <br />
+              </p>
+              <h3>
+                <span class="mw-headline" id="SQL_Server_2000">SQL Server 2000</span>
+              </h3>
+              <p>Implements javax.sql.DataSource, javax.sql.ConnectionPoolDataSource</p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="xml source-xml">
+                  <pre class="de1" xml:space="preserve">  <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">id</span>=<span class="st0">"DSTest"</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.plus.jndi.Resource"</span><span class="re2">&gt;</span></span>
      <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
      <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>jdbc/DSTest<span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
      <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>
@@ -223,11 +328,16 @@ All configuration options for BoneCP are described here: <a class="external free
            <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"PortNumber"</span><span class="re2">&gt;</span></span>1433<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
         <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span>
      <span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
-    <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span></pre></div></div>
-<h3><span id="Oracle_9i.2F10g" class="mw-headline">Oracle 9i/10g</span></h3>
-<p>Implements javax.sql.DataSource, javax.sql.ConnectionPoolDataSource
-</p>
-<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="xml source-xml"><pre class="de1"> 
+    <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span></pre>
+                </div>
+              </div>
+              <h3>
+                <span class="mw-headline" id="Oracle_9i.2F10g">Oracle 9i/10g</span>
+              </h3>
+              <p>Implements javax.sql.DataSource, javax.sql.ConnectionPoolDataSource</p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="xml source-xml">
+                  <pre class="de1" xml:space="preserve"> 
   <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">id</span>=<span class="st0">"DSTest"</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.plus.jndi.Resource"</span><span class="re2">&gt;</span></span>
     <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
     <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>jdbc/DSTest<span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
@@ -249,13 +359,21 @@ All configuration options for BoneCP are described here: <a class="external free
         <span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
       <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span>
     <span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
-  <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span></pre></div></div>
-<p>For more information please see <a href="http://download.oracle.com/docs/cd/B14117_01/java.101/b10979/conncache.htm#CDEBCBJC" rel="nofollow" class="external free">http://download.oracle.com/docs/cd/B14117_01/java.101/b10979/conncache.htm#CDEBCBJC</a>.
-</p>
-<h3><span id="PostgreSQL" class="mw-headline">PostgreSQL</span></h3>
-<p>Implements javax.sql.DataSource
-</p>
-<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="xml source-xml"><pre class="de1">  <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">id</span>=<span class="st0">"DSTest"</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.plus.jndi.Resource"</span><span class="re2">&gt;</span></span>
+  <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span></pre>
+                </div>
+              </div>
+              <p>
+                For more information please see
+                <a class="external free" href="http://download.oracle.com/docs/cd/B14117_01/java.101/b10979/conncache.htm#CDEBCBJC" rel="nofollow">http://download.oracle.com/docs/cd/B14117_01/java.101/b10979/conncache.htm#CDEBCBJC</a>
+                .
+              </p>
+              <h3>
+                <span class="mw-headline" id="PostgreSQL">PostgreSQL</span>
+              </h3>
+              <p>Implements javax.sql.DataSource</p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="xml source-xml">
+                  <pre class="de1" xml:space="preserve">  <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">id</span>=<span class="st0">"DSTest"</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.plus.jndi.Resource"</span><span class="re2">&gt;</span></span>
      <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
      <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>jdbc/DSTest<span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
      <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>
@@ -267,10 +385,13 @@ All configuration options for BoneCP are described here: <a class="external free
            <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"PortNumber"</span><span class="re2">&gt;</span></span>5432<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
         <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span>
      <span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
-  <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span></pre></div></div>
-<p>Implements javax.sql.ConnectionPoolDataSource
-</p>
-<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="xml source-xml"><pre class="de1"> 
+  <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span></pre>
+                </div>
+              </div>
+              <p>Implements javax.sql.ConnectionPoolDataSource</p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="xml source-xml">
+                  <pre class="de1" xml:space="preserve"> 
   <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">id</span>=<span class="st0">"DSTest"</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.plus.jndi.Resource"</span><span class="re2">&gt;</span></span>
      <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
      <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>jdbc/DSTest<span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
@@ -284,11 +405,16 @@ All configuration options for BoneCP are described here: <a class="external free
  
         <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span>
      <span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
-  <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span></pre></div></div>
-<h3><span id="Sybase" class="mw-headline">Sybase</span></h3>
-<p>Implements javax.sql.DataSource
-</p>
-<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="xml source-xml"><pre class="de1">  <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">id</span>=<span class="st0">"DSTest"</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.plus.jndi.Resource"</span><span class="re2">&gt;</span></span>
+  <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span></pre>
+                </div>
+              </div>
+              <h3>
+                <span class="mw-headline" id="Sybase">Sybase</span>
+              </h3>
+              <p>Implements javax.sql.DataSource</p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="xml source-xml">
+                  <pre class="de1" xml:space="preserve">  <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">id</span>=<span class="st0">"DSTest"</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.plus.jndi.Resource"</span><span class="re2">&gt;</span></span>
      <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
      <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>jdbc/DSTest<span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
      <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>
@@ -300,11 +426,16 @@ All configuration options for BoneCP are described here: <a class="external free
            <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"PortNumber"</span><span class="re2">&gt;</span></span>5000<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
         <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span>
      <span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
-  <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span></pre></div></div>
-<h3><span id="DB2" class="mw-headline">DB2</span></h3>
-<p>Implements javax.sql.DataSource
-</p>
-<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="xml source-xml"><pre class="de1"> 
+  <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span></pre>
+                </div>
+              </div>
+              <h3>
+                <span class="mw-headline" id="DB2">DB2</span>
+              </h3>
+              <p>Implements javax.sql.DataSource</p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="xml source-xml">
+                  <pre class="de1" xml:space="preserve"> 
   <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">id</span>=<span class="st0">"DSTest"</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.plus.jndi.Resource"</span><span class="re2">&gt;</span></span>
      <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
      <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>jdbc/DSTest<span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
@@ -317,10 +448,13 @@ All configuration options for BoneCP are described here: <a class="external free
            <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"PortNumber"</span><span class="re2">&gt;</span></span>50000<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
         <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span>
      <span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
-  <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span></pre></div></div>
-<p>Implements javax.sql.ConnectionPoolDataSource
-</p>
-<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="xml source-xml"><pre class="de1">  <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">id</span>=<span class="st0">"DSTest"</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.plus.jndi.Resource"</span><span class="re2">&gt;</span></span>
+  <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span></pre>
+                </div>
+              </div>
+              <p>Implements javax.sql.ConnectionPoolDataSource</p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="xml source-xml">
+                  <pre class="de1" xml:space="preserve">  <span class="sc3"><span class="re1">&lt;New</span> <span class="re0">id</span>=<span class="st0">"DSTest"</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.plus.jndi.Resource"</span><span class="re2">&gt;</span></span>
      <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
      <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>jdbc/DSTest<span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
      <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>
@@ -332,15 +466,13 @@ All configuration options for BoneCP are described here: <a class="external free
            <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"PortNumber"</span><span class="re2">&gt;</span></span>50000<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
         <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span>
      <span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
-  <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span></pre></div></div>
-
-
-</div>
-
-                    <div class="catlinks" id="catlinks"><div class="mw-normal-catlinks" id="mw-normal-catlinks"><a href="https://wiki.eclipse.org/Special:Categories" title="Special:Categories">Categories</a>: <ul><li><a href="https://wiki.eclipse.org/Category:Jetty" title="Category:Jetty">Jetty</a></li><li><a href="https://wiki.eclipse.org/Category:Jetty_Howto" title="Category:Jetty Howto">Jetty Howto</a></li></ul></div></div>
-                                  </div>
+  <span class="sc3"><span class="re1">&lt;/New<span class="re2">&gt;</span></span></span></pre>
+                </div>
               </div>
             </div>
           </div>
-</body>
+        </div>
+      </div>
+    </div>
+  </body>
 </html>

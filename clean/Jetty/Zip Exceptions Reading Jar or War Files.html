@@ -1,83 +1,90 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
-<head>
+  <head>
     <title>Jetty WTP Plugin</title>
-    <link rel="stylesheet" media="screen, print" href="wiki-style.css"/>
-</head>
-<body>
-<div id="mainContent" class="col-md-20">
-                      <ul class="nav nav-tabs noprint hidden-print" role="tablist">
-                       <li class="active" id="ca-nstab-main"><a href="Zip Exceptions Reading Jar or War Files.html" title="View the content page [c]" accesskey="c" tabindex="-1">Page</a></li>
-                        <li id="ca-talk" class="new"><a href="edit" tabindex="-1" accesskey="t" title="Discussion about the content page [t]">Discussion</a></li>
-                        <li id="ca-viewsource"><a href="edit" title="This page is protected.&#10;You can view its source [e]" tabindex="-1" accesskey="e">View source</a></li>
-                        <li class="collapsible" id="ca-history"><a tabindex="-1" accesskey="h" title="Past revisions of this page [h]" href="edit">History</a></li>
-                      </ul>            <div class="tab-content background-white">
-              <div id="tab-pane-main-page-content" class="tab-pane active">
-
-                
-                <h1 class="firstHeading page-header" id="firstHeading">
-                  <span dir="auto">Jetty/Zip Exceptions Reading Jar or War Files</span>
-                </h1>
-                <div id="main-page-content">
-
-                  <div id="contentSub" class="alert alert-small alert-warning"><span class="subpages">&lt; <a href="../Jetty.html" title="Jetty">Jetty</a></span></div>
-
-                  
-                  
-                  <div dir="ltr" id="mw-content-text" class="mw-content-ltr" lang="en"><p><br/>
-</p><p><br/>
-</p>
-<h2><span class="mw-headline" id="Introduction">Introduction</span></h2>
-<div style="background-color: #f9f6b7; border: 1px solid #c4c295; color: black; padding: 5px; margin: 1ex 0; min-height: 35px; padding-left: 45px; font-size: 150%; color: white; background-color: #FF8888; padding: 50px" class="messagebox">
-<div style="float: left; margin-left: -40px;"><a class="image" href="https://wiki.eclipse.org/File:Warning2.png"><img width="35" alt="Warning2.png" height="35" src="../images/3/37/Warning2.png"/></a></div>
-<div>Jetty 7 and Jetty 8 are now EOL (End of Life)<br/>
-<p><br/>
-<br/>
-<br/>
-THIS IS NOT THE DOCUMENTATION YOU ARE LOOKING FOR!!!!!<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-All development and stable releases are being performed with Jetty 9 and Jetty 10.<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-This <b>wiki is now officially out of date</b> and all content has been moved to the <a rel="nofollow" href="http://www.eclipse.org/jetty/documentation" class="external text">Jetty Documentation Hub</a><br/> 
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-</p>
-Direct Link to updated documentation: <a href="http://www.eclipse.org/jetty/documentation/current/troubleshooting.html#troubleshooting-zip-exceptions" rel="nofollow" class="external free">http://www.eclipse.org/jetty/documentation/current/troubleshooting.html#troubleshooting-zip-exceptions</a></div>
-</div>
-<p><br/>
-A Zip exception occurs when Jetty rereads a Jar or WAR file.
-</p><p>The JVM maintains a cache of zip file indexes, and does not support hot replacement of zip files. Thus if you redeploy a web application using the same WAR or Jar files, exceptions occur when Jetty rereads the jars. See <a class="external text" rel="nofollow" href="http://bugs.sun.com/bugdatabase/view_bug.do?bug_id=4774421">Oracle Bug 4774421</a> for more information.
-</p>
-<h2><span id="Remedy" class="mw-headline">Remedy</span></h2>
-<p>The remedy is to avoid hot replacing Jar or WAR files, which can be difficult if you are using the <a class="external text" href="http://wiki.eclipse.org/Jetty/Feature/ContextDeployer" rel="nofollow">hot Context Provider</a>. You can use the following techniques to reduce exposure to this issue:
-</p>
-<ul><li> Deploy unpacked classes in the <tt>WEB-INF/classes</tt> directory rather than as a Jar file under <tt>WEB-INF/lib</tt>.</li>
-<li> Deploy all WAR and Jar files with a version number in their filename or path. If the code changes, a new version number applies, avoiding the cache problem.</li>
-<li> Deploy a packed WAR file with the <a href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/webapp/WebAppContext.html#setExtractWAR(boolean)" rel="nofollow" class="external text">setExtractWAR</a> option set to true. This causes the WAR to be extracted to a <a href="Reference/Temporary Directories.html" title="Jetty/Reference/Temporary Directories">temporary directory</a> and thus to a new location. This might not be sufficient if you want to hot-replace and reextract the WAR, so you might also need to use <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/webapp/WebAppContext.html#setCopyWebInf(boolean)" rel="nofollow">WebAppContext.setCopyWebInf(true)</a>, which (re)copies just the WEB-INF directory to a different location.</li>
-<li> Deploy an unpacked WAR file with the <a class="external text" rel="nofollow" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/webapp/WebAppContext.html#setCopyWebDir(boolean)">setCopyWebDir</a> option set to true. This causes the directory to be extracted to a new location. </li></ul>
-<p>Be aware that any of the techniques listed above that involve copying part or all of the webapp will probably not avoid the zip file problem if you are using a <a href="Reference/Temporary Directories.html" title="Jetty/Reference/Temporary Directories">work directory</a> (which avoids re-extraction on start/stop of a context or container).
-</p><p>If you have problems with <a title="Jetty/Howto/Deal with Locked Windows Files" href="Howto/Deal with Locked Windows Files.html">Windows file-locking</a> preventing static file editing (such as JSP or HTML), use the <a href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/webapp/WebAppContext.html#setCopyWebDir(boolean)" rel="nofollow" class="external text">WebAppContext.setCopyWebDir(true)</a> option.
-</p>
-
-</div>
-
-                    <div class="catlinks" id="catlinks"><div class="mw-normal-catlinks" id="mw-normal-catlinks"><a href="https://wiki.eclipse.org/Special:Categories" title="Special:Categories">Categories</a>: <ul><li><a title="Category:Jetty" href="https://wiki.eclipse.org/Category:Jetty">Jetty</a></li><li><a title="Category:Jetty Howto" href="https://wiki.eclipse.org/Category:Jetty_Howto">Jetty Howto</a></li></ul></div></div>
-                                  </div>
-              </div>
+    <link href="wiki-style.css" media="screen, print" rel="stylesheet" />
+  </head>
+  <body>
+    <div class="col-md-20" id="mainContent">
+      <div class="tab-content background-white">
+        <div class="tab-pane active" id="tab-pane-main-page-content">
+          <h1 class="firstHeading page-header" id="firstHeading">
+            <span dir="auto">Jetty/Zip Exceptions Reading Jar or War Files</span>
+          </h1>
+          <div id="main-page-content">
+            <div class="alert alert-small alert-warning" id="contentSub">
+              <span class="subpages">
+                &lt;
+                <a href="../Jetty.html" title="Jetty">Jetty</a>
+              </span>
+            </div>
+            <div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="en">
+              <p>
+                <br />
+              </p>
+              <p>
+                <br />
+              </p>
+              <h2>
+                <span class="mw-headline" id="Introduction">Introduction</span>
+              </h2>
+              <p>
+                <br />
+                A Zip exception occurs when Jetty rereads a Jar or WAR file.
+              </p>
+              <p>
+                The JVM maintains a cache of zip file indexes, and does not support hot replacement of zip files. Thus if you redeploy a web application using the same WAR or Jar files, exceptions occur when Jetty rereads the jars. See
+                <a class="external text" href="http://bugs.sun.com/bugdatabase/view_bug.do?bug_id=4774421" rel="nofollow">Oracle Bug 4774421</a>
+                for more information.
+              </p>
+              <h2>
+                <span class="mw-headline" id="Remedy">Remedy</span>
+              </h2>
+              <p>
+                The remedy is to avoid hot replacing Jar or WAR files, which can be difficult if you are using the
+                <a class="external text" href="http://wiki.eclipse.org/Jetty/Feature/ContextDeployer" rel="nofollow">hot Context Provider</a>
+                . You can use the following techniques to reduce exposure to this issue:
+              </p>
+              <ul>
+                <li>
+                  Deploy unpacked classes in the
+                  <tt>WEB-INF/classes</tt>
+                  directory rather than as a Jar file under
+                  <tt>WEB-INF/lib</tt>
+                  .
+                </li>
+                <li>Deploy all WAR and Jar files with a version number in their filename or path. If the code changes, a new version number applies, avoiding the cache problem.</li>
+                <li>
+                  Deploy a packed WAR file with the
+                  <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/webapp/WebAppContext.html#setExtractWAR(boolean)" rel="nofollow">setExtractWAR</a>
+                  option set to true. This causes the WAR to be extracted to a
+                  <a href="Reference/Temporary Directories.html" title="Jetty/Reference/Temporary Directories">temporary directory</a>
+                  and thus to a new location. This might not be sufficient if you want to hot-replace and reextract the WAR, so you might also need to use
+                  <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/webapp/WebAppContext.html#setCopyWebInf(boolean)" rel="nofollow">WebAppContext.setCopyWebInf(true)</a>
+                  , which (re)copies just the WEB-INF directory to a different location.
+                </li>
+                <li>
+                  Deploy an unpacked WAR file with the
+                  <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/webapp/WebAppContext.html#setCopyWebDir(boolean)" rel="nofollow">setCopyWebDir</a>
+                  option set to true. This causes the directory to be extracted to a new location.
+                </li>
+              </ul>
+              <p>
+                Be aware that any of the techniques listed above that involve copying part or all of the webapp will probably not avoid the zip file problem if you are using a
+                <a href="Reference/Temporary Directories.html" title="Jetty/Reference/Temporary Directories">work directory</a>
+                (which avoids re-extraction on start/stop of a context or container).
+              </p>
+              <p>
+                If you have problems with
+                <a href="Howto/Deal with Locked Windows Files.html" title="Jetty/Howto/Deal with Locked Windows Files">Windows file-locking</a>
+                preventing static file editing (such as JSP or HTML), use the
+                <a class="external text" href="http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/webapp/WebAppContext.html#setCopyWebDir(boolean)" rel="nofollow">WebAppContext.setCopyWebDir(true)</a>
+                option.
+              </p>
             </div>
           </div>
-</body>
+        </div>
+      </div>
+    </div>
+  </body>
 </html>

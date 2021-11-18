@@ -1,84 +1,104 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
-<head>
+  <head>
     <title>Jetty WTP Plugin</title>
-    <link rel="stylesheet" media="screen, print" href="wiki-style.css"/>
-</head>
-<body>
-<div class="col-md-20" id="mainContent">
-                      <ul class="nav nav-tabs noprint hidden-print" role="tablist">
-                       <li class="active" id="ca-nstab-main"><a href="ContextProvider.html" accesskey="c" tabindex="-1" title="View the content page [c]">Page</a></li>
-                        <li id="ca-talk"><a title="Discussion about the content page [t]" tabindex="-1" href="https://wiki.eclipse.org/Talk:Jetty/Feature/ContextProvider" accesskey="t">Discussion</a></li>
-                        <li id="ca-viewsource"><a title="This page is protected.&#10;You can view its source [e]" tabindex="-1" href="edit" accesskey="e">View source</a></li>
-                        <li id="ca-history" class="collapsible"><a title="Past revisions of this page [h]" tabindex="-1" href="edit" accesskey="h">History</a></li>
-                      </ul>            <div class="tab-content background-white">
-              <div id="tab-pane-main-page-content" class="tab-pane active">
-
-                
-                <h1 id="firstHeading" class="firstHeading page-header">
-                  <span dir="auto">Jetty/Feature/ContextProvider</span>
-                </h1>
-                <div id="main-page-content">
-
-                  <div id="contentSub" class="alert alert-small alert-warning"><span class="subpages">&lt; <a href="../../Jetty.html" title="Jetty">Jetty</a>‎ | <a href="../Feature.html" title="Jetty/Feature">Feature</a></span></div>
-
-                  
-                  
-                  <div class="mw-content-ltr" lang="en" dir="ltr" id="mw-content-text"><p><br/>
-</p><p><br/>
-</p>
-<div id="toc" class="toc"><div id="toctitle"><h2>Contents</h2></div>
-<ul>
-<li class="toclevel-1"><a href="ContextProvider.html#Introduction"><span class="tocnumber">1</span> <span class="toctext">Introduction</span></a></li>
-<li class="toclevel-1"><a href="ContextProvider.html#Feature"><span class="tocnumber">2</span> <span class="toctext">Feature</span></a>
-<ul>
-<li class="toclevel-2"><a href="ContextProvider.html#Property_Value_Substitution"><span class="tocnumber">2.1</span> <span class="toctext">Property Value Substitution</span></a></li>
-</ul>
-</li>
-<li class="toclevel-1"><a href="ContextProvider.html#Contexts"><span class="tocnumber">3</span> <span class="toctext">Contexts</span></a></li>
-<li class="toclevel-1"><a href="ContextProvider.html#Hot_Deploy"><span class="tocnumber">4</span> <span class="toctext">Hot Deploy</span></a></li>
-<li class="toclevel-1"><a href="ContextProvider.html#Configuring_Other_Things"><span class="tocnumber">5</span> <span class="toctext">Configuring Other Things</span></a></li>
-</ul>
-</div>
-
-<h2><span id="Introduction" class="mw-headline">Introduction</span></h2>
-<div style="background-color: #f9f6b7; border: 1px solid #c4c295; color: black; padding: 5px; margin: 1ex 0; min-height: 35px; padding-left: 45px; font-size: 150%; color: white; background-color: #FF8888; padding: 50px" class="messagebox">
-<div style="float: left; margin-left: -40px;"><a class="image" href="https://wiki.eclipse.org/File:Warning2.png"><img height="35" src="../../images/3/37/Warning2.png" alt="Warning2.png" width="35"/></a></div>
-<div>Jetty 7 and Jetty 8 are now EOL (End of Life)<br/>
-<p><br/>
-<br/>
-<br/>
-THIS IS NOT THE DOCUMENTATION YOU ARE LOOKING FOR!!!!!<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-All development and stable releases are being performed with Jetty 9 and Jetty 10.<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-This <b>wiki is now officially out of date</b> and all content has been moved to the <a class="external text" href="http://www.eclipse.org/jetty/documentation" rel="nofollow">Jetty Documentation Hub</a><br/> 
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-</p>
-Direct Link to updated documentation: <a rel="nofollow" href="http://www.eclipse.org/jetty/documentation/current/configuring-deployment.html" class="external free">http://www.eclipse.org/jetty/documentation/current/configuring-deployment.html</a></div>
-</div>
-<p><br/>
-Jetty provides capability to deploy an arbitrary context or web application with Jetty-specific configuration. The ContextProvider mechanism, which is now an extension of the core deployment infrastructure, implements this capability.
-</p><p>You can use the <a class="external text" href="http://dev.eclipse.org/viewcvs/index.cgi/jetty/trunk/jetty-deploy/src/main/java/org/eclipse/jetty/deploy/providers/ContextProvider.java?root=RT_JETTY&amp;view=markup" rel="nofollow">ContextProvider</a> to (hot) deploy an arbitrary context or web application with Jetty-specific configuration. To statically deploy only standard web applications at startup, use the <a title="Jetty/Feature/WebAppDeployer" class="mw-redirect" href="https://wiki.eclipse.org/Jetty/Feature/WebAppDeployer">WebApp Provider</a>.
-</p>
-<h2><span class="mw-headline" id="Feature">Feature</span></h2>
-<p>A <tt>jetty.xml</tt> typically defines a ContextProvider; within the stock jetty distribution the name of this file is<tt>jetty-contexts.xml</tt>:
-</p>
-<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="xml source-xml"><pre class="de1"> 
+    <link href="wiki-style.css" media="screen, print" rel="stylesheet" />
+  </head>
+  <body>
+    <div class="col-md-20" id="mainContent">
+      <div class="tab-content background-white">
+        <div class="tab-pane active" id="tab-pane-main-page-content">
+          <h1 class="firstHeading page-header" id="firstHeading">
+            <span dir="auto">Jetty/Feature/ContextProvider</span>
+          </h1>
+          <div id="main-page-content">
+            <div class="alert alert-small alert-warning" id="contentSub">
+              <span class="subpages">
+                &lt;
+                <a href="../../Jetty.html" title="Jetty">Jetty</a>
+                 |
+                <a href="../Feature.html" title="Jetty/Feature">Feature</a>
+              </span>
+            </div>
+            <div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="en">
+              <p>
+                <br />
+              </p>
+              <p>
+                <br />
+              </p>
+              <div class="toc" id="toc">
+                <div id="toctitle">
+                  <h2>Contents</h2>
+                </div>
+                <ul>
+                  <li class="toclevel-1">
+                    <a href="ContextProvider.html#Introduction">
+                      <span class="tocnumber">1</span>
+                      <span class="toctext">Introduction</span>
+                    </a>
+                  </li>
+                  <li class="toclevel-1">
+                    <a href="ContextProvider.html#Feature">
+                      <span class="tocnumber">2</span>
+                      <span class="toctext">Feature</span>
+                    </a>
+                    <ul>
+                      <li class="toclevel-2">
+                        <a href="ContextProvider.html#Property_Value_Substitution">
+                          <span class="tocnumber">2.1</span>
+                          <span class="toctext">Property Value Substitution</span>
+                        </a>
+                      </li>
+                    </ul>
+                  </li>
+                  <li class="toclevel-1">
+                    <a href="ContextProvider.html#Contexts">
+                      <span class="tocnumber">3</span>
+                      <span class="toctext">Contexts</span>
+                    </a>
+                  </li>
+                  <li class="toclevel-1">
+                    <a href="ContextProvider.html#Hot_Deploy">
+                      <span class="tocnumber">4</span>
+                      <span class="toctext">Hot Deploy</span>
+                    </a>
+                  </li>
+                  <li class="toclevel-1">
+                    <a href="ContextProvider.html#Configuring_Other_Things">
+                      <span class="tocnumber">5</span>
+                      <span class="toctext">Configuring Other Things</span>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+              <h2>
+                <span class="mw-headline" id="Introduction">Introduction</span>
+              </h2>
+              <p>
+                <br />
+                Jetty provides capability to deploy an arbitrary context or web application with Jetty-specific configuration. The ContextProvider mechanism, which is now an extension of the core deployment infrastructure, implements this capability.
+              </p>
+              <p>
+                You can use the
+                <a class="external text" href="http://dev.eclipse.org/viewcvs/index.cgi/jetty/trunk/jetty-deploy/src/main/java/org/eclipse/jetty/deploy/providers/ContextProvider.java?root=RT_JETTY&amp;view=markup" rel="nofollow">ContextProvider</a>
+                to (hot) deploy an arbitrary context or web application with Jetty-specific configuration. To statically deploy only standard web applications at startup, use the
+                <a class="mw-redirect" href="https://wiki.eclipse.org/Jetty/Feature/WebAppDeployer" title="Jetty/Feature/WebAppDeployer">WebApp Provider</a>
+                .
+              </p>
+              <h2>
+                <span class="mw-headline" id="Feature">Feature</span>
+              </h2>
+              <p>
+                A
+                <tt>jetty.xml</tt>
+                typically defines a ContextProvider; within the stock jetty distribution the name of this file is
+                <tt>jetty-contexts.xml</tt>
+                :
+              </p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="xml source-xml">
+                  <pre class="de1" xml:space="preserve"> 
  <span class="sc3"><span class="re1">&lt;Configure</span> <span class="re0">id</span>=<span class="st0">"Server"</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.server.Server"</span><span class="re2">&gt;</span></span>
         <span class="sc3"><span class="re1">&lt;Ref</span> <span class="re0">id</span>=<span class="st0">"DeploymentManager"</span><span class="re2">&gt;</span></span>
           <span class="sc3"><span class="re1">&lt;Call</span> <span class="re0">name</span>=<span class="st0">"addAppProvider"</span><span class="re2">&gt;</span></span>
@@ -90,22 +110,61 @@ Jetty provides capability to deploy an arbitrary context or web application with
             <span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
           <span class="sc3"><span class="re1">&lt;/Call<span class="re2">&gt;</span></span></span>
         <span class="sc3"><span class="re1">&lt;/Ref<span class="re2">&gt;</span></span></span>
-<span class="sc3"><span class="re1">&lt;/Configure<span class="re2">&gt;</span></span></span></pre></div></div>
-<p>The ContextProvider scans the <i>monitoredDir</i> directory at intervals of <i>scanInterval</i> seconds for XML descriptors that define contexts. It then deploys any contexts to the passed <i>contexts</i> reference to a HandlerContainer (normally an instance of ContextHandlerCollection). The deployment descriptors are in <a href="../Reference/jetty.xml syntax.html" title="Jetty/Reference/jetty.xml syntax">jetty xml</a> format, and define and configure individual contexts. A minimal example is:
-</p>
-<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="xml source-xml"><pre class="de1"> <span class="sc3"><span class="re1">&lt;?xml</span> <span class="re0">version</span>=<span class="st0">"1.0"</span>  <span class="re0">encoding</span>=<span class="st0">"ISO-8859-1"</span><span class="re2">?&gt;</span></span>
+<span class="sc3"><span class="re1">&lt;/Configure<span class="re2">&gt;</span></span></span></pre>
+                </div>
+              </div>
+              <p>
+                The ContextProvider scans the
+                <i>monitoredDir</i>
+                directory at intervals of
+                <i>scanInterval</i>
+                seconds for XML descriptors that define contexts. It then deploys any contexts to the passed
+                <i>contexts</i>
+                reference to a HandlerContainer (normally an instance of ContextHandlerCollection). The deployment descriptors are in
+                <a href="../Reference/jetty.xml syntax.html" title="Jetty/Reference/jetty.xml syntax">jetty xml</a>
+                format, and define and configure individual contexts. A minimal example is:
+              </p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="xml source-xml">
+                  <pre class="de1" xml:space="preserve"> <span class="sc3"><span class="re1">&lt;?xml</span> <span class="re0">version</span>=<span class="st0">"1.0"</span>  <span class="re0">encoding</span>=<span class="st0">"ISO-8859-1"</span><span class="re2">?&gt;</span></span>
  <span class="sc0">&lt;!DOCTYPE Configure PUBLIC "-//Mort Bay Consulting//DTD Configure//EN" "http://jetty.mortbay.org/configure.dtd"&gt;</span>
  <span class="sc3"><span class="re1">&lt;Configure</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.webapp.WebAppContext"</span><span class="re2">&gt;</span></span>
    <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"contextPath"</span><span class="re2">&gt;</span></span>/test<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
    <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"war"</span><span class="re2">&gt;</span><span class="re1">&lt;SystemProperty</span> <span class="re0">name</span>=<span class="st0">"jetty.home"</span> default<span class="re1">&lt;nowiki<span class="re2">&gt;</span></span></span>=<span class="sc3"><span class="re1">&lt;/nowiki<span class="re2">&gt;</span></span></span>"."/&gt;/webapps/test<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
- <span class="sc3"><span class="re1">&lt;/Configure<span class="re2">&gt;</span></span></span></pre></div></div>
-<p>This example creates an instance of <a href="http://dev.eclipse.org/viewcvs/index.cgi/jetty/trunk/jetty-webapp/src/main/java/org/eclipse/jetty/webapp/WebAppContext.java?root=RT_JETTY&amp;view=markup" rel="nofollow" class="external text">WebAppContext</a> and sets the <i>contextPath</i> to  <tt>/test</tt> and the resourceBase to  <tt>$jetty.home/webapps/test</tt>. Because the context used is a standard web application context, when started it inspects the resourceBase for a <tt>WEB-INF/web.xml</tt> for further configuration.
-</p><p>The ContextProvider is added to the server as a LifeCycle. This simply means that the provider starts and stops with the server. That is, when <tt>server.start()</tt> is called, then <tt>start</tt> is also called on the provider.
-</p>
-<h3><span class="mw-headline" id="Property_Value_Substitution">Property Value Substitution</span></h3>
-<p>The ContextProvider can automatically do property substitution on the context files that it deploys. You define a ConfigurationManager that manages the properties and pass this into the ContextProvider. There is currently one implementation of the ConfigurationManager, and that is the <tt>org.mortbay.jetty.deployer.FileConfigurationManager</tt>, which reads a properties file and makes available the property values to the ContextProvider. Here's how you would configure the ContextProvider:
-</p>
-<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="xml source-xml"><pre class="de1"> <span class="sc3"><span class="re1">&lt;Configure</span> <span class="re0">id</span>=<span class="st0">"Server"</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.server.Server"</span><span class="re2">&gt;</span></span>
+ <span class="sc3"><span class="re1">&lt;/Configure<span class="re2">&gt;</span></span></span></pre>
+                </div>
+              </div>
+              <p>
+                This example creates an instance of
+                <a class="external text" href="http://dev.eclipse.org/viewcvs/index.cgi/jetty/trunk/jetty-webapp/src/main/java/org/eclipse/jetty/webapp/WebAppContext.java?root=RT_JETTY&amp;view=markup" rel="nofollow">WebAppContext</a>
+                and sets the
+                <i>contextPath</i>
+                to
+                <tt>/test</tt>
+                and the resourceBase to
+                <tt>$jetty.home/webapps/test</tt>
+                . Because the context used is a standard web application context, when started it inspects the resourceBase for a
+                <tt>WEB-INF/web.xml</tt>
+                for further configuration.
+              </p>
+              <p>
+                The ContextProvider is added to the server as a LifeCycle. This simply means that the provider starts and stops with the server. That is, when
+                <tt>server.start()</tt>
+                is called, then
+                <tt>start</tt>
+                is also called on the provider.
+              </p>
+              <h3>
+                <span class="mw-headline" id="Property_Value_Substitution">Property Value Substitution</span>
+              </h3>
+              <p>
+                The ContextProvider can automatically do property substitution on the context files that it deploys. You define a ConfigurationManager that manages the properties and pass this into the ContextProvider. There is currently one implementation of the ConfigurationManager, and that is the
+                <tt>org.mortbay.jetty.deployer.FileConfigurationManager</tt>
+                , which reads a properties file and makes available the property values to the ContextProvider. Here's how you would configure the ContextProvider:
+              </p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="xml source-xml">
+                  <pre class="de1" xml:space="preserve"> <span class="sc3"><span class="re1">&lt;Configure</span> <span class="re0">id</span>=<span class="st0">"Server"</span> <span class="re0">class</span>=<span class="st0">"org.eclipse.jetty.server.Server"</span><span class="re2">&gt;</span></span>
         <span class="sc3"><span class="re1">&lt;Ref</span> <span class="re0">id</span>=<span class="st0">"DeploymentManager"</span><span class="re2">&gt;</span></span>
           <span class="sc3"><span class="re1">&lt;Call</span> <span class="re0">name</span>=<span class="st0">"addAppProvider"</span><span class="re2">&gt;</span></span>
             <span class="sc3"><span class="re1">&lt;Arg<span class="re2">&gt;</span></span></span>
@@ -121,49 +180,98 @@ Jetty provides capability to deploy an arbitrary context or web application with
             <span class="sc3"><span class="re1">&lt;/Arg<span class="re2">&gt;</span></span></span>
           <span class="sc3"><span class="re1">&lt;/Call<span class="re2">&gt;</span></span></span>
         <span class="sc3"><span class="re1">&lt;/Ref<span class="re2">&gt;</span></span></span>
-<span class="sc3"><span class="re1">&lt;/Configure<span class="re2">&gt;</span></span></span></pre></div></div>
-<p>Here's an example of the contents of the <tt>foo.properties</tt> file:
-</p>
-<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="text source-text"><pre class="de1"> 
- foo = /funkyapp</pre></div></div>
-<p>Here's how you would use this in a context xml file:
-</p>
-<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="xml source-xml"><pre class="de1"> <span class="sc3"><span class="re1">&lt;?xml</span> <span class="re0">version</span>=<span class="st0">"1.0"</span>  <span class="re0">encoding</span>=<span class="st0">"ISO-8859-1"</span><span class="re2">?&gt;</span></span>
+<span class="sc3"><span class="re1">&lt;/Configure<span class="re2">&gt;</span></span></span></pre>
+                </div>
+              </div>
+              <p>
+                Here's an example of the contents of the
+                <tt>foo.properties</tt>
+                file:
+              </p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="text source-text">
+                  <pre class="de1" xml:space="preserve"> 
+ foo = /funkyapp</pre>
+                </div>
+              </div>
+              <p>Here's how you would use this in a context xml file:</p>
+              <div class="mw-geshi mw-code mw-content-ltr" dir="ltr">
+                <div class="xml source-xml">
+                  <pre class="de1" xml:space="preserve"> <span class="sc3"><span class="re1">&lt;?xml</span> <span class="re0">version</span>=<span class="st0">"1.0"</span>  <span class="re0">encoding</span>=<span class="st0">"ISO-8859-1"</span><span class="re2">?&gt;</span></span>
  <span class="sc0">&lt;!DOCTYPE Configure PUBLIC "-//Mort Bay Consulting//DTD Configure//EN" "http://jetty.mortbay.org/configure.dtd"&gt;</span>
  <span class="sc3"><span class="re1">&lt;Configure</span> <span class="re0">class</span>=<span class="st0">"org.mortbay.jetty.webapp.WebAppContext"</span><span class="re2">&gt;</span></span>
    <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"contextPath"</span><span class="re2">&gt;</span><span class="re1">&lt;Property</span> <span class="re0">name</span>=<span class="st0">"foo"</span><span class="re2">/&gt;</span><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
    <span class="sc3"><span class="re1">&lt;Set</span> <span class="re0">name</span>=<span class="st0">"war"</span><span class="re2">&gt;</span><span class="re1">&lt;SystemProperty</span> <span class="re0">name</span>=<span class="st0">"jetty.home"</span> <span class="re0">default</span>=<span class="st0">"."</span><span class="re2">/&gt;</span></span>/webapps/test<span class="sc3"><span class="re1">&lt;/Set<span class="re2">&gt;</span></span></span>
- <span class="sc3"><span class="re1">&lt;/Configure<span class="re2">&gt;</span></span></span></pre></div></div>
-<h2><span class="mw-headline" id="Contexts">Contexts</span></h2>
-<p>Because the class of the context is defined in the Configure clause, you can deploy any type of ContextHandler with this mechanism, including base <a rel="nofollow" href="http://dev.eclipse.org/viewcvs/index.cgi/jetty/trunk/jetty-server/src/main/java/org/eclipse/jetty/server/handler/ContextHandler.java?root=RT_JETTY&amp;view=markup" class="external text">ContextHandler</a>, <a class="external text" href="http://dev.eclipse.org/viewcvs/index.cgi/jetty/trunk/jetty-servlet/src/main/java/org/eclipse/jetty/servlet/ServletContextHandler.java?root=RT_JETTY&amp;view=markup" rel="nofollow">ServletContextHandler</a>, <a rel="nofollow" href="http://dev.eclipse.org/viewcvs/index.cgi/jetty/trunk/jetty-webapp/src/main/java/org/eclipse/jetty/webapp/WebAppContext.java?root=RT_JETTY&amp;view=markup" class="external text">WebAppContext</a>, or any class derived from them.
-</p>
-<h2><span class="mw-headline" id="Hot_Deploy">Hot Deploy</span></h2>
-<p>If the scan interval is non-zero, the ContextProvider scans the configuration directory at that interval (in seconds) for changes to the deployment descriptors. If you add a descriptor to the directory, it deploys the new context. If you touch or update a descriptor, the provider stops, reconfigures, and redeploys its context. If you remove a descriptor, the provider stops and removes its context from the server.
-</p><p>If the scan interval is zero, the ContextProvider scans the directory only at startup.
-</p>
-<h2><span class="mw-headline" id="Configuring_Other_Things">Configuring Other Things</span></h2>
-<p>This mechanism allows you to call most of the API available on <a class="external text" href="http://dev.eclipse.org/viewcvs/index.cgi/jetty/trunk/jetty-server/src/main/java/org/eclipse/jetty/server/handler/ContextHandler.java?root=RT_JETTY&amp;view=markup" rel="nofollow">ContextHandler</a> or its derived classes to configure the web application. Useful things to configure include:
-</p>
-<ul><li> <tt>setAttribute</tt></li>
-<li> <tt>setClassLoader</tt></li>
-<li> <tt>setContextPath</tt></li>
-<li> <tt>setVirtualHosts</tt></li>
-<li> <tt>addServlet</tt></li>
-<li> <tt>setConfigurations</tt></li>
-<li> <tt>setExtraClassPath</tt></li>
-<li> <tt>setDefaultsDescriptor</tt></li>
-<li> <tt>setDescriptor</tt></li>
-<li> <tt>setOverrideDescriptor</tt></li>
-<li> <tt>setSystemClasses</tt></li>
-<li> <tt>setServerClasses</tt></li></ul>
-
-
-</div>
-
-                    <div class="catlinks" id="catlinks"><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a title="Special:Categories" href="https://wiki.eclipse.org/Special:Categories">Categories</a>: <ul><li><a title="Category:Jetty" href="https://wiki.eclipse.org/Category:Jetty">Jetty</a></li><li><a title="Category:Jetty Feature" href="https://wiki.eclipse.org/Category:Jetty_Feature">Jetty Feature</a></li></ul></div></div>
-                                  </div>
+ <span class="sc3"><span class="re1">&lt;/Configure<span class="re2">&gt;</span></span></span></pre>
+                </div>
               </div>
+              <h2>
+                <span class="mw-headline" id="Contexts">Contexts</span>
+              </h2>
+              <p>
+                Because the class of the context is defined in the Configure clause, you can deploy any type of ContextHandler with this mechanism, including base
+                <a class="external text" href="http://dev.eclipse.org/viewcvs/index.cgi/jetty/trunk/jetty-server/src/main/java/org/eclipse/jetty/server/handler/ContextHandler.java?root=RT_JETTY&amp;view=markup" rel="nofollow">ContextHandler</a>
+                ,
+                <a class="external text" href="http://dev.eclipse.org/viewcvs/index.cgi/jetty/trunk/jetty-servlet/src/main/java/org/eclipse/jetty/servlet/ServletContextHandler.java?root=RT_JETTY&amp;view=markup" rel="nofollow">ServletContextHandler</a>
+                ,
+                <a class="external text" href="http://dev.eclipse.org/viewcvs/index.cgi/jetty/trunk/jetty-webapp/src/main/java/org/eclipse/jetty/webapp/WebAppContext.java?root=RT_JETTY&amp;view=markup" rel="nofollow">WebAppContext</a>
+                , or any class derived from them.
+              </p>
+              <h2>
+                <span class="mw-headline" id="Hot_Deploy">Hot Deploy</span>
+              </h2>
+              <p>If the scan interval is non-zero, the ContextProvider scans the configuration directory at that interval (in seconds) for changes to the deployment descriptors. If you add a descriptor to the directory, it deploys the new context. If you touch or update a descriptor, the provider stops, reconfigures, and redeploys its context. If you remove a descriptor, the provider stops and removes its context from the server.</p>
+              <p>If the scan interval is zero, the ContextProvider scans the directory only at startup.</p>
+              <h2>
+                <span class="mw-headline" id="Configuring_Other_Things">Configuring Other Things</span>
+              </h2>
+              <p>
+                This mechanism allows you to call most of the API available on
+                <a class="external text" href="http://dev.eclipse.org/viewcvs/index.cgi/jetty/trunk/jetty-server/src/main/java/org/eclipse/jetty/server/handler/ContextHandler.java?root=RT_JETTY&amp;view=markup" rel="nofollow">ContextHandler</a>
+                or its derived classes to configure the web application. Useful things to configure include:
+              </p>
+              <ul>
+                <li>
+                  <tt>setAttribute</tt>
+                </li>
+                <li>
+                  <tt>setClassLoader</tt>
+                </li>
+                <li>
+                  <tt>setContextPath</tt>
+                </li>
+                <li>
+                  <tt>setVirtualHosts</tt>
+                </li>
+                <li>
+                  <tt>addServlet</tt>
+                </li>
+                <li>
+                  <tt>setConfigurations</tt>
+                </li>
+                <li>
+                  <tt>setExtraClassPath</tt>
+                </li>
+                <li>
+                  <tt>setDefaultsDescriptor</tt>
+                </li>
+                <li>
+                  <tt>setDescriptor</tt>
+                </li>
+                <li>
+                  <tt>setOverrideDescriptor</tt>
+                </li>
+                <li>
+                  <tt>setSystemClasses</tt>
+                </li>
+                <li>
+                  <tt>setServerClasses</tt>
+                </li>
+              </ul>
             </div>
           </div>
-</body>
+        </div>
+      </div>
+    </div>
+  </body>
 </html>
